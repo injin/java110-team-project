@@ -6,7 +6,6 @@ public class App {
         return "ㅇㅅㅇ?";
     }
  
-
     public static void main(String[] args) {
         
         System.out.println(new App().getGreeting());
