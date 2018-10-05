@@ -11,6 +11,6 @@ public class App {
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
         System.out.println("aaaaaaa");
-        System.out.println("ㅇㅇㅇ");
+        System.out.println("ㅇㅇㅇ"); 
     }
 }
