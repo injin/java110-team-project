@@ -6,7 +6,7 @@ public class App {
         return "Hello world.";
     }
     
-    public String greetingTo(String name) {
+    public String getGreeting(String name) {
         return "Hello " + name;
     }
 
