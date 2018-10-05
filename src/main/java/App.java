@@ -4,11 +4,10 @@
 public class App {
     // 인사 문구를 저장하는 변수
     String message = "안녕하세요";
-    
     public String getGreeting() {
         return message;
     }
-
+ 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
         
