@@ -1,5 +1,4 @@
 
-
 public class App {
     
     public String getGreeting() {
