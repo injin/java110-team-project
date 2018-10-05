@@ -1,5 +1,8 @@
 
 public class App {
+	
+	static int a=77;
+
     public String getGreeting() {
         return "Hiiiiiiiiiiiiiiiiiiiii!.";
     }
