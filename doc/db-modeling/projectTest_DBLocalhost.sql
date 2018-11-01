@@ -9,5 +9,8 @@ CREATE DATABASE mvdb
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
+
 GRANT ALL ON mvdb.* TO 'movieInSta'@'localhost';
 
+
+set storage_engine=innodb;
