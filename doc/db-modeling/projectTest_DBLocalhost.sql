@@ -11,6 +11,3 @@ CREATE DATABASE mvdb
 
 
 GRANT ALL ON mvdb.* TO 'movieInSta'@'localhost';
-
-
-set storage_engine=innodb;
