@@ -12,16 +12,15 @@
 
     <jsp:include page="include/header.jsp"></jsp:include>
 
+
+
     <h1>메인 화면!!!</h1>
-
-
-
-
-
+    
 
 
     <jsp:include page="include/footer.jsp"></jsp:include>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/common.js"></script>
