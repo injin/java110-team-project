@@ -14,9 +14,6 @@
 
 
 
-    <h1>메인 화면!!!</h1>
-    
-
 
     <jsp:include page="include/footer.jsp"></jsp:include>
     
