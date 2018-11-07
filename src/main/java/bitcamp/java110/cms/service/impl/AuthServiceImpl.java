@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.domain.Member;
-import bitcamp.java110.cms.service.AuthService2;
+import bitcamp.java110.cms.service.AuthService;
 
 @Service
-public class AuthServiceImpl2 implements AuthService2 {
+public class AuthServiceImpl implements AuthService {
   
   @Autowired MemberDao memberDao;
 
