@@ -20,4 +20,9 @@ public class Genre implements Serializable {
   public void setGrName(String grName) {
     this.grName = grName;
   }
+  
+  @Override
+  public String toString() {
+    return "Genre [grno=" + grno + ", grName=" + grName + "]";
+  }
 }
