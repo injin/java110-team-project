@@ -34,7 +34,7 @@
    <body>
       <jsp:include page="../include/header.jsp"></jsp:include>
       <main role="main" class="container">
-         <br><br><br><br><br>
+         <br>
          <div id="detail">
             <form action="add" method="post" enctype="multipart/form-data">
                <h3 class="nickname">닉네임</h3>
@@ -55,8 +55,8 @@
                <h3 id="cover-img">커버 사진</h3>
                <div class="cover-upload">
                   <div class="cover-edit">
-                     <input type='file' name="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
-                     <label for="imageUpload"></label>
+                     <input type='file' name="file" id="imageUpload2" accept=".png, .jpg, .jpeg" />
+                     <label for="imageUpload2"></label>
                   </div>
                   <div class="cover-preview">
                      <div id="coverPreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
@@ -100,7 +100,7 @@
       <script src="../../js/common.js"></script>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
       <script type="text/javascript">
-         function readURL(input) {
+         function profileURL(input) {
              if (input.files && input.files[0]) {
                  var reader = new FileReader();
                  reader.onload = function(e) {
@@ -113,10 +113,10 @@
          }
          
          $("#imageUpload").change(function() {
-             readURL(this);
+             profileURL(this);
          });
          
-         function readURL(input) {
+         function coverURL(input) {
              if (input.files && input.files[0]) {
                  var reader = new FileReader();
                  reader.onload = function(e) {
@@ -128,8 +128,8 @@
              }
          }
          
-         $("#imageUpload").change(function() {
-             readURL(this);
+         $("#imageUpload2").change(function() {
+             coverURL(this);
          });
       </script>
    </body>

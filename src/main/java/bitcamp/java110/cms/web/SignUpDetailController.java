@@ -31,10 +31,11 @@ public class SignUpDetailController {
   @PostMapping("/add")
   public void add(Model data, MultipartFile[] files) throws Exception {
     System.out.println(data);
+    System.out.println(files);
     System.out.println("aasdf");
 
     List<String> filenames = new ArrayList<>();
-    // 사진 데이터 처리
+
     for(int i=0;i<files.length;i++) {
       MultipartFile file = files[i];
       System.out.println(file);
