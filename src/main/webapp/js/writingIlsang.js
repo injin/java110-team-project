@@ -94,7 +94,7 @@ $(function() {
         }
 
     });
-
+    
     $('body').on('click', '.remove-pic', function() {
         $(this).parent().parent().parent().remove();
         var removeItem = $(this).attr('data-id');

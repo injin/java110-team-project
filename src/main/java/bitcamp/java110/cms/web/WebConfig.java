@@ -31,8 +31,8 @@ public class WebConfig
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 추가하고픈 인터셉터를 등록기(registry)에 추가하라!
-        registry.addInterceptor(new AuthInterceptor())
-                .addPathPatterns("/**/add", "/**/delete");
+//        registry.addInterceptor(new AuthInterceptor())
+//                .addPathPatterns("/**/add", "/**/delete");
         
         
     }

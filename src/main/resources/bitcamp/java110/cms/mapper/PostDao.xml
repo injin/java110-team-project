@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PostDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.PostDao">
+
+	<resultMap type="post" id="postMap">
+		<id column="pstno" property="pstno" />
+		<result column="mno" property="mno" />
+		<result column="ptno" property="pstTypeNo" />
+		<result column="mvno" property="mvno" />
+		<result column="cdt" property="createdDate" />
+		<result column="mdt" property="modifiedDate" />
+		<result column="cont" property="content" />
+		<result column="likes" property="likeCnt" />
+		<result column="star" property="star" />
+		<result column="opn" property="open" />
+	</resultMap>
+
+    
+    <select id="findAll" resultMap="postMap" parameterType="map">
+        
+    </select>
+    
+    <select id="findByNo" resultMap="postMap" parameterType="int">
+    </select>
+    
+    <insert id="insert" parameterType="post" 
+            useGeneratedKeys="true" keyColumn="pstno" keyProperty="pstno">
+        insert into mv_post( mno, ptno, cdt, cont, likes, opn)
+        values(4, 1, now(),#{content},0,if(#{open},'u','l'));
+    </insert>
+    
+    <delete id="delete" parameterType="int">
+    </delete>
+
+</mapper>
