@@ -1,6 +1,6 @@
 package bitcamp.java110.cms.web;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,21 +18,25 @@ public class AuthController2 {
         super();
         this.authService2 = authService2;
     }
-    
 
     @RequestMapping("/kakaologin")
     public String login(
             String accessToken,
-            HttpServletRequest request,
             HttpSession session) {
        
-       //System.out.println(request.getServletPath());
-       System.out.println("token: " + accessToken);
-       
-       Member loginUser = authService2.getKakaoMember(accessToken);
-       
-       
-       return "redirect:/app/";
+      Map<String, Object> kakaoResponse = authService2.getKakaoResponse(accessToken);
+      Member member = authService2.getMemberById(
+          kakaoResponse.get("id").toString());
+      
+      // 기존에 가입된 사용자이면
+      if (member != null) {
+        session.setAttribute("loginUser", member);
+        return "redirect:/app/";
+      }
+      
+      // 기존에 가입된 사용자가 아니면
+      member = authService2.addMember(kakaoResponse);
+       return "redirect:/app/"; //TODO 추가 정보 입력 페이지로 리다이렉트
     }
     
     @GetMapping("/logout")
