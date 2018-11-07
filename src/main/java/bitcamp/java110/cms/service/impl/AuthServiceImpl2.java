@@ -1,39 +1,61 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService2;
 
 @Service
 public class AuthServiceImpl2 implements AuthService2 {
+  
+  @Autowired MemberDao memberDao;
 
   @Override
-  public Member getMember(String email, String password) {
-    // TODO Auto-generated method stub
-    return null;
+  public Member getMemberById(String id) {
+    return memberDao.findById(id);
   }
 
   @Override
-  public Member getKakaoMember(String accessToken) {
+  public Map<String, Object> getKakaoResponse(String accessToken) {
     
-    RestTemplate restTemplate = new RestTemplate();
-    
-    @SuppressWarnings("rawtypes")
-    Map response = restTemplate.getForObject(
-        "https://kapi.kakao.com/v2/user/me?access_token={v1}", 
+    @SuppressWarnings({"unchecked"})
+    Map<String, Object> response = new RestTemplate().getForObject(
+        "https://kapi.kakao.com/v2/user/me?access_token={v1}",
         Map.class,
         accessToken);
     
-    System.out.println("사용자 정보 요청 결과" + response);
-    
-    return null;
+    return response;
   }
-
-
+  
+  @Override
+  public Member addMember(Map<String, Object> kakaoResponse) {
     
+    @SuppressWarnings("unchecked")
+    Map<String, Object> properties = (Map<String, Object>)kakaoResponse.get("properties");
+    @SuppressWarnings("unchecked")
+    Map<String, Object> kakaoAccount = (Map<String, Object>)kakaoResponse.get("kakao_account");
     
+    Member newbie = new Member();
+    newbie.setAdmin(false);
+    newbie.setId(kakaoResponse.get("id").toString());
+    newbie.setNickname(properties.get("nickname").toString());
+    if (properties.get("profile_image") != null) {
+      newbie.setProfileImage(properties.get("profile_image").toString());
+    }
     
+    if (kakaoAccount.get("gender") != null) {
+      newbie.setGender(kakaoAccount.get("gender").toString().substring(0, 1));
+    }
+    if (kakaoAccount.get("age_range") != null) {
+      newbie.setAge(kakaoAccount.get("age_range").toString());
+    }
     
+    memberDao.insert(newbie);
+    return newbie;
+  }
+  
+  
 }
