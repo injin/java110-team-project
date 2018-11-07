@@ -20,5 +20,4 @@ public class Genre implements Serializable {
   public void setGrName(String grName) {
     this.grName = grName;
   }
-
 }
