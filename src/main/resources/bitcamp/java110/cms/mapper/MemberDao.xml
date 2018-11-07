@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- MemberDao 클래스가 사용할 SQL이 들어 있는 파일 -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.MemberDao">
 
+    <resultMap type="member" id="memberMap">
+        <id     column="mno"      property="mno"/>
+        <result column="admin"    property="admin" />
+        <result column="mid"      property="id" />
+        <result column="nick"     property="nickname" />
+        <result column="p_phot"   property="profileImage" />
+        <result column="c_phot"   property="coverImage" />
+        <result column="pr"       property="pr" />
+        <result column="gend"     property="gender" />
+        <result column="age"      property="age" />
+    </resultMap>
+    
     <insert id="insert" parameterType="member"
-            useGeneratedKeys="true" keyColumn="mno" keyProperty="no">
-        insert into p1_memb(name,email,pwd,tel,cdt)
-        values(#{name},#{email},password(#{password}),#{tel},now())
+            useGeneratedKeys="true" keyColumn="mno" keyProperty="mno">
+        insert into mv_memb(admin,mid,nick,p_phot,c_phot,pr,gend,age)
+        values(if(#{admin},'Y','N'),#{id},#{nickname},#{profileImage},#{coverImage},#{pr},#{gender},#{age})
     </insert>
     
-    <delete id="delete" parameterType="int">
-        delete from p1_memb
-         where mno=#{value}
-    </delete>
-    
+    <select id="findById" resultMap="memberMap" parameterType="string">
+        select mno,
+               (admin = 'Y') admin,
+               mid,
+               nick,
+               p_phot,
+               c_phot,
+               pr,
+               gend,
+               age
+         from mv_memb
+         where mid = #{id}
+    </select>
 </mapper>
