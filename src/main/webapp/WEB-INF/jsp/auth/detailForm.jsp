@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../include/top.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -17,12 +17,11 @@
    <body>
       <jsp:include page="../include/header.jsp"></jsp:include>
       <main role="main" class="container">
-      
           <div id="detail">
             <form action="add" method="post" enctype="multipart/form-data">
                <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
                <h3 class="nickname">닉네임</h3>
-               <input class="nickname" type="text" name="nickname">
+               <input class="nickname" type="text" name="nickname" value="${member.nickname}">
                <hr>
                <h3 id="profile-img">프로필 사진</h3>
                <div class="avatar-upload">
@@ -31,8 +30,15 @@
                      <label for="imageUpload"></label>
                   </div>
                   <div class="avatar-preview">
-                     <div id="profilePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-                     </div>
+                    <c:choose>
+                        <c:when test="${fn:startsWith(member.profileImage, 'http')}">
+                            <div id="profilePreview" style="background-image: url(${member.profileImage});"></div>
+                        </c:when>
+                        <c:otherwise>
+                            <div id="profilePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);"></div>
+                        </c:otherwise>
+                    </c:choose>
+                     
                   </div>
                </div>
                <hr>

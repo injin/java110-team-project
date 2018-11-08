@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,10 @@ public class SignUpDetailController {
 
   @RequestMapping("/detailForm")
   public String detailForm(
-      Model model
-      ) {
+      Model model,
+      HttpSession session) {
     
-    System.out.println("신규회원 상세 정보 입력 진입");
-
+    model.addAttribute("member", (Member)session.getAttribute("loginUser"));
     model.addAttribute("genreList", genreService.getList());
 
     return "/auth/detailForm";
@@ -41,12 +41,7 @@ public class SignUpDetailController {
       @RequestParam(name="grnoList") List<Integer> grnoList,
       MultipartFile profileImage,
       MultipartFile coverImage) throws Exception {
-    
-    
-    System.out.println("멀티파트 처리 진입");
 
-
-    System.out.println("선택 장르" + grnoList.toString());
 
     if (profileImage != null || coverImage != null ) {
       String profileImg = UUID.randomUUID().toString();
@@ -58,16 +53,6 @@ public class SignUpDetailController {
       member.setCoverImage(coverImg);
     }
 
-    
-    
-    
-    
-    System.out.println(member);
-    
-//    member.setFavGenres(grnoList);
-    
-//    memberService.add(member);
-
-    return "reviewFeedList";
+    return "redirect:/app/";
   }
 }
