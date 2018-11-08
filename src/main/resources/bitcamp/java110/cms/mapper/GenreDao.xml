@@ -12,7 +12,8 @@
 
     <!-- id는 메서드명 -->
     <select id="list" resultMap="genreMap">
-        select * from mv_gr
+        select grno, gr_nm
+        from mv_gr
     </select>
     
 </mapper>

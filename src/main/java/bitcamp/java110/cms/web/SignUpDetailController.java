@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import bitcamp.java110.cms.domain.Genre;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.GenreService;
 
 @Controller
@@ -22,6 +24,7 @@ public class SignUpDetailController {
 
   @RequestMapping("/detailForm")
   public String detailForm(Model model) {
+    System.out.println("신규회원 상세 정보 입력 진입");
 
     model.addAttribute("genreList", genreService.getList());
 
@@ -29,10 +32,10 @@ public class SignUpDetailController {
   }
 
   @PostMapping("/add")
-  public void add(Model data, MultipartFile[] files) throws Exception {
-    System.out.println(data);
+  public void add(Member member, Genre genre, MultipartFile[] files) throws Exception {
+    System.out.println(member);
     System.out.println(files);
-    System.out.println("aasdf");
+    System.out.println("멀티파트 처리 전");
 
     List<String> filenames = new ArrayList<>();
 

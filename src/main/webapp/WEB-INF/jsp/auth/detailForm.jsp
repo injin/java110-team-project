@@ -10,23 +10,23 @@
       <link rel='stylesheet' href='/css/accountDetail.css'>
       <style>
          .btn-secondary{
-         background-color: #00cc99;
-         border: none;
+	         background-color: #00cc99;
+	         border: none;
          }
-         .btn-secondary:hover {
-         background-color: #00b386;
+	         .btn-secondary:hover {
+	         background-color: #00b386;
          }
-         .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
-         .show > .btn-secondary.dropdown-toggle {
-         color: #00cc99 !important;
-         background-color: white !important;
-         border: 1px solid #00cc99 !important;
+	         .btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active,
+	         .show > .btn-secondary.dropdown-toggle {
+	         color: #00cc99 !important;
+	         background-color: white !important;
+	         border: 1px solid #00cc99 !important;
          }
-         .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
-         .show > .btn-primary.dropdown-toggle:focus {
-         color: #00cc99 !important;
-         background-color: white !important;
-         border: 1px solid #00cc99 !important;
+	         .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+	         .show > .btn-primary.dropdown-toggle:focus {
+	         color: #00cc99 !important;
+	         background-color: white !important;
+	         border: 1px solid #00cc99 !important;
          }
       </style>
    </head>
@@ -38,7 +38,7 @@
          <div id="detail">
             <form action="add" method="post" enctype="multipart/form-data">
                <h3 class="nickname">닉네임</h3>
-               <input class="nickname" type="text" name="nickName">
+               <input class="nickname" type="text" name="nickname">
                <hr>
                <h3 id="profile-img">프로필 사진</h3>
                <div class="avatar-upload">
@@ -111,7 +111,6 @@
                  reader.readAsDataURL(input.files[0]);
              }
          }
-         
          $("#imageUpload").change(function() {
              profileURL(this);
          });
@@ -127,10 +126,10 @@
                  reader.readAsDataURL(input.files[0]);
              }
          }
-         
          $("#imageUpload2").change(function() {
              coverURL(this);
          });
+         
       </script>
    </body>
 </html>
