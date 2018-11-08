@@ -16,6 +16,8 @@ public class Post {
   protected int star;
   protected boolean open;
   protected List<String> photos;
+  protected List<String> htags;
+  
   
   @Override
   public String toString() {
@@ -23,6 +25,14 @@ public class Post {
         + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", content=" + content
         + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open + ", photos=" + photos + "]";
   }
+  public List<String> getHtags() {
+    return htags;
+  }
+
+  public void setHtags(List<String> htags) {
+    this.htags = htags;
+  }
+
   public List<String> getPhotos() {
     return photos;
   }
