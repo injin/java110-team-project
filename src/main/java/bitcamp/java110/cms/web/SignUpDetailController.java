@@ -35,9 +35,9 @@ public class SignUpDetailController {
   @PostMapping("/add")
   public void add(
       Member member,
-      /*Genre[] grnos,*/
       MultipartFile profileImage,
       MultipartFile coverImage,
+      
       MultipartFile[] files) throws Exception {
     
     
