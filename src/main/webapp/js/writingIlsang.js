@@ -50,6 +50,7 @@ $(function() {
                 picReader.readAsDataURL(file);
             }
             console.log(names);
+            
         } else if (getAttr == 'type2') {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -122,6 +123,4 @@ $(function() {
         names = [];
         z = 0;
     });
-    
-    
 });

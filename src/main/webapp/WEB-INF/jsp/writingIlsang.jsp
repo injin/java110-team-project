@@ -56,10 +56,8 @@
 									aria-hidden="true" ></i></span></li>
 						</ul>
 					</div>
-
 				</div>
 				<!-- modal-body -->
-
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">CANCEL</button>

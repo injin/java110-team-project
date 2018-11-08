@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +51,18 @@ public class ReviewListController {
       filenames.add(filename);
     }
     post.setPhotos(filenames);
+    
+    // 태그 처리
+    Pattern MY_PATTERN = Pattern.compile("#(\\S+)"); 
+    Matcher mat = MY_PATTERN.matcher(post.getContent()); 
+    List<String> strs=new ArrayList<String>(); 
+    while (mat.find()) { 
+        strs.add(mat.group(1)); 
+    } 
+    
+    for(int i=0;i<strs.size();i++) {
+      System.out.println(strs.get(i));
+    }
 //    postService.add(post);
 
     return "redirect:list";

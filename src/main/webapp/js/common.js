@@ -16,9 +16,13 @@ function autoLogin(accessToken) {
     location.href = "/app/auth2/kakaologin?accessToken=" + accessToken;
 }
 
-//==============================
+// MODAL RESET ==============================
 
-
+$('.modal').on('hidden.bs.modal', function (e) {
+    console.log('modal close');
+  $(this).find('form')[0].reset()
+});
+// ==============================
 
 
 
