@@ -12,9 +12,21 @@ function loginWithKakao() {
   });
 };
 
+
 function autoLogin(accessToken) {
     location.href = "/app/auth2/kakaologin?accessToken=" + accessToken;
 }
+
+
+function logoutKakao(){
+    Kakao.Auth.logout(
+            function(obj) {
+            if(obj==true){}else{}
+             location.href='/app/auth2/kakaologout';
+             }
+            );
+};
+
 
 // MODAL RESET ==============================
 
