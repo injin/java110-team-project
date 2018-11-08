@@ -19,17 +19,7 @@
           
           <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
-                <!-- <a class="nav-link" href="#"></a> -->
-                <ul class="navbar-nav">
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" 
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${sessionScope.loginUser.nickname}</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                      <a class="dropdown-item" href="#">로그아웃</a>
-                      <a class="dropdown-item" href="#">마이페이지</a>
-                    </div>
-                  </li>
-                </ul>
+                <a class="nav-link" href="#">${sessionScope.loginUser.nickname}</a>
             </c:when>
             <c:otherwise>
                 <a class="nav-link" id="login-btn" href="javascript:loginWithKakao()">Account</a>
