@@ -12,10 +12,12 @@
 	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	crossorigin="anonymous">
 <link rel='stylesheet' href='/css/writingIlsang.css'>
+<!-- <link rel='stylesheet' href='/css/writingMovie.css'> -->
 <link rel='stylesheet' href='/css/common.css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <script src="/js/writingIlsang.js"></script>
+<script src="/js/writingMovie.js"></script>
 </head>
 <body>
 
@@ -27,10 +29,13 @@
 		<h1>Navbar example</h1>
 		<button type="button" class="btn btn-primary" data-toggle="modal"
 			data-target="#exampleModal">일상리뷰</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+            data-target="#exampleModal2">영화리뷰</button>
 
 	</div>
 
 	<jsp:include page="writingIlsang.jsp"></jsp:include>
+	<jsp:include page="writingMovie.jsp"></jsp:include>
 	</main>
 
 	<jsp:include page="include/footer.jsp"></jsp:include>
@@ -39,7 +44,7 @@
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/common.js"></script>
 	<script type="text/javascript">
-	
+        
     </script>
 </body>
 </html>
