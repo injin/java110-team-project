@@ -43,7 +43,7 @@
                <h3 id="profile-img">프로필 사진</h3>
                <div class="avatar-upload">
                   <div class="avatar-edit">
-                     <input type='file' name="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                     <input type='file' name="profileImage" id="imageUpload" accept=".png, .jpg, .jpeg" />
                      <label for="imageUpload"></label>
                   </div>
                   <div class="avatar-preview">
@@ -55,7 +55,7 @@
                <h3 id="cover-img">커버 사진</h3>
                <div class="cover-upload">
                   <div class="cover-edit">
-                     <input type='file' name="file" id="imageUpload2" accept=".png, .jpg, .jpeg" />
+                     <input type='file' name="coverImage" id="imageUpload2" accept=".png, .jpg, .jpeg" />
                      <label for="imageUpload2"></label>
                   </div>
                   <div class="cover-preview">
@@ -70,9 +70,12 @@
                   <div class="btn-group-toggle" data-toggle="buttons">
                      <c:forEach items="${genreList}" var="genre">
                         <label class="btn btn-secondary active">
-                        <input type="checkbox" name="genreList" autocomplete="off" style="visibility:hidden" value="${genre.grno}">${genre.grName}
+                        <input type="checkbox" name="grno" autocomplete="off" style="visibility:hidden" value="${genre.grno}">${genre.grName}
                         </label>
                      </c:forEach>
+                     <% String[] grnos = request.getParameterValues("grno");
+                     
+                     %>
                   </div>
                   <!-- btn-group-toggle -->
                </div>

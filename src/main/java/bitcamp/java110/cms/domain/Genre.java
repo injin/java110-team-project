@@ -8,6 +8,13 @@ public class Genre implements Serializable {
   protected int grno;
   protected String grName;
   
+  public Genre() {  };
+  public Genre(int grno, String grName) {
+    super();
+    this.grno = grno;
+    this.grName = grName;
+  }
+  
   public int getGrno() {
     return grno;
   }
@@ -25,4 +32,5 @@ public class Genre implements Serializable {
   public String toString() {
     return "Genre [grno=" + grno + ", grName=" + grName + "]";
   }
+  
 }
