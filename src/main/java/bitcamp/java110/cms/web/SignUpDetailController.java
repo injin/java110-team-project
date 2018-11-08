@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.web;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import bitcamp.java110.cms.domain.Genre;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.GenreService;
 
@@ -20,60 +18,41 @@ import bitcamp.java110.cms.service.GenreService;
 @RequestMapping("/signupDetail")
 public class SignUpDetailController {
 
-  @Autowired GenreService genreService;
-  @Autowired ServletContext sc;
+ @Autowired GenreService genreService;
+ @Autowired ServletContext sc;
 
-  @RequestMapping("/detailForm")
-  public String detailForm(Model model) {
-    System.out.println("신규회원 상세 정보 입력 진입");
+ @RequestMapping("/detailForm")
+ public String detailForm(Model model) {
+   System.out.println("신규회원 상세 정보 입력 진입");
 
-    model.addAttribute("genreList", genreService.getList());
+   model.addAttribute("genreList", genreService.getList());
 
-    return "/auth/detailForm";
-  }
-
-  @PostMapping("/add")
-  public void add(
-      Member member,
-      MultipartFile profileImage,
-      MultipartFile coverImage,
-      
-      MultipartFile[] files) throws Exception {
-    
-    
-    System.out.println(member);
-    System.out.println(files);
-    //System.out.println(grnoList);
-    
-    System.out.println("멀티파트 처리 전");
-    
-    if (profileImage != null || coverImage != null ) {
-      String profileImg = UUID.randomUUID().toString();
-      profileImage.transferTo(new File(sc.getRealPath("/upload/" + profileImg + ".png")));
-      member.setProfileImage(profileImg);
-      
-      String coverImg = UUID.randomUUID().toString();
-      coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
-      member.setCoverImage(coverImg);
-    }
-    
-    
-    
-    List<String> filenames = new ArrayList<>();
-
-    for(int i=0;i<files.length;i++) {
-      MultipartFile file = files[i];
-      System.out.println(file);
-      String filename = UUID.randomUUID().toString();
-      file.transferTo(new File(sc.getRealPath("/upload/" + filename)));
-      filenames.add(filename);
-    }
-    
-    
-    
-    System.out.println(member);
-  }
+   return "/auth/detailForm";
  }
-  
 
+ @PostMapping("/add")
+ public String add(
+     Member member,
+     @RequestParam(name="grnoList") List<String> grnoList,
+     MultipartFile profileImage,
+     MultipartFile coverImage) throws Exception {
+   System.out.println("멀티파트 처리 진입");
 
+   
+   System.out.println("선택 장르" + grnoList.toString());
+
+   if (profileImage != null || coverImage != null ) {
+     String profileImg = UUID.randomUUID().toString();
+     profileImage.transferTo(new File(sc.getRealPath("/upload/" + profileImg + ".png")));
+     member.setProfileImage(profileImg);
+
+     String coverImg = UUID.randomUUID().toString();
+     coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
+     member.setCoverImage(coverImg);
+   }
+
+   System.out.println(member);
+
+   return "reviewFeedList";
+ }
+}
