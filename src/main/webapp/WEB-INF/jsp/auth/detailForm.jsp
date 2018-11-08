@@ -8,6 +8,7 @@
       <title>회원 가입 상세 정보</title>
       <link rel='stylesheet' href='/css/bootstrap.css'>
       <link rel='stylesheet' href='/css/accountDetail.css'>
+      <link rel='stylesheet' href='/css/common.css'>
       <style>
          .btn-secondary{
 	         background-color: #00cc99;
@@ -65,6 +66,7 @@
                </div>
                <hr>
                <%-- jstl for 문으로 19개 장르 출력 --%>
+<%-- 
                <div id="gnrDiv1">
                   <h3 id="gr_anly">선호 장르 분석</h3>
                   <div class="btn-group-toggle" data-toggle="buttons">
@@ -77,6 +79,18 @@
                      
                      %>
                   </div>
+                  <!-- btn-group-toggle -->
+               </div>
+               <!-- gnrDiv1 -->
+--%>            
+                <div id="gnrDiv1">
+                  <h3 id="gr_anly">선호 장르 분석</h3>
+                  <div class="gnrDiv2">
+                     <c:forEach items="${genreList}" var="genre">
+                        <input type="checkbox" name="grno"value="${genre.grno}">${genre.grName}
+                     </c:forEach>
+                  </div>
+                  
                   <!-- btn-group-toggle -->
                </div>
                <!-- gnrDiv1 -->
@@ -103,6 +117,7 @@
       <script src="../../js/common.js"></script>
       <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
       <script type="text/javascript">
+      
          function profileURL(input) {
              if (input.files && input.files[0]) {
                  var reader = new FileReader();

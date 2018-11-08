@@ -13,6 +13,7 @@
 	crossorigin="anonymous">
 <link rel='stylesheet' href='/css/writingIlsang.css'>
 <!-- <link rel='stylesheet' href='/css/writingMovie.css'> -->
+<link rel='stylesheet' href='/css/common.css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <script src="/js/writingIlsang.js"></script>

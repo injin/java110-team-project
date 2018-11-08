@@ -47,8 +47,8 @@
 							onclick="document.getElementById('file').click();">
 							<i class="far fa-image"></i> 사진 <input type="file" size="30"
 								id="file" style="display: none;" accept="image/*"
-								class="picupload" click-type="type2" id="picupload"
-								name="files" multiple />
+								class="picupload" id="picupload"
+								name="files" multiple /> 
 						</div>
 						<!--user post text -wrap end-->
 						<ul id="media-list" class="clearfix" >
@@ -56,10 +56,8 @@
 									aria-hidden="true" ></i></span></li>
 						</ul>
 					</div>
-
 				</div>
 				<!-- modal-body -->
-
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">CANCEL</button>

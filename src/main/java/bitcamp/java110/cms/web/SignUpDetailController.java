@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import bitcamp.java110.cms.domain.Genre;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.GenreService;
 
@@ -33,18 +35,28 @@ public class SignUpDetailController {
   @PostMapping("/add")
   public void add(
       Member member,
-      /*Genre[] grnos,*/
       MultipartFile profileImage,
       MultipartFile coverImage,
+      
       MultipartFile[] files) throws Exception {
+    
     
     System.out.println(member);
     System.out.println(files);
-//    System.out.println(grnos);
-    System.out.println(profileImage);
-    System.out.println(coverImage);
+    //System.out.println(grnoList);
     
     System.out.println("멀티파트 처리 전");
+    
+    if (profileImage != null || coverImage != null ) {
+      String profileImg = UUID.randomUUID().toString();
+      profileImage.transferTo(new File(sc.getRealPath("/upload/" + profileImg + ".png")));
+      member.setProfileImage(profileImg);
+      
+      String coverImg = UUID.randomUUID().toString();
+      coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
+      member.setCoverImage(coverImg);
+    }
+    
     
     
     List<String> filenames = new ArrayList<>();
@@ -56,6 +68,12 @@ public class SignUpDetailController {
       file.transferTo(new File(sc.getRealPath("/upload/" + filename)));
       filenames.add(filename);
     }
+    
+    
+    
+    System.out.println(member);
   }
+ }
+  
 
-}
+
