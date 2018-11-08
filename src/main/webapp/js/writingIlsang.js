@@ -105,9 +105,23 @@ $(function() {
         }
         // return array of file name
         console.log(names);
+        
     });
+
+    $('#open').on('click', function(e) {
+       if(this.checked) {
+           $('#globe').show();
+           $("#lock").css("display","none");
+       }else{
+           $('#lock').show();
+           $("#globe").css("display","none");
+       }
+    });
+
     $('#hint_brand').on('hidden.bs.modal', function(e) {
         names = [];
         z = 0;
     });
+    
+    
 });

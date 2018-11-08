@@ -14,8 +14,8 @@
 					<h5 class="modal-title" id="exampleModalLabel">일상리뷰 작성하기</h5>
 					
 					<!-- 공개여부 스위치 -->
-                    <label class="switch"> <input type="checkbox" name="open">  <span
-                        class="slider round"><i class="fas fa-lock" id="lock"></i><i class="fas fa-globe-americas" id="globe"></i> </span>
+                    <label class="switch"> <input type="checkbox" name="open" id="open" checked>  <span
+                        class="slider round"><i class="fas fa-lock" id="lock" style="display: none;"></i><i class="fas fa-globe-americas" id="globe"></i> </span>
                   
                     </label>
                    
