@@ -66,6 +66,7 @@
                </div>
                <hr>
                <%-- jstl for 문으로 19개 장르 출력 --%>
+<%-- 
                <div id="gnrDiv1">
                   <h3 id="gr_anly">선호 장르 분석</h3>
                   <div class="btn-group-toggle" data-toggle="buttons">
@@ -78,6 +79,18 @@
                      
                      %>
                   </div>
+                  <!-- btn-group-toggle -->
+               </div>
+               <!-- gnrDiv1 -->
+--%>            
+                <div id="gnrDiv1">
+                  <h3 id="gr_anly">선호 장르 분석</h3>
+                  <div class="gnrDiv2">
+                     <c:forEach items="${genreList}" var="genre">
+                        <input type="checkbox" name="grno"value="${genre.grno}">${genre.grName}
+                     </c:forEach>
+                  </div>
+                  
                   <!-- btn-group-toggle -->
                </div>
                <!-- gnrDiv1 -->
