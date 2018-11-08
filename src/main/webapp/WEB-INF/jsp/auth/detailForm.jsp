@@ -44,7 +44,7 @@
                <h3 id="profile-img">프로필 사진</h3>
                <div class="avatar-upload">
                   <div class="avatar-edit">
-                     <input type='file' name="profileImage" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                     <input type='file' name="profileImage"  id="imageUpload"  accept=".png, .jpg, .jpeg" />
                      <label for="imageUpload"></label>
                   </div>
                   <div class="avatar-preview">
