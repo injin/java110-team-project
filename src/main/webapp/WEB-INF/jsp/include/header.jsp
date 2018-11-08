@@ -16,15 +16,14 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
-          
           <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
-                <a class="nav-link" href="#">${sessionScope.loginUser.nickname}</a>
+                <a class="nav-link" href="#" onclick="logoutKakao()">${sessionScope.loginUser.nickname}</a>
             </c:when>
             <c:otherwise>
                 <a class="nav-link" id="login-btn" href="javascript:loginWithKakao()">Account</a>
             </c:otherwise>
-          </c:choose>
+          </c:choose> 
         </div>
       </nav>
     </header>

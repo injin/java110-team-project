@@ -39,9 +39,9 @@ public class AuthController {
        return "redirect:/app/"; //TODO 추가 정보 입력 페이지로 리다이렉트
     }
     
-    @GetMapping("/logout")
+    @RequestMapping("/kakaologout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:form";
+        return "redirect:/app/";
     }
 }
