@@ -20,6 +20,7 @@
       
           <div id="detail">
             <form action="add" method="post" enctype="multipart/form-data">
+               <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
                <h3 class="nickname">닉네임</h3>
                <input class="nickname" type="text" name="nickname">
                <hr>
