@@ -2,6 +2,7 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ include file="top.jsp" %>
   <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -10,24 +11,20 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-          </ul>
           
           <form class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
           
-          <a class="nav-link" id="login-btn" href="javascript:loginWithKakao()">Account</a>
+          <c:choose>
+            <c:when test="${not empty sessionScope.loginUser}">
+                <a class="nav-link" href="#">${sessionScope.loginUser.nickname}</a>
+            </c:when>
+            <c:otherwise>
+                <a class="nav-link" id="login-btn" href="javascript:loginWithKakao()">Account</a>
+            </c:otherwise>
+          </c:choose>
         </div>
       </nav>
     </header>
