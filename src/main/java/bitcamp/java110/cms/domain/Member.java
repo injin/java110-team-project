@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class Member implements Serializable {
@@ -16,6 +17,7 @@ public class Member implements Serializable {
   protected String pr;
   protected String gender;
   protected String age;
+  protected List<Integer> favGenres; //  회원 선호 장르의 장르 번호
   
   public int getMno() {
     return mno;
@@ -71,12 +73,19 @@ public class Member implements Serializable {
   public void setAge(String age) {
     this.age = age;
   }
-  
+  public List<Integer> getFavGenres() {
+    return favGenres;
+  }
+  public void setFavGenres(List<Integer> favGenres) {
+    this.favGenres = favGenres;
+  }
   @Override
   public String toString() {
     return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname
         + ", profileImage=" + profileImage + ", coverImage=" + coverImage + ", pr=" + pr
-        + ", gender=" + gender + ", age=" + age + "]";
+        + ", gender=" + gender + ", age=" + age + ", favGenres=" + favGenres + "]";
   }
+  
+  
 
 }
