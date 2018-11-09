@@ -50,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
       newbie.setGender(kakaoAccount.get("gender").toString().substring(0, 1));
     }
     if (kakaoAccount.get("age_range") != null) {
-      newbie.setAge(kakaoAccount.get("age_range").toString());
+      newbie.setAgeRange(kakaoAccount.get("age_range").toString());
     }
     
     memberDao.insert(newbie);

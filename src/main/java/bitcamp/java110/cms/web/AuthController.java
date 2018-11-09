@@ -22,7 +22,7 @@ public class AuthController {
     public String login(
             String accessToken,
             HttpSession session) {
-       
+      
       Map<String, Object> kakaoResponse = authService.getKakaoResponse(accessToken);
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());

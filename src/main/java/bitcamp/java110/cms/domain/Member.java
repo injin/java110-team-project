@@ -16,7 +16,7 @@ public class Member implements Serializable {
   protected String coverImage;
   protected String pr;
   protected String gender;
-  protected String age;
+  protected String ageRange;
   protected List<Integer> favGenres; //  회원 선호 장르의 장르 번호
   
   public int getMno() {
@@ -67,11 +67,11 @@ public class Member implements Serializable {
   public void setGender(String gender) {
     this.gender = gender;
   }
-  public String getAge() {
-    return age;
+  public String getAgeRange() {
+    return ageRange;
   }
-  public void setAge(String age) {
-    this.age = age;
+  public void setAgeRange(String ageRange) {
+    this.ageRange = ageRange;
   }
   public List<Integer> getFavGenres() {
     return favGenres;
@@ -79,13 +79,12 @@ public class Member implements Serializable {
   public void setFavGenres(List<Integer> favGenres) {
     this.favGenres = favGenres;
   }
+  
   @Override
   public String toString() {
     return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname
         + ", profileImage=" + profileImage + ", coverImage=" + coverImage + ", pr=" + pr
-        + ", gender=" + gender + ", age=" + age + ", favGenres=" + favGenres + "]";
+        + ", gender=" + gender + ", ageRange=" + ageRange + ", favGenres=" + favGenres + "]";
   }
-  
-  
 
 }
