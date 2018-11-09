@@ -17,7 +17,7 @@ var slice = [].slice;
       this.$el = $el;
       this.createStars();
       this.syncRating();
-      if (this.options.readOnly) {
+      if (this.options.readOnly ) {
         return;
       }
       this.$el.on('mouseover.starrr', 'a', (function(_this) {
