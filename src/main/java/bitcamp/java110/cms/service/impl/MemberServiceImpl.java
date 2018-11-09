@@ -30,7 +30,9 @@ public class MemberServiceImpl implements MemberService {
     // TODO Auto-generated method stub
     return null;
   }
-
+  
+  @Transactional(propagation=Propagation.REQUIRED,
+                 rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
     System.out.println(member);
