@@ -31,7 +31,8 @@ public class SignUpDetailController {
     
     model.addAttribute("member", (Member)session.getAttribute("loginUser"));
     model.addAttribute("genreList", genreService.getList());
-
+    
+    
     return "/auth/detailForm";
   }
 
@@ -42,8 +43,6 @@ public class SignUpDetailController {
       MultipartFile profileImage,
       MultipartFile coverImage) throws Exception {
 
-    System.out.println(grnoList.toString());
-
     if (profileImage != null || coverImage != null ) {
       String profileImg = UUID.randomUUID().toString();
       profileImage.transferTo(new File(sc.getRealPath("/upload/" + profileImg + ".png")));
@@ -53,20 +52,11 @@ public class SignUpDetailController {
       coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
       member.setCoverImage(coverImg);
     }
-    /** 제하 작업 끝나면 알아서 
-     *  지울 코드.
-     *  건들지 마시오!!!!
-     *  -->
-     */
     if (grnoList.size() > 0) {
       member.setFavGenres(grnoList);
     }
-    System.out.println(member);
-    //<-- 
-    memberService.add(member);
+    memberService.update(member);
     
-    
-    //
     return "redirect:/app/";
   }
 }

@@ -36,21 +36,17 @@
          where mid = #{id}
     </select>
     
-<!--
-    <update id="updateFirst" parameterType="String">
-    
-    </update>
--->
-    <!-- 
-    <update id="updateFirst" parameterType="String">
+    <update id="update" parameterType="String">
 	   UPDATE mv_memb
 	   <trim prefix="SET" suffixOverrides=",">
-	      <if test="exam1 != null">exam1 = #{exam1},</if>
-	      <if test="exam2 != null">exam2 = #{exam2},</if>
+	      <if test="nickname != null">nick = #{nickname},</if>
+	      <if test="profileImage != null">p_phot = #{profileImage},</if>
+	      <if test="coverImage != null">c_phot = #{coverImage},</if>
+	      <if test="pr != null">pr = #{pr},</if>
 	   </trim>
 	   WHERE
-	      idx = #{idx}
+	      mno = #{mno}
 	</update>
-	 -->
+
 	
 </mapper>

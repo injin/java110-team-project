@@ -1,5 +1,7 @@
 package bitcamp.java110.cms.service;
 
+import java.util.Map;
+
 /**
  * @author jeahasorrowkissed
  *  회원 가입시 혹은 회원 정보 수정시
@@ -7,5 +9,5 @@ package bitcamp.java110.cms.service;
  */
 public interface FavGenreService {
 //  List<Genre> getList();
-  void insert (int mno, int grno);
+  void insert (Map<String, Object> params);
 }
