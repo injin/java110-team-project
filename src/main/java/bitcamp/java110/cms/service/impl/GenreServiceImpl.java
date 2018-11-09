@@ -14,8 +14,6 @@ public class GenreServiceImpl implements GenreService {
   
   @Override
   public List<Genre> getList() {
-    
     return genreDao.list();
   }
-
 }

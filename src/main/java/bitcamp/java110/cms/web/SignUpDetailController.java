@@ -31,7 +31,8 @@ public class SignUpDetailController {
     
     model.addAttribute("member", (Member)session.getAttribute("loginUser"));
     model.addAttribute("genreList", genreService.getList());
-
+    
+    
     return "/auth/detailForm";
   }
 
@@ -41,8 +42,6 @@ public class SignUpDetailController {
       @RequestParam(name="grnoList") List<Integer> grnoList,
       MultipartFile profileImage,
       MultipartFile coverImage) throws Exception {
-
-    System.out.println(grnoList.toString());
 
     if (profileImage != null || coverImage != null ) {
       String profileImg = UUID.randomUUID().toString();
@@ -61,12 +60,9 @@ public class SignUpDetailController {
     if (grnoList.size() > 0) {
       member.setFavGenres(grnoList);
     }
-    System.out.println(member);
     //<-- 
-    memberService.add(member);
+    memberService.update(member);
     
-    
-    //
     return "redirect:/app/";
   }
 }

@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,14 +22,7 @@ public class MemberServiceImpl implements MemberService {
   public void add (Member member) {
     memberDao.insert(member);
     
-    List <Integer> favGenre = member.getFavGenres();
-    
-    for (int i = 0; i < favGenre.size(); i++) {
-      HashMap<Integer, Integer> params = new HashMap<>();
-      params.put(member.getMno(), favGenre.get(i));
-      
-      favGenreDao.insert(params);
-    }
+
   }
 
   @Override
@@ -41,7 +33,23 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public void update(Member member) {
-    // TODO Auto-generated method stub
+    System.out.println(member);
+    System.out.println("update M?");
+    memberDao.update(member);
+    System.out.println("update M!");
     
+    if (member.getFavGenres().size() > 0) {
+      System.out.println("if 진입");
+      for (int i = 0; i < member.getFavGenres().size(); i++) {
+        
+        HashMap<Integer, Object> params = new HashMap<>();
+        params.put(member.getMno(), member.getFavGenres().get(i));
+        System.out.print(member.getMno() + " : ");
+        System.out.println(member.getFavGenres().get(i));
+        favGenreDao.insert(params);
+        System.out.println("쇽");
+      }
+    }
+    System.out.println("들어감?");
   }
 }
