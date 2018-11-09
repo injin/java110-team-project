@@ -1,27 +1,26 @@
 package bitcamp.java110.cms.web;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import bitcamp.java110.cms.domain.Post;
-import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.domain.Report;
+import bitcamp.java110.cms.service.ReportService;
 
 @Controller
 @RequestMapping("/report")
 public class ReportController {
 
+  ReportService reportService;
   ServletContext sc;
 
   public ReportController(
+      ReportService reportService,
       ServletContext sc) {
+    this.reportService = reportService;
     this.sc = sc;
   }
 
@@ -31,6 +30,26 @@ public class ReportController {
     return "sceneReview";
   }
 
+  @PostMapping("/add")
+  public String add(Report report,
+        Model model,
+        String[] reportType) throws Exception{
+    System.out.println("신고submit");
+    
+    // 신고유형
+    List<String> types = new ArrayList<>();
+    for(String t : reportType) {
+      types.add(t);
+      System.out.println(t);
+    }
+    
+    report.setTypes(types);
+    System.out.println(report.getCont());
+    model.addAttribute("type", types);
+    model.addAttribute("cont", report.getCont());
+    reportService.add(report);
+    return "admin";
+  }
 
 
 }

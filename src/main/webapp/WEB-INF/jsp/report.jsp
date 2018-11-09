@@ -20,12 +20,12 @@
                 </div> <!-- modal-header -->
                 <div class="modal-body">
                 
-                    <label><input type="checkbox" name="report" value="선정적/욕설/비방"> 선정적/욕설/비방</label><br>
-                    <label><input type="checkbox" name="report" value="다른 영화 사진"> 다른 영화 사진</label><br>
-                    <label><input type="checkbox" name="report" value="부정확한 내용"> 부정확한 내용</label><br>
-                    <label><input type="checkbox" name="report" value="기타"> 기타</label><br>
+                    <label><input type="checkbox" name="reportType" value="선정적/욕설/비방"> 선정적/욕설/비방</label><br>
+                    <label><input type="checkbox" name="reportType" value="다른 영화 사진"> 다른 영화 사진</label><br>
+                    <label><input type="checkbox" name="reportType" value="부정확한 내용"> 부정확한 내용</label><br>
+                    <label><input type="checkbox" name="reportType" value="기타"> 기타</label><br>
                     <div class="form-group">
-                        <textarea name="content" class="form-control"
+                        <textarea name="cont" class="form-control"
                             rows="7"
                             placeholder="신고 내용을 작성해주세요"></textarea>
                     </div>

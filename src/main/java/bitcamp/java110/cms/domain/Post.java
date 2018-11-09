@@ -15,6 +15,7 @@ public class Post {
   protected int likeCnt;
   protected int star;
   protected boolean open;
+  
   protected List<String> photos;
   protected List<String> htags;
   

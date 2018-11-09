@@ -24,5 +24,6 @@ Release/
 hs_err_pid*
 
 **/sec.properties
+**/api.properties
 
 !build.gradle
