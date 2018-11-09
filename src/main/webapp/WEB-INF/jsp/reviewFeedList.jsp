@@ -7,16 +7,13 @@
 <meta charset="UTF-8">
 <title>moviestagram</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
+<link href="/css/fontawesome.css" rel="stylesheet">
+<link href="/css/all.css" rel="stylesheet">
 <link rel='stylesheet' href='/css/writingIlsang.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
 </head>
 <body>
-
 	<jsp:include page="include/header.jsp"></jsp:include>
 
 	<main role="main" class="container">
@@ -42,6 +39,5 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/common.js"></script>
 	<script src="/js/writingIlsang.js"></script>
-	
 </body>
 </html>

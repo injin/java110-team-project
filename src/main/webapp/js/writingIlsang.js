@@ -68,13 +68,8 @@ $(function() {
         $('.starrr a').toggleClass("nostar");
      });
     
-    $(".htxtarea").blur(function() {
-        
-        $(this).html($(this).html().replace(/(#\S+)/, '<span style="color: blue">$1</span>');
-    });
     $('.open').on('click', function(e) {
         if(this.checked) {
-
             $('.globe').show();
             $(".lock").css("display","none");
         }else{
