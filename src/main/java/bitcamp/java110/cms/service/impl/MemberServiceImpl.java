@@ -35,23 +35,16 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    System.out.println(member);
-    System.out.println("update M?");
     memberDao.update(member);
-    System.out.println("update M!");
     
     if (member.getFavGenres().size() > 0) {
-      System.out.println("if 진입");
       for (int i = 0; i < member.getFavGenres().size(); i++) {
         
-        HashMap<Integer, Object> params = new HashMap<>();
-        params.put(member.getMno(), member.getFavGenres().get(i));
-        System.out.print(member.getMno() + " : ");
-        System.out.println(member.getFavGenres().get(i));
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("mno", member.getMno());
+        params.put("grno", member.getFavGenres().get(i));
         favGenreDao.insert(params);
-        System.out.println("쇽");
       }
     }
-    System.out.println("들어감?");
   }
 }

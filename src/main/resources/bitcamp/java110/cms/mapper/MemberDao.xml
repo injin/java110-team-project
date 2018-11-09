@@ -36,13 +36,6 @@
          where mid = #{id}
     </select>
     
-<!--
-    <update id="updateFirst" parameterType="String">
-    
-    </update>
--->
-
-
     <update id="update" parameterType="String">
 	   UPDATE mv_memb
 	   <trim prefix="SET" suffixOverrides=",">

@@ -52,15 +52,9 @@ public class SignUpDetailController {
       coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
       member.setCoverImage(coverImg);
     }
-    /** 제하 작업 끝나면 알아서 
-     *  지울 코드.
-     *  건들지 마시오!!!!
-     *  -->
-     */
     if (grnoList.size() > 0) {
       member.setFavGenres(grnoList);
     }
-    //<-- 
     memberService.update(member);
     
     return "redirect:/app/";
