@@ -64,7 +64,7 @@ public class ReviewListController {
     } 
     post.setHtags(strs);
 
-    postService.add(post);
+//    postService.add(post);
 
     return "redirect:list";
   }

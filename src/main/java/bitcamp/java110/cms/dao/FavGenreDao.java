@@ -3,5 +3,6 @@ package bitcamp.java110.cms.dao;
 import java.util.Map;
 
 public interface FavGenreDao {
-  int insert(Map<Integer, Integer> params);
+  //  회원 선호 장르
+  void insert(Map<String, Object> params);
 }

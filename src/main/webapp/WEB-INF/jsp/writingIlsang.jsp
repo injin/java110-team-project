@@ -26,7 +26,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<textarea name="content" class="form-control"
+						<textarea name="content" class="form-control htxtarea" 
 							rows="10"
 							placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
@@ -47,7 +47,7 @@
 								name="files" multiple /> 
 						</div>
 						<!--user post text -wrap end-->
-						<ul id="media-list2" class="clearfix" >
+						<ul id="media-list2"class="clearfix" >
 							<li class="myupload "><span><i class="fa fa-plus"
 									aria-hidden="true" ></i></span></li>
 						</ul>

@@ -25,7 +25,6 @@
 						class="open" checked> <span class="slider round"><i
 							class="fas fa-lock lock" style="display: none;"></i><i
 							class="fas fa-globe-americas globe"></i> </span>
-
 					</label>
 
 					<button type="button" class="close" data-dismiss="modal"
@@ -36,7 +35,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<textarea name="content" class="form-control" rows="10"
+						<textarea name="content" class="form-control htxtarea" rows="10"
 							placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
 					<div class="input-group mb-2">
@@ -50,21 +49,25 @@
 					<div class="form-group">
 
 						<div class="file btn btn-lg btn-primary"
-							style="background-color: #2fc599;"
 							onclick="document.getElementById('picupload1').click();">
 							<i class="far fa-images"></i>사진 <input type="file" size="30"
 								style="display: none;" accept="image/*" class="picupload"
 								id="picupload1" name="files" multiple />
 						</div>
-						
+
 						<div class="btn btn-lg btn-primary"
-							style="background-color: #2fc599;"
-							onclick="document.getElementById('star').click();">
-							<i class="far fa-star"></i>별점
-							 <input type="button" style="display: none;" id="star" />
+							onclick="document.getElementById('starbtn').click();">
+							<i class="far fa-star"></i>별점 <input type="button"
+								style="display: none;" id="starbtn" />
 						</div>
 
-						<div class='starrr'></div>
+							<div class='starrr'></div>
+
+							<div>
+								<span class='your-choice-was' style='display: none;'> <span
+									class='choice' style='display: none;'></span>
+								</span>
+							</div>
 						<!--user post text -wrap end-->
 						<ul id="media-list1" class="clearfix">
 							<li class="myupload "><span><i class="fa fa-plus"
@@ -80,6 +83,5 @@
 					</div>
 				</div>
 		</form>
-
 	</div>
 </div>

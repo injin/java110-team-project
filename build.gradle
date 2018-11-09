@@ -47,6 +47,7 @@ dependencies {
     
     // JSON 데이터를 처리하는 라이브러리
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'
@@ -55,5 +56,5 @@ dependencies {
 
 // 라이브러리를 다운로드 받는 서버 설정
 repositories {
-    mavenCentral()
+    jcenter()
 }
