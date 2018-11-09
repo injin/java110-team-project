@@ -1,5 +1,7 @@
 package bitcamp.java110.cms.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,14 +14,18 @@ import info.movito.themoviedbapi.model.MovieDb;
 
 public class GetMovieTestController {
   
-  
+  @Autowired
+  Environment env;
   
   @RequestMapping("/getMovieTest")
   public String getMovie(
       String id,
       Model model) {
+    
+    
+    String tmdbKey = env.getProperty("tmdb.key");
    
-    TmdbMovies movies = new TmdbApi("fec82bc169471dae8aacac9e9dbcac72").getMovies();
+    TmdbMovies movies = new TmdbApi(tmdbKey).getMovies();
     MovieDb movie = movies.getMovie(5353, "ko");
     
     MovieDb movie2 = movies.getMovie(78, "ko",
