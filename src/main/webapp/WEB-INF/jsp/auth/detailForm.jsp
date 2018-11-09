@@ -95,8 +95,6 @@
                 <hr>
                 <input type="submit" class="btn btn-default" value="확인">
                 <input type="reset" class="btn btn-default" value="취소">
-                
-                <input type="hidden" name="fileNameList" id="fileNameList"/>
             </form>
           </div>
       </main>
@@ -106,9 +104,6 @@
       <script src="/js/bootstrap.js"></script>
       <script src="/js/common.js"></script>
       <script type="text/javascript">
-      
-      var fileNameList = [];
-      $('#fileNameList').val(fileNameList);
       
       // 영화 검색 관련
       function findMovieByKeywod() {
