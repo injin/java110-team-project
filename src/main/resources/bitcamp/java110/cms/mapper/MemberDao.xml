@@ -35,4 +35,22 @@
          from mv_memb
          where mid = #{id}
     </select>
+    
+<!--
+    <update id="updateFirst" parameterType="String">
+    
+    </update>
+-->
+    <!-- 
+    <update id="updateFirst" parameterType="String">
+	   UPDATE mv_memb
+	   <trim prefix="SET" suffixOverrides=",">
+	      <if test="exam1 != null">exam1 = #{exam1},</if>
+	      <if test="exam2 != null">exam2 = #{exam2},</if>
+	   </trim>
+	   WHERE
+	      idx = #{idx}
+	</update>
+	 -->
+	
 </mapper>
