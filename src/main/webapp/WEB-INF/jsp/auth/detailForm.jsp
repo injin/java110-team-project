@@ -12,7 +12,11 @@
       <link rel='stylesheet' href='/css/accountDetail.css'>
       <link rel='stylesheet' href='/css/common.css'>
       <style>
-         
+         .list-group-item { padding: 0.3rem 0.3rem; }
+         #list-search-movie {
+            max-height: 250px;
+            overflow: auto;
+         }
       </style>
    </head>
    <!-- http://localhost:8888/app/signupDetail/detailForm -->
@@ -78,18 +82,22 @@
                 
                 <div class="input-group">
                   <input type="text" class="form-control" id="input-srch-keyword"
-                        placeholder="검색어를 입력해 주세요">
+                        placeholder="검색어를 입력해 주세요" autocomplete="off">
                   <span class="input-group-btn">
                     <button class="btn btn-primary" id="btn-srch-movie"
-                            onclick="findMovieByKeywod()" type="button">검색</button>
+                            onclick="findMoviesByKeywod()" type="button">검색</button>
                   </span>
                 </div>
-                <ul class="list-group" id="list-search-movie">
-                  <li class="list-group-item">Cras justo odio</li>
-                  <li class="list-group-item">Dapibus ac facilisis in</li>
-                  <li class="list-group-item">Morbi leo risus</li>
-                  <li class="list-group-item">Porta ac consectetur ac</li>
-                  <li class="list-group-item">Vestibulum at eros</li>
+                <ul class="list-group" id="list-search-movie" >
+                  <li class="list-group-item">
+                    <div class="media">
+                      <img class="mr-3 w50" src="https://image.tmdb.org/t/p/w500/Xfh4tbLzl9bEt8YL9KkflRjbZl.jpg" alt="영화제목">
+                      <div class="media-body">
+                        <h5 class="mt-0"><b>Media heading</b></h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                      </div>
+                    </div>
+                  </li>
                 </ul>
                 
                 <hr>
@@ -106,29 +114,57 @@
       <script type="text/javascript">
       
       // 영화 검색 관련
-      function findMovieByKeywod() {
+      function findMoviesByKeywod() {
           var keyword = document.getElementById('input-srch-keyword').value;
           if (keyword == '') {
               alert('키워드를 입력해주세요');
               return;
           }
           
+          var $srchMovieList = $('#list-search-movie');
           $.ajax("/app/movieInfo/listByKeyword", {
               method: "POST",
               headers : {
                   'Content-Type': 'application/json'
               },
               data: JSON.stringify({ "keyword": keyword }),
+              before: function() {
+                  $srchMovieList.html('').hide();
+              },
               success: function(data) {
                   
-                  alert(data.keyword);
+                  var liHtml = '';
+                  data.movieList.forEach(function(obj, idx) {
+                      
+                      console.log('가져온 정보' + obj);
+                      liHtml += '<li class="list-group-item"><div class="media">';
+                      liHtml += '<img class="mr-3 w50" src="'
+                      if (obj.poster_path != null) {
+                          liHtml += data.imgPrefix + obj.poster_path;
+                      } else {
+                          liHtml += '/img/default-movie-img.png';
+                      }
+                      liHtml += '" alt="영화제목">';
+                      liHtml += '<div class="media-body">';
+                      liHtml += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
+                      liHtml += '(' + obj.release_date + ')';
+                      liHtml += '</div>';
+                      liHtml += '</li>';
+                      console.log(idx + ':' + obj.title + ':' + obj.release_date);
+                  });
                   
+                  /* console.log(data.keyword);
+                  console.log(data.totalPages);
+                  console.log(data.movieList); */
+                  console.log(data.movieList);
                   
+                  $srchMovieList.html(liHtml);
               },
               complete: function() {
-                  
+                  $srchMovieList.show();
               },
               error: (xhr, status, msg) => {
+                  $srchMovieList.text('영화 정보를 가져오는데 실패하였습니다.');
                   console.log(status);
                   console.log(msg);
               }

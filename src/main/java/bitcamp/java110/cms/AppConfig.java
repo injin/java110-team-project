@@ -1,7 +1,6 @@
 package bitcamp.java110.cms;
 
 import javax.sql.DataSource;
-
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -15,6 +14,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbSearch;
 
 // 스프링 IoC 컨테이너에게 이 클래스가 컨테이너를 위한 설정 정보를 담고 있는
 // 클래스라는 것을 알려주기 위해 다음 애노테이션을 추가한다.
@@ -98,30 +99,13 @@ public class AppConfig {
         return new DataSourceTransactionManager(dataSource);
     }
     
-    /*public static void main(String[] args) {
-        
-        // Java Config를 사용할 때는 다음 IoC 컨테이너를 사용한다.
-        ApplicationContext iocContainer = 
-                new AnnotationConfigApplicationContext(AppConfig.class);
-        
-        System.out.println("----------------------------");
-        
-        // 컨테이너에 들어 있는 객체의 개수와 이름 알아내기
-        int count = iocContainer.getBeanDefinitionCount();
-        System.out.printf("bean 개수 = %d\n", count);
-        
-        String[] names = iocContainer.getBeanDefinitionNames();
-        for (String name : names) {
-            System.out.printf("=> %s : %s\n",
-                    name,
-                    iocContainer.getType(name).getName());
-        }
-        
-        System.out.println("----------------------------");
-        
-        ManagerService s = (ManagerService) iocContainer.getBean(ManagerService.class);
-        System.out.println(s.list(1, 5));
-        
-    }*/
+    @Bean
+    public TmdbApi tmdbApi() {
+      return new TmdbApi(env.getProperty("tmdb.key"));
+    }
     
+    @Bean
+    public TmdbSearch tmdbSearch() {
+      return new TmdbSearch(tmdbApi());
+    }
 }
