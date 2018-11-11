@@ -19,6 +19,7 @@
 							<input type="text" class="form-control" id="movieSearch"
 								placeholder="영화를 검색해주세요" autocomplete="off"> <input
 								type="hidden" id="movieId">
+								
 						</div>
 					</div>
 

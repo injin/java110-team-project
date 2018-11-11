@@ -3,13 +3,16 @@
 ul{
 	list-style-type:none;
 }
+ul li:hover{
+	background-color:gray;
+}
  .ui-autocomplete {
     max-height: 200px;
     overflow: auto;
   }
 .poster{
-	width: 30%;
-	height: 40%
+	width: 20%;
+	height: 30%
 }
 #media-list1 li img, #media-list2 li img {
 	width: 100px;
