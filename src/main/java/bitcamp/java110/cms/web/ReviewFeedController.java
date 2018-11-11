@@ -16,12 +16,12 @@ import bitcamp.java110.cms.service.PostService;
 
 @Controller
 @RequestMapping("/reviewFeed")
-public class ReviewListController {
+public class ReviewFeedController {
 
   PostService postService;
   ServletContext sc;
 
-  public ReviewListController(
+  public ReviewFeedController(
       PostService postService, 
       ServletContext sc) {
     this.postService = postService;
@@ -31,7 +31,7 @@ public class ReviewListController {
   @RequestMapping("/list")
   public String list() {
     System.out.println("리뷰피드리스트에 들어옴");
-    return "reviewFeedList";
+    return "reviewFeed/reviewFeedList";
   }
 
 

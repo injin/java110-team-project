@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+ul{
+	list-style-type:none;
+}
+ .ui-autocomplete {
+    max-height: 200px;
+    overflow: auto;
+  }
+.poster{
+	width: 30%;
+	height: 40%
+}
 #media-list1 li img, #media-list2 li img {
 	width: 100px;
 	height: 100px
