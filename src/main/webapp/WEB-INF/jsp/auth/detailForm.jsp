@@ -113,6 +113,18 @@
       <script src="/js/common.js"></script>
       <script type="text/javascript">
       
+      var $inputKeyword = $('#input-srch-keyword');
+      var $srchMovieList = $('#list-search-movie');
+      
+      // 영화 검색 창 엔터
+      $inputKeyword.on('keydown', function(e) {
+          e.preventDefault();
+          console.log(e.keyCode);
+          if (e.keyCode == 13) {
+              findMoviesByKeywod();
+          }
+      });
+      
       // 영화 검색 관련
       function findMoviesByKeywod() {
           var keyword = document.getElementById('input-srch-keyword').value;
@@ -121,7 +133,7 @@
               return;
           }
           
-          var $srchMovieList = $('#list-search-movie');
+          
           $.ajax("/app/movieInfo/listByKeyword", {
               method: "POST",
               headers : {
@@ -134,24 +146,28 @@
               success: function(data) {
                   
                   var liHtml = '';
-                  data.movieList.forEach(function(obj, idx) {
-                      
-                      console.log('가져온 정보' + obj);
-                      liHtml += '<li class="list-group-item"><div class="media">';
-                      liHtml += '<img class="mr-3 w50" src="'
-                      if (obj.poster_path != null) {
-                          liHtml += data.imgPrefix + obj.poster_path;
-                      } else {
-                          liHtml += '/img/default-movie-img.png';
-                      }
-                      liHtml += '" alt="영화제목">';
-                      liHtml += '<div class="media-body">';
-                      liHtml += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
-                      liHtml += '(' + obj.release_date + ')';
-                      liHtml += '</div>';
-                      liHtml += '</li>';
-                      console.log(idx + ':' + obj.title + ':' + obj.release_date);
-                  });
+                  if (data.movieList.length == 0) {
+                      liHtml += '<li class="list-group-item">조회된 결과가 없습니다.</li>';
+                  } else {
+                      data.movieList.forEach(function(obj, idx) {
+                          
+                          console.log('가져온 정보' + obj);
+                          liHtml += '<li class="list-group-item"><div class="media">';
+                          liHtml += '<img class="mr-3 w50" src="'
+                          if (obj.poster_path != null) {
+                              liHtml += data.imgPrefix + obj.poster_path;
+                          } else {
+                              liHtml += '/img/default-movie-img.png';
+                          }
+                          liHtml += '" alt="영화제목">';
+                          liHtml += '<div class="media-body">';
+                          liHtml += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
+                          liHtml += '(' + obj.release_date + ')';
+                          liHtml += '</div>';
+                          liHtml += '</li>';
+                          console.log(idx + ':' + obj.title + ':' + obj.release_date);
+                      });
+                  }
                   
                   /* console.log(data.keyword);
                   console.log(data.totalPages);
