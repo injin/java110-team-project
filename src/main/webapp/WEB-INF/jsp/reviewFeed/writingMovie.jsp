@@ -11,12 +11,15 @@
 				<div class="modal-header">
 					<h5 class="modal-title">리뷰 작성하기</h5>
 					<div class="col-8">
-						<div class="input-group mb-2">
+
+						<div class="input-group mb-2 ui-widget ui-front">
 							<div class="input-group-prepend">
 								<div class="input-group-text">영화</div>
 							</div>
 							<input type="text" class="form-control" id="movieSearch"
-								placeholder="영화를 검색해주세요">
+								placeholder="영화를 검색해주세요" autocomplete="off"> <input
+								type="hidden" id="movieId">
+								
 						</div>
 					</div>
 
@@ -61,19 +64,18 @@
 								style="display: none;" id="starbtn" />
 						</div>
 
-							<div class='starrr'></div>
+						<div class='starrr'></div>
 
-							<div>
-								<span class='your-choice-was' style='display: none;'> <span
-									class='choice' style='display: none;'></span>
-								</span>
-							</div>
+						<div>
+							<span class='your-choice-was' style='display: none;'> <span
+								class='choice' style='display: none;'></span>
+							</span>
+						</div>
 						<!--user post text -wrap end-->
 						<ul id="media-list1" class="clearfix">
 							<li class="myupload "><span><i class="fa fa-plus"
 									aria-hidden="true"></i></span></li>
 						</ul>
-
 					</div>
 					<!-- modal-body -->
 					<div class="modal-footer">

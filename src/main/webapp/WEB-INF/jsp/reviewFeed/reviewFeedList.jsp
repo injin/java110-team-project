@@ -9,12 +9,12 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
-<link rel='stylesheet' href='/css/writingIlsang.css'>
+<link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
 </head>
 <body>
-	<jsp:include page="include/header.jsp"></jsp:include>
+	<jsp:include page="../include/header.jsp"></jsp:include>
 
 	<main role="main" class="container">
 
@@ -30,14 +30,16 @@
 	<jsp:include page="writingIlsang.jsp"></jsp:include> <jsp:include
 		page="writingMovie.jsp"></jsp:include> </main>
 
-	<jsp:include page="include/footer.jsp"></jsp:include>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/starrr.js"></script>
 	<script src="/js/common.js"></script>
-	<script src="/js/writingIlsang.js"></script>
+	<script src="/js/writingPost.js"></script>
 </body>
 </html>
