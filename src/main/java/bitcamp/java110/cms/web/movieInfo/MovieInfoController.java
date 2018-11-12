@@ -34,7 +34,7 @@ public class MovieInfoController {
     result.put("movieList", response.getResults());
     result.put("totalPages", response.getTotalPages());
     result.put("totalResults", response.getTotalResults());
-    result.put("imgPrefix", Constants.TMDB_POSTER_PREFIX);
+    result.put("imgPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
     return result;
   }
