@@ -15,6 +15,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbSearch;
 
 // 스프링 IoC 컨테이너에게 이 클래스가 컨테이너를 위한 설정 정보를 담고 있는
@@ -107,5 +108,10 @@ public class AppConfig {
     @Bean
     public TmdbSearch tmdbSearch() {
       return new TmdbSearch(tmdbApi());
+    }
+    
+    @Bean
+    public TmdbMovies tmdbMovies() {
+      return tmdbApi().getMovies();
     }
 }
