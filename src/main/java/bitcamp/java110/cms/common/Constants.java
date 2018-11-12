@@ -12,7 +12,8 @@ public class Constants {
   public static final String LANGUAGE_EN = "en";
   public static final String LANGUAGE_KO_EN = "ko, en";
   
-  public static final String TMDB_POSTER_PREFIX = "https://image.tmdb.org/t/p/w500";
+  public static final String TMDB_IMG_PREFIX_W500 = "https://image.tmdb.org/t/p/w500";
+  public static final String TMDB_IMG_PREFIX_ORIGIN = "https://image.tmdb.org/t/p/original";
   
   
   

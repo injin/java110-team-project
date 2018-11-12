@@ -27,7 +27,7 @@ public class ReportController {
   @RequestMapping("/list")
   public String list() {
     System.out.println("장면리뷰에 들어옴");
-    return "sceneReview/sceneReview";
+    return "sceneReview/review";
   }
 
   @PostMapping("/add")
