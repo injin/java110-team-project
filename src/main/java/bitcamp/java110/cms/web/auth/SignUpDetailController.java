@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.web;
+package bitcamp.java110.cms.web.auth;
 
 import java.io.File;
 import java.util.List;

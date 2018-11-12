@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.web;
+package bitcamp.java110.cms.web.auth;
 
 import java.util.Map;
 import javax.servlet.http.HttpSession;

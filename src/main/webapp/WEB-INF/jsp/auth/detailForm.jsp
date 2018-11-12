@@ -89,12 +89,14 @@
                   </span>
                 </div>
                 <ul class="list-group" id="list-search-movie" >
+                
                   <li class="list-group-item">
                     <div class="media">
                       <img class="mr-3 w50" src="https://image.tmdb.org/t/p/w500/Xfh4tbLzl9bEt8YL9KkflRjbZl.jpg" alt="영화제목">
                       <div class="media-body">
                         <h5 class="mt-0"><b>Media heading</b></h5>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        <span class="badge badge-primary badge-pill">등록</span>
                       </div>
                     </div>
                   </li>
@@ -125,6 +127,29 @@
           }
       });
       
+      function makeMovieListHtml(data) {
+          var html = '';
+          data.movieList.forEach(function(obj, idx) {
+              
+              console.log('가져온 정보' + obj);
+              html += '<li class="list-group-item"><div class="media">';
+              html += '<img class="mr-3 w50" src="'
+              if (obj.poster_path != null) {
+                  html += data.imgPrefix + obj.poster_path;
+              } else {
+                  html += '/img/default-movie-img.png';
+              }
+              html += '" alt="영화제목">';
+              html += '<div class="media-body">';
+              html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
+              html += '(' + obj.release_date + ')';
+              html += '</div>';
+              html += '</li>';
+              console.log(idx + ':' + obj.title + ':' + obj.release_date);
+          });
+          return html;
+      }
+      
       // 영화 검색 관련
       function findMoviesByKeywod() {
           var keyword = document.getElementById('input-srch-keyword').value;
@@ -147,33 +172,10 @@
                   
                   var liHtml = '';
                   if (data.movieList.length == 0) {
-                      liHtml += '<li class="list-group-item">조회된 결과가 없습니다.</li>';
+                      liHtml = '<li class="list-group-item">조회된 결과가 없습니다.</li>';
                   } else {
-                      data.movieList.forEach(function(obj, idx) {
-                          
-                          console.log('가져온 정보' + obj);
-                          liHtml += '<li class="list-group-item"><div class="media">';
-                          liHtml += '<img class="mr-3 w50" src="'
-                          if (obj.poster_path != null) {
-                              liHtml += data.imgPrefix + obj.poster_path;
-                          } else {
-                              liHtml += '/img/default-movie-img.png';
-                          }
-                          liHtml += '" alt="영화제목">';
-                          liHtml += '<div class="media-body">';
-                          liHtml += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
-                          liHtml += '(' + obj.release_date + ')';
-                          liHtml += '</div>';
-                          liHtml += '</li>';
-                          console.log(idx + ':' + obj.title + ':' + obj.release_date);
-                      });
+                      liHtml = makeMovieListHtml(data);
                   }
-                  
-                  /* console.log(data.keyword);
-                  console.log(data.totalPages);
-                  console.log(data.movieList); */
-                  console.log(data.movieList);
-                  
                   $srchMovieList.html(liHtml);
               },
               complete: function() {

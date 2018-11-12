@@ -11,30 +11,25 @@
     href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
     integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
     crossorigin="anonymous">
-<link rel='stylesheet' href='/css/report.css'>
+<link rel='stylesheet' href='/css/adminlist.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+<script src="/js/adminlist.js"></script>
 </head>
 <body>
 
-    <jsp:include page="include/header.jsp"></jsp:include>
-
+    <jsp:include page="../include/header.jsp"></jsp:include>
 
     <main role="main" class="container">
-        <button type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#reportModal">신고하기</button>
-
-    <jsp:include page="report.jsp"></jsp:include>
+        <jsp:include page="adminlist.jsp"/>
     </main>
 
-    <jsp:include page="include/footer.jsp"></jsp:include>
+    <jsp:include page="../include/footer.jsp"></jsp:include>
 
     <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/common.js"></script>
-    <script type="text/javascript">
-        
-    </script>
+    <script type="text/javascript"></script>
 </body>
 </html>

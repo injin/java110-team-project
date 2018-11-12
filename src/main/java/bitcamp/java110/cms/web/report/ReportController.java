@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.web;
+package bitcamp.java110.cms.web.report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class ReportController {
   @RequestMapping("/list")
   public String list() {
     System.out.println("장면리뷰에 들어옴");
-    return "sceneReview";
+    return "sceneReview/sceneReview";
   }
 
   @PostMapping("/add")
@@ -48,7 +48,7 @@ public class ReportController {
     model.addAttribute("type", types);
     model.addAttribute("cont", report.getCont());
     reportService.add(report);
-    return "admin";
+    return "report/admin";
   }
 
 

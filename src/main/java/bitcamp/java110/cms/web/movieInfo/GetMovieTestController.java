@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.web;
+package bitcamp.java110.cms.web.movieInfo;
 
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
