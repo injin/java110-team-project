@@ -38,6 +38,4 @@ public class MovieInfoController {
     
     return result;
   }
-  
-  
 }

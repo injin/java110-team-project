@@ -4,7 +4,7 @@ var slice = [].slice;
   var Starrr;
   window.Starrr = Starrr = (function() {
     Starrr.prototype.defaults = {
-      rating: void 0,
+      rating: 0,
       max: 5,
       readOnly: false,
       emptyClass: 'far fa-star',

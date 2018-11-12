@@ -16,19 +16,20 @@
 <body>
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
-	<main role="main" class="container">
+	<div role="main" class="container">
 
 	<div class="jumbotron">
 		<h1>Navbar example</h1>
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#ilsangModal">일상리뷰</button>
+			id="btnIlsang" data-target="#reviewModal">일상리뷰</button>
 		<button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#movieModal">영화리뷰</button>
+			id="btnMovie" data-target="#reviewModal">영화리뷰</button>
 
 	</div>
 
-	<jsp:include page="writingIlsang.jsp"></jsp:include> <jsp:include
-		page="writingMovie.jsp"></jsp:include> </main>
+	<jsp:include page="writingPost.jsp"></jsp:include> 
+	
+	</div>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 
