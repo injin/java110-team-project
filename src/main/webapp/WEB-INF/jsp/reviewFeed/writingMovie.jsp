@@ -16,10 +16,11 @@
 							<div class="input-group-prepend">
 								<div class="input-group-text">영화</div>
 							</div>
-							<input type="text" class="form-control" id="movieSearch"
-								placeholder="영화를 검색해주세요" autocomplete="off"> <input
-								type="hidden" id="movieId">
-								
+							<input type="text"
+								class="form-control ui-autocomplete-input ui-autocomplete-loading"
+								id="movieSearch" placeholder="영화를 검색해주세요" autocomplete="off">
+							<input type="hidden" id="movieId">
+
 						</div>
 					</div>
 
@@ -84,6 +85,7 @@
 						<button type="submit" class="btn btn-primary">SUBMIT</button>
 					</div>
 				</div>
+			</div>
 		</form>
 	</div>
 </div>
