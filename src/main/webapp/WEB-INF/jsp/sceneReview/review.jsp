@@ -33,7 +33,7 @@
         margin-top: 20px;
     }
     .genre-tag {
-        border : 1.5px solid #00cca3;
+        border : 1px solid #00cca3;
         font-weight: bold;
         line-height: 1.8em;
         color: #00cca3;
@@ -54,7 +54,7 @@
     <jsp:include page="../include/header.jsp"></jsp:include>
 
 
-    <main role="main" class="container">
+    <main role="main" class="container borderGray">
         
         <div class="row">
             <div class="col-12" id="movie-cover" style="background-image: url(${sceneCover.coverImg})">
@@ -62,7 +62,7 @@
                     <div id="movie-title">
                         <h3><b>${tmdbMovie.title}</b>
                             <c:if test="${not empty sessionScope.loginUser}">
-                            <a href="#" class="btn-pencil" id="btn-add-scene"><img src="/img/btn-pencil.png"></a>
+                            <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
                             </c:if>
                         </h3>
                         <p>(${tmdbMovie.releaseDate})</p>
@@ -88,17 +88,18 @@
     <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#reportModal">신고하기</button>
     <jsp:include page="../report/report.jsp"></jsp:include> --%>
+    
+    <%@ include file="addPopup.jsp" %>
     </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
-    // 등록 버튼 클릭시
-    $('#btn-add-scene').click(() => {
-        alert('등록 모달 오픈');
-        
-    });
+    var $modal = $('#srAddModal').modal({'show' : false});
     
+    function closeModal() {
+        $modal.modal('hide');
+    }
     
     </script>
 </body>

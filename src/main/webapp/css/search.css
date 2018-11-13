@@ -1,5 +1,6 @@
 @charset "UTF-8";
-.ui-autocomplete {
+
+/* .ui-autocomplete {
 	max-height: 200px;
 	overflow: auto;
 	position: absolute;
@@ -14,6 +15,10 @@
 	margin: 2px 0 0 0;
 	list-style: none;
 	background-color: #ffffff;
+	border-color: #ccc;
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 1px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -25,10 +30,6 @@
 	background-clip: padding-box;
 	*border-right-width: 2px;
 	*border-bottom-width: 2px;
-}
-
-.photo-star-section{
-	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
 ul li:hover {
@@ -48,18 +49,18 @@ ul li:hover {
 	height: 20%
 }
 
-#media-list li img{
+#media-list1 li img, #media-list2 li img {
 	width: 100px;
 	height: 100px
 }
 
-#media-list li{
+#media-list1 li, #media-list2 li {
 	height: 102px
 }
 
-#reviewModal{
-	margin:auto;
+#dailyModal, #filmModal {
 	width: 40%;
+	margin-top: 5%;
 }
 
 .lock {
@@ -72,6 +73,15 @@ ul li:hover {
 	position: relative;
 	left: 60%;
 	top: 15%;
+}
+
+#media-list1 li video, #media-list2 li video {
+	width: 100px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%)
 }
 
 div#hint_brand .modal-dialog {
@@ -106,7 +116,7 @@ li.myupload span i {
 	font-size: 54px
 }
 
-#media-list li{
+#media-list1 li, #media-list2 li {
 	float: left;
 	border: 1px solid #ccc;
 	background: #ccc;
@@ -115,7 +125,7 @@ li.myupload span i {
 	width: 102px
 }
 
-#media-list li:last-child{
+#media-list1 li:last-child, #media-list2 li:last-child {
 	margin-right: 0
 }
 
@@ -129,7 +139,7 @@ li.myupload span i {
 	display: none
 }
 
-#media-list li:hover .post-thumb{
+#media-list1 li:hover .post-thumb, #media-list2 li:hover .post-thumb {
 	display: block
 }
 
@@ -182,13 +192,13 @@ ul.btn-nav li span input {
 	filter: alpha(opacity = 100)
 }
 
-ul#media-list{
+ul#media-list1, ul#media-list2 {
 	list-style: none;
 	padding: 0;
 	margin: 0
 }
 
-/* The switch - the box around the slider */
+The switch - the box around the slider
 .switch {
 	position: absolute;
 	display: inline-block;
@@ -197,14 +207,14 @@ ul#media-list{
 	right: 50px;
 }
 
-/* Hide default HTML checkbox */
+Hide default HTML checkbox
 .switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
 
-/* The slider */
+The slider
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -243,11 +253,11 @@ input:checked+.slider:before {
 	transform: translateX(26px);
 }
 
-/* Rounded sliders */
+Rounded sliders
 .slider.round {
 	border-radius: 34px;
 }
 
 .slider.round:before {
 	border-radius: 50%;
-}
+} */

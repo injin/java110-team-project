@@ -8,12 +8,15 @@ body {
   min-height: 75rem;
   padding-top: 3.5rem;
 }
+body.bgGray {
+    background-color: #F2F4F7;
+}
 
 main {
     min-height: 75rem;
+    
 }
-
-.container {
+main.borderGray {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
