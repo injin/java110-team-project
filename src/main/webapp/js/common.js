@@ -26,3 +26,32 @@ function logoutKakao(){
              }
             );
 };
+
+$(function () {
+	$('#signOut').click(function () {
+		var accessToken = Kakao.Auth.getAccessToken();
+		console.log(accessToken);
+		location.href='/app/auth/signout';
+		
+	});
+});
+
+function bye () {
+	var accessToken = Kakao.Auth.getAccessToken();
+	console.log(accessToken);
+	Kakao.API.request({
+        url: '/v1/user/unlink',
+});
+	
+}
+// <input type="button" id="signOut" method="post">
+
+
+// MODAL RESET ==============================
+
+$('.modal').on('hidden.bs.modal', function (e) {
+//    $(this).find('form').trigger('reset');
+  location.reload();
+  
+});
+// ==============================

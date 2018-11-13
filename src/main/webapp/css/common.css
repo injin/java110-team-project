@@ -62,3 +62,10 @@ main.borderGray {
 }
 /*========================*/
 
+.profile4X4 {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  border-radius: 100%;
+}

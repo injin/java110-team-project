@@ -8,5 +8,6 @@ public interface AuthService {
   Member getMemberById(String id);
   Map<String, Object> getKakaoResponse(String accessToken);
   Member addMember(Map<String, Object> kakaoResponse);
+  void signOut(int mno);
   
 }
