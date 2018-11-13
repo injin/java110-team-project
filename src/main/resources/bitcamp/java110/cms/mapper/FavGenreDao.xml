@@ -9,4 +9,11 @@
         insert into mv_memb_gr (mno, grno)
         values (#{mno}, #{grno})
     </insert>
+    
+    <delete id="signOut" parameterType="int">
+        DELETE
+            FROM mv_memb_gr
+        WHERE
+            mno=#{mno}
+    </delete>
 </mapper>

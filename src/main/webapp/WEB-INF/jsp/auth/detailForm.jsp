@@ -3,6 +3,7 @@
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setContentType("text/html; charset=utf-8"); %>
 <%@ include file="../include/top.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
    <head>
@@ -19,7 +20,9 @@
          }
       </style>
    </head>
-   <!-- http://localhost:8888/app/signupDetail/detailForm -->
+   <!-- http://localhost:8888/app/signupDetail/detailForm
+        회원 가입시 정보 최초 수정시에만 쓸 페이지, 회원 정보 수정에서 다시 쓸수 있을지 미지수 
+    -->
    <body>
       <jsp:include page="../include/header.jsp"></jsp:include>
       <main role="main" class="container">
@@ -44,10 +47,13 @@
                   <div class="avatar-preview">
                     <c:choose>
                         <c:when test="${fn:startsWith(member.profileImage, 'http')}">
-                            <div id="profilePreview" style="background-image: url(${member.profileImage});"></div>
+                            <div id="profilePreview" style="background-image: url('${member.profileImage}');"></div>
+                        </c:when>
+                        <c:when test="${empty member.profileImage}">
+                                <div id="profilePreview" style="background-image: url('/img/default-profile-img');"></div>
                         </c:when>
                         <c:otherwise>
-                            <div id="profilePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);"></div>
+                            <div id="profilePreview" style="background-image: url('/upload/profile/${member.profileImage}');"></div>
                         </c:otherwise>
                     </c:choose>
                      
@@ -58,11 +64,18 @@
                 <h3 id="cover-img">커버 사진</h3>
                 <div class="cover-upload">
                     <div class="cover-edit">
-                    <input type='file' name="coverImage" id="imageUpload-cover" accept=".png, .jpg, .jpeg" />
-                      <label for="imageUpload-cover"></label>
+                        <input type='file' name="coverImage" id="imageUpload-cover" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload-cover"></label>
                     </div>
                     <div class="cover-preview">
-                        <div id="coverPreview" style="background-image: url(http://i.pravatar.cc/500?img=7);"></div>
+	                    <c:choose>
+	                        <c:when test="${empty member.coverImage}">
+	                            <div id="coverPreview" style="background-image: url('/img/default-cover-img');"></div>
+	                        </c:when>
+	                        <c:otherwise>
+	                            <div id="coverPreview" style="background-image: url('/upload/cover/${member.coverImage}');"></div>
+	                        </c:otherwise>
+	                    </c:choose>
                     </div>
                 </div>
                 <hr>
@@ -70,9 +83,9 @@
                 <h3 id="gr_anly">선호 장르 분석</h3>
                 <div class="btn-group-toggle" data-toggle="buttons">
                     <c:forEach items="${genreList}" var="genre">
-                    <label class="btn btn-checkbox btn-secondary">
-                        <input type="checkbox" name="grnoList" value="${genre.grno}">${genre.grName}
-                    </label>
+                        <label class="btn btn-checkbox btn-secondary">
+                            <input type="checkbox" name="grnoList" value="${genre.grno}">${genre.grName}
+                        </label>
                     </c:forEach>
                 </div>
                 <hr>
@@ -117,15 +130,6 @@
       
       var $inputKeyword = $('#input-srch-keyword');
       var $srchMovieList = $('#list-search-movie');
-      
-      // 영화 검색 창 엔터
-      $inputKeyword.on('keydown', function(e) {
-          e.preventDefault();
-          console.log(e.keyCode);
-          if (e.keyCode == 13) {
-              findMoviesByKeywod();
-          }
-      });
       
       function makeMovieListHtml(data) {
           var html = '';
@@ -228,4 +232,8 @@
       
       </script>
    </body>
+    <form action="signOut" method="post">
+        <input type="hidden" name="mno" value="${member.mno}">
+      <button type="submit" class="btn"  onclick="bye()">!!Caution!! Nuclear Launch!!</button>
+    </form>
 </html>
