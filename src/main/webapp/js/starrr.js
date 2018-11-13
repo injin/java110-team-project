@@ -4,7 +4,7 @@ var slice = [].slice;
   var Starrr;
   window.Starrr = Starrr = (function() {
     Starrr.prototype.defaults = {
-      rating: void 0,
+      rating: 0,
       max: 5,
       readOnly: false,
       emptyClass: 'far fa-star',
@@ -17,7 +17,7 @@ var slice = [].slice;
       this.$el = $el;
       this.createStars();
       this.syncRating();
-      if (this.options.readOnly) {
+      if (this.options.readOnly ) {
         return;
       }
       this.$el.on('mouseover.starrr', 'a', (function(_this) {
