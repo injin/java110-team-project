@@ -17,7 +17,7 @@ public class MlogController {
   @Autowired MlogService mlogservice;
   @Autowired MlogDao mlogDao;
   @Autowired ServletContext sc;
-  @Autowired MemberDao memberDao;
+  @Autowired MemberDao memberDao; 
   
   @RequestMapping("/mloglist")
   public String list(Model model
