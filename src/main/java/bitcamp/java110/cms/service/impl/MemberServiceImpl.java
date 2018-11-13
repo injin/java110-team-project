@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,19 +22,29 @@ public class MemberServiceImpl implements MemberService {
   public void add (Member member) {
     memberDao.insert(member);
     
-    List <Integer> favGenre = member.getFavGenres();
-    
-    for (int i = 0; i < favGenre.size(); i++) {
-      HashMap<Integer, Integer> params = new HashMap<>();
-      params.put(member.getMno(), favGenre.get(i));
-      
-      favGenreDao.insert(params);
-    }
+
   }
 
   @Override
   public Member findById (String id) {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  @Transactional(propagation=Propagation.REQUIRED,
+                 rollbackFor=Exception.class)
+  @Override
+  public void update(Member member) {
+    memberDao.update(member);
+    
+    if (member.getFavGenres().size() > 0) {
+      for (int i = 0; i < member.getFavGenres().size(); i++) {
+        
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("mno", member.getMno());
+        params.put("grno", member.getFavGenres().get(i));
+        favGenreDao.insert(params);
+      }
+    }
   }
 }

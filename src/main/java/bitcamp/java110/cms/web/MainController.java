@@ -11,4 +11,12 @@ public class MainController {
     
     return "index";
   }
+
+  @RequestMapping("/search")
+  public String search() {
+    
+    return "/search/search";
+  }
+
+  
 }

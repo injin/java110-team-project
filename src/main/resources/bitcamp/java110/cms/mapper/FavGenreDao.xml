@@ -2,11 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 회원 선호 장르 테이블 -->
 <mapper namespace="bitcamp.java110.cms.dao.FavGenreDao">
 
-    <insert id="insert" parameterType="map"
-            keyColumn="mno" >
+    <insert id="insert" parameterType="map">
         insert into mv_memb_gr (mno, grno)
-        values(#{mno},#{grno})
+        values (#{mno}, #{grno})
     </insert>
 </mapper>
