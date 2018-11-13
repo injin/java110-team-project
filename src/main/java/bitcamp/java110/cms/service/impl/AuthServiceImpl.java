@@ -4,14 +4,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import bitcamp.java110.cms.dao.MemberDao;
+import bitcamp.java110.cms.dao.MemberDao2;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
   
-  @Autowired MemberDao memberDao;
+  @Autowired MemberDao2 memberDao;
 
   @Override
   public Member getMemberById(String id) {

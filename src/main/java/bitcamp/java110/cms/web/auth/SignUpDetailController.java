@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.GenreService;
-import bitcamp.java110.cms.service.MemberService;
+import bitcamp.java110.cms.service.MemberService2;
 
 @Controller
 @RequestMapping("/signupDetail")
 public class SignUpDetailController {
 
-  @Autowired MemberService memberService;
+  @Autowired MemberService2 memberService;
   @Autowired GenreService genreService;
   @Autowired ServletContext sc;
 
