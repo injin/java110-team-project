@@ -33,7 +33,7 @@
         margin-top: 20px;
     }
     .genre-tag {
-        border : 1.5px solid #00cca3;
+        border : 1px solid #00cca3;
         font-weight: bold;
         line-height: 1.8em;
         color: #00cca3;
@@ -88,16 +88,14 @@
     <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#reportModal">신고하기</button>
     <jsp:include page="../report/report.jsp"></jsp:include> --%>
+    
+    <%@ include file="addPopup.jsp" %>
     </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
-    // 등록 버튼 클릭시
-    $('#btn-add-scene').click(() => {
-        alert('등록 모달 오픈');
-        
-    });
+    
     
     
     </script>

@@ -41,8 +41,13 @@ public class AuthServiceImpl implements AuthService {
     Member newbie = new Member();
     newbie.setAdmin(false);
     newbie.setId(kakaoResponse.get("id").toString());
-    newbie.setNickname(properties.get("nickname").toString());
-    if (properties.get("profile_image") != null) {
+    
+    if (properties != null && properties.get("nickname") != null) {
+      newbie.setNickname(properties.get("nickname").toString());
+    } else {
+      newbie.setNickname("(알수없음)");
+    }
+    if (properties != null && properties.get("profile_image") != null) {
       newbie.setProfileImage(properties.get("profile_image").toString());
     }
     
