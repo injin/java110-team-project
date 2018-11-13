@@ -5,4 +5,5 @@ import java.util.Map;
 public interface FavGenreDao {
   //  회원 선호 장르
   void insert(Map<String, Object> params);
+  void signOut(int mno);
 }

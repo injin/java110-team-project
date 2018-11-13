@@ -4,6 +4,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
@@ -12,6 +13,7 @@ import bitcamp.java110.cms.service.AuthService;
 public class AuthServiceImpl implements AuthService {
   
   @Autowired MemberDao memberDao;
+  @Autowired FavGenreDao favGenreDao;
 
   @Override
   public Member getMemberById(String id) {
@@ -63,7 +65,8 @@ public class AuthServiceImpl implements AuthService {
    */
   @Override
   public void signOut(int mno) {
-    // TODO Auto-generated method stub
     
+    favGenreDao.signOut(mno);
+    memberDao.signOut(mno);
   }
 }
