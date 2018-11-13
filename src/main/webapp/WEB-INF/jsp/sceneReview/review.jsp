@@ -42,9 +42,9 @@
         text-align: center;
         background-color: rgba(255, 256, 255, 0.2);
     }
-    a#btn-pencil > img {
-        width: 40px; height: 40px;
-        margin-top: -10px;
+    a.btn-pencil > img {
+        width: 38px; height: 38px;
+        margin-top: -8px;
     }
     
 </style>
@@ -61,7 +61,9 @@
                 <div id="movie-content">
                     <div id="movie-title">
                         <h3><b>${tmdbMovie.title}</b>
-                            <a href="#" id="btn-pencil"><img src="/img/btn-pencil.png"></a>
+                            <c:if test="${not empty sessionScope.loginUser}">
+                            <a href="#" class="btn-pencil" id="btn-add-scene"><img src="/img/btn-pencil.png"></a>
+                            </c:if>
                         </h3>
                         <p>(${tmdbMovie.releaseDate})</p>
                     </div>
@@ -91,7 +93,11 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
-    
+    // 등록 버튼 클릭시
+    $('#btn-add-scene').click(() => {
+        alert('등록 모달 오픈');
+        
+    });
     
     
     </script>
