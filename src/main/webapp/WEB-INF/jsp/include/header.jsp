@@ -12,12 +12,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           
-          <form action="searchResult" method="get" class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2 ui-autocomplete-input ui-autocomplete-loading" type="text" placeholder="Search" aria-label="Search" 
-          name="keyword">
+          <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" 
+           autocomplete="off"><!--  id="headerSearch"  --> 
+            <input type="hidden" id="hs_movieId">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
           </form>
-          
           <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
                 <a class="nav-link" href="#" onclick="logoutKakao()">${sessionScope.loginUser.nickname}</a>
