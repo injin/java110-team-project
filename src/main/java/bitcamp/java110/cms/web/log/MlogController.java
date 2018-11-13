@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.domain.Mlog;
@@ -20,8 +21,7 @@ public class MlogController {
   @Autowired MemberDao memberDao;
   
   @RequestMapping("/mloglist")
-  public String list(Model model
-      ) {
+  public String list(Model model) {
     
     List<Mlog> logList = mlogservice.getList();
     
@@ -78,6 +78,7 @@ public class MlogController {
     
     return "log/mloglist";
   }
+  
 
 
 }

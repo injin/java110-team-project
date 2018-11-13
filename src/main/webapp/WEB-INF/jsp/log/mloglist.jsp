@@ -8,75 +8,113 @@
 <meta charset="UTF-8">
 <title>log리스트 불러오기</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel="stylesheet" href="starability-all.min.css">
-<link rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-    crossorigin="anonymous">
-<link rel='stylesheet' href='/css/writingIlsang.css'>
 <link rel='stylesheet' href='/css/common.css'>
-<link rel='stylesheet' href='/css/starrr.css'>
+<link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
 <style>
-.test {
-    width: 50px;
-    height: 50px;
-}
-
-table {
-    border: 1px solid black;
-}
-
-table td {
-    border: 1px solid red;
+main {
+    padding-top: 20px;
 }
 </style>
 </head>
 <body>
-<jsp:include page="../include/header.jsp"></jsp:include>
+    <jsp:include page="../include/header.jsp"></jsp:include>
 
     <main role="main" class="container">
 
-    <div>
-        <table>
-            <tr>
-                    <td>로그번호</td>
-                    <td>회원이름</td>
-                    <td>직접대상</td>
-                    <td>간접대상</td>
-                    <td>행위</td>
-                    <td>url</td>
-                    <td>날짜</td>
-            </tr>
-            <c:forEach var="l" items="${list}">
-                <tr>
-                    <td>${l.lgno}</td>
-                    <td>${l.mno }</td>
-                    <td>${l.direct }</td>
-                    <td>${l.indirect }</td>
-                    <td>${l.act }</td>
-                    <td>${l.url }</td>
-                    <td>${l.createdDate }</td>
-                </tr>
-            </c:forEach>
-        </table>
-        
-        <c:forEach var="log" items="${list}">
-            <p>${log.text}</p>
-        </c:forEach>
-        
-
+    <div class="row">
+        <div class="col-lg-2 col-md-4 col-sm-12">
+            <div class="input-group mb-3">
+                <select class="custom-select" id="logType">
+                    <option value="mp" selected>영화리뷰</option>
+                    <option value="dp">일상리뷰</option>
+                    <option value="sr">장면리뷰</option>
+                    <option value="pc">게시물 댓글</option>
+                    <option value="sc">장면리뷰 댓글</option>
+                    <option value="fr">친구</option>
+                </select>
+            </div>
+        </div>
     </div>
-<jsp:include page="../include/footer.jsp"></jsp:include>
 
-    <script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/starrr.js"></script>
-    <script src="/js/common.js"></script>
-    <script src="/js/writingIlsang.js"></script>
+    <div>
+            <div class="logList" id="list-mp">
+                <h4>영화리뷰 로그</h4>
+                <ul class="list-group">
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'mp'}">
+                        <%-- ${log.text} --%>
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+                </ul>
+            </div>
+            <div class="logList" id="list-dp">
+                <h4>일상리뷰 로그</h4>
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'dp'}">
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="logList" id="list-sr">
+                <h4>장면리뷰 로그</h4>
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'sr'}">
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="logList" id="list-pc">
+                <h4>게시물 댓글</h4>
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'pc'}">
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="logList" id="list-sc">
+                <h4>장면리뷰 댓글</h4>
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'sc'}">
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="logList" id="list-fr">
+                <h4>친구</h4>
+                <c:forEach var="log" items="${list}">
+                    <c:if test="${log.direct eq 'fr'}">
+                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                    </c:if>
+                </c:forEach>
+            </div>
+    </div>
+
+    </main>
+
+    <jsp:include page="../include/footer.jsp"></jsp:include>
+
     <script type="text/javascript">
-        $('.starrr').starrr();
+        // 기본으로 게시물 목록만 보여줌
+        showSelectedLogList('mp');
+
+        function showSelectedLogList(logType) {
+            $('.logList').hide();
+            $('#list-' + logType).show();
+        }
+
+        $('#logType').on('change', function() {
+            var selectedLogType = $('#logType').val();
+            showSelectedLogList(selectedLogType);
+        });
+
+        /* document.getElementById('logType').onchange = function() {
+            alert('js 셀렉트 박스 변경하셨네요');
+        }; */
     </script>
 </body>
 </html>
