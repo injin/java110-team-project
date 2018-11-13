@@ -67,6 +67,12 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  public List<Post> getHash(String keyword) {
+    
+    return postHashtagDao.get(keyword);
+  }
+  
+  @Override
   public Post get(int no) {
     return postDao.findByNo(no);
   }
