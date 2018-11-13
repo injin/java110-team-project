@@ -11,10 +11,11 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="text" name="name">
+        <input type="text" name="name" autocomplete="false">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button> -->
+        <button type="button" class="btn btn-secondary" onclick="closeModal()">취소</button>
         <button type="button" class="btn btn-primary">등록</button>
       </div>
     </div>

@@ -62,7 +62,7 @@
                     <div id="movie-title">
                         <h3><b>${tmdbMovie.title}</b>
                             <c:if test="${not empty sessionScope.loginUser}">
-                            <a href="#" class="btn-pencil" id="btn-add-scene"><img src="/img/btn-pencil.png"></a>
+                            <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
                             </c:if>
                         </h3>
                         <p>(${tmdbMovie.releaseDate})</p>
@@ -95,8 +95,11 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
+    var $modal = $('#srAddModal').modal({'show' : false});
     
-    
+    function closeModal() {
+        $modal.modal('hide');
+    }
     
     </script>
 </body>
