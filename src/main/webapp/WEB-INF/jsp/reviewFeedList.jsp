@@ -31,8 +31,8 @@
 
 	</div>
 
-	<jsp:include page="writingIlsang.jsp"></jsp:include> <jsp:include
-		page="writingMovie.jsp"></jsp:include> </main>
+	<jsp:include page="writingIlsang.jsp"></jsp:include> 
+	<jsp:include page="writingMovie.jsp"></jsp:include> </main>
 
 	<jsp:include page="include/footer.jsp"></jsp:include>
 
