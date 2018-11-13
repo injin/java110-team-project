@@ -15,17 +15,20 @@ public class Post {
   protected int likeCnt;
   protected int star;
   protected boolean open;
-  
+
   protected List<String> photos;
   protected List<String> htags;
   
-  
+ 
+
   @Override
   public String toString() {
     return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", content=" + content
-        + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open + ", photos=" + photos + "]";
+        + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open + ", photos=" + photos
+        + ", htags=" + htags + "]";
   }
+
   public List<String> getHtags() {
     return htags;
   }

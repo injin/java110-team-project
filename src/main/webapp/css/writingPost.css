@@ -15,10 +15,6 @@
 	margin: 2px 0 0 0;
 	list-style: none;
 	background-color: #ffffff;
-	border-color: #ccc;
-	border-color: rgba(0, 0, 0, 0.2);
-	border-style: solid;
-	border-width: 1px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -30,6 +26,10 @@
 	background-clip: padding-box;
 	*border-right-width: 2px;
 	*border-bottom-width: 2px;
+}
+
+.photo-star-section{
+	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
 ul li:hover {
@@ -49,18 +49,18 @@ ul li:hover {
 	height: 20%
 }
 
-#media-list1 li img, #media-list2 li img {
+#media-list li img{
 	width: 100px;
 	height: 100px
 }
 
-#media-list1 li, #media-list2 li {
+#media-list li{
 	height: 102px
 }
 
-#dailyModal, #filmModal {
+#reviewModal{
+	margin:auto;
 	width: 40%;
-	margin-top: 5%;
 }
 
 .lock {
@@ -73,15 +73,6 @@ ul li:hover {
 	position: relative;
 	left: 60%;
 	top: 15%;
-}
-
-#media-list1 li video, #media-list2 li video {
-	width: 100px;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 50%;
-	transform: translateY(-50%)
 }
 
 div#hint_brand .modal-dialog {
@@ -116,7 +107,7 @@ li.myupload span i {
 	font-size: 54px
 }
 
-#media-list1 li, #media-list2 li {
+#media-list li{
 	float: left;
 	border: 1px solid #ccc;
 	background: #ccc;
@@ -125,7 +116,7 @@ li.myupload span i {
 	width: 102px
 }
 
-#media-list1 li:last-child, #media-list2 li:last-child {
+#media-list li:last-child{
 	margin-right: 0
 }
 
@@ -139,7 +130,7 @@ li.myupload span i {
 	display: none
 }
 
-#media-list1 li:hover .post-thumb, #media-list2 li:hover .post-thumb {
+#media-list li:hover .post-thumb{
 	display: block
 }
 
@@ -192,7 +183,7 @@ ul.btn-nav li span input {
 	filter: alpha(opacity = 100)
 }
 
-ul#media-list1, ul#media-list2 {
+ul#media-list{
 	list-style: none;
 	padding: 0;
 	margin: 0
