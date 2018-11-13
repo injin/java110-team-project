@@ -5,3 +5,11 @@ body {
 }
 
 .w50 { width: 50px; }
+
+.profile4X4 {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  left: 10px;
+  border-radius: 100%;
+}

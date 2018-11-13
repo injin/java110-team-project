@@ -39,24 +39,47 @@ public class SignUpDetailController {
   @PostMapping("/add")
   public String add(
       Member member,
-      @RequestParam(name="grnoList") List<Integer> grnoList,
+      @RequestParam(name="grnoList", required=false) List<Integer> grnoList,
       MultipartFile profileImage,
-      MultipartFile coverImage) throws Exception {
+      MultipartFile coverImage,
+      HttpSession session) throws Exception {
 
-    if (profileImage != null || coverImage != null ) {
+    if (profileImage != null) {
       String profileImg = UUID.randomUUID().toString();
-      profileImage.transferTo(new File(sc.getRealPath("/upload/" + profileImg + ".png")));
+      profileImage.transferTo(new File(sc.getRealPath("/upload/profile/" + profileImg)));
       member.setProfileImage(profileImg);
-
-      String coverImg = UUID.randomUUID().toString();
-      coverImage.transferTo(new File(sc.getRealPath("/upload/" + coverImg + ".png")));
-      member.setCoverImage(coverImg);
+      System.out.println(profileImg);
     }
-    if (grnoList.size() > 0) {
+    
+    if (coverImage != null) {
+      String coverImg = UUID.randomUUID().toString();
+      coverImage.transferTo(new File(sc.getRealPath("/upload/cover/" + coverImg)));
+      member.setCoverImage(coverImg);
+      System.out.println(coverImg);
+    }
+    
+    if (grnoList != null && grnoList.size() > 0) {
       member.setFavGenres(grnoList);
     }
     memberService.update(member);
+    System.out.println(member);
     
+    session.setAttribute("loginUser", member);
+    
+    return "redirect:/app/";
+  }
+  
+  @PostMapping("/signOut")
+  public String signOut (HttpSession session, int mno) {
+    System.out.println("Bye");
+    System.out.println(mno);
+    
+    
+    
+    
+    
+    
+    session.invalidate();
     return "redirect:/app/";
   }
 }

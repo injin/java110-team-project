@@ -57,5 +57,13 @@ public class AuthServiceImpl implements AuthService {
     return newbie;
   }
   
-  
+  /**
+   * 제하 To Do
+   * kakao 연동 해제
+   */
+  @Override
+  public void signOut(int mno) {
+    // TODO Auto-generated method stub
+    
+  }
 }
