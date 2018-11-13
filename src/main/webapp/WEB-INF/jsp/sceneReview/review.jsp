@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>moviestagram</title>
-<link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel='stylesheet' href='/css/report.css'>
-<link rel='stylesheet' href='/css/common.css'>
+<link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/fontawesome.css">
+<link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/report.css">
+<link rel="stylesheet" href="/css/common.css">
 <style>
     #movie-cover {
         width: 100%;
@@ -83,8 +85,6 @@
         ${movie.posterPath}
         </span>
         
-        
-        
     <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#reportModal">신고하기</button>
     <jsp:include page="../report/report.jsp"></jsp:include> --%>
@@ -95,11 +95,26 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
-    var $modal = $('#srAddModal').modal({'show' : false});
+    /* 모달 관련  */
+    var $modal = $('#srAddModal').modal({show : false});
+    $modal.on('hide.bs.modal', function(e) {
+        $('input[name="srTitle"]').val('');
+    });
     
-    function closeModal() {
-        $modal.modal('hide');
-    }
+    /* 슬라이드 관련 */
+    $('#myRange').on('input', function() {
+        var sec_num = parseInt(this.value, 10);
+        var hours   = Math.floor(sec_num / 3600);
+        var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+        var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+        if (hours   < 10) {hours   = "0"+hours;}
+        if (minutes < 10) {minutes = "0"+minutes;}
+        if (seconds < 10) {seconds = "0"+seconds;}
+        $('#srTime').val(hours+':'+minutes+':'+seconds);
+    });
+    
+    
     
     </script>
 </body>
