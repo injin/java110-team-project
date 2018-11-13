@@ -21,8 +21,6 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void add (Member member) {
     memberDao.insert(member);
-    
-
   }
 
   @Override
@@ -37,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
   public void update(Member member) {
     memberDao.update(member);
     
-    if (member.getFavGenres().size() > 0) {
+    if (member.getFavGenres() != null && member.getFavGenres().size() > 0) {
       for (int i = 0; i < member.getFavGenres().size(); i++) {
         
         HashMap<String, Object> params = new HashMap<>();

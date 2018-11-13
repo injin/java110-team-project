@@ -36,7 +36,7 @@
          where mid = #{id}
     </select>
     
-    <update id="update" parameterType="String">
+    <update id="update" parameterType="member">
 	   UPDATE mv_memb
 	   <trim prefix="SET" suffixOverrides=",">
 	      <if test="nickname != null">nick = #{nickname},</if>
@@ -47,6 +47,12 @@
 	   WHERE
 	      mno = #{mno}
 	</update>
-
+    
+    <delete id="signOut" parameterType="int">
+        DELETE
+            FROM mv_memb
+        WHERE
+            mno=#{mno}
+    </delete>
 	
 </mapper>
