@@ -54,7 +54,7 @@
     <jsp:include page="../include/header.jsp"></jsp:include>
 
 
-    <main role="main" class="container">
+    <main role="main" class="container borderGray">
         
         <div class="row">
             <div class="col-12" id="movie-cover" style="background-image: url(${sceneCover.coverImg})">
