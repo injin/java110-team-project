@@ -30,15 +30,15 @@
              border-radius: 30em;
           }
          .btn-secondary {
-			    color: #6c757d;
-			    background-color: #e9ecef;
-			    border-color: #6c757d;
+		    color: #6c757d;
+		    background-color: #e9ecef;
+		    border-color: #6c757d;
 			}
-			.btn-secondary:hover {
-			    color: #fff;
-			    background-color: #00cc9991;
-			    border-color: #545b62;
-			}
+		.btn-secondary:hover {
+		    color: #fff;
+		    background-color: #00cc9991;
+			border-color: #545b62;
+		}
 			
       </style>
    </head>
