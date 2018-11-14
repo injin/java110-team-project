@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,12 @@ public class ReviewFeedController {
   }
 
   @RequestMapping("/list")
-  public String list() {
+  public String list(
+      Post post,
+      Model model) {
+    
+//    List<Post> hashList = postService.getHash(keyword);
+    
     System.out.println("리뷰피드리스트에 들어옴");
     return "reviewFeed/reviewFeedList";
   }

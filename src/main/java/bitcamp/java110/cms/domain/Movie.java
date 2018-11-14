@@ -3,20 +3,19 @@ package bitcamp.java110.cms.domain;
 public class Movie {
 
   protected int mvno;
-  protected int mvid;
   protected int title;
+
+  @Override
+  public String toString() {
+    return "Movie [mvno=" + mvno + ", title=" + title + "]";
+  }
   public int getMvno() {
     return mvno;
   }
   public void setMvno(int mvno) {
     this.mvno = mvno;
   }
-  public int getMvid() {
-    return mvid;
-  }
-  public void setMvid(int mvid) {
-    this.mvid = mvid;
-  }
+ 
   public int getTitle() {
     return title;
   }
@@ -26,7 +25,6 @@ public class Movie {
   public Movie(int mvno, int mvid, int title) {
     super();
     this.mvno = mvno;
-    this.mvid = mvid;
     this.title = title;
   }
 }

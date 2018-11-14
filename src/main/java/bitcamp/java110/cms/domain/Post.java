@@ -8,7 +8,7 @@ public class Post {
   protected int pstno;
   protected int mno;
   protected int pstTypeNo;
-  protected int mvno;
+  protected Movie movie;
   protected Date createdDate;
   protected Date modifiedDate;
   protected String content;
@@ -19,11 +19,11 @@ public class Post {
   protected List<String> photos;
   protected List<String> htags;
   
- 
-
+  
+  
   @Override
   public String toString() {
-    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", movie=" + movie
         + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", content=" + content
         + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open + ", photos=" + photos
         + ", htags=" + htags + "]";
@@ -35,6 +35,15 @@ public class Post {
 
   public void setHtags(List<String> htags) {
     this.htags = htags;
+  }
+
+  
+  public Movie getMovie() {
+    return movie;
+  }
+
+  public void setMovie(Movie movie) {
+    this.movie = movie;
   }
 
   public List<String> getPhotos() {
@@ -60,12 +69,6 @@ public class Post {
   }
   public void setPstTypeNo(int pstTypeNo) {
     this.pstTypeNo = pstTypeNo;
-  }
-  public int getMvno() {
-    return mvno;
-  }
-  public void setMvno(int mvno) {
-    this.mvno = mvno;
   }
   public Date getCreatedDate() {
     return createdDate;

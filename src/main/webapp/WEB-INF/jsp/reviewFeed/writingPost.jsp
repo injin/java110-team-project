@@ -13,14 +13,14 @@
 					<h5 class="modal-title">리뷰 작성하기</h5>
 					<!-- 영화 검색 -->
 					<input type="hidden" id="pstTypeNo" name="pstTypeNo">
-					<div class="onlyMovie">
+					<div class="onlyMovie" style="padding: 0 1rem;">
 						<div class="input-group ui-widget ui-front">
 							<div class="input-group-prepend">
 								<div class="input-group-text">영화</div>
 							</div>
 							<input type="text"
 								class="form-control ui-autocomplete-input ui-autocomplete-loading"
-								id="movieSearch" placeholder="영화를 검색해주세요" autocomplete="off">
+								id="movieSearch" name="title" placeholder="영화를 검색해주세요" autocomplete="off">
 							<input type="hidden" id="movieId" name="mvno" value="0">
 						</div>
 					</div>

@@ -18,21 +18,33 @@
 		<result column="opn" property="open" />
 	</resultMap>
 
-    
-    <select id="findAll" resultMap="postMap" parameterType="map">
-        
-    </select>
-    
-    <select id="findByNo" resultMap="postMap" parameterType="int">
-    </select>
-    
-    <insert id="insert" parameterType="post" 
-            useGeneratedKeys="true" keyColumn="pstno" keyProperty="pstno">
-        insert into mv_post( mno, ptno, cdt, cont,star, likes, opn)
-        values(#{mno}, #{pstTypeNo}, now(),#{content},#{star},0,if(#{open},'u','l'));
-    </insert>
-    
-    <delete id="delete" parameterType="int">
-    </delete>
+
+	<select id="findAll" resultMap="postMap">
+		select
+		  p.pstno,
+		  p.mvno,
+		  p.star,
+		  p.cont,
+		  p.likes,
+		  m.nick,
+          m.p_phot,
+		  mp.phot
+		from
+		  mv_post p
+		  inner join mv_memb m on m.mno = p.mno
+		  left outer join mv_post_phot mp on p.pstno = mp.pstno
+	</select>
+
+	<select id="findByNo" resultMap="postMap" parameterType="int">
+	</select>
+
+	<insert id="insert" parameterType="post" useGeneratedKeys="true"
+		keyColumn="pstno" keyProperty="pstno">
+		insert into mv_post( mno, ptno, cdt, cont,star, likes, opn)
+		values(#{mno}, #{pstTypeNo}, now(),#{content},#{star},0,if(#{open},'u','l'));
+	</insert>
+
+	<delete id="delete" parameterType="int">
+	</delete>
 
 </mapper>
