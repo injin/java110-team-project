@@ -17,10 +17,17 @@ public class Member implements Serializable {
   protected String pr;
   protected String gender;
   protected String ageRange;
-  protected List<Integer> favGenres; //  회원 선호 장르의 장르 번호
+  protected List<Integer> favGrList; // 회원 선호 장르의 장르 번호
+  protected List<Integer> favMvList;    // 회원 선호 영화 목록
   
   public int getMno() {
     return mno;
+  }
+  public List<Integer> getFavMvList() {
+    return favMvList;
+  }
+  public void setFavMvList(List<Integer> favMvList) {
+    this.favMvList = favMvList;
   }
   public void setMno(int mno) {
     this.mno = mno;
@@ -52,7 +59,6 @@ public class Member implements Serializable {
   
   
   public String getProfileImagePath() {
-    System.out.println("Member.getProfileImagePath() : " + profileImage);
     if (profileImage == null) {
       return "/img/default-profile-img";
     }
@@ -95,18 +101,19 @@ public class Member implements Serializable {
   public void setAgeRange(String ageRange) {
     this.ageRange = ageRange;
   }
-  public List<Integer> getFavGenres() {
-    return favGenres;
+  public List<Integer> getFavGrList() {
+    return favGrList;
   }
-  public void setFavGenres(List<Integer> favGenres) {
-    this.favGenres = favGenres;
+  public void setFavGrList(List<Integer> favGrList) {
+    this.favGrList = favGrList;
   }
+  
   
   @Override
   public String toString() {
     return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname
         + ", profileImage=" + profileImage + ", coverImage=" + coverImage + ", pr=" + pr
-        + ", gender=" + gender + ", ageRange=" + ageRange + ", favGenres=" + favGenres + "]";
+        + ", gender=" + gender + ", ageRange=" + ageRange + ", favGrList=" + favGrList
+        + ", favMvList=" + favMvList + "]";
   }
-
 }

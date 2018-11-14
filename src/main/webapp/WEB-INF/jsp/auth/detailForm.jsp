@@ -30,16 +30,16 @@
              border-radius: 30em;
           }
          .btn-secondary {
-		    color: #6c757d;
-		    background-color: #e9ecef;
-		    border-color: #6c757d;
-			}
-		.btn-secondary:hover {
-		    color: #fff;
-		    background-color: #00cc9991;
-			border-color: #545b62;
-		}
-			
+            color: #6c757d;
+            background-color: #e9ecef;
+            border-color: #6c757d;
+            }
+        .btn-secondary:hover {
+            color: #fff;
+            background-color: #00cc9991;
+            border-color: #545b62;
+        }
+            
       </style>
    </head>
    <!-- http://localhost:8888/app/signupDetail/detailForm
@@ -91,19 +91,18 @@
                 <h3 id="gr_anly">선호 장르 분석</h3>
                 
                 <div class="gr_anly">
-	                <div class="btn-group-toggle" data-toggle="buttons">
-	                    <c:forEach items="${genreList}" var="genre">
-	                        <label class="btn btn-checkbox btn-secondary">
-	                            <input type="checkbox" name="grnoList" value="${genre.grno}">${genre.grName}
-	                        </label>
-	                    </c:forEach>
-	                </div>
+                    <div class="btn-group-toggle" data-toggle="buttons">
+                        <c:forEach items="${genreList}" var="genre">
+                            <label class="btn btn-checkbox btn-secondary">
+                                <input type="checkbox" name="favGrList" value="${genre.grno}">${genre.grName}
+                            </label>
+                        </c:forEach>
+                    </div>
                 </div>
                 
                 <hr>
-
-
-
+                
+                
                 
                 <h3 id="mv_anly">인생영화선정</h3>
                 <p>취향 분석을 위한 작품 10개를 선정해 주세요.</p>
@@ -129,6 +128,8 @@
                     </div>
                   </li>
                 </ul>
+                
+                
                 
                 <hr>
                 <input type="submit" class="btn btn-default" value="확인">
