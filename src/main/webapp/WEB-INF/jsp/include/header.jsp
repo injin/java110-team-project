@@ -23,13 +23,13 @@
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                   <a class="dropdown-item" href="#">메뉴1</a>
                   <a class="dropdown-item" href="#">메뉴2</a>
-                  <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a>
+                  <a class="dropdown-item" href="javascript:logoutKakao()">Logout</a>
                 </div>
               </li>
             </c:when>
             <c:otherwise>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:loginWithKakao()">로그인</a>
+                <a class="nav-link" href="javascript:loginWithKakao()">Account</a>
               </li>
             </c:otherwise>
         </c:choose>
