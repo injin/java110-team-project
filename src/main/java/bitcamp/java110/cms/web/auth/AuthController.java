@@ -114,8 +114,7 @@ public class AuthController {
         MultipartFile profileImage,
         MultipartFile coverImage,
         HttpSession session) throws Exception {
-      System.out.println("add 시작 \n" + member + "\n");
-      System.out.println("Add.profileImage.getName() : " + profileImage.getName());
+      System.out.println("\n" + member + "\n");
       
       if (profileImage != null && profileImage.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -135,10 +134,9 @@ public class AuthController {
         member.setFavGenres(grnoList);
       }
       memberService.update(member);
-      System.out.println("update");
-      
-      System.out.println(member + "\n");
       session.setAttribute("loginUser", member);
+      
+      System.out.println("update");
       System.out.println(member + "\n");
       return "redirect:/app/";
     }

@@ -56,7 +56,6 @@ public class Member implements Serializable {
     if (profileImage == null) {
       return "/img/default-profile-img";
     }
-    
     if (profileImage.startsWith("http")) {
       return profileImage;
     } else {

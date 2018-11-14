@@ -18,6 +18,28 @@
             max-height: 250px;
             overflow: auto;
          }
+         
+         .gr_anly {
+            padding: 1rem;
+            margin: 2em;
+         }
+
+          .gr_anly label {
+             width: 6em;
+             margin: 1rem;
+             border-radius: 30em;
+          }
+         .btn-secondary {
+			    color: #6c757d;
+			    background-color: #e9ecef;
+			    border-color: #6c757d;
+			}
+			.btn-secondary:hover {
+			    color: #fff;
+			    background-color: #00cc9991;
+			    border-color: #545b62;
+			}
+			
       </style>
    </head>
    <!-- http://localhost:8888/app/signupDetail/detailForm
@@ -64,17 +86,26 @@
                 </div>
                 <hr>
 
+
+
                 <h3 id="gr_anly">선호 장르 분석</h3>
-                <div class="btn-group-toggle" data-toggle="buttons">
-                    <c:forEach items="${genreList}" var="genre">
-                        <label class="btn btn-checkbox btn-secondary">
-                            <input type="checkbox" name="grnoList" value="${genre.grno}">${genre.grName}
-                        </label>
-                    </c:forEach>
-                </div>
-                <hr>
                 
-                <h3 id="gr_anly">인생영화선정</h3>
+                <div class="gr_anly">
+	                <div class="btn-group-toggle" data-toggle="buttons">
+	                    <c:forEach items="${genreList}" var="genre">
+	                        <label class="btn btn-checkbox btn-secondary">
+	                            <input type="checkbox" name="grnoList" value="${genre.grno}">${genre.grName}
+	                        </label>
+	                    </c:forEach>
+	                </div>
+                </div>
+                
+                <hr>
+
+
+
+                
+                <h3 id="mv_anly">인생영화선정</h3>
                 <p>취향 분석을 위한 작품 10개를 선정해 주세요.</p>
                 
                 <div class="input-group">
@@ -106,10 +137,6 @@
           </div>
       </main>
       <jsp:include page="../include/footer.jsp"></jsp:include>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-      <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-      <script src="/js/bootstrap.js"></script>
-      <script src="/js/common.js"></script>
       <script type="text/javascript">
       
       var $inputKeyword = $('#input-srch-keyword');
@@ -175,12 +202,8 @@
                   console.log(msg);
               }
           });
-          
-          
       }
-      
-      
-      
+-      
       // 커버 & 프로필 이미지 업로드 관련
       $("#imageUpload-cover").change(function() {
           coverURL(this);
@@ -218,6 +241,6 @@
    </body>
     <form action="signOut" method="post">
         <input type="hidden" name="mno" value="${member.mno}">
-      <button type="submit" class="btn"  onclick="bye()">!!Caution!! Nuclear Launch!!</button>
+        <button type="submit" class="btn"  onclick="bye()">!!Caution!! Nuclear Launch!!</button>
     </form>
 </html>
