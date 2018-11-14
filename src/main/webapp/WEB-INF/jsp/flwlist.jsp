@@ -11,30 +11,55 @@
 
 <style>
 
-.outer {
-  display : inline-block;
-  width : 400px;
-  height: 150px;
+.card-flwprofile{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin: 0.5rem;
+    margin-right: -1rem;
 }
 
+.flwcover{
+  width : 900px;
+  height: 100%;
+  padding-left: 30px;
+  padding-right: 50px;
+  display: contents;
+ }
+ 
 .left {
   
   float: left;
   width: 30%;
   height : 100%;
+  
+}
+
+.col-md-flwprofile{
+  position: relative;
+ 
+  min-height: 1px;
+ 
 }
 
 .right {
-  float: right;
-  width: 70%;
-  height : 100%;
+    display: inline-block;
+    float: left;
+    width: 16rem;
+    height: 90%;
+    border: 1px solid black;
+    text-align: center;
 }
 
-.inner_container
-{
-   display: table-cell;
-   text-align :center;
-   margin: 0 auto;
+.card-body-flwprofile {
+    flex: 1 1 auto;
+    padding: 0.75rem;
 }
 
 .profileflw{
@@ -45,22 +70,13 @@
 }
 
 .text {
-  
   font-weight: bold;
-  font-size: 35px;
-  padding-top: 10px;
-
+  font-size: 30px;
+  
 }
 
-.flwbutton{
- text-align :center;
-}
+ 
 
-.cover{
-  width : 900px;
-  height: 500px;
-  padding-left: 20px;
- }
 
 </style>
 
@@ -80,15 +96,24 @@
 			&raquo;</a>
 	</div>
 	<div class="row">
-		<div class="cover">
+		<div class="flwcover">
 			<c:forEach items="${flwlist}" var="flw">
-				<div class="outer ">
-					<div class='left'>
-						<img class="profileflw" src="/upload/profile/${flw.profileImage}" />
-					</div>
-					<div class='right inner_container'>
-						<label class="text">${flw.nickname}</label><br>
-						<button class="btn btn-lg btn-primary ">팔로우&raquo;</button>
+				<div class="card-flwprofile w-50">
+					<div class="card-body-flwprofile">
+						<div class='col-md-flwprofile left'>
+							<c:choose>
+								<c:when test="${not empty flw.profileImage}">
+									<img class="profileflw" src="/img/default-profile-img" />
+								</c:when>
+								<c:otherwise>
+									<img class="profileflw" src="/img/default-profile-img" />
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class ="right">
+						<p class="card-text text">${flw.nickname}</p>
+						<a href="#" class="btn btn-primary">Button</a>
+						</div>
 					</div>
 				</div>
 			</c:forEach>
