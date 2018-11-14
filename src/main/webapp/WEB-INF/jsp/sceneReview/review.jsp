@@ -21,7 +21,6 @@
 
 
     <main role="main" class="container borderGray">
-        
         <div class="row">
             <div class="col-12" id="movie-cover" style="background-image: url(${sceneCover.coverImg})">
                 <div id="movie-content">
@@ -44,10 +43,6 @@
             </div>
         </div>
         
-        <span>
-        ${movie.title}
-        ${movie.posterPath}
-        </span>
         
     <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#reportModal">신고하기</button>
@@ -62,11 +57,11 @@
     /* 모달 관련  */
     var $modal = $('#srAddModal').modal({show : false});
     $modal.on('hide.bs.modal', function(e) {
-        $('input[name="srTitle"]').val('');
+        $('form#srAddForm input').val('');
     });
     
     /* 슬라이드 관련 */
-    $('#myRange').on('input', function() {
+    $('#srTimeSlider').on('input', function() {
         var sec_num = parseInt(this.value, 10);
         var hours   = Math.floor(sec_num / 3600);
         var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
@@ -78,7 +73,56 @@
         $('#srTime').val(hours+':'+minutes+':'+seconds);
     });
     
+    function addSceneReview() {
+        
+        if (validateForm() == false)
+            return;
+        
+        // 장면 시간 초단위 세팅
+        var srTimeVal = $('#srTime').val();
+        var hourVal = parseInt(srTimeVal.substring(0, 2));
+        var minuteVal = parseInt(srTimeVal.substring(3, 5));
+        var secondVal = parseInt(srTimeVal.substring(6, 8));
+        $('input[name="time"]').val(hourVal*3600 + minuteVal*60 + secondVal);
+        
+        // 스포 여부
+        $('input[name="spo"]').val($('#tfSpo').prop('checked')? 'Y': 'N');
+        
+        $('form#srAddForm').submit();
+    }
     
+    function validateForm() {
+        
+        // 장면 시간 검사
+        var srTimeVal = $('#srTime').val();
+        var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
+        if (!(pattern.test(srTimeVal))) {
+            alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
+            return false;
+        }
+        
+        // 장면제목
+        var titleVal = $('input[name="title"]').val();
+        if (titleVal == null) {
+            alert('장면제목을 입력해 주세요');
+            return false;
+        }
+        
+        // 장면내용
+        var contVal = $('textarea[name="cont"]').val();
+        if (contVal == null) {
+            alert('장면내용을 입력해 주세요');
+            return false;
+        }
+        
+        // 파일 선택
+        if ($('input[name="phot"]').val().length == 0) {
+            alert('이미지를 선택해 주세요');
+            return false;
+        }
+        
+        return true;
+    }
     
     </script>
 </body>
