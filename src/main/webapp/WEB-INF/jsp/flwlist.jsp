@@ -12,33 +12,54 @@
 <style>
 
 .outer {
+  display : inline-block;
   width : 400px;
   height: 150px;
 }
 
 .left {
-  background: red;
+  
   float: left;
   width: 30%;
   height : 100%;
 }
 
 .right {
-  background: blue;
   float: right;
   width: 70%;
   height : 100%;
 }
 
 .inner_container
-
 {
    display: table-cell;
    text-align :center;
    margin: 0 auto;
-   
 }
 
+.profileflw{
+  display: inline-block;
+  width: 90%;
+  height: 90%;
+  border-radius: 100%;
+}
+
+.text {
+  
+  font-weight: bold;
+  font-size: 35px;
+  padding-top: 15px;
+  padding-bottom: 5px; 
+}
+
+.flwbutton{
+ text-align :center;
+}
+
+.cover{
+  width : 900px;
+  height: 500px;
+ }
 
 </style>
 
@@ -48,27 +69,34 @@
       
    <jsp:include page="include/header.jsp"></jsp:include>
 
-   <main role="main" class="container">
-	<div class="jumbotron">
-		<h1>Navbar example</h1>
-		<p class="lead">This example is a quick exercise to illustrate how
-			fixed to top navbar works. As you scroll, it will remain fixed to the
-			top of your browser's viewport.</p>
-		<a class="btn btn-lg btn-primary" role="button">View navbar docs &raquo;</a>
-	</div>
-	</main>
 	
+<div class ="row">
+<div class ="cover">	
 <div class ="outer ">
-<div class='left'>왼쪽</div>
-<div class='right inner_container'><button class="btn btn-lg btn-primary">팔로우&raquo;</button></div>
+<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
+<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
 </div>
-
-
+<div class ="outer ">
+<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
+<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
+</div>
+<div class ="outer ">
+<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
+<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
+</div>
+<div class ="outer ">
+<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
+<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
+</div>
+<div class ="outer ">
+<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
+<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
+</div>
+</div>
+</div>
 	<!--     <table>
      <tr><td>나의 피드</td><td>정보수정</td><td>통계</td><td>팔로우</td><td>활동로그</td><td>장면보관함</td></tr>
     </table> -->
- 
-    
     
 <%--     
 <form action="list" method="post" enctype="multipart/form-data">
