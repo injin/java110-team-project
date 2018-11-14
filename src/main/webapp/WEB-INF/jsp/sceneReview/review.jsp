@@ -5,89 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>장면리뷰</title>
 <link rel="stylesheet" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
-<link rel="stylesheet" href="/css/report.css">
+<link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-    #movie-cover {
-        width: 100%;
-        height: 500px;
-        background-size: cover;
-        border-bottom: 1px solid #ccc;
-    }
-    #movie-title {
-        width: 300px;
-        height: 100px;
-        background-color: rgba(255, 256, 255, 0.3);
-        padding: 8px 10px;
-        margin-top: 20px;
-        margin-left: 10px;
-        float: left;
-        display: inline-block;
-    }
-    #movie-genres {
-        width: 80px;
-        display: inline-block;
-        float: right;
-        margin-top: 20px;
-    }
-    .genre-tag {
-        border : 1px solid #00cca3;
-        font-weight: bold;
-        line-height: 1.8em;
-        color: #00cca3;
-        margin-top: 5px;
-        border-radius: 20px;
-        text-align: center;
-        background-color: rgba(255, 256, 255, 0.2);
-    }
-    a.btn-pencil > img {
-        width: 38px; height: 38px;
-        margin-top: -8px;
-    }
     
-    
-    /*===== range slider =====*/
-    .slidecontainer {
-        width: 100%;
-    }
-    
-    .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 25px;
-        background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-    }
-    
-    .slider:hover {
-        opacity: 1;
-    }
-    
-    .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        /* background: #4CAF50; */
-        background: #00cc99;
-        cursor: pointer;
-    }
-    
-    .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        /* background: #4CAF50; */
-        background: #00cc99;
-        cursor: pointer;
-    }
-    /*========================*/
 </style>
 </head>
 <body>
