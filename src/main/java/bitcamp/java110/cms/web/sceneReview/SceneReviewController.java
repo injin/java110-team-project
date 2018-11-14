@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -24,9 +25,16 @@ public class SceneReviewController {
     model.addAttribute("imgPrefix", Constants.TMDB_IMG_PREFIX_ORIGIN);
     model.addAttribute("sceneCover", sceneReviewService.makeSceneCover(tmdbMovie));
     
-    
-    
     return "sceneReview/review";
+  }
+  
+  @RequestMapping("/add")
+  public String add(SceneReview sr, Model model) {
+    
+    System.out.println("장면리뷰" + sr.toString());
+    int movieId = sr.getMovie().getMvno();
+    
+    return "redirect:/app/sceneReview/review?movieId=" + movieId;
   }
   
   
