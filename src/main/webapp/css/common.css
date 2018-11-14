@@ -25,8 +25,7 @@ main.borderGray {
 
 .profile4X4 {
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  left: 10px;
+  width: 1.8em;
+  height: 1.8em;
   border-radius: 100%;
 }

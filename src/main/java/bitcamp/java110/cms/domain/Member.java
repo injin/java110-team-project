@@ -13,6 +13,7 @@ public class Member implements Serializable {
   protected String id;
   protected String nickname;
   protected String profileImage;
+  protected String profileImagePath;
   protected String coverImage;
   protected String pr;
   protected String gender;
@@ -48,6 +49,17 @@ public class Member implements Serializable {
   }
   public void setProfileImage(String profileImage) {
     this.profileImage = profileImage;
+  }
+  public String getProfileImagePath() {
+    if (profileImage == null) {
+      return "/img/default-profile-img.png";
+    }
+    
+    if (profileImage.startsWith("http")) {
+      return profileImage;
+    } else {
+      return "/upload/profile/" + profileImage;
+    }
   }
   public String getCoverImage() {
     return coverImage;
