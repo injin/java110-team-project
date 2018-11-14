@@ -53,7 +53,7 @@ main {
                 </ul>
             </div>
             <div class="logList" id="list-dp">
-                <h4>일상리뷰 로그</h4>
+                <h4>일상리뷰 로그1</h4>
                 <c:forEach var="log" items="${list}">
                     <c:if test="${log.direct eq 'dp'}">
                         <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
