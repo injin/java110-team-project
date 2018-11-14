@@ -45,10 +45,10 @@
 .reviewCont {
 	height: 13rem;
 	-ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	overflow: hidden;
 }
 </style>
 </head>
@@ -87,11 +87,11 @@
 				<img src="/img/default-movie-img.png"
 					style="width: 1.8rem; height: 1.8rem; border-radius: 50%; margin-right: 0.5rem" />
 				<div class="media-body">
-				 <p style="float: left">
-					<a href="#" style="color: black;" class="row">닉네임</a>
-					<a href="#" style="color: blue;font-size:0.2rem"class="row">친구태그</a>
-			     </p>
-					<p style="float: right;font-size: 1.5rem">
+					<div style="float: left">
+						<a href="#" style="color: black;display: inline-block;" class="row">닉네임</a> <a href="#"
+							style="color: blue; font-size: 0.2rem;display: inline-block;" class="row">친구태그</a>
+					</div>
+					<p style="float: right; font-size: 1.5rem">
 						<b><i>영화제목</i></b>
 					</p>
 				</div>
@@ -113,11 +113,11 @@
 						ffffffffffffffffffffffffffffffffffffffffffffffffffffff
 						ffffffffffffffffffffffffffffffffffffffffffffffff
 						ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-						ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-						</p>
-				</div> <!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
+						ffffffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
+				</div>
+				<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
 				<img src="/img/default-movie-img.png"
-					style="width: 20rem; height: 13rem;margin-left: 1rem;" />
+					style="width: 20rem; height: 13rem; margin-left: 1rem;" />
 			</div>
 			<div class="row">
 				<div class="col-6" style="text-align: left">
