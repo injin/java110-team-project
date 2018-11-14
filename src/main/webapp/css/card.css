@@ -1,11 +1,14 @@
 @charset "UTF-8";
 
+#showAllMovies, #showAllTags{
+    cursor: pointer;
+}
 
 img{
     width: 100px;
 }
 section{
-	background-color: #f1f4fa;
+	background-color: #F2F4F7;
 }
 /* section {
 	padding: 4rem 20% 5rem;
@@ -14,6 +17,9 @@ section{
     padding-bottom: 5rem;
     background-color: #f1f4fa;
 } */
+.container{
+	height:200%;
+}
 
 @media (min-width: 0px) {
   section {

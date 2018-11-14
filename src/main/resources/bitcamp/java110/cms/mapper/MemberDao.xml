@@ -48,5 +48,10 @@
 	      mno = #{mno}
 	</update>
 
+    <select id="findByNick" parameterType="String" resultType="hashmap">
+      select mno, nick, p_phot
+      from mv_memb
+      where nick like concat('%',#{keyword},'%');
+    </select>
 	
 </mapper>
