@@ -82,7 +82,7 @@ public class AuthController {
     public String signout(
         HttpSession session,
         @RequestParam(required=false)int mno) {
-      System.out.println("Bye");
+      System.out.println("Bye\n\n");
       System.out.println(mno);
       //    비로그인 유저가 들어온다면 돌려보냄. 안되네?
       if (mno <= 0) {
@@ -114,15 +114,16 @@ public class AuthController {
         MultipartFile profileImage,
         MultipartFile coverImage,
         HttpSession session) throws Exception {
-
-      if (profileImage != null) {
+      System.out.println("\n" + member + "\n");
+      
+      if (profileImage != null && profileImage.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
         profileImage.transferTo(new File(sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
         System.out.println(profileImg);
       }
       
-      if (coverImage != null) {
+      if (coverImage != null && coverImage.getSize() > 0) {
         String coverImg = UUID.randomUUID().toString();
         coverImage.transferTo(new File(sc.getRealPath("/upload/cover/" + coverImg)));
         member.setCoverImage(coverImg);
@@ -133,10 +134,10 @@ public class AuthController {
         member.setFavGenres(grnoList);
       }
       memberService.update(member);
-      System.out.println(member);
-      
       session.setAttribute("loginUser", member);
       
+      System.out.println("update");
+      System.out.println(member + "\n");
       return "redirect:/app/";
     }
     

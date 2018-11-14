@@ -49,12 +49,34 @@ public class Member implements Serializable {
   public void setProfileImage(String profileImage) {
     this.profileImage = profileImage;
   }
+  
+  
+  public String getProfileImagePath() {
+    System.out.println("Member.getProfileImagePath() : " + profileImage);
+    if (profileImage == null) {
+      return "/img/default-profile-img";
+    }
+    if (profileImage.startsWith("http")) {
+      return profileImage;
+    } else {
+      return "/upload/profile/" + profileImage;
+    }
+  }
+  
   public String getCoverImage() {
     return coverImage;
   }
   public void setCoverImage(String coverImage) {
     this.coverImage = coverImage;
   }
+  public String getCoverImagePath() {
+    if (coverImage == null) {
+      return "/img/default-cover-img.png";
+    } else {
+      return "/upload/cover/" + coverImage;
+    }
+  }
+  
   public String getPr() {
     return pr;
   }

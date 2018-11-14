@@ -13,15 +13,20 @@
       </div>
       <div class="modal-body">
         
-        <div class="input-group mb-3">
+        <div class="slidecontainer">
+            <fmt:parseNumber var="maxTime" type="number" value="${tmdbMovie.runtime * 60}" />
+            <input type="range" min="0" max="${maxTime}" value="0" class="range-slider" id="myRange">
+        </div>
+        
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1"><i class="far fa-clock"></i></span>
           </div>
           <input type="text" class="form-control" placeholder="장면시간" aria-label="장면시간"
-                aria-describedby="basic-addon1" name="srTime" id="srTime">
+                aria-describedby="basic-addon1" name="srTime" id="srTime" value="00:00:00">
         </div>
         
-        <div class="input-group mb-3">
+        <div class="input-group mb-2">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1"><i class="fas fa-film"></i></span>
           </div>
@@ -29,15 +34,30 @@
                 aria-describedby="basic-addon1" name="srTitle">
         </div>
         
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-align-left"></i></span>
+          </div>
+          <textarea class="form-control" placeholder="장면내용" aria-label="장면내용" rows="5"></textarea>
+        </div>
         
-        <fmt:parseNumber var="maxTime" type="number" value="${tmdbMovie.runtime * 60}" />
-        <input type="range" min="0" max="${maxTime}" value="50" class="slider" id="myRange">
+        <div class="input-group mb-2">
+            <input type="file" class="form-control-file" id="srImg">
+        </div>
+        
+        <div class="input-group mb-2">
+            <label class="switch mr-2">
+              <input type="checkbox" class="default" id="blSpo">
+              <span class="slider round"></span>
+            </label>
+            <label for="blSpo">스포여부</label>
+        </div>
         
         
       </div>
+        
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">등록</button>
+        <button type="button" class="btn btn-secondary">등록</button>
       </div>
     </div>
   </div>
