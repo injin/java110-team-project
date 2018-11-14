@@ -4,19 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.FlwDao">
 
-	<resultMap type="flw" id="flwMap">
+	<resultMap type="member" id="flwMap">
 		<id column="mno" property="mno" />
-		<result column="flw" property="flw" />
+		<result column="nick"    property="nickname" />
+		<result column="p_phot"    property="profileImage" />
 	</resultMap>
     
     
-    <select id="flwlist" resultMap="flwMap" parameterType="map">
-     select 
-            flw
-     from mv_flw
-     where mno = 4
+  <select id="flwlist" resultMap="flwMap" parameterType="map">
+   select m1.mno as mno , m2.mno as flw , m2.nick as nick, m2.p_phot as p_phot
+     from mv_memb m1, 
+          mv_memb m2 , 
+          mv_flw f
+     where m1.mno != m2.mno 
+       and m1.mno = f.mno 
+       and m2.mno = f.flw 
+       and m1.mno =5
+    ORDER by m1.mno , m2.mno
     </select>
     
-  
     
 </mapper>

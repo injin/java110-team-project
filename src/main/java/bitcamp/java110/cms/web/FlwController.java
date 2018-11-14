@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.domain.Flw;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
 
 @Controller
@@ -18,6 +20,8 @@ public class FlwController {
     @Autowired
     FlwService flwService;
 
+    @Autowired 
+    FlwDao flwDao;
     
     @RequestMapping("flwlist")
     public String flwlist(Model model) {
@@ -25,13 +29,23 @@ public class FlwController {
      List<Flw> a = flwService.list();
      model.addAttribute("flwlist" , a);
      
-   
+     
       return "flwlist";
     
     }
     
-
     
+    @RequestMapping("flwprofile")
+    public String flwprofile(Model model) {
+        
+     List<Flw> a = flwService.profile();
+     model.addAttribute("flwprofile" , a);
+     
+     System.out.println(a);
+     
+      return "flwlist";
+      
+    }
     
     
 /*    @RequestMapping("list")

@@ -7,4 +7,5 @@ import bitcamp.java110.cms.domain.Flw;
 public interface FlwDao {
 
     List<Flw> flwlist(); 
+    List<Flw> flwprofile(); 
 }

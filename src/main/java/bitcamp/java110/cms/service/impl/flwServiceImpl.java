@@ -28,8 +28,15 @@ public class flwServiceImpl implements FlwService{
        
         return flwDao.flwlist();
         
+       
     }
    
+   @Override
+public List<Flw> profile() {
+  
+   return flwDao.flwprofile();
+       
+}
  
 
  /*   @Override

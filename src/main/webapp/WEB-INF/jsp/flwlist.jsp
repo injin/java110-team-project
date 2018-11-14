@@ -48,8 +48,8 @@
   
   font-weight: bold;
   font-size: 35px;
-  padding-top: 15px;
-  padding-bottom: 5px; 
+  padding-top: 10px;
+
 }
 
 .flwbutton{
@@ -59,6 +59,7 @@
 .cover{
   width : 900px;
   height: 500px;
+  padding-left: 20px;
  }
 
 </style>
@@ -69,53 +70,51 @@
       
    <jsp:include page="include/header.jsp"></jsp:include>
 
-	
-<div class ="row">
-<div class ="cover">	
-<div class ="outer ">
-<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
-<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
-</div>
-<div class ="outer ">
-<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
-<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
-</div>
-<div class ="outer ">
-<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
-<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
-</div>
-<div class ="outer ">
-<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
-<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
-</div>
-<div class ="outer ">
-<div class='left'><img class="profileflw" src="/img/btn-pencil.png"/></div>
-<div class='right inner_container'><label class="text">디자인 안습..</label><br><button class="btn btn-lg btn-primary ">팔로우&raquo;</button></div>
-</div>
-</div>
-</div>
-	<!--     <table>
-     <tr><td>나의 피드</td><td>정보수정</td><td>통계</td><td>팔로우</td><td>활동로그</td><td>장면보관함</td></tr>
-    </table> -->
-    
-<%--     
-<form action="list" method="post" enctype="multipart/form-data">
+	<main role="main" class="container">
+	<div class="jumbotron">
+		<h1>Navbar example</h1>
+		<p class="lead">This example is a quick exercise to illustrate how
+			fixed to top navbar works. As you scroll, it will remain fixed to the
+			top of your browser's viewport.</p>
+		<a class="btn btn-lg btn-primary" role="button">View navbar docs
+			&raquo;</a>
+	</div>
+	<div class="row">
+		<div class="cover">
+			<c:forEach items="${flwlist}" var="flw">
+				<div class="outer ">
+					<div class='left'>
+						<img class="profileflw" src="/upload/profile/${flw.profileImage}" />
+					</div>
+					<div class='right inner_container'>
+						<label class="text">${flw.nickname}</label><br>
+						<button class="btn btn-lg btn-primary ">팔로우&raquo;</button>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	</main>
+
+
+
+
+
+
+	<%-- <form action="flwlist" method="post" enctype="multipart/form-data">
         <table class="#">
             <tbody>
                 <c:forEach items="${flwlist}" var="flw">
                     <tr>
-                        <td>${flw.flw}</td>
+                        <td>${flw.mno}</td>
+                        <td>${flw.nickname}</td>
+                        <td>${flw.profileImage}</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-           
-    </form> --%>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="/js/bootstrap.js"></script>
-    <script src="/js/common.js"></script>
+    </form>
+ --%>
 	
 </body>
 </html>

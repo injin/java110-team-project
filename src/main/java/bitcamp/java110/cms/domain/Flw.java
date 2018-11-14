@@ -2,7 +2,7 @@ package bitcamp.java110.cms.domain;
 
 import java.io.Serializable;
 
-public class Flw extends Member implements Serializable {
+public class Flw implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
