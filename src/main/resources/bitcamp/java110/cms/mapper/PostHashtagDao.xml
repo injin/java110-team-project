@@ -11,10 +11,10 @@
         values(#{cont},#{pstno})
     </insert>
     
-    <select id="get" parameterType="String" resultType="java.util.List">
+    <select id="get" parameterType="String" resultType="hashmap">
        select mp.cont, mpt.pstno
        from mv_post_tag mpt, mv_post mp
-       where mpt.pstno = mp.pstno;
+       where mpt.pstno = mp.pstno and mpt.cont like concat('%',#{keyword},'%');    
     </select>
     
     <delete id="delete" parameterType="int">

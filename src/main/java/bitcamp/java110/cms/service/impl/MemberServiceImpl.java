@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,6 +28,12 @@ public class MemberServiceImpl implements MemberService {
   public Member findById (String id) {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  @Override
+  public List<Member> findByNick(String keyword) {
+    
+    return memberDao.findByNick(keyword);
   }
   
   @Transactional(propagation=Propagation.REQUIRED,

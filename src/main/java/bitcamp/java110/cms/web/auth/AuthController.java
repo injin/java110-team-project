@@ -73,9 +73,10 @@ public class AuthController {
     
     
     /**
+     * !!주석 삭제 금지!!
      * 제하 To Do
-     * kakao 연동 해제
-     * 
+     * kakao 연동 해제 NOTICE
+     * !! SginOut 할 때 DB에서 삭제 해야하므로 자주 UPDATE 해야함!!
      */
     @RequestMapping("/signOut")
     public String signout(
@@ -93,15 +94,6 @@ public class AuthController {
       session.invalidate();
       return "redirect:/app/";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     @RequestMapping("/detailForm")
     public String detailForm(

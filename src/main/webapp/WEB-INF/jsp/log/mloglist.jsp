@@ -64,7 +64,7 @@ main {
                 <h4>장면리뷰 로그</h4>
                 <c:forEach var="log" items="${list}">
                     <c:if test="${log.direct eq 'sr'}">
-                        <a href="#" class="list-group-item list-group-item-action">${log.text}</a>
+                        <a href="${log.url}" class="list-group-item list-group-item-action">${log.text}</a>
                     </c:if>
                 </c:forEach>
             </div>
@@ -100,7 +100,8 @@ main {
 
     <script type="text/javascript">
         // 기본으로 게시물 목록만 보여줌
-        showSelectedLogList('mp');
+        var initType = $('#logType').val();
+        showSelectedLogList(initType);
 
         function showSelectedLogList(logType) {
             $('.logList').hide();
