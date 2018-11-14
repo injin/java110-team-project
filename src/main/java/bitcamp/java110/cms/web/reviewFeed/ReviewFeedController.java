@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
@@ -47,10 +48,14 @@ public class ReviewFeedController {
   public String add(
       Post post,
       MultipartFile[] files,
+      @RequestParam(name="mvno") int mvno,
+      @RequestParam(name="title") String title,
       HttpSession session) throws Exception {
-
+    
+    System.out.println("확인:" + mvno + " " + title);
     Member m = (Member)session.getAttribute("loginUser");
-    post.setMno(m.getMno());    
+    post.setMno(m.getMno());
+    
     List<String> filenames = new ArrayList<>();
     
     // 사진 데이터 처리
@@ -73,8 +78,8 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-    
-    postService.add(post);
+    System.out.println(post);
+//    postService.add(post);
 
     return "redirect:list";
   }

@@ -40,10 +40,7 @@ public class PostServiceImpl implements PostService {
     
     postDao.insert(post);
     
-    HashMap<String, Object> mparams = new HashMap<>();
-    mparams.put("mvno", post.getMovie().getMvno());
-    mparams.put("titl", post.getMovie().getTitle());
-    movieDao.insert(mparams);
+//    movieDao.insert();
     
     List<String> plst = post.getPhotos();
     List<String> hlst = post.getHtags();
