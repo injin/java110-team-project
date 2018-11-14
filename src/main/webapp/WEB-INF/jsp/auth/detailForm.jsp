@@ -45,18 +45,9 @@
                      <label for="imageUpload-profile"></label>
                   </div>
                   <div class="avatar-preview">
-                    <c:choose>
-                        <c:when test="${fn:startsWith(member.profileImage, 'http')}">
-                            <div id="profilePreview" style="background-image: url('${member.profileImage}');"></div>
-                        </c:when>
-                        <c:when test="${empty member.profileImage}">
-                                <div id="profilePreview" style="background-image: url('/img/default-profile-img');"></div>
-                        </c:when>
-                        <c:otherwise>
-                            <div id="profilePreview" style="background-image: url('/upload/profile/${member.profileImage}');"></div>
-                        </c:otherwise>
-                    </c:choose>
-                     
+                  
+                  <div id="profilePreview" style="background-image: url('${loginUser.profileImagePath}');"></div>
+                  
                   </div>
                 </div>
                 <hr>
@@ -68,14 +59,7 @@
                         <label for="imageUpload-cover"></label>
                     </div>
                     <div class="cover-preview">
-	                    <c:choose>
-	                        <c:when test="${empty member.coverImage}">
-	                            <div id="coverPreview" style="background-image: url('/img/default-cover-img');"></div>
-	                        </c:when>
-	                        <c:otherwise>
-	                            <div id="coverPreview" style="background-image: url('/upload/cover/${member.coverImage}');"></div>
-	                        </c:otherwise>
-	                    </c:choose>
+                        <div id="coverPreview" style="background-image: url('${loginUser.coverImagePath}');"></div>
                     </div>
                 </div>
                 <hr>
