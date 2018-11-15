@@ -21,7 +21,7 @@
         left: 0;
     }
     #scene-list {
-        max-width: 300px;
+        max-width: 1100px;
         margin-left: 20px;
         
     }
