@@ -62,7 +62,7 @@
                 <input type="hidden" name="spo">
             </div>
             
-            <input type="hidden" name="movie.mvno" value="${tmdbMovie.id}">
+            <input type="hidden" name="mvno" value="${tmdbMovie.id}">
         </form>
         
       </div>

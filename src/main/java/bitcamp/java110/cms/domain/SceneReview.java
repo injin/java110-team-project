@@ -1,21 +1,43 @@
 package bitcamp.java110.cms.domain;
 
+import bitcamp.java110.cms.common.Constants;
+import info.movito.themoviedbapi.model.MovieDb;
+
 public class SceneReview {
   
+  protected int srno;
+  protected int mvno;
   protected int mno;
-  protected String time;
   protected String title;
+  protected String time;
+  protected String photo;
   protected String cont;
   protected String spo;
-  protected String photo;
-  protected String coverImg;
-  protected Movie movie;
+  protected MovieDb movieDb;
   
+  public int getSrno() {
+    return srno;
+  }
+  public void setSrno(int srno) {
+    this.srno = srno;
+  }
+  public int getMvno() {
+    return mvno;
+  }
+  public void setMvno(int mvno) {
+    this.mvno = mvno;
+  }
   public int getMno() {
     return mno;
   }
   public void setMno(int mno) {
     this.mno = mno;
+  }
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
   }
   public String getTime() {
     return time;
@@ -23,11 +45,11 @@ public class SceneReview {
   public void setTime(String time) {
     this.time = time;
   }
-  public String getTitle() {
-    return title;
+  public String getPhoto() {
+    return photo;
   }
-  public void setTitle(String title) {
-    this.title = title;
+  public void setPhoto(String photo) {
+    this.photo = photo;
   }
   public String getCont() {
     return cont;
@@ -41,28 +63,26 @@ public class SceneReview {
   public void setSpo(String spo) {
     this.spo = spo;
   }
-  public String getCoverImg() {
-    return coverImg;
+  public MovieDb getMovieDb() {
+    return movieDb;
   }
-  public String getPhoto() {
-    return photo;
+  public void setMovieDb(MovieDb movieDb) {
+    this.movieDb = movieDb;
   }
-  public void setPhoto(String photo) {
-    this.photo = photo;
-  }
-  public void setCoverImg(String coverImg) {
-    this.coverImg = coverImg;
-  }
-  public Movie getMovie() {
-    return movie;
-  }
-  public void setMovie(Movie movie) {
-    this.movie = movie;
+  public String getImgPath() {
+    if (photo == null) {
+      System.out.println("무비디비");
+      return Constants.TMDB_IMG_PREFIX_ORIGIN + movieDb.getBackdropPath();
+    } else {
+      return "/upload/sceneReview/" + photo;
+    }
   }
   
   @Override
   public String toString() {
-    return "SceneReview [mno=" + mno + ", time=" + time + ", title=" + title + ", cont=" + cont
-        + ", spo=" + spo + ", photo=" + photo + ", coverImg=" + coverImg + ", movie=" + movie + "]";
+    return "SceneReview [getSrno()=" + getSrno() + ", getMvno()=" + getMvno() + ", getMno()="
+        + getMno() + ", getTitle()=" + getTitle() + ", getTime()=" + getTime() + ", getPhoto()="
+        + getPhoto() + ", getCont()=" + getCont() + ", getSpo()=" + getSpo() + ", getMovieDb()="
+        + getMovieDb() + ", getImgPath()=" + getImgPath() + "]";
   }
 }

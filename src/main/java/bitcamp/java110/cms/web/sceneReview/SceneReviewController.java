@@ -25,12 +25,14 @@ public class SceneReviewController {
   @Autowired SceneReviewService sceneReviewService;
   
   @RequestMapping("/review")
-  public String findScene(int movieId, Model model) {
+  public String findScene(SceneReview sr, Model model) {
     
-    MovieDb tmdbMovie = tmdbMovies.getMovie(movieId, Constants.LANGUAGE_KO);
+    MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
+    sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
+    
     model.addAttribute("tmdbMovie", tmdbMovie);
-    model.addAttribute("imgPrefix", Constants.TMDB_IMG_PREFIX_ORIGIN);
-    model.addAttribute("sceneReview", sceneReviewService.initSceneReview(tmdbMovie));
+    model.addAttribute("sceneReview", sr);
+    model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
     
     return "sceneReview/review";
   }
@@ -52,7 +54,7 @@ public class SceneReviewController {
     
     sceneReviewService.add(sceneReview);
     
-    return "redirect:/app/sceneReview/review?movieId=" + sceneReview.getMovie().getMvno();
+    return "redirect:/app/sceneReview/review?mvno=" + sceneReview.getMvno();
   }
   
   

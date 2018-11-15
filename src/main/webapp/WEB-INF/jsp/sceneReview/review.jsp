@@ -12,34 +12,80 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-    
+    #movie-content {
+        display: inline-block;
+    }
+    #scene-list-container {
+        position: absolute;
+        bottom: 35px;
+        left: 0;
+    }
+    #scene-list {
+        max-width: 300px;
+        margin-left: 20px;
+        
+    }
+    .scene-box {
+        height: 35px;
+        max-width: 35px;
+        display: inline-block;
+        float: left;
+        cursor: pointer;
+    }
 </style>
 </head>
 <body>
 
     <jsp:include page="../include/header.jsp"></jsp:include>
-
-
     <main role="main" class="container borderGray">
+    
         <div class="row">
-            <div class="col-12" id="movie-cover" style="background-image: url(${sceneReview.coverImg})">
-                <div id="movie-content">
-                    <div id="movie-title">
+            <div class="col-12" id="movie-cover" style="background-image: url(${sceneReview.imgPath})">
+                <div class="row col-12" id="movie-content">
+                    <div id="movie-title" class="float-left">
                         <h3><b>${tmdbMovie.title}</b>
                             <c:if test="${not empty sessionScope.loginUser}">
                             <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
                             </c:if>
                         </h3>
-                        <p>(${tmdbMovie.releaseDate})</p>
+                        <c:if test="${sceneReview.time ne null}">
+                            <p>(${sceneReview.time})</p>
+                        </c:if>
+                        <c:if test="${sceneReview.time eq null}">
+                            <p>(${tmdbMovie.releaseDate})</p>
+                        </c:if>
                     </div>
                     
-                    <div id="movie-genres">
+                    <div id="movie-genres" class="float-right">
                         <c:forEach items="${tmdbMovie.genres}" var="genre">
                             <div class="genre-tag">${genre.name}</div>
                         </c:forEach>
                     </div>
-                    
                 </div>
+                
+                
+                <div class="row col-12" id="scene-list-container">
+                    <div id="scene-list">
+                        <c:forEach items="${sceneList}" var="scene">
+                            <img class="scene-box" src="${scene.imgPath}" 
+                                data-toggle="tooltip" data-placement="top" title="${scene.title}(${scene.time})">
+                        </c:forEach>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-8">
+                
+                
+                
+            </div>
+            <div class="col-4">
+                
+                
+                
             </div>
         </div>
         
@@ -54,7 +100,18 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
-    /* 모달 관련  */
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    var initScene = { imgPath: '${sceneReview.imgPath}'};
+    /* 하단 장면 목록 박스 관련 */
+    $('.scene-box').on('mouseover', function() {
+        var imgPath = $(this).attr('src');
+        $('#movie-cover').css('background-image', 'url(' + imgPath + ')');
+    }).on('mouseleave', function() {
+        $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
+    });
+    
+     /* 모달 관련  */
     var $modal = $('#srAddModal').modal({show : false});
     
     /* 슬라이드 관련 */
