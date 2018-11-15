@@ -19,7 +19,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public SceneReview makeSceneCover(MovieDb tmdbMovie) {
+  public SceneReview initSceneReview(MovieDb tmdbMovie) {
     
     SceneReview cover = new SceneReview();
     if (tmdbMovie.getBackdropPath() != null) { // 0분 0초 있을 때 우선적으로

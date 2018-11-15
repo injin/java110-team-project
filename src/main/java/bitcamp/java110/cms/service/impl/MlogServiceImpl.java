@@ -15,9 +15,9 @@ public class MlogServiceImpl implements MlogService {
   public List<Mlog> getList;
 
   @Override
-  public List<Mlog> getList() {
+  public List<Mlog> getList(int mno) {
     // TODO Auto-generated method stub
-    return logDao.list();
+    return logDao.list(mno);
  
   
   }

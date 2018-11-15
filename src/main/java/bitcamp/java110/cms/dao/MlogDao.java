@@ -5,6 +5,6 @@ import bitcamp.java110.cms.domain.Mlog;
 
 public interface MlogDao {
   
-  List<Mlog> list();
+  List<Mlog> list(int mno);
 
 }

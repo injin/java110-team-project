@@ -52,7 +52,7 @@ public class MainController {
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
-    System.out.println(memberList.toString());
+    System.out.println("회원: "+ memberList.toString());
     
     
     // 해쉬태그
@@ -66,12 +66,17 @@ public class MainController {
         , Constants.LANGUAGE_KO
         , Constants.INCLUDE_ADULT_TRUE
         , 0);
-    
+   
+    model.addAttribute("keyword", keyword);
     model.addAttribute("movieList", response.getResults());
     model.addAttribute("imgPrefix", Constants.TMDB_IMG_PREFIX_W500);
     model.addAttribute("hashList", hashList);
     model.addAttribute("memberList", memberList);
-    System.out.println("reponse: "+response.getResults().toString());
+    model.addAttribute("totalPages", response.getTotalPages());
+    model.addAttribute("totalResults", response.getTotalResults());
+
+    
+    System.out.println("reponse: "+response.getResults().size());
     System.out.println("imgPrefix: "+ Constants.TMDB_IMG_PREFIX_W500);
     //System.out.println(model.toString());
     return "/search/search";

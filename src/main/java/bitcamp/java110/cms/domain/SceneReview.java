@@ -3,7 +3,7 @@ package bitcamp.java110.cms.domain;
 public class SceneReview {
   
   protected int mno;
-  protected int time;
+  protected String time;
   protected String title;
   protected String cont;
   protected String spo;
@@ -17,10 +17,10 @@ public class SceneReview {
   public void setMno(int mno) {
     this.mno = mno;
   }
-  public int getTime() {
+  public String getTime() {
     return time;
   }
-  public void setTime(int time) {
+  public void setTime(String time) {
     this.time = time;
   }
   public String getTitle() {

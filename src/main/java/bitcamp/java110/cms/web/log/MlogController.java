@@ -1,14 +1,16 @@
 package bitcamp.java110.cms.web.log;
 
+import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.MlogDao;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.service.MlogService;
 
@@ -21,20 +23,28 @@ public class MlogController {
   @Autowired MemberDao memberDao;
   
   @RequestMapping("/mloglist")
-  public String list(Model model) {
+  public String list(Model model,
+      HttpSession session) {
     
-    List<Mlog> logList = mlogservice.getList();
+    Member member = (Member)session.getAttribute("loginUser");
+    int mno = member.getMno();
+    
+    List<Mlog> logList = mlogservice.getList(mno);
+    System.out.println(logList);
+    
     
     String thisDirect;
     String thisAct;
     String thisIndirect;
     String thisnick;
+    Date thisday;
     
     for (Mlog log : logList) {
       thisDirect = log.getDirect();
       thisAct = log.getAct();
       thisIndirect = log.getIndirect();
-      thisnick=log.getNick();    
+      thisnick=log.getNick(); 
+      thisday=log.getCreatedDate();
       
       if ("mp".equals(thisDirect)) {
         if("wr".equals(thisAct)) {
@@ -54,14 +64,14 @@ public class MlogController {
       }
       else if("sr".equals(thisDirect)) {
         if("wr".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect +"에 장면리뷰를 작성했습니다");
+          log.setText(log.getNick()+"님이 " + thisIndirect +"에 장면 리뷰를 작성했습니다");
         }
         else if("lk".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면리뷰를 좋아합니다");
+          log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면 리뷰를 좋아합니다");
         }
       }
       else if("sc".equals(thisDirect)) {
-        log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면리뷰에 댓글을 작성하였습니다");
+        log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면 리뷰에 댓글을 작성하였습니다");
       }
       else if("pc".equals(thisDirect)) {
         log.setText(log.getNick()+"님이 " + thisIndirect +"님의 게시물에 댓글을 작성했습니다");
