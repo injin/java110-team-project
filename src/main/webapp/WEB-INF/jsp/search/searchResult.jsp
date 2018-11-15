@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <section>
-	<div class="container">
-		<div class="row mbr-justify-content-center">
+    <div class="container">
+        <div class="row mbr-justify-content-center">
 
             <!-- 회원 -->
             <div class="col-lg-12 mbr-col-md-12 col-centered">
@@ -21,9 +21,22 @@
                 <div class="col-lg-12 mbr-col-md-12">
                     <div class="wrap">
                         <div class="ico-wrap">
-                            <div>
-                                <img  class="img" src="${list.p_phot}" alt="${list.mno}">
-                            </div>
+
+                            <c:set var="path" value="${list.posterPath}" />
+                            <c:choose>
+                                <c:when test="${empty path}">
+                                    <div>
+                                        <img class="img" src="/img/default-profile-img.png"
+                                            alt="${list.title}">
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div>
+                                        <img class="img" src="${list.p_phot}" alt="${list.mno}">
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                         <div class="text-wrap vcenter">
                             <p class="mbr-fonts-style text1 mbr-text display-6">
@@ -42,91 +55,65 @@
                 </div>
             </div>
             <!-- 회원 -->
-            
+
             <!-- 영화 -->
-			<div class="col-lg-12 mbr-col-md-12 col-centered">
-				<div class="wrap search_header">
-					<div class="text-wrap vcenter">
-						<h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
-							영화 <span>검색결과</span>
-						</h2>
-					</div>
-				</div>
-			</div>
+            <div class="col-lg-12 mbr-col-md-12 col-centered">
+                <div class="wrap search_header">
+                    <div class="text-wrap vcenter">
+                        <h2 class="mbr-fonts-style mbr-bold mbr-section-title3 display-5">
+                            영화 <span>검색결과</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
-			<c:forEach items="${movieList}" var="list" begin="0" end="2" varStatus="status">
-				<div class="col-lg-12 mbr-col-md-12" id="post-${status.index}">
-					<div class="wrap">
-						<div class="ico-wrap">
-						<div>
-                                <img  class="img" src="${imgPrefix}/${list.posterPath}" alt="${imgPrefix}/${list.posterPath}">
-                            </div>
-						
-						
-<%-- 						<c:set var="path" value="${imgPrefix}/${list.posterPath}" />
-						<c:choose>
-						
-						    <c:when test="${path eq '${imgPrefix}/${list.posterPath}'}">
-                             <div>
-                                <img  class="img" src="${imgPrefix}/${list.posterPath}" alt="${list.title}">
-                            </div>
-						    </c:when>
-						</c:choose>
- --%>	<%-- 					    <c:otherwise>
-			                 <div>
-                                <img  class="img" src="/img/default-movie-img.png" alt="${list.title}">
-                            </div>
-						    </c:otherwise>
- --%>						
- 
- <%--                       <c:set var="path" value="${imgPrefix}/${list.posterPath}" />
-                        <c:choose>
-                        
- --%>                   
-                                                   
-  
-<%--                          <c:set var="path" value="${imgPrefix}/${list.posterPath}" />
-                        <c:choose>
-                            <c:when test="${path eq '${imgPrefix}/${list.posterPath}'}"> 
-                            <div>
-                                <img  class="img" src="${imgPrefix}/${list.posterPath}" alt="${list.title}">
-                            </div> 
-                             <div>
-                                <img  class="img" src="/img/default-movie-img.png" alt="${list.title}" style="display:none;">
-                            </div>
-                            </c:when>
-                            <c:otherwise>
-                              <div>
-                                <img  class="img" src="${imgPrefix}/${list.posterPath}" alt="${list.title}" style="display:none;">
-                            </div> 
-                             <div>
-                                <img  class="img" src="/img/default-movie-img.png" alt="${list.title}" >
-                            </div>
-                            </c:otherwise>
-                        </c:choose>
-                      
- --%>                        
-                        
- 
-						</div>
-						<div class="text-wrap vcenter">
-							<p class="mbr-fonts-style text1 mbr-text display-6">
-								<b>${list.title}</b>
-							</p>
-							<br>
-							<p>${list.releaseDate}</p>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
+            <c:forEach items="${movieList}" var="list" 
+                varStatus="status"><!-- begin="0" end="2" -->
+                <div class="col-lg-12 mbr-col-md-12 movieFrame" style="display:none;">
+                    <%-- id="post-${status.index}" --%>
 
-			<div class="col-lg-12 mbr-col-md-12">
-				<div class="wrap search_footer">
-					<div class="text-wrap vcenter" id="showAllMovies" onclick="click">
-						<p>더 보기</p>
-					</div>
-				</div>
-			</div>
+
+                    <div class="wrap">
+                        <div class="ico-wrap col-lg-4">
+
+                            <c:set var="path" value="${list.posterPath}" />
+                            <c:choose>
+                                <c:when test="${empty path}">
+                                    <div>
+                                        <img class="img" src="/img/default-movie-img.png"
+                                            alt="${list.title}">
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div>
+                                        <img class="img" src="${imgPrefix}/${list.posterPath}"
+                                            alt="${list.title}">
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </div>
+                        <!-- "mbr-fonts-style text1 mbr-text display-6" -->
+                        <div class="text-wrap vcenter mbr-fonts-style text1 mbr-text display-6 col-lg-8">
+                            <h4><b>${list.title}</b>
+                            <c:if test="${!empty list.releaseDate}">
+                                <span class="smTxt">(${list.releaseDate})</span>
+                            </c:if>
+                            </h4>
+                            <p class="overView">${list.overview}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+
+            <div class="col-lg-12 mbr-col-md-12">
+                <div class="wrap search_footer">
+                    <div class="text-wrap vcenter" id="showAllMovies" onclick="showMore()">
+                        <p>더 보기</p>
+                    </div>
+                </div>
+            </div>
             <!-- 영화 -->
 
             <!-- 해시태그 -->
@@ -140,16 +127,19 @@
                 </div>
             </div>
 
-            <c:forEach items="${hashList}" var="list" begin="0" >
+            <c:forEach items="${hashList}" var="list" begin="0">
                 <div class="col-lg-12 mbr-col-md-12">
                     <div class="wrap">
                         <div class="ico-wrap">
-                        <p>${list.pstno}
-                            <div>
-                            </div>
+                            <p>${list.pstno}
+
+
+
+                                <div></div>
                         </div>
                         <div class="text-wrap vcenter">
-                            <p class="mbr-fonts-style text1 mbr-text display-6">
+                            <p
+                                class="mbr-fonts-style text1 mbr-text display-6">
                                 <b>${list.cont}</b>
                             </p>
                             <br>
@@ -166,8 +156,9 @@
                 </div>
             </div>
 
-		</div>
-</section>		
+        </div>
+
+</section>      
 <!-- 요걸로! 
 <script type="text/javascript">
 
@@ -217,10 +208,7 @@ window.onload= function(){
     };
     }; 
  
- --%>
-
-
-<!-- 
+ --%><!-- 
 <script type="text/javascript">
 
 
