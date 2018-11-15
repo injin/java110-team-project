@@ -93,10 +93,27 @@ main {
                 </c:forEach>
             </div>
     </div>
+   <!--  <a style="display:scroll;position:fixed;bottom:30px;right:410px;" href="#" title=”맨위로">
+    <img src="/img/Top.png"  width="50" height="50"></a> -->
+
+<a class="return-top" href="#" >
+<img src="/img/top2.png"  width="50" height="50"></a>
+
+
+
 
     </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
+    <script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/common.js"></script>
+    
+    
+    
 
     <script type="text/javascript">
         // 기본으로 게시물 목록만 보여줌
@@ -112,6 +129,12 @@ main {
             var selectedLogType = $('#logType').val();
             showSelectedLogList(selectedLogType);
         });
+       
+        
+
+
+
+        
 
         /* document.getElementById('logType').onchange = function() {
             alert('js 셀렉트 박스 변경하셨네요');
