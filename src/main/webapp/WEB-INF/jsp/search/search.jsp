@@ -13,7 +13,7 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body>
+<body class="bgGray">
 
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
@@ -34,6 +34,8 @@
         var totalResults = '${totalResults}'
         var clickCount = 0;
         var count = 0;
+        var total = 0;
+        var movieFooter = document.getElementById('showAllMovies');
 /*         var h = document.getElementsByClassName('hi')[1];
 
         h.style.visibility = "hidden";
@@ -43,17 +45,32 @@
         for (var i = 0; i < 3; i++) {
             var movieFrame = document.getElementsByClassName('movieFrame')[i];
             console.log(movieFrame);
-            /* movieFrame.style.display="none"; */
             movieFrame.style.display="block";
+            
+            if(${totalResults}<=3){
+                movieFooter.style.visibility = "hidden";
+    
+            }
         }
+ 
+ 
+ 
+ 
         
         function showMore() {
-
+            
+            console.log(${totalResults});
+            if(${totalResults}>20){
+                total = 20;
+            }
              for (var i = 3; i < 20; i++) {
                 var movieFrame = document.getElementsByClassName('movieFrame')[i];
                 movieFrame.style.display="block";
             } 
+             
+             movieFooter.style.visibility = "hidden";
      
+        }
 /*             count++;
 
             if (count == 1) {
@@ -87,7 +104,7 @@
                 //getMovieList(this);
             } */
 
-        }
+        
 
         function getMovieList(input) {
             var values = []; //ArrayList 값을 받을 변수를 선언
