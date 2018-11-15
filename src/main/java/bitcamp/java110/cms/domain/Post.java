@@ -8,7 +8,8 @@ public class Post {
   protected int pstno;
   protected int mno;
   protected int pstTypeNo;
-  protected Movie movie;
+  protected int mvno;
+  protected String title;
   protected Date createdDate;
   protected Date modifiedDate;
   protected String content;
@@ -18,40 +19,6 @@ public class Post {
 
   protected List<String> photos;
   protected List<String> htags;
-  
-  
-  
-  @Override
-  public String toString() {
-    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", movie=" + movie
-        + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + ", content=" + content
-        + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open + ", photos=" + photos
-        + ", htags=" + htags + "]";
-  }
-
-  public List<String> getHtags() {
-    return htags;
-  }
-
-  public void setHtags(List<String> htags) {
-    this.htags = htags;
-  }
-
-  
-  public Movie getMovie() {
-    return movie;
-  }
-
-  public void setMovie(Movie movie) {
-    this.movie = movie;
-  }
-
-  public List<String> getPhotos() {
-    return photos;
-  }
-  public void setPhotos(List<String> photos) {
-    this.photos = photos;
-  }
   public int getPstno() {
     return pstno;
   }
@@ -69,6 +36,18 @@ public class Post {
   }
   public void setPstTypeNo(int pstTypeNo) {
     this.pstTypeNo = pstTypeNo;
+  }
+  public int getMvno() {
+    return mvno;
+  }
+  public void setMvno(int mvno) {
+    this.mvno = mvno;
+  }
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
   }
   public Date getCreatedDate() {
     return createdDate;
@@ -105,5 +84,24 @@ public class Post {
   }
   public void setOpen(boolean open) {
     this.open = open;
+  }
+  public List<String> getPhotos() {
+    return photos;
+  }
+  public void setPhotos(List<String> photos) {
+    this.photos = photos;
+  }
+  public List<String> getHtags() {
+    return htags;
+  }
+  public void setHtags(List<String> htags) {
+    this.htags = htags;
+  }
+  @Override
+  public String toString() {
+    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+        + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
+        + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
+        + ", photos=" + photos + ", htags=" + htags + "]";
   }
 }

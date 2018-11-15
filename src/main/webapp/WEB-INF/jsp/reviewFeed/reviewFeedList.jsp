@@ -63,11 +63,11 @@
 
 	<div role="main" class="container row mauto">
 
-
 		<c:if test="${empty sessionScope.loginUser}">
 			<c:set var="feedAlign" value="mauto"></c:set>
 		</c:if>
 		<div class="col-9 ${feedAlign}">
+		
             <!-- 글 작성 부분 -->
 			<c:choose>
 				<c:when test="${not empty sessionScope.loginUser}">
@@ -164,14 +164,8 @@
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script src="/js/bootstrap.js"></script>
+	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/starrr.js"></script>
-	<script src="/js/common.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script>
 	
@@ -180,7 +174,7 @@
                     || element.scrollWidth > element.clientWidth;
         }
         
-        for(){
+        /* for(){
             // 리스트에값을저장한후 그걸여기서 뽑음됨
             $('#s' + id).starrr({
                 rating : value,
@@ -189,7 +183,7 @@
                 emptyClass : 'far fa-star',
                 fullClass : 'fas fa-star'
             });
-        }
+        } */
     </script>
 </body>
 </html>

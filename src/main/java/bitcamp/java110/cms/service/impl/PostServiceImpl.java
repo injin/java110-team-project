@@ -37,10 +37,16 @@ public class PostServiceImpl implements PostService {
   @Override
   public void add(Post post) {
 
+    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
+      
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("mvno", post.getMvno());
+      params.put("titl", post.getTitle());
+      movieDao.insert(params);
+      
+    }
     
     postDao.insert(post);
-    
-//    movieDao.insert();
     
     List<String> plst = post.getPhotos();
     List<String> hlst = post.getHtags();

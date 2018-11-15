@@ -40,8 +40,8 @@
 
 	<insert id="insert" parameterType="post" useGeneratedKeys="true"
 		keyColumn="pstno" keyProperty="pstno">
-		insert into mv_post( mno, ptno, cdt, cont,star, likes, opn)
-		values(#{mno}, #{pstTypeNo}, now(),#{content},#{star},0,if(#{open},'u','l'));
+		insert into mv_post( mno, ptno,mvno, cdt, cont,star, likes, opn)
+		values(#{mno}, #{pstTypeNo},#{mvno} ,now(),#{content},#{star},0,if(#{open},'u','l'));
 	</insert>
 
 	<delete id="delete" parameterType="int">

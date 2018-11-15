@@ -22,10 +22,5 @@ public class Movie {
   public void setTitle(int title) {
     this.title = title;
   }
-  public Movie(int mvno, int mvid, int title) {
-    super();
-    this.mvno = mvno;
-    this.title = title;
-  }
 }
 
