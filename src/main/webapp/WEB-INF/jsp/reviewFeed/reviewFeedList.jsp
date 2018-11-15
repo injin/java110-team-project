@@ -67,8 +67,8 @@
 			<c:set var="feedAlign" value="mauto"></c:set>
 		</c:if>
 		<div class="col-9 ${feedAlign}">
-		
-            <!-- 글 작성 부분 -->
+
+			<!-- 글 작성 부분 -->
 			<c:choose>
 				<c:when test="${not empty sessionScope.loginUser}">
 					<div class="wPost">
@@ -91,68 +91,60 @@
 				</c:when>
 			</c:choose>
 
-            <!-- 포스터 보이는 부분 -->
-			<c:forEach items="${movieList}" var="list">
+			<!-- 포스터 보이는 부분 -->
+			<c:forEach items="${postList}" var="post">
+                <c:if test="${post.open}">
 				<div class="wPost reviewPst">
 					<div class="media row" style="padding: 0 1rem">
-						<img src="/img/default-movie-img.png"
+						<img src="${post.member.profileImage}"
 							style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem" />
 						<div class="media-body">
-							<ul style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
-								<li><a href="#" style="color: black;">닉네임</a></li>
+							<ul
+								style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
+								<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 								<li><a href="#"
 									style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그</a></li>
 							</ul>
-							<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
-								<b><i>영화제목</i></b>
-							</p>
+							<c:if test="${post.pstTypeNo ==0}">
+								<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
+									<b><i>${post.title}</i></b>
+								</p>
+							</c:if>
 						</div>
 					</div>
 					<div class="clearfix media row" style="margin: 0.2rem 0">
 						<div class="media-body">
-							<p class="reviewCont">리뷰내용이다여기는!!!!!!!!!!!!!!!!!ffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffff
-								fffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-								ffffffffffffffffffffffffffffffffffffffffffffffffffffffff
-						     </p>
+							<p class="reviewCont">${post.content}</p>
 						</div>
 						<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
-						<img src="/img/default-movie-img.png"
+						<img src="/upload/post/${post.photos[0].phot}"
 							style="width: 20rem; height: 13rem; margin-left: 1rem;" />
 					</div>
 					<div class="row">
 						<div class="col-6" style="text-align: left;">
-							<a href="#" style="color: black">
-							 <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>0
-							</a>
-							<a href="#" style="color: black">
-							 <i class="far fa-comment btmIcon"></i>0
+							<a href="#" style="color: black"> <i
+								class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+							</a> <a href="#" style="color: black"> <i
+								class="far fa-comment btmIcon"></i>0
 							</a>
 						</div>
-						<div class='starrr col-6' style="text-align: right;" id="s1"></div>
+						<c:if test="${post.pstTypeNo ==0}">
+							<div class='starrr col-6' style="text-align: right;"
+								id="s${post.pstno}"></div>
+						</c:if>
 					</div>
 				</div>
+				</c:if>
 			</c:forEach>
 
 			<jsp:include page="writingPost.jsp"></jsp:include>
 		</div>
 
-        <!-- 맞춤영화 추천 부분 -->
+		<!-- 맞춤영화 추천 부분 -->
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
-				<div class="col-3">
-					<div class="wPost">
+				<div class="col-3" display>
+					<div class="wPost" style="position: fixed">
 						<div style="color: black">
 							${sessionScope.loginUser.nickname}의 맞춤 영화</div>
 					</div>
@@ -168,12 +160,11 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script>
-	
         function isOverflown(element) {
             return element.scrollHeight > element.clientHeight
                     || element.scrollWidth > element.clientWidth;
         }
-        
+
         /* for(){
             // 리스트에값을저장한후 그걸여기서 뽑음됨
             $('#s' + id).starrr({

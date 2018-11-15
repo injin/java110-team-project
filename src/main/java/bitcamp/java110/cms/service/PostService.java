@@ -6,7 +6,7 @@ import bitcamp.java110.cms.domain.Post;
 public interface PostService {
   
     void add (Post post);
-    List<Post> list(int pageNo, int pageSize);
+    List<Post> list();
     Post get(int no);
     List<Post> getHash(String keyword);
     void delete(int no);

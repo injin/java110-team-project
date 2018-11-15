@@ -17,8 +17,17 @@ public class Post {
   protected int star;
   protected boolean open;
 
+  protected Member member;
   protected List<String> photos;
   protected List<String> htags;
+  
+  
+  public Member getMember() {
+    return member;
+  }
+  public void setMember(Member member) {
+    this.member = member;
+  }
   public int getPstno() {
     return pstno;
   }
@@ -102,6 +111,6 @@ public class Post {
     return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
-        + ", photos=" + photos + ", htags=" + htags + "]";
+        + ", member=" + member + ", photos=" + photos + ", htags=" + htags + "]";
   }
 }

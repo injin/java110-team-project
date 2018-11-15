@@ -58,8 +58,8 @@ $(function() {
     });
 
     $("#starbtn").click(function () {
-        $('.starrr').toggleClass("nostar");
-        if($('.starrr').hasClass("nostar")){
+        $('#showStar').toggleClass("nostar");
+        if($('#showStar').hasClass("nostar")){
             $("#star").val(0);
         }
     });

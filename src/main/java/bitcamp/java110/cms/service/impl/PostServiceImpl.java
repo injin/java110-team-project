@@ -70,11 +70,16 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> list(int pageNo, int pageSize) {
-    HashMap<String, Object> params = new HashMap<>();
-    params.put("rowNo", (pageNo - 1)*pageSize);
-    params.put("size", pageSize);
-    return postDao.findAll(params);
+  public List<Post> list() {
+    
+    List<Post> posts =postDao.findAll();
+    
+    for(int i=0;i<posts.size();i++)
+    {
+      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+    }
+    
+    return posts;
   }
 
   @Override
@@ -97,5 +102,4 @@ public class PostServiceImpl implements PostService {
     }
     postPhotoDao.delete(no);
   }
-
 }

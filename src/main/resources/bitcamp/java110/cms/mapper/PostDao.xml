@@ -18,21 +18,44 @@
 		<result column="opn" property="open" />
 	</resultMap>
 
+	<resultMap type="post" id="postMap2">
+		<id column="pstno" property="pstno" />
+		<result column="mno" property="mno" />
+		<result column="ptno" property="pstTypeNo" />
+		<result column="mvno" property="mvno" />
+		<result column="titl" property="title" />
+		<result column="cdt" property="createdDate" />
+		<result column="mdt" property="modifiedDate" />
+		<result column="cont" property="content" />
+		<result column="likes" property="likeCnt" />
+		<result column="star" property="star" />
+		<result column="opn" property="open" />
+		<association property="member" javaType="member">
+		    <id column="mno" property="mno" />
+			<result column="nick" property="nickname" />
+			<result column="p_phot" property="profileImage" />
+		</association>
+	</resultMap>
 
-	<select id="findAll" resultMap="postMap">
+	<select id="findAll" resultMap="postMap2">
 		select
 		  p.pstno,
 		  p.mvno,
+		  p.ptno,
+		  mv.titl,
 		  p.star,
 		  p.cont,
 		  p.likes,
+		  (p.opn ='u') opn,
 		  m.nick,
-          m.p_phot,
-		  mp.phot
+		  m.p_phot
 		from
 		  mv_post p
 		  inner join mv_memb m on m.mno = p.mno
-		  left outer join mv_post_phot mp on p.pstno = mp.pstno
+		  inner join mv_mv mv on mv.mvno = p.mvno
+		order by
+		  cdt desc
+
 	</select>
 
 	<select id="findByNo" resultMap="postMap" parameterType="int">
@@ -40,8 +63,10 @@
 
 	<insert id="insert" parameterType="post" useGeneratedKeys="true"
 		keyColumn="pstno" keyProperty="pstno">
-		insert into mv_post( mno, ptno,mvno, cdt, cont,star, likes, opn)
-		values(#{mno}, #{pstTypeNo},#{mvno} ,now(),#{content},#{star},0,if(#{open},'u','l'));
+		insert into mv_post( mno, ptno,mvno,
+		cdt, cont,star, likes, opn)
+		values(#{mno}, #{pstTypeNo},#{mvno}
+		,now(),#{content},#{star},0,if(#{open},'u','l'));
 	</insert>
 
 	<delete id="delete" parameterType="int">

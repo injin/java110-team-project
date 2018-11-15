@@ -68,7 +68,7 @@
 							<i class="far fa-star"></i>별점
 						</button>
 						<input type="hidden" id="star" name="star" value="0" />
-						<div class='starrr onlyMovie photo-star-section'></div>
+						<div class='starrr onlyMovie photo-star-section' id="showStar"></div>
 						<!-- 사진 보이는 list -->
 						<ul id="media-list" class="clearfix">
 							<li class="myupload "><span><i class="fa fa-plus"

@@ -36,7 +36,10 @@ public class ReviewFeedController {
       Post post,
       Model model) {
 
-    System.out.println("리뷰피드리스트에 들어옴");
+    List<Post> list = postService.list();
+    
+    model.addAttribute("postList", list);
+    
     return "reviewFeed/reviewFeedList";
   }
 
@@ -57,7 +60,7 @@ public class ReviewFeedController {
       if (file.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
         System.out.println(filename);
-        file.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
         filenames.add(filename);
       }
     }
