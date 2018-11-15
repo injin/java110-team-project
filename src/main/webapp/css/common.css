@@ -9,7 +9,7 @@ body {
   min-height: 75rem;
   padding-top: 3.5rem;
 }
-body.bgGray {
+.bgGray {
     background-color: #F2F4F7;
 }
 

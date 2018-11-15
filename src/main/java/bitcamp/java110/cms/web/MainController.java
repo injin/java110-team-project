@@ -75,7 +75,6 @@ public class MainController {
     model.addAttribute("totalPages", response.getTotalPages());
     model.addAttribute("totalResults", response.getTotalResults());
 
-    
     System.out.println("reponse: "+response.getResults().size());
     System.out.println("imgPrefix: "+ Constants.TMDB_IMG_PREFIX_W500);
     //System.out.println(model.toString());
