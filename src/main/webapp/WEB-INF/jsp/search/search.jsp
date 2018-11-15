@@ -31,18 +31,18 @@
 
         // 페이지가 1개뿐일 경우 =>처리해줘야함
         var keyword = '${keyword}';
-        var totalResults = '${totalResults}'
+        var totalResults = ${totalResults};
         var clickCount = 0;
         var count = 0;
         var total = 0;
         var movieFooter = document.getElementById('showAllMovies');
+        var movieBody = document.getElementsByClassName('resultMovie');
 /*         var h = document.getElementsByClassName('hi')[1];
 
         h.style.visibility = "hidden";
  */
  
-        
-        for (var i = 0; i < 3; i++) {
+/*         for (var i = 0; i < 3; i++) {
             var movieFrame = document.getElementsByClassName('movieFrame')[i];
             console.log(movieFrame);
             movieFrame.style.display="block";
@@ -53,7 +53,7 @@
             }
         }
  
- 
+  */
  
  
         
@@ -61,10 +61,12 @@
             
             console.log(${totalResults});
             if(${totalResults}>20){
-                total = 20;
+                totalResults = 20;
+            }else{
+                var totalResults = ${totalResults}
             }
-             for (var i = 3; i < 20; i++) {
-                var movieFrame = document.getElementsByClassName('movieFrame')[i];
+             for (var i = 3; i < totalResults; i++) {
+                movieFrame = document.getElementsByClassName('movieFrame')[i];
                 movieFrame.style.display="block";
             } 
              
