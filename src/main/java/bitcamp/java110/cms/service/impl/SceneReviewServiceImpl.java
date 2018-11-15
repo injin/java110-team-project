@@ -1,8 +1,10 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneReviewService;
@@ -19,17 +21,30 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public SceneReview initSceneReview(MovieDb tmdbMovie) {
+  public List<SceneReview> list(int mvno) {
+    return sceneReviewDao.list(mvno);
+  }
+  
+  @Override
+  public SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sr) {
     
-    SceneReview cover = new SceneReview();
-    if (tmdbMovie.getBackdropPath() != null) { // 0분 0초 있을 때 우선적으로
-      cover.setCoverImg(Constants.TMDB_IMG_PREFIX_ORIGIN + "/" + tmdbMovie.getBackdropPath());
+    // 장면 시간 설정
+    if (sr.getTime() == null) {
+      sr.setTime(sceneReviewDao.findDefaultTime(tmdbMovie.getId()));
     }
     
-    return cover;
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mvno", tmdbMovie.getId());
+    condition.put("time", sr.getTime());
+    
+    SceneReview findMovie = sceneReviewDao.findByTime(condition);
+    if (findMovie != null) {
+      sr = findMovie;
+    }
+    sr.setMovieDb(tmdbMovie);
+    
+    return sr;
   }
-
-  
   
   
 }

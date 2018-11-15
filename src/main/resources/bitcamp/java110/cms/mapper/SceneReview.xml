@@ -4,10 +4,43 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.SceneReviewDao">
 
+    <resultMap type="sceneReview" id="srMap">
+        <id     column="srno"      property="srno"/>
+        <result column="mvno"      property="mvno" />
+        <result column="mno"       property="mno" />
+        <result column="titl"      property="title" />
+        <result column="time"      property="time" />
+        <result column="phot"      property="photo" />
+        <result column="cont"      property="cont" />
+        <result column="spo"       property="spo" />
+    </resultMap>
+
     <insert id="insert" parameterType="sceneReview"
             useGeneratedKeys="true" keyColumn="srno" keyProperty="srno">
-        insert into mv_sr(mvno, mno, titl, time, phot, cont, spo, cdt)
-        values(#{movie.mvno}, #{mno}, #{title}, '${time}', #{photo}, #{cont}, #{spo}, now())
+        INSERT INTO mv_sr(mvno, mno, titl, time, phot, cont, spo, cdt)
+        VALUES(#{mvno}, #{mno}, #{title}, #{time}, #{photo}, #{cont}, #{spo}, now())
     </insert>
+    
+    <select id="findDefaultTime" resultType="string" parameterType="int">
+        SELECT time
+          FROM mv_sr
+         WHERE mvno = #{value}
+         ORDER BY time desc
+         LIMIT 1
+    </select>
+    
+    <select id="findByTime" resultMap="srMap" parameterType="map">
+        SELECT srno, mvno, mno, titl, time, phot, cont, spo
+          FROM mv_sr
+         WHERE mvno = #{mvno}
+           AND time = #{time}
+    </select>
+    
+    <select id="list" resultMap="srMap" parameterType="int">
+        SELECT srno, mvno, mno, titl, time, phot, cont, spo
+          FROM mv_sr
+         WHERE mvno = #{mvno}
+         ORDER BY time desc
+    </select>
 
 </mapper>
