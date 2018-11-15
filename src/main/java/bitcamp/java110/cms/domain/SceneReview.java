@@ -71,7 +71,6 @@ public class SceneReview {
   }
   public String getImgPath() {
     if (photo == null) {
-      System.out.println("무비디비");
       return Constants.TMDB_IMG_PREFIX_ORIGIN + movieDb.getBackdropPath();
     } else {
       return "/upload/sceneReview/" + photo;
