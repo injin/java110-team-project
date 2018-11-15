@@ -26,8 +26,8 @@
                 <span class="input-group-text" id="basic-addon1"><i class="far fa-clock"></i></span>
               </div>
               <input type="text" class="form-control" placeholder="장면시간" aria-label="장면시간"
-                    aria-describedby="basic-addon1" name="srTime" id="srTime" value="00:00:00">
-              <input type="hidden" name="time">
+                    aria-describedby="basic-addon1" name="time" id="time" value="00:00:00" autocomplete="off">
+              <!-- <input type="hidden" name="time"> -->
             </div>
             
             <!-- 장면제목 -->
@@ -36,7 +36,7 @@
                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-film"></i></span>
               </div>
               <input type="text" class="form-control" placeholder="장면제목" aria-label="장면제목"
-                    aria-describedby="basic-addon1" name="title">
+                    aria-describedby="basic-addon1" name="title" autocomplete="off">
             </div>
             
             <!-- 장면내용 -->
