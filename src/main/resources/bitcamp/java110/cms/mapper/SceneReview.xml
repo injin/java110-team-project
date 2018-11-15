@@ -7,7 +7,7 @@
     <insert id="insert" parameterType="sceneReview"
             useGeneratedKeys="true" keyColumn="srno" keyProperty="srno">
         insert into mv_sr(mvno, mno, titl, time, phot, cont, spo, cdt)
-        values(#{movie.mvno}, #{mno}, #{title}, '00:36:00', #{photo}, #{cont}, #{spo}, now())
+        values(#{movie.mvno}, #{mno}, #{title}, '${time}', #{photo}, #{cont}, #{spo}, now())
     </insert>
 
 </mapper>

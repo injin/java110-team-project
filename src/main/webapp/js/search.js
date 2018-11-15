@@ -1,7 +1,45 @@
 $(function() {
 
-    $( "#Search" ).autocomplete({
-        source: function( request, response ) {
+  //검색버튼 클릭
+    $("#showAllMovies").click(function(){
+/*        var objParams = {
+                searchCd : $("input[name=searchCd]").val() //검색할 코드 (실제로 예제에서는 사용 안함)
+        }
+*/     
+        //var movieList = ${movieList};
+        
+        var values = []; //ArrayList 값을 받을 변수를 선언
+     
+        //검색할 코드를 넘겨서 값을 가져온다.      
+        $.ajax("/app/movieInfo/listByKeyword",{
+                
+                method :"POST",
+                headers : {
+                    'Content-Type': 'application/json;'
+                },
+                data: JSON.stringify({ "keyword": keyword }),
+           success: function(result) {
+                if(result.movieList.length != 0) { //controller에서 넘겨준 성공여부 코드
+                     
+                    values = result.movieList ; //java에서 정의한 ArrayList명을 적어준다.
+                     
+                    $.each(values, function( index, value ) {
+                       console.log( index + " : " + value.title ); //Book.java 의 변수명을 써주면 된다.
+                    });
+                     
+                    alert("성공");
+                }
+                else {
+                    alert("실패");
+                }                   
+            }
+        });
+         
+    });
+    
+    /*
+    $( "#showAllMovies" ).on('click', function(e) {
+//        source: function( request, response ) {
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
                 method: "POST",
@@ -10,6 +48,7 @@ $(function() {
                 },
                 data: JSON.stringify({ "keyword": request.term }),
                 success: function( data ) {
+                    alert('success');
                     response($.map(data.movieList, function (item) {
 
                         if (item.poster_path != null) {
@@ -25,26 +64,26 @@ $(function() {
                         }
                     }));
                 }
-            });
-        },
-        focus: function(event, ui) {
-            $('#Search').val(ui.item.label);
-            return false;
-        },
-//      minLength: 3,
-        select: function( event, ui ) {
-            $("#Search").val(ui.item.label);
-            $("#hs_movieId").val(ui.item.value);
-            return false;
-        }
+           
+        }),
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
-        return $( "<li class='media'>" ).data("item.autocomplete", item)
-        .append("<img class = 'poster' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
-                   '<div class="media-body">'+
-                        '<h5 class="mt-0"><b>'+ item.label +'</b></h5>'+
-                        '(' + item.release_date + ')'+
-                 '</div>')
-        .appendTo( ul );
+        return $( "<div class='wrap'>"+"<div class='ico-wrap'>")
+        .append("<div>" 
+                +"<img class = 'img' src='" + item.poster_path + "' alt='"+item.label+"'>"
+                +"</div>"
+                +"</div>"
+                +"<div class='text-wrap vcenter'>"
+                +"<p class='mbr-fonts-style text1 mbr-text display-6'>"
+                +"<b>"+item.label+"</b></p><br>"
+                +"<p>"+item.release_date+"</p>"
+                +"</div></div>")
+        .appendTo('.movieFrame');
     };
-
+    
+    //검색버튼 클릭
+    $("#showAllMovies").click(function(){
+    });
+*/  
+    
+    
 });

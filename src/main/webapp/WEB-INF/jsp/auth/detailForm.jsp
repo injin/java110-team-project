@@ -39,7 +39,6 @@
             background-color: #00cc9991;
             border-color: #545b62;
         }
-            
       </style>
    </head>
    <!-- http://localhost:8888/app/signupDetail/detailForm
@@ -49,7 +48,7 @@
       <jsp:include page="../include/header.jsp"></jsp:include>
       <main role="main" class="container">
           <div id="detail">
-            <form action="add" method="post" enctype="multipart/form-data">
+            <form action="add" method="post" id="detailForm" enctype="multipart/form-data">
                 <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
                 <h3>닉네임</h3>
                 
@@ -121,16 +120,20 @@
                     <div class="media">
                       <img class="mr-3 w50" src="https://image.tmdb.org/t/p/w500/Xfh4tbLzl9bEt8YL9KkflRjbZl.jpg" alt="영화제목">
                       <div class="media-body">
-                        <h5 class="mt-0"><b>Media heading</b></h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        <span class="badge badge-primary badge-pill">등록</span>
+                        <h5 class="mt-0"><b>가져올 영화 제목</b></h5>
+                        가져올 영화 내용,I can't. When you say it like that oh-oh, oh-oh. Got me falling right back oh-oh, oh-oh (hmm). When you say it like that oh-oh, oh-oh. Let me fuck you right back oh-oh, oh-oh (hmm).
+                        
+                        <span class="badge badge-primary badge-pill" name="mvList">등록</span>
                       </div>
                     </div>
                   </li>
                 </ul>
+                <hr>
+                <div>
+                    <input type="textarea" id="fav">
+                </div>
                 
-                
-                
+                    
                 <hr>
                 <input type="submit" class="btn btn-default" value="확인">
                 <input type="reset" class="btn btn-default" value="취소">
@@ -139,6 +142,14 @@
       </main>
       <jsp:include page="../include/footer.jsp"></jsp:include>
       <script type="text/javascript">
+      
+      //    Enter Key 먹지 않게 
+        $(document).keypress(
+            function(event){
+            if (event.which == '13') {
+                event.preventDefault();
+            }
+      });
       
       var $inputKeyword = $('#input-srch-keyword');
       var $srchMovieList = $('#list-search-movie');
@@ -159,6 +170,10 @@
               html += '<div class="media-body">';
               html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
               html += '(' + obj.release_date + ')';
+              
+              html += '<span style="visibility: hidden;">(' + obj.id + ')</span>';
+              
+              html += '<br><span class="badge badge-primary badge-pill" name="mvList">등록</span>';
               html += '</div>';
               html += '</li>';
               console.log(idx + ':' + obj.title + ':' + obj.release_date);
@@ -204,7 +219,15 @@
               }
           });
       }
--      
+      
+      //   FavMvList관련
+      window.onload = function () {
+    	  var selec = document.getElementsByName('mvList');
+    	  
+    	  selec.onclick = function () {
+    		  console.log('click');
+    	  }
+      };
       // 커버 & 프로필 이미지 업로드 관련
       $("#imageUpload-cover").change(function() {
           coverURL(this);

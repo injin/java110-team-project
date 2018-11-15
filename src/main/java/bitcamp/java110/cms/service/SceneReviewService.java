@@ -6,6 +6,6 @@ import info.movito.themoviedbapi.model.MovieDb;
 public interface SceneReviewService {
   
   void add(SceneReview sceneReview);
-  SceneReview makeSceneCover(MovieDb tmdbMovie);
+  SceneReview initSceneReview(MovieDb tmdbMovie);
   
 }
