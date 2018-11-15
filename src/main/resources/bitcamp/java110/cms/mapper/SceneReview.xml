@@ -25,7 +25,7 @@
         SELECT time
           FROM mv_sr
          WHERE mvno = #{value}
-         ORDER BY time desc
+         ORDER BY time ASC
          LIMIT 1
     </select>
     
@@ -40,7 +40,7 @@
         SELECT srno, mvno, mno, titl, time, phot, cont, spo
           FROM mv_sr
          WHERE mvno = #{mvno}
-         ORDER BY time desc
+         ORDER BY time ASC
     </select>
 
 </mapper>
