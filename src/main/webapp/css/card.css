@@ -3,9 +3,11 @@
 #showAllMovies, #showAllTags{
     cursor: pointer;
 }
-
-img{
-    width: 100px;
+.smTxt{
+	font-size: 0.7em;
+}
+.img{
+	
 }
 section{
 	background-color: #F2F4F7;
@@ -58,9 +60,10 @@ section{
 
 .ico-wrap {
     margin: auto;
+    padding-left: 3rem;
 }
 .vcenter {
-    margin: auto;
+    margin: 0 auto;
 }
 
 .mbr-section-title3 {
