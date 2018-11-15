@@ -39,7 +39,8 @@ public class AuthController {
             HttpSession session,
             HttpServletRequest request) {
       
-      Map<String, Object> kakaoResponse = authService.getKakaoResponse(accessToken);
+      Map<String, Object> kakaoResponse =
+          authService.getKakaoResponse(accessToken);
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
@@ -47,7 +48,8 @@ public class AuthController {
       if (member != null) {
         session.setAttribute("loginUser", member);
         String originPath = request.getHeader("referer");
-        return "redirect:" + originPath.substring(originPath.indexOf("/app"));
+        return "redirect:" + originPath.substring(
+            originPath.indexOf("/app"));
 //        return "redirect:/app/";
       }
       
@@ -99,7 +101,8 @@ public class AuthController {
         Model model,
         HttpSession session) {
       
-      model.addAttribute("member", (Member)session.getAttribute("loginUser"));
+      model.addAttribute("member", 
+          (Member)session.getAttribute("loginUser"));
       model.addAttribute("genreList", genreService.getList());
       
       return "/auth/detailForm";
@@ -108,9 +111,9 @@ public class AuthController {
     @PostMapping("/add")
     public String add(
         Member member,
-        @RequestParam(name="grnoList", required=false)
+        @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
-        @RequestParam(name="grnoList", required=false)
+        @RequestParam(name="favMvList", required=false)
                 List<Integer> favMvList,
         MultipartFile profileImage,
         MultipartFile coverImage,
@@ -118,14 +121,16 @@ public class AuthController {
       
       if (profileImage != null && profileImage.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
-        profileImage.transferTo(new File(sc.getRealPath("/upload/profile/" + profileImg)));
+        profileImage.transferTo(new File(
+            sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
         System.out.println(profileImg);
       }
       
       if (coverImage != null && coverImage.getSize() > 0) {
         String coverImg = UUID.randomUUID().toString();
-        coverImage.transferTo(new File(sc.getRealPath("/upload/cover/" + coverImg)));
+        coverImage.transferTo(new File(
+            sc.getRealPath("/upload/cover/" + coverImg)));
         member.setCoverImage(coverImg);
         System.out.println(coverImg);
       }
