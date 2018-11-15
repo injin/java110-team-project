@@ -32,58 +32,7 @@ public class MlogController {
     List<Mlog> logList = mlogservice.getList(mno);
     System.out.println(logList);
     
-    
-    String thisDirect;
-    String thisAct;
-    String thisIndirect;
-    String thisnick;
-    Date thisday;
-    
-    for (Mlog log : logList) {
-      thisDirect = log.getDirect();
-      thisAct = log.getAct();
-      thisIndirect = log.getIndirect();
-      thisnick=log.getNick(); 
-      thisday=log.getCreatedDate();
-      
-      if ("mp".equals(thisDirect)) {
-        if("wr".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect + "의 영화 리뷰를 작성했습니다");
-        }
-        else if("lk".equals(log.getAct())) {
-          log.setText(log.getNick()+"님이 "+ thisIndirect +"의 영화 리뷰를 좋아합니다");
-        }
-      }
-      else if("dp".equals(thisDirect)) {
-        if("wr".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 일상리뷰를 작성했습니다");
-        }
-        else if("lk".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect + "의 영화 리뷰를 좋아합니다");
-        }
-      }
-      else if("sr".equals(thisDirect)) {
-        if("wr".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect +"에 장면 리뷰를 작성했습니다");
-        }
-        else if("lk".equals(thisAct)) {
-          log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면 리뷰를 좋아합니다");
-        }
-      }
-      else if("sc".equals(thisDirect)) {
-        log.setText(log.getNick()+"님이 " + thisIndirect +"의 장면 리뷰에 댓글을 작성하였습니다");
-      }
-      else if("pc".equals(thisDirect)) {
-        log.setText(log.getNick()+"님이 " + thisIndirect +"님의 게시물에 댓글을 작성했습니다");
-      }
-      else {
-        log.setText(log.getNick()+"님이 " + thisIndirect +"을/를 팔로우 했습니다");
-      }
-      
-    }
-    
     model.addAttribute("list", logList);
-    
     
     
     return "log/mloglist";
