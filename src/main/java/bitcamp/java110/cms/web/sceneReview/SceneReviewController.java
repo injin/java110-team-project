@@ -30,7 +30,7 @@ public class SceneReviewController {
     MovieDb tmdbMovie = tmdbMovies.getMovie(movieId, Constants.LANGUAGE_KO);
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("imgPrefix", Constants.TMDB_IMG_PREFIX_ORIGIN);
-    model.addAttribute("sceneCover", sceneReviewService.makeSceneCover(tmdbMovie));
+    model.addAttribute("sceneReview", sceneReviewService.initSceneReview(tmdbMovie));
     
     return "sceneReview/review";
   }
@@ -41,7 +41,6 @@ public class SceneReviewController {
                 HttpSession session,
                 MultipartFile phot) throws Exception {
     
-    System.out.println("장면리뷰" + sceneReview.toString());
     Member member = (Member)session.getAttribute("loginUser");
     sceneReview.setMno(member.getMno());
     
