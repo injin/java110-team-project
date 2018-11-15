@@ -2,13 +2,21 @@ package bitcamp.java110.cms.domain;
 
 public class SceneReview {
   
+  protected int mno;
   protected int time;
   protected String title;
   protected String cont;
   protected String spo;
+  protected String photo;
   protected String coverImg;
   protected Movie movie;
   
+  public int getMno() {
+    return mno;
+  }
+  public void setMno(int mno) {
+    this.mno = mno;
+  }
   public int getTime() {
     return time;
   }
@@ -36,6 +44,12 @@ public class SceneReview {
   public String getCoverImg() {
     return coverImg;
   }
+  public String getPhoto() {
+    return photo;
+  }
+  public void setPhoto(String photo) {
+    this.photo = photo;
+  }
   public void setCoverImg(String coverImg) {
     this.coverImg = coverImg;
   }
@@ -45,9 +59,10 @@ public class SceneReview {
   public void setMovie(Movie movie) {
     this.movie = movie;
   }
+  
   @Override
   public String toString() {
-    return "SceneReview [time=" + time + ", title=" + title + ", cont=" + cont + ", spo=" + spo
-        + ", coverImg=" + coverImg + ", movie=" + movie + "]";
+    return "SceneReview [mno=" + mno + ", time=" + time + ", title=" + title + ", cont=" + cont
+        + ", spo=" + spo + ", photo=" + photo + ", coverImg=" + coverImg + ", movie=" + movie + "]";
   }
 }
