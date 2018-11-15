@@ -45,11 +45,18 @@ main {
                 <ul class="list-group">
                 <c:forEach var="log" items="${list}">
                     <c:if test="${log.direct eq 'mp'}">
-                        <%-- ${log.text} --%>
-                        <a href="#" class="list-group-item list-group-item-action ">
-                        <p style="float:left;margin-bottom:0">${log.text}</p>
-                        <p style="float:right;margin-bottom:0">${log.createdDate}</p>
-                        </a>
+                        <li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이
+                            <c:if test="${log.act eq 'wr'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 영화 리뷰를 작성했습니다
+                            </c:if>
+                            <c:if test="${log.act eq 'lk'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 영화 리뷰를 좋아합니다
+                            </c:if>
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
                     </c:if>
                 </c:forEach>
                 </ul>
@@ -59,10 +66,22 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'dp'}">
-                    <a href="#" class="list-group-item list-group-item-action">
+                        <li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이
+                            <c:if test="${log.act eq 'wr'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 작성했습니다
+                            </c:if>
+                            <c:if test="${log.act eq 'lk'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 좋아합니다
+                            </c:if>
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
+                    <%-- <a href="#" class="list-group-item list-group-item-action">
                         <p style="float: left; margin-bottom: 0">${log.text}</p>
                         <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                    </a>
+                    </a> --%>
                 </c:if>
             </c:forEach>
             </ul>
@@ -72,10 +91,20 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'sr'}">
-                    <a href="${log.url}" class="list-group-item list-group-item-action">
-                        <p style="float: left; margin-bottom: 0">${log.text}</p>
-                        <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                    </a>
+                    <li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이
+                            <c:if test="${log.act eq 'wr'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 작성했습니다
+                            </c:if>
+                            <c:if test="${log.act eq 'lk'}">
+                                <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 좋아합니다
+                            </c:if>
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
+                        <%-- <p style="float: left; margin-bottom: 0">${log.text}</p>
+                        <p style="float: right; margin-bottom: 0">${log.createdDate}</p> --%>
                 </c:if>
             </c:forEach>
             </ul>
@@ -85,10 +114,13 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'pc'}">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p style="float: left; margin-bottom: 0">${log.text}</p>
-                        <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                    </a>
+                    li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이 
+                            <a href="${log.url}">${log.indirect}</a> 님의 게시물에 댓글을 작성했습니다
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
                 </c:if>
             </c:forEach>
             </ul>
@@ -98,11 +130,13 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'sc'}">
-                    <a href="#"
-                        class="list-group-item list-group-item-action">
-                        <p style="float: left; margin-bottom: 0">${log.text}</p>
-                        <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                    </a>
+                    <li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이 
+                            <a href="${log.url}">${log.indirect}</a> 의 장면 리뷰에 댓글을 작성하였습니다
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
                 </c:if>
             </c:forEach>
             </ul>
@@ -112,10 +146,13 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'fr'}">
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <p style="float: left; margin-bottom: 0">${log.text}</p>
-                        <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                    </a>
+                   <li class="list-group-item">
+                        <span style="float: left; margin-bottom: 0">
+                            <a href="#">${log.nick}</a>님이 
+                            <a href="${log.url}">${log.indirect}</a> 을/를 팔로우 했습니다
+                        </span>
+                        <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+                    </li>
                 </c:if>
             </c:forEach>
             </ul>
