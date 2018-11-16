@@ -77,7 +77,7 @@ $(function() {
     $('#modalSubmit').on('click', function(e) {
 
         if($("#pstTypeNo").val() == 0){
-            if($("#movieId").val().trim() == ''){
+            if($("#movieId").val().trim() == 0){
                 alert("알맞은 영화제목을 작성해주세요.");
                 e.preventDefault();
                 return;

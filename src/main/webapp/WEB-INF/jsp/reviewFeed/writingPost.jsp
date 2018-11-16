@@ -8,13 +8,11 @@
 		<form action="add" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
 
-				<div class="modal-header">
-				
-					<h5 class="modal-title">리뷰 작성하기</h5>
+				<div class="modal-header form-inline">
+					<h5 class="modal-title" style="margin-right: 1rem">리뷰 작성하기</h5>
 					<!-- 영화 검색 -->
 					<input type="hidden" id="pstTypeNo" name="pstTypeNo">
-					<div class="onlyMovie" style="padding: 0 1rem;">
-						<div class="input-group ui-widget ui-front">
+						<div class="input-group ui-widget ui-front onlyMovie">
 							<div class="input-group-prepend">
 								<div class="input-group-text">영화</div>
 							</div>
@@ -23,7 +21,6 @@
 								id="movieSearch" name="title" placeholder="영화를 검색해주세요" autocomplete="off">
 							<input type="hidden" id="movieId" name="mvno" value="0">
 						</div>
-					</div>
 					<!-- 공개여부 스위치 -->
 					<label class="switch"> 
 					   <input type="checkbox" name="open" class="open" checked>
@@ -33,7 +30,7 @@
 					       </span>
 					</label>
                     <!-- 모달 닫기 -->
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-left:0px">
 						<span aria-hidden="true">&times;</span>
 					</button>
 
@@ -51,7 +48,7 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
 						</div>
-						<input type="text" class="form-control" name="followGroup"
+						<input type="text" class="form-control" name="followGroup" autocomplete="off"
 							placeholder="태그할 팔로우를 작성해주세요">
 					</div>
                     

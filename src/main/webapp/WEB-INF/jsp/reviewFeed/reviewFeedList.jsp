@@ -101,8 +101,8 @@
 				<c:if test="${post.open}">
 					<div class="wPost reviewPst">
 						<div class="media row" style="padding: 0 1rem">
-							<img src="${post.member.profileImage}"
-								style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem" />
+							<img src="${post.member.profileImagePath}"
+								style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
 							<div class="media-body">
 								<ul
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
@@ -160,7 +160,7 @@
 		<!-- 맞춤영화 추천 부분 -->
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
-				<div class="col-3" display>
+				<div class="col-3">
 					<div class="wPost" style="position: fixed">
 						<div style="color: black">
 							${sessionScope.loginUser.nickname}의 맞춤 영화</div>
