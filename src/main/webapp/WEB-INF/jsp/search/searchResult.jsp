@@ -7,15 +7,37 @@
 	<div class="container">
 		<div class="row mbr-justify-content-center">
 
+			<!-- 검색결과 -->
+			<c:choose>
+				<c:when
+					test="${fn:length(memberList) == 0 && totalResults == 0 && fn:length(hashList) == 0}">
+					<div class="col-lg-12 mbr-col-md-12">
+						<div class="col-centered">
+							<div>
+								<p class="result titleFont">
+									'<b>${keyword}</b>'에 대한 검색 결과가 없습니다.
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="col-lg-12 mbr-col-md-12">
+						<div class="col-centered">
+							<div>
+								<p class="result titleFont">
+									'<b>${keyword}</b>'에 대한 통합검색 결과입니다.
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<!-- 회원 -->
 			<c:if test="${fn:length(memberList) > 0}">
 				<div class="col-lg-12 mbr-col-md-12 resultMember">
 					<div class="col-centered">
-						<div>
-							<p class="result titleFont">
-								'<b>${keyword}</b>'에 대한 통합검색 결과입니다.
-							</p>
-						</div>
+
 						<div class="wrap search_header">
 							<div class="text-wrap vcenter">
 								<h2 class=" mbr-bold mbr-section-title3 display-5">
@@ -58,8 +80,9 @@
 					<!-- 회원 목록 -->
 
 					<c:if test="${fn:length(memberList) > 3}">
+						<c:set var="type" value="mb" />
 						<div class="wrap search_footer" id="showAllMembers"
-							onclick="showMore(${fn:length(memberList)})">
+							onclick="showMore(${fn:length(memberList)}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>
@@ -140,8 +163,9 @@
 					<!-- 영화목록 -->
 
 					<c:if test="${totalResults > 3}">
+						<c:set var="type" value="mv" />
 						<div class="wrap search_footer" id="showAllMovies"
-							onclick="showMore(${totalResults})">
+							onclick="showMore(${totalResults}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>
@@ -183,8 +207,9 @@
 					</c:forEach>
 
 					<c:if test="${fn:length(hashList) > 3}">
+						<c:set var="type" value="tg" />
 						<div class="wrap search_footer" id="showAllTags"
-							onclick="showMore(${fn:length(hashList)})">
+							onclick="showMore(${fn:length(hashList)}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>
@@ -193,7 +218,7 @@
 				</div>
 			</c:if>
 			<!-- 해시태그 -->
-			
+
 		</div>
 	</div>
 </section>

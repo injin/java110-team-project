@@ -39,7 +39,7 @@
         var tagFooter = document.getElementById('showAllTags');
         var frame;
         
-        function showMore(input) {
+        function showMore(input, type) {
             
             console.log(input);
             if(input>20){
@@ -47,8 +47,9 @@
             }else{
                 totalCount = input;
             }
+            console.log(type)
             
-            if(input == ${totalResults}){
+            if(type == 'mv'){
              for (var i = 3; i < totalCount; i++) {
                 frame = document.getElementsByClassName('movieFrame')[i];
                 frame.style.display="block";
@@ -56,14 +57,14 @@
              
              movieFooter.style.visibility = "hidden";
             
-            }else if(input == ${fn:length(memberList)}){
+            }else if(type == 'mb'){
                 for (var i = 3; i < totalCount; i++) {
                     frame = document.getElementsByClassName('memberFrame')[i];
                     frame.style.display="block";
                 } 
                  
                  memberFooter.style.visibility = "hidden";
-            }else{
+            }else if(type == 'tg'){
                 for (var i = 3; i < totalCount; i++) {
                     frame = document.getElementsByClassName('tagFrame')[i];
                     frame.style.display="block";
