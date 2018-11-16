@@ -137,12 +137,16 @@
 					</span>
 				</div>
 	            <div class="searchList" style="width: 30rem; float:left; margin-top:40px;">
-					<ul class="list-group" id="list-search-movie"></ul>
+					<ul class="list-group" id="list-search-movie">
+<!-- 						<li class="list-group-item" style="border:none;">
+						검색한 영화 출력 되는 곳
+						</li>
+ -->					</ul>
 	            </div>
             </div>
 
-			<div class="listBox" style="width: 30rem; float:right; ">
-			     <ul class="chooseList" id="list-choose-movie"></ul>
+			<div class="listBox" style="border: 1px solid black; width: 30rem; float:right; ">
+			     asdf
 			</div>
 			</section>
 			<!-- 쇼 가져올 영화 출력 예시 -->
@@ -185,23 +189,12 @@ for ( var i = 0; i <= 40; i++) {
 }
 */
 
-<<<<<<< HEAD
-//Enter Key 먹지 않게
-$("#input-srch-keyword").keypress(
-     function(event){
-     if (event.which == '13') {
-         event.preventDefault();
-         $(this).trigger(findMoviesByKeywod());
-     }
-=======
 //Enter Key 먹지 않게 
-$("#input-srch-keyword").keypress(
+$(document).keypress(
       function(event){
       if (event.which == '13') {
           event.preventDefault();
-          $(this).trigger(findMoviesByKeywod());
       }
->>>>>>> 19b6a25118ae0a989ce0126d2a5d889e93fba60f
 });
 
 //커버 & 프로필 이미지 업로드 관련
