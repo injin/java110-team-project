@@ -13,7 +13,7 @@
 /*===== movie cover =====*/
 #movie-cover {
     width: 100%;
-    height: 500px;
+    height: 33em;
     background-size: cover;
     border-bottom: 1px solid #ccc;
 }

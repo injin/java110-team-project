@@ -15,21 +15,27 @@
     #movie-content {
         display: inline-block;
     }
+    
     #scene-list-container {
         position: absolute;
         bottom: 35px;
         left: 0;
-    }
-    #scene-list {
-        max-width: 1100px;
-        margin-left: 20px;
-        
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: flex;
+        display: -webkit-flex;
+        display: -ms-flexbox;
     }
     .scene-box {
         height: 35px;
         max-width: 35px;
-        display: inline-block;
-        float: left;
+        width: calc(100% / ${fn:length(sceneList)} );
+    }
+    .scene-img {
+        width: 100%;
+        height: 35px;
+        background-size: cover;
         cursor: pointer;
     }
 </style>
@@ -49,7 +55,7 @@
                             </c:if>
                         </h3>
                         <c:if test="${sceneReview.time ne null}">
-                            <p>(${sceneReview.time})</p>
+                            <p>${sceneReview.title} (${sceneReview.time})</p>
                         </c:if>
                         <c:if test="${sceneReview.time eq null}">
                             <p>(${tmdbMovie.releaseDate})</p>
@@ -63,15 +69,17 @@
                     </div>
                 </div>
                 
-                
-                <div class="row col-12" id="scene-list-container">
-                    <div id="scene-list">
+                <div class="row">
+                    <div id="scene-list-container">
                         <c:forEach items="${sceneList}" var="scene">
-                            <img class="scene-box" src="${scene.imgPath}" 
-                                data-toggle="tooltip" data-placement="top" title="${scene.title}(${scene.time})">
+                            <div class="scene-box">
+                                <img class="scene-img" src="${scene.imgPath}"
+                                    data-toggle="tooltip" data-placement="top" title="${scene.title} (${scene.time})">
+                            </div>
                         </c:forEach>
                     </div>
                 </div>
+                
                 
             </div>
         </div>
@@ -104,7 +112,7 @@
     
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     /* 하단 장면 목록 박스 관련 */
-    $('.scene-box').on('mouseover', function() {
+    $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
         $('#movie-cover').css('background-image', 'url(' + imgPath + ')');
     }).on('mouseleave', function() {
