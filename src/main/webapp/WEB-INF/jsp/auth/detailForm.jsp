@@ -60,7 +60,7 @@
 		<form action="add" method="post" id="detailForm"
 			enctype="multipart/form-data">
 			<input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
-			<h3>닉네임</h3>
+			<h3 class="mt-3">닉네임</h3>
 
 			<div class="form-group row">
 				<div class="col-xs-12 col-md-6 col-lg-4 ">
