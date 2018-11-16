@@ -78,7 +78,12 @@ public class SceneReview {
   }
   public String getImgPath() {
     if (photo == null) {
-      return Constants.TMDB_IMG_PREFIX_ORIGIN + movieDb.getBackdropPath();
+      if (movieDb.getBackdropPath() != null) {
+        return Constants.TMDB_IMG_PREFIX_ORIGIN + movieDb.getBackdropPath();
+      } else {
+        return "/img/default-movie-cover-img.jpg";
+      }
+      
     } else {
       return "/upload/sceneReview/" + photo;
     }
