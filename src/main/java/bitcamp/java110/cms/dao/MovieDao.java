@@ -6,5 +6,6 @@ import bitcamp.java110.cms.domain.Movie;
 public interface MovieDao {
   
   int insert(Map<String, Object> params);
+  int insertByObj(Movie movie);
   Movie findByNo(int no);
 }

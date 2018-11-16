@@ -5,7 +5,11 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -14,9 +18,17 @@ import info.movito.themoviedbapi.model.MovieDb;
 public class SceneReviewServiceImpl implements SceneReviewService {
   
   @Autowired SceneReviewDao sceneReviewDao;
+  @Autowired MovieDao movieDao;
   
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
   public void add(SceneReview sceneReview) {
+    
+    Movie movie = sceneReview.getMovie();
+    if(movie.getMvno() !=0 &&  movieDao.findByNo(movie.getMvno()) == null) {
+      movieDao.insertByObj(movie);
+    }
+    
     sceneReviewDao.insert(sceneReview);
   }
   
