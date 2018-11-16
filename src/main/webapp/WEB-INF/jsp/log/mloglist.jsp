@@ -114,7 +114,7 @@ main {
             <ul class="list-group">
             <c:forEach var="log" items="${list}">
                 <c:if test="${log.direct eq 'pc'}">
-                    li class="list-group-item">
+                    <li class="list-group-item">
                         <span style="float: left; margin-bottom: 0">
                             <a href="#">${log.nick}</a>님이 
                             <a href="${log.url}">${log.indirect}</a> 님의 게시물에 댓글을 작성했습니다

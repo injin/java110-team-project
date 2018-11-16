@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.web.log;
 
-import java.sql.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
