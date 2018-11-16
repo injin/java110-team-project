@@ -105,15 +105,15 @@
 			<div class="gr_anly">
 				<div class="btn-group-toggle" data-toggle="buttons">
 					<c:forEach items="${genreList}" var="genre">
-						<label class="btn btn-checkbox btn-secondary"> <input
-							type="checkbox" name="favGrList" value="${genre.grno}">${genre.grName}
+						<label class="btn btn-checkbox btn-secondary">
+						  <input type="checkbox" name="favGrList" value="${genre.grno}">${genre.grName}
 						</label>
 					</c:forEach>
 				</div>
 			</div>
 
 			<hr>
-
+            
 
 
 
@@ -162,8 +162,9 @@
 	</div>
 	</main>
 	<hr>
-	<jsp:include page="../include/footer.jsp"></jsp:include>이제
-
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+	<script src="/js/jquery-ui.js"></script>
+    <script src="/js/bootstrap.js"></script>
 
 <script type="text/javascript">
 //  완성된 js
@@ -297,8 +298,7 @@ function makeMovieListHtml(data) {
     return html;
 }
 
-</script>
-<script type="text/javascript">
+/*  */
 /*
 추가할 때는 리스트 두개 사용해서 각각 아이디랑 타이틀을 넣고 삭제할 때는 해당값을 지우고 마지막에 확인할 때 해당 배열을 전달.
 회원 영화 등록시 mv_mv 테이블에 영화 먼저 등록 해야함.
@@ -307,6 +307,7 @@ function makeMovieListHtml(data) {
 var selecList = [];
 
 function addList(id, title) {
+	console.log(id);
     selecList.add({id:id, title:title});
 }
     
@@ -334,5 +335,5 @@ function removeList(id) {
 		Nuclear Launch!!</button>
 </form>
 
-<script src="/js/jquery-ui.js"></script>
+
 </html>
