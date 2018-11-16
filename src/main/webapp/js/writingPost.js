@@ -73,10 +73,22 @@ $(function() {
             $(".globe").hide();
         }
     });
+    
+    $('#followGroup').tagsinput({
+        itemValue:'id',
+        itemText:'follow',
+        typehead:{
+            source:function(query){
+                return $.getJSON('cities.json');
+            }
+        }
+    });
 
     $('#modalSubmit').on('click', function(e) {
 
+        console.log($("#pstTypeNo").val() == 0);
         if($("#pstTypeNo").val() == 0){
+            console.log($("#movieId").val().trim()  == 0);    
             if($("#movieId").val().trim() == 0){
                 alert("알맞은 영화제목을 작성해주세요.");
                 e.preventDefault();
