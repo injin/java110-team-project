@@ -56,7 +56,11 @@
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
 	<main role="main" class="container" style="margin: 0 auto;"> <jsp:include
-		page="searchResult.jsp"></jsp:include> </main>
+		page="searchResult.jsp"></jsp:include>
+        
+        <a class="return-top" href="#" >
+        <img src="/img/top-btn.png"  width="50" height="50"></a>
+    </main>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>

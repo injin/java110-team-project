@@ -189,12 +189,13 @@ for ( var i = 0; i <= 40; i++) {
 }
 */
 
-//Enter Key 먹지 않게 
-$(document).keypress(
-      function(event){
-      if (event.which == '13') {
-          event.preventDefault();
-      }
+//Enter Key 먹지 않게
+$("#input-srch-keyword").keypress(
+     function(event){
+     if (event.which == '13') {
+         event.preventDefault();
+         $(this).trigger(findMoviesByKeywod());
+     }
 });
 
 //커버 & 프로필 이미지 업로드 관련
