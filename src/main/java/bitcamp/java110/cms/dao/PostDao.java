@@ -9,4 +9,5 @@ public interface PostDao {
   List<Post> findAll();
   Post findByNo(int no);
   int delete(int no);
+  List<Post> findByKeyword(String keyword);
 }

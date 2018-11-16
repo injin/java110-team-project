@@ -83,9 +83,16 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> getHash(String keyword) {
+  public List<Post> findByKeyword(String keyword) {
     
-    return postHashtagDao.get(keyword);
+    List<Post> hashposts = postDao.findByKeyword(keyword);
+    //System.out.println(hashposts);
+  
+    for(int i=0;i<hashposts.size();i++)
+    {
+      hashposts.get(i).setPhotos(postPhotoDao.findByNo(hashposts.get(i).getPstno()));
+    }
+    return hashposts;
   }
   
   @Override
