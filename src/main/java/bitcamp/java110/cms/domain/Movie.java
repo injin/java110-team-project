@@ -3,7 +3,7 @@ package bitcamp.java110.cms.domain;
 public class Movie {
 
   protected int mvno;
-  protected int title;
+  protected String title;
 
   @Override
   public String toString() {
@@ -15,11 +15,10 @@ public class Movie {
   public void setMvno(int mvno) {
     this.mvno = mvno;
   }
- 
-  public int getTitle() {
+  public String getTitle() {
     return title;
   }
-  public void setTitle(int title) {
+  public void setTitle(String title) {
     this.title = title;
   }
 }

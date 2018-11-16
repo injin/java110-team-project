@@ -14,6 +14,7 @@ public class SceneReview {
   protected String cont;
   protected String spo;
   protected MovieDb movieDb;
+  protected Movie movie; // mv_mv 테이블 등록용
   
   public int getSrno() {
     return srno;
@@ -69,6 +70,12 @@ public class SceneReview {
   public void setMovieDb(MovieDb movieDb) {
     this.movieDb = movieDb;
   }
+  public Movie getMovie() {
+    return movie;
+  }
+  public void setMovie(Movie movie) {
+    this.movie = movie;
+  }
   public String getImgPath() {
     if (photo == null) {
       return Constants.TMDB_IMG_PREFIX_ORIGIN + movieDb.getBackdropPath();
@@ -76,12 +83,10 @@ public class SceneReview {
       return "/upload/sceneReview/" + photo;
     }
   }
-  
   @Override
   public String toString() {
-    return "SceneReview [getSrno()=" + getSrno() + ", getMvno()=" + getMvno() + ", getMno()="
-        + getMno() + ", getTitle()=" + getTitle() + ", getTime()=" + getTime() + ", getPhoto()="
-        + getPhoto() + ", getCont()=" + getCont() + ", getSpo()=" + getSpo() + ", getMovieDb()="
-        + getMovieDb() + ", getImgPath()=" + getImgPath() + "]";
+    return "SceneReview [srno=" + srno + ", mvno=" + mvno + ", mno=" + mno + ", title=" + title
+        + ", time=" + time + ", photo=" + photo + ", cont=" + cont + ", spo=" + spo + ", movieDb="
+        + movieDb + ", movie=" + movie + "]";
   }
 }

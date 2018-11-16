@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("utf-8"); %>
-<% response.setContentType("text/html; charset=utf-8"); %>
+<%
+  request.setCharacterEncoding("utf-8");
+%>
+<%
+  response.setContentType("text/html; charset=utf-8");
+%>
 <%@ include file="../include/top.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -118,73 +122,71 @@
 
 			<h3 id="mv_anly">인생영화선정</h3>
 			<p>취향 분석을 위한 작품 10개를 선정해 주세요.</p>
-			<div class="input-group">
-			    <div class="input-group-prepend">
-                      <div class="input-group-text">영화</div>
-                </div>
-				<input type="text" class="form-control" id="input-srch-keyword"
-					placeholder="검색어를 입력해 주세요" autocomplete="off"> <span
-					class="input-group-btn">
-					<button class="btn btn-primary" id="btn-srch-movie"
-						onclick="findMoviesByKeywod()" type="button">검색</button>
-				</span>
-			</div>
-			<!-- <ul class="list-group" id="list-search-movie">
-
-				<li class="list-group-item">
-					<div class="media">
-						<img class="mr-3 w50"
-							src="https://image.tmdb.org/t/p/w500/Xfh4tbLzl9bEt8YL9KkflRjbZl.jpg"
-							alt="영화제목">
-						<div class="media-body">
-							<h5 class="mt-0">
-								<b>가져올 영화 제목</b>
-							</h5>
-							<button type="button" name="mv" class="badge badge-primary badge-pill" style="cursor: pointer;">등록</button>
-							I can't. When you say it like that oh-oh, oh-oh. Got me
-							falling right back oh-oh, oh-oh (hmm). When you say it like that
-							oh-oh, oh-oh. Let me fuck you right back oh-oh, oh-oh (hmm).
-						</div>
-					</div>
-				</li>
-			</ul>
-			<hr> -->
 			
-			<hr>
-            <ul class="list-group" id="list-search-movie">
-            <!-- V 가져올 영화 출력 예시 -->
-            <!-- 선택한 목록 이곳에 출력 하도록 -->
-                <li class="list-group-item">
-                    <div class="media">
-                        <img class="mr-3 w50"
-                            src="https://image.tmdb.org/t/p/w500/Xfh4tbLzl9bEt8YL9KkflRjbZl.jpg"
-                            alt="영화제목">
-                        <div class="media-body">
-                            <h5 class="mt-0">
-                                <b>가져올 영화 제목</b>
-                            </h5>
-                            <button type="button" onclick="removeList()"  name="mvList" class="badge badge-primary badge-pill" style="cursor: pointer;">제거</button>
-                            I can't. When you say it like that oh-oh, oh-oh. Got me
-                            falling right back oh-oh, oh-oh (hmm). When you say it like that
-                            oh-oh, oh-oh. Let me fuck you right back oh-oh, oh-oh (hmm).
-                        </div>
-                    </div>
-                </li>
-            </ul>
+			<section class="my-mv-list" style="height:300px; margin:2rem;">
+			<div class="srchNlist">
+				<div class="input-group" style="width: 30rem; float:left; position:absolute;">
+					<div class="input-group-prepend">
+						<div class="input-group-text">영화</div>
+					</div>
+					<input type="text" class="form-control" id="input-srch-keyword"
+						placeholder="검색어를 입력해 주세요" autocomplete="off"> <span
+						class="input-group-btn">
+						<button class="btn btn-primary" id="btn-srch-movie"
+							onclick="findMoviesByKeywod()" type="button">검색</button>
+					</span>
+				</div>
+	            <div class="searchList" style="width: 30rem; float:left; margin-top:40px;">
+					<ul class="list-group" id="list-search-movie">
+<!-- 						<li class="list-group-item" style="border:none;">
+						검색한 영화 출력 되는 곳
+						</li>
+ -->					</ul>
+	            </div>
+            </div>
+
+			<div class="listBox" style="border: 1px solid black; width: 30rem; float:right; ">
+			     asdf
+			</div>
+			</section>
 			<!-- 쇼 가져올 영화 출력 예시 -->
+            <hr>
 
 
 			<hr>
-			<input type="submit" class="btn btn-default" value="확인"> <input
-				type="reset" class="btn btn-default" value="취소">
+			<div class="confirm" style="">
+			    <input type="submit" class="btn btn-default" value="확인">
+			    <input type="reset" class="btn btn-default" value="취소">
+			</div>
 		</form>
 	</div>
 	</main>
-	<jsp:include page="../include/footer.jsp"></jsp:include>
-	
-	
+	<hr>
+	<jsp:include page="../include/footer.jsp"></jsp:include>이제
+
+
 <script type="text/javascript">
 //  완성된 js
+
+//    배열의 proto 길이 제한.
+Array.prototype.add = function(x) {
+    this.unshift(x);
+    this.maxLength = 20;
+    if (this.maxLength !== undefined && this.length > this.maxLength){
+        this.pop();
+        console.log('Can not over 20');
+        alert('20개 이상 선택 할 수 없습니다.');
+    } 
+}
+/* 
+테스트 코드
+
+var a = [];
+for ( var i = 0; i <= 40; i++) {
+    a.add(i);
+    console.log(a);
+}
+*/
 
 //Enter Key 먹지 않게 
 $(document).keypress(
@@ -194,7 +196,40 @@ $(document).keypress(
       }
 });
 
-//영화 검색
+//커버 & 프로필 이미지 업로드 관련
+$("#imageUpload-cover").change(function() {
+    coverURL(this);
+});
+  
+$("#imageUpload-profile").change(function() {
+    profileURL(this);
+});
+  
+function profileURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#profilePreview').css('background-image', 'url('+e.target.result +')');
+            $('#profilePreview').hide();
+            $('#profilePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+  
+function coverURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#coverPreview').css('background-image', 'url('+e.target.result +')');
+            $('#coverPreview').hide();
+            $('#coverPreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+//영화 검색 & 출력
 function findMoviesByKeywod() {
     var keyword = document.getElementById('input-srch-keyword').value;
     if (keyword == '') {
@@ -232,115 +267,66 @@ function findMoviesByKeywod() {
     });
 }
 
-// 커버 & 프로필 이미지 업로드 관련
-$("#imageUpload-cover").change(function() {
-    coverURL(this);
-});
-  
-$("#imageUpload-profile").change(function() {
-    profileURL(this);
-});
-  
-function profileURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#profilePreview').css('background-image', 'url('+e.target.result +')');
-            $('#profilePreview').hide();
-            $('#profilePreview').fadeIn(650);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-  
-function coverURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#coverPreview').css('background-image', 'url('+e.target.result +')');
-            $('#coverPreview').hide();
-            $('#coverPreview').fadeIn(650);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
+// html 출력
+var $inputKeyword = $('#input-srch-keyword');
+var $srchMovieList = $('#list-search-movie');
+    
+function makeMovieListHtml(data) {
+    var html = '';
+    data.movieList.forEach(function(obj, idx) {
+        console.log('가져온 정보' + obj);
+        html += '<li class="list-group-item"><div class="media">';
+        html += '<img class="mr-3 w50" src="'
+            if (obj.poster_path != null) {
+                html += data.imgPrefix + obj.poster_path;
+            } else {
+                html += '/img/default-movie-img.png';
+            }
+        html += '" alt="영화제목">';
+        html += '<div class="media-body">';
+        html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
+        html += '(' + obj.release_date + ')';
+        html += '<span style="visibility: hidden;">(' + obj.id + ')</span>';
+        html += '<br>';
+        html += `<button type="button" onclick="addList(` + obj.id + `, '` + obj.title + `')" `;
+        html += ' name="mvList" class="badge badge-primary badge-pill" style="cursor: pointer;">등록</button>';
+        html += '</div>';
+        html += '</li>';
+        console.log(idx + ':' + obj.title + ':' + obj.release_date);
+        });
+    return html;
 }
 
-</script> 
-      <script type="text/javascript">
-		    
-		    // 검색 영화 목록 출력
-		    var $inputKeyword = $('#input-srch-keyword');
-		    var $srchMovieList = $('#list-search-movie');
-		    
-		    function makeMovieListHtml(data) {
-		        var html = '';
-		        data.movieList.forEach(function(obj, idx) {
-		            
-		            console.log('가져온 정보' + obj);
-		            html += '<li class="list-group-item"><div class="media">';
-		            html += '<img class="mr-3 w50" src="'
-		            if (obj.poster_path != null) {
-		                html += data.imgPrefix + obj.poster_path;
-		            } else {
-		                html += '/img/default-movie-img.png';
-		            }
-		            html += '" alt="영화제목">';
-		            html += '<div class="media-body">';
-		            html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
-		            html += '(' + obj.release_date + ')';
-		            html += '<span style="visibility: hidden;">(' + obj.id + ')</span>';
-		            html += '<br>';
-		            html += `<button type="button" onclick="addList(` + obj.id + `, '` + obj.title + `')" `;
-		            html += ' name="mvList" class="badge badge-primary badge-pill" style="cursor: pointer;">등록</button>';
-		            html += '</div>';
-		            html += '</li>';
-		            console.log(idx + ':' + obj.title + ':' + obj.release_date);
-		        });
-		        return html;
-		    }
-		    
-//    배열의 proto 길이 제한.
-Array.prototype.add = function(x) {
-    this.unshift(x);
-    this.maxLength = 20;
-    if (this.maxLength !== undefined && this.length > this.maxLength){
-        this.pop();
-        console.log('Can not over 20');
-        alert('20개 이상 선택 할 수 없습니다.');
-    } 
-}
-
-/* 
-테스트 코드
-
-var a = [];
-for ( var i = 0; i <= 40; i++) {
-    a.add(i);
-    console.log(a);
-}
+</script>
+<script type="text/javascript">
+/*
+추가할 때는 리스트 두개 사용해서 각각 아이디랑 타이틀을 넣고 삭제할 때는 해당값을 지우고 마지막에 확인할 때 해당 배열을 전달.
+회원 영화 등록시 mv_mv 테이블에 영화 먼저 등록 해야함.
 */
-            /*
-            추가할 때는 리스트 두개 사용해서 각각 아이디랑 타이틀을 넣고 삭제할 때는 해당값을 지우고 마지막에 확인할 때 해당 배열을 전달.
-            회원 영화 등록시 mv_mv 테이블에 영화 먼저 등록 해야함.
-            */
-            
-            var selectIdList = [];
-            var selectTitleList = [];
-            
-		    function addList(id, title) {
-		    	selectIdList.add(id);
-		    	selectTitleList.add(title);
-		    	console.log(id + ', ' + title);
-		    }
-		    
-		    function removeList(id, title) {
-		    	selectIdList.pop(id);
-                selectTitleList.pop(title);
-		    }
-		    
-		    
-		    
-    </script>
+//영화 선정 리스트를 위한 배열과 메소드
+var selecList = [];
+
+function addList(id, title) {
+    selecList.add({id:id, title:title});
+}
+    
+function removeList(id) {
+    var idx;
+    for (var i in selecList) {
+        if (selecList[i].id === id){
+            console.log(i);
+            idx = i;
+            console.log(idx);
+            break;
+        }
+    }
+    if (idx > -1) {
+        selecList.splice(idx, 1);
+        console.log(selecList);
+    }
+}
+
+</script>
 </body>
 <form action="signOut" method="post">
 	<input type="hidden" name="mno" value="${member.mno}">
