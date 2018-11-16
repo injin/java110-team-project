@@ -58,6 +58,30 @@
 
 	</select>
 
+        <select id="findByKeyword" parameterType="String" resultMap="postMap2">
+       select 
+            p.cont,
+            pt.pstno,
+            p.mvno,
+            p.ptno,
+            mv.titl,
+            p.star,
+            p.likes,
+            (p.opn ='u') opn,
+            m.nick,
+            m.p_phot
+       from 
+            mv_post p
+            inner join mv_post_tag pt on p.pstno = pt.pstno 
+            inner join mv_memb m on m.mno = p.mno
+            inner join mv_mv mv on mv.mvno = p.mvno
+       where pt.cont like concat('%',#{keyword},'%')
+       order by
+          cdt desc;    
+ 
+    </select>
+    
+
 	<select id="findByNo" resultMap="postMap" parameterType="int">
 	</select>
 
