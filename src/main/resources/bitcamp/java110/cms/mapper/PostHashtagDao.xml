@@ -11,11 +11,30 @@
         values(#{cont},#{pstno})
     </insert>
     
-    <select id="get" parameterType="String" resultType="hashmap">
-       select mp.cont, mpt.pstno
-       from mv_post_tag mpt, mv_post mp
-       where mpt.pstno = mp.pstno and mpt.cont like concat('%',#{keyword},'%');    
-    </select>
+    <!-- resultType="hashmap" -->
+  <!--   
+    <select id="get" parameterType="String" resultMap="postMap">
+       select 
+            p.cont,
+            pt.pstno,
+            p.mvno,
+	        p.ptno,
+	        mv.titl,
+	        p.star,
+	        p.likes,
+            (p.opn ='u') opn,
+            m.nick,
+            m.p_phot
+       from 
+            mv_post p
+            inner join mv_post_tag pt on p.pstno = pt.pstno 
+            inner join mv_memb m on m.mno = p.mno
+            inner join mv_mv mv on mv.mvno = p.mvno
+       where pt.cont like concat('%',#{keyword},'%')
+       order by
+          cdt desc;    
+ 
+    </select> -->
     
     <delete id="delete" parameterType="int">
        

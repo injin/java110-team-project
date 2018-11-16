@@ -188,23 +188,85 @@
 
 
 					<!-- 해시태그 목록 -->
+					<%-- 
 					<c:forEach items="${hashList}" var="list" varStatus="status"
-						begin="0" end="${fn:length(hashList)}">
+                        begin="0" end="${fn:length(hashList)}">
 
-						<div class="${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
-							<div class="wrap tag">
-								<div class="ico-wrap">
-									<p>${list.pstno}
+                        <div class="">
+                            <div class="wrap tag">
+                                <div class="ico-wrap">
+                                    <p>${list.pstno}
+                                </div>
+                                <div class="text-wrap vcenter">
+                                    <p class=" mbr-text display-6">
+                                        <b>${list.cont}</b>
+                                    </p>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach> --%>
+					
+					
+					<!-- 포스터 보이는 부분 -->
+					<c:forEach items="${hashList}" var="post" varStatus="status"
+					begin="0" end="${fn:length(hashList)}">
+						<c:if test="${post.open}">
+							<div class="wPost ${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
+								<div class="media row" style="padding: 0 1rem">
+									<img src="${post.member.profileImagePath}"
+										style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
+									<div class="media-body">
+										<ul
+											style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
+											<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
+											<li><a href="#"
+												style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그</a></li>
+										</ul>
+										<c:if test="${post.pstTypeNo ==0}">
+											<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
+												<b><i>${post.title}</i></b>
+											</p>
+										</c:if>
+									</div>
 								</div>
-								<div class="text-wrap vcenter">
-									<p class=" mbr-text display-6">
-										<b>${list.cont}</b>
-									</p>
-									<br>
+								<div class="clearfix media row" style="margin: 0.2rem 0">
+									<div class="media-body">
+										<p>${post.content}</p>
+									</div>
+									<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
+									<c:if test="${post.photos[0].phot !=null}">
+										<img src="/upload/post/${post.photos[0].phot}"
+											style="width: 20rem; height: 13rem; margin-left: 1rem;" />
+									</c:if>
+								</div>
+								<div class="row">
+									<div class="col-6" style="text-align: left;">
+										<a href="#" style="color: black"> <i
+											class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+										</a> <a href="#" style="color: black"> <i
+											class="far fa-comment btmIcon"></i>0
+										</a>
+									</div>
+									<c:if test="${post.pstTypeNo ==0}">
+										<div class='col-6' style="text-align: right;">
+											<c:forEach begin="1" end="5" var="x">
+												<c:choose>
+													<c:when test="${x le post.star}">
+														<i class="fas fa-star sStar"></i>
+													</c:when>
+													<c:otherwise>
+														<i class="far fa-star sStar"></i>
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+										</div>
+									</c:if>
 								</div>
 							</div>
-						</div>
+						</c:if>
 					</c:forEach>
+					<!-- 태그 게시물 목록 -->
 
 					<c:if test="${fn:length(hashList) > 3}">
 						<c:set var="type" value="tg" />

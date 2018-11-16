@@ -56,7 +56,7 @@ public class MainController {
     
     
     // 해쉬태그
-    List<Post> hashList = postService.getHash(keyword);
+    List<Post> hashList = postService.findByKeyword(keyword);
     //System.out.println(hashList.toString());
     
     // 영화 찾기

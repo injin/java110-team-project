@@ -79,16 +79,24 @@ public class PostServiceImpl implements PostService {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
     }
     /*for(int i=0;i<posts.size();i++) {
-      posts.get(i).setFtags(followDao.findByNo(posts.get(i).getMno()));
-    }*/
+    posts.get(i).setFtags(followDao.findByNo(posts.get(i).getMno()));
+  }*/
 
     return posts;
   }
 
   @Override
-  public List<Post> getHash(String keyword) {
 
-    return postHashtagDao.get(keyword);
+  public List<Post> findByKeyword(String keyword) {
+
+    List<Post> hashposts = postDao.findByKeyword(keyword);
+    //System.out.println(hashposts);
+
+    for(int i=0;i<hashposts.size();i++)
+    {
+      hashposts.get(i).setPhotos(postPhotoDao.findByNo(hashposts.get(i).getPstno()));
+    }
+    return hashposts;
   }
 
   @Override
