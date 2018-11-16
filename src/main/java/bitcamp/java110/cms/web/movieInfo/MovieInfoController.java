@@ -24,10 +24,8 @@ public class MovieInfoController {
     
     String keyword = (String)request.get("keyword");
     int page = 0;
-    // 페이지가 1개뿐일 경우 =>처리해줘야함
     if (request.get("page") != null) { 
       page = (int)request.get("page");
-      System.out.println("페이지 받음" + page);
     }
     MovieResultsPage response = tmdbSearch.searchMovie(
         keyword
