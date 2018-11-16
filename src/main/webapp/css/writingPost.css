@@ -48,7 +48,7 @@
 	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
-ul li:hover {
+#media-list li:hover {
 	background-color: #e2e2e2;
 }
 
