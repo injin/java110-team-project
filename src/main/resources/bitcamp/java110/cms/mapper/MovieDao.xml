@@ -9,6 +9,11 @@
 		insert into mv_mv
 		values(#{mvno},#{titl})
 	</insert>
+    
+    <insert id="insertByObj" parameterType="movie" keyColumn="mno">
+        insert into mv_mv(mvno, titl)
+        values(#{mvno},#{title})
+    </insert>
 
 	<select id="findByNo"
 		resultType="bitcamp.java110.cms.domain.Movie" parameterType="int">
