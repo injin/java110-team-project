@@ -108,7 +108,11 @@
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 									<li><a href="#"
-										style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그</a></li>
+										style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그
+										<%-- <c:forEach items="${post.ftags}" var="ftags">
+										     </c:forEach>
+										 --%>
+										</a></li>
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
 									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">

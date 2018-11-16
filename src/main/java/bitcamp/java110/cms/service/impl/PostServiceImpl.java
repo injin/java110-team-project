@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import bitcamp.java110.cms.dao.FollowDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostHashtagDao;
@@ -21,7 +20,6 @@ public class PostServiceImpl implements PostService {
   @Autowired PostHashtagDao postHashtagDao;
   @Autowired PostDao postDao;
   @Autowired MovieDao movieDao;
-  @Autowired FollowDao followDao;
 
   @Transactional(
       // 트랜잭션 관리자의 이름이 transactionPost 라면
@@ -80,9 +78,9 @@ public class PostServiceImpl implements PostService {
     {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
     }
-    for(int i=0;i<posts.size();i++) {
-      posts.get(i).setHtags(followDao.findByNo(posts.get(i).getMno()));
-    }
+    /*for(int i=0;i<posts.size();i++) {
+      posts.get(i).setFtags(followDao.findByNo(posts.get(i).getMno()));
+    }*/
 
     return posts;
   }

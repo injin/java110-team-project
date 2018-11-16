@@ -23,7 +23,6 @@ public class Post {
   protected List<String> ftags;
   
   
-  
   public List<String> getFtags() {
     return ftags;
   }
@@ -122,5 +121,4 @@ public class Post {
         + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
         + "]";
   }
-  
 }

@@ -34,11 +34,16 @@ public class ReviewFeedController {
   @RequestMapping("/list")
   public String list(
       Post post,
-      Model model) {
+      Model model,
+      HttpSession session)  throws Exception {
 
+    Member m = (Member)session.getAttribute("loginUser");
+//    List<String> flist = postService.list();
+    
     List<Post> list = postService.list();
     
     model.addAttribute("postList", list);
+//    model.addAttribute("postList", flist);
     
     return "reviewFeed/reviewFeedList";
   }
