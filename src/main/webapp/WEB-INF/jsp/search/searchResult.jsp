@@ -25,38 +25,46 @@
 						</div>
 					</div>
 
-					<c:forEach items="${memberList}" var="list" begin="0" end="2">
-						<div class="wrap member">
-							<div class="ico-wrap">
+					<!-- 회원 목록 -->
+					<c:forEach items="${memberList}" var="list" varStatus="status"
+						begin="0" end="${fn:length(memberList)}">
+						<div
+							class="${status.index>=3 ? 'memberFrame showType' : 'memberFrame'}">
+							<div class="wrap member">
+								<div class="ico-wrap">
 
-								<c:set var="path" value="${list.p_phot}" />
-								<c:choose>
-									<c:when test="${empty path}">
-										<div>
-											<img class="img" src="/img/default-profile-img.png"
-												alt="${list.title}">
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div>
-											<img class="img" src="${list.p_phot}" alt="${list.mno}">
-										</div>
-									</c:otherwise>
-								</c:choose>
+									<c:set var="path" value="${list.p_phot}" />
+									<c:choose>
+										<c:when test="${empty path}">
+											<div>
+												<img class="img" src="/img/default-profile-img.png"
+													alt="${list.title}">
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div>
+												<img class="img" src="${list.p_phot}" alt="${list.mno}">
+											</div>
+										</c:otherwise>
+									</c:choose>
 
-							</div>
-							<div class="text-wrap vcenter">
-								<p class="  mbr-text display-6">${list.nick}</p>
+								</div>
+								<div class="text-wrap vcenter">
+									<p class="  mbr-text display-6">${list.nick}</p>
+								</div>
 							</div>
 						</div>
 					</c:forEach>
+					<!-- 회원 목록 -->
 
-					<div class="wrap search_footer">
-						<div class="text-wrap vcenter">
-							<p>더 보기</p>
+					<c:if test="${fn:length(memberList) > 3}">
+						<div class="wrap search_footer" id="showAllMembers"
+							onclick="showMore(${fn:length(memberList)})">
+							<div class="text-wrap vcenter">
+								<p>더 보기</p>
+							</div>
 						</div>
-					</div>
-
+					</c:if>
 				</div>
 			</c:if>
 			<!-- 회원 -->
@@ -72,23 +80,14 @@
 						</div>
 					</div>
 
-                    <!-- 검색목록 수 확인 -->
-					<c:choose>
-						<c:when test="${totalResults >= 3}">
-							<c:set var="totalCount" value="2" />
-						</c:when>
-						<c:otherwise>
-							<c:set var="totalCount" value="${totalResults}" />
-						</c:otherwise>
-					</c:choose>
 
-                        <c:out value="${totalCount}"/> 
-                        
+
 					<!-- 영화 목록 -->
 					<c:forEach items="${movieList}" var="list" varStatus="status"
-						begin="0" end="${totalCount}">
+						begin="0" end="${totalResults}">
 						<!-- begin="0" end="2" -->
-						<div class="movieFrame">
+						<div
+							class="${status.index>=3 ? 'movieFrame showType' : 'movieFrame'}">
 							<%-- id="post-${status.index}" --%>
 
 
@@ -116,7 +115,7 @@
 								<div class="text-wrap vcenter mbr-text display-6 col-lg-8">
 									<h5>
 										<b><a
-											href="<c:url value='/app/sceneReview/review?movieId=${list.id}'/>"
+											href="<c:url value='/app/sceneReview/review?mvno=${list.id}'/>"
 											class="titleFont">${list.title}</a></b>
 
 										<!-- /app/sceneReview/review?movieId=${list.id} -->
@@ -140,118 +139,61 @@
 					</c:forEach>
 					<!-- 영화목록 -->
 
-                    <c:if test="${totalResults >= 3}">
-					<div class="wrap search_footer" id="showAllMovies"
-						onclick="showMore()">
-						<div class="text-wrap vcenter">
-							<p>더 보기</p>
+					<c:if test="${totalResults > 3}">
+						<div class="wrap search_footer" id="showAllMovies"
+							onclick="showMore(${totalResults})">
+							<div class="text-wrap vcenter">
+								<p>더 보기</p>
+							</div>
 						</div>
-					</div>
-                    </c:if>
+					</c:if>
 				</div>
 			</c:if>
 			<!-- 영화 -->
 
 			<!-- 해시태그 -->
 			<c:if test="${fn:length(hashList) > 0}">
-				<div class="col-lg-12 mbr-col-md-12 col-centered">
-					<div class="wrap search_header">
-						<div class="text-wrap vcenter">
-							<h2 class=" mbr-bold mbr-section-title3 display-5">
-								게시물 <span>해쉬태그</span>
-							</h2>
-						</div>
-					</div>
-				</div>
-
-				<c:forEach items="${hashList}" var="list" begin="0">
-					<div class="col-lg-12 mbr-col-md-12">
-						<div class="wrap">
-							<div class="ico-wrap">
-								<p>${list.pstno}
-								<div></div>
-							</div>
+				<div class="col-lg-12 mbr-col-md-12 resultTag">
+					<div class="col-centered">
+						<div class="wrap search_header">
 							<div class="text-wrap vcenter">
-								<p class=" mbr-text display-6">
-									<b>${list.cont}</b>
-								</p>
-								<br>
+								<h2 class=" mbr-bold mbr-section-title3 display-5">게시물 해쉬태그</h2>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
 
-				<div class="col-lg-12 mbr-col-md-12">
-					<div class="wrap search_footer">
-						<div class="text-wrap vcenter" id="showAllTags">
-							<p>더 보기</p>
+
+					<!-- 해시태그 목록 -->
+					<c:forEach items="${hashList}" var="list" varStatus="status"
+						begin="0" end="${fn:length(hashList)}">
+
+						<div class="${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
+							<div class="wrap tag">
+								<div class="ico-wrap">
+									<p>${list.pstno}
+								</div>
+								<div class="text-wrap vcenter">
+									<p class=" mbr-text display-6">
+										<b>${list.cont}</b>
+									</p>
+									<br>
+								</div>
+							</div>
 						</div>
-					</div>
+					</c:forEach>
+
+					<c:if test="${fn:length(hashList) > 3}">
+						<div class="wrap search_footer" id="showAllTags"
+							onclick="showMore(${fn:length(hashList)})">
+							<div class="text-wrap vcenter">
+								<p>더 보기</p>
+							</div>
+						</div>
+					</c:if>
 				</div>
 			</c:if>
+			<!-- 해시태그 -->
+			
 		</div>
 	</div>
-
 </section>
-<!-- 요걸로! 
-<script type="text/javascript">
-
-var movieList = new Array();
-var j= 3;
-
-<c:forEach items="${movieList}" var="movie">
-movieList.push({
-    title: '${movie.title}',
-    popularity: ${movie.popularity},
-    img: '${imgPrefix}'+'/'+'${movie.posterPath}'
-});
-</c:forEach>
-
-document.getElementById('showAllMovies').onclick = function () 
-{
-    if(j==20) return;
-    console.log(movieList);
-    for(var i=j; i=j+3; i++)
-        {
-         document.getElementById('')
-        }
-    j += 3; 
-}; 
-
-</script> -->
-<%-- 
-window.onload= function(){
-     document.getElementById('showAllMovies').onclick = function () 
-    { 
-        alert('h');
-        <c:forEach items="${movieList}" var="movie" begin="count" end="count+3">
-        console.log(movieList);
-            movieList.push({
-                title: '${movie.title}',
-                popularity: ${movie.popularity},
-                posterPath: '${movie.posterPath}'
-            });
-        </c:forEach>
-            
-        console.log(movieList);
-
-    }; 
-     document.getElementById('showAllTags').onclick = function () 
-    {
-        alert('p'); 
-    };
-    }; 
- 
- --%>
-<!-- 
-<script type="text/javascript">
-
-
-/*    $('.showAll').click(function() {
-       <c:forEach items="${movieList}" var="list" begin="3" end="5">
-       
-           console.log($(this));
-           
-       </c:forEach>
-   }); */
-</script> -->

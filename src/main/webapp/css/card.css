@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo');
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-#showAllMovies, #showAllTags {
+#showAllMovies, #showAllTags, #showAllMembers {
 	cursor: pointer;
 }
 
@@ -12,7 +12,11 @@
 .titleFont{
     font-family: 'Noto Sans KR', sans-serif;
 }
+.showType{
+	display: none;
+}
 .result{
+	padding-top: 3rem;
 	color: #00cc99;
 	border-bottom: 2px solid #00cc99;
 	margin-bottom: 3rem;
@@ -50,13 +54,13 @@
 
 @media ( min-width : 0px) {
 	section {
-		padding: 4rem 5% 5rem;
+		padding: 0rem 5% 5rem;
 	}
 }
 
 @media ( min-width : 992px) {
 	section {
-		padding: 4rem 20% 5rem;
+		padding: 0rem 20% 5rem;
 	}
 }
 
@@ -89,8 +93,8 @@
 	height: 4rem;
 }
 
-.search_footer {
-	margin-bottom: 10rem;
+.search_header {
+	margin-top: 5rem;
 }
 
 .ico-wrap {
