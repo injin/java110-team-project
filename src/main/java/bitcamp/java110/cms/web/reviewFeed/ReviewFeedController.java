@@ -77,7 +77,7 @@ public class ReviewFeedController {
 
     System.out.println(post);
 
-//    postService.add(post);
+    postService.add(post);
 
     return "redirect:list";
   }

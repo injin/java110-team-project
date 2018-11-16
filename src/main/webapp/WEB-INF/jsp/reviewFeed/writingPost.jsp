@@ -48,8 +48,8 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
 						</div>
-						<input type="text" class="form-control input-tags" name="followGroup" autocomplete="off" id="followGroup"
-							placeholder="태그할 팔로우를 작성해주세요">
+						<input type="text" class="form-control input-tags" name="followGroup" 
+						autocomplete="off" id="followGroup" placeholder="태그할 팔로우를 작성해주세요">
 					</div>
                     
 					<div class="form-group">

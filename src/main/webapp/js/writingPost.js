@@ -74,7 +74,7 @@ $(function() {
         }
     });
     
-    $('#followGroup').tagsinput({
+   /* $('#followGroup').tagsinput({
         itemValue:'id',
         itemText:'follow',
         typehead:{
@@ -82,7 +82,7 @@ $(function() {
                 return $.getJSON('cities.json');
             }
         }
-    });
+    });*/
 
     $('#modalSubmit').on('click', function(e) {
 

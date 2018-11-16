@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PhotoDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.FollowDao">
+
+	<select id="findByNo" resultType="hashmap" parameterType="int">
+		select
+		  mno,
+		  flw
+		from mv_flw 
+		where mno=#{value}
+	</select>
+</mapper>
