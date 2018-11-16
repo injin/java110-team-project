@@ -175,6 +175,7 @@
 
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/starrr.js"></script>
+	<script src="/js/bootstrap-tagsinput.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script>
         function isOverflown(element) {
