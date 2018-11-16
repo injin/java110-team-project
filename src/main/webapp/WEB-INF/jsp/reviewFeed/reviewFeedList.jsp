@@ -26,6 +26,11 @@
 	cursor: pointer !important;
 }
 
+.pst:hover {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
 .pst>i {
 	font-size: 2rem;
 	vertical-align: sub;
