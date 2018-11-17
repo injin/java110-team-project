@@ -136,17 +136,19 @@
 							onclick="findMoviesByKeywod()" type="button">검색</button>
 					</span>
 				</div>
+				
+				
+				
 	            <div class="searchList" style="width: 30rem; float:left; margin-top:40px;">
-					<ul class="list-group" id="list-search-movie">
-<!-- 						<li class="list-group-item" style="border:none;">
-						검색한 영화 출력 되는 곳
-						</li>
- -->					</ul>
+					<ul class="list-group" id="list-search-movie"></ul>
 	            </div>
             </div>
 
-			<div class="listBox" style="border: 1px solid black; width: 30rem; float:right; ">
-			     asdf
+			<div class="listBox" style="width: 30rem; float:right; border:1px solid sivler">
+			     <ul class="chooseList" id="list-choose-movie"
+			         style="margin-top: 0; margin-bottom: 1rem; max-height: 300px; overflow: auto;">
+			     
+			     </ul>
 			</div>
 			</section>
 			<!-- 쇼 가져올 영화 출력 예시 -->
@@ -189,12 +191,14 @@ for ( var i = 0; i <= 40; i++) {
 }
 */
 
-//Enter Key 먹지 않게 
-$(document).keypress(
-      function(event){
-      if (event.which == '13') {
-          event.preventDefault();
-      }
+//Enter Key 먹지 않게
+$("#input-srch-keyword").keypress(
+     function(event){
+     if (event.which == '13') {
+         event.preventDefault();
+         $(this).trigger(findMoviesByKeywod());
+     }
+
 });
 
 //커버 & 프로필 이미지 업로드 관련
@@ -271,6 +275,7 @@ function findMoviesByKeywod() {
 // html 출력
 var $inputKeyword = $('#input-srch-keyword');
 var $srchMovieList = $('#list-search-movie');
+var $chooseMvList = $('#list-choose-movie');
     
 function makeMovieListHtml(data) {
     var html = '';
@@ -308,10 +313,19 @@ var selecList = [];
 
 function addList(id, title) {
 	console.log(id);
+	for (var i in selecList) {
+		if (selecList[i].id === id){
+            console.log('이미 있는 영화 입니다.');
+            return;
+        }
+	}
     selecList.add({id:id, title:title});
+    makeFavListHtml(id, title);
+    
 }
     
 function removeList(id) {
+	console.log('hi' + id);
     var idx;
     for (var i in selecList) {
         if (selecList[i].id === id){
@@ -321,11 +335,32 @@ function removeList(id) {
             break;
         }
     }
+    /* $chooseMvList.remove(id); */
+        console.log(idx, id);
     if (idx > -1) {
         selecList.splice(idx, 1);
         console.log(selecList);
     }
 }
+/* html에서 삭제 안됨.. */
+
+function makeFavListHtml(id, title) {
+    var print = '';
+
+    print += '<li class="list-group-item" id="' + id + '"><div class="media">';
+    print += '<div class="media-body">';
+    print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
+    print += `<button type="button" onclick="removeList(` + id +`)" style="float:right;" `;
+    print += ' class="badge badge-primary badge-pill" style="cursor: pointer;">제거</button>';
+    print += '<input type="hidden" name="favMvList" value=' + id + '>';
+    print += '</div>';
+    print += '</li>';
+
+    $chooseMvList.append(print);
+}
+
+
+
 
 </script>
 </body>
