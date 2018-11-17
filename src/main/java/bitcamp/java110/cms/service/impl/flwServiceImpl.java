@@ -21,23 +21,13 @@ public class flwServiceImpl implements FlwService{
         flwDao.insert(ms);
     }*/
 
-
    @Override
-    public List<Flw> list() {
+    public List<Flw> list(int no) {
 
-       
-        return flwDao.flwlist();
-        
+        return flwDao.flwlist(no);
        
     }
-   
-   @Override
-public List<Flw> profile() {
-  
-   return flwDao.flwprofile();
-       
-}
- 
+
 
  /*   @Override
     public Flw get(int no) {

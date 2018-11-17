@@ -11,7 +11,7 @@
 	</resultMap>
     
     
-  <select id="flwlist" resultMap="flwMap" parameterType="map">
+  <select id="flwlist" resultMap="flwMap" parameterType="int">
    select m1.mno as mno , m2.mno as flw , m2.nick as nick, m2.p_phot as p_phot
      from mv_memb m1, 
           mv_memb m2 , 
@@ -19,7 +19,7 @@
      where m1.mno != m2.mno 
        and m1.mno = f.mno 
        and m2.mno = f.flw 
-       and m1.mno =5
+       and m1.mno = #{value}
     ORDER by m1.mno , m2.mno
     </select>
     

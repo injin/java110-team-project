@@ -7,8 +7,7 @@ import bitcamp.java110.cms.domain.Flw;
 
 public interface FlwService {
    /* void addFlw(Flw ms);*/
-    List<Flw> list();
-    List<Flw> profile();
+    List<Flw> list(int no);
    /* Flw get(int no);
     void delete(int no);*/
  
