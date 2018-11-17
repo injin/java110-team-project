@@ -15,16 +15,19 @@
         <result column="cdt"   property="createdDate" />
     </resultMap>
     
-    <select id="list" resultMap="mlogMap">
+    <select id="list" resultMap="mlogMap" parameterType="int">
         select lgno,
                m.mno,
                m.nick,
                do,
                io,
                act,
-               url,cdt
+               url,
+               cdt
          from mv_log l
         inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno}
+        
     </select>
     
 

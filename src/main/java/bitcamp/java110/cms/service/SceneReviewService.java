@@ -1,10 +1,13 @@
 package bitcamp.java110.cms.service;
 
-import bitcamp.java110.cms.domain.SceneCover;
+import java.util.List;
+import bitcamp.java110.cms.domain.SceneReview;
 import info.movito.themoviedbapi.model.MovieDb;
 
 public interface SceneReviewService {
   
-  public SceneCover makeSceneCover(MovieDb tmdbMovie);
+  void add(SceneReview sceneReview);
+  List<SceneReview> list(int mvno);
+  SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sceneReview);
   
 }

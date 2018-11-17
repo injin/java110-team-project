@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,11 +32,21 @@ public class ReviewFeedController {
   }
 
   @RequestMapping("/list")
-  public String list() {
-    System.out.println("리뷰피드리스트에 들어옴");
+  public String list(
+      Post post,
+      Model model,
+      HttpSession session)  throws Exception {
+
+    Member m = (Member)session.getAttribute("loginUser");
+//    List<String> flist = postService.list();
+    
+    List<Post> list = postService.list();
+    
+    model.addAttribute("postList", list);
+//    model.addAttribute("postList", flist);
+    
     return "reviewFeed/reviewFeedList";
   }
-
 
   @PostMapping("/add")
   public String add(
@@ -44,16 +55,17 @@ public class ReviewFeedController {
       HttpSession session) throws Exception {
 
     Member m = (Member)session.getAttribute("loginUser");
-    post.setMno(m.getMno());    
+    post.setMno(m.getMno());
+
     List<String> filenames = new ArrayList<>();
-    
+
     // 사진 데이터 처리
     for(int i=0;i<files.length;i++) {
       MultipartFile file = files[i];
       if (file.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
         System.out.println(filename);
-        file.transferTo(new File(sc.getRealPath("/upload/" + filename)));
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
         filenames.add(filename);
       }
     }
@@ -67,7 +79,9 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-    
+
+    System.out.println(post);
+
     postService.add(post);
 
     return "redirect:list";

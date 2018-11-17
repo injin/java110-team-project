@@ -22,6 +22,7 @@ Release/
 *.tar.gz
 *.rar
 hs_err_pid*
+.chache/
 
 **/sec.properties
 **/api.properties

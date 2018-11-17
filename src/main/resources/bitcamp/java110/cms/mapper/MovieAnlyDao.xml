@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 회원 선호 영화 분석 mv_mv_anly 테이블 -->
+<mapper namespace="bitcamp.java110.cms.dao.MovieAnlyDao">
+    
+    <insert id="signIn" parameterType="map">
+        INSERT INTO mv_mv_anly (mno, mvno, pnt)
+        values (#{mno}, #{mvno}, 10)
+    </insert>
+    
+    <delete id="signOut" parameterType="int">
+        DELETE
+            FROM mv_mv_anly
+        WHERE
+            mno=#{mno}
+    </delete>
+    
+</mapper>

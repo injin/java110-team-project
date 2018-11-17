@@ -1,4 +1,21 @@
 @charset "UTF-8";
+
+
+
+.input-tags {
+  width: 100%;
+  padding: 15px;
+  display: block;
+  margin: 0 auto;
+}
+
+.label-info {
+  background-color: #5bc0de;
+  padding: 3px;
+}
+
+
+
 .ui-autocomplete {
 	max-height: 200px;
 	overflow: auto;
@@ -31,7 +48,7 @@
 	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
-ul li:hover {
+#media-list li:hover {
 	background-color: #e2e2e2;
 }
 

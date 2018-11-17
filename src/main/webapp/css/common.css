@@ -9,7 +9,7 @@ body {
   min-height: 75rem;
   padding-top: 3.5rem;
 }
-body.bgGray {
+.bgGray {
     background-color: #F2F4F7;
 }
 
@@ -29,4 +29,7 @@ main.borderGray {
   width: 1.8em;
   height: 1.8em;
   border-radius: 100%;
+}
+.return-top{
+    right:3em; bottom:15px; position:fixed; z-index:9999999999;
 }

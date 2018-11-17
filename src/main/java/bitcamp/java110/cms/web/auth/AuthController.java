@@ -39,7 +39,8 @@ public class AuthController {
             HttpSession session,
             HttpServletRequest request) {
       
-      Map<String, Object> kakaoResponse = authService.getKakaoResponse(accessToken);
+      Map<String, Object> kakaoResponse =
+          authService.getKakaoResponse(accessToken);
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
@@ -47,7 +48,8 @@ public class AuthController {
       if (member != null) {
         session.setAttribute("loginUser", member);
         String originPath = request.getHeader("referer");
-        return "redirect:" + originPath.substring(originPath.indexOf("/app"));
+        return "redirect:" + originPath.substring(
+            originPath.indexOf("/app"));
 //        return "redirect:/app/";
       }
       
@@ -75,8 +77,7 @@ public class AuthController {
     /**
      * !!주석 삭제 금지!!
      * 제하 To Do
-     * kakao 연동 해제 NOTICE
-     * !! SginOut 할 때 DB에서 삭제 해야하므로 자주 UPDATE 해야함!!
+     * !! SginOut 할 때 DB에서 삭제 해야하므로 DAO완성시 추가 해야함!!
      */
     @RequestMapping("/signOut")
     public String signout(
@@ -100,7 +101,8 @@ public class AuthController {
         Model model,
         HttpSession session) {
       
-      model.addAttribute("member", (Member)session.getAttribute("loginUser"));
+      model.addAttribute("member", 
+          (Member)session.getAttribute("loginUser"));
       model.addAttribute("genreList", genreService.getList());
       
       return "/auth/detailForm";
@@ -109,31 +111,36 @@ public class AuthController {
     @PostMapping("/add")
     public String add(
         Member member,
-        @RequestParam(name="grnoList", required=false)
-                List<Integer> grnoList,
+        @RequestParam(name="favGrList", required=false)
+                List<Integer> favGrList,
+        @RequestParam(name="favMvList", required=false)
+                List<Integer> favMvList,
         MultipartFile profileImage,
         MultipartFile coverImage,
         HttpSession session) throws Exception {
-      System.out.println("\n" + member + "\n");
       
       if (profileImage != null && profileImage.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
-        profileImage.transferTo(new File(sc.getRealPath("/upload/profile/" + profileImg)));
+        profileImage.transferTo(new File(
+            sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
         System.out.println(profileImg);
       }
       
       if (coverImage != null && coverImage.getSize() > 0) {
         String coverImg = UUID.randomUUID().toString();
-        coverImage.transferTo(new File(sc.getRealPath("/upload/cover/" + coverImg)));
+        coverImage.transferTo(new File(
+            sc.getRealPath("/upload/cover/" + coverImg)));
         member.setCoverImage(coverImg);
         System.out.println(coverImg);
       }
       
-      if (grnoList != null && grnoList.size() > 0) {
-        member.setFavGenres(grnoList);
+      if (favGrList != null && favGrList.size() > 0) {
+        member.setFavGrList(favGrList);
       }
-      memberService.update(member);
+      if (favMvList != null && favMvList.size() > 0) {
+        member.setFavMvList(favMvList);
+      }
       session.setAttribute("loginUser", member);
       
       System.out.println("update");

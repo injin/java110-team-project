@@ -23,18 +23,25 @@ public class MovieInfoController {
       @RequestBody Map<String, Object> request) throws Exception {
     
     String keyword = (String)request.get("keyword");
+    int page = 0;
+    if (request.get("page") != null) { 
+      page = (int)request.get("page");
+    }
     MovieResultsPage response = tmdbSearch.searchMovie(
         keyword
         ,null
         , Constants.LANGUAGE_KO
         , Constants.INCLUDE_ADULT_TRUE
-        , 0);
+        , page);
     
     Map<String, Object> result = new HashMap<>();
     result.put("movieList", response.getResults());
     result.put("totalPages", response.getTotalPages());
     result.put("totalResults", response.getTotalResults());
     result.put("imgPrefix", Constants.TMDB_IMG_PREFIX_W500);
+    
+    System.out.println("totalPages: "+response.getTotalPages());
+    System.out.println("totalResults: "+response.getTotalResults());
     
     return result;
   }

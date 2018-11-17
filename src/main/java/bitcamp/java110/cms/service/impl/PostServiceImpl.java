@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostHashtagDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
@@ -18,6 +19,7 @@ public class PostServiceImpl implements PostService {
   @Autowired PostPhotoDao postPhotoDao;
   @Autowired PostHashtagDao postHashtagDao;
   @Autowired PostDao postDao;
+  @Autowired MovieDao movieDao;
 
   @Transactional(
       // 트랜잭션 관리자의 이름이 transactionPost 라면
@@ -35,8 +37,17 @@ public class PostServiceImpl implements PostService {
   @Override
   public void add(Post post) {
 
+    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
+
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("mvno", post.getMvno());
+      params.put("titl", post.getTitle());
+      movieDao.insert(params);
+
+    }
 
     postDao.insert(post);
+
     List<String> plst = post.getPhotos();
     List<String> hlst = post.getHtags();
     for(int i=0;i<plst.size();i++)
@@ -59,19 +70,35 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> list(int pageNo, int pageSize) {
-    HashMap<String, Object> params = new HashMap<>();
-    params.put("rowNo", (pageNo - 1)*pageSize);
-    params.put("size", pageSize);
-    return postDao.findAll(params);
+  public List<Post> list() {
+
+    List<Post> posts =postDao.findAll();
+
+    for(int i=0;i<posts.size();i++)
+    {
+      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+    }
+    /*for(int i=0;i<posts.size();i++) {
+    posts.get(i).setFtags(followDao.findByNo(posts.get(i).getMno()));
+  }*/
+
+    return posts;
   }
 
   @Override
-  public List<Post> getHash(String keyword) {
-    
-    return postHashtagDao.get(keyword);
+
+  public List<Post> findByKeyword(String keyword) {
+
+    List<Post> hashposts = postDao.findByKeyword(keyword);
+    //System.out.println(hashposts);
+
+    for(int i=0;i<hashposts.size();i++)
+    {
+      hashposts.get(i).setPhotos(postPhotoDao.findByNo(hashposts.get(i).getPstno()));
+    }
+    return hashposts;
   }
-  
+
   @Override
   public Post get(int no) {
     return postDao.findByNo(no);
@@ -86,5 +113,4 @@ public class PostServiceImpl implements PostService {
     }
     postPhotoDao.delete(no);
   }
-
 }

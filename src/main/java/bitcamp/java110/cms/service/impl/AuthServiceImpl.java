@@ -8,12 +8,14 @@ import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.AuthService;
+import bitcamp.java110.cms.service.MemberService;
 
 @Service
 public class AuthServiceImpl implements AuthService {
   
   @Autowired MemberDao memberDao;
   @Autowired FavGenreDao favGenreDao;
+  @Autowired MemberService memberService;
 
   @Override
   public Member getMemberById(String id) {
@@ -67,11 +69,10 @@ public class AuthServiceImpl implements AuthService {
   /**
    * 제하 To Do
    * kakao 연동 해제
+   * memberService에서 DB Table 삭제 mrthod 수정해야함
    */
   @Override
   public void signOut(int mno) {
-    
-    favGenreDao.signOut(mno);
-    memberDao.signOut(mno);
+    memberService.signOut(mno);
   }
 }

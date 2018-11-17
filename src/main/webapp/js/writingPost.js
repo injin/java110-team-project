@@ -1,7 +1,7 @@
 $(function() {
-    
+
     var names = [];  
-    
+
     $('#btnIlsang').on('click', function() {
         $("#pstTypeNo").val(1);
         $('.onlyMovie').hide();
@@ -10,7 +10,7 @@ $(function() {
         $("#pstTypeNo").val(0);
         $('.onlyMovie').show();
     });
-    
+
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
         var $mlist = $("#media-list");
@@ -38,7 +38,7 @@ $(function() {
         // return array of file name
         console.log(names);
     });
-    
+
     $('body').on('click', '.remove-pic', function() {
         $(this).parent().parent().parent().remove();
         var removeItem = $(this).attr('data-id');
@@ -58,8 +58,8 @@ $(function() {
     });
 
     $("#starbtn").click(function () {
-        $('.starrr').toggleClass("nostar");
-        if($('.starrr').hasClass("nostar")){
+        $('#showStar').toggleClass("nostar");
+        if($('#showStar').hasClass("nostar")){
             $("#star").val(0);
         }
     });
@@ -74,18 +74,33 @@ $(function() {
         }
     });
     
+   /* $('#followGroup').tagsinput({
+        itemValue:'id',
+        itemText:'follow',
+        typehead:{
+            source:function(query){
+                return $.getJSON('cities.json');
+            }
+        }
+    });*/
+
     $('#modalSubmit').on('click', function(e) {
-        
-        if($("#pstTypeNo").val() == 0 ){
-            if($("#movieId").val().trim() == ''){
+
+        console.log($("#pstTypeNo").val() == 0);
+        if($("#pstTypeNo").val() == 0){
+            console.log($("#movieId").val().trim()  == 0);    
+            if($("#movieId").val().trim() == 0){
                 alert("알맞은 영화제목을 작성해주세요.");
+                e.preventDefault();
                 return;
             }
-        } else  if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
-            alert("내용을 작성해주세요.");
-            return;
         }
         
+        if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
+            alert("내용을 작성해주세요.");
+            e.preventDefault();
+            return;
+        }
     });
 
     $( "#movieSearch" ).autocomplete({
@@ -122,7 +137,7 @@ $(function() {
         select: function( event, ui ) {
             $("#movieSearch").val(ui.item.label);
             $("#movieId").val(ui.item.value);
-            
+
             return false;
         }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {

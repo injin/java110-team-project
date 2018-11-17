@@ -8,4 +8,5 @@ public interface MemberService {
   void update (Member member);
   List<Member> findByNick (String keyword);
   Member findById (String id);
+  void signOut(int mno);
 }
