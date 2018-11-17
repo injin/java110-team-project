@@ -15,11 +15,7 @@ public class flwServiceImpl implements FlwService{
      @Autowired
      FlwDao flwDao;
 
-/*    @Override
-    public void addFlw(Flw ms) {
 
-        flwDao.insert(ms);
-    }*/
 
    @Override
     public List<Flw> list(int no) {
@@ -28,20 +24,12 @@ public class flwServiceImpl implements FlwService{
        
     }
 
-
- /*   @Override
-    public Flw get(int no) {
-
-        return flwDao.findByNo(no);
-    }
-
-
+/*
     @Override
     public void delete(int no) {
-
-        flwDao.delete(no);
-
+        
+        flwDao.flwdelete(no);
     }
-*/
-
+    */
+ 
 }

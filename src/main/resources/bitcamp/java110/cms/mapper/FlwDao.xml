@@ -23,5 +23,15 @@
     ORDER by m1.mno , m2.mno
     </select>
     
+<!--     <insert id="addFlw"  parameterType="int" keyColumn="mno">
+      insert mv_flw (mno, flw)
+      value (#{value} , #{flw})
+    </insert>
+     -->
+     
+<!--     <delete id="flwdelete"  parameterType="int" >
+      delete from mv_flw
+      where flw = #{flw}
+    </delete> -->
     
 </mapper>

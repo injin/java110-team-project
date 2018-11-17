@@ -38,6 +38,23 @@ public class FlwController {
     }
 
  
+/*    @RequestMapping("flwadd")
+    public void addFlw(Model model, HttpSession session) {
+        
+        Member member = (Member) session.getAttribute("loginUser");
+        int a = flwService.add(member.getMno());
+        model.addAttribute("addFlw" , a);
+        
+    }*/
+    
+/*    @RequestMapping("flwdelete")
+    public String deleteFlw(int no) {
+        
+        flwService.delete(no);
+        
+        return "redirect: flwlist";
+    }
+    */
 
 
     /*    @RequestMapping("list")

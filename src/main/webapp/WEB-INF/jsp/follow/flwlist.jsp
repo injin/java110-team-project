@@ -35,6 +35,8 @@
       
    <jsp:include page="../include/header.jsp"></jsp:include>
  
+ 
+ 
  <div class="container">
   <div class="row flex-xl-nowarp">
    <div class="col-12 col-md-3 col-xl-3">
@@ -64,8 +66,8 @@
                 <div class="media">
                   <img class="mr-3 profile-img" src="${flw.profileImagePath}" alt="/img/default-profile-img">
                   <div>
-                    <h4 class="">${flw.nickname}</h4>
-                    <button class="btn btn-primary btn-size" >언팔로우</button>
+                    <h4>${flw.nickname}</h4>
+                    <button  class="btn btn-primary btn-size" >언팔로우</button>
                   </div>
                 </div>
           </div>
@@ -76,6 +78,16 @@
    </main>
   </div>
  </div>
+<!-- <script type="text/javascript">
+
+function remove(value){
+    
+    location.href ="flwdelete?no="+value;
+    
+}
+
+</script> -->
+
 
 </body>
 </html>
