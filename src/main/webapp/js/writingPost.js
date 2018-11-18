@@ -157,4 +157,49 @@ $(function() {
         location.reload();
         $('#reviewModal').show();
     })
+    
+    // 아래 전부 친구태그
+    var fList = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local:[ { "value": 1 , "text": "Amsterdam"   },
+        { "value": 2 , "text": "London"      },
+        { "value": 3 , "text": "Paris"       },
+        { "value": 4 , "text": "Washington"  },
+        { "value": 5 , "text": "Mexico City" },
+        { "value": 6 , "text": "Buenos Aires"},
+        { "value": 7 , "text": "Sydney"      },
+        { "value": 8 , "text": "Wellington"  },
+        { "value": 9 , "text": "Canberra"    },
+        { "value": 10, "text": "Beijing"     },
+        { "value": 11, "text": "New Delhi"   },
+        { "value": 12, "text": "Kathmandu"   },
+        { "value": 13, "text": "Cairo"       },
+        { "value": 14, "text": "Cape Town"   },
+        { "value": 15, "text": "Kinshasa"    }
+      ]
+      });
+      fList.initialize();
+
+      /**
+       * Objects as tags
+       */
+      elt = $('.example_objects_as_tags > > input');
+      elt.tagsinput({
+        itemValue: 'value',
+        itemText: 'text',
+        typeaheadjs: {
+          name: 'fList',
+          displayKey: 'text',
+          source: fList.ttAdapter()
+        }
+      });
+
+      elt.tagsinput('add', { "value": 1 , "text": "Amsterdam"});
+      elt.tagsinput('add', { "value": 4 , "text": "Washington"});
+      elt.tagsinput('add', { "value": 7 , "text": "Sydney"});
+      elt.tagsinput('add', { "value": 10, "text": "Beijing"});
+      elt.tagsinput('add', { "value": 13, "text": "Cairo"});
+
+    
 });

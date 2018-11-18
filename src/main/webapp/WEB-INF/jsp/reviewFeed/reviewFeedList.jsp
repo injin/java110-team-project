@@ -11,7 +11,9 @@
 <link href="/css/all.css" rel="stylesheet">
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
+<link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
+
 <style>
 .wPost {
     background: white;
@@ -67,13 +69,6 @@
     color: #FFD119;
 }
 </style>
-<script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/starrr.js"></script>
-<script src="/js/bootstrap-tagsinput.js"></script>
-<script src="/js/writingPost.js"></script>
-
 <script>
     function showCont(cont, index) {
 
@@ -81,7 +76,7 @@
         var word = text.split(' ');
         var newHTML = "";
 
-        $.each(word, function(index, value) {
+        word.forEach(function(value, index) {
             var str="";
             var endBr = value.endsWith('<br>');
             var valueArr=[value];
@@ -101,7 +96,7 @@
                 }
             });
         });
-        $('#reviewCont-' + index).html(newHTML);
+        document.getElementById('reviewCont-' + index).innerHTML = newHTML;
     };
 </script>
 
@@ -220,6 +215,11 @@
     </div>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
+    <script src="/js/jquery-ui.js"></script>
+	<script src="/js/starrr.js"></script>
+	<script src="/js/bootstrap-tagsinput.min.js"></script>
+	<script src="/js/typeahead.bundle.min.js"></script>
+	<script src="/js/writingPost.js"></script>
 
 </body>
 </html>
