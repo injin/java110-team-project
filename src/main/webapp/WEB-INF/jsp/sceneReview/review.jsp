@@ -12,32 +12,8 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-    #movie-content {
-        display: inline-block;
-    }
     
-    #scene-list-container {
-        position: absolute;
-        bottom: 35px;
-        left: 0;
-        width: 100%;
-        padding-left: 20px;
-        padding-right: 20px;
-        display: flex;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-    }
-    .scene-box {
-        height: 35px;
-        max-width: 35px;
-        width: calc(100% / ${fn:length(sceneList)} );
-    }
-    .scene-img {
-        width: 100%;
-        height: 35px;
-        background-size: cover;
-        cursor: pointer;
-    }
+    
 </style>
 </head>
 <body>
@@ -84,14 +60,20 @@
             </div>
         </div>
         
-        
-        <div class="row">
-            <div class="col-8">
-                
-                
-                
+        <div class="row mt-3 ml-1">
+            <div class="col-9">
+                <c:if test="${sceneReview.time ne null}">
+                    <h2>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h2>
+                    <p>${sceneReview.cont}</p>
+                    
+                </c:if>
+                <c:if test="${sceneReview.time eq null}">
+                    <div class="alert alert-secondary" role="alert">
+                      <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                    </div>
+                </c:if>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 
                 
                 

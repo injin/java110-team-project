@@ -12,7 +12,6 @@ public class Mlog  {
   protected String act;
   protected String url;
   protected Date createdDate;
-  protected String text;
   
   public int getLgno() {
     return lgno;
@@ -56,13 +55,6 @@ public class Mlog  {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
-  public String getText() {
-    return text;
-  }
-  public void setText(String text) {
-    this.text = text;
-  }
-  
   public String getNick() {
     return nick;
   }
@@ -73,7 +65,7 @@ public class Mlog  {
   public String toString() {
     return "Mlog [lgno=" + lgno + ", mno=" + mno + ", direct=" + direct + ", nick=" + nick
         + ", indirect=" + indirect + ", act=" + act + ", url=" + url + ", createdDate="
-        + createdDate + ", text=" + text + "]";
+        + createdDate + "]";
   }
   
   

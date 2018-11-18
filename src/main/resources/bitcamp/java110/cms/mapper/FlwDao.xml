@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.FlwDao">
+
+	<resultMap type="member" id="flwMap">
+		<id column="mno" property="mno" />
+		<result column="nick"    property="nickname" />
+		<result column="p_phot"    property="profileImage" />
+	</resultMap>
+    
+    
+  <select id="flwlist" resultMap="flwMap" parameterType="int">
+   select m1.mno as mno , m2.mno as flw , m2.nick as nick, m2.p_phot as p_phot
+     from mv_memb m1, 
+          mv_memb m2 , 
+          mv_flw f
+     where m1.mno != m2.mno 
+       and m1.mno = f.mno 
+       and m2.mno = f.flw 
+       and m1.mno = #{value}
+    ORDER by m1.mno , m2.mno
+    </select>
+    
+<!--     <insert id="addFlw"  parameterType="int" keyColumn="mno">
+      insert mv_flw (mno, flw)
+      value (#{value} , #{flw})
+    </insert>
+     -->
+     
+<!--     <delete id="flwdelete"  parameterType="int" >
+      delete from mv_flw
+      where flw = #{flw}
+    </delete> -->
+    
+</mapper>
