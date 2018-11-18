@@ -81,7 +81,7 @@ public class Post {
     return content;
   }
   public void setContent(String content) {
-    this.content = content;
+    this.content = content.replaceAll("(\r\n|\n)", "<br>");
   }
   public int getLikeCnt() {
     return likeCnt;

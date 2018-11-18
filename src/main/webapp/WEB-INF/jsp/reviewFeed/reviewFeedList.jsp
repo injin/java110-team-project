@@ -42,6 +42,11 @@
 	vertical-align: sub;
 }
 
+.hash {
+	color: blue;
+	font-weight: bold;
+}
+
 .reviewCont {
 	height: 13rem;
 	-ms-text-overflow: ellipsis;
@@ -62,6 +67,44 @@
 	color: #FFD119;
 }
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/starrr.js"></script>
+<script src="/js/bootstrap-tagsinput.js"></script>
+<script src="/js/writingPost.js"></script>
+
+<script>
+    function showCont(cont, index) {
+
+        var text = cont.replace(/[\s]+/g, " ").trim();
+        var word = text.split(' ');
+        var newHTML = "";
+
+        $.each(word, function(index, value) {
+            var str="";
+            var endBr = value.endsWith('<br>');
+            var valueArr=[value];
+            if(value.includes('<br>')){
+            valueArr = value.split('<br>');
+            str="<br>";
+            }
+            
+            valueArr.forEach(function(value2, index) {
+                 if (index == (valueArr.length-1) && endBr == false) {
+                    str="";
+                }
+                if (value2.startsWith("#")) {
+                    newHTML += ("<span class='hash'><a href='/app/searchResult?keyword=" + value2.substring(1)+"'>" + value2 + "&nbsp;</a></span>" + str);
+                } else {
+                    newHTML += "<span class='other'>" + value2 + "&nbsp;</span>" +str;
+                }
+            });
+        });
+        $('#reviewCont-' + index).html(newHTML);
+    };
+</script>
+
 </head>
 <body class="borderGray bgGray">
 	<jsp:include page="../include/header.jsp"></jsp:include>
@@ -97,7 +140,7 @@
 			</c:choose>
 
 			<!-- 포스터 보이는 부분 -->
-			<c:forEach items="${postList}" var="post">
+			<c:forEach items="${postList}" var="post" varStatus="status">
 				<c:if test="${post.open}">
 					<div class="wPost reviewPst">
 						<div class="media row" style="padding: 0 1rem">
@@ -119,7 +162,12 @@
 						</div>
 						<div class="clearfix media row" style="margin: 0.2rem 0">
 							<div class="media-body">
-								<p class="reviewCont">${post.content}</p>
+								<p class="reviewCont" id="reviewCont-${status.index}">
+									<script>
+                                        showCont("${post.content}",
+                                                "${status.index}");
+                                    </script>
+								</p>
 							</div>
 							<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
 							<c:if test="${post.photos[0].phot !=null}">
@@ -173,26 +221,5 @@
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 
-	<script src="/js/jquery-ui.js"></script>
-	<script src="/js/starrr.js"></script>
-	<script src="/js/bootstrap-tagsinput.js"></script>
-	<script src="/js/writingPost.js"></script>
-	<script>
-        function isOverflown(element) {
-            return element.scrollHeight > element.clientHeight
-                    || element.scrollWidth > element.clientWidth;
-        }
-
-        /* for(){
-            // 리스트에값을저장한후 그걸여기서 뽑음됨
-            $('#s' + id).starrr({
-                rating : value,
-                max : 5,
-                readOnly : true,
-                emptyClass : 'far fa-star',
-                fullClass : 'fas fa-star'
-            });
-        } */
-    </script>
 </body>
 </html>

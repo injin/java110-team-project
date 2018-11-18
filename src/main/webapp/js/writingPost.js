@@ -149,4 +149,12 @@ $(function() {
         '</div>')
         .appendTo( ul );
     };
+    
+    $('#reviewModal').on('hidden.bs.modal', function (e) {           
+        /*$(this).find('form')[0].reset();
+        $('.globe').show();
+        $('.lock').hide();*/
+        location.reload();
+        $('#reviewModal').show();
+    })
 });
