@@ -68,7 +68,7 @@
                 </c:if>
                 <c:if test="${sceneReview.time eq null}">
                     <!-- <h5>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</h6> -->
-                    <div class="alert alert-light" role="alert">
+                    <div class="alert alert-secondary" role="alert">
                       <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                     </div>
                 </c:if>
