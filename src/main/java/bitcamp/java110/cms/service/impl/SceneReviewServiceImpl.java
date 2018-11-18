@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
+import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneReviewService;
@@ -19,17 +22,30 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   
   @Autowired SceneReviewDao sceneReviewDao;
   @Autowired MovieDao movieDao;
+  @Autowired MlogDao logDao;
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
   public void add(SceneReview sceneReview) {
     
+    // 영화 체크 및 입력
     Movie movie = sceneReview.getMovie();
     if(movie.getMvno() !=0 &&  movieDao.findByNo(movie.getMvno()) == null) {
       movieDao.insertByObj(movie);
     }
     
+    // 장면리뷰 입력
     sceneReviewDao.insert(sceneReview);
+    
+    // 로그 입력
+    Mlog mlog = new Mlog();
+    mlog.setMno(sceneReview.getMno());
+    mlog.setDirect(Constants.LOG_DO_TYPE_SR);
+    mlog.setIndirect(sceneReview.getMovie().getTitle());
+    mlog.setAct(Constants.LOG_ACT_TYPE_WR);
+    mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
+                + "&time=" + sceneReview.getTime());
+    logDao.insert(mlog);
   }
   
   @Override

@@ -63,11 +63,11 @@
         <div class="row mt-3 ml-1">
             <div class="col-9">
                 <c:if test="${sceneReview.time ne null}">
-                    <h2><b>${sceneReview.title}</b><span id="span-sr-time">(${sceneReview.time})</span></h2>
+                    <h2>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h2>
                     <p>${sceneReview.cont}</p>
+                    
                 </c:if>
                 <c:if test="${sceneReview.time eq null}">
-                    <!-- <h5>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</h6> -->
                     <div class="alert alert-secondary" role="alert">
                       <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                     </div>
