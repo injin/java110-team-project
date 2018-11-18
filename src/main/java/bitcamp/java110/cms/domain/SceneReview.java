@@ -15,6 +15,7 @@ public class SceneReview {
   protected String spo;
   protected MovieDb movieDb;
   protected Movie movie; // mv_mv 테이블 등록용
+  protected boolean trgtSrExist;
   
   public int getSrno() {
     return srno;
@@ -88,10 +89,17 @@ public class SceneReview {
       return "/upload/sceneReview/" + photo;
     }
   }
+  public boolean isTrgtSrExist() {
+    return trgtSrExist;
+  }
+  public void setTrgtSrExist(boolean trgtSrExist) {
+    this.trgtSrExist = trgtSrExist;
+  }
+  
   @Override
   public String toString() {
     return "SceneReview [srno=" + srno + ", mvno=" + mvno + ", mno=" + mno + ", title=" + title
         + ", time=" + time + ", photo=" + photo + ", cont=" + cont + ", spo=" + spo + ", movieDb="
-        + movieDb + ", movie=" + movie + "]";
+        + movieDb + ", movie=" + movie + ", trgtSrExist=" + trgtSrExist + "]";
   }
 }

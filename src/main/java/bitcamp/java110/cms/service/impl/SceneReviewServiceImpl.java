@@ -54,22 +54,37 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public SceneReview findByTime(int mvno, String time) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mvno", mvno);
+    condition.put("time", time);
+    
+    return sceneReviewDao.findByTime(condition);
+  }
+  
+  @Override
   public SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sr) {
+    
+    // 영화 정보 설정
+    sr.setMovieDb(tmdbMovie);
     
     // 장면 시간 설정
     if (sr.getTime() == null) {
-      sr.setTime(sceneReviewDao.findDefaultTime(tmdbMovie.getId()));
+      String defaultTime = sceneReviewDao.findDefaultTime(tmdbMovie.getId());
+      if (defaultTime != null) {
+        sr.setTime(sceneReviewDao.findDefaultTime(tmdbMovie.getId()));
+      } else {
+        return null;
+      }
     }
     
-    Map<String, Object> condition = new HashMap<>();
-    condition.put("mvno", tmdbMovie.getId());
-    condition.put("time", sr.getTime());
-    
-    SceneReview findMovie = sceneReviewDao.findByTime(condition);
+    SceneReview findMovie = findByTime(tmdbMovie.getId(), sr.getTime());
     if (findMovie != null) {
+      findMovie.setTrgtSrExist(true);
       sr = findMovie;
+    } else {
+      sr.setTrgtSrExist(false);
     }
-    sr.setMovieDb(tmdbMovie);
     
     return sr;
   }

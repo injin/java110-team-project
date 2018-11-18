@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="../include/top.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-    
+.span-more {
+    color: #00cc99;
+    cursor: pointer;
+}
+
     
 </style>
 </head>
@@ -60,16 +64,35 @@
             </div>
         </div>
         
+        <c:if test="${sceneReview.time eq null}">
+            <div class="row mt-3 ml-1">
+                <div class="col-9">
+                    <div class="alert alert-secondary" role="alert">
+                        <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        
+        <c:if test="${sceneReview.time ne null}">
         <div class="row mt-3 ml-1">
             <div class="col-9">
-                <c:if test="${sceneReview.time ne null}">
-                    <h2>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h2>
-                    <p>${sceneReview.cont}</p>
+                <c:if  test="${sceneReview.trgtSrExist == true}">
+                    <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
+                    <c:choose>
+                        <c:when test="${fn:length(sceneReview.cont) > 150}">
+                            <p id="p-cont">${fn:substring(sceneReview.cont, 0, 150)}.. 
+                                <span class="span-more" onclick="contMore()">더보기</span></p>
+                        </c:when>
+                        <c:otherwise>
+                            <p>${sceneReview.cont}</p>
+                        </c:otherwise>
+                    </c:choose>
                     
                 </c:if>
-                <c:if test="${sceneReview.time eq null}">
+                <c:if  test="${sceneReview.trgtSrExist == false}">
                     <div class="alert alert-secondary" role="alert">
-                      <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                      <span>해당 시간의 장면리뷰가 없습니다.</span>
                     </div>
                 </c:if>
             </div>
@@ -79,7 +102,7 @@
                 
             </div>
         </div>
-        
+        </c:if>
         
     <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
             data-target="#reportModal">신고하기</button>
@@ -93,8 +116,8 @@
     
     $('[data-toggle="tooltip"]').tooltip();
     
-    var initScene = { imgPath: '${sceneReview.imgPath}'};
     /* 하단 장면 목록 박스 관련 */
+    var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
         $('#movie-cover').css('background-image', 'url(' + imgPath + ')');
@@ -119,16 +142,13 @@
     });
     
     function addSceneReview() {
-        
         if (validateForm() == false)
             return;
-        
         $('input[name="spo"]').val($('#tfSpo').prop('checked')? 'Y': 'N');
         $('form#srAddForm').submit();
     }
     
     function validateForm() {
-        
         // 장면 시간 검사
         var timeVal = $('#time').val();
         var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
@@ -156,8 +176,11 @@
             alert('이미지를 선택해 주세요');
             return false;
         }
-        
         return true;
+    }
+    
+    function contMore() {
+        $('#p-cont').text('${sceneReview.cont}');
     }
     
     </script>
