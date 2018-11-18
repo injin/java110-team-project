@@ -15,6 +15,18 @@ public class Constants {
   public static final String TMDB_IMG_PREFIX_W500 = "https://image.tmdb.org/t/p/w500";
   public static final String TMDB_IMG_PREFIX_ORIGIN = "https://image.tmdb.org/t/p/original";
   
+  public static final String LOG_DO_TYPE_MP = "mp"; // 영화리뷰
+  public static final String LOG_DO_TYPE_DP = "dp"; // 일상리뷰
+  public static final String LOG_DO_TYPE_PC = "pc"; // 게시물댓글
+  public static final String LOG_DO_TYPE_SR = "sr"; // 장면리뷰
+  public static final String LOG_DO_TYPE_SC = "sc"; // 장면리뷰 댓글
+  public static final String LOG_DO_TYPE_FR = "fr"; // 친구
+  
+  public static final String LOG_ACT_TYPE_WR ="wr"; //작성
+  public static final String LOG_ACT_TYPE_FL ="fl"; //팔로우
+  public static final String LOG_ACT_TYPE_LK ="lk"; //좋아요
+  
+  
   
   
 }

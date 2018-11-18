@@ -95,7 +95,7 @@ main {
                         <span style="float: left; margin-bottom: 0">
                             <a href="#">${log.nick}</a>님이
                             <c:if test="${log.act eq 'wr'}">
-                                <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 작성했습니다
+                                <a href="<c:url value="${log.url}"/>">${log.indirect}</a> 에 장면 리뷰를 작성했습니다
                             </c:if>
                             <c:if test="${log.act eq 'lk'}">
                                 <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 좋아합니다
