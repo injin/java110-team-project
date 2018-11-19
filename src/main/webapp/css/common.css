@@ -30,6 +30,12 @@ main.borderGray {
   height: 1.8em;
   border-radius: 100%;
 }
+.profile-small {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+}
 
 /*==== top 버튼 ==== */
 .return-top{
