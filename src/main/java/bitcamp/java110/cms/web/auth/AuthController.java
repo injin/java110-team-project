@@ -38,7 +38,7 @@ public class AuthController {
     }
 
     @RequestMapping("/kakaologin")
-    public String login(
+    public String login (
             String accessToken,
             HttpSession session,
             HttpServletRequest request) {
@@ -68,15 +68,6 @@ public class AuthController {
         session.invalidate();
         return "redirect:/app/";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     /**
      * !!주석 삭제 금지!!
@@ -146,26 +137,21 @@ public class AuthController {
         member.setFavGrList(favGrList);
       }
       
+      //    favMvList Control & MV Insert If not exists
       List<Movie> favMvList = new ArrayList<>();
-      
       if (favMvIdList != null && favMvTitleList != null) {
         if (favMvTitleList.size() == favMvIdList.size()) {
-          
           for (int i = 0; i < favMvIdList.size(); i++) {
             Movie mv = new Movie(favMvIdList.get(i), favMvTitleList.get(i));
             favMvList.add(mv);
-            
           }
           member.setFavMvList(favMvList);
         }
       }
-
-      session.setAttribute("loginUser", member);
       
+      session.setAttribute("loginUser", member);
       
       memberService.update(member);
       return "redirect:/app/";
     }
-    
-    
 }

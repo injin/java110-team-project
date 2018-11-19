@@ -9,5 +9,6 @@ public interface FlwDao {
     List<Member> flwlist(int no); 
     int flwdelete(Map<String, Object> condition);
     int flwadd(Map<String, Object> condition);
-    void signOut(int mno);
+    void signOut1(int mno);
+    void signOut2(int mno);
 }

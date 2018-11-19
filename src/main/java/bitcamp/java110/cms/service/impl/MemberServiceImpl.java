@@ -80,7 +80,8 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
-    flwDao.signOut(mno);
+    flwDao.signOut1(mno);
+    flwDao.signOut2(mno);
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);

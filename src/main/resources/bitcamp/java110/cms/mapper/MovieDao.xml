@@ -31,6 +31,6 @@
 		  m.mvno,
 		m.titl
 		from mv_mv m
-		where m.mvno=#{value} <!-- value말고 아무거나 할수있음 -->
+		where m.mvno=#{value}
 	</select>
 </mapper>

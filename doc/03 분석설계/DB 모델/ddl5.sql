@@ -466,10 +466,11 @@ ALTER TABLE mv_rcmd
             mvno   -- 영화번호
         );
 
--- 추천영화 유니크 인덱스
-CREATE UNIQUE INDEX UIX_mv_rcmd
+-- 추천영화 인덱스
+CREATE INDEX UIX_mv_rcmd
     ON mv_rcmd ( -- 추천영화
-        thmno ASC -- 테마번호
+        thmno ASC, -- 테마번호
+        mvno ASC
     );
 
 -- 영화
