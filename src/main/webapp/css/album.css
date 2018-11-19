@@ -2,96 +2,129 @@
 @import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo');
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 .profile{
-	float:left;
-	background-color: green;
-	height: 10rem;
+    float:left;
+    
+    background-color: green;
+    height: 50rem;
 }
-
+.jumbotron{
+	float: right;
+	height: 25rem;
+}
 .content{
     background-color: purple;
     height: 25rem;
 }
+.albumList{
+    float : right;
+    clear: both;
+    border-left:1px solid silver;
+    border-right:1px solid silver;
+}
+.album img{
+	width: 12rem;
+	height: 9rem;
+	margin-bottom: 1rem;
+}
+.album{
+       display: block;
+    background: white;
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0.3rem;
+    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    clear: both;
+    width: 14rem;
+    height: 16rem;
+}
 .tab{
-	float: right;
-	height: 3.5rem;
+    float: right;
+    height: 3.5rem;
 }
 .titleFont{
     font-family: 'Noto Sans KR', sans-serif;
 }
 .result{
-	padding-top: 3rem;
-	color: #00cc99;
-	border-bottom: 2px solid #00cc99;
-	margin:0;
+    padding-top: 3rem;
+    color: #00cc99;
+    border-bottom: 2px solid #00cc99;
+    margin:0;
 }
-
+.a_btn{
+    float: right;
+}
+.btn-success{
+    color: #fff;
+    background-color: #00cc99;
+    border-color: #00cc99;
+}
 .container {
-	height: 200%;
-	border: 1px solid silver;
+    height: 200%;
 }
 
 @media ( min-width : 0px) {
-	section {
-	}
+    section {
+    
+    }
 }
 
 @media ( min-width : 992px) {
-	section {
-	}
+    section {
+    }
 }
 
 .wrap .img {
-	width: 6rem;
+    width: 6rem;
 }
 
 .wrap {
-	display: flex;
-	background: white;
-	padding: 1rem 1rem 1rem 1rem;
-	border-radius: 0.5rem;
-	box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
-	margin-bottom: 0.5rem;
+    display: flex;
+    background: white;
+    padding: 1rem 1rem 1rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
 }
 
 .ico-wrap {
-	margin: 0;
-	padding-left: 3rem;
+    margin: 0;
+    padding-left: 3rem;
 }
 
 .vcenter {
-	margin: 0 auto;
-	font-family: 'Noto Sans KR', sans-serif;
+    margin: 0 auto;
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .mbr-section-title3 {
-	text-align: left;
+    text-align: left;
 }
 
 h2 {
-	margin-top: 0.5rem;
-	margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .display-5 {
-	font-family: 'Noto Sans KR', sans-serif;
-	/* font-family: 'Source Sans Pro', sans-serif; */
-	font-size: 1.4rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-size: 1.4rem;
 }
 
 .mbr-bold {
-	font-weight: 700;
+    font-weight: 700;
 }
 
 p {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	line-height: 25px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 25px;
 }
 
 .display-6 {
-	
-	 font-family: 'Noto Sans KR', sans-serif; 
-	/* font-family: 'East Sea Dokdo', cursive; */
-	/* font-family: 'Source Sans Pro', sans-serif; */
-	font-size: 1re
+    
+     font-family: 'Noto Sans KR', sans-serif; 
+    /* font-family: 'East Sea Dokdo', cursive; */
+    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-size: 1re
 }
