@@ -60,6 +60,7 @@
 		<form action="add" method="post" id="detailForm"
 			enctype="multipart/form-data">
 			<input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
+			<input type="hidden" name="profileImage" value="${sessionScope.loginUser.profileImage}">
 			<h3 class="mt-3">닉네임</h3>
 
 			<div class="form-group row">
@@ -73,7 +74,7 @@
 			<h3>프로필 사진</h3>
 			<div class="avatar-upload">
 				<div class="avatar-edit">
-					<input type='file' name="profileImage" id="imageUpload-profile"
+					<input type='file' name="profileImageFile" id="imageUpload-profile"
 						accept=".png, .jpg, .jpeg" /> <label for="imageUpload-profile"></label>
 				</div>
 				<div class="avatar-preview">
