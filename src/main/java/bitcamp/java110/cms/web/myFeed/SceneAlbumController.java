@@ -1,36 +1,47 @@
 package bitcamp.java110.cms.web.myFeed;
 
+import java.util.List;
 import javax.servlet.ServletContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.domain.SceneAlbum;
+import bitcamp.java110.cms.service.SceneAlbumService;
 
 @Controller
+@RequestMapping("/sceneAlbum")
 public class SceneAlbumController {
 
+  @Autowired SceneAlbumService sceneAlbumService;
   ServletContext sc;
 
-  public SceneAlbumController(
-      ServletContext sc) {
+  public SceneAlbumController(SceneAlbumService sceneAlbumService, ServletContext sc) {
+    super();
+    this.sceneAlbumService = sceneAlbumService;
     this.sc = sc;
   }
 
-  @RequestMapping("/sceneAlbum")
-  public String list() {
-
+  @RequestMapping("/list")
+  public String list(
+      SceneAlbum sceneAlbum,
+      Model model) {
     
+    List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
+    
+    model.addAttribute("sceneAlbumList", sceneAlbumList);
     return "sceneAlbum/album";
   }
 
-/*  @PostMapping("/add")
+  @PostMapping("/add")
   public String album(
-      SceneAlbum sceneAlbum,
-      Model model
+      SceneAlbum sceneAlbum
       ) {
+    
     System.out.println(sceneAlbum);
-    return "sceneAlbum/album";
-  }*/
+    sceneAlbumService.add(sceneAlbum);
+    return "redirect:list";
+  }
  
 }
