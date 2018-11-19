@@ -17,7 +17,7 @@
     
     margin: 0;
     padding: 0;
-    width: 10rem;
+    width: 9rem;
 }
 .profile{
     float:left;
@@ -34,6 +34,7 @@
     height: 25rem;
 }
 .albumList{
+	padding-left: 2rem;
     float : right;
     clear: both;
     border-left:1px solid silver;
