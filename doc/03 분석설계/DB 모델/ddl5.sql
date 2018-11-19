@@ -1,3 +1,14 @@
+CREATE DATABASE projectdb
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+
+CREATE USER 'project'@'localhost' IDENTIFIED BY '1111';
+CREATE USER 'project'@'%' IDENTIFIED BY '1111';
+
+
+GRANT ALL ON projectdb.* TO 'project'@'localhost';
+GRANT ALL ON projectdb.* TO 'project'@'%';
+
 -- 회원
 DROP TABLE IF EXISTS mv_memb RESTRICT;
 
@@ -79,6 +90,9 @@ DROP TABLE IF EXISTS mv_mv_gr RESTRICT;
 -- 게시물_친구태그
 DROP TABLE IF EXISTS mv_post_flw_tag RESTRICT;
 
+-- 좋아요
+DROP TABLE IF EXISTS mv_like RESTRICT;
+
 -- 회원
 CREATE TABLE mv_memb (
     mno     INTEGER      NOT NULL COMMENT '회원번호', -- 회원번호
@@ -137,7 +151,6 @@ CREATE TABLE mv_post (
     cdt   DATETIME NOT NULL COMMENT '생성일자', -- 생성일자
     mdt   DATETIME NULL     COMMENT '수정일자', -- 수정일자
     cont  TEXT     NULL     COMMENT '내용', -- 내용
-    likes INTEGER  NULL     COMMENT '좋아요', -- 좋아요
     star  INTEGER  NULL     COMMENT '별점', -- 별점
     opn   CHAR(1)  NOT NULL COMMENT '공개여부' -- 공개여부
 )
@@ -259,16 +272,15 @@ ALTER TABLE mv_lbm
 
 -- 장면리뷰
 CREATE TABLE mv_sr (
-    srno  INTEGER      NOT NULL COMMENT '장면번호', -- 장면번호
-    mvno  INTEGER      NULL     COMMENT '영화번호', -- 영화번호
-    mno   INTEGER      NULL     COMMENT '회원번호', -- 회원번호
-    titl  VARCHAR(50)  NOT NULL COMMENT '장면제목', -- 장면제목
-    time  TIME         NOT NULL COMMENT '장면시간', -- 장면시간
-    phot  VARCHAR(255) NOT NULL COMMENT '장면사진', -- 장면사진
-    cont  TEXT         NULL     COMMENT '장면내용', -- 장면내용
-    spo   CHAR(1)      NOT NULL COMMENT '스포일러여부', -- 스포일러여부
-    cdt   DATETIME     NOT NULL COMMENT '생성일자', -- 생성일자
-    likes INTEGER      NULL     COMMENT '좋아요' -- 좋아요
+    srno INTEGER      NOT NULL COMMENT '장면번호', -- 장면번호
+    mvno INTEGER      NULL     COMMENT '영화번호', -- 영화번호
+    mno  INTEGER      NULL     COMMENT '회원번호', -- 회원번호
+    titl VARCHAR(50)  NOT NULL COMMENT '장면제목', -- 장면제목
+    time TIME         NOT NULL COMMENT '장면시간', -- 장면시간
+    phot VARCHAR(255) NOT NULL COMMENT '장면사진', -- 장면사진
+    cont TEXT         NULL     COMMENT '장면내용', -- 장면내용
+    spo  CHAR(1)      NOT NULL COMMENT '스포일러여부', -- 스포일러여부
+    cdt  DATETIME     NOT NULL COMMENT '생성일자' -- 생성일자
 )
 COMMENT '장면리뷰';
 
@@ -617,6 +629,22 @@ CREATE TABLE mv_post_flw_tag (
     flwno INTEGER NOT NULL COMMENT '팔로우번호' -- 팔로우번호
 )
 COMMENT '게시물_친구태그';
+
+-- 좋아요
+CREATE TABLE mv_like (
+    pstno INTEGER NOT NULL COMMENT '게시물번호', -- 게시물번호
+    type  CHAR(2) NOT NULL COMMENT '게시물타입', -- 게시물타입
+    mno   INTEGER NOT NULL COMMENT '회원번호' -- 회원번호
+)
+COMMENT '좋아요';
+
+-- 좋아요
+ALTER TABLE mv_like
+    ADD CONSTRAINT PK_mv_like -- 좋아요 기본키
+        PRIMARY KEY (
+            pstno, -- 게시물번호
+            type   -- 게시물타입
+        );
 
 -- 게시물
 ALTER TABLE mv_post
