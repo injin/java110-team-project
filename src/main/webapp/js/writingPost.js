@@ -1,16 +1,7 @@
 $(function() {
 
     var names = [];  
-
-    $('#btnIlsang').on('click', function() {
-        $("#pstTypeNo").val(1);
-        $('.onlyMovie').hide();
-    });
-    $('#btnMovie').on('click', function() {
-        $("#pstTypeNo").val(0);
-        $('.onlyMovie').show();
-    });
-
+  
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
         var $mlist = $("#media-list");
@@ -194,12 +185,4 @@ $(function() {
           source: fList.ttAdapter()
         }
       });
-
-      elt.tagsinput('add', { "value": 1 , "text": "Amsterdam"});
-      elt.tagsinput('add', { "value": 4 , "text": "Washington"});
-      elt.tagsinput('add', { "value": 7 , "text": "Sydney"});
-      elt.tagsinput('add', { "value": 10, "text": "Beijing"});
-      elt.tagsinput('add', { "value": 13, "text": "Cairo"});
-
-    
 });

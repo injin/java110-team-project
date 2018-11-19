@@ -1,16 +1,12 @@
 package bitcamp.java110.cms.web.follow;
 
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import bitcamp.java110.cms.dao.FlwDao;
-import bitcamp.java110.cms.domain.Flw;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
 
@@ -30,7 +26,7 @@ public class FlwController {
             HttpSession session) {
 
         Member member = (Member) session.getAttribute("loginUser");
-        List<Flw> a = flwService.list(member.getMno());
+        List<Member> a = flwService.list(member.getMno());
         model.addAttribute("flwlist" , a);
 
         return "follow/flwlist";
