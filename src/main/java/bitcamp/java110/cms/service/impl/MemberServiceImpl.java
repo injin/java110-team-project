@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FavGenreDao;
+import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
@@ -20,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
   @Autowired FavGenreDao favGenreDao;
   @Autowired MovieDao movieDao;
   @Autowired MovieAnlyDao movieAnlyDao;
+  @Autowired FlwDao flwDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
                   rollbackFor=Exception.class)
@@ -78,8 +80,10 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
+    flwDao.signOut(mno);
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);
+    
   }
 }
