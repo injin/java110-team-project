@@ -20,13 +20,12 @@ public class Post {
   protected Member member;
   protected List<String> photos;
   protected List<String> htags;
-  protected List<String> ftags;
+  protected List<Member> ftags;
   
-  
-  public List<String> getFtags() {
+  public List<Member> getFtags() {
     return ftags;
   }
-  public void setFtags(List<String> ftags) {
+  public void setFtags(List<Member> ftags) {
     this.ftags = ftags;
   }
   public Member getMember() {

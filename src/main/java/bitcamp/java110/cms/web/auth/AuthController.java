@@ -115,7 +115,7 @@ public class AuthController {
     @PostMapping("/add")
     public String add(
         Member member,
-        MultipartFile profileImage,
+        MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
@@ -126,9 +126,9 @@ public class AuthController {
         HttpSession session) throws Exception {
       
       //    profileImage Control
-      if (profileImage != null && profileImage.getSize() > 0) {
+      if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
-        profileImage.transferTo(new File(
+        profileImageFile.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
       }

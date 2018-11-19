@@ -1,11 +1,13 @@
 package bitcamp.java110.cms.dao;
 
 import java.util.List;
-
-import bitcamp.java110.cms.domain.Flw;
+import java.util.Map;
+import bitcamp.java110.cms.domain.Member;
 
 public interface FlwDao {
 
-    List<Flw> flwlist(int no); 
-   /* int flwdelete(int no);*/
+    List<Member> flwlist(int no); 
+    int flwdelete(Map<String, Object> condition);
+    int flwadd(Map<String, Object> condition);
+    void signOut(int mno);
 }

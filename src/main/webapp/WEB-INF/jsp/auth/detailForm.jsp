@@ -60,6 +60,7 @@
 		<form action="add" method="post" id="detailForm"
 			enctype="multipart/form-data">
 			<input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
+			<input type="hidden" name="profileImage" value="${sessionScope.loginUser.profileImage}">
 			<h3 class="mt-3">닉네임</h3>
 
 			<div class="form-group row">
@@ -73,7 +74,7 @@
 			<h3>프로필 사진</h3>
 			<div class="avatar-upload">
 				<div class="avatar-edit">
-					<input type='file' name="profileImage" id="imageUpload-profile"
+					<input type='file' name="profileImageFile" id="imageUpload-profile"
 						accept=".png, .jpg, .jpeg" /> <label for="imageUpload-profile"></label>
 				</div>
 				<div class="avatar-preview">
@@ -192,15 +193,7 @@ for ( var i = 0; i <= 40; i++) {
 }
 */
 
-//Enter Key 먹지 않게
-$("#input-srch-keyword").keypress(
-     function(event){
-     if (event.which == '13') {
-         event.preventDefault();
-         $(this).trigger(findMoviesByKeywod());
-     }
 
-});
 
 //커버 & 프로필 이미지 업로드 관련
 $("#imageUpload-cover").change(function() {
@@ -235,8 +228,14 @@ function coverURL(input) {
     }
 }
 
-//영화 검색 & 출력
-function findMoviesByKeywod() {
+//영화 검색
+var $inputKeyword = $('#input-srch-keyword');
+var $srchMovieList = $('#list-search-movie');
+var $chooseMvList = $('#list-choose-movie');
+var selecList = [];
+$('#test').val(selecList);
+
+function findMoviesByKeyword() {
     var keyword = document.getElementById('input-srch-keyword').value;
     if (keyword == '') {
         alert('키워드를 입력해주세요');
@@ -273,13 +272,16 @@ function findMoviesByKeywod() {
     });
 }
 
+//Enter Key
+$("#input-srch-keyword").keypress(
+     function(event){
+     if (event.which == '13') {
+         event.preventDefault();
+         findMoviesByKeyword();
+     }
+});
+
 // html 출력
-var $inputKeyword = $('#input-srch-keyword');
-var $srchMovieList = $('#list-search-movie');
-var $chooseMvList = $('#list-choose-movie');
-var selecList = [];
-$('#test').val(selecList);
-    
 function makeMovieListHtml(data) {
     var html = '';
     data.movieList.forEach(function(obj, idx) {

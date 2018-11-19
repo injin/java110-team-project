@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.PostService;
 
 @Controller
@@ -23,11 +24,14 @@ public class ReviewFeedController {
 
   PostService postService;
   ServletContext sc;
+  FlwService flwService;
 
   public ReviewFeedController(
       PostService postService, 
+      FlwService flwService,
       ServletContext sc) {
     this.postService = postService;
+    this.flwService = flwService;
     this.sc = sc;
   }
 
@@ -37,13 +41,13 @@ public class ReviewFeedController {
       Model model,
       HttpSession session)  throws Exception {
 
-    Member m = (Member)session.getAttribute("loginUser");
-//    List<String> flist = postService.list();
+    Member member = (Member) session.getAttribute("loginUser");
+    List<Member> flwList = flwService.list(member.getMno());
     
     List<Post> list = postService.list();
     
     model.addAttribute("postList", list);
-//    model.addAttribute("postList", flist);
+    model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
     
     return "reviewFeed/reviewFeedList";
   }

@@ -45,7 +45,7 @@
 		  mv.titl,
 		  p.star,
 		  p.cont,
-		  p.likes,
+		  0 as likes,
 		  (p.opn ='u') opn,
 		  m.nick,
 		  m.p_phot
@@ -66,7 +66,7 @@
             p.ptno,
             mv.titl,
             p.star,
-            p.likes,
+            0 as likes,
             (p.opn ='u') opn,
             m.nick,
             m.p_phot
@@ -88,9 +88,9 @@
 	<insert id="insert" parameterType="post" useGeneratedKeys="true"
 		keyColumn="pstno" keyProperty="pstno">
 		insert into mv_post( mno, ptno,mvno,
-		cdt, cont,star, likes, opn)
+		cdt, cont,star, opn)
 		values(#{mno}, #{pstTypeNo},#{mvno}
-		,now(),#{content},#{star},0,if(#{open},'u','l'));
+		,now(),#{content},#{star},if(#{open},'u','l'));
 	</insert>
 
 	<delete id="delete" parameterType="int">

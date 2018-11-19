@@ -52,6 +52,8 @@
 						<input type="text" class="form-control input-tags" name="followGroup" 
 						autocomplete="off" id="followGroup" placeholder="태그할 팔로우를 작성해주세요">
 					</div> -->
+					<%-- <c:forEach items="${userFlwList}" var="lst"> --%>
+					
 					<div class="input-group" style="text-align: center;">
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
@@ -64,6 +66,8 @@
 							</div>
 						</section>
 					</div>
+
+
 
 					<div class="form-group">
 						<!-- 사진 첨부 -->
