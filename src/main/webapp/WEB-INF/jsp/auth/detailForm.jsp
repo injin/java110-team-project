@@ -156,6 +156,7 @@
 
 
 			<hr>
+			<input type="hidden" name="selecList" id="test">
 			<div class="confirm" style="">
 			    <input type="submit" class="btn btn-default" value="확인">
 			    <input type="reset" class="btn btn-default" value="취소">
@@ -276,6 +277,8 @@ function findMoviesByKeywod() {
 var $inputKeyword = $('#input-srch-keyword');
 var $srchMovieList = $('#list-search-movie');
 var $chooseMvList = $('#list-choose-movie');
+var selecList = [];
+$('#test').val(selecList);
     
 function makeMovieListHtml(data) {
     var html = '';
@@ -309,26 +312,25 @@ function makeMovieListHtml(data) {
 회원 영화 등록시 mv_mv 테이블에 영화 먼저 등록 해야함.
 */
 //영화 선정 리스트를 위한 배열과 메소드
-var selecList = [];
 
 function addList(id, title) {
-	console.log(id);
+	console.log('hi ' + id);
 	for (var i in selecList) {
-		if (selecList[i].id === id){
+		if (selecList[i].mvno === id){
             console.log('이미 있는 영화 입니다.');
             return;
         }
 	}
-    selecList.add({id:id, title:title});
+	    selecList.add({mvno:id, title:title});
     makeFavListHtml(id, title);
     
 }
     
 function removeList(id) {
-	console.log('hi' + id);
+	console.log('bye ' + id);
     var idx;
     for (var i in selecList) {
-        if (selecList[i].id == id){
+        if (selecList[i].mvno == id){
             console.log(i);
             idx = i;
             console.log(idx);
@@ -342,7 +344,6 @@ function removeList(id) {
     }
     $('#mv-li-'+id).remove();
 }
-/* html에서 삭제 안됨.. */
 
 function makeFavListHtml(id, title) {
     var print = '';
@@ -352,16 +353,13 @@ function makeFavListHtml(id, title) {
     print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
     print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
     print += ' class="badge badge-primary badge-pill">제거</button>';
-    print += '<input type="hidden" name="favMvList" value=' + id + '>';
+    print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
+    print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
     print += '</div>';
     print += '</li>';
 
     $chooseMvList.append(print);
 }
-
-
-
-
 </script>
 </body>
 <form action="signOut" method="post">
