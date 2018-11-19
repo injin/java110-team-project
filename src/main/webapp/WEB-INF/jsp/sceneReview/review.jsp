@@ -34,12 +34,7 @@
                             <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
                             </c:if>
                         </h3>
-                        <c:if test="${sceneReview.time ne null}">
-                            <p>${sceneReview.title} (${sceneReview.time})</p>
-                        </c:if>
-                        <c:if test="${sceneReview.time eq null}">
-                            <p>(${tmdbMovie.releaseDate})</p>
-                        </c:if>
+                        <p>(${tmdbMovie.releaseDate})</p>
                     </div>
                     
                     <div id="movie-genres" class="float-right">
@@ -88,6 +83,18 @@
                             <p>${sceneReview.cont}</p>
                         </c:otherwise>
                     </c:choose>
+                    
+                    <c:if test="${not empty sessionScope.loginUser}">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">
+                                
+                            </span>
+                          </div>
+                          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                        </div>
+                    </c:if>
+                    
                     
                 </c:if>
                 <c:if  test="${sceneReview.trgtSrExist == false}">
