@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.FlwDao">
 
-<!-- 
+
 	<resultMap type="member" id="flwMap">
 		<id column="mno" property="mno" />
 		<result column="admin" property="admin" />
@@ -19,16 +19,45 @@
 
 
 	<select id="flwlist" resultMap="flwMap" parameterType="int">
-		select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
-		from mv_memb m1,
-		mv_memb m2 ,
-		mv_flw f
-		where m1.mno != m2.mno
-		and m1.mno = f.mno
-		and m2.mno = f.flw
-		and m1.mno = #{value}
-		ORDER by m1.mno , m2.mno
-	</select>
+        select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
+        from mv_memb m1,
+        mv_memb m2 ,
+        mv_flw f
+        where m1.mno != m2.mno
+        and m1.mno = f.mno
+        and m2.mno = f.flw
+        and m1.mno = #{value}
+        ORDER by m1.mno , m2.mno
+    </select>
+    
+   <delete id="flwdelete"  parameterType="map" >
+     delete from mv_flw
+     where flw = #{flw} and mno =#{mno}
+   </delete>
+   
+   <insert id="flwadd"  parameterType="map" >
+     insert into mv_flw (mno, flw)
+     values (#{mno} , #{flw})
+   </insert>
+    
+    <insert id="insertForPost"  parameterType="map"> 
+        insert mv_post_flw_tag(pstno, flwno) 
+        value (#{pstno} , #{flwno}) 
+    </insert>
+   
+    <select id="listForPost" resultMap="flwMap" parameterType="int">
+        SELECT 
+            pstno,
+            flwno,
+            nick 
+        FROM 
+            mv_memb m,
+            mv_post_flw_tag f 
+        WHERE 
+            m.mno=f.flwno 
+        AND 
+            pstno=#{value}
+    </select>
     
     <delete id="signOut1" parameterType="int">
        DELETE
@@ -47,7 +76,6 @@
 	<insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
 		(mno, flw) value (#{value} , #{flw}) </insert>
 
-	<delete id="flwdelete" parameterType="int" > delete from mv_flw where 
-		flw = #{flw} </delete>
- -->
+	
+ 
 </mapper>
