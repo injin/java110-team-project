@@ -187,29 +187,20 @@
 								<ul
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
-									<li>
-									
-									
-									
-									<a class="nav-link dropdown-toggle"
-										href="http://example.com" id="dropdown01"
-										data-toggle="dropdown" aria-haspopup="true"
-										aria-expanded="false" style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그
-									</a>
-										<div class="dropdown-menu" aria-labelledby="dropdown01">
-											<a class="dropdown-item" href="<c:url value='/app/mloglist'/>">Log</a> 
-											<a class="dropdown-item" href="javascript:logoutKakao()">Logout</a>
-										</div> 
-										<%-- <a href="#"
-										style="color: blue; font-size: 0.2rem; vertical-align: top;">
-											${post.ftags}친구태그 </a> --%>
-										
-										
-										
-										
-									</li>
-											
-											
+									<li><c:if test="${not empty post.ftags}">
+											<a data-toggle="dropdown" id="fDropdown" href="#"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false"
+												style="color: blue; font-size: 0.2rem; vertical-align: top;">
+												친구태그 </a>
+
+											<div class="dropdown-menu" aria-labelledby="fDropdown">
+												<c:forEach items="${post.ftags}" var="ftag">
+													<a class="dropdown-item"
+														href="#">${ftag.nickname}</a>
+												</c:forEach>
+											</div>
+										</c:if></li>
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
 									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
@@ -227,7 +218,6 @@
                                     </script>
 								</p>
 							</div>
-							<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
 							<c:if test="${post.photos[0].phot !=null}">
 								<img src="/upload/post/${post.photos[0].phot}"
 									style="width: 20rem; height: 13rem; margin-left: 1rem;" />

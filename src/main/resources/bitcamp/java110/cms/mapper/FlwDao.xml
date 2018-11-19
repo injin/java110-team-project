@@ -47,8 +47,7 @@
    
     <select id="listForPost" resultMap="flwMap" parameterType="int">
         SELECT 
-            pstno,
-            flwno,
+            flwno as mno,
             nick 
         FROM 
             mv_memb m,
