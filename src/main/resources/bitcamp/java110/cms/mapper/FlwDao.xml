@@ -30,6 +30,13 @@
 		ORDER by m1.mno , m2.mno
 	</select>
 
+    <delete id="signOut" parameterType="int">
+       DELETE
+           FROM 테이블 명
+       WHERE
+           mno=#{mno}
+   </delete>
+   
 	<!-- <insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
 		(mno, flw) value (#{value} , #{flw}) </insert> -->
 
