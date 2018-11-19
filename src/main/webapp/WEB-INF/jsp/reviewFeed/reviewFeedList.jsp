@@ -130,7 +130,7 @@
 		<c:if test="${empty sessionScope.loginUser}">
 			<c:set var="feedAlign" value="mauto"></c:set>
 		</c:if>
-		<div class="col-9 ${feedAlign}">
+		<div class="col-8 ${feedAlign}">
 
 			<!-- 글 작성 부분 -->
 			<div class="wPost">
@@ -256,7 +256,7 @@
 		<!-- 맞춤영화 추천 부분 -->
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
-				<div class="col-3">
+				<div class="col-4">
 					<div class="wPost" style="position: fixed">
 						<div style="color: black">
 							${sessionScope.loginUser.nickname}의 맞춤 영화</div>
