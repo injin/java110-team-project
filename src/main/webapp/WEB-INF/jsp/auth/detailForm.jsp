@@ -293,7 +293,7 @@ function makeMovieListHtml(data) {
             } else {
                 html += '/img/default-movie-img.png';
             }
-        html += '" alt="영화제목">';
+        html += '" alt="' + obj.title + '">';
         html += '<div class="media-body">';
         html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
         html += '(' + obj.release_date + ')';
