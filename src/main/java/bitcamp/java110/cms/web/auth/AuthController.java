@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.web.auth;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.service.AuthService;
 import bitcamp.java110.cms.service.GenreService;
 import bitcamp.java110.cms.service.MemberService;
@@ -27,6 +30,7 @@ public class AuthController {
     @Autowired MemberService memberService;
     @Autowired GenreService genreService;
     @Autowired ServletContext sc;
+    @Autowired MovieDao movieDao;
     
     public AuthController(AuthService authService2) {
         super();
@@ -83,14 +87,14 @@ public class AuthController {
     public String signout(
         HttpSession session,
         @RequestParam(required=false)int mno) {
-      System.out.println("Bye\n\n");
-      System.out.println(mno);
       //    비로그인 유저가 들어온다면 돌려보냄. 안되네?
-      if (mno <= 0) {
+      if (session.getAttribute("loginUser") == null) {
+        System.out.println("null?");
         return "redirect:/app/";
       }
       
       authService.signOut(mno);
+      System.out.println("Bye" + mno + "\n");
       
       session.invalidate();
       return "redirect:/app/";
@@ -111,14 +115,17 @@ public class AuthController {
     @PostMapping("/add")
     public String add(
         Member member,
-        @RequestParam(name="favGrList", required=false)
-                List<Integer> favGrList,
-        @RequestParam(name="favMvList", required=false)
-                List<Integer> favMvList,
         MultipartFile profileImage,
         MultipartFile coverImage,
+        @RequestParam(name="favGrList", required=false)
+                List<Integer> favGrList,
+        @RequestParam(name="favMvIdList", required=false)
+                List<Integer> favMvIdList,
+        @RequestParam(name="favMvTitleList", required=false)
+                List<String> favMvTitleList,
         HttpSession session) throws Exception {
       
+      //    profileImage Control
       if (profileImage != null && profileImage.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
         profileImage.transferTo(new File(
@@ -127,6 +134,7 @@ public class AuthController {
         System.out.println(profileImg);
       }
       
+      //    coverImage Control
       if (coverImage != null && coverImage.getSize() > 0) {
         String coverImg = UUID.randomUUID().toString();
         coverImage.transferTo(new File(
@@ -135,16 +143,30 @@ public class AuthController {
         System.out.println(coverImg);
       }
       
+      //    favGenreList Control
       if (favGrList != null && favGrList.size() > 0) {
         member.setFavGrList(favGrList);
       }
-      if (favMvList != null && favMvList.size() > 0) {
-        member.setFavMvList(favMvList);
+      
+      List<Movie> favMvList = new ArrayList<>();
+      
+      if (favMvIdList != null && favMvTitleList != null) {
+        if (favMvTitleList.size() == favMvIdList.size()) {
+          System.out.println("hi favMvList");
+          
+          for (int i = 0; i < favMvIdList.size(); i++) {
+            Movie mv = new Movie(favMvIdList.get(i), favMvTitleList.get(i));
+            favMvList.add(mv);
+            
+          }
+          member.setFavMvList(favMvList);
+        }
       }
+
       session.setAttribute("loginUser", member);
       
-      System.out.println("update");
-      System.out.println(member + "\n");
+      
+      memberService.update(member);
       return "redirect:/app/";
     }
     

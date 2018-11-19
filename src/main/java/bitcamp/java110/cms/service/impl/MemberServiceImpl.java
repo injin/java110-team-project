@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
 
@@ -17,6 +18,7 @@ public class MemberServiceImpl implements MemberService {
   
   @Autowired MemberDao memberDao;
   @Autowired FavGenreDao favGenreDao;
+  @Autowired MovieDao movieDao;
   @Autowired MovieAnlyDao movieAnlyDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
@@ -44,9 +46,10 @@ public class MemberServiceImpl implements MemberService {
   public void update(Member member) {
     memberDao.update(member);
     
+    System.out.println(member);
+    
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
       for (int i = 0; i < member.getFavGrList().size(); i++) {
-        
         HashMap<String, Object> params = new HashMap<>();
         params.put("mno", member.getMno());
         params.put("grno", member.getFavGrList().get(i));
@@ -57,10 +60,15 @@ public class MemberServiceImpl implements MemberService {
     if (member.getFavMvList() != null && member.getFavMvList().size() > 0) {
       for (int i = 0; i < member.getFavMvList().size(); i++) {
         
+        System.out.println(member.getFavMvList().get(i).getMvno() + "," + member.getFavMvList().get(i).getTitle());
+        //  mv_mv table에 insert
+        movieDao.insertNotExists(member.getFavMvList().get(i));
+        
+        //  mv_mv_anly에 insert
         HashMap<String, Integer> params = new HashMap<>();
         params.put("mno", member.getMno());
-        params.put("mvno", member.getFavMvList().get(i));
-        movieAnlyDao.signIn(params);
+        params.put("mvno", member.getFavMvList().get(i).getMvno());
+        movieAnlyDao.insertNotExists(params);
       }
     }
   }
