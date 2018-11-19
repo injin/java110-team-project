@@ -65,7 +65,9 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../sceneAlbum/sceneAlbumList.jsp"></jsp:include> </main>
+	<jsp:include page="../sceneAlbum/sceneAlbumList.jsp"></jsp:include>
+	<jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include> 
+	</main>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
