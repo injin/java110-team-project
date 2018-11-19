@@ -23,6 +23,10 @@ main.borderGray {
 
 .w50 { width: 50px; }
 
+.resize-none {
+    resize: none;
+}
+
 /*==== 프로필 ==== */
 .profile4X4 {
   display: inline-block;
@@ -30,10 +34,10 @@ main.borderGray {
   height: 1.8em;
   border-radius: 100%;
 }
-.profile-small {
+.profile-medium {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  width: 3em;
+  height: 3em;
   border-radius: 100%;
 }
 

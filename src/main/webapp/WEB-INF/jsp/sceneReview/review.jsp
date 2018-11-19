@@ -16,10 +16,9 @@
     color: #00cc99;
     cursor: pointer;
 }
-span.comment-profile {
-    background-size: contain;
+#comment-area {
+    padding: 0.5em;
 }
-
     
 </style>
 </head>
@@ -64,7 +63,7 @@ span.comment-profile {
         
         <c:if test="${sceneReview.time eq null}">
             <div class="row mt-3 ml-1">
-                <div class="col-9">
+                <div class="col-9 col-md-12">
                     <div class="alert alert-secondary" role="alert">
                         <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                     </div>
@@ -74,7 +73,7 @@ span.comment-profile {
         
         <c:if test="${sceneReview.time ne null}">
         <div class="row mt-3 ml-1">
-            <div class="col-9">
+            <div class="col-lg-9 col-md-12">
                 <c:if  test="${sceneReview.trgtSrExist == true}">
                     <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
                     <c:choose>
@@ -88,15 +87,22 @@ span.comment-profile {
                     </c:choose>
                     
                     <c:if test="${not empty sessionScope.loginUser}">
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1" class="comment-profile"
-                                style="background:url(${loginUser.profileImagePath})">
-                                <%-- <img class="profile-small" src="${loginUser.profileImagePath}"> --%>&nbsp;&nbsp;&nbsp;
-                            </span>
+                    <div class="card" id="comment-area">
+                        <div class="media">
+                          <div>
+                              <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="Generic placeholder image">
+                              <div>${loginUser.nickname}</div>
                           </div>
-                          <input type="text" class="form-control" placeholder="Write a comment" aria-describedby="basic-addon1">
+                          <div class="media-body">
+                            <textarea class="form-control" rows="3" placeholder="Write a comment"></textarea>
+                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
+                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-file-image"></i> 사진</button>
+                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-file-image"></i> 사진</button>
+                          </div>
+                          
                         </div>
+                    </div>
+                        
                     </c:if>
                     
                     
@@ -107,7 +113,7 @@ span.comment-profile {
                     </div>
                 </c:if>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3 col-md-12">
                 
                 
                 
