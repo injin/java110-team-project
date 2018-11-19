@@ -1,6 +1,8 @@
 package bitcamp.java110.cms.web.follow;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bitcamp.java110.cms.dao.FlwDao;
-import bitcamp.java110.cms.domain.Flw;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
 
@@ -30,7 +31,7 @@ public class FlwController {
             HttpSession session) {
 
         Member member = (Member) session.getAttribute("loginUser");
-        List<Flw> a = flwService.list(member.getMno());
+        List<Member> a = flwService.list(member.getMno());
         model.addAttribute("flwlist" , a);
 
         return "follow/flwlist";
@@ -38,60 +39,36 @@ public class FlwController {
     }
 
  
-/*    @RequestMapping("flwadd")
-    public void addFlw(Model model, HttpSession session) {
+    @RequestMapping("flwadd")
+    public void addFlw(int flw, HttpSession session) {
         
         Member member = (Member) session.getAttribute("loginUser");
-        int a = flwService.add(member.getMno());
-        model.addAttribute("addFlw" , a);
         
-    }*/
+        int mno = member.getMno();
+        
+        Map<String,Object> condition =  new HashMap<>();
+        condition.put("mno", mno);
+        condition.put("flw", flw);
+        
+        
+        flwService.add(condition);
+    }
     
-/*    @RequestMapping("flwdelete")
-    public String deleteFlw(int no) {
+   @RequestMapping("flwdelete")
+    public String deleteFlw(int flw,
+            HttpSession session) {
         
-        flwService.delete(no);
+       Member member = (Member)session.getAttribute("loginUser");
+       int mno = member.getMno();
+       
+       Map<String,Object> condition =  new HashMap<>();
+       condition.put("mno", mno);
+       condition.put("flw", flw);
+       
+        flwService.delete(condition);
         
         return "redirect: flwlist";
     }
-    */
-
-
-    /*    @RequestMapping("list")
-    public String list(
-              Model model //Model객체 생성
-                    ) {
-
-        //flwService에 있는 list메서드를 사용해서
-        //List<Ms>의 객체 a에 담는다.
-        List<Flw> a = flwService.list();
-
-        //Model addAttribute(String name, Object value)
-        // value 객체를 name 이름으로 추가 
-        model.addAttribute("list" , a);
-
-        return "";
-    }*/
-
-
-    /*    @RequestMapping("detail")
-    public String detail( int no, Model model) {
-
-        Flw mno = flwService.get(no);
-        model.addAttribute("mno" , mno);
-
-
-        return "flwlist";
-    }
-
-    @RequestMapping("delete")
-    public String delete(int no) {
-
-        flwService.delete(no);
-
-
-        return "";
-    }
-     */
-
+    
+  
 }
