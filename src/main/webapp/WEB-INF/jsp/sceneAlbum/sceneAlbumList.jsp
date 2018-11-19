@@ -27,19 +27,35 @@
 					data-target="#albumModal" />
 			</div>
 			<div class="row albumList col-lg-9">
-				<div class="row" style="margin: 0 auto;">
-					<div class="album">
-						<img src="/upload/p0.png">
-						<p style="width: 7rem; display: inline;">
-							<span><b>원테이크</b></span>
-						</p>
-						<i class="fas fa-globe-americas globe"
-							style="float: right; margin: 0.3rem;"></i><br> <span
-							style="font-size: 0.8rem;">14개</span><br> <span>2018-...</span>
+				<c:forEach items="${sceneAlbumList}" var="album">
+					<div class="row" style="margin: 0 auto;">
+						<div class="album">
+							<img src="/img/default.jpg">
+							<c:choose>
+								<c:when test="${album.open == 'true'}">
+                            <div class="row">
+                                <span class="overflow" style="margin-left: 1rem;">
+                                <b>${album.lbmTitle}</b></span>
+									<span><i class="fas fa-globe-americas globe"
+										style="float: right; margin: 0.2rem; "></i></span>
+                            </div>
+								</c:when>
+								<c:otherwise>
+                            <div class="row">
+                                <span class="overflow" style="margin-left: 1rem;">
+                                <b>${album.lbmTitle}</b></span>
+                                    <span><i class="fas fa-lock lock"
+                                        style="float: right; margin: 0.2rem;"></i></span>
+                            </div>
+								</c:otherwise>
+							</c:choose>
+							<span style="font-size: 0.8rem; float: left;">14개</span>
+							<span style="float: left; clear: both;">${album.cdt}</span>
+						</div>
+						<div class="album"></div>
+						<div class="album"></div>
 					</div>
-					<div class="album"></div>
-					<div class="album"></div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 

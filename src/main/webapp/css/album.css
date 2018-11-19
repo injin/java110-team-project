@@ -8,6 +8,17 @@
     margin-top: 30%;
 }
 
+.overflow {
+    font-size:0.9rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    width: 10rem;
+}
 .profile{
     float:left;
     
