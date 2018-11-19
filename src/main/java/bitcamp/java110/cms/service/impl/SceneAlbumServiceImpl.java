@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,15 +31,11 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   @Override
   public void add(SceneAlbum sceneAlbum) {
 
-    if(sceneAlbum.getMvno() !=0 &&  movieDao.findByNo(sceneAlbum.getMvno()) == null) {
-
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("mvno", sceneAlbum.getMvno());
-      params.put("titl", sceneAlbum.getTitle());
-      movieDao.insert(params);
-
-    }
-
+ /*     HashMap<String, Object> params = new HashMap<>();
+      params.put("lbmTitle", sceneAlbum.getLbmTitle());
+      params.put("open", sceneAlbum.isOpen());
+      ieDao.insert(params);
+*/
     sceneAlbumDao.insert(sceneAlbum);
 /*
     List<String> plst = sceneAlbum.getPhotos();
@@ -57,7 +52,10 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
 
   @Override
   public List<SceneAlbum> list() {
-    return null;
+    
+    List<SceneAlbum> lists = sceneAlbumDao.findAll();
+    
+    return lists;
   }
 
   @Override

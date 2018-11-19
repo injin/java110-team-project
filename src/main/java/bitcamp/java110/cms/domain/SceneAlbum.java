@@ -62,12 +62,4 @@ public class SceneAlbum {
   }
   
   
-}/*
-mv_lbm
-보관함번호 lbmno integer     NN
-회원번호 mno integer    NN
-보관함이름 lbm_nm varchar
-대표이미지 phot  varchar
-생성일자 cdt    datetime
-수정일자 mdt    datetime
-공개여부 opn    char    NN*/
+}

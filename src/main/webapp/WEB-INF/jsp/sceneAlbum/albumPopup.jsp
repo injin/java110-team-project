@@ -5,7 +5,7 @@
 
 <div class="modal fade" id="albumModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document" id="rModal">
-		<form action="add" method="post" enctype="multipart/form-data">
+		<form action="add" method="post">
 			<div class="modal-content">
 
 				<div class="modal-header form-inline">
@@ -23,13 +23,13 @@
 				<div class="modal-body">
 					<!-- 리뷰 작성 -->
 					<div class="form-group">
-						<input type="text" name="albumTitle" class="form-control" rows="1"
+						<input type="text" name="lbmTitle" class="form-control"
 							id="albumTitle" placeholder="보관함명">
 					</div>
 				
 				<label>
-                    <input type="radio" name="opn" value="public" required>전체공개
-                    <input type="radio" name="opn" value="private">나만보기
+                    <input type="radio" name="open" value="true" checked>전체공개
+                    <input type="radio" name="open" value="false">나만보기
                 </label>
 				</div>
 				
