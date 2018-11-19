@@ -23,12 +23,35 @@ main.borderGray {
 
 .w50 { width: 50px; }
 
+/*==== 프로필 ==== */
 .profile4X4 {
   display: inline-block;
   width: 1.8em;
   height: 1.8em;
   border-radius: 100%;
 }
+
+/*==== top 버튼 ==== */
 .return-top{
     right:3em; bottom:15px; position:fixed; z-index:9999999999;
+}
+
+/*==== 메인 ==== */
+div.masthead {
+    position: relative;
+    background-color: #343a40;
+    background: url(../img/main2.jpg) no-repeat center center;
+    background-size: cover;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+div.masthead {
+    padding-top: 12rem;
+    padding-bottom: 12rem;
+}
+.text-white {
+    color: #fff!important;
+}
+.text-center {
+    text-align: center!important;
 }

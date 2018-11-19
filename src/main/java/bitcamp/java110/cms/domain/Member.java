@@ -18,15 +18,15 @@ public class Member implements Serializable {
   protected String gender;
   protected String ageRange;
   protected List<Integer> favGrList; // 회원 선호 장르의 장르 번호
-  protected List<Integer> favMvList;    // 회원 선호 영화 목록
+  protected List<Movie> favMvList;    // 회원 선호 영화 목록
   
   public int getMno() {
     return mno;
   }
-  public List<Integer> getFavMvList() {
+  public List<Movie> getFavMvList() {
     return favMvList;
   }
-  public void setFavMvList(List<Integer> favMvList) {
+  public void setFavMvList(List<Movie> favMvList) {
     this.favMvList = favMvList;
   }
   public void setMno(int mno) {

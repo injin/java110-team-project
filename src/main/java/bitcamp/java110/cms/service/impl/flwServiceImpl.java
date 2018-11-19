@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import bitcamp.java110.cms.dao.FlwDao;
@@ -21,12 +22,20 @@ public class flwServiceImpl implements FlwService{
        
     }
 
-/*
+
     @Override
-    public void delete(int no) {
+    public void delete(Map<String, Object> condition) {
         
-        flwDao.flwdelete(no);
+        flwDao.flwdelete(condition);
     }
-    */
+    
+    
+    @Override
+    public void add(Map<String, Object> condition) {
+       
+        flwDao.flwadd(condition);
+        
+    }
+    
  
 }

@@ -4,10 +4,17 @@ public class Movie {
 
   protected int mvno;
   protected String title;
-
+  
+  
+  public Movie(int mvno, String title) {
+    super();
+    this.mvno = mvno;
+    this.title = title;
+  }
+  
   @Override
   public String toString() {
-    return "Movie [mvno=" + mvno + ", title=" + title + "]";
+    return title + ", id:" + mvno;
   }
   public int getMvno() {
     return mvno;

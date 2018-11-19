@@ -10,6 +10,16 @@
         values (#{mno}, #{mvno}, 10)
     </insert>
     
+    <insert id="insertNotExists" parameterType="map">
+        INSERT INTO mv_mv_anly(mno, mvno, pnt)
+            SELECT #{mno}, #{mvno}, 10 
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_mv_anly
+                          WHERE mvno=#{mvno}
+                          )
+    </insert>
+    
     <delete id="signOut" parameterType="int">
         DELETE
             FROM mv_mv_anly

@@ -68,8 +68,7 @@ public class AuthServiceImpl implements AuthService {
   
   /**
    * 제하 To Do
-   * kakao 연동 해제
-   * memberService에서 DB Table 삭제 mrthod 수정해야함
+   * memberService에서 DB Table 삭제 method 수정해야함
    */
   @Override
   public void signOut(int mno) {

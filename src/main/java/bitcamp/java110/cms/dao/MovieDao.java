@@ -7,5 +7,6 @@ public interface MovieDao {
   
   int insert(Map<String, Object> params);
   int insertByObj(Movie movie);
+  int insertNotExists(Movie movie);
   Movie findByNo(int no);
 }

@@ -14,6 +14,16 @@
         insert into mv_mv(mvno, titl)
         values(#{mvno},#{title})
     </insert>
+    
+    <insert id="insertNotExists" parameterType="movie" keyColumn="mno">
+        INSERT INTO mv_mv(mvno, titl)
+            SELECT #{mvno}, #{title} 
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_mv
+                          WHERE mvno=#{mvno}
+                          )
+    </insert>
 
 	<select id="findByNo"
 		resultType="bitcamp.java110.cms.domain.Movie" parameterType="int">
