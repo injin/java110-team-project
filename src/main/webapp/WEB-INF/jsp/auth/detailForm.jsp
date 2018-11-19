@@ -134,7 +134,7 @@
 						placeholder="검색어를 입력해 주세요" autocomplete="off"> <span
 						class="input-group-btn">
 						<button class="btn btn-primary" id="btn-srch-movie"
-							onclick="findMoviesByKeywod()" type="button">검색</button>
+							onclick="findMoviesByKeyword()" type="button">검색</button>
 					</span>
 				</div>
 				
