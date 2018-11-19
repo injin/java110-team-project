@@ -5,14 +5,14 @@
 <mapper namespace="bitcamp.java110.cms.dao.FlwDao">
 
 	<resultMap type="member" id="flwMap">
-		<id column="mno" property="mno" />
+		<id column="flwno" property="mno" />
 		<result column="nick"    property="nickname" />
 		<result column="p_phot"    property="profileImage" />
 	</resultMap>
     
     
   <select id="flwlist" resultMap="flwMap" parameterType="int">
-   select m1.mno as mno , m2.mno as flw , m2.nick as nick, m2.p_phot as p_phot
+   select m1.mno as myno , m2.mno as flwno , m2.nick as nick, m2.p_phot as p_phot
      from mv_memb m1, 
           mv_memb m2 , 
           mv_flw f
@@ -23,15 +23,15 @@
     ORDER by m1.mno , m2.mno
     </select>
     
-<!--     <insert id="addFlw"  parameterType="int" keyColumn="mno">
-      insert mv_flw (mno, flw)
-      value (#{value} , #{flw})
+    <insert id="flwadd"  parameterType="map" >
+      insert into mv_flw (mno, flw)
+      values (#{mno} , #{flw})
     </insert>
-     -->
      
-<!--     <delete id="flwdelete"  parameterType="int" >
+     
+    <delete id="flwdelete"  parameterType="map" >
       delete from mv_flw
-      where flw = #{flw}
-    </delete> -->
+      where flw = #{flw} and mno =#{mno}
+    </delete> 
     
 </mapper>
