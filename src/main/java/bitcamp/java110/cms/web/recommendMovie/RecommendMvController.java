@@ -1,9 +1,13 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.service.RecommendService;
+import info.movito.themoviedbapi.TmdbMovies;
 
 /**
  * @author Jeaha
@@ -30,15 +34,30 @@ import bitcamp.java110.cms.domain.Member;
  * RecormendServiceImple
  * RecommendDao
  * RecommendDao.xml
+ * 
+ * detailForm.jsp 처럼.
+ * db에서 list를 뽑아 온 뒤
+ * MovieInfoController에 mv.id를 보내서 영화 정보를 ajx로 가져온다.
  */
 
 @Controller
 @RequestMapping("/recommend")
 public class RecommendMvController {
   
-  @RequestMapping("list")
+  @Autowired ServletContext sc;
+  @Autowired TmdbMovies tmdbMovies;
+  @Autowired RecommendService rcmdService;
+  
+  
+  public RecommendMvController(RecommendService rcmdService) {
+    super();
+    this.rcmdService = rcmdService;
+  }
+  
+  @RequestMapping("/list")
   public String list (HttpSession session) {
     Member member = (Member) session.getAttribute("loginUser");
+    
     
     return "/recommend/list";
   }

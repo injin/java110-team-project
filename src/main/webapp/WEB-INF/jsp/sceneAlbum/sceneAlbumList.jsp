@@ -26,36 +26,55 @@
 				앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
 					data-target="#albumModal" />
 			</div>
+			
+			<!-- 앨범 목록 -->
 			<div class="row albumList col-lg-9">
-				<c:forEach items="${sceneAlbumList}" var="album">
-					<div class="row" style="margin: 0 auto;">
+				<c:forEach items="${sceneAlbumList}" var="album" begin="0" end="5">
+					<div class="row" style="margin: 0;">
 						<div class="album">
 							<img src="/img/default.jpg">
 							<c:choose>
 								<c:when test="${album.open == 'true'}">
-                            <div class="row">
-                                <span class="overflow" style="margin-left: 1rem;">
-                                <b>${album.lbmTitle}</b></span>
-									<span><i class="fas fa-globe-americas globe"
-										style="float: right; margin: 0.2rem; "></i></span>
-                            </div>
+									<div class="row">
+										<span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+										<span style="margin-left: 1.3rem;"><i
+											class="fas fa-globe-americas globe"
+											style="float: right; margin: 0.2rem;"></i></span>
+									</div>
 								</c:when>
 								<c:otherwise>
-                            <div class="row">
-                                <span class="overflow" style="margin-left: 1rem;">
-                                <b>${album.lbmTitle}</b></span>
-                                    <span><i class="fas fa-lock lock"
-                                        style="float: right; margin: 0.2rem;"></i></span>
-                            </div>
+									<div class="row">
+										<span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+										<span style="margin-left: 1.3rem;"><i
+											class="fas fa-lock lock"> </i></span>
+									</div>
 								</c:otherwise>
 							</c:choose>
-							<span style="font-size: 0.8rem; float: left;">14개</span>
-							<span style="float: left; clear: both;">${album.cdt}</span>
+							<span style="font-size: 0.8rem; float: left;">14개</span> <span
+								style="float: left; clear: both;">${album.cdt}</span>
 						</div>
-						<div class="album"></div>
-						<div class="album"></div>
 					</div>
 				</c:forEach>
+				<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+				
 			</div>
 		</div>
 
