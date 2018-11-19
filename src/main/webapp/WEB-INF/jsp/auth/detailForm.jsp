@@ -53,7 +53,7 @@
 <!-- http://localhost:8888/app/signupDetail/detailForm
         회원 가입시 정보 최초 수정시에만 쓸 페이지, 회원 정보 수정에서 다시 쓸수 있을지 미지수 
     -->
-<body>
+<body class="borderGray bgGray">
 	<jsp:include page="../include/header.jsp"></jsp:include>
 	<main role="main" class="container">
 	<div id="detail">

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ReportDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.ReportDao">
+
+	<resultMap type="report" id="reportMap">
+		<id column="rptno" property="rptno" />
+		<result column="mno" property="mno" />
+		<result column="trgt" property="target" />
+		<result column="cont" property="cont" />
+		<result column="url" property="url" />
+		<result column="hndl" property="hndl" />
+		<result column="cdt" property="createdDate" />
+	</resultMap>
+
+    
+    <select id="findAll" resultMap="reportMap" parameterType="map">
+        
+    </select>
+    
+    <select id="findByNo" resultMap="reportMap" parameterType="int">
+    </select>
+    
+    <insert id="insert" parameterType="report" 
+            useGeneratedKeys="true" keyColumn="rptno" keyProperty="rptno">
+        insert into mv_rpt(mno, cont, url, cdt)
+        values(4, 'ewer', 'hihihi', now())
+    </insert>
+    
+    <delete id="delete" parameterType="int">
+    </delete>
+
+</mapper>

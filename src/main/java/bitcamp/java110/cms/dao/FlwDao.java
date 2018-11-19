@@ -9,7 +9,12 @@ public interface FlwDao {
     List<Member> flwlist(int no); 
     int flwdelete(Map<String, Object> condition);
     int flwadd(Map<String, Object> condition);
+<<<<<<< HEAD
     void signOut(int mno);
     int insertForPost(Map<String, Object> condition);
     List<Member> listForPost(int no);
+=======
+    void signOut1(int mno);
+    void signOut2(int mno);
+>>>>>>> j1
 }

@@ -29,24 +29,6 @@
 		and m1.mno = #{value}
 		ORDER by m1.mno , m2.mno
 	</select>
-<<<<<<< HEAD:src/main/webapp/resources/bitcamp/java110/cms/mapper/FlwDao.xml
-	
-	<select id="listForPost" resultMap="flwMap" parameterType="int">
-        SELECT 
-            pstno,
-            flwno,
-            nick 
-        FROM 
-            mv_memb m,
-            mv_post_flw_tag f 
-        WHERE 
-            m.mno=f.flwno 
-        AND 
-            pstno=#{value}
-    </select>
-
-    <delete id="signOut" parameterType="int">
-=======
     
     <delete id="signOut1" parameterType="int">
        DELETE
@@ -56,18 +38,12 @@
     </delete>
     
     <delete id="signOut2" parameterType="int">
->>>>>>> j1:src/main/resources/bitcamp/java110/cms/mapper/FlwDao.xml
        DELETE
            FROM mv_flw
        WHERE
            mno=#{mno}
     </delete>
    
-   <insert id="insertForPost"  parameterType="map"> 
-        insert mv_post_flw_tag(pstno, flwno) 
-        value (#{pstno} , #{flwno}) 
-   </insert>
-        
 	<!-- <insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
 		(mno, flw) value (#{value} , #{flw}) </insert> -->
 
