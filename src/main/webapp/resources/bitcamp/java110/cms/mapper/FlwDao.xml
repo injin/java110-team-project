@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.FlwDao">
+
+
+	<resultMap type="member" id="flwMap">
+		<id column="mno" property="mno" />
+		<result column="admin" property="admin" />
+		<result column="mid" property="id" />
+		<result column="nick" property="nickname" />
+		<result column="p_phot" property="profileImage" />
+		<result column="c_phot" property="coverImage" />
+		<result column="pr" property="pr" />
+		<result column="gend" property="gender" />
+		<result column="age_rng" property="ageRange" />
+	</resultMap>
+
+
+	<select id="flwlist" resultMap="flwMap" parameterType="int">
+		select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
+		from mv_memb m1,
+		mv_memb m2 ,
+		mv_flw f
+		where m1.mno != m2.mno
+		and m1.mno = f.mno
+		and m2.mno = f.flw
+		and m1.mno = #{value}
+		ORDER by m1.mno , m2.mno
+	</select>
+	
+	<select id="listForPost" resultMap="flwMap" parameterType="int">
+        SELECT 
+            pstno,
+            flwno,
+            nick 
+        FROM 
+            mv_memb m,
+            mv_post_flw_tag f 
+        WHERE 
+            m.mno=f.flwno 
+        AND 
+            pstno=#{value}
+    </select>
+
+    <delete id="signOut" parameterType="int">
+       DELETE
+           FROM 테이블 명
+       WHERE
+           mno=#{mno}
+   </delete>
+   
+   <insert id="insertForPost"  parameterType="map"> 
+        insert mv_post_flw_tag(pstno, flwno) 
+        value (#{pstno} , #{flwno}) 
+   </insert>
+        
+	<!-- <insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
+		(mno, flw) value (#{value} , #{flw}) </insert> -->
+
+	<!-- <delete id="flwdelete" parameterType="int" > delete from mv_flw where 
+		flw = #{flw} </delete> -->
+
+</mapper>

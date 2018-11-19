@@ -10,4 +10,6 @@ public interface FlwDao {
     int flwdelete(Map<String, Object> condition);
     int flwadd(Map<String, Object> condition);
     void signOut(int mno);
+    int insertForPost(Map<String, Object> condition);
+    List<Member> listForPost(int no);
 }

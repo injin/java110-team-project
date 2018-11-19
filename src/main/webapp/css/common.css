@@ -46,14 +46,14 @@ main.borderGray {
 div.masthead {
     position: relative;
     background-color: #343a40;
-    background: url(../img/main2.jpg) no-repeat center center;
+    background: url(../img/ilidan.jpg) no-repeat center center;
     background-size: cover;
     padding-top: 8rem;
     padding-bottom: 8rem;
 }
 div.masthead {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
 }
 .text-white {
     color: #fff!important;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PhotoDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.MovieDao">
+
+	<insert id="insert" parameterType="map" keyColumn="mno">
+		insert into mv_mv
+		values(#{mvno},#{titl})
+	</insert>
+    
+    <insert id="insertByObj" parameterType="movie" keyColumn="mno">
+        insert into mv_mv(mvno, titl)
+        values(#{mvno},#{title})
+    </insert>
+    
+    <insert id="insertNotExists" parameterType="movie" keyColumn="mno">
+        INSERT INTO mv_mv(mvno, titl)
+            SELECT #{mvno}, #{title} 
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_mv
+                          WHERE mvno=#{mvno}
+                          )
+    </insert>
+
+	<select id="findByNo"
+		resultType="bitcamp.java110.cms.domain.Movie" parameterType="int">
+		select
+		  m.mvno,
+		m.titl
+		from mv_mv m
+		where m.mvno=#{value} <!-- value말고 아무거나 할수있음 -->
+	</select>
+</mapper>
