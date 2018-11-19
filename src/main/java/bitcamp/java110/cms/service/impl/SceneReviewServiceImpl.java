@@ -74,7 +74,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
       if (defaultTime != null) {
         sr.setTime(sceneReviewDao.findDefaultTime(tmdbMovie.getId()));
       } else {
-        return null;
+        return sr;
       }
     }
     
