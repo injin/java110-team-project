@@ -187,8 +187,28 @@
 								<ul
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
-									<li><a href="#"
-										style="color: blue; font-size: 0.2rem; vertical-align: top;">친구태그</a></li>
+									
+									
+									
+									
+									<li>
+									<%-- <a class="nav-link dropdown-toggle"
+										href="http://example.com" id="dropdown01"
+										data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false">친구태그
+									</a>
+										<div class="dropdown-menu" aria-labelledby="dropdown01">
+											<!-- <a class="dropdown-item" href="#">메뉴1</a> -->
+											<a class="dropdown-item" href="<c:url value='/app/mloglist'/>">Log</a> 
+											<a class="dropdown-item" href="javascript:logoutKakao()">Logout</a>
+										</div>  --%>
+										<a href="#"
+										style="color: blue; font-size: 0.2rem; vertical-align: top;">
+											<%-- ${post.ftags} --%>친구태그 </a>
+											
+									</li>
+											
+											
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
 									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
@@ -237,17 +257,7 @@
 						</div>
 					</div>
 				</c:if>
-			</c:forEach >
-			
-			
-			<c:out value="${userFlwList}"/>
-			<c:forEach items="${userFlwList}" var="lst" varStatus="status">
-			<c:out value="nickname: ${lst.nickname}, mno: ${lst.mno}"></c:out>
 			</c:forEach>
-
-
-
-
 
 			<jsp:include page="writingPost.jsp"></jsp:include>
 		</div>
@@ -272,6 +282,14 @@
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
 	<script src="/js/writingPost.js"></script>
-
+	<script>
+        var flwList = [];
+        <c:forEach items="${userFlwList}" var="lst">
+        flwList.push({
+            "value" : "${lst.mno}",
+            "text" : "${lst.nickname}"
+        });
+        </c:forEach>
+    </script>
 </body>
 </html>

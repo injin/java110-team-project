@@ -44,16 +44,6 @@
 						<textarea name="content" class="form-control" rows="10"
 							id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
-					<!-- 친구 태그 -->
-					<!-- <div class="input-group" style="text-align:center;">
-						<div class="input-group-prepend">
-							<div class="input-group-text">친구태그하기</div>
-						</div>
-						<input type="text" class="form-control input-tags" name="followGroup" 
-						autocomplete="off" id="followGroup" placeholder="태그할 팔로우를 작성해주세요">
-					</div> -->
-					<%-- <c:forEach items="${userFlwList}" var="lst"> --%>
-					
 					<div class="input-group" style="text-align: center;">
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
@@ -61,10 +51,11 @@
 						<section id="examples">
 							<div class="example example_objects_as_tags">
 								<div class="bs-example">
-									<input type="text" />
+									<input type="text" id="flw"/>
 								</div>
 							</div>
 						</section>
+						<input type="hidden" id="ftagsForAdd" name="ftagsForAdd" value="-1" />
 					</div>
 
 

@@ -52,6 +52,8 @@ public class PostServiceImpl implements PostService {
 
     List<String> plst = post.getPhotos();
     List<String> hlst = post.getHtags();
+    String[] flst = post.getFtagsForAdd().split(",");
+    
     for(int i=0;i<plst.size();i++)
     {
       HashMap<String, Object> params = new HashMap<>();
@@ -69,6 +71,15 @@ public class PostServiceImpl implements PostService {
 
       postHashtagDao.insert(params);
     }
+    
+    for(int i=0;i<flst.length;i++)
+    {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("pstno", post.getPstno());
+      params.put("flwno", flst[i]);
+      
+      flwDao.insertForPost(params);
+    }
   }
 
   @Override
@@ -83,7 +94,7 @@ public class PostServiceImpl implements PostService {
 
     for(int i=0;i<posts.size();i++)
     {
-      posts.get(i).setFtags(flwDao.flwlist(posts.get(i).getMno()));
+      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
     }
     return posts;
   }

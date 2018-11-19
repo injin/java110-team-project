@@ -56,6 +56,7 @@ $(function() {
     });
 
     $('.open').on('click', function(e) {
+        
         if(this.checked) {
             $('.globe').show();
             $(".lock").hide();
@@ -65,16 +66,6 @@ $(function() {
         }
     });
     
-   /* $('#followGroup').tagsinput({
-        itemValue:'id',
-        itemText:'follow',
-        typehead:{
-            source:function(query){
-                return $.getJSON('cities.json');
-            }
-        }
-    });*/
-
     $('#modalSubmit').on('click', function(e) {
 
         console.log($("#pstTypeNo").val() == 0);
@@ -92,6 +83,8 @@ $(function() {
             e.preventDefault();
             return;
         }
+        
+        $("#ftagsForAdd").val($("#flw").val());
     });
 
     $( "#movieSearch" ).autocomplete({
@@ -149,32 +142,14 @@ $(function() {
         $('#reviewModal').show();
     })
     
-    // 아래 전부 친구태그
+    // 여기서부터 전부 친구태그
     var fList = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local:[ { "value": 1 , "text": "Amsterdam"   },
-        { "value": 2 , "text": "London"      },
-        { "value": 3 , "text": "Paris"       },
-        { "value": 4 , "text": "Washington"  },
-        { "value": 5 , "text": "Mexico City" },
-        { "value": 6 , "text": "Buenos Aires"},
-        { "value": 7 , "text": "Sydney"      },
-        { "value": 8 , "text": "Wellington"  },
-        { "value": 9 , "text": "Canberra"    },
-        { "value": 10, "text": "Beijing"     },
-        { "value": 11, "text": "New Delhi"   },
-        { "value": 12, "text": "Kathmandu"   },
-        { "value": 13, "text": "Cairo"       },
-        { "value": 14, "text": "Cape Town"   },
-        { "value": 15, "text": "Kinshasa"    }
-      ]
+        local: flwList
       });
       fList.initialize();
 
-      /**
-       * Objects as tags
-       */
       elt = $('.example_objects_as_tags > > input');
       elt.tagsinput({
         itemValue: 'value',
@@ -185,4 +160,5 @@ $(function() {
           source: fList.ttAdapter()
         }
       });
+      // 여기까지 전부 친구태그
 });

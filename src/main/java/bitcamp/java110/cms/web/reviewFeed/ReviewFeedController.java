@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +23,9 @@ import bitcamp.java110.cms.service.PostService;
 @RequestMapping("/reviewFeed")
 public class ReviewFeedController {
 
-  PostService postService;
-  ServletContext sc;
-  FlwService flwService;
+   PostService postService;
+   ServletContext sc;
+   FlwService flwService;
 
   public ReviewFeedController(
       PostService postService, 
@@ -42,12 +43,15 @@ public class ReviewFeedController {
       HttpSession session)  throws Exception {
 
     Member member = (Member) session.getAttribute("loginUser");
-    List<Member> flwList = flwService.list(member.getMno());
+
+    if(member != null) {
+      List<Member> flwList = flwService.list(member.getMno());
+      model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
+    }
     
     List<Post> list = postService.list();
     
     model.addAttribute("postList", list);
-    model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
     
     return "reviewFeed/reviewFeedList";
   }
@@ -84,6 +88,7 @@ public class ReviewFeedController {
     } 
     post.setHtags(strs);
 
+    
     System.out.println(post);
 
     postService.add(post);

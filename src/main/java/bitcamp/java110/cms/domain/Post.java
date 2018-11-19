@@ -21,7 +21,15 @@ public class Post {
   protected List<String> photos;
   protected List<String> htags;
   protected List<Member> ftags;
+  protected String ftagsForAdd;
   
+  
+  public String getFtagsForAdd() {
+    return ftagsForAdd;
+  }
+  public void setFtagsForAdd(String ftagsForAdd) {
+    this.ftagsForAdd = ftagsForAdd;
+  }
   public List<Member> getFtags() {
     return ftags;
   }
@@ -118,6 +126,6 @@ public class Post {
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
         + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
-        + "]";
+        + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
 }
