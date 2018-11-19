@@ -317,7 +317,7 @@ function addList(id, title) {
 	console.log('hi ' + id);
 	for (var i in selecList) {
 		if (selecList[i].mvno === id){
-            console.log('이미 있는 영화 입니다.');
+            alert(title + '은 이미 선정한 영화 입니다.');
             return;
         }
 	}

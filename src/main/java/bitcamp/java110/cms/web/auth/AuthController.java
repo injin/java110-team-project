@@ -131,7 +131,6 @@ public class AuthController {
         profileImage.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
-        System.out.println(profileImg);
       }
       
       //    coverImage Control
@@ -140,7 +139,6 @@ public class AuthController {
         coverImage.transferTo(new File(
             sc.getRealPath("/upload/cover/" + coverImg)));
         member.setCoverImage(coverImg);
-        System.out.println(coverImg);
       }
       
       //    favGenreList Control
@@ -152,7 +150,6 @@ public class AuthController {
       
       if (favMvIdList != null && favMvTitleList != null) {
         if (favMvTitleList.size() == favMvIdList.size()) {
-          System.out.println("hi favMvList");
           
           for (int i = 0; i < favMvIdList.size(); i++) {
             Movie mv = new Movie(favMvIdList.get(i), favMvTitleList.get(i));

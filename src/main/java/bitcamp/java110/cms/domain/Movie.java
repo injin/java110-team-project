@@ -14,7 +14,7 @@ public class Movie {
   
   @Override
   public String toString() {
-    return "Movie [mvno=" + mvno + ", title=" + title + "]";
+    return title + ", id:" + mvno;
   }
   public int getMvno() {
     return mvno;

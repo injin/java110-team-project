@@ -59,8 +59,6 @@ public class MemberServiceImpl implements MemberService {
     
     if (member.getFavMvList() != null && member.getFavMvList().size() > 0) {
       for (int i = 0; i < member.getFavMvList().size(); i++) {
-        
-        System.out.println(member.getFavMvList().get(i).getMvno() + "," + member.getFavMvList().get(i).getTitle());
         //  mv_mv table에 insert
         movieDao.insertNotExists(member.getFavMvList().get(i));
         
