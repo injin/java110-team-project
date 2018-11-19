@@ -1,6 +1,10 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.service.RecommendService;
 
 /**
@@ -32,5 +36,12 @@ import bitcamp.java110.cms.service.RecommendService;
 
 @Service
 public class RecommendServiceImple implements RecommendService {
+  @Autowired RecommendDao rcmdDao;
+  
+  public List<Movie> getList(int thmno){
+    
+    
+    return null;
+  }
   
 }

@@ -33,29 +33,193 @@
 <head>
 <meta charset="UTF-8">
 <title>moviestagram</title>
+
 <link rel='stylesheet' href='/css/bootstrap.css'>
-<link href="/css/fontawesome.css" rel="stylesheet">
-<link href="/css/all.css" rel="stylesheet">
-<link rel='stylesheet' href='/css/writingPost.css'>
+<link rel="stylesheet" href="/css/fontawesome.css">
+<link rel="stylesheet" href="/css/all.css">
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
-<link rel='stylesheet' href='/css/starrr.css'>
+
+<style type="text/css">
+.col-md-4{
+  display: inline-block;
+  margin-left:-10px;
+}
+.col-md-4 img{
+  width:100%;
+  height:auto;
+}
+  
+body .carousel-control-prev-icon,
+body .carousel-indicators li,
+body .carousel-control-next-icon{
+  background-color:#000;
+}
+
+span.carousel-control-prev-icon {
+ position: relative;
+ bottom: 40px;
+ right: 40px;
+}
+
+span.carousel-control-next-icon {
+ position: relative;
+ bottom: 40px;
+}
+</style>
+<!-- card 돌아가는거 자동으로 돌지 않게. 가능하다면 세로선에 4개 정도 들어 가게 -->
 </head>
 <body class="borderGray bgGray">
     <jsp:include page="../include/header.jsp"></jsp:include>
+    <main role="main" class="container borderGray">
     
     <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-    <div class="col-3">
-        <div class="wPost" style="position: fixed">
-    <div style="color: black">
-        ${sessionScope.loginUser.nickname}의 맞춤 영화</div>
-        </div>
-    </div>
+        <h1>${sessionScope.loginUser.nickname}님을 위한 맞춤 영화</h1>
         </c:when>
     </c:choose>
     
+<div class="container">
+  
+  <div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators mb-0 pb-0">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner no-padding my-5">
+    <div class="carousel-item active">
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300?text=1">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top rounded-bottom" src="http://via.placeholder.com/300x300?text=2">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top rounded-bottom" src="http://via.placeholder.com/300x300?text=3">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+     <span class="carousel-control-prev-icon sp"></span>
+                </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+                    <span class="carousel-control-next-icon sp"></span>
+                </a>
+</div>
+</div>
     
+    
+    
+    
+    </main>
     <jsp:include page="../include/footer.jsp"></jsp:include>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>-->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>
