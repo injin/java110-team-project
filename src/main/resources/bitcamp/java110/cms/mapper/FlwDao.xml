@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.FlwDao">
 
-
+<!-- 
 	<resultMap type="member" id="flwMap">
 		<id column="mno" property="mno" />
 		<result column="admin" property="admin" />
@@ -44,10 +44,10 @@
            mno=#{mno}
     </delete>
    
-	<!-- <insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
-		(mno, flw) value (#{value} , #{flw}) </insert> -->
+	<insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
+		(mno, flw) value (#{value} , #{flw}) </insert>
 
-	<!-- <delete id="flwdelete" parameterType="int" > delete from mv_flw where 
-		flw = #{flw} </delete> -->
-
+	<delete id="flwdelete" parameterType="int" > delete from mv_flw where 
+		flw = #{flw} </delete>
+ -->
 </mapper>

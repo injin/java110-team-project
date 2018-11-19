@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.RecommendDao">
     
-    <select id="findMgrRcmdList" resultType="list" parameterType="int">
+<!--     <select id="findMgrRcmdList" resultType="list" parameterType="int">
         SELECT thm.thm, mv.mvno, mv.titl
             FROM mv_rcmd rcmd
         INNER JOIN mv_mv mv
@@ -12,7 +12,7 @@
         INNER JOIN mv_thm thm
             ON rcmd.thmno = thm.thmno
         WHERE thm.thmno = #{thmno}
-    </select>
+    </select> -->
     
 </mapper>
 

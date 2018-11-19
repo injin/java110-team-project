@@ -29,7 +29,6 @@
 		and m1.mno = #{value}
 		ORDER by m1.mno , m2.mno
 	</select>
-<<<<<<< HEAD:src/main/webapp/resources/bitcamp/java110/cms/mapper/FlwDao.xml
 	
 	<select id="listForPost" resultMap="flwMap" parameterType="int">
         SELECT 
@@ -45,9 +44,6 @@
             pstno=#{value}
     </select>
 
-    <delete id="signOut" parameterType="int">
-=======
-    
     <delete id="signOut1" parameterType="int">
        DELETE
            FROM mv_flw
@@ -56,7 +52,6 @@
     </delete>
     
     <delete id="signOut2" parameterType="int">
->>>>>>> j1:src/main/resources/bitcamp/java110/cms/mapper/FlwDao.xml
        DELETE
            FROM mv_flw
        WHERE
