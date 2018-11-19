@@ -16,6 +16,9 @@
     color: #00cc99;
     cursor: pointer;
 }
+span.comment-profile {
+    background-size: contain;
+}
 
     
 </style>
@@ -87,11 +90,12 @@
                     <c:if test="${not empty sessionScope.loginUser}">
                         <div class="input-group">
                           <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">
-                                
+                            <span class="input-group-text" id="basic-addon1" class="comment-profile"
+                                style="background:url(${loginUser.profileImagePath})">
+                                <%-- <img class="profile-small" src="${loginUser.profileImagePath}"> --%>&nbsp;&nbsp;&nbsp;
                             </span>
                           </div>
-                          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" placeholder="Write a comment" aria-describedby="basic-addon1">
                         </div>
                     </c:if>
                     
