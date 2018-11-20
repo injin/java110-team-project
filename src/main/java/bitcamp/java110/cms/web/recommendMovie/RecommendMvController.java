@@ -60,12 +60,11 @@ public class RecommendMvController {
   public String list (Model model) {
     //  thema가 3개 밖에 없기 때문에 2임.
     //  9개씩 여러개 만들어서 randomMath를 돌려?
-    List<MovieDb> mvList = rcmdService.getList(3);
-    model.addAttribute("listName", rcmdService.getListName(3));
+    int n = 2;
+    List<MovieDb> mvList = rcmdService.getList(n);
+    model.addAttribute("listName", rcmdService.getListName(n));
     model.addAttribute("list", mvList);
     
-    /*Map<String, Object> mvMap = rcmdService.getMap(2);
-    model.addAttribute("map", mvMap);*/
     return "/recommend/list";
   }
   
