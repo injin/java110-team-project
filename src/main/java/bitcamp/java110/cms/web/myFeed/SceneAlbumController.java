@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.SceneAlbumService;
 
@@ -23,6 +24,33 @@ public class SceneAlbumController {
     this.sc = sc;
   }
 
+  @RequestMapping(value="/list",  method=RequestMethod.GET)
+  public String list(
+      SceneAlbum sceneAlbum,
+      Model model) throws Exception {
+    
+    List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
+
+    try {
+      // (Before) Doing...
+
+      Paging paging = new Paging();
+      paging.setPageNo(1);
+      paging.setPageSize(10);
+      paging.setTotalCount(sceneAlbumList.size());
+
+      System.out.println(sceneAlbumList.size());
+
+      // (After) Doing...
+  } catch (Exception e) {
+      throw e;
+  }
+    
+    model.addAttribute("sceneAlbumList", sceneAlbumList);
+    return "sceneAlbum/album";
+  }
+
+  /*
   @RequestMapping("/list")
   public String list(
       SceneAlbum sceneAlbum,
@@ -32,8 +60,8 @@ public class SceneAlbumController {
     
     model.addAttribute("sceneAlbumList", sceneAlbumList);
     return "sceneAlbum/album";
-  }
-
+  }*/
+  
   @PostMapping("/add")
   public String album(
       SceneAlbum sceneAlbum
@@ -43,5 +71,6 @@ public class SceneAlbumController {
     sceneAlbumService.add(sceneAlbum);
     return "redirect:list";
   }
+  
  
 }
