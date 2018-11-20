@@ -18,8 +18,8 @@
     
     <insert id="insert" parameterType="member"
             useGeneratedKeys="true" keyColumn="mno" keyProperty="mno">
-        insert into mv_memb(admin,mid,nick,p_phot,c_phot,pr,gend,age_rng)
-        values(if(#{admin},'Y','N'),#{id},#{nickname},#{profileImage},#{coverImage},#{pr},#{gender},#{ageRange})
+        insert into mv_memb(admin,mid,nick,p_phot,c_phot,pr,gend,age_rng, use_yn)
+        values(if(#{admin},'Y','N'),#{id},#{nickname},#{profileImage},#{coverImage},#{pr},#{gender},#{ageRange}, 'Y')
     </insert>
     
     <select id="findById" resultMap="memberMap" parameterType="string">

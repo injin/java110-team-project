@@ -14,6 +14,7 @@ import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.model.MovieDb;
 
@@ -46,6 +47,12 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
                 + "&time=" + sceneReview.getTime());
     logDao.insert(mlog);
+  }
+  
+  @Override
+  public void addCmt(SceneReviewCmt sceneReviewCmt) {
+    sceneReviewDao.insertCmt(sceneReviewCmt);
+    
   }
   
   @Override

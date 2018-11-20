@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
-import bitcamp.java110.cms.domain.SceneReviewComment;
+import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -58,15 +58,20 @@ public class SceneReviewController {
   }
   
   @RequestMapping("addComment")
-  public String addComment(SceneReviewComment comment,
+  public String addComment(SceneReviewCmt comment,
                     HttpSession session,
                     MultipartFile file1) throws Exception {
     
-    if (file1.getSize() > 0) {
+    Member member = (Member)session.getAttribute("loginUser");
+    comment.setMno(member.getMno());
+    
+    if (file1 != null && file1.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
       file1.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
       comment.setPhoto(filename);
     }
+    
+    //sceneReviewService.addCmt(comment);
     
     System.out.println("올릴 댓글" + comment.toString());
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());

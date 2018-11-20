@@ -19,7 +19,13 @@
 #comment-area {
     padding: 0.5em;
 }
-    
+
+#map {
+    height: 30em;
+}
+#map-container {
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -97,7 +103,7 @@
                           </div>
                           <div class="media-body">
                             <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
-                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
+                            <button type="button" id="btn-map" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
                             
                             <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
                                 <input id="my-file-selector" type="file" name="file1" style="display:none" 
@@ -108,9 +114,17 @@
                             
                             <button type="button" class="btn btn-dark mt-2 float-right" onclick="addComment()">
                                 <i class="fas fa-paper-plane"></i> 등록</button>
+                            
+                            <!-- <div id="map" class="mt-2" style="display:none;"></div> -->
                           </div>
                           
                         </div>
+                    </div>
+                    
+                    <div class="card mt-2" id="map-container">
+                      <div class="card-body p-0">
+                        <div id="map"></div>
+                      </div>
                     </div>
                     </form>
                 </c:if>
@@ -139,7 +153,8 @@
 </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script type="text/javascript">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&callback=initMap" async defer></script>
+    <script>
     
     $('[data-toggle="tooltip"]').tooltip();
     
@@ -217,6 +232,29 @@
         $('#addCommentForm').submit();
     }
     
+    /* ===== 지도 관련  ===== */
+    $('#btn-map').click(function() {
+        console.log('클릭함');
+        $('div#map-container').toggle();
+    });
+    
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 37.4971473, lng: 127.0222202},
+        zoom: 14
+      });
+      
+      
+    }
+    
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+        markers.push(marker);
+      }
     </script>
 </body>
 </html>
