@@ -1,4 +1,9 @@
 package bitcamp.java110.cms.service;
+
+import java.util.List;
+import java.util.Map;
+import info.movito.themoviedbapi.model.MovieDb;
+
 /**
  * @author Jeaha
  * 영화 추천을 위한 QUARTET
@@ -27,5 +32,9 @@ package bitcamp.java110.cms.service;
  */
 
 public interface RecommendService {
-
+  //    list를 가져온 뒤 1개씩 parsing
+  public Map<String, Object> getMap(int thmno);
+  String getListName(int thmno);
+  public List<MovieDb> getList(int thmno);
+  public MovieDb getMvById(int mvno);
 }

@@ -12,21 +12,28 @@ public class Movie {
     this.title = title;
   }
   
+  public Movie () {  }
+  
   @Override
   public String toString() {
     return "[" + title + " : " + mvno + "]";
   }
+
   public int getMvno() {
     return mvno;
   }
+
   public void setMvno(int mvno) {
     this.mvno = mvno;
   }
+
   public String getTitle() {
     return title;
   }
+
   public void setTitle(String title) {
     this.title = title;
   }
+  
 }
 

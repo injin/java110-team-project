@@ -1,13 +1,15 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
+import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.MovieDb;
 
 /**
  * @author Jeaha
@@ -37,11 +39,11 @@ import info.movito.themoviedbapi.TmdbMovies;
  * 
  * detailForm.jsp 처럼.
  * db에서 list를 뽑아 온 뒤
- * MovieInfoController에 mv.id를 보내서 영화 정보를 ajx로 가져온다.
+ * MovieInfoController에 mv.id를 보내서 영화 정보를 ajax로 가져온다.
  */
 
 @Controller
-@RequestMapping("/recommend")
+@RequestMapping("/rcmd")
 public class RecommendMvController {
   
   @Autowired ServletContext sc;
@@ -55,10 +57,15 @@ public class RecommendMvController {
   }
   
   @RequestMapping("/list")
-  public String list (HttpSession session) {
-    Member member = (Member) session.getAttribute("loginUser");
+  public String list (Model model) {
+    //  thema가 3개 밖에 없기 때문에 2임.
+    //  9개씩 여러개 만들어서 randomMath를 돌려?
+    List<MovieDb> mvList = rcmdService.getList(3);
+    model.addAttribute("listName", rcmdService.getListName(3));
+    model.addAttribute("list", mvList);
     
-    
+    /*Map<String, Object> mvMap = rcmdService.getMap(2);
+    model.addAttribute("map", mvMap);*/
     return "/recommend/list";
   }
   

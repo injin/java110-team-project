@@ -107,8 +107,55 @@ span.carousel-control-next-icon {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
 
       </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top rounded-bottom" src="http://via.placeholder.com/300x300?text=2">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top rounded-bottom" src="http://via.placeholder.com/300x300?text=3">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
+      </div>
     </div>
     <div class="carousel-item">
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
+
+      </div>
       <div class="col-xs-4 col-sm-4 col-md-4">
         <a href="#" onclick=abc(this) class="slider_info">
           <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
@@ -131,6 +178,30 @@ span.carousel-control-next-icon {
           </div>
         </a>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
+
+      </div>
+      <div class="col-xs-4 col-sm-4 col-md-4">
+        <a href="#" onclick=abc(this) class="slider_info">
+          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
+          <div class="card-img-overlay t_img">
+            <span class="float-left text-uppercase">article</span>
+            <span class="float-right text-uppercase">2345 views</span>
+          </div>
+        </a>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!
+        </p>
 
       </div>
     </div>
