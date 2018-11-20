@@ -27,7 +27,6 @@
 					data-target="#albumModal" />
 			</div>
 
-			${paging.pageNo}
 			<!-- 앨범 목록 -->
 			<div class="row albumList col-lg-9">
 				<c:forEach items="${sceneAlbumList}" var="album">
@@ -57,7 +56,6 @@
 						</div>
 					</div>
 				</c:forEach>
-
 				<!-- 페이징버튼 -->
 
 				<jsp:include page="paging.jsp" flush="true">

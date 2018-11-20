@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.SceneAlbumService;
 
@@ -34,7 +33,7 @@ public class SceneAlbumController {
     System.out.println("받은 페이지" + paging.getPageNo());
     //List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
     List<SceneAlbum> sceneAlbumList = new ArrayList<SceneAlbum>();
-    
+
     int start = 6*paging.getPageNo()-6;
     int end = start + 6;
     int endPageNo = (int)(sceneAlbumService.list().size()/6) + 1;
