@@ -9,5 +9,6 @@ public interface SceneReviewDao {
   int insert(SceneReview sceneReview);
   String findDefaultTime(int mvno);
   SceneReview findByTime(Map<String, Object> condition);
+  SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
 }

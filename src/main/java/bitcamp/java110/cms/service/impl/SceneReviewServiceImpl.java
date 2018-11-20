@@ -49,17 +49,22 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public List<SceneReview> list(int mvno) {
-    return sceneReviewDao.list(mvno);
-  }
-  
-  @Override
   public SceneReview findByTime(int mvno, String time) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("mvno", mvno);
     condition.put("time", time);
     
     return sceneReviewDao.findByTime(condition);
+  }
+  
+  @Override
+  public SceneReview findByNo(int srno) {
+    return sceneReviewDao.findByNo(srno);
+  }
+  
+  @Override
+  public List<SceneReview> list(int mvno) {
+    return sceneReviewDao.list(mvno);
   }
   
   @Override
@@ -88,6 +93,5 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     
     return sr;
   }
-  
   
 }

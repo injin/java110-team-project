@@ -36,6 +36,12 @@
            AND time = #{time}
     </select>
     
+    <select id="findByNo" resultMap="srMap" parameterType="int">
+        SELECT srno, mvno, mno, titl, time, phot, cont, spo
+          FROM mv_sr
+         WHERE srno = #{value}
+    </select>
+    
     <select id="list" resultMap="srMap" parameterType="int">
         SELECT srno, mvno, mno, titl, time, phot, cont, spo
           FROM mv_sr
