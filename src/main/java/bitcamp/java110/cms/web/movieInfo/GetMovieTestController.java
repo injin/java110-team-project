@@ -76,20 +76,20 @@ public class GetMovieTestController {
    
     // 아이디로 영화 찾기
     TmdbMovies movies = new TmdbApi(tmdbKey).getMovies();
-    MovieDb movie = movies.getMovie(5353, "ko");
+    MovieDb movie = movies.getMovie(37724, "ko");
     
-    MovieDb movie2 = movies.getMovie(78, "ko",
+    MovieDb movie2 = movies.getMovie(206647, "ko",
         MovieMethod.credits, MovieMethod.images, 
         MovieMethod.similar);
     
     // 키워드로 영화 찾기
-    TmdbSearch ts = new TmdbSearch(new TmdbApi(tmdbKey));
-    MovieResultsPage result =  ts.searchMovie("베", null , "ko-KR", true, 1);
-    System.out.println("결과1" + result);
-    System.out.println("========================");
-    
-    MovieListResultsPage result2 = ts.searchList("베놈", "ko", 1);
-    System.out.println("결과2" + result2);
+//    TmdbSearch ts = new TmdbSearch(new TmdbApi(tmdbKey));
+//    MovieResultsPage result =  ts.searchMovie("베", null , "ko-KR", true, 1);
+//    System.out.println("결과1" + result);
+//    System.out.println("========================");
+//    
+//    MovieListResultsPage result2 = ts.searchList("베놈", "ko", 1);
+//    System.out.println("결과2" + result2);
     
     
     
@@ -99,10 +99,11 @@ public class GetMovieTestController {
     //Model model=new Model();
     // TODO themovieDB 에서  데이터 가져오는 작업 하세요
     
-    System.out.println(movie.toString());
+    System.out.println(movie.toString() + "\n");
     model.addAttribute("movieName", movie.getTitle());
     model.addAttribute("genreList",movie.getGenres());
     model.addAttribute("posterPath",movie.getPosterPath());
+    System.out.println(movie2.toString());
     model.addAttribute("movieName2", movie2.getTitle());
     model.addAttribute("genreList2",movie2.getGenres());
     model.addAttribute("posterPath2",movie2.getPosterPath());
