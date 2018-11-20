@@ -16,9 +16,9 @@ public class flwServiceImpl implements FlwService{
 
      
    @Override
-    public List<Member> list(int no) {
+    public List<Member> list(Map<String, Object>condition) {
 
-        return flwDao.flwlist(no);
+        return flwDao.flwlist(condition);
        
     }
 

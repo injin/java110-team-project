@@ -7,7 +7,7 @@ import bitcamp.java110.cms.domain.Member;
 
 public interface FlwService {
 
-  List<Member> list(int no);
+  List<Member> list(Map<String, Object>condition);
   void delete(Map<String,Object> condition);
   void add(Map<String,Object> condition);
 }
