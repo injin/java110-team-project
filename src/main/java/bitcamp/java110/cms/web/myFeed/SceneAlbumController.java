@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.web.myFeed;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +25,45 @@ public class SceneAlbumController {
     this.sc = sc;
   }
 
-  @RequestMapping(value="/list",  method=RequestMethod.GET)
+  @RequestMapping("/list")
   public String list(
       SceneAlbum sceneAlbum,
+      Paging paging,
       Model model) throws Exception {
     
-    List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
+    System.out.println("받은 페이지" + paging.getPageNo());
+    //List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
+    List<SceneAlbum> sceneAlbumList = new ArrayList<SceneAlbum>();
+    
+    int start = 6*paging.getPageNo()-6;
+    int end = start + 6;
+    int endPageNo = (int)(sceneAlbumService.list().size()/6) + 1;
+    
+    System.out.println("start: " + start + "end: " + end +  "endPageNo: " + endPageNo);
+    if(end >= sceneAlbumService.list().size()) {
+      end = sceneAlbumService.list().size();
+    }
+    for(int i=start; i<end; i++) {
+      sceneAlbumList.add(sceneAlbumService.list().get(i));
+    }
+    
+    // 출력될 앨범 
+    System.out.println(sceneAlbumList);
+//    try {
 
-    try {
-      // (Before) Doing...
+      //paging.setPageSize(6);
+      paging.setEndPageNo(endPageNo);
+      paging.setTotalCount(sceneAlbumService.list().size());
 
-      Paging paging = new Paging();
-      paging.setPageNo(1);
-      paging.setPageSize(10);
-      paging.setTotalCount(sceneAlbumList.size());
+      // 총 게시물 수 
+      System.out.println(sceneAlbumService.list().size());
 
-      System.out.println(sceneAlbumList.size());
-
-      // (After) Doing...
-  } catch (Exception e) {
+/*  } catch (Exception e) {
       throw e;
   }
-    
+ */   
     model.addAttribute("sceneAlbumList", sceneAlbumList);
+    model.addAttribute("paging", paging);
     return "sceneAlbum/album";
   }
 

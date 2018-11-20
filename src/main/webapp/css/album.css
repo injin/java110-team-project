@@ -1,13 +1,25 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo');
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+/* 페이징 */
+.paginate{
+	margin: 0 auto;
+    padding-top: 2rem;
+}
+
 /* 모달 */
 .modal-content{
     margin: 0 auto;
     width: 70%;
     margin-top: 30%;
 }
+/* 피드 공통 */
+.jumbotron{
+    float: right;
+    height: 25rem;
+}
 
+/* 앨범 목록 */
 .overflow {
     font-size:0.9rem;
     overflow: hidden;
@@ -19,20 +31,7 @@
     padding: 0;
     width: 9rem;
 }
-.profile{
-    float:left;
-    
-    background-color: green;
-    height: 50rem;
-}
-.jumbotron{
-	float: right;
-	height: 25rem;
-}
-.content{
-    background-color: purple;
-    height: 25rem;
-}
+
 .albumList{
 	padding-left: 2rem;
     float : right;
@@ -55,10 +54,6 @@
     clear: both;
     width: 14rem;
     height: 16rem;
-}
-.tab{
-    float: right;
-    height: 3.5rem;
 }
 .titleFont{
     font-family: 'Noto Sans KR', sans-serif;
