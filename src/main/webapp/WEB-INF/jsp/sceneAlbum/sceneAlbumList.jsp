@@ -26,7 +26,7 @@
 				앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
 					data-target="#albumModal" />
 			</div>
-			
+
 			<!-- 앨범 목록 -->
 			<div class="row albumList col-lg-9">
 				<c:forEach items="${sceneAlbumList}" var="album" begin="0" end="5">
@@ -55,29 +55,40 @@
 						</div>
 					</div>
 				</c:forEach>
-				<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-        <span class="sr-only">Next</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+
+				<!-- 페이징버튼 -->
 				
+				<jsp:include page="paging.jsp" flush="true">
+    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+    <jsp:param name="pageNo" value="${paging.pageNo}" />
+    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+</jsp:include>
+
+
+<!-- 				
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+								<span class="sr-only">Previous</span>
+						</a></li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
+								class="sr-only">Next</span>
+						</a></li>
+					</ul>
+				</nav>
+ -->
+
 			</div>
 		</div>
-
 
 	</div>
 </section>
