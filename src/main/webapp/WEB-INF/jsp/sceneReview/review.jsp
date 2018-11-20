@@ -24,69 +24,71 @@
 </head>
 <body>
 
-    <jsp:include page="../include/header.jsp"></jsp:include>
-    <main role="main" class="container borderGray">
+<jsp:include page="../include/header.jsp"></jsp:include>
+<main role="main" class="container borderGray">
+
+    <div class="row">
+        <div class="col-12" id="movie-cover" style="background-image: url(${sceneReview.imgPath})">
+            <div class="row col-12" id="movie-content">
+                <div id="movie-title" class="float-left">
+                    <h3><b>${tmdbMovie.title}</b>
+                        <c:if test="${not empty sessionScope.loginUser}">
+                        <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
+                        </c:if>
+                    </h3>
+                    <p>(${tmdbMovie.releaseDate})</p>
+                </div>
+                
+                <div id="movie-genres" class="float-right">
+                    <c:forEach items="${tmdbMovie.genres}" var="genre">
+                        <div class="genre-tag">${genre.name}</div>
+                    </c:forEach>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div id="scene-list-container">
+                    <c:forEach items="${sceneList}" var="scene">
+                        <div class="scene-box">
+                            <img class="scene-img" src="${scene.imgPath}"
+                                data-toggle="tooltip" data-placement="top" title="${scene.title} (${scene.time})">
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
     
-        <div class="row">
-            <div class="col-12" id="movie-cover" style="background-image: url(${sceneReview.imgPath})">
-                <div class="row col-12" id="movie-content">
-                    <div id="movie-title" class="float-left">
-                        <h3><b>${tmdbMovie.title}</b>
-                            <c:if test="${not empty sessionScope.loginUser}">
-                            <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
-                            </c:if>
-                        </h3>
-                        <p>(${tmdbMovie.releaseDate})</p>
-                    </div>
-                    
-                    <div id="movie-genres" class="float-right">
-                        <c:forEach items="${tmdbMovie.genres}" var="genre">
-                            <div class="genre-tag">${genre.name}</div>
-                        </c:forEach>
-                    </div>
+    <c:if test="${sceneReview.time eq null}">
+        <div class="row mt-3 ml-1">
+            <div class="col-9 col-md-12">
+                <div class="alert alert-secondary" role="alert">
+                    <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                 </div>
-                
-                <div class="row">
-                    <div id="scene-list-container">
-                        <c:forEach items="${sceneList}" var="scene">
-                            <div class="scene-box">
-                                <img class="scene-img" src="${scene.imgPath}"
-                                    data-toggle="tooltip" data-placement="top" title="${scene.title} (${scene.time})">
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-                
-                
             </div>
         </div>
-        
-        <c:if test="${sceneReview.time eq null}">
-            <div class="row mt-3 ml-1">
-                <div class="col-9 col-md-12">
-                    <div class="alert alert-secondary" role="alert">
-                        <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
-                    </div>
-                </div>
-            </div>
-        </c:if>
-        
-        <c:if test="${sceneReview.time ne null}">
-        <div class="row mt-3 ml-1">
-            <div class="col-lg-9 col-md-12">
-                <c:if  test="${sceneReview.trgtSrExist == true}">
-                    <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
-                    <c:choose>
-                        <c:when test="${fn:length(sceneReview.cont) > 150}">
-                            <p id="p-cont">${fn:substring(sceneReview.cont, 0, 150)}.. 
-                                <span class="span-more" onclick="contMore()">더보기</span></p>
-                        </c:when>
-                        <c:otherwise>
-                            <p>${sceneReview.cont}</p>
-                        </c:otherwise>
-                    </c:choose>
-                    
-                    <c:if test="${not empty sessionScope.loginUser}">
+    </c:if>
+    
+    <c:if test="${sceneReview.time ne null}">
+    <div class="row mt-3 ml-1">
+        <div class="col-lg-9 col-md-12">
+            <c:if  test="${sceneReview.trgtSrExist == true}">
+                <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
+                <c:choose>
+                    <c:when test="${fn:length(sceneReview.cont) > 150}">
+                        <p id="p-cont">${fn:substring(sceneReview.cont, 0, 150)}.. 
+                            <span class="span-more" onclick="contMore()">더보기</span></p>
+                    </c:when>
+                    <c:otherwise>
+                        <p>${sceneReview.cont}</p>
+                    </c:otherwise>
+                </c:choose>
+                
+                <c:if test="${not empty sessionScope.loginUser}">
+                    <form id="addCommentForm" action="addComment" method="post">
+                    <input type="hidden" name="srno" value="${sceneReview.srno}">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -94,46 +96,54 @@
                               <div>${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
-                            <textarea class="form-control" rows="3" placeholder="Write a comment"></textarea>
+                            <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
                             <button type="button" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
-                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-file-image"></i> 사진</button>
-                            <button type="button" class="btn btn-light mt-2"><i class="fas fa-file-image"></i> 사진</button>
+                            
+                            <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
+                                <input id="my-file-selector" type="file" name="file1" style="display:none" 
+                                onchange="$('#upload-file-info').html(this.files[0].name)">
+                                <i class="fas fa-file-image"></i> 사진
+                            </label>
+                            <span class='label label-info' id="upload-file-info"></span>
+                            
+                            <button type="button" class="btn btn-dark mt-2 float-right" onclick="addComment()">
+                                <i class="fas fa-paper-plane"></i> 등록</button>
                           </div>
                           
                         </div>
                     </div>
-                        
-                    </c:if>
-                    
-                    
+                    </form>
                 </c:if>
-                <c:if  test="${sceneReview.trgtSrExist == false}">
-                    <div class="alert alert-secondary" role="alert">
-                      <span>해당 시간의 장면리뷰가 없습니다.</span>
-                    </div>
-                </c:if>
-            </div>
-            <div class="col-lg-3 col-md-12">
                 
                 
-                
-            </div>
+            </c:if>
+            <c:if  test="${sceneReview.trgtSrExist == false}">
+                <div class="alert alert-secondary" role="alert">
+                  <span>해당 시간의 장면리뷰가 없습니다.</span>
+                </div>
+            </c:if>
         </div>
-        </c:if>
-        
-    <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
-            data-target="#reportModal">신고하기</button>
-    <jsp:include page="../report/report.jsp"></jsp:include> --%>
+        <div class="col-lg-3 col-md-12">
+            
+            
+            
+        </div>
+    </div>
+    </c:if>
     
-    <%@ include file="addPopup.jsp" %>
-    </main>
+<%-- <button type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#reportModal">신고하기</button>
+<jsp:include page="../report/report.jsp"></jsp:include> --%>
+
+<%@ include file="addPopup.jsp" %>
+</main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script type="text/javascript">
     
     $('[data-toggle="tooltip"]').tooltip();
     
-    /* 하단 장면 목록 박스 관련 */
+    /* ===== 하단 장면 목록 박스 관련  ===== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
@@ -142,10 +152,9 @@
         $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
     });
     
-     /* 모달 관련  */
+     /* ===== 입력 모달 관련  ===== */
     var $modal = $('#srAddModal').modal({show : false});
     
-    /* 슬라이드 관련 */
     $('#srTimeSlider').on('input', function() {
         var sec_num = parseInt(this.value, 10);
         var hours   = Math.floor(sec_num / 3600);
@@ -167,37 +176,45 @@
     
     function validateForm() {
         // 장면 시간 검사
-        var timeVal = $('#time').val();
+        var timeVal = $('#srAddForm #time').val();
         var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
         if (!(pattern.test(timeVal))) {
             alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
             return false;
         }
-        
         // 장면제목
-        var titleVal = $('input[name="title"]').val();
+        var titleVal = $('#srAddForm input[name="title"]').val();
         if (titleVal == '') {
             alert('장면제목을 입력해 주세요');
             return false;
         }
-        
         // 장면내용
-        var contVal = $('textarea[name="cont"]').val();
+        var contVal = $('#srAddForm textarea[name="cont"]').val();
         if (contVal == '') {
             alert('장면내용을 입력해 주세요');
             return false;
         }
-        
         // 파일 선택
-        if ($('input[name="phot"]').val().length == 0) {
+        if ($('#srAddForm input[name="phot"]').val().length == 0) {
             alert('이미지를 선택해 주세요');
             return false;
         }
         return true;
     }
     
+    /* ===== 댓글 입력 관련  ===== */
     function contMore() {
         $('#p-cont').text('${sceneReview.cont}');
+    }
+    
+    function addComment() {
+        var contVal = $('#addCommentForm textarea[name="cont"]').val();
+        if (contVal == '') {
+            alert('내용을 입력해주세요.');
+            return;
+        }
+        
+        $('#addCommentForm').submit();
     }
     
     </script>
