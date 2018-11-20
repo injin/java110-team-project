@@ -2,7 +2,7 @@ package bitcamp.java110.cms.domain;
 
 import java.sql.Date;
 
-public class SceneReviewComment {
+public class SceneReviewCmt {
   
   protected int cmno;           // 댓글번호
   protected int srno;           // 장면번호

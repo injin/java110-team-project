@@ -21,6 +21,12 @@
         VALUES(#{mvno}, #{mno}, #{title}, #{time}, #{photo}, #{cont}, #{spo}, now())
     </insert>
     
+    <insert id="insertCmt" parameterType="sceneReviewCmt"
+            useGeneratedKeys="true" keyColumn="cmno" keyProperty="cmno">
+        INSERT INTO mv_sr_cmt(srno, mno, phot, cont, cdt)
+        VALUES (#{srno}, #{mno}, #{photo}, #{cont}, now())
+    </insert>
+    
     <select id="findDefaultTime" resultType="string" parameterType="int">
         SELECT time
           FROM mv_sr
