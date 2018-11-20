@@ -13,6 +13,7 @@
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
+<link rel='stylesheet' href='/css/detailPost.css'>
 
 <style>
 .wPost {
@@ -78,6 +79,8 @@
         if (id == 'btnIlsang') {
             $("#pstTypeNo").val(1);
             $('.onlyMovie').hide();
+        } else if(id == 'detailPst'){
+            
         } else {
             $("#pstTypeNo").val(0);
             $('.onlyMovie').show();
@@ -132,7 +135,7 @@
 		</c:if>
 		<div class="col-8 ${feedAlign}">
 
-			<!-- 글 작성 부분 -->
+			<%-- 글 작성 부분 --%>
 			<div class="wPost">
 				<h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
 				<div style="border-bottom: 1px solid #00cc99; color: #00cc99">
@@ -176,7 +179,7 @@
 			</div>
 
 
-			<!-- 포스터 보이는 부분 -->
+			<%-- 포스터 보이는 부분 --%>
 			<c:forEach items="${postList}" var="post" varStatus="status">
 				<c:if test="${post.open}">
 					<div class="wPost reviewPst">
@@ -196,8 +199,7 @@
 
 											<div class="dropdown-menu" aria-labelledby="fDropdown">
 												<c:forEach items="${post.ftags}" var="ftag">
-													<a class="dropdown-item"
-														href="#">${ftag.nickname}</a>
+													<a class="dropdown-item" href="#">${ftag.nickname}</a>
 												</c:forEach>
 											</div>
 										</c:if></li>
@@ -209,6 +211,7 @@
 								</c:if>
 							</div>
 						</div>
+						<%-- 내용보여주는부분 --%>
 						<div class="clearfix media row" style="margin: 0.2rem 0">
 							<div class="media-body">
 								<p class="reviewCont" id="reviewCont-${status.index}">
@@ -219,11 +222,22 @@
 								</p>
 							</div>
 							<c:if test="${post.photos[0].phot !=null}">
-								<img src="/upload/post/${post.photos[0].phot}"
+
+
+								<%-- 이미지 클릭시 상세모달로 --%>
+								<img
+								    onclick="openDetailModal(${post.pstno})"
+									src="/upload/post/${post.photos[0].phot}"
 									style="width: 20rem; height: 13rem; margin-left: 1rem;" />
+									<input type="hidden" data-toggle="modal" id="detailPst"
+										data-target="#detailModal"/>
+                            
 							</c:if>
 						</div>
+						
 						<div class="row">
+						
+						<%-- 좋아요 --%>
 							<div class="col-6" style="text-align: left;">
 								<a href="#" style="color: black"> <i
 									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
@@ -231,20 +245,22 @@
 									class="far fa-comment btmIcon"></i>0
 								</a>
 							</div>
+							
+							<%-- 별점 --%>
 							<c:if test="${post.pstTypeNo ==0}">
 								<div class='col-6' style="text-align: right;">
-								<c:if test="${0 ne post.star}">
-									<c:forEach begin="1" end="5" var="x">
-										<c:choose>
-											<c:when test="${x le post.star}">
-												<i class="fas fa-star sStar"></i>
-											</c:when>
-											<c:otherwise>
-												<i class="far fa-star sStar"></i>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-								</c:if>
+									<c:if test="${0 ne post.star}">
+										<c:forEach begin="1" end="5" var="x">
+											<c:choose>
+												<c:when test="${x le post.star}">
+													<i class="fas fa-star sStar"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="far fa-star sStar"></i>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</c:if>
 								</div>
 							</c:if>
 						</div>
@@ -253,9 +269,10 @@
 			</c:forEach>
 
 			<jsp:include page="writingPost.jsp"></jsp:include>
+			<jsp:include page="detailPost.jsp"></jsp:include>
 		</div>
 
-		<!-- 맞춤영화 추천 부분 -->
+		<%-- 맞춤영화 추천 부분 --%>
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4">
@@ -283,6 +300,11 @@
             "text" : "${lst.nickname}"
         });
         </c:forEach>
+        
+        function openDetailModal(pstno) {
+            $('#detailModal').modal('show');
+        }
+        
     </script>
 </body>
 </html>
