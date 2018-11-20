@@ -233,6 +233,7 @@
 							</div>
 							<c:if test="${post.pstTypeNo ==0}">
 								<div class='col-6' style="text-align: right;">
+								<c:if test="${0 ne post.star}">
 									<c:forEach begin="1" end="5" var="x">
 										<c:choose>
 											<c:when test="${x le post.star}">
@@ -243,6 +244,7 @@
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
+								</c:if>
 								</div>
 							</c:if>
 						</div>
