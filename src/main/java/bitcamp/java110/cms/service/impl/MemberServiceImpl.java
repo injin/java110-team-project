@@ -9,8 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.MemberDao;
+import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.dao.PostDao;
+import bitcamp.java110.cms.dao.PostHashtagDao;
+import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
 
@@ -22,6 +26,10 @@ public class MemberServiceImpl implements MemberService {
   @Autowired MovieDao movieDao;
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired FlwDao flwDao;
+  @Autowired MlogDao logDao;
+  @Autowired PostDao postDao;
+  @Autowired PostHashtagDao tagDao;
+  @Autowired ReportDao rptDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
                   rollbackFor=Exception.class)
@@ -80,8 +88,12 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
-    flwDao.signOut1(mno);
-    flwDao.signOut2(mno);
+//    rptDao.signOut(mno);
+//    tagDao.signOut(mno);
+//    postDao.signOut(mno);
+//    logDao.signOut(mno);
+//    flwDao.signOut1(mno);
+//    flwDao.signOut2(mno);
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);

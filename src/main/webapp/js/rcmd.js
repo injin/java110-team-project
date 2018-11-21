@@ -95,3 +95,8 @@ window.onload = function() {
       }
   }
 }
+
+function toDetail(id) {
+	console.log(id);
+	window.location.href = '/app/sceneReview/review?mvno='+ id;
+}

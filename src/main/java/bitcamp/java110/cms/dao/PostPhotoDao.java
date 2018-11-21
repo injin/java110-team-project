@@ -8,4 +8,5 @@ public interface PostPhotoDao {
   int insert(Map<String, Object> params);
   int delete(int no);
   List<String> findByNo(int no);
+  void signOut(int mno);
 }

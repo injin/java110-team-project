@@ -2,8 +2,10 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -135,6 +137,25 @@ public class RecommendServiceImple implements RecommendService {
     
     return mvdb;
   }
-
+  
+  
+  public int[] nums(){
+    Set<Integer> set = new HashSet<>();
+    
+    while (set.size() != 2) {
+      set.add((int)(Math.random() * rcmdDao.countList() + 1));
+    }
+    System.out.println("set.toString : " + set.toString());
+    int[] nums = new int[2];
+    
+    for (int i = 0; i < set.size(); i++) {
+      for (int j : set) {
+        nums[i] = j;
+      }
+    }
+    return nums;
+  }
+  
+  
   
 }

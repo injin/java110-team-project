@@ -1,6 +1,5 @@
-<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- /**
  * @author Jeaha
@@ -43,52 +42,78 @@
 
 </head>
 <body class="borderGray bgGray" style="background-color: dimgray;">
-    <jsp:include page="../include/header.jsp"></jsp:include>
-    <main role="main" class="container borderGray">
-    
-    <c:choose>
-        <c:when test="${not empty sessionScope.loginUser}">
-        <h1>${sessionScope.loginUser.nickname}님을 위한 맞춤 영화</h1>
-        </c:when>
-    </c:choose>
-    <hr>
-    <br>
-    
-    
+	<jsp:include page="../include/header.jsp"></jsp:include>
+	<main role="main" class="container borderGray"> <c:choose>
+		<c:when test="${not empty sessionScope.loginUser}">
+			<h1>${sessionScope.loginUser.nickname}님을위한 맞춤 영화</h1>
+		</c:when>
+	</c:choose>
+	<hr>
+	<br>
 
+
+    <section>
+	<h3>${listName}</h3>
+	<div id="carousel" class="list-container">
+		<div class="control-container">
+			<div id="left-scroll-button" class="left-scroll button scroll">
+				<i class="fa fa-chevron-left" aria-hidden="true"></i>
+			</div>
+			<div id="right-scroll-button" class="right-scroll button scroll">
+				<i class="fa fa-chevron-right" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="items" id="carousel-items">
+			<c:forEach items="${list}" var="list">
+				<div class="item" onclick="toDetail('${list.id}')">
+					<img class="item-image" src="https://image.tmdb.org/t/p/w500${list.posterPath}" />
+						<span class="item-title">${list.title}</span>
+					<!-- <span class="item-load-icon button opacity-none"><i class="fa fa-play"></i></span> -->
+					<div class="item-description opacity-none">개봉일 : ${list.releaseDate}<br>런타임 : ${list.runtime}분<br>네티즌 평점 : ${list.voteAverage}</div>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+	</section>
+	<hr>
+	
+	<%-- 
+	<section>
     <h3>${listName}</h3>
-<div id="carousel" class="list-container">
-  <div class="control-container">
-    <div id="left-scroll-button" class="left-scroll button scroll">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    <div id="carousel" class="list-container">
+        <div class="control-container">
+            <div id="left-scroll-button" class="left-scroll button scroll">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </div>
+            <div id="right-scroll-button" class="right-scroll button scroll">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="items" id="carousel-items">
+            <c:forEach items="${list}" var="list">
+                <div class="item" onclick="toDetail('${list.id}')">
+                    <img class="item-image" src="https://image.tmdb.org/t/p/w500${list.posterPath}" />
+                        <span class="item-title">${list.title}</span>
+                    <!-- <span class="item-load-icon button opacity-none"><i class="fa fa-play"></i></span> -->
+                    <div class="item-description opacity-none">개봉일 : ${list.releaseDate}<br>런타임 : ${list.runtime}분<br>네티즌 평점 : ${list.voteAverage}</div>
+                </div>
+            </c:forEach>
+        </div>
     </div>
-    <div id="right-scroll-button" class="right-scroll button scroll">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-    </div>
-  </div>
-  <div class="items" id="carousel-items">
-<c:forEach items="${list}" var="list">
-    <div class="item">
-      <img class="item-image" src="https://image.tmdb.org/t/p/w500${list.posterPath}"/>
-      <span class="item-title">${list.title}</span>
-      <!-- <span class="item-load-icon button opacity-none"><i class="fa fa-play"></i></span> -->
-      <div class="item-description opacity-none">${list.releaseDate}<br>${list.runtime}<br>${list.voteAverage}</div>
-    </div>
-</c:forEach>
-  </div>
-    
-    
-</div>
-    
-    
-    
-    
-    
-    
-    </main>
-    <jsp:include page="../include/footer.jsp"></jsp:include>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/rcmd.js"></script>
+    </section>
+     --%>
+
+
+
+
+
+
+	</main>
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+	<script
+		src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="/js/rcmd.js"></script>
 </body>
 </html>

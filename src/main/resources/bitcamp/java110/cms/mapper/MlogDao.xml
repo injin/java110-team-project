@@ -34,6 +34,11 @@
         values(#{mno}, #{direct}, #{indirect}, #{act}, #{url}, now())
     </insert>
     
-
+    <delete id="signOut" parameterType="int">
+        DELETE
+            FROM mv_log
+        WHERE
+            mno=#{mno}
+    </delete>
 
 </mapper>
