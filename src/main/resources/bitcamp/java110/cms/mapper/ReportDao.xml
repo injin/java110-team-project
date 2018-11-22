@@ -5,15 +5,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.ReportDao">
 
-	<resultMap type="report" id="reportMap">
-		<id column="rptno" property="rptno" />
-		<result column="mno" property="mno" />
-		<result column="trgt" property="target" />
-		<result column="cont" property="cont" />
-		<result column="url" property="url" />
-		<result column="hndl" property="hndl" />
-		<result column="cdt" property="createdDate" />
-	</resultMap>
+    <resultMap type="report" id="reportMap">
+        <id column="rptno" property="rptno" />
+        <result column="mno" property="mno" />
+        <result column="trgt" property="target" />
+        <result column="cont" property="cont" />
+        <result column="url" property="url" />
+        <result column="hndl" property="hndl" />
+        <result column="cdt" property="createdDate" />
+    </resultMap>
 
     
     <select id="findAll" resultMap="reportMap" parameterType="map">
@@ -32,11 +32,13 @@
     <delete id="delete" parameterType="int">
     </delete>
     
-    <delete id="signOut" parameterType="int">
-        DELETE
-            FROM mv_rpt
+    <update id="signOut" parameterType="int">
+        UPDATE
+            테이블 명
+        SET
+            mno=00000000
         WHERE
             mno=#{mno}
-    </delete>
+    </update>
 
 </mapper>

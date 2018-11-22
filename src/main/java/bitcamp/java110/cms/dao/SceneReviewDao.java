@@ -13,4 +13,5 @@ public interface SceneReviewDao {
   SceneReview findByTime(Map<String, Object> condition);
   SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
+  void signOut(int mno);
 }

@@ -15,6 +15,8 @@ import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostHashtagDao;
 import bitcamp.java110.cms.dao.ReportDao;
+import bitcamp.java110.cms.dao.SceneAlbumDao;
+import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
 
@@ -30,6 +32,8 @@ public class MemberServiceImpl implements MemberService {
   @Autowired PostDao postDao;
   @Autowired PostHashtagDao tagDao;
   @Autowired ReportDao rptDao;
+  @Autowired SceneAlbumDao lbmDao;
+  @Autowired SceneReviewDao rvDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
                   rollbackFor=Exception.class)
@@ -88,12 +92,15 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
-//    rptDao.signOut(mno);
-//    tagDao.signOut(mno);
-//    postDao.signOut(mno);
-//    logDao.signOut(mno);
-//    flwDao.signOut1(mno);
-//    flwDao.signOut2(mno);
+    rvDao.signOut(mno);
+    lbmDao.signOut(mno);
+    rptDao.signOut(mno);
+    tagDao.signOut(mno);
+    postDao.signOut(mno);
+    logDao.signOut1(mno);
+    logDao.signOut2(mno);
+    flwDao.signOut1(mno);
+    flwDao.signOut2(mno);
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);

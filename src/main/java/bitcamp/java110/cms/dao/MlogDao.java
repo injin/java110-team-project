@@ -7,5 +7,6 @@ public interface MlogDao {
   
   List<Mlog> list(int mno);
   int insert(Mlog mlog);
-  void signOut(int mno);
+  void signOut1(int mno);
+  void signOut2(int mno);
 }

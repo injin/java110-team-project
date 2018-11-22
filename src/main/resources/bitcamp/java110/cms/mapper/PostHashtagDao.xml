@@ -42,8 +42,8 @@
     
     <delete id="signOut" parameterType="int">
         DELETE
-            FROM mv_post_tag
+            FROM mv_post_flw_tag
         WHERE
-            mno=#{mno}
+            flwno=#{mno}
     </delete>
 </mapper>

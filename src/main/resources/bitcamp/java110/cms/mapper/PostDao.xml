@@ -96,11 +96,13 @@
 	<delete id="delete" parameterType="int">
 	</delete>
 	
-	<delete id="signOut" parameterType="int">
-        DELETE
-            FROM mv_post
+	<update id="signOut" parameterType="int">
+        UPDATE
+            mv_post
+        SET
+            mno=00000000
         WHERE
             mno=#{mno}
-    </delete>
+    </update>
 
 </mapper>

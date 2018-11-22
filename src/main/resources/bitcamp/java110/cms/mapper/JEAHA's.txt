@@ -1,0 +1,19 @@
+JEAHA's 참조 txt
+때 되면 알아서 삭제 하겠음.
+
+<update id="signOut" parameterType="int">
+    UPDATE
+        테이블 명
+    SET
+        mno=00000000
+    WHERE
+        mno=#{mno}
+</update>
+
+
+<delete id="signOut" parameterType="int">
+    DELETE
+        FROM 테이블 명
+    WHERE
+        mno=#{mno}
+</delete>
