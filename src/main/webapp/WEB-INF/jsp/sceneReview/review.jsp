@@ -95,6 +95,9 @@
                 <c:if test="${not empty sessionScope.loginUser}">
                     <form id="addCommentForm" action="addComment" method="post">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
+                    <input type="hidden" name="lat">
+                    <input type="hidden" name="lng">
+                    <input type="hidden" name="mapName">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -153,7 +156,7 @@
 </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
@@ -229,32 +232,41 @@
             return;
         }
         
-        $('#addCommentForm').submit();
+        
+        
+        //$('#addCommentForm').submit();
     }
     
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {
-        console.log('클릭함');
         $('div#map-container').toggle();
     });
     
     var map;
-    function initMap() {
+    var marker;
+    function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
       
-      
+      google.maps.event.addListener(map, 'click', function(event) {
+          addMarker(event.latLng, map);
+      });
     }
     
     function addMarker(location) {
-        var marker = new google.maps.Marker({
+        marker.setMap(null);
+        
+        marker = new google.maps.Marker({
           position: location,
           map: map
         });
-        markers.push(marker);
-      }
+    }
+    
+    <c:if test="${not empty loginUser}">
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </c:if>
     </script>
 </body>
 </html>
