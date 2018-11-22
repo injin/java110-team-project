@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
-import java.util.List;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.model.MovieDb;
 
 /**
  * @author Jeaha
@@ -60,21 +58,13 @@ public class RecommendMvController {
   
   @RequestMapping("/list")
   public String list (Model model) {
-    //  9개씩 여러개 만들어서 randomMath를 돌려?
-//    String asdf = rcmdService.nums().toString();
-//    System.out.println(asdf);
-
-//    int n = 1;
-//    List<MovieDb> mvList = rcmdService.getList(n);
-//    model.addAttribute("listName", rcmdService.getListName(n));
-//    model.addAttribute("list", mvList);
     
-    for ( int i : rcmdService.nums()) {
-      System.out.println("\nnums : " + i);
-      List<MovieDb> mvList = rcmdService.getList(i);
-      model.addAttribute("listName", rcmdService.getListName(i));
-      model.addAttribute("list", mvList);
-    }
+    int[] n = rcmdService.RandomNums();
+    
+    model.addAttribute("listName1", rcmdService.getListName(n[0]));
+    model.addAttribute("list1", rcmdService.getList(n[0]));
+    model.addAttribute("listName2", rcmdService.getListName(n[1]));
+    model.addAttribute("list2", rcmdService.getList(n[1]));
     
     return "/recommend/list";
   }

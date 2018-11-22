@@ -45,21 +45,22 @@
 	<jsp:include page="../include/header.jsp"></jsp:include>
 	<main role="main" class="container borderGray"> <c:choose>
 		<c:when test="${not empty sessionScope.loginUser}">
-			<h1>${sessionScope.loginUser.nickname}님을위한 맞춤 영화</h1>
+			<h1>${sessionScope.loginUser.nickname}님만을 위한 영화 추천</h1>
 		</c:when>
 	</c:choose>
 	<hr>
 	<br>
 
 
+
     <section>
 	<h3>${listName1}</h3>
 	<div id="carousel" class="list-container">
 		<div class="control-container">
-			<div id="left-scroll-button" class="left-scroll button scroll">
+			<div id="left-scroll-button" class="left-scroll button scroll left-scroll-btn">
 				<i class="fa fa-chevron-left" aria-hidden="true"></i>
 			</div>
-			<div id="right-scroll-button" class="right-scroll button scroll">
+			<div id="right-scroll-button" class="right-scroll button scroll right-scroll-btn">
 				<i class="fa fa-chevron-right" aria-hidden="true"></i>
 			</div>
 		</div>
@@ -77,31 +78,31 @@
 	</section>
 	<hr>
 	
- 
-	<section>
-    <h3>${listName2}</h3>
-    <div id="carousel" class="list-container">
-        <div class="control-container">
-            <div id="left-scroll-button" class="left-scroll button scroll">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            </div>
-            <div id="right-scroll-button" class="right-scroll button scroll">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </div>
-        </div>
-        <div class="items" id="carousel-items">
-            <c:forEach items="${list2}" var="list2">
-                <div class="item" onclick="toDetail('${list2.id}')">
-                    <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" />
-                        <span class="item-title">${list2.title}</span>
-                    <!-- <span class="item-load-icon button opacity-none"><i class="fa fa-play"></i></span> -->
-                    <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-    </section>
 
+	<section>
+	<h3>${listName2}</h3>
+	<div id="crsl2" class="list-container">
+	    <div class="control-container">
+	        <div id="2nd-left-scroll-button" class="left-scroll button scroll left-scroll-btn">
+	            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+	        </div>
+	        <div id="2nd-right-scroll-button" class="right-scroll button scroll right-scroll-btn">
+	            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+	        </div>
+	        </div>
+	        <div class="items" id="crsl2-items">
+	            <c:forEach items="${list2}" var="list2">
+	                <div class="item" onclick="toDetail('${list2.id}')">
+	                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" />
+	                <span class="item-title">${list2.title}</span>
+	            <!--<span class="item-load-icon button opacity-none"><i class="fa fa-play"></i></span> -->
+	                <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
+	            </div>
+	        </c:forEach>
+	    </div>
+	</div>
+	</section>
+    <hr>
 
 
 
