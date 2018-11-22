@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.service;
 
 import java.util.List;
-import java.util.Map;
 import info.movito.themoviedbapi.model.MovieDb;
 
 /**
@@ -32,9 +31,8 @@ import info.movito.themoviedbapi.model.MovieDb;
  */
 
 public interface RecommendService {
-  //    list를 가져온 뒤 1개씩 parsing
-  public Map<String, Object> getMap(int thmno);
   String getListName(int thmno);
-  public List<MovieDb> getList(int thmno);
-  public MovieDb getMvById(int mvno);
+  List<MovieDb> getList(int thmno);
+  MovieDb getMvById(int mvno);
+  int[] RandomNums();
 }

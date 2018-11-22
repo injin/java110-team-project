@@ -1,15 +1,14 @@
 @charset "UTF-8";
+/*  ID값을 잡는 CSS는 168번 줄부터 시작함. */
 body {
   background-color: #343434;
   margin: 0;
   padding: 0;
   margin: auto;
 }
-
 main {
 	padding-top: 4em;
 }
-
 div.items {
   white-space: nowrap;
   flex-flow: row nowrap;
@@ -60,16 +59,27 @@ div.right-scroll i {
           transform: translate(-40%, -50%);
 }
 div.scroll {
+  opacity: 1 !important;
   position: absolute;
   display: inline-block;
-  color: #f6f6f6;
+  color: #5BC89C;
   top: 50%;
   -webkit-transform: translate(0, -50%);
           transform: translate(0, -50%);
+          
+/* 1안 */
+/*
   width: 60px;
   height: 60px;
-  border: 1px solid #f6f6f6;
+  border: 1px solid #5BC89C;
   border-radius: 60px;
+   */
+/* 2안 */
+
+  width: 30px;
+  height: 90px;
+  border-radius: 60px;
+  
   margin: 0 5px;
   z-index: 951;
 }
@@ -84,17 +94,13 @@ div.scroll i {
   position: relative;
   align-self: center;
   width: 210px;
-  height: 280px;
+  height: 300px;
   margin: 0 3px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   z-index: 899;
 }
 .item:hover {
-/* 
-  -webkit-transform: scale(1.5);
-          transform: scale(1.5); */
-/*   margin: 30px; */
   opacity: 1;
   z-index: 950;
 }
@@ -112,7 +118,7 @@ div.scroll i {
 }
 .item img.item-image {
   width: 210px;
-  height: 280px;
+  height: 300px;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -145,26 +151,11 @@ div.scroll i {
   padding: 1rem;
 }
 
-#left-scroll-button {
-  position: absolute;
-  color: #f6f6f6;
-  font-size: 30px;
-  border: 1px solid #f6f6f6;
-  width: 60px;
-  height: 60px;
-  border-radius: 60px;
-  z-index: 950;
-  background-color: rgba(0, 0, 0, 0.7);
-  transition: all 0.3s ease-in-out;
+.left-scroll-btn:hover {
+  opacity: 1;
+  box-shadow: 0px 0px 50px #5BC89C;
 }
-#left-scroll-button i {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-35%, -55%);
-          transform: translate(-35%, -55%);
-  z-index: 950;
-}
-#left-scroll-button:hover {
-  box-shadow: 0px 0px 50px #FFFFFF;
+.right-scroll-btn:hover {
+  opacity: 1;
+  box-shadow: 0px 0px 50px #5BC89C;
 }

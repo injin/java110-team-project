@@ -1,7 +1,5 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
-import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.model.MovieDb;
 
 /**
  * @author Jeaha
@@ -37,9 +34,12 @@ import info.movito.themoviedbapi.model.MovieDb;
  * RecommendDao
  * RecommendDao.xml
  * 
- * detailForm.jsp 처럼.
- * db에서 list를 뽑아 온 뒤
- * MovieInfoController에 mv.id를 보내서 영화 정보를 ajax로 가져온다.
+ * 
+ * Fake Data List를 더 만들어서 randomMath로 불러오기 어떨지?
+ * 화면 불러 오는 속도가 문제는 어떻게 해결 해야 할지?
+ *  
+ * 회원 취향 테이블에서 pnt가 높은 영화 2개 similarMovies List 받아서 보여주기. 
+ * 
  */
 
 @Controller
@@ -58,12 +58,15 @@ public class RecommendMvController {
   
   @RequestMapping("/list")
   public String list (Model model) {
-    //  thema가 3개 밖에 없기 때문에 2임.
-    //  9개씩 여러개 만들어서 randomMath를 돌려?
-    int n = 2;
-    List<MovieDb> mvList = rcmdService.getList(n);
-    model.addAttribute("listName", rcmdService.getListName(n));
-    model.addAttribute("list", mvList);
+    
+    int[] n = rcmdService.RandomNums();
+    
+    model.addAttribute("listName1", rcmdService.getListName(n[0]));
+    model.addAttribute("list1", rcmdService.getList(n[0]));
+    model.addAttribute("listName2", rcmdService.getListName(n[1]));
+    model.addAttribute("list2", rcmdService.getList(n[1]));
+//    model.addAttribute("listName3", rcmdService.getListName(n[2]));
+//    model.addAttribute("list3", rcmdService.getList(n[2]));
     
     return "/recommend/list";
   }

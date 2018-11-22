@@ -95,5 +95,14 @@
 
 	<delete id="delete" parameterType="int">
 	</delete>
+	
+	<update id="signOut" parameterType="int">
+        UPDATE
+            mv_post
+        SET
+            mno=00000000
+        WHERE
+            mno=#{mno}
+    </update>
 
 </mapper>

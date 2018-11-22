@@ -40,4 +40,10 @@
        
     </delete>
     
+    <delete id="signOut" parameterType="int">
+        DELETE
+            FROM mv_post_flw_tag
+        WHERE
+            flwno=#{mno}
+    </delete>
 </mapper>

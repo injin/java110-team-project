@@ -5,4 +5,5 @@ import java.util.List;
 public interface RecommendDao {
   String getTitle(int thmno);
   List<Integer> findMgrRcmdListById(int thmno);
+  int countList();
 }

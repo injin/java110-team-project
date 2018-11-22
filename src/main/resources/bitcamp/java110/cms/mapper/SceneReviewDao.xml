@@ -54,5 +54,11 @@
          WHERE mvno = #{mvno}
          ORDER BY time ASC
     </select>
+    
+    <update id="signOut" parameterType="int">
+        UPDATE mv_sr
+        SET mno=00000000
+        WHERE mno=#{mno}
+    </update>
 
 </mapper>
