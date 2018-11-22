@@ -91,7 +91,7 @@ public class AuthController {
       return "redirect:/app/";
     }
     
-    @RequestMapping("/detailForm")
+    @RequestMapping("/detail")
     public String detailForm(
         Model model,
         HttpSession session) {
@@ -100,7 +100,7 @@ public class AuthController {
           (Member)session.getAttribute("loginUser"));
       model.addAttribute("genreList", genreService.getList());
       
-      return "/auth/detailForm";
+      return "/auth/detail";
     }
     
     @PostMapping("/add")

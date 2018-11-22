@@ -43,10 +43,6 @@ function Carousel(carouselId) {
   };
 }
 
-Carousel.prototype.test = function() {
-  console.log("okoko")
-};
-
 Carousel.prototype.handleMouse = function(e) {
   MouseWheelHandler(e, this.items);
 };
@@ -206,16 +202,6 @@ window.onload = function() {
       carousel.rightScroll.style.opacity = 1;
     }
   }
-}
-
-function click() {
-  console.log('licked');
-}
-
-function toDetail(id) {
-  console.log(id);
-//  UI TEST를 위해 막음.  
-//  window.location.href = '/app/sceneReview/review?mvno='+ id;
 }
 
  */
