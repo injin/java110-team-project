@@ -256,9 +256,18 @@
     }
     
     function addMarker(location) {
-        marker.setMap(null);
+        if (marker != null) marker.setMap(null);
         
         marker = new google.maps.Marker({
+          position: location,
+          map: map
+        });
+    }
+    
+    function addMarker(location, map) {
+      if (marker != null) marker.setMap(null);
+      
+      marker = new google.maps.Marker({
           position: location,
           map: map
         });
