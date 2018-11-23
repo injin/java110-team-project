@@ -124,12 +124,20 @@
                         </div>
                     </div>
                     
+                    
+                    </form>
+                    
                     <div class="card mt-2" id="map-container">
                       <div class="card-body p-0">
+                        <div style="display:none">
+                            <div id="search_box" class="pl-2 form-inline">
+                                <input type="text" class="form-control mr-sm-2" id="search_keyword" placeholder="검색">
+                                <!-- <button type="button" class="btn btn-dark" id="search-btn">검색</button> -->
+                            </div>
+                        </div>
                         <div id="map"></div>
                       </div>
                     </div>
-                    </form>
                 </c:if>
                 
                 
@@ -256,15 +264,18 @@
     
     var map;
     var marker;
+    var autocomplete;
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
       
+      map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('search_box'));
+      
+      //마커
       var geocoder = new google.maps.Geocoder();
       var address;
-      
       google.maps.event.addListener(map, 'click', function(event) {
           geocoder.geocode({
               'latLng': event.latLng
@@ -277,6 +288,16 @@
               }
           });
       });
+      
+      //자동완성
+      var input = document.getElementById('search_keyword');
+      autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.addListener('place_changed', onPlaceChanged);
+    }
+    
+    function onPlaceChanged() {
+        var place = autocomplete.getPlace();
+        console.log(place);
     }
     
     function addMarker(location, map, address) {
@@ -287,10 +308,7 @@
           map: map
       });
       
-      
-      if (address != null) {
-          marker.address = address;
-      }
+      if (address != null) marker.address = address;
     }
     
     <c:if test="${not empty loginUser}">

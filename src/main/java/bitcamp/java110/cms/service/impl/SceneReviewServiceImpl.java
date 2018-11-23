@@ -49,12 +49,13 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     logDao.insert(mlog);
   }
   
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
   public void addCmt(SceneReviewCmt sceneReviewCmt) {
     sceneReviewDao.insertCmt(sceneReviewCmt);
-    /*if (sceneReviewCmt.getLat() != null) {
+    if (sceneReviewCmt.getLat() != null && sceneReviewCmt.getLng() != null) {
       sceneReviewDao.insertCmtMap(sceneReviewCmt);
-    }*/
+    }
     
   }
   
