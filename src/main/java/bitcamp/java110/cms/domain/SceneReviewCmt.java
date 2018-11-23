@@ -10,8 +10,8 @@ public class SceneReviewCmt {
   protected String photo;        // 사진
   protected String cont;        // 내용
   protected String mapName;
-  protected double lat;
-  protected double lng;
+  protected Double lat;
+  protected Double lng;
   protected Date createdDate;   // 생성일시
   protected Date modifiedDate;  // 수정일시
   
@@ -51,16 +51,16 @@ public class SceneReviewCmt {
   public void setMapName(String mapName) {
     this.mapName = mapName;
   }
-  public double getLat() {
+  public Double getLat() {
     return lat;
   }
-  public void setLat(double lat) {
+  public void setLat(Double lat) {
     this.lat = lat;
   }
-  public double getLng() {
+  public Double getLng() {
     return lng;
   }
-  public void setLng(double lng) {
+  public void setLng(Double lng) {
     this.lng = lng;
   }
   public Date getCreatedDate() {
