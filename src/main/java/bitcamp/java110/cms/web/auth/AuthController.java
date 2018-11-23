@@ -115,7 +115,7 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=false)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
-      
+      System.out.println("Controller Start Add Member");
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -150,7 +150,7 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      
+      System.out.println("Controller Send Member To Service");
       memberService.update(member);
       return "redirect:/app/";
     }

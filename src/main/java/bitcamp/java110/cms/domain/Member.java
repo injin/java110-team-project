@@ -33,12 +33,6 @@ public class Member implements Serializable {
     }
   }
   
-  public String getCoverImage() {
-    return coverImage;
-  }
-  public void setCoverImage(String coverImage) {
-    this.coverImage = coverImage;
-  }
   public String getCoverImagePath() {
     if (coverImage == null) {
       return "/img/default-cover-img.png";
@@ -46,76 +40,102 @@ public class Member implements Serializable {
       return "/upload/cover/" + coverImage;
     }
   }
-  
-  
-  
+
   public int getMno() {
     return mno;
   }
-  public List<Movie> getFavMvList() {
-    return favMvList;
-  }
-  public void setFavMvList(List<Movie> favMvList) {
-    this.favMvList = favMvList;
-  }
+
   public void setMno(int mno) {
     this.mno = mno;
   }
+
   public boolean isAdmin() {
     return admin;
   }
+
   public void setAdmin(boolean admin) {
     this.admin = admin;
   }
+
   public String getId() {
     return id;
   }
+
   public void setId(String id) {
     this.id = id;
   }
+
   public String getNickname() {
     return nickname;
   }
+
   public void setNickname(String nickname) {
     this.nickname = nickname;
   }
+
   public String getProfileImage() {
     return profileImage;
   }
+
   public void setProfileImage(String profileImage) {
     this.profileImage = profileImage;
   }
+
+  public String getCoverImage() {
+    return coverImage;
+  }
+  public void setCoverImage(String coverImage) {
+    this.coverImage = coverImage;
+  }
+
   public String getPr() {
     return pr;
   }
+
   public void setPr(String pr) {
     this.pr = pr;
   }
+
   public String getGender() {
     return gender;
   }
+
   public void setGender(String gender) {
     this.gender = gender;
   }
+
   public String getAgeRange() {
     return ageRange;
   }
+
   public void setAgeRange(String ageRange) {
     this.ageRange = ageRange;
   }
-  public List<Integer> getFavGrList() {
-    return favGrList;
-  }
-  public void setFavGrList(List<Integer> favGrList) {
-    this.favGrList = favGrList;
-  }
+
   public Boolean getUse() {
     return use;
   }
+
   public void setUse(Boolean use) {
     this.use = use;
   }
-  
+
+  public List<Integer> getFavGrList() {
+    return favGrList;
+  }
+
+  public void setFavGrList(List<Integer> favGrList) {
+    this.favGrList = favGrList;
+  }
+
+  public List<Movie> getFavMvList() {
+    return favMvList;
+  }
+
+  public void setFavMvList(List<Movie> favMvList) {
+    this.favMvList = favMvList;
+  }
+
   @Override
   public String toString() {
     return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname

@@ -58,9 +58,9 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    memberDao.update(member);
+    System.out.println("Service Recieve Member\n :\t" + member);
     
-    System.out.println(member);
+    memberDao.update(member);
     
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
       for (int i = 0; i < member.getFavGrList().size(); i++) {

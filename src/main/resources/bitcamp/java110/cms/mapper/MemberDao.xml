@@ -40,13 +40,13 @@
     <update id="update" parameterType="member">
 	   UPDATE mv_memb
 	   <trim prefix="SET" suffixOverrides=",">
-	      <if test="nickname != NULL">nick = #{nickname},</if>
-	      <if test="profileImage != NULL">p_phot = #{profileImage},</if>
-	      <if test="coverImage != NULL">c_phot = #{coverImage},</if>
-	      <if test="pr != NULL">pr = #{pr},</if>
+	      <if test="nickname != null">nick = #{nickname},</if>
+	      <if test="profileImage != null">p_phot = #{profileImage},</if>
+	      <if test="coverImage != null">c_phot = #{coverImage},</if>
+	      <if test="pr != null">pr = #{pr},</if>
 	   </trim>
 	   WHERE
-	      mno = #{mno}
+	      mno=#{mno}
 	</update>
     
     <select id="findByNick" parameterType="String" resultType="hashmap">
