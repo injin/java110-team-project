@@ -151,18 +151,19 @@ height: 24em;
                     <div class="row pl-3 pr-3">
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body">
+                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
                                 <h5 class="card-title">XXX 리뷰</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
                                 <p class="card-text">샬라샬라샬라샬라어쩌구저쩌구</p>
                                 <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <a href="#" class="card-link"  onclick="openDetailModal(${post.pstno})">Another link</a>
+                              
                               </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body">
+                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
                              
                                 <h5 class="card-title"><a href="#" class="card-link">인터스테라 가르강튀아 리뷰</a></h5>
                                 <h6 class="card-subtitle mb-2 text-muted">
@@ -285,12 +286,13 @@ height: 24em;
     </div>
 
     </main>
+    
+    <jsp:include page="reviewFeed/detailPost.jsp"></jsp:include>
     <jsp:include page="include/footer.jsp"></jsp:include>
-   
-    
-   
-    
-    
+   <script>
+   function openDetailModal(pstno) {
+       $('#detailModal').modal('show');
+   }
     
     </script>
 </body>
