@@ -27,6 +27,11 @@
         VALUES (#{srno}, #{mno}, #{photo}, #{cont}, now())
     </insert>
     
+    <insert id="insertCmtMap" parameterType="sceneReviewCmt">
+        INSERT INTO mv_sr_map(cmno, mp_nm, lat, lng)
+        VALUES (#{srno}, #{mapName}, #{lat}, #{lng})
+    </insert>
+    
     <select id="findDefaultTime" resultType="string" parameterType="int">
         SELECT time
           FROM mv_sr

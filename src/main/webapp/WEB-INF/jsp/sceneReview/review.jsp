@@ -232,61 +232,65 @@
             return;
         }
         
+        if (marker != null) {
+            console.log(marker);
+            $('#addCommentForm input[name="lat"]').val(marker.position.lat());
+            $('#addCommentForm input[name="lng"]').val(marker.position.lng());
+            $('#addCommentForm input[name="mapName"]').val(marker.address);
+        }
         
-        
-        //$('#addCommentForm').submit();
+        $('#addCommentForm').submit();
     }
     
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {
-        $('div#map-container').toggle();
+        $('div#map-container').toggle(function() {
+            if ($(this).css('display') == 'none') { //지도 숨김 시 marker remove
+                if (marker != null) {
+                    marker.setMap(null);
+                    marker = null;
+                }
+            }
+        });
     });
     
     var map;
     var marker;
-    var service;
-    
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
       
-      service = new google.maps.places.PlacesService(map);
+      var geocoder = new google.maps.Geocoder();
+      var address;
       
       google.maps.event.addListener(map, 'click', function(event) {
-          
-          console.log('위경도' + event.latLng.toString());
-          console.log(event.latLng.lat());
-          console.log(event.latLng.lng());
-          console.log(event.address)
-          
-          var request = {
-              query: 'lat:' + event.latLng.lat() + ', lng:' + event.latLng.lng(),
-              fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
-          };
-          service.findPlaceFromQuery(request, callback);
-          
-          addMarker(event.latLng, map);
+          geocoder.geocode({
+              'latLng': event.latLng
+          }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  address = results[0].formatted_address;
+                  addMarker(event.latLng, map, address);
+              } else {
+                  addMarker(event.latLng, map, null);
+              }
+          });
       });
     }
     
-    function callback(results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-          for (var i = 0; i < results.length; i++) {
-            var place = results[i];
-            console.log(results[i]);
-          }
-        }
-      }
-    
-    function addMarker(location, map) {
+    function addMarker(location, map, address) {
       if (marker != null) marker.setMap(null);
       
       marker = new google.maps.Marker({
           position: location,
           map: map
-        });
+      });
+      
+      
+      if (address != null) {
+          marker.address = address;
+      }
     }
     
     <c:if test="${not empty loginUser}">
