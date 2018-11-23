@@ -9,6 +9,9 @@ public class SceneReviewCmt {
   protected int mno;            // 회원번호
   protected String photo;        // 사진
   protected String cont;        // 내용
+  protected String mapName;
+  protected double lat;
+  protected double lng;
   protected Date createdDate;   // 생성일시
   protected Date modifiedDate;  // 수정일시
   
@@ -42,6 +45,24 @@ public class SceneReviewCmt {
   public void setCont(String cont) {
     this.cont = cont;
   }
+  public String getMapName() {
+    return mapName;
+  }
+  public void setMapName(String mapName) {
+    this.mapName = mapName;
+  }
+  public double getLat() {
+    return lat;
+  }
+  public void setLat(double lat) {
+    this.lat = lat;
+  }
+  public double getLng() {
+    return lng;
+  }
+  public void setLng(double lng) {
+    this.lng = lng;
+  }
   public Date getCreatedDate() {
     return createdDate;
   }
@@ -57,8 +78,8 @@ public class SceneReviewCmt {
   
   @Override
   public String toString() {
-    return "SceneReviewComment [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo="
-        + photo + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate="
-        + modifiedDate + "]";
+    return "SceneReviewCmt [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo=" + photo
+        + ", cont=" + cont + ", mapName=" + mapName + ", lat=" + lat + ", lng=" + lng
+        + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + "]";
   }
 }

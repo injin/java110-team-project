@@ -52,6 +52,9 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Override
   public void addCmt(SceneReviewCmt sceneReviewCmt) {
     sceneReviewDao.insertCmt(sceneReviewCmt);
+    /*if (sceneReviewCmt.getLat() != null) {
+      sceneReviewDao.insertCmtMap(sceneReviewCmt);
+    }*/
     
   }
   
