@@ -156,7 +156,7 @@
 </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
@@ -244,25 +244,41 @@
     
     var map;
     var marker;
+    var service;
+    
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
       
+      service = new google.maps.places.PlacesService(map);
+      
       google.maps.event.addListener(map, 'click', function(event) {
+          
+          console.log('위경도' + event.latLng.toString());
+          console.log(event.latLng.lat());
+          console.log(event.latLng.lng());
+          console.log(event.address)
+          
+          var request = {
+              query: 'lat:' + event.latLng.lat() + ', lng:' + event.latLng.lng(),
+              fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+          };
+          service.findPlaceFromQuery(request, callback);
+          
           addMarker(event.latLng, map);
       });
     }
     
-    function addMarker(location) {
-        if (marker != null) marker.setMap(null);
-        
-        marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-    }
+    function callback(results, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            console.log(results[i]);
+          }
+        }
+      }
     
     function addMarker(location, map) {
       if (marker != null) marker.setMap(null);
