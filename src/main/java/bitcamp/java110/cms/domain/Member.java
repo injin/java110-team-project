@@ -21,6 +21,34 @@ public class Member implements Serializable {
   protected List<Integer> favGrList; // 회원 선호 장르의 장르 번호
   protected List<Movie> favMvList;    // 회원 선호 영화 목록
   
+  //    프사 & 배사 pathGetter
+  public String getProfileImagePath() {
+    if (profileImage == null) {
+      return "/img/default-profile-img";
+    }
+    if (profileImage.startsWith("http")) {
+      return profileImage;
+    } else {
+      return "/upload/profile/" + profileImage;
+    }
+  }
+  
+  public String getCoverImage() {
+    return coverImage;
+  }
+  public void setCoverImage(String coverImage) {
+    this.coverImage = coverImage;
+  }
+  public String getCoverImagePath() {
+    if (coverImage == null) {
+      return "/img/default-cover-img.png";
+    } else {
+      return "/upload/cover/" + coverImage;
+    }
+  }
+  
+  
+  
   public int getMno() {
     return mno;
   }
@@ -57,33 +85,6 @@ public class Member implements Serializable {
   public void setProfileImage(String profileImage) {
     this.profileImage = profileImage;
   }
-  
-  
-  public String getProfileImagePath() {
-    if (profileImage == null) {
-      return "/img/default-profile-img";
-    }
-    if (profileImage.startsWith("http")) {
-      return profileImage;
-    } else {
-      return "/upload/profile/" + profileImage;
-    }
-  }
-  
-  public String getCoverImage() {
-    return coverImage;
-  }
-  public void setCoverImage(String coverImage) {
-    this.coverImage = coverImage;
-  }
-  public String getCoverImagePath() {
-    if (coverImage == null) {
-      return "/img/default-cover-img.png";
-    } else {
-      return "/upload/cover/" + coverImage;
-    }
-  }
-  
   public String getPr() {
     return pr;
   }

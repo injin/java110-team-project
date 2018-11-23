@@ -61,20 +61,5 @@
         WHERE
             mno=#{mno}
     </delete>
-
-    <!-- 
-    <update id="signOut" parameterType="int">
-        UPDATE mv_memb
-            SET 
-                nick = 'UNKNOWN',
-                p_phot = 'NULL',
-                c_phot = 'NULL',
-                pr = 'NULL',
-                gend = '',
-                age_rng = 'NULL',
-                use_yn = 'N'
-        WHERE mno=#{mno}
-    </update>
-     -->
      
 </mapper>

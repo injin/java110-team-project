@@ -56,8 +56,8 @@
     </select>
     
     <update id="signOut" parameterType="int">
-        UPDATE mv_sr
-        SET mno=00000000
+        UPDATE IGNORE mv_sr
+        SET mno=21
         WHERE mno=#{mno}
     </update>
 

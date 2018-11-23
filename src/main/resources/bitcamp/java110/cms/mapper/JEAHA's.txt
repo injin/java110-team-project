@@ -2,22 +2,27 @@ JEAHA's 참조 txt
 때 되면 알아서 삭제 하겠음.
 
 <update id="signOut" parameterType="int">
-    UPDATE
+    UPDATE IGNORE
         테이블 명
     SET
-        mno=00000000
+        mid=00000000
+        mno=21
     WHERE
-        mno=#{mno}
+        컬럼명=#{mno}
 </update>
 
 
 <delete id="signOut" parameterType="int">
-    DELETE
+    DELETE IGNORE
         FROM 테이블 명
     WHERE
         mno=#{mno}
 </delete>
 
 
+SELECT `lbmno`,`opn`
+FROM `mv_lbm`
+WHERE  mno = 1;
 
-https://www.captechconsulting.com/blogs/delete-statement-using-the-exists-or-not-exists
+SELECT `opn` FROM `mv_lbm` WHERE mno=3 AND opn='U'
+SELECT `opn` FROM `mv_lbm` WHERE mno=3 AND opn='L'

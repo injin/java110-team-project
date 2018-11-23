@@ -93,14 +93,23 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void signOut(int mno) {
     rvDao.signOut(mno);
-    lbmDao.signOut(mno);
+    System.out.println(mno + "\nSignOut Test 1");
+    lbmDao.signOut1(mno);
+    System.out.println("lbmDao 1");
+    lbmDao.signOut2(mno);
+    System.out.println("lbmDao 2");
+    lbmDao.signOut3(mno);
+    System.out.println("lbmDao 3");
     rptDao.signOut(mno);
     tagDao.signOut(mno);
+    System.out.println("SignOut Test 2");
     postDao.signOut(mno);
     logDao.signOut1(mno);
     logDao.signOut2(mno);
+    System.out.println("SignOut Test 3");
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
+    System.out.println("SignOut Test 4");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);

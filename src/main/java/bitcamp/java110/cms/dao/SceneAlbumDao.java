@@ -9,5 +9,7 @@ public interface SceneAlbumDao {
   List<SceneAlbum> findAll();
   SceneAlbum findByNo(int no);
   int delete(int no);
-  void signOut(int mno);
+  void signOut1(int mno);
+  void signOut2(int mno);
+  void signOut3(int mno);
 }

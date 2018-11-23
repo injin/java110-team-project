@@ -45,13 +45,36 @@
     <delete id="delete" parameterType="int">
     </delete>
     
-    <update id="signOut" parameterType="int">
-        UPDATE
+    <update id="signOut1" parameterType="int">
+        UPDATE IGNORE
             mv_lbm
         SET
-            mno=00000000
+            mno=21
         WHERE
-            mno=#{mno}
+             opn='U'
+        AND mno=#{mno}
     </update>
+    
+    <delete id="signOut2" parameterType="int">
+        DELETE IGNORE
+        FROM
+            mv_lbm_sr
+        WHERE
+            (SELECT lbmno
+             FROM
+                mv_lbm
+             WHERE
+                 opn='L'
+                 AND mno=#{mno} )
+    </delete>
+    
+    <delete id="signOut3" parameterType="int">
+        DELETE IGNORE
+        FROM
+            mv_lbm
+        WHERE
+             opn='L'
+        AND mno=#{mno}
+    </delete>
 
 </mapper>

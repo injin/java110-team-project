@@ -33,7 +33,7 @@
     </delete>
     
     <update id="signOut" parameterType="int">
-        UPDATE
+        UPDATE IGNORE
             mv_rpt
         SET
             mno=00000000
