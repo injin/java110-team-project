@@ -17,6 +17,7 @@ public class Member implements Serializable {
   protected String pr;
   protected String gender;
   protected String ageRange;
+  protected Boolean use;
   protected List<Integer> favGrList; // 회원 선호 장르의 장르 번호
   protected List<Movie> favMvList;    // 회원 선호 영화 목록
   
@@ -107,7 +108,12 @@ public class Member implements Serializable {
   public void setFavGrList(List<Integer> favGrList) {
     this.favGrList = favGrList;
   }
-  
+  public Boolean getUse() {
+    return use;
+  }
+  public void setUse(Boolean use) {
+    this.use = use;
+  }
   
   @Override
   public String toString() {

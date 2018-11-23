@@ -17,3 +17,7 @@ JEAHA's 참조 txt
     WHERE
         mno=#{mno}
 </delete>
+
+
+
+https://www.captechconsulting.com/blogs/delete-statement-using-the-exists-or-not-exists
