@@ -60,7 +60,7 @@ public class AuthController {
       // 기존에 가입된 사용자가 아니면
       member = authService.addMember(kakaoResponse);
       session.setAttribute("loginUser", member);
-      return "redirect:/app/auth/detailForm";
+      return "redirect:/app/auth/detail";
     }
     
     @RequestMapping("/kakaologout")

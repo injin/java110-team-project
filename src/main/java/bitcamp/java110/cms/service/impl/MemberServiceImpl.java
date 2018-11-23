@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService {
   /**
    * !!주석 삭제 금지!!
    * 제하 To Do
-   * !! SginOut 할 때 DB에서 삭제 해야하므로 DAO완성시 추가 해야함!!
+   * !! sginOut 할 때 DB관리
    */
   @Override
   public void signOut(int mno) {

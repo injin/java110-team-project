@@ -34,7 +34,7 @@
     
     <update id="signOut" parameterType="int">
         UPDATE
-            테이블 명
+            mv_rpt
         SET
             mno=00000000
         WHERE

@@ -14,6 +14,7 @@
         <result column="pr"       property="pr" />
         <result column="gend"     property="gender" />
         <result column="age_rng"  property="ageRange" />
+        <result column="use_yn"   property="use" />
     </resultMap>
     
     <insert id="insert" parameterType="member"
