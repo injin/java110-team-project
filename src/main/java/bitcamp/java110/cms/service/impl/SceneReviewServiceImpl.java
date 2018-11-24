@@ -15,6 +15,7 @@ import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
+import bitcamp.java110.cms.domain.SceneReviewMap;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.model.MovieDb;
 
@@ -53,10 +54,12 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Override
   public void addCmt(SceneReviewCmt sceneReviewCmt) {
     sceneReviewDao.insertCmt(sceneReviewCmt);
-    if (sceneReviewCmt.getLat() != null && sceneReviewCmt.getLng() != null) {
-      sceneReviewDao.insertCmtMap(sceneReviewCmt);
-    }
     
+    SceneReviewMap map = sceneReviewCmt.getMap();
+    map.setCmno(sceneReviewCmt.getCmno());
+    if (map.getLat() != null && map.getLng() != null) {
+      sceneReviewDao.insertCmtMap(map);
+    }
   }
   
   @Override
@@ -76,6 +79,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Override
   public List<SceneReview> list(int mvno) {
     return sceneReviewDao.list(mvno);
+  }
+  
+  @Override
+  public List<SceneReviewCmt> listCmt(int srno) {
+    return sceneReviewDao.listCmt(srno);
   }
   
   @Override

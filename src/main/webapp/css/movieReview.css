@@ -79,7 +79,22 @@ a.btn-pencil > img {
     font-size: 25px;
     color: #ccc;
 }
+.span-more {
+    color: #00cc99;
+    cursor: pointer;
+}
 
+/*===== comment =====*/
+#comment-area {
+    padding: 0.5em;
+}
+
+#map {
+    height: 30em;
+}
+#map-container {
+    display: none;
+}
 
 /*===== range slider =====*/
 .slidecontainer {
@@ -190,4 +205,5 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
 
