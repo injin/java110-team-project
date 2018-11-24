@@ -18,7 +18,7 @@
         WHERE thm.thmno = #{value}
     </select>
     
-    <select id="countList" resultType="int" parameterType="int">
+    <select id="getCount" resultType="int" parameterType="int">
         SELECT
             COUNT(thmno) as cnt
         FROM mv_thm;

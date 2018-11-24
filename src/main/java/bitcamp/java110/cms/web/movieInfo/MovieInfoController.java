@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import bitcamp.java110.cms.common.Constants;
-import bitcamp.java110.cms.domain.Movie;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
@@ -46,13 +45,4 @@ public class MovieInfoController {
     
     return result;
   }
-  
-  @RequestMapping(value="/findById", method=RequestMethod.POST)
-  public Movie findById (int mvno) {
-    
-    
-    
-    return null;
-  }
-  
 }

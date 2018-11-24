@@ -1,10 +1,13 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
 
@@ -35,10 +38,13 @@ import info.movito.themoviedbapi.TmdbMovies;
  * RecommendDao.xml
  * 
  * 
- * Fake Data List를 더 만들어서 randomMath로 불러오기 어떨지?
  * 화면 불러 오는 속도가 문제는 어떻게 해결 해야 할지?
+ * fake page로 보낸뒤 분석중 돌리고 redirect
  *  
- * 회원 취향 테이블에서 pnt가 높은 영화 2개 similarMovies List 받아서 보여주기. 
+ * 회원 취향 테이블에서 random 영화 1개 similarMovies List 받아서 보여주기.
+ * AJAX으로 가져오기?
+ * AJAX 쓰면 Controller를 사용한다?
+ * 같은 Controller에서 처리 할 수 있다?
  * 
  */
 
@@ -50,16 +56,19 @@ public class RecommendMvController {
   @Autowired TmdbMovies tmdbMovies;
   @Autowired RecommendService rcmdService;
   
-  
   public RecommendMvController(RecommendService rcmdService) {
     super();
     this.rcmdService = rcmdService;
   }
   
   @RequestMapping("/list")
-  public String list (Model model) {
+  public String list (Model model,
+      HttpSession session) {
     
-    int[] n = rcmdService.RandomNums();
+    Member m = (Member) session.getAttribute("loginUser");
+    System.out.println("loginUser.member.mno = " + m.getMno());
+    
+    int[] n = rcmdService.RandomNums(rcmdService.getCount());
     
     model.addAttribute("listName1", rcmdService.getListName(n[0]));
     model.addAttribute("list1", rcmdService.getList(n[0]));
@@ -71,6 +80,22 @@ public class RecommendMvController {
     return "/recommend/list";
   }
   
+  @RequestMapping(value="smlr", method=RequestMethod.GET)
+  public String smlrRcmd(HttpSession session) {
+    Member m = (Member) session.getAttribute("loginUser");
+    if(m != null) {
+      System.out.println(m.getMno());
+    } else {
+      System.out.println("null");
+    }
+    
+    return "redirect:/app/rcmd/list";
+  }
   
+  @RequestMapping("anly")
+  public String waiting(HttpSession session) {
+    session.getAttribute("loginUser");
+    return "/recommend/anly";
+  }
   
 }
