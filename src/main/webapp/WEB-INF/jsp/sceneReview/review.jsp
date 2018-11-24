@@ -12,20 +12,8 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-.span-more {
-    color: #00cc99;
-    cursor: pointer;
-}
-#comment-area {
-    padding: 0.5em;
-}
 
-#map {
-    height: 30em;
-}
-#map-container {
-    display: none;
-}
+
 </style>
 </head>
 <body>
@@ -95,9 +83,9 @@
                 <c:if test="${not empty sessionScope.loginUser}">
                     <form id="addCommentForm" action="addComment" method="post">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
-                    <input type="hidden" name="lat">
-                    <input type="hidden" name="lng">
-                    <input type="hidden" name="mapName">
+                    <input type="hidden" name="map.lat">
+                    <input type="hidden" name="map.lng">
+                    <input type="hidden" name="map.mapName">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -117,14 +105,9 @@
                             
                             <button type="button" class="btn btn-dark mt-2 float-right" onclick="addComment()">
                                 <i class="fas fa-paper-plane"></i> 등록</button>
-                            
-                            <!-- <div id="map" class="mt-2" style="display:none;"></div> -->
                           </div>
-                          
                         </div>
                     </div>
-                    
-                    
                     </form>
                     
                     <div class="card mt-2" id="map-container">
@@ -140,6 +123,10 @@
                     </div>
                 </c:if>
                 
+                
+                <c:forEach items="${cmtList}" var="cmt">
+                    
+                </c:forEach>
                 
             </c:if>
             <c:if  test="${sceneReview.trgtSrExist == false}">
@@ -241,10 +228,9 @@
         }
         
         if (marker != null) {
-            console.log(marker);
-            $('#addCommentForm input[name="lat"]').val(marker.position.lat());
-            $('#addCommentForm input[name="lng"]').val(marker.position.lng());
-            $('#addCommentForm input[name="mapName"]').val(marker.address);
+            $('#addCommentForm input[name="map.lat"]').val(marker.position.lat());
+            $('#addCommentForm input[name="map.lng"]').val(marker.position.lng());
+            $('#addCommentForm input[name="map.mapName"]').val(marker.address);
         }
         
         $('#addCommentForm').submit();
@@ -265,24 +251,22 @@
     var map;
     var marker;
     var autocomplete;
+    var geocoder;
     function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
-      
       map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('search_box'));
+      geocoder = new google.maps.Geocoder();
       
       //마커
-      var geocoder = new google.maps.Geocoder();
-      var address;
       google.maps.event.addListener(map, 'click', function(event) {
           geocoder.geocode({
               'latLng': event.latLng
           }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
-                  address = results[0].formatted_address;
-                  addMarker(event.latLng, map, address);
+                  addMarker(event.latLng, map, results[0].formatted_address);
               } else {
                   addMarker(event.latLng, map, null);
               }
@@ -297,7 +281,12 @@
     
     function onPlaceChanged() {
         var place = autocomplete.getPlace();
-        console.log(place);
+        if (!place.geometry) {
+            window.alert("해당 검색어로 조회된 결과가 없습니다.");
+            return;
+        }
+        addMarker(place.geometry.location, map, place.formatted_address);
+        
     }
     
     function addMarker(location, map, address) {
@@ -307,6 +296,8 @@
           position: location,
           map: map
       });
+      //map.setCenter(location);
+      map.panTo(location);
       
       if (address != null) marker.address = address;
     }
