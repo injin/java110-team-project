@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -61,41 +60,29 @@ public class RecommendMvController {
     this.rcmdService = rcmdService;
   }
   
+  @RequestMapping("anly")
+  public String waiting(HttpSession session) {
+    session.getAttribute("loginUser");
+    return "/recommend/anly";
+  }
+  
   @RequestMapping("/list")
   public String list (Model model,
       HttpSession session) {
     
     Member m = (Member) session.getAttribute("loginUser");
-    System.out.println("loginUser.member.mno = " + m.getMno());
+    System.out.println("loginUser.mno = " + m.getMno());
     
     int[] n = rcmdService.RandomNums(rcmdService.getCount());
-    
+    System.out.println("[" + n[0] + ", " + n[1] + "]");
     model.addAttribute("listName1", rcmdService.getListName(n[0]));
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
     model.addAttribute("list2", rcmdService.getList(n[1]));
 //    model.addAttribute("listName3", rcmdService.getListName(n[2]));
 //    model.addAttribute("list3", rcmdService.getList(n[2]));
-    
+    System.out.println("REQUEST COMPLETE");
     return "/recommend/list";
-  }
-  
-  @RequestMapping(value="smlr", method=RequestMethod.GET)
-  public String smlrRcmd(HttpSession session) {
-    Member m = (Member) session.getAttribute("loginUser");
-    if(m != null) {
-      System.out.println(m.getMno());
-    } else {
-      System.out.println("null");
-    }
-    
-    return "redirect:/app/rcmd/list";
-  }
-  
-  @RequestMapping("anly")
-  public String waiting(HttpSession session) {
-    session.getAttribute("loginUser");
-    return "/recommend/anly";
   }
   
 }

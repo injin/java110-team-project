@@ -207,6 +207,15 @@
       }
   }
   
+  //   FORM TAG 안의 검색창에서 Enter Key 기능
+  $("#input-srch-keyword").keypress(
+       function(event){
+       if (event.which == '13') {
+           event.preventDefault();
+           findMoviesByKeyword();
+       }
+  });
+  
   //영화 검색
   function findMoviesByKeyword() {
       var keyword = document.getElementById('input-srch-keyword').value;
@@ -244,15 +253,6 @@
           }
       });
   }
-  
-  //   FORM TAG 안의 검색창에서 Enter Key 기능
-  $("#input-srch-keyword").keypress(
-       function(event){
-       if (event.which == '13') {
-           event.preventDefault();
-           findMoviesByKeyword();
-       }
-  });
   
   // html 출력
   function makeMovieListHtml(data) {

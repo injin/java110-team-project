@@ -8,5 +8,5 @@ public interface MovieAnlyDao {
   void update(Map<String, String> params);
   void insertNotExists(Map<String, Integer> params);
   void signOut(int mno);
-  int getRandomRow(int mno);
+  int getOneFav(int mno);
 }

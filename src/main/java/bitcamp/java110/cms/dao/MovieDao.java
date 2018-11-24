@@ -9,4 +9,5 @@ public interface MovieDao {
   int insertByObj(Movie movie);
   int insertNotExists(Movie movie);
   Movie findByNo(int no);
+  String getTitleById(int id);
 }

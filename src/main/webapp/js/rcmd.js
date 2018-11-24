@@ -1,3 +1,42 @@
+//	mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
+var $randomBaseItems = $('#random-base-items');
+var loginUser = '@Session["loginUser"]';
+window.onload=getSimilarBaseFavList();
+
+//function getSimilarBaseFavList(){
+//  $.ajax("/app/movieInfo/smlrList", {
+//      method: "POST",
+//      headers : {
+//          'Content-Type': 'application/json'
+//      },
+//      data: JSON.stringify({ "keyword": keyword }),
+//      before: function() {
+//    	  $randomBaseItems.html('').hide();
+//      },
+//      success: function(data) {
+//          
+//          var liHtml = '';
+//          if (data.movieList.length == 0) {
+//              liHtml = '<p>조회된 결과가 없습니다.</p>';
+//          } else {
+//              liHtml = makeMovieListHtml(data);
+//          }
+//          $randomBaseItems.html(liHtml);
+//      },
+//      complete: function() {
+//    	  $randomBaseItems.show();
+//      },
+//      error: (xhr, status, msg) => {
+//    	  $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
+//          console.log(status);
+//          console.log(msg);
+//      }
+//  });
+//}
+
+
+
+//	시간이 남으면 마우스 휠로도 컨트롤 가능하게 ㄱㄱ
 function MouseWheelHandler(e, element) {
   var delta = 0;
   if (typeof e === 'number') {
@@ -95,6 +134,10 @@ carousel1.setRightScrollOpacity();
 var carousel2 = new Carousel('#carousel2');
 carousel2.setLeftScrollOpacity();
 carousel2.setRightScrollOpacity();
+
+var randomBase = new Carousel('#randomBaseCarousel');
+randomBase.setLeftScrollOpacity();
+randomBase.setRightScrollOpacity();
 
 function click() {
   console.log('clicked');
