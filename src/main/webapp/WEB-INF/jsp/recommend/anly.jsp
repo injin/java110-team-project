@@ -17,7 +17,7 @@
     <jsp:include page="../include/header.jsp"></jsp:include>
     <main role="main" class="container borderGray"> <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-            <h1>${sessionScope.loginUser.nickname}님 의 취향 분석 중</h1>
+            <h1 class="mt-2">${sessionScope.loginUser.nickname}님의 취향 분석 중</h1>
         </c:when>
     </c:choose>
     <hr>

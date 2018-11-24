@@ -5,10 +5,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.MovieDao">
 
-	<insert id="insert" parameterType="map" keyColumn="mno">
-		insert into mv_mv
-		values(#{mvno},#{titl})
-	</insert>
+    <insert id="insert" parameterType="map" keyColumn="mno">
+        insert into mv_mv
+        values(#{mvno},#{titl})
+    </insert>
     
     <insert id="insertByObj" parameterType="movie" keyColumn="mno">
         insert into mv_mv(mvno, titl)
@@ -25,12 +25,22 @@
                           )
     </insert>
 
-	<select id="findByNo"
-		resultType="bitcamp.java110.cms.domain.Movie" parameterType="int">
-		select
-		  m.mvno,
-		m.titl
-		from mv_mv m
-		where m.mvno=#{value}
-	</select>
+    <select id="findByNo"
+        resultType="bitcamp.java110.cms.domain.Movie" parameterType="int">
+        select
+          m.mvno,
+          m.titl
+        from mv_mv m
+        where m.mvno=#{value}
+    </select>
+    
+    <select id="getTitleById" resultType="String" parameterType="int">
+       SELECT
+           titl
+       FROM
+           mv_mv
+       WHERE
+           mvno=#{value}
+    </select>
+    
 </mapper>
