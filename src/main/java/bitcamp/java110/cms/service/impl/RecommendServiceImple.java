@@ -1,7 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -47,16 +46,10 @@ public class RecommendServiceImple implements RecommendService {
   @Autowired Environment env;
   @Autowired TmdbMovies tmdbMovies;
   
-  
-  
-  
-  
-  
   @Override
   public String getListName(int thmno) {
     return rcmdDao.getTitle(thmno);
   }
-  
   @Override
   public List<MovieDb> getList(int thmno){
     System.out.println("\nthmno : " + thmno);
@@ -68,6 +61,7 @@ public class RecommendServiceImple implements RecommendService {
       MovieDb mv = getMvById(id);
       mvList.add(mv);
     }
+    
     System.out.println("Service return mvList");
     return mvList;
   }
@@ -78,29 +72,29 @@ public class RecommendServiceImple implements RecommendService {
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
     MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
-    
 //    System.out.println("mvdb : " + mvdb.toString());
-    
     return mvdb;
+  }
+
+  @Override
+  public int getCount() {
+    return rcmdDao.getCount();
   }
   
   @Override
-  public int[] RandomNums(){
+  public int[] RandomNums(int root){
     int[] n = new int[2];
     
+    System.out.println("Random Range : " + root);
+    
     for (int i = 0; i < n.length; i++) {
-      n[i] = (int)(Math.random() * rcmdDao.countList() + 1);
+      n[i] = (int)(Math.random() * root + 1);
       for (int j = 0; j <= i-1; j++) {
         if(n[i] == n[j]) {
           i--;
         }
       }
     }
-    
-    System.out.println("\n" + Arrays.toString(n));
-    
     return n;
   }
-  
-  
 }
