@@ -1,7 +1,7 @@
 //	mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
 var $randomBaseItems = $('#random-base-items');
 var loginUser = '@Session["loginUser"]';
-window.onload=getSimilarBaseFavList();
+//window.onload=getSimilarBaseFavList();
 
 //function getSimilarBaseFavList(){
 //  $.ajax("/app/movieInfo/smlrList", {
@@ -135,9 +135,9 @@ var carousel2 = new Carousel('#carousel2');
 carousel2.setLeftScrollOpacity();
 carousel2.setRightScrollOpacity();
 
-var randomBase = new Carousel('#randomBaseCarousel');
-randomBase.setLeftScrollOpacity();
-randomBase.setRightScrollOpacity();
+//var randomBase = new Carousel('#randomBaseCarousel');
+//randomBase.setLeftScrollOpacity();
+//randomBase.setRightScrollOpacity();
 
 function click() {
   console.log('clicked');

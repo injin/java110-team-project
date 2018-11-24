@@ -81,7 +81,7 @@ public class RecommendMvController {
     model.addAttribute("list2", rcmdService.getList(n[1]));
 //    model.addAttribute("listName3", rcmdService.getListName(n[2]));
 //    model.addAttribute("list3", rcmdService.getList(n[2]));
-    System.out.println("REQUEST COMPLETE");
+    System.out.println("\nREQUEST COMPLETE\n");
     return "/recommend/list";
   }
   

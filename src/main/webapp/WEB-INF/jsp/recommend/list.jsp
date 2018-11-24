@@ -90,7 +90,16 @@
             <div class="items" id="carousel-items">
                 <c:forEach items="${list1}" var="list1">
                     <div class="item" onclick="toDetail('${list1.id}')">
-                        <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}" />
+                        <img class="item-image" src=
+                        <c:choose>
+                            <c:when test = "${not empty list1.posterPath}">
+                                "https://image.tmdb.org/t/p/w500${list1.posterPath}"
+                            </c:when>
+                            <c:otherwise>
+                                "/img/default-movie-img.png"
+                            </c:otherwise>
+                        </c:choose>
+                        />
                             <span class="item-title">${list1.title}</span>
                         <div class="item-description opacity-none">개봉일 : ${list1.releaseDate}<br>런타임 : ${list1.runtime}분<br>네티즌 평점 : ${list1.voteAverage}</div>
                     </div>
@@ -115,7 +124,16 @@
             <div class="items" id="carousel-items">
                 <c:forEach items="${list2}" var="list2">
                     <div class="item" onclick="toDetail('${list2.id}')">
-                        <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" />
+                        <img class="item-image" src=
+                        <c:choose>
+                            <c:when test = "${not empty list2.posterPath}">
+                                "https://image.tmdb.org/t/p/w500${list2.posterPath}"
+                            </c:when>
+                            <c:otherwise>
+                                "/img/default-movie-img.png"
+                            </c:otherwise>
+                        </c:choose>
+                        />
                             <span class="item-title">${list2.title}</span>
                         <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
                     </div>
