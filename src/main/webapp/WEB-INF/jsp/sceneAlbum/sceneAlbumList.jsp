@@ -31,6 +31,7 @@
 			<div class="row albumList col-lg-9">
 				<c:forEach items="${sceneAlbumList}" var="album">
 					<!-- begin="0" end="5" -->
+					<!-- 앨범 하 -->
 					<div class="row" style="margin: 0;">
 						<div class="album">
 							<img src="/img/default.jpg">
