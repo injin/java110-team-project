@@ -54,7 +54,6 @@
                 </div>
             </div>
             
-            
         </div>
     </div>
     
@@ -115,7 +114,6 @@
                         <div style="display:none">
                             <div id="search_box" class="pl-2 form-inline">
                                 <input type="text" class="form-control mr-sm-2" id="search_keyword" placeholder="검색">
-                                <!-- <button type="button" class="btn btn-dark" id="search-btn">검색</button> -->
                             </div>
                         </div>
                         <div id="map"></div>
@@ -129,7 +127,12 @@
                         <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
                         <div class="media-body">
                             <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
-                            <p>${cmt.cont}</p>
+                            <p>${cmt.cont}
+                            <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
+                                <br><a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
+                                    <i class="fas fa-map-marker-alt"></i> ${cmt.map.mapName}</a>
+                            </c:if>
+                            </p>
                         </div>
                     </div>
                 </c:forEach>
