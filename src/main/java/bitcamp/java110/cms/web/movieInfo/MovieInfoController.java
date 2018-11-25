@@ -2,7 +2,6 @@ package bitcamp.java110.cms.web.movieInfo;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
-import bitcamp.java110.cms.domain.Member;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -52,35 +50,5 @@ public class MovieInfoController {
     System.out.println("totalResults: "+response.getTotalResults());
     
     return result;
-  }
-  
-  /**
-   * JEAHA
-   * Login안하면 테스트 불가.
-   * http://localhost:8888/app/movieInfo/smlrList
-   */
-  @RequestMapping(value="/smlrList")
-  public @ResponseBody Map<String, Object> smlrListById (
-      HttpSession session) throws Exception {
-    
-    int triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
-    MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
-    
-    /*
-    List<MovieDb> list = smlrList.getResults();
-    System.out.println(list.toString());
-    
-    MovieDb i = list.get(0);
-    System.out.println(i.toString());
-    System.out.println(i.getId());
-    System.out.println(i.getPosterPath());
-    */
-    
-    Map<String, Object> returnValue= new HashMap<>();
-    returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
-    returnValue.put("smlrList", smlrList.getResults());
-    
-    
-    return returnValue;
   }
 }

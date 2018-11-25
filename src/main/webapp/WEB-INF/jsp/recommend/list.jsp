@@ -46,13 +46,12 @@
     <jsp:include page="../include/header.jsp"></jsp:include>
     <main role="main" class="container borderGray"> <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-            <h1>${sessionScope.loginUser.nickname}님 만을 위한 추천 영화</h1>
+            <h1>${sessionScope.loginUser.nickname}님만을 위한 취향 저격추천 영화</h1>
         </c:when>
     </c:choose>
     <hr>
-    <br>
-<%--
-    <section>
+
+    <section id="random-base-section">
         <h3 id="randomBaseTitle"></h3>
         <div id="randomBaseCarousel" class="list-container">
             <div class="control-container">
@@ -64,18 +63,14 @@
                 </div>
             </div>
             <div class="items" id="random-base-items">
-                <!--
-                    <div class="item" onclick="toDetail('${list1.id}')">
-                        <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}" />
-                            <span class="item-title">${list1.title}</span>
-                        <div class="item-description opacity-none">개봉일 : ${list1.releaseDate}<br>런타임 : ${list1.runtime}분<br>네티즌 평점 : ${list1.voteAverage}</div>
-                    </div>
-                -->
+
             </div>
         </div>
     </section>
---%>
-    
+    <br>
+    <hr>
+    <h2>MD 추천 영화</h2>
+    <hr>
     <section>
         <h3>${listName1}</h3>
         <div id="carousel1" class="list-container">
@@ -90,16 +85,14 @@
             <div class="items" id="carousel-items">
                 <c:forEach items="${list1}" var="list1">
                     <div class="item" onclick="toDetail('${list1.id}')">
-                        <img class="item-image" src=
                         <c:choose>
                             <c:when test = "${not empty list1.posterPath}">
-                                "https://image.tmdb.org/t/p/w500${list1.posterPath}"
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}"/>
                             </c:when>
                             <c:otherwise>
-                                "/img/default-movie-img.png"
+                                <img class="item-image" src="/img/default-movie-img.png"/>
                             </c:otherwise>
                         </c:choose>
-                        />
                             <span class="item-title">${list1.title}</span>
                         <div class="item-description opacity-none">개봉일 : ${list1.releaseDate}<br>런타임 : ${list1.runtime}분<br>네티즌 평점 : ${list1.voteAverage}</div>
                     </div>
@@ -108,8 +101,6 @@
         </div>
     </section>
     <hr>
-    
-    
     <section>
         <h3>${listName2}</h3>
         <div id="carousel2" class="list-container">
@@ -124,16 +115,14 @@
             <div class="items" id="carousel-items">
                 <c:forEach items="${list2}" var="list2">
                     <div class="item" onclick="toDetail('${list2.id}')">
-                        <img class="item-image" src=
                         <c:choose>
                             <c:when test = "${not empty list2.posterPath}">
-                                "https://image.tmdb.org/t/p/w500${list2.posterPath}"
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}"/>
                             </c:when>
                             <c:otherwise>
-                                "/img/default-movie-img.png"
+                                <img class="item-image" src="/img/default-movie-img.png"/>
                             </c:otherwise>
                         </c:choose>
-                        />
                             <span class="item-title">${list2.title}</span>
                         <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
                     </div>
