@@ -13,10 +13,9 @@ function getSimilarBaseFavList(){
             $randomBaseSection.html('').hide();
         },
         success: function(data) {
-            var print = '';
-            if (data.smlrList == null) {
+            if (jQuery.isEmptyObject(data)) {
                 print = '<p>취향 분석을 위해 회원 정보를 수정해 주십시오.</p>';
-            } else {
+            }  else {
                 print = makeHtml(data);
             }
             $randomBaseItems.html(print);

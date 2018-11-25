@@ -28,7 +28,7 @@
     </delete>
     
     <select id="getOneFav" resultType="int" parameterType="int">
-        SELECT mvno
+        SELECT IFNULL(mvno, 0)
         FROM mv_mv_anly 
         WHERE 
             mno=#{mno}

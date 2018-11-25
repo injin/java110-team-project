@@ -3,6 +3,7 @@ package bitcamp.java110.cms.web.recommendMovie;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,14 +90,21 @@ public class RecommendMvController {
     
     System.out.println("smlrList REQUEST START");
     
-    int triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
-    MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
-    
+    int triggerMvId;
     Map<String, Object> returnValue= new HashMap<>();
-    returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
-    returnValue.put("smlrList", smlrList.getResults());
-    
-    System.out.println("\nsmlr REQUEST COMPLETE\n");
-    return returnValue;
+    try {
+      triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
+      MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      
+      returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
+      returnValue.put("smlrList", smlrList.getResults());
+      
+      System.out.println("\nsmlr REQUEST COMPLETE\n");
+      return returnValue;
+    }   catch (Exception e) {
+      returnValue = new HashMap<>();
+      System.out.println("\nsmlr REQUEST return null\n");
+      return returnValue;
+    }
   }
 }
