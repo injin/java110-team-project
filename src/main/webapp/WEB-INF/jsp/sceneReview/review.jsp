@@ -14,6 +14,7 @@
 <style>
 .cmt-date {
     color: #ccc;
+    font-size: 0.9em;
 }
 
 </style>
@@ -57,18 +58,15 @@
         </div>
     </div>
     
-    <c:if test="${sceneReview.time eq null}">
-        <div class="row mt-3 ml-1">
-            <div class="col-9 col-md-12">
+    <div class="row mt-3 ml-1">
+        <c:if test="${sceneReview.time eq null}">
+            <div class="col-lg-9 col-md-12">
                 <div class="alert alert-secondary" role="alert">
                     <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                 </div>
             </div>
-        </div>
-    </c:if>
-    
-    <c:if test="${sceneReview.time ne null}">
-    <div class="row mt-3 ml-1">
+        </c:if>
+        <c:if test="${sceneReview.time ne null}">
         <div class="col-lg-9 col-md-12">
             <c:if  test="${sceneReview.trgtSrExist == true}">
                 <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
@@ -128,11 +126,9 @@
                 
                 <c:forEach items="${cmtList}" var="cmt">
                     <div class="media mt-2">
-                        <div>
-                            <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
-                        </div>
+                        <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
                         <div class="media-body">
-                            <p>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></p>
+                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
                             <p>${cmt.cont}</p>
                         </div>
                     </div>
@@ -145,13 +141,15 @@
                 </div>
             </c:if>
         </div>
+        </c:if>
+        
         <div class="col-lg-3 col-md-12">
             
             
             
         </div>
     </div>
-    </c:if>
+    
     
 <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
         data-target="#reportModal">신고하기</button>
@@ -178,6 +176,11 @@
      /* ===== 입력 모달 관련  ===== */
     var $modal = $('#srAddModal').modal({show : false});
     
+    var invalidTime = [];
+    <c:forEach items="${sceneList}" var="scene">
+        invalidTime.push('${scene.time}');
+    </c:forEach>
+    
     $('#srTimeSlider').on('input', function() {
         var sec_num = parseInt(this.value, 10);
         var hours   = Math.floor(sec_num / 3600);
@@ -188,7 +191,24 @@
         if (minutes < 10) {minutes = "0"+minutes;}
         if (seconds < 10) {seconds = "0"+seconds;}
         $('#time').val(hours+':'+minutes+':'+seconds);
+        
+        checkTimeValid();
     });
+    
+    // 장면 리뷰 시간 중복 체크
+    checkTimeValid();
+    $('#time').on('input', function(){
+        checkTimeValid();
+    });
+    
+    function checkTimeValid() {
+        var timeStr = $('#time').val();
+        if (invalidTime.includes(timeStr)) {
+            $('#time').removeClass('is-valid').addClass('is-invalid');
+        } else {
+            $('#time').removeClass('is-invalid').addClass('is-valid');
+        }
+    }
     
     function addSceneReview() {
         if (validateForm() == false)
@@ -203,6 +223,10 @@
         var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
         if (!(pattern.test(timeVal))) {
             alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
+            return false;
+        }
+        if ($('#srAddForm #time').hasClass('is-invalid')) {
+            alert('이미 등록된 시간입니다.');
             return false;
         }
         // 장면제목
