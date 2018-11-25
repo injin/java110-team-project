@@ -1,14 +1,20 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
-import javax.servlet.ServletContext;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 /**
  * @author Jeaha
@@ -37,13 +43,7 @@ import info.movito.themoviedbapi.TmdbMovies;
  * RecommendDao.xml
  * 
  * 
- * 화면 불러 오는 속도가 문제는 어떻게 해결 해야 할지?
- * fake page로 보낸뒤 분석중 돌리고 redirect
- *  
- * 회원 취향 테이블에서 random 영화 1개 similarMovies List 받아서 보여주기.
- * AJAX으로 가져오기?
- * AJAX 쓰면 Controller를 사용한다?
- * 같은 Controller에서 처리 할 수 있다?
+ * 취향 분석까지 들어가기엔 시간이 모자르니 simmilarList로 대체하고 시간이 남는다면 하자.
  * 
  */
 
@@ -51,9 +51,10 @@ import info.movito.themoviedbapi.TmdbMovies;
 @RequestMapping("/rcmd")
 public class RecommendMvController {
   
-  @Autowired ServletContext sc;
   @Autowired TmdbMovies tmdbMovies;
   @Autowired RecommendService rcmdService;
+  @Autowired MovieAnlyDao anlyDao;
+  @Autowired MovieDao mvDao;
   
   public RecommendMvController(RecommendService rcmdService) {
     super();
@@ -61,8 +62,8 @@ public class RecommendMvController {
   }
   
   @RequestMapping("anly")
-  public String waiting(HttpSession session) {
-    session.getAttribute("loginUser");
+  public String waiting() {
+    System.out.println("list 진입 시도");
     return "/recommend/anly";
   }
   
@@ -70,8 +71,7 @@ public class RecommendMvController {
   public String list (Model model,
       HttpSession session) {
     
-    Member m = (Member) session.getAttribute("loginUser");
-    System.out.println("loginUser.mno = " + m.getMno());
+    System.out.println("LIST REQUEST START");
     
     int[] n = rcmdService.RandomNums(rcmdService.getCount());
     System.out.println("[" + n[0] + ", " + n[1] + "]");
@@ -79,10 +79,24 @@ public class RecommendMvController {
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
     model.addAttribute("list2", rcmdService.getList(n[1]));
-//    model.addAttribute("listName3", rcmdService.getListName(n[2]));
-//    model.addAttribute("list3", rcmdService.getList(n[2]));
     System.out.println("\nREQUEST COMPLETE\n");
     return "/recommend/list";
   }
   
+  @RequestMapping(value="/smlrList")
+  public @ResponseBody Map<String, Object> smlrListById (
+      HttpSession session) throws Exception {
+    
+    System.out.println("smlrList REQUEST START");
+    
+    int triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
+    MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+    
+    Map<String, Object> returnValue= new HashMap<>();
+    returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
+    returnValue.put("smlrList", smlrList.getResults());
+    
+    System.out.println("\nsmlr REQUEST COMPLETE\n");
+    return returnValue;
+  }
 }
