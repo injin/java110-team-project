@@ -90,7 +90,7 @@
                INNER JOIN mv_memb mb
                ON cmt.mno = mb.mno
          WHERE cmt.srno = #{value}
-         ORDER BY cdt, mdt ASC
+         ORDER BY cdt DESC
     </select>
     
     <update id="signOut" parameterType="int">

@@ -40,6 +40,12 @@ main.borderGray {
   height: 3em;
   border-radius: 100%;
 }
+.profile-medium2 {
+  display: inline-block;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 100%;
+}
 
 /*==== top 버튼 ==== */
 .return-top{

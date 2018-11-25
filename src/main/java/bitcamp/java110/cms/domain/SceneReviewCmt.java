@@ -1,6 +1,6 @@
 package bitcamp.java110.cms.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SceneReviewCmt {
   
