@@ -12,7 +12,9 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-
+.cmt-date {
+    color: #ccc;
+}
 
 </style>
 </head>
@@ -125,7 +127,15 @@
                 
                 
                 <c:forEach items="${cmtList}" var="cmt">
-                    
+                    <div class="media mt-2">
+                        <div>
+                            <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
+                        </div>
+                        <div class="media-body">
+                            <p>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></p>
+                            <p>${cmt.cont}</p>
+                        </div>
+                    </div>
                 </c:forEach>
                 
             </c:if>
