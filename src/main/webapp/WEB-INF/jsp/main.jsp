@@ -23,16 +23,13 @@ height: 24em;
 <body>
     <jsp:include page="include/header.jsp"></jsp:include>
     <main role="main" class="container borderGray">
-        <div class="masthead block-wide text-white text-center">
+        <div class="masthead block-wide text-white text-center" style="height:450px;">
           <div class="overlay"></div>
           <div class="container">
             <div class="row">
               <div class="col-xl-9 mx-auto">
                 <h1 class="mb-5">Connect to Moviestagram</h1>
-                    <h5 class="mb-5">Discover, stream, and share a constantly expanding mix of music
-                    from emerging and major artists around the world</h5><br>
-                    <h4>너흰 아직 준비가 안됬따!!!!</h4>
-                
+                <h5 class="mb-5">Discover, and share a constantly expanding Movie around the world</h5>
               </div>
               <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                     
