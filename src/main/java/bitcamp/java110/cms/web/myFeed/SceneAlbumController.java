@@ -88,5 +88,14 @@ public class SceneAlbumController {
     return "redirect:list";
   }
   
+  @RequestMapping("/detail")
+  public String detail(
+      SceneAlbum sceneAlbum
+      ) {
+    System.out.println("detail Title :" + sceneAlbum.getLbmTitle());
+    //System.out.println(sceneAlbum);
+    return "sceneAlbum/detailAlbum";
+  }
+  
  
 }

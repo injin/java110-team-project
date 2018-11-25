@@ -65,8 +65,6 @@
             </div>
         </div>
     </div>
-    <jsp:include page="../sceneAlbum/sceneAlbumList.jsp"></jsp:include>
-    <jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include> 
     </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
@@ -75,16 +73,6 @@
     <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/common.js"></script>
-
-    <script>
-    function albumDetail(lbmTitle){
-    	//alert(lbmTitle);
-    	console.log(lbmTitle);
-    	$('#detailForm input[name="lbmTitle"]').val(lbmTitle);
-    	$('#detailForm').submit();
-    	
-    }    
-    </script>
 
 
 </body>

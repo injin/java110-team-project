@@ -31,9 +31,11 @@
 			<div class="row albumList col-lg-9">
 				<c:forEach items="${sceneAlbumList}" var="album">
 					<!-- begin="0" end="5" -->
-					<!-- 앨범 하 -->
-					<div class="row" style="margin: 0;">
-						<div class="album">
+					<!-- 앨범 하나 -->
+					<form action="detail" method="get" id="detailForm">
+					<input type="hidden" name="lbmTitle">
+					<div class="row"style="margin: 0;">
+						<div class="album"  onclick="albumDetail('${album.lbmTitle}')" >
 							<img src="/img/default.jpg">
 							<c:choose>
 								<c:when test="${album.open == 'true'}">
@@ -56,6 +58,7 @@
 								style="float: left; clear: both;">${album.cdt}</span>
 						</div>
 					</div>
+					</form>
 				</c:forEach>
 				<!-- 페이징버튼 -->
 
