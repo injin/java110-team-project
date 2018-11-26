@@ -50,16 +50,14 @@
 }
 </style>
 </head>
-<!-- http://localhost:8888/app/auth/detail
-        회원 가입시 정보 최초 수정시에만 쓸 페이지, 회원 정보 수정에서 다시 쓸수 있을지 미지수 
-    -->
+<!-- http://localhost:8888/app/auth/detail -->
 <body class="borderGray bgGray">
   <jsp:include page="../include/header.jsp"></jsp:include>
   
   <main role="main" class="container">
   <div id="detail">
   
-    <form action="add" method="post" id="detailForm"
+    <form action="init" method="post" id="detailForm"
       enctype="multipart/form-data">
       <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
       <input type="hidden" name="profileImage"
@@ -107,9 +105,7 @@
       <div class="gr_anly">
         <div class="btn-group-toggle" data-toggle="buttons">
           <c:forEach items="${genreList}" var="genre">
-            <label class="btn btn-checkbox btn-secondary"> <input
-              type="checkbox" name="favGrList" value="${genre.grno}">${genre.grName}
-            </label>
+            <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}"></label>
           </c:forEach>
         </div>
       </div>
@@ -351,11 +347,4 @@
   }
   </script>
 </body>
-<form action="signOut" method="post">
-  <input type="hidden" name="mno" value="${member.mno}">
-  <button type="submit" class="btn" onclick="bye()">!!Caution!!
-    Nuclear Launch!!</button>
-</form>
-
-
 </html>

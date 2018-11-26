@@ -25,19 +25,3 @@
     </select>
     
 </mapper>
-
-
-
-
-
-
-
-<!-- 
-select thm.thm, mv.mvno, mv.titl
-from mv_rcmd rcmd
-INNER JOIN mv_mv mv
-ON rcmd.mvno = mv.mvno
-INNER JOIN mv_thm thm
-ON rcmd.thmno = thm.thmno
-WHERE thm.thmno = 1
--->

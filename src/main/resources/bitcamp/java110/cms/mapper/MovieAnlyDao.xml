@@ -35,5 +35,9 @@
         AND RAND()
         LIMIT 1
     </select>
+    
+    <select id="getFavMvList" resultType="list" parameterType="int">
+        <!-- 가입시 최초등록을 하지 않았다면 추후에 등록 할 수 없게 하는것이 나을지도.. -->
+    </select>
         
 </mapper>

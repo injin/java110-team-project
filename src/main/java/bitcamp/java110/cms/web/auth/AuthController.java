@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.domain.Genre;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.service.AuthService;
@@ -103,7 +104,7 @@ public class AuthController {
       return "/auth/detail";
     }
     
-    @PostMapping("/add")
+    @PostMapping("/init")
     public String add(
         Member member,
         MultipartFile profileImageFile,
@@ -147,6 +148,74 @@ public class AuthController {
           }
           member.setFavMvList(favMvList);
         }
+      }
+      
+      session.setAttribute("loginUser", member);
+      System.out.println("Controller Send Member To Service");
+      memberService.update(member);
+      return "redirect:/app/";
+    }
+    
+    @RequestMapping("/update")
+    public String detailUpdate(
+        Model model,
+        HttpSession session) {
+      
+      model.addAttribute("member", 
+          (Member)session.getAttribute("loginUser"));
+      
+      List<Genre> gnrList = genreService.getList();
+      List<Integer> favList = memberService.getFavGnrList(((Member)session.getAttribute("loginUser")).getMno());
+      List<Genre> favGnrList = new ArrayList<Genre>();
+      
+      for (int j : favList) {
+        for (Genre g : gnrList) {
+          if(g.getGrno() == j) {
+            gnrList.remove(g);
+            favGnrList.add(g);
+            break;
+          }
+        }
+      }
+      model.addAttribute("genreList", gnrList);
+      model.addAttribute("favList", favGnrList);
+      
+      
+      return "/auth/detailUpdate";
+    }
+    
+    @PostMapping("/updateInfo")
+    public String update(
+        Member member,
+        MultipartFile profileImageFile,
+        MultipartFile coverImage,
+        @RequestParam(name="favGrList", required=false)
+                List<Integer> favGrList,
+        @RequestParam(name="favMvIdList", required=false)
+                List<Integer> favMvIdList,
+        @RequestParam(name="favMvTitleList", required=false)
+                List<String> favMvTitleList,
+        HttpSession session) throws Exception {
+      System.out.println("Controller Start Add Member");
+      //    profileImage Control
+      if (profileImageFile != null && profileImageFile.getSize() > 0) {
+        String profileImg = UUID.randomUUID().toString();
+        profileImageFile.transferTo(new File(
+            sc.getRealPath("/upload/profile/" + profileImg)));
+        member.setProfileImage(profileImg);
+      }
+      
+      //    coverImage Control
+      if (coverImage != null && coverImage.getSize() > 0) {
+        String coverImg = UUID.randomUUID().toString();
+        coverImage.transferTo(new File(
+            sc.getRealPath("/upload/cover/" + coverImg)));
+        member.setCoverImage(coverImg);
+      }
+      
+      //    favGenreList Control
+      if (favGrList != null && favGrList.size() > 0) {
+        member.setFavGrList(favGrList);
       }
       
       session.setAttribute("loginUser", member);
