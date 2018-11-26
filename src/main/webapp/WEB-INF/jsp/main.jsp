@@ -11,16 +11,16 @@
 
 <style>
 .card-hot-sr {
-height: 24em;
+    max-height: 20em;
 }
 .card-hot-sr .img-sr {
     height: 10em;
 }
 .hot-sr-img{
-   height:10em;
+    height:10em;
 }
 .hot-sr{
-   height:5em;
+    height:5em;
 }
 
 </style>
@@ -54,8 +54,8 @@ height: 24em;
             <c:forEach var="top" items="${topSrList}">
                 <div class="col-3 mb-3">
                     <div class="card" >
-                        <img class="card-img-top hot-sr-img" src="/upload/sceneReview/${top.photo}"
-                            alt="Card image cap">
+                        <a href="/app/sceneReview/review?mvno=${top.mvno}&srno=${top.srno}">
+                            <img class="card-img-top hot-sr-img" src="/upload/sceneReview/${top.photo}" alt="Card image cap"></a>
                         <div class="card-body hot-sr">
                             <h6 class="card-title">
                                 <c:set var="Text" value="${top.title}"/>
