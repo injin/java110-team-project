@@ -37,10 +37,13 @@ public class MainController {
   @RequestMapping("/")
   public String main(Model model) {
     
+    
+    List<Post> topMpList = postService.listTopMp();
     List<SceneReview> topSrList = sceneReviewService.listTopSr();
-    System.out.println("hot장면리뷰 목록" + topSrList.toString());
-    System.out.println("사이즈" + topSrList.size());
+    System.out.println("hot영화리뷰 목록"+ topMpList.toString());
+    System.out.println("핫영화리뷰사이즈" + topMpList.size());
     model.addAttribute("topSrList", topSrList);
+    model.addAttribute("topMpList", topMpList);
     
     return "main";
     

@@ -16,12 +16,15 @@ public class Post {
   protected int likeCnt;
   protected int star;
   protected boolean open;
+  
 
   protected Member member;
   protected List<String> photos;
   protected List<String> htags;
   protected List<Member> ftags;
   protected String ftagsForAdd;
+  
+  
   
   
   public String getFtagsForAdd() {
@@ -128,4 +131,5 @@ public class Post {
         + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
         + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
+  
 }
