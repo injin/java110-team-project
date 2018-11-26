@@ -50,6 +50,7 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
 
   }
 
+  
   @Override
   public List<SceneAlbum> list() {
     
@@ -66,6 +67,10 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     return lists;
   }
 
+  @Override
+  public int getTotalCnt(int mno) {
+    return sceneAlbumDao.getTotalCnt(mno);
+  }
   @Override
   public SceneAlbum get(int no) {
     return null;

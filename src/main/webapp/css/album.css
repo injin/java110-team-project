@@ -16,10 +16,12 @@
 }
 .titl{
 	font-weight: bold;
+	position: relative;
 }
-.titl h4{
-	display: inline;
-}
+/* .btn{
+	position: relative;
+	float: right;
+} */
 
 /* 페이징 */
 .paginate{
