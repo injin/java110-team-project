@@ -16,6 +16,9 @@
     color: #ccc;
     font-size: 0.9em;
 }
+.cmt-img {
+    max-width: 35em;
+}
 
 </style>
 </head>
@@ -80,7 +83,7 @@
                 </c:choose>
                 
                 <c:if test="${not empty sessionScope.loginUser}">
-                    <form id="addCommentForm" action="addComment" method="post">
+                    <form id="addCommentForm" action="addComment" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
                     <input type="hidden" name="map.lat">
                     <input type="hidden" name="map.lng">
@@ -123,16 +126,19 @@
                 
                 
                 <c:forEach items="${cmtList}" var="cmt">
-                    <div class="media mt-2">
+                    <div class="media mt-3">
                         <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
                         <div class="media-body">
                             <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
-                            <p>${cmt.cont}
+                            <p class="mb-0">${cmt.cont}
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <br><a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
                                     <i class="fas fa-map-marker-alt"></i> ${cmt.map.mapName}</a>
                             </c:if>
                             </p>
+                            <c:if test="${cmt.photo ne null}">
+                                <img src="/upload/sceneReview/${cmt.photo}" class="rounded cmt-img" alt="댓글 이미지">
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>
