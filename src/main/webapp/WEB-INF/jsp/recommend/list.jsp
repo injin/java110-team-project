@@ -87,10 +87,10 @@
                     <div class="item" onclick="toDetail('${list1.id}')">
                         <c:choose>
                             <c:when test = "${not empty list1.posterPath}">
-                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}"/>
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}" alt="${list1.title}"/>
                             </c:when>
                             <c:otherwise>
-                                <img class="item-image" src="/img/default-movie-img.png"/>
+                                <img class="item-image" src="/img/default-movie-img.png" alt="${list1.title}"/>
                             </c:otherwise>
                         </c:choose>
                             <span class="item-title">${list1.title}</span>
@@ -117,10 +117,10 @@
                     <div class="item" onclick="toDetail('${list2.id}')">
                         <c:choose>
                             <c:when test = "${not empty list2.posterPath}">
-                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}"/>
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" alt="${list2.title}"/>
                             </c:when>
                             <c:otherwise>
-                                <img class="item-image" src="/img/default-movie-img.png"/>
+                                <img class="item-image" src="/img/default-movie-img.png" alt="${list1.title}"/>
                             </c:otherwise>
                         </c:choose>
                             <span class="item-title">${list2.title}</span>

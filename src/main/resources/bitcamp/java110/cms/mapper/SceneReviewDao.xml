@@ -102,7 +102,7 @@
     </select>
     
     <select id="listTopSr" resultMap="srMap">
-        SELECT srno, titl, time, phot, count(pstno)as cnt
+        SELECT srno, mvno, titl, time, phot, count(pstno)as cnt
           FROM mv_like ml,mv_sr ms 
          WHERE ml.pstno=ms.srno
            AND ml.type = 'sr'
