@@ -42,7 +42,7 @@ public class SceneReviewCmt {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont;
+    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
   }
   public Date getCreatedDate() {
     return createdDate;

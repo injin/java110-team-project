@@ -6,7 +6,8 @@
 
 
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-lg" role="document" id="rModal">
+	<div class="modal-dialog modal-lg" role="document" id="rModal"
+		style="max-width: 70rem;">
 		<div class="modal-content">
 
 			<div class="modal-header">
@@ -31,7 +32,7 @@
 
 
 				<%-- 왼쪽 col,사진부분 --%>
-				<div class="col">
+				<div class="col-8">
 
 					<div id="carouselExampleIndicators" class="carousel slide"
 						data-ride="carousel">
@@ -68,7 +69,7 @@
 				</div>
 
 				<%-- 오른쪽 col --%>
-				<div class="col">
+				<div class="col-4">
 
 					<div class="media row" style="padding: 0 1rem">
 						<img src="/img/default-profile-img.png"
@@ -130,88 +131,118 @@
 
 
 
-					<div class="row col">
-						<div class="comment-main rounded m-0">
-							<ul class="p-0" >
-								<li>
-									<div class="row comment-box p-1 pt-3 pr-4">
-										<div class="col-lg-2 col-3 user-img text-center">
-											<img src="/img/default-profile-img.png" class="main-cmt-img">
-										</div>
-										<div
-											class="col-lg-10 col-9 user-comment bg-light rounded pb-1">
-											<div class="row">
-												<div class="col-lg-8 col-6 border-bottom pr-0">
-													<p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet.</p>
-												</div>
-												<div class="col-lg-4 col-6 border-bottom">
-													<p class="w-100 p-2 m-0">
-														<span class="float-right"><i
-															class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="row comment-box p-1 pt-3 pr-4">
-										<div class="col-lg-2 col-3 user-img text-center">
-											<img src="/img/default-profile-img.png" class="main-cmt-img">
-										</div>
-										<div
-											class="col-lg-10 col-9 user-comment bg-light rounded pb-1">
-											<div class="row">
-												<div class="col-lg-8 col-6 border-bottom pr-0">
-													<p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.</p>
-												</div>
-												<div class="col-lg-4 col-6 border-bottom">
-													<p class="w-100 p-2 m-0">
-														<span class="float-right"><i
-															class="fa fa-clock-o mr-1" aria-hidden="true"></i>01 : 00</span>
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</li>
-								</div>
-							</ul>
-						
-                                <div class="row">
-                                    <div class="col-lg-10 col-10">
-                                        <input type="text" class="form-control"
-                                            placeholder="write comments ...">
-                                    </div>
-                                    <div class="col-lg-2 col-2 send-icon">
-                                        <a href="http://nicesnippets.com/" target="_blank"><i
-                                            class="fa fa-paper-plane" aria-hidden="true"></i></a>
-                                    </div>
+					<div class="row col" style="margin: 0; padding: 0;">
+					<%-- 댓글 작성란 --%>
+                        <div class="card mb-2">
+                            <div class="media" style="padding: .5rem;">
+                                <div>
+                                    <img class="mr-2 profile-medium"
+                                        src="/img/default-profile-img"
+                                        alt="Generic placeholder image">
+                                    <div>닉네임</div>
                                 </div>
+                                <div class="media-body text-right" >
+                                    <textarea class="form-control" name="cont"
+                                        placeholder="Write a comment"></textarea>
+                                </div>
+                                <button type="button" class="btn btn-dark mt-2"
+                                        onclick="addCmt()" style="height: 3rem;padding: 0 .5rem;">
+                                        <i class="fas fa-paper-plane"></i> 등록
+                                    </button>
+                            </div>
+                        </div>
+                        
+                        <%-- 댓글리스트 --%>
+						<div class="comment-main rounded m-0">
+						
+							<ul class="p-0">
+								<li>
+									<div class="row comment-box p-1 pt-3 pr-4">
+										<div class="col-3 user-img text-center">
+											<img src="/img/default-profile-img.png" class="main-cmt-img">
+											<label >닉네임</label>
+										</div>
+										<div class="col-9 user-comment bg-light rounded">
+													<p class="w-100 p-2 m-0">Lorem ipsum dolor sit
+														amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit
+														amet.Lorem ipsum dolor sit amet.</p>
+													<p class="w-100 p-2 m-0">
+														<span class="float-right">
+														<i class="fa fa-clock mr-1" aria-hidden="true"></i>
+														01 : 00</span>
+													</p>
+										</div>
+									</div>
+								</li>
+								<li>
+                                    <div class="row comment-box p-1 pt-3 pr-4">
+                                        <div class="col-3 user-img text-center">
+                                            <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                            <label >닉네임</label>
+                                        </div>
+                                        <div class="col-9 user-comment bg-light rounded">
+                                                    <p class="w-100 p-2 m-0">Lorem ipsum dolor sit
+                                                        amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit
+                                                        amet.Lorem ipsum dolor sit amet.</p>
+                                                    <p class="w-100 p-2 m-0">
+                                                        <span class="float-right">
+                                                        <i class="fa fa-clock mr-1" aria-hidden="true"></i>
+                                                        01 : 00</span>
+                                                    </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row comment-box p-1 pt-3 pr-4">
+                                        <div class="col-3 user-img text-center">
+                                            <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                            <label >닉네임</label>
+                                        </div>
+                                        <div class="col-9 user-comment bg-light rounded">
+                                                    <p class="w-100 p-2 m-0">Lorem ipsum dolor sit
+                                                        amet.Lorem ipsum dolor sit amet.Lorem ipsum dolor sit
+                                                        amet.Lorem ipsum dolor sit amet.</p>
+                                                    <p class="w-100 p-2 m-0">
+                                                        <span class="float-right">
+                                                        <i class="fa fa-clock mr-1" aria-hidden="true"></i>
+                                                        01 : 00</span>
+                                                    </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="row comment-box p-1 pt-3 pr-4">
+                                        <div class="col-3 user-img text-center">
+                                            <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                            <label >닉네임</label>
+                                        </div>
+                                        <div class="col-9 user-comment bg-light rounded">
+                                                    <p class="w-100 p-2 m-0">Lorem ipsum dolor sit
+                                                        amet.Lorem ipsum dolor sit amet.</p>
+                                                    <p class="w-100 p-2 m-0">
+                                                        <span class="float-right">
+                                                        <i class="fa fa-clock mr-1" aria-hidden="true"></i>
+                                                        01 : 00</span>
+                                                    </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                
+						
+						</ul>
+                        </div>
+
+
 					</div>
-					</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 				</div>
-				<!-- modal-body -->
+
 
 			</div>
-
-
+			<!-- modal-body -->
 
 		</div>
+
+
+
 	</div>
+</div>

@@ -62,6 +62,14 @@
          LIMIT 1
     </select>
     
+    <select id="findOne" resultType="int" parameterType="int">
+        SELECT srno
+          FROM mv_sr
+         WHERE mvno = #{value}
+         ORDER BY time ASC
+         LIMIT 1
+    </select>
+    
     <select id="findByTime" resultMap="srMap" parameterType="map">
         SELECT srno, mvno, mno, titl, time, phot, cont, spo
           FROM mv_sr
@@ -91,6 +99,17 @@
                ON cmt.mno = mb.mno
          WHERE cmt.srno = #{value}
          ORDER BY cdt DESC
+    </select>
+    
+    <select id="listTopSr" resultMap="srMap">
+        SELECT srno, titl, time, phot, count(pstno)as cnt
+          FROM mv_like ml,mv_sr ms 
+         WHERE ml.pstno=ms.srno
+           AND ml.type = 'sr'
+         GROUP BY pstno 
+        HAVING count(pstno)>0 
+         ORDER by cnt DESC
+         LIMIT 8
     </select>
     
     <update id="signOut" parameterType="int">
