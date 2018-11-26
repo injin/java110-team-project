@@ -6,20 +6,6 @@
 <section>
 	<div class="row mbr-justify-content-center">
 		<div class="col-lg-12 mbr-col-md-12">
-			<!--             <div class="col-lg-3 mbr-col-md-3 profile"></div>
-            <div class="col-lg-9 wrap content"></div>
-            <div class="col-lg-9 content tab"></div>
- -->
-			<!-- 틀잡기 -->
-
-			<!-- 버튼 -->
-
-			<!-- 			<div class="col text-center pst"
-                                onclick="document.getElementById('btnIlsang').click();">
-                                앨범만들기<input type="hidden"
-                                    data-toggle="modal" data-target="#albumModal" />id="btnIlsang" 
-                            </div>
- -->
 
 			<div class="a_btn btn btn-success btn-lg"
 				onclick="document.getElementById('btnAlbum').click();">
@@ -32,10 +18,10 @@
 				<c:forEach items="${sceneAlbumList}" var="album">
 					<!-- begin="0" end="5" -->
 					<!-- 앨범 하나 -->
-					<form action="detail" method="get" id="detailForm">
-					<input type="hidden" name="lbmTitle">
-					<div class="row"style="margin: 0;">
-						<div class="album"  onclick="albumDetail('${album.lbmTitle}')" >
+
+					<div class="row" style="margin: 0;">
+						<div class="album" onclick="albumDetail('${album.lbmTitle}')"
+						  style="cursor: pointer;">
 							<img src="/img/default.jpg">
 							<c:choose>
 								<c:when test="${album.open == 'true'}">
@@ -58,8 +44,10 @@
 								style="float: left; clear: both;">${album.cdt}</span>
 						</div>
 					</div>
-					</form>
 				</c:forEach>
+				<form action="detail" method="get" id="detailForm">
+					<input type="hidden" name="lbmTitle">
+				</form>
 				<!-- 페이징버튼 -->
 
 				<jsp:include page="paging.jsp" flush="true">
@@ -71,7 +59,7 @@
 					<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
 					<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 				</jsp:include>
-				<form id="listForm" action="list" method="post">
+				<form class="listForm" action="list" method="post">
 					<input type="hidden" name="pageNo">
 				</form>
 

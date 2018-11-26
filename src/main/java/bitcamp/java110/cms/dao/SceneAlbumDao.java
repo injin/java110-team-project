@@ -7,6 +7,7 @@ public interface SceneAlbumDao {
 
   int insert(SceneAlbum sceneAlbum);
   List<SceneAlbum> findAll();
+  List<SceneAlbum> findByPageNo(int pageNo);
   SceneAlbum findByNo(int no);
   int delete(int no);
   void signOut1(int mno);

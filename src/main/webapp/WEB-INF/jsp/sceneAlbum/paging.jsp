@@ -14,7 +14,7 @@
 					            <c:choose>
 					                <c:when test="${i eq param.pageNo}">
 					                    <li class="page-item">
-					                    <a class="page-link" href="javascript:goPage(${i})" class="choice">${i}</a>
+					                    <a class="page-link selected" href="javascript:goPage(${i})" >${i}</a>
 					                    </li>
 					                </c:when>
 					                <c:otherwise>
@@ -37,8 +37,8 @@
 <script>
 function goPage(pageNo){
     
-    $('#listForm input[name="pageNo"]').val(pageNo);
-    $('#listForm').submit();
+    $('.listForm input[name="pageNo"]').val(pageNo);
+    $('.listForm').submit();
     
 }
 </script>

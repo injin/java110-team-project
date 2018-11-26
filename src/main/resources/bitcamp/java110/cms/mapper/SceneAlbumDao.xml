@@ -42,6 +42,24 @@
             cdt desc;
     </select>
     
+    <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="int">
+        select
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn   
+        from mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            where l.mno = 1
+        order by
+            cdt desc
+        limit #{start}, 6;
+    </select>
+    
+    
     <delete id="delete" parameterType="int">
     </delete>
     

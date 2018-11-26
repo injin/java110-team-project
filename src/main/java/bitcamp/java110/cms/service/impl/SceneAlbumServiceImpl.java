@@ -57,6 +57,14 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     
     return lists;
   }
+  
+  @Override
+  public List<SceneAlbum> pageList(int pageNo) {
+    
+    List<SceneAlbum> lists = sceneAlbumDao.findByPageNo(pageNo);
+    
+    return lists;
+  }
 
   @Override
   public SceneAlbum get(int no) {
