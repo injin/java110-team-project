@@ -31,11 +31,8 @@
 	text-align: center;
 }
 
-/* ---------------*/
-.container-size {
-	margin-left: 200px;
-	margin-right: 200px;
-}
+
+
 </style>
 
 <script
@@ -47,7 +44,7 @@
 
 	<main role="main" class="container">
 
-	<div class="container mt-1">
+	<div class="container">
 		<div class="row flex-xl-nowarp">
 			<div class="col-12 col-md-3 col-xl-3">
 				<form action="flwlist" method="post" enctype="multipart/form-data">
@@ -62,9 +59,10 @@
 			</div>
 			<!-- main 태그 말고 다른 태그로 !  -->
 			<div class="col-12 col-md-9 col-xl-8">
-				<img style="width: 820px; height: 420px;"
+				<img style="width: 52.1rem; height: 420px;"
 					src="${loginUser.coverImagePath}">
-				<table class="table" style="width: 820px;">
+				<table class="table" style="width: 52.1rem; border-right:1px solid silver; 
+				      border-left:1px solid silver;margin-bottom: 0px;">
 					<thead>
 						<tr>
 							<th scope="col" class="th-fix">나의 피드</th>
@@ -76,7 +74,7 @@
 						</tr>
 					</thead>
 				</table>
-				<div class="row ml-1" style="width: 820px;"></div>
+				<div class="row ml-1" style="width: 52.1rem;"></div>
 			</div>
 		</div>
 	</div>
