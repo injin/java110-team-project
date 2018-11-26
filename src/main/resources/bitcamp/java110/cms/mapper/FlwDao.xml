@@ -18,7 +18,7 @@
 	</resultMap>
 
 
-	<select id="flwlist" resultMap="flwMap" parameterType="int">
+	<select id="flwlist" resultMap="flwMap" parameterType="map">
         select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
         from mv_memb m1,
         mv_memb m2 ,
@@ -26,8 +26,9 @@
         where m1.mno != m2.mno
         and m1.mno = f.mno
         and m2.mno = f.flw
-        and m1.mno = #{value}
+        and m1.mno = #{mno}
         ORDER by m1.mno , m2.mno
+        limit #{pageNo} , #{pageSize}
     </select>
     
    <delete id="flwdelete"  parameterType="map" >
@@ -45,7 +46,7 @@
         value (#{pstno} , #{flwno}) 
     </insert>
    
-    <select id="listForPost" resultMap="flwMap" parameterType="int">
+    <select id="listForPost" resultMap="flwMap" >
         SELECT 
             flwno as mno,
             nick 
@@ -72,9 +73,16 @@
            mno=#{mno}
     </delete>
    
-	<insert id="addFlw" parameterType="int" keyColumn="mno"> insert mv_flw 
-		(mno, flw) value (#{value} , #{flw}) </insert>
-
-	
- 
+   
+    <select id="getTotalCount" resultType="int" parameterType="int" >
+        select count(*)
+        from mv_memb m1,
+        mv_memb m2 ,
+        mv_flw f
+        where m1.mno != m2.mno
+        and m1.mno = f.mno
+        and m2.mno = f.flw
+        and m1.mno = #{mno}
+    </select>
+  
 </mapper>

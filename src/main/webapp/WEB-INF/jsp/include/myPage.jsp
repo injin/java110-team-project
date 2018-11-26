@@ -52,7 +52,7 @@ text-align: center;
 			</div>
 			<main class="col-12 col-md-9 col-xl-8">
 		   <img style="width:820px; height : 420px;" src="${loginUser.coverImagePath}">
-	       <table class="table">
+	       <table class="table" style = "width : 820px;">
                 <thead>
                     <tr>
                         <th scope="col" class="th-fix">나의 피드</th>
@@ -82,7 +82,8 @@ text-align: center;
 	</form>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
-	<script type="text/javascript">
+	
+<script type="text/javascript">
 
 
 function addFlw(number){
