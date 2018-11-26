@@ -17,24 +17,23 @@ public class flwServiceImpl implements FlwService{
      
    @Override
     public List<Member> list(Map<String,Object> condition) {
-
         return flwDao.flwlist(condition);
-       
     }
 
+   @Override
+   public int getTotalCnt(int mno) {
+       return flwDao.getTotalCnt(mno);
+   }
 
     @Override
     public void delete(Map<String, Object> condition) {
-        
         flwDao.flwdelete(condition);
     }
     
     
     @Override
     public void add(Map<String, Object> condition) {
-       
         flwDao.flwadd(condition);
-        
     }
     
  

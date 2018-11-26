@@ -84,26 +84,24 @@
 				</c:forEach>
 				</div>
 				
-				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center ">
-						<c:if test="${flwpaging.prev}"><li class="page-item"><a class="page-link" href="${flwpaging.getStartPage()-1}"
-							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								<span class="sr-only">Previous</span>
-						</a></li></c:if>
-						<c:forEach begin="${flwpaging.getStartPage()}" end="${flwpaging.getEndPage()}" var="idx">
-						 <li class="page-item"><a class="page-link" href="javascript:page(${idx})">${idx}</a></li>
-						</c:forEach>
-						<c:if test="${flwpaging.next}"><li class="page-item"><a class="page-link" href="${flwpaging.getEndPage()-1}" aria-label="Next"> 
-						<span aria-hidden="true">&raquo;</span> 
-							<span class="sr-only">Next</span>
-						</a></li></c:if>
-					</ul>
-				</nav>
-			
+				<jsp:include page="flwpaging.jsp" flush="true">
+                    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+                    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+                    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+                    <jsp:param name="pageNo" value="${paging.pageNo}" />
+                    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+                    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+                    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+                </jsp:include>
+                <form id="listForm" action="flwlist" method="post">
+                    <input type="hidden" name="pageNo">
+                </form>
+               
 			</main>
 		</div>
 	</div>
-
+	
+	
 	<form action="flwdelete" id="deleteForm" method="post">
 		<input type="hidden" name="flw">
 	</form>
@@ -130,13 +128,12 @@ function removeFlw(number) {
     $('#deleteForm').submit();
 }
 
-function page(idx){
+ function goPage(pageNo){
     
-    var pageNo = idx;
-    var pageSize = 4;
-    location.href =
-        "http://localhost:8888/app/flw/flwlist?pageNo="+pageNo+"&pageSize="+10;
-}
+    $('#listForm input[name="pageNo"]').val(pageNo);
+    $('#listForm').submit();
+    
+} 
 
 </script>
 

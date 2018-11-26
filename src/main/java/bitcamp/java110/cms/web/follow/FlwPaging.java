@@ -1,123 +1,152 @@
 package bitcamp.java110.cms.web.follow;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 public class FlwPaging {
 
-    protected int totalcount;
-    protected int pageNo;
-    protected int pageSize;
-    protected int startPage =1;
-    protected int endPage=5;
-    protected boolean prev=false;
-    protected boolean next;
-    protected int currentblock=1;
-    protected int lastblock;
-    
-    public void prevnext(int pageNo) {
-        
-        if(pageNo>0 && pageNo<6) {
-            setPrev(false);
-            setNext(true);
-        }
-        else if(getLastblock() == getCurrentblock()){
-            setPrev(true);
-            setNext(false);
-        }
-        else {
-            setPrev(true);
-            setNext(true);
-        }
-    }
-    
-    public int calcpage(int totalcount, int pageSize) {
+  private int pageSize; // 게시 글 수
+  private int startRowNo; // 첫 번째 로우 번호(0부터 시작)
+  private int firstPageNo; // 첫 번째 페이지 번호
+  private int prevPageNo; // 이전 페이지 번호
+  private int startPageNo; // 시작 페이지 (페이징 네비 기준)
+  private int pageNo; // 페이지 번호
+  private int endPageNo; // 끝 페이지 (페이징 네비 기준)
+  private int nextPageNo; // 다음 페이지 번호
+  private int finalPageNo; // 마지막 페이지 번호
+  private int totalCount; // 게시 글 전체 수
 
-        int totalpage = totalcount/pageSize;
-        if(totalcount%pageSize>0) {
-            totalpage++;
-        }
-        return totalpage;
-    }
-    
-    public int getTotalcount() {
-        return totalcount;
-    }
-    public void setTotalcount(int totalcount) {
-        this.totalcount = totalcount;
-    }
-    public int getPageNo() {
-        return pageNo;
-    }
-    public void setPageNo(int pageNo) {
-        this.pageNo = pageNo;
-    }
-    public int getPageSize() {
-        return pageSize;
-    }
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-    public int getStartPage() {
-        return startPage;
-    }
-    public void setStartPage(int currentblock) {
-       
-        this.startPage = (currentblock*5)-4;
-    }
-    public int getEndPage() {
-        return endPage;
-    }
-    public void setEndPage(int getlastblock, int getcurrentblock) {
-        
-        if(getlastblock == getcurrentblock) {
-            this.endPage = calcpage(getTotalcount(), getPageSize());
-        }
-        else{
-            this.endPage = getStartPage()+4;
-        }
-    }
-    public boolean isPrev() {
-        return prev;
-    }
-    public void setPrev(boolean prev) {
-        this.prev = prev;
-    }
-    public boolean isNext() {
-        return next;
-    }
-    public void setNext(boolean next) {
-        this.next = next;
-    }
-    public int getCurrentblock() {
-        return currentblock;
-    }
-    public void setCurrentblock(int pageNo) {
-        this.currentblock = pageNo/5;
-        if(pageNo%5>=0) {
-            this.currentblock++;
-        }
-    }
-    public int getLastblock() {
-        return lastblock;
-    }
-    public void setLastblock(int totalcount) {
-        
-        this.lastblock = totalcount/(5*this.pageSize);
-        if(totalcount%(5*this.pageSize)>0) {
-            this.lastblock++;
-        }
-    }
-    
-    
-    
-    @Override
-    public String toString() {
-        return "FlwPaging [totalcount=" + totalcount + ", pageNo=" + pageNo + ", pageSize=" + pageSize + ", startPage="
-                + startPage + ", endPage=" + endPage + ", prev=" + prev + ", next=" + next + ", currentblock="
-                + currentblock + ", lastblock=" + lastblock + "]";
-    }
-    
-    
-    
+  public int getPageSize() {
+      return pageSize;
+  }
 
+  public void setPageSize(int pageSize) {
+      this.pageSize = pageSize;
+  }
+  
+  public int getStartRowNo() {
+    return startRowNo;
+  }
+
+  public void setStartRowNo(int startRowNo) {
+    this.startRowNo = startRowNo;
+  }
+
+  public int getFirstPageNo() {
+      return firstPageNo;
+  }
+
+  public void setFirstPageNo(int firstPageNo) {
+      this.firstPageNo = firstPageNo;
+  }
+
+  public int getPrevPageNo() {
+      return prevPageNo;
+  }
+
+  public void setPrevPageNo(int prevPageNo) {
+      this.prevPageNo = prevPageNo;
+  }
+
+  public int getStartPageNo() {
+      return startPageNo;
+  }
+
+  public void setStartPageNo(int startPageNo) {
+      this.startPageNo = startPageNo;
+  }
+
+  public int getPageNo() {
+      return pageNo;
+  }
+
+  public void setPageNo(int pageNo) {
+      this.pageNo = pageNo;
+  }
+
+  public int getEndPageNo() {
+      return endPageNo;
+  }
+
+  public void setEndPageNo(int endPageNo) {
+      this.endPageNo = endPageNo;
+  }
+
+  public int getNextPageNo() {
+      return nextPageNo;
+  }
+
+  public void setNextPageNo(int nextPageNo) {
+      this.nextPageNo = nextPageNo;
+  }
+
+  public int getFinalPageNo() {
+      return finalPageNo;
+  }
+
+  public void setFinalPageNo(int finalPageNo) {
+      this.finalPageNo = finalPageNo;
+  }
+
+  public int getTotalCount() {
+      return totalCount;
+  }
+
+  public void setTotalCount(int totalCount) {
+      this.totalCount = totalCount;
+      this.makePaging();
+  }
+
+
+  /**
+   * 페이징 생성
+   */
+  private void makePaging() {
+      if (this.totalCount == 0) return; // 게시 글 전체 수가 없는 경우
+      if (this.pageNo == 0) this.setPageNo(1); // 기본 값 설정
+      if (this.pageSize == 0) this.setPageSize(6); // 기본 값 설정
+
+      int finalPage = (totalCount + (pageSize - 1)) / pageSize; // 마지막 페이지
+      if (this.pageNo > finalPage) this.setPageNo(finalPage); // 기본 값 설정
+
+      if (this.pageNo < 0 || this.pageNo > finalPage) this.pageNo = 1; // 현재 페이지 유효성 체크
+
+      boolean isNowFirst = pageNo == 1 ? true : false; // 시작 페이지 (전체)
+      boolean isNowFinal = pageNo == finalPage ? true : false; // 마지막 페이지 (전체)
+
+      int startPage = ((pageNo - 1) / 6) * 6 + 1; // 시작 페이지 (페이징 네비 기준)
+      int endPage = startPage + 6 - 1; // 끝 페이지 (페이징 네비 기준)
+
+      if (endPage > finalPage) { // [마지막 페이지 (페이징 네비 기준) > 마지막 페이지] 보다 큰 경우
+          endPage = finalPage;
+      }
+
+      this.setFirstPageNo(1); // 첫 번째 페이지 번호
+
+      if (isNowFirst) {
+          this.setPrevPageNo(1); // 이전 페이지 번호
+      } else {
+          this.setPrevPageNo(((pageNo - 1) < 1 ? 1 : (pageNo - 1))); // 이전 페이지 번호
+      }
+
+      this.setStartPageNo(startPage); // 시작 페이지 (페이징 네비 기준)
+      this.setEndPageNo(endPage); // 끝 페이지 (페이징 네비 기준)
+
+      if (isNowFinal) {
+          this.setNextPageNo(finalPage); // 다음 페이지 번호
+      } else {
+          this.setNextPageNo(((pageNo + 1) > finalPage ? finalPage : (pageNo + 1))); // 다음 페이지 번호
+      }
+
+      this.setFinalPageNo(finalPage); // 마지막 페이지 번호
+      
+      this.setStartRowNo((pageNo-1)*pageSize);
+  }
+
+  @Override
+  public String toString() {
+      return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+  }
 }
 
 

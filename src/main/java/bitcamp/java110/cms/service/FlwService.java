@@ -8,6 +8,7 @@ import bitcamp.java110.cms.domain.Member;
 public interface FlwService {
 
   List<Member> list(Map<String,Object> condition);
+  int getTotalCnt(int mno);
   void delete(Map<String,Object> condition);
   void add(Map<String,Object> condition);
 }

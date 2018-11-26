@@ -7,8 +7,8 @@ import bitcamp.java110.cms.domain.Member;
 
 public interface FlwDao {
 
-    List<Member> flwlist(Map<String,Object> condition); 
-    int getTotalCount(int no);
+    List<Member> flwlist(Map<String,Object> condition);
+    int getTotalCnt(int mno);
     int flwdelete(Map<String, Object> condition);
     int flwadd(Map<String, Object> condition);
     int insertForPost(Map<String, Object> condition);
