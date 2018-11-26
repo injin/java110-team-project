@@ -79,16 +79,18 @@
 	<section>
 		<div class="row mbr-justify-content-center">
 			<div class="col-lg-12 mbr-col-md-12">
-			
-    <!-- <div class="row detailList col-lg-9"> -->
-            <%-- <span class="titl"><h4>${title}</h4></span> --%>
-				<div class="a_btn btn btn-success btn-lg"
-					onclick="document.getElementById('btnAlbum').click();">
-					수정하기<input type="hidden" data-toggle="modal" id="btnAlbum"
-						data-target="#albumModal" />
-				</div>
-				<!-- 앨범 목록 -->
+
 				<div class="row detailList col-lg-9">
+					<div class="col-lg-12">
+						<span class="titl">${title}</span>
+						<div class="a_btn btn btn-success btn-lg">
+							<!-- onclick="document.getElementById('btnAlbum').click();" -->
+							수정하기<input type="hidden" data-toggle="modal" id="btnAlbum"
+								data-target="#albumModal" />
+						</div>
+					</div>
+					<!-- 앨범 목록 -->
+					<!-- <div class="row detailList col-lg-9"> -->
 					<div class="row" style="margin: 0 auto;">
 						<div class="row test"></div>
 						<div class="row test"></div>
@@ -111,7 +113,7 @@
 
 				</div>
 			</div>
-</div>
+		</div>
 	</section>
 	</main>
 

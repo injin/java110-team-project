@@ -6,11 +6,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class Paging {
 
   private int pageSize; // 게시 글 수
+  private int startRowNo; // 첫 번째 로우 번호 (0부터 시작)
   private int firstPageNo; // 첫 번째 페이지 번호
   private int prevPageNo; // 이전 페이지 번호
-  private int startPageNo=1; // 시작 페이지 (페이징 네비 기준)
+  private int startPageNo =1; // 시작 페이지 (페이징 네비 기준)
   private int pageNo = 1; // 페이지 번호
-  private int endPageNo=1; // 끝 페이지 (페이징 네비 기준)
+  private int endPageNo =1; // 끝 페이지 (페이징 네비 기준)
   private int nextPageNo; // 다음 페이지 번호
   private int finalPageNo; // 마지막 페이지 번호
   private int totalCount; // 게시 글 전체 수
@@ -87,7 +88,12 @@ public class Paging {
       this.totalCount = totalCount;
       this.makePaging();
   }
-
+  public int getStartRowNo() {
+    return startRowNo;
+  }
+  public void setStartRowNo(int startRowNo) {
+    this.startRowNo = startRowNo;
+  }
 
   /**
    * 페이징 생성
@@ -130,6 +136,8 @@ public class Paging {
       }
 
       this.setFinalPageNo(finalPage); // 마지막 페이지 번호
+      
+      this.setStartRowNo((pageNo-1)*pageSize); // 페이지 별 앨범 첫 번호 
   }
 
   @Override
