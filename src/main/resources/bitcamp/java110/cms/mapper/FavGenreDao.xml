@@ -16,4 +16,14 @@
         WHERE
             mno=#{mno}
     </delete>
+    
+    <select id="getFavGnrList" resultType="int" parameterType="int">
+        SELECT
+            grno
+        FROM
+            mv_memb_gr
+        WHERE
+            mno=#{mno}
+    </select>
+    
 </mapper>

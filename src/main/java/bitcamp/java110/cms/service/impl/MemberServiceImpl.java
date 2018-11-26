@@ -50,7 +50,6 @@ public class MemberServiceImpl implements MemberService {
   
   @Override
   public List<Member> findByNick(String keyword) {
-    
     return memberDao.findByNick(keyword);
   }
   
@@ -114,5 +113,15 @@ public class MemberServiceImpl implements MemberService {
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);
     
+  }
+  
+  @Override
+  public List<Integer> getFavGnrList(int mno){
+    return favGenreDao.getFavGnrList(mno);
+  }
+  
+  @Override
+  public List<Integer> getFavMvList(int mno){
+    return null;
   }
 }

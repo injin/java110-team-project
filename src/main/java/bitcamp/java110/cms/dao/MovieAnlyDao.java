@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.dao;
 
+import java.util.List;
 import java.util.Map;
 
 public interface MovieAnlyDao {
@@ -9,4 +10,5 @@ public interface MovieAnlyDao {
   void insertNotExists(Map<String, Integer> params);
   void signOut(int mno);
   int getOneFav(int mno);
+  List<Integer> getFavMvList(int mno);
 }

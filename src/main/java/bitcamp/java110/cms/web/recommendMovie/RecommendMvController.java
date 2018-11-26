@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -74,7 +75,7 @@ public class RecommendMvController {
     System.out.println("LIST REQUEST START");
     
     int[] n = rcmdService.RandomNums(rcmdService.getCount());
-    System.out.println("[" + n[0] + ", " + n[1] + "]");
+    System.out.println(Arrays.toString(n));
     model.addAttribute("listName1", rcmdService.getListName(n[0]));
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
@@ -91,6 +92,7 @@ public class RecommendMvController {
     
     int triggerMvId;
     Map<String, Object> returnValue= new HashMap<>();
+    
     try {
       triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
       MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
