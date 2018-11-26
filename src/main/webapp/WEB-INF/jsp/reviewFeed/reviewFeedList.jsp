@@ -301,8 +301,8 @@
         });
         </c:forEach>
         
-       /*  function openDetailModal(pstno) {
-            
+         function openDetailModal(pstno) {
+           /*  
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
                 method: "POST",
@@ -327,9 +327,9 @@
                     }));
                 }
             });
-            
-            $('#detailModal:eq(0)').modal('show');
-        } */
+             */
+            $('#detailModal').modal('show');
+        } 
         
     </script>
 </body>
