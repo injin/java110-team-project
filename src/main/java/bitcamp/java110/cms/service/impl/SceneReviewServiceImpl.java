@@ -98,19 +98,29 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     sr.setMovieDb(tmdbMovie);
     
     // 장면 시간 설정
-    if (sr.getTime() == null) {
+    /*if (sr.getTime() == null) {
       String defaultTime = sceneReviewDao.findDefaultTime(tmdbMovie.getId());
       if (defaultTime != null) {
-        sr.setTime(sceneReviewDao.findDefaultTime(tmdbMovie.getId()));
+        sr.setTime(defaultTime);
+      } else {
+        return sr;
+      }
+    }*/
+    
+    if (sr.getSrno() == null) {
+      Integer defaultSrno = sceneReviewDao.findOne(tmdbMovie.getId());
+      if (defaultSrno != null) {
+        sr.setSrno(defaultSrno);
       } else {
         return sr;
       }
     }
     
-    SceneReview findMovie = findByTime(tmdbMovie.getId(), sr.getTime());
-    if (findMovie != null) {
-      findMovie.setTrgtSrExist(true);
-      sr = findMovie;
+    //SceneReview findMovie = findByTime(tmdbMovie.getId(), sr.getTime());
+    SceneReview findSr = findByNo(sr.getSrno());
+    if (findSr != null) {
+      findSr.setTrgtSrExist(true);
+      sr = findSr;
     } else {
       sr.setTrgtSrExist(false);
     }

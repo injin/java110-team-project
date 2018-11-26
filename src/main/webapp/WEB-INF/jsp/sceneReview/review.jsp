@@ -50,8 +50,8 @@
                 <div id="scene-list-container">
                     <c:forEach items="${sceneList}" var="scene">
                         <div class="scene-box">
-                            <img class="scene-img" src="${scene.imgPath}"
-                                data-toggle="tooltip" data-placement="top" title="${scene.title} (${scene.time})">
+                            <img class="scene-img" src="${scene.imgPath}" data-toggle="tooltip"
+                                 data-placement="top" title="${scene.title} (${scene.time})">
                         </div>
                     </c:forEach>
                 </div>
@@ -125,6 +125,7 @@
                 </c:if>
                 
                 
+                <c:if test="${not empty cmtList}">
                 <c:forEach items="${cmtList}" var="cmt">
                     <div class="media mt-3">
                         <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
@@ -142,6 +143,7 @@
                         </div>
                     </div>
                 </c:forEach>
+                </c:if>
                 
             </c:if>
             <c:if  test="${sceneReview.trgtSrExist == false}">
@@ -329,7 +331,6 @@
             return;
         }
         addMarker(place.geometry.location, map, place.formatted_address);
-        
     }
     
     function addMarker(location, map, address) {
@@ -339,7 +340,6 @@
           position: location,
           map: map
       });
-      //map.setCenter(location);
       map.panTo(location);
       
       if (address != null) marker.address = address;
