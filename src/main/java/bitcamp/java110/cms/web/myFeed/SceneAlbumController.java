@@ -30,12 +30,13 @@ public class SceneAlbumController {
       Paging paging,
       Model model) throws Exception {
     
+    System.out.println("pageNo: " +paging.getPageNo() + "pageSize: "+ paging.getPageSize());
+    
     System.out.println("받은 페이지" + paging.getPageNo());
     //List<SceneAlbum> sceneAlbumList = sceneAlbumService.list();
-    List<SceneAlbum> sceneAlbumList = new ArrayList<SceneAlbum>();
-
-    int start = 6*paging.getPageNo()-6;
-    int end = start + 6;
+    
+/*    int start = 6*paging.getPageNo()-6; // 페이지 별 앨범 첫 번호
+    int end = start + 6;  // 페이지 별 앨범 마지막 번호 
     int endPageNo = (int)(sceneAlbumService.list().size()/6) + 1;
     
     System.out.println("start: " + start + "end: " + end +  "endPageNo: " + endPageNo);
@@ -56,8 +57,16 @@ public class SceneAlbumController {
 
       // 총 게시물 수 
       System.out.println(sceneAlbumService.list().size());
-
-/*  } catch (Exception e) {
+*/
+    
+    List<SceneAlbum> sceneAlbumList = new ArrayList<SceneAlbum>();
+    int start = 6*paging.getPageNo()-6; // 페이지 별 앨범 첫 번호
+    int endPageNo = (int)(sceneAlbumService.list().size()/6) + 1;
+    paging.setEndPageNo(endPageNo);
+    paging.setTotalCount(sceneAlbumService.list().size());
+    sceneAlbumList = sceneAlbumService.pageList(start);
+    
+    /*  } catch (Exception e) {
       throw e;
   }
  */   
@@ -90,10 +99,14 @@ public class SceneAlbumController {
   
   @RequestMapping("/detail")
   public String detail(
-      SceneAlbum sceneAlbum
-      ) {
+      SceneAlbum sceneAlbum,
+      Paging paging,
+      Model model) {
+    System.out.println("pageNo: "+paging.getPageNo());
     System.out.println("detail Title :" + sceneAlbum.getLbmTitle());
     //System.out.println(sceneAlbum);
+    
+    model.addAttribute("title", sceneAlbum.getLbmTitle());
     return "sceneAlbum/detailAlbum";
   }
   

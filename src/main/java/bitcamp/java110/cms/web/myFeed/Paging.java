@@ -8,9 +8,9 @@ public class Paging {
   private int pageSize; // 게시 글 수
   private int firstPageNo; // 첫 번째 페이지 번호
   private int prevPageNo; // 이전 페이지 번호
-  private int startPageNo; // 시작 페이지 (페이징 네비 기준)
+  private int startPageNo=1; // 시작 페이지 (페이징 네비 기준)
   private int pageNo = 1; // 페이지 번호
-  private int endPageNo; // 끝 페이지 (페이징 네비 기준)
+  private int endPageNo=1; // 끝 페이지 (페이징 네비 기준)
   private int nextPageNo; // 다음 페이지 번호
   private int finalPageNo; // 마지막 페이지 번호
   private int totalCount; // 게시 글 전체 수
