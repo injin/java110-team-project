@@ -5,9 +5,9 @@ import info.movito.themoviedbapi.model.MovieDb;
 
 public class SceneReview {
   
-  protected int srno;
-  protected int mvno;
-  protected int mno;
+  protected Integer srno;
+  protected Integer mvno;
+  protected Integer mno;
   protected String title;
   protected String time;
   protected String photo;
@@ -17,22 +17,22 @@ public class SceneReview {
   protected Movie movie; // mv_mv 테이블 등록용
   protected boolean trgtSrExist;
   
-  public int getSrno() {
+  public Integer getSrno() {
     return srno;
   }
-  public void setSrno(int srno) {
+  public void setSrno(Integer srno) {
     this.srno = srno;
   }
-  public int getMvno() {
+  public Integer getMvno() {
     return mvno;
   }
-  public void setMvno(int mvno) {
+  public void setMvno(Integer mvno) {
     this.mvno = mvno;
   }
-  public int getMno() {
+  public Integer getMno() {
     return mno;
   }
-  public void setMno(int mno) {
+  public void setMno(Integer mno) {
     this.mno = mno;
   }
   public String getTitle() {

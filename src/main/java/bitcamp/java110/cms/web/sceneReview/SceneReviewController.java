@@ -34,7 +34,7 @@ public class SceneReviewController {
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
-    model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno()));
+    if (sr.getSrno() !=null) model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno()));
     
     return "sceneReview/review";
   }
