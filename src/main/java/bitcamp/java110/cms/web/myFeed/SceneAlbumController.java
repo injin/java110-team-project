@@ -10,18 +10,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.domain.SceneAlbum;
+import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneAlbumService;
+import bitcamp.java110.cms.service.SceneReviewService;
 
 @Controller
 @RequestMapping("/sceneAlbum")
 public class SceneAlbumController {
 
   @Autowired SceneAlbumService sceneAlbumService;
+  @Autowired SceneReviewService sceneReviewService;
+  
+  
   ServletContext sc;
 
-  public SceneAlbumController(SceneAlbumService sceneAlbumService, ServletContext sc) {
+  public SceneAlbumController(SceneAlbumService sceneAlbumService,
+      SceneReviewService sceneReviewService, ServletContext sc) {
     super();
     this.sceneAlbumService = sceneAlbumService;
+    this.sceneReviewService = sceneReviewService;
     this.sc = sc;
   }
 
@@ -82,9 +89,15 @@ public class SceneAlbumController {
       Model model) {
     System.out.println("pageNo: "+paging.getPageNo());
     System.out.println("detail Title :" + sceneAlbum.getLbmTitle());
-    //System.out.println(sceneAlbum);
     
+    System.out.println(sceneAlbum);
+    
+    List<SceneReview> sceneReview = new ArrayList<>();
+    sceneReview = sceneReviewService.list(157336);
+    System.out.println(sceneReview);
     model.addAttribute("title", sceneAlbum.getLbmTitle());
+    model.addAttribute("sceneAlbum", sceneAlbum);
+    model.addAttribute("sceneReview", sceneReview);
     return "sceneAlbum/detailAlbum";
   }
   
