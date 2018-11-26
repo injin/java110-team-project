@@ -191,17 +191,26 @@
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 									<li><c:if test="${not empty post.ftags}">
-											<a data-toggle="dropdown" id="fDropdown" href="#"
+											<!-- <a data-toggle="dropdown" id="fDropdown" href="#"
 												data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="false"
-												style="color: blue; font-size: 0.2rem; vertical-align: top;">
-												친구태그 </a>
+												style="color: blue; font-size: 0.2rem; vertical-align: top;"> -->
+												<a 
+                                                
+                                                style="color: blue; font-size: 0.2rem; vertical-align: top;">
+												<c:forEach items="${post.ftags}" var="ftag">
+												    <a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">
+												    ${ftag.nickname}
+												    </a>
+                                                </c:forEach>
+												
+												 </a>
 
-											<div class="dropdown-menu" aria-labelledby="fDropdown">
+											<%-- <div class="dropdown-menu" aria-labelledby="fDropdown">
 												<c:forEach items="${post.ftags}" var="ftag">
 													<a class="dropdown-item" href="#">${ftag.nickname}</a>
 												</c:forEach>
-											</div>
+											</div> --%>
 										</c:if></li>
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
