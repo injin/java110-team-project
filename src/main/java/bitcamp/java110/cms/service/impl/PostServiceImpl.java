@@ -133,4 +133,10 @@ public class PostServiceImpl implements PostService {
     }
     postPhotoDao.delete(no);
   }
+
+  @Override
+  public List<Post> listTopMp() {
+    // TODO Auto-generated method stub
+    return postDao.listTopMp();
+  }
 }

@@ -10,5 +10,6 @@ public interface PostDao {
   Post findByNo(int no);
   int delete(int no);
   List<Post> findByKeyword(String keyword);
+  List<Post> listTopMp();
   void signOut(int mno);
 }

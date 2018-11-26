@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -195,18 +196,15 @@
 												data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="false"
 												style="color: blue; font-size: 0.2rem; vertical-align: top;"> -->
-												<a 
-                                                
-                                                style="color: blue; font-size: 0.2rem; vertical-align: top;">
-												<c:forEach items="${post.ftags}" var="ftag">
-												    <a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">
-												    ${ftag.nickname}
-												    </a>
-                                                </c:forEach>
-												
-												 </a>
+											<c:forEach items="${post.ftags}" var="ftag">
+												<a href="#"
+													style="color: blue; font-size: 0.2rem; vertical-align: top;">
+													${ftag.nickname} </a>
+											</c:forEach>
 
-											<%-- <div class="dropdown-menu" aria-labelledby="fDropdown">
+
+
+											<%-- </a><div class="dropdown-menu" aria-labelledby="fDropdown">
 												<c:forEach items="${post.ftags}" var="ftag">
 													<a class="dropdown-item" href="#">${ftag.nickname}</a>
 												</c:forEach>
@@ -234,19 +232,19 @@
 
 
 								<%-- 이미지 클릭시 상세모달로 --%>
-								<img
-								    onclick="openDetailModal(${post.pstno})"
+								<img onclick="openDetailModal(${status.index})"
 									src="/upload/post/${post.photos[0].phot}"
+									data-title="${post.title}"
 									style="width: 20rem; height: 13rem; margin-left: 1rem;" />
-									<input type="hidden" data-toggle="modal" id="detailPst"
-										data-target="#detailModal"/>
-                            
+								<input type="hidden" data-toggle="modal" id="detailPst"
+									data-target="#detailModal" />
+
 							</c:if>
 						</div>
-						
+
 						<div class="row">
-						
-						<%-- 좋아요 --%>
+
+							<%-- 좋아요 --%>
 							<div class="col-6" style="text-align: left;">
 								<a href="#" style="color: black"> <i
 									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
@@ -254,7 +252,7 @@
 									class="far fa-comment btmIcon"></i>0
 								</a>
 							</div>
-							
+
 							<%-- 별점 --%>
 							<c:if test="${post.pstTypeNo ==0}">
 								<div class='col-6' style="text-align: right;">
@@ -310,7 +308,72 @@
         });
         </c:forEach>
         
-         function openDetailModal(pstno) {
+        var postList = [];
+        <c:forEach items="${postList}" var="post">
+            postList.push({
+                title: '${post.title}',
+                profileImagePath: '${post.member.profileImagePath}',
+                nick:'${post.member.nickname}',
+                star:'${post.star}',
+                photos:'${post.photos}'
+            })
+        </c:forEach>
+        
+        
+         function openDetailModal(index) {
+             
+             $('#detailModal #movie-title').text(postList[index].title);
+             $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
+             $('#detailModal #ownerNick').text(postList[index].nick);
+             /* $('#detailModal #dCont').html($('#reviewCont-'+index).cont); */
+             console.log($('#reviewCont-'+index).html);
+             var star = postList[index].star;
+             if(star != 0){
+                 var html='';
+             for (var i=0; i<5; i++) {
+                 if (i< star) {
+                     html += '<i class="fas fa-star sStar"></i>';
+                 } else {
+                     html += '<i class="far fa-star sStar"></i>';
+                 }
+             }
+             $('#detail-star').html(html);
+             }
+             
+             console.log(postList[index].photos);
+             console.log(${fn:length(postList[index].photos[0])});
+             console.log(postList[index].photos[0].phot);
+             console.log(postList[index].photos[0]);
+             console.log(postList[index].photos.length);
+             /* 
+             var h ='';
+             for (var i=0; i<postList[index].photos.length; i++) {
+                 
+             h += '<ol class="carousel-indicators">';
+             h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
+             h += '</ol>';
+             
+             h += '<div class="carousel-inner">';
+             
+             h += '    <div class="carousel-item active">';
+             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i].phot +'" alt="'+ i +'_slide">';
+             h += '    </div>';
+             
+             h += '</div>';
+             }
+             
+             h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
+             h += '    role="button" data-slide="prev">';
+             h += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
+             h += '    <span class="sr-only">Previous</span>';
+             h += '</a> <a class="carousel-control-next"';
+             h += '    href="#carouselExampleIndicators" role="button" data-slide="next">';
+             h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
+             h += '    <span class="sr-only">Next</span>';
+             h += '</a>';
+              */
+             
+             
            /*  
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
