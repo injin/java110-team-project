@@ -16,6 +16,12 @@ height: 24em;
 .card-hot-sr .img-sr {
     height: 10em;
 }
+.hot-sr-img{
+   height:10em;
+}
+.hot-sr{
+   height:5em;
+}
 
 </style>
 
@@ -43,88 +49,30 @@ height: 24em;
                 <strong>지금 인기 있는 장면</strong>
             </h3>
         </div>
-        <div class="row">
-        <c:forEach var="top" items="${topSrList}">
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">${top}(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
-         </c:forEach>
-            <!-- <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div> -->
-        </div>
         
         <div class="row">
-            <c:forEach var="log" items="${list}">
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">${log.indirect}(xx분 장면)</h5>
+            <c:forEach var="top" items="${topSrList}">
+                <div class="col-3 mb-3">
+                    <div class="card" >
+                        <img class="card-img-top hot-sr-img" src="/upload/sceneReview/${top.photo}"
+                            alt="Card image cap">
+                        <div class="card-body hot-sr">
+                            <h6 class="card-title">
+                                <c:set var="Text" value="${top.title}"/>
+                                    <c:if test="${fn:length(Text)<20}">
+                                           <b>${fn:substring(Text,0,20)}</b>
+                                    </c:if>
+                                    <c:if test="${fn:length(Text)>20}">
+                                           <b>${fn:substring(Text,0,20)}...</b>
+                                    </c:if>
+                                <br><span>(${top.time})</span>
+                            </h6>
+                            
+                        </div>
                     </div>
                 </div>
-            </div>
-         </c:forEach>
-           <!--  <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-    
+             </c:forEach>
+         </div>
     
     <div class="block-wide pb-3" style="background-color:#e6e6e6;">
         <div class="text-center" style="margin-top: 50px" >
@@ -151,10 +99,15 @@ height: 24em;
                               <div class="card-body" onclick="openDetailModal(${post.pstno})">
                                 <h5 class="card-title">XXX 리뷰</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
-                                <p class="card-text">샬라샬라샬라샬라어쩌구저쩌구</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link"  onclick="openDetailModal(${post.pstno})">Another link</a>
-                              
+                                <p class="card-text">인터스텔라 쨩쨩맨</p>
+                                <c:choose>
+                                <c:when test="${not empty post.pstno}">
+                                <img class="img-sr" src="/upload/sceneReview/${post.photo}">
+                                </c:when>
+                                <c:otherwise>
+                                <img class="img-sr" src="/img/default-movie-img.png">
+                                </c:otherwise>
+                                </c:choose>
                               </div>
                             </div>
                         </div>
@@ -162,23 +115,28 @@ height: 24em;
                             <div class="card card-hot-sr">
                               <div class="card-body" onclick="openDetailModal(${post.pstno})">
                              
-                                <h5 class="card-title"><a href="#" class="card-link">인터스테라 가르강튀아 리뷰</a></h5>
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                <a href="#" class="card-link">작성자:호일동</a></h6>
-                                <img class="img-sr" src="/img/가르강튀아.gif">
-                                <p class="card-text">샬라샬라샬라샬라어쩌구저쩌구 미0쳐0따리 미쳐따</p>
+                                    <h5 class="card-title">인터스테라 가르강튀아 리뷰</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">작성자:호일동</h6>
+                                    <p class="card-text">블랙홀의 신비함이란 미쳐따</p>
+                                    <img class="img-sr" src="/img/가르강튀아.gif">
                                 
                               </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
+                                <h5 class="card-title">XXX 리뷰</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
+                                <p class="card-text">스파이더맨 쨩쨩맨</p>
+                                <c:choose>
+                                <c:when test="${not empty post.pstno}">
+                                <img class="img-sr" src="/upload/sceneReview/${post.photo}">
+                                </c:when>
+                                <c:otherwise>
+                                <img class="img-sr" src="/img/default-movie-img.png">
+                                </c:otherwise>
+                                </c:choose>
                               </div>
                             </div>
                         </div>
@@ -186,7 +144,7 @@ height: 24em;
                     </div>
                 </div>
                 
-                <div class="carousel-item">
+               <!--  <div class="carousel-item">
                     <div class="row pl-3 pr-3">
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
@@ -264,12 +222,10 @@ height: 24em;
                         </div>
                         
                     </div>
-                </div>
-                
-                
-                
-                
+                </div> -->
             </div>
+           
+        
         
             <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon sp"></span>
