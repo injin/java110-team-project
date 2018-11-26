@@ -12,6 +12,7 @@ public interface SceneReviewService {
   SceneReview findByTime(int mvno, String time);
   SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
+  List<SceneReviewCmt> listCmt(int srno);
   SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sceneReview);
   
 }

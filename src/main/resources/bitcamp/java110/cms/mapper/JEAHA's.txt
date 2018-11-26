@@ -1,0 +1,21 @@
+JEAHA's 참조 txt
+때 되면 알아서 삭제 하겠음.
+
+<update id="signOut" parameterType="int">
+    UPDATE IGNORE
+        테이블 명
+    SET
+        mid=00000000
+        mno=21
+    WHERE
+        컬럼명=#{mno}
+</update>
+
+
+<delete id="signOut" parameterType="int">
+    DELETE IGNORE
+        FROM 테이블 명
+    WHERE
+        mno=#{mno}
+    [AND ... ]
+</delete>

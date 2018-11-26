@@ -60,7 +60,7 @@ public class AuthController {
       // 기존에 가입된 사용자가 아니면
       member = authService.addMember(kakaoResponse);
       session.setAttribute("loginUser", member);
-      return "redirect:/app/auth/detailForm";
+      return "redirect:/app/auth/detail";
     }
     
     @RequestMapping("/kakaologout")
@@ -91,7 +91,7 @@ public class AuthController {
       return "redirect:/app/";
     }
     
-    @RequestMapping("/detailForm")
+    @RequestMapping("/detail")
     public String detailForm(
         Model model,
         HttpSession session) {
@@ -100,7 +100,7 @@ public class AuthController {
           (Member)session.getAttribute("loginUser"));
       model.addAttribute("genreList", genreService.getList());
       
-      return "/auth/detailForm";
+      return "/auth/detail";
     }
     
     @PostMapping("/add")
@@ -115,7 +115,7 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=false)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
-      
+      System.out.println("Controller Start Add Member");
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -150,7 +150,7 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      
+      System.out.println("Controller Send Member To Service");
       memberService.update(member);
       return "redirect:/app/";
     }

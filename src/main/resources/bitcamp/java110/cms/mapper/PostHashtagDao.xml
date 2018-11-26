@@ -18,10 +18,10 @@
             p.cont,
             pt.pstno,
             p.mvno,
-	        p.ptno,
-	        mv.titl,
-	        p.star,
-	        p.likes,
+            p.ptno,
+            mv.titl,
+            p.star,
+            p.likes,
             (p.opn ='u') opn,
             m.nick,
             m.p_phot
@@ -40,4 +40,12 @@
        
     </delete>
     
+    <update id="signOut" parameterType="int">
+        UPDATE IGNORE
+            mv_post_flw_tag
+        SET
+            flwno=00000000
+        WHERE
+            flwno=#{mno}
+    </update>
 </mapper>
