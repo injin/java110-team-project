@@ -9,6 +9,7 @@ public interface PostService {
     List<Post> list();
     Post get(int no);
     List<Post> findByKeyword(String keyword);
+    List<Post> listTopMp();
     void delete(int no);
 }
 
