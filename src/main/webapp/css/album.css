@@ -28,13 +28,7 @@
 }
 .selected{
 	background-color: #e9ecef;
-	/* cursor: default; */
-}
-.selected:hover:disabled{
-	background-color: #e9ecef;
-}
-.selected:parent{
-	cursor: default;
+	pointer-events: none;
 }
 
 /* 모달 */
