@@ -39,123 +39,107 @@
 <link rel='stylesheet' href='/css/all.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
+<link rel='stylesheet' href='/css/rcmd.css'>
 
-<style type="text/css">
-.col-md-4{
-  display: inline-block;
-  margin-left:-10px;
-}
-.col-md-4 img{
-  width:100%;
-  height:auto;
-}
-  
-body .carousel-control-prev-icon,
-body .carousel-indicators li,
-body .carousel-control-next-icon{
-  background-color:#000;
-}
-
-span.carousel-control-prev-icon {
- position: relative;
- bottom: 40px;
- right: 40px;
-}
-
-span.carousel-control-next-icon {
- position: relative;
- bottom: 40px;
-}
-</style>
-<!-- card 돌아가는거 자동으로 돌지 않게. 가능하다면 세로선에 4개 정도 들어 가게 -->
 </head>
-<body class="borderGray bgGray">
+<body class="borderGray bgGray" style="background-color: dimgray;">
     <jsp:include page="../include/header.jsp"></jsp:include>
-    <main role="main" class="container borderGray">
-    
-    <c:choose>
+    <main role="main" class="container borderGray"> <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-        <h1>${sessionScope.loginUser.nickname}님을 위한 맞춤 영화</h1>
+            <h1>${sessionScope.loginUser.nickname}님만을 위한 취향 저격추천 영화</h1>
         </c:when>
     </c:choose>
     <hr>
+
+    <section id="random-base-section">
+        <h3 id="randomBaseTitle"></h3>
+        <div id="randomBaseCarousel" class="list-container">
+            <div class="control-container">
+                <div id="random-left-scroll-btn" class="left-scroll button scroll left-scroll-btn">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+                <div id="random-right-scroll-btn" class="right-scroll button scroll right-scroll-btn">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="items" id="random-base-items">
+
+            </div>
+        </div>
+    </section>
     <br>
-<div class="container">
-  
-  <div id="demo" class="carousel slide" data-ride="carousel">
-
-  <!-- Indicators -->
-  <ul class="carousel-indicators mb-0 pb-0">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-
-  <!-- The slideshow -->
-
-  <h2>${listName}</h2>
-  <div class="carousel-inner no-padding my-5">
-    <div class="carousel-item active">
-      <div class="col-xs-4 col-sm-4 col-md-4">
-        <a href="#" onclick=abc(this) class="slider_info">
-          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300?text=1">
-          <div class="card-img-overlay t_img">
-            <span class="float-left text-uppercase">article</span>
-            <span class="float-right text-uppercase">2345 views</span>
-          </div>
-        </a>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
-
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="col-xs-4 col-sm-4 col-md-4">
-        <a href="#" onclick=abc(this) class="slider_info">
-          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
-          <div class="card-img-overlay t_img">
-            <span class="float-left text-uppercase">article</span>
-            <span class="float-right text-uppercase">2345 views</span>
-          </div>
-        </a>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
-
-      </div>
-    </div>
-    <div class="carousel-item">
-      <div class="col-xs-4 col-sm-4 col-md-4">
-        <a href="#" onclick=abc(this) class="slider_info">
-          <img class="img-fluid card-img-top" src="http://via.placeholder.com/300x300">
-          <div class="card-img-overlay t_img">
-            <span class="float-left text-uppercase">article</span>
-            <span class="float-right text-uppercase">2345 views</span>
-          </div>
-        </a>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi nesciunt quam obcaecati maiores atque labore fugiat tenetur tempore veritatis temporibus!</p>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-     <span class="carousel-control-prev-icon sp"></span>
-                </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-                    <span class="carousel-control-next-icon sp"></span>
-                </a>
-</div>
-</div>
+    <hr>
+    <h2>MD 추천 영화</h2>
+    <hr>
+    <section>
+        <h3>${listName1}</h3>
+        <div id="carousel1" class="list-container">
+            <div class="control-container">
+                <div id="left-scroll-button" class="left-scroll button scroll left-scroll-btn">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+                <div id="right-scroll-button" class="right-scroll button scroll right-scroll-btn">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="items" id="carousel-items">
+                <c:forEach items="${list1}" var="list1">
+                    <div class="item" onclick="toDetail('${list1.id}')">
+                        <c:choose>
+                            <c:when test = "${not empty list1.posterPath}">
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <img class="item-image" src="/img/default-movie-img.png"/>
+                            </c:otherwise>
+                        </c:choose>
+                            <span class="item-title">${list1.title}</span>
+                        <div class="item-description opacity-none">개봉일 : ${list1.releaseDate}<br>런타임 : ${list1.runtime}분<br>네티즌 평점 : ${list1.voteAverage}</div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section>
+        <h3>${listName2}</h3>
+        <div id="carousel2" class="list-container">
+            <div class="control-container">
+                <div id="left-scroll-button" class="left-scroll button scroll left-scroll-btn">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+                <div id="right-scroll-button" class="right-scroll button scroll right-scroll-btn">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="items" id="carousel-items">
+                <c:forEach items="${list2}" var="list2">
+                    <div class="item" onclick="toDetail('${list2.id}')">
+                        <c:choose>
+                            <c:when test = "${not empty list2.posterPath}">
+                                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <img class="item-image" src="/img/default-movie-img.png"/>
+                            </c:otherwise>
+                        </c:choose>
+                            <span class="item-title">${list2.title}</span>
+                        <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
     
-    <div>
-        ${list}
-        
-    </div>
-    
+    <hr>
     
     
     </main>
     <jsp:include page="../include/footer.jsp"></jsp:include>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+        src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script
+        src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/rcmd.js"></script>
 </body>
 </html>

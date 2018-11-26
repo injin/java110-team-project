@@ -14,6 +14,28 @@
         <result column="cont"      property="cont" />
         <result column="spo"       property="spo" />
     </resultMap>
+    
+    <resultMap type="sceneReviewCmt" id="srCmtMap">
+        <id     column="cmno"      property="cmno"/>
+        <result column="srno"      property="srno"/>
+        <result column="mno"       property="mno"/>
+        <result column="phot"      property="photo"/>
+        <result column="cont"      property="cont"/>
+        <result column="cdt"       property="createdDate"/>
+        <result column="mdt"       property="modifiedDate"/>
+        <association property="map" javaType="sceneReviewMap">
+            <id     column="mpno"  property="mpno"/>
+            <result column="cmno"  property="cmno"/>
+            <result column="mp_nm" property="mapName"/>
+            <result column="lat"   property="lat"/>
+            <result column="lng"   property="lng"/>
+        </association>
+        <association property="member" javaType="member">
+            <id     column="mno"    property="mno"/>
+            <result column="nick"   property="nickname"/>
+            <result column="p_phot" property="profileImage"/>
+        </association>
+    </resultMap>
 
     <insert id="insert" parameterType="sceneReview"
             useGeneratedKeys="true" keyColumn="srno" keyProperty="srno">
@@ -25,6 +47,11 @@
             useGeneratedKeys="true" keyColumn="cmno" keyProperty="cmno">
         INSERT INTO mv_sr_cmt(srno, mno, phot, cont, cdt)
         VALUES (#{srno}, #{mno}, #{photo}, #{cont}, now())
+    </insert>
+    
+    <insert id="insertCmtMap" parameterType="sceneReviewMap">
+        INSERT INTO mv_sr_map(cmno, mp_nm, lat, lng)
+        VALUES (#{cmno}, #{mapName}, #{lat}, #{lng})
     </insert>
     
     <select id="findDefaultTime" resultType="string" parameterType="int">
@@ -54,5 +81,22 @@
          WHERE mvno = #{mvno}
          ORDER BY time ASC
     </select>
+    
+    <select id="listCmt" resultMap="srCmtMap" parameterType="int">
+        SELECT cmt.cmno, srno, mb.mno, phot, cont, cdt, mdt
+              , mpno, mp_nm, lat, lng, nick, p_phot
+          FROM mv_sr_cmt cmt LEFT JOIN mv_sr_map mp
+               ON cmt.cmno = mp.cmno
+               INNER JOIN mv_memb mb
+               ON cmt.mno = mb.mno
+         WHERE cmt.srno = #{value}
+         ORDER BY cdt DESC
+    </select>
+    
+    <update id="signOut" parameterType="int">
+        UPDATE IGNORE mv_sr
+        SET mno=21
+        WHERE mno=#{mno}
+    </update>
 
 </mapper>

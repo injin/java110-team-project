@@ -9,8 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.MemberDao;
+import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.dao.PostDao;
+import bitcamp.java110.cms.dao.PostHashtagDao;
+import bitcamp.java110.cms.dao.ReportDao;
+import bitcamp.java110.cms.dao.SceneAlbumDao;
+import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
 
@@ -22,6 +28,12 @@ public class MemberServiceImpl implements MemberService {
   @Autowired MovieDao movieDao;
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired FlwDao flwDao;
+  @Autowired MlogDao logDao;
+  @Autowired PostDao postDao;
+  @Autowired PostHashtagDao tagDao;
+  @Autowired ReportDao rptDao;
+  @Autowired SceneAlbumDao lbmDao;
+  @Autowired SceneReviewDao rvDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
                   rollbackFor=Exception.class)
@@ -46,9 +58,9 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    memberDao.update(member);
+    System.out.println("Service Recieve Member\n :\t" + member);
     
-    System.out.println(member);
+    memberDao.update(member);
     
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
       for (int i = 0; i < member.getFavGrList().size(); i++) {
@@ -76,12 +88,28 @@ public class MemberServiceImpl implements MemberService {
   /**
    * !!주석 삭제 금지!!
    * 제하 To Do
-   * !! SginOut 할 때 DB에서 삭제 해야하므로 DAO완성시 추가 해야함!!
+   * !! sginOut 할 때 DB관리
    */
   @Override
   public void signOut(int mno) {
+    rvDao.signOut(mno);
+    System.out.println(mno + "\nSignOut Test 1");
+    lbmDao.signOut1(mno);
+    System.out.println("lbmDao 1");
+    lbmDao.signOut2(mno);
+    System.out.println("lbmDao 2");
+    lbmDao.signOut3(mno);
+    System.out.println("lbmDao 3");
+    rptDao.signOut(mno);
+    tagDao.signOut(mno);
+    System.out.println("SignOut Test 2");
+    postDao.signOut(mno);
+    logDao.signOut1(mno);
+    logDao.signOut2(mno);
+    System.out.println("SignOut Test 3");
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
+    System.out.println("SignOut Test 4");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     memberDao.signOut(mno);

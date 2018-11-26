@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import bitcamp.java110.cms.common.Constants;
-import bitcamp.java110.cms.domain.Movie;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
+import bitcamp.java110.cms.dao.MovieDao;
+import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
@@ -18,6 +20,9 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 public class MovieInfoController {
   
   @Autowired TmdbSearch tmdbSearch;
+  @Autowired TmdbMovies tmdbMovies;
+  @Autowired MovieAnlyDao anlyDao;
+  @Autowired MovieDao mvDao;
   
   @RequestMapping(value="/listByKeyword", method=RequestMethod.POST)
   public @ResponseBody Map<String, Object> listByKeyword(
@@ -46,13 +51,4 @@ public class MovieInfoController {
     
     return result;
   }
-  
-  @RequestMapping(value="/findById", method=RequestMethod.POST)
-  public Movie findById (int mvno) {
-    
-    
-    
-    return null;
-  }
-  
 }

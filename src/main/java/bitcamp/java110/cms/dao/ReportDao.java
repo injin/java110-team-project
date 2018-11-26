@@ -10,4 +10,5 @@ public interface ReportDao {
   List<Report> findAll(Map<String, Object> params);
   Report findByNo(int no);
   int delete(int no);
+  void signOut(int mno);
 }

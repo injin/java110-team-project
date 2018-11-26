@@ -27,4 +27,13 @@
             mno=#{mno}
     </delete>
     
+    <select id="getOneFav" resultType="int" parameterType="int">
+        SELECT IFNULL(mvno, 0)
+        FROM mv_mv_anly 
+        WHERE 
+            mno=#{mno}
+        AND RAND()
+        LIMIT 1
+    </select>
+        
 </mapper>

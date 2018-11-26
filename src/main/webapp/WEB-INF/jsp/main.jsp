@@ -23,16 +23,13 @@ height: 24em;
 <body>
     <jsp:include page="include/header.jsp"></jsp:include>
     <main role="main" class="container borderGray">
-        <div class="masthead block-wide text-white text-center">
+        <div class="masthead block-wide text-white text-center" style="height:450px;">
           <div class="overlay"></div>
           <div class="container">
             <div class="row">
               <div class="col-xl-9 mx-auto">
                 <h1 class="mb-5">Connect to Moviestagram</h1>
-                    <h5 class="mb-5">Discover, stream, and share a constantly expanding mix of music
-                    from emerging and major artists around the world</h5><br>
-                    <h4>너흰 아직 준비가 안됬따!!!!</h4>
-                
+                <h5 class="mb-5">Discover, and share a constantly expanding Movie around the world</h5>
               </div>
               <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                     
@@ -47,7 +44,18 @@ height: 24em;
             </h3>
         </div>
         <div class="row">
+        <c:forEach var="log" items="${list}">
             <div class="col-3 mb-3">
+                <div class="card" >
+                    <img class="card-img-top" src="/img/ilidan.jpg"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">${log.indirect}(xx분 장면)</h5>
+                    </div>
+                </div>
+            </div>
+         </c:forEach>
+            <!-- <div class="col-3 mb-3">
                 <div class="card" >
                     <img class="card-img-top" src="/img/ilidan.jpg"
                         alt="Card image cap">
@@ -73,20 +81,22 @@ height: 24em;
                         <h5 class="card-title">영화제목(xx분 장면)</h5>
                     </div>
                 </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
         
         <div class="row">
+            <c:forEach var="log" items="${list}">
             <div class="col-3 mb-3">
+                <div class="card" >
+                    <img class="card-img-top" src="/img/ilidan.jpg"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">${log.indirect}(xx분 장면)</h5>
+                    </div>
+                </div>
+            </div>
+         </c:forEach>
+           <!--  <div class="col-3 mb-3">
                 <div class="card" >
                     <img class="card-img-top" src="/img/ilidan.jpg"
                         alt="Card image cap">
@@ -112,16 +122,7 @@ height: 24em;
                         <h5 class="card-title">영화제목(xx분 장면)</h5>
                     </div>
                 </div>
-            </div>
-            <div class="col-3 mb-3">
-                <div class="card" >
-                    <img class="card-img-top" src="/img/ilidan.jpg"
-                        alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">영화제목(xx분 장면)</h5>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
     
     
@@ -143,28 +144,30 @@ height: 24em;
 
             
             <div class="carousel-inner no-padding my-5">
-                <div class="carousel-item active">
+                <div class="carousel-item  active">
                     <div class="row pl-3 pr-3">
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
+                                <h5 class="card-title">XXX 리뷰</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
+                                <p class="card-text">샬라샬라샬라샬라어쩌구저쩌구</p>
                                 <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <a href="#" class="card-link"  onclick="openDetailModal(${post.pstno})">Another link</a>
+                              
                               </div>
                             </div>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
+                             
+                                <h5 class="card-title"><a href="#" class="card-link">인터스테라 가르강튀아 리뷰</a></h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                <a href="#" class="card-link">작성자:호일동</a></h6>
                                 <img class="img-sr" src="/img/가르강튀아.gif">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <p class="card-text">샬라샬라샬라샬라어쩌구저쩌구 미0쳐0따리 미쳐따</p>
+                                
                               </div>
                             </div>
                         </div>
@@ -183,7 +186,7 @@ height: 24em;
                     </div>
                 </div>
                 
-                <div class="carousel-item ">
+                <div class="carousel-item">
                     <div class="row pl-3 pr-3">
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
@@ -280,12 +283,13 @@ height: 24em;
     </div>
 
     </main>
+    
+    <jsp:include page="reviewFeed/detailPost.jsp"></jsp:include>
     <jsp:include page="include/footer.jsp"></jsp:include>
-   
-    
-   
-    
-    
+   <script>
+   function openDetailModal(pstno) {
+       $('#detailModal').modal('show');
+   }
     
     </script>
 </body>

@@ -1,9 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -48,68 +46,23 @@ public class RecommendServiceImple implements RecommendService {
   @Autowired Environment env;
   @Autowired TmdbMovies tmdbMovies;
   
-
-  @Override
-  public Map<String, Object> getMap(int thmno) {
-    String thmTitle = rcmdDao.getTitle(thmno);
-    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);
-    
-    List<MovieDb> mvList = new ArrayList<>();
-    Map<String, Object> mvMap = new HashMap<>();
-    
-    for (int i = 0; i < idList.size(); i++) {
-      int id = (int)idList.get(i);
-      MovieDb mv = getMvById(id);
-      mvList.add(mv);
-    }
-    /*
-    //  test print
-    for (int i = 0; i < mvList.size(); i ++) {
-      System.out.println();
-      System.out.println("mvdb : " + mvList.get(i).toString());
-      System.out.println("BackdropPath : " + mvList.get(i).getBackdropPath());
-      System.out.println("Overview : " + mvList.get(i).getOverview());
-      System.out.println("ReleaseDate : " + mvList.get(i).getReleaseDate());
-      System.out.println("Runtime : " + mvList.get(i).getRuntime());
-      System.out.println("VoteAverage : " + mvList.get(i).getVoteAverage());
-      System.out.println();
-    }
-    */
-    mvMap.put(thmTitle, mvList);
-    
-    return mvMap;
-  }
-  
   @Override
   public String getListName(int thmno) {
     return rcmdDao.getTitle(thmno);
   }
-  
   @Override
   public List<MovieDb> getList(int thmno){
+    System.out.println("\nthmno : " + thmno);
     List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
     List<MovieDb> mvList = new ArrayList<>(); 
-    
+    System.out.println(idList.toString());
     for (int i = 0; i < idList.size(); i++) {
       int id = (int)idList.get(i);
       MovieDb mv = getMvById(id);
       mvList.add(mv);
     }
     
-    /*
-    //  test print
-    for (int i = 0; i < mvList.size(); i ++) {
-      System.out.println();
-      System.out.println("mvdb : " + mvList.get(i).toString());
-      System.out.println("BackdropPath : " + mvList.get(i).getBackdropPath());
-      System.out.println("Overview : " + mvList.get(i).getOverview());
-      System.out.println("ReleaseDate : " + mvList.get(i).getReleaseDate());
-      System.out.println("Runtime : " + mvList.get(i).getRuntime());
-      System.out.println("VoteAverage : " + mvList.get(i).getVoteAverage());
-      System.out.println();
-    }
-    */
-    
+    System.out.println("Service return mvList");
     return mvList;
   }
 
@@ -119,22 +72,29 @@ public class RecommendServiceImple implements RecommendService {
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
     MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
-    
-    System.out.println("mvdb : " + mvdb.toString());
-    
-    /*
-    //  test print
-    System.out.println();
-    System.out.println("BackdropPath : " + mvdb.getBackdropPath());
-    System.out.println("Overview : " + mvdb.getOverview());
-    System.out.println("ReleaseDate : " + mvdb.getReleaseDate());
-    System.out.println("Runtime : " + mvdb.getRuntime());
-    System.out.println("VoteAverage : " + mvdb.getVoteAverage());
-    System.out.println();
-    */
-    
+//    System.out.println("mvdb : " + mvdb.toString());
     return mvdb;
   }
 
+  @Override
+  public int getCount() {
+    return rcmdDao.getCount();
+  }
   
+  @Override
+  public int[] RandomNums(int root){
+    int[] n = new int[2];
+    
+    System.out.println("Random Range : " + root);
+    
+    for (int i = 0; i < n.length; i++) {
+      n[i] = (int)(Math.random() * root + 1);
+      for (int j = 0; j <= i-1; j++) {
+        if(n[i] == n[j]) {
+          i--;
+        }
+      }
+    }
+    return n;
+  }
 }

@@ -34,6 +34,7 @@ public class SceneReviewController {
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
+    model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno()));
     
     return "sceneReview/review";
   }
@@ -71,7 +72,7 @@ public class SceneReviewController {
       comment.setPhoto(filename);
     }
     
-    //sceneReviewService.addCmt(comment);
+    sceneReviewService.addCmt(comment);
     
     System.out.println("올릴 댓글" + comment.toString());
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());

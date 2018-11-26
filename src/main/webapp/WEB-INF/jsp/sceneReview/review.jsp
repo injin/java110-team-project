@@ -12,20 +12,11 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-.span-more {
-    color: #00cc99;
-    cursor: pointer;
-}
-#comment-area {
-    padding: 0.5em;
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
 }
 
-#map {
-    height: 30em;
-}
-#map-container {
-    display: none;
-}
 </style>
 </head>
 <body>
@@ -63,22 +54,18 @@
                 </div>
             </div>
             
-            
         </div>
     </div>
     
-    <c:if test="${sceneReview.time eq null}">
-        <div class="row mt-3 ml-1">
-            <div class="col-9 col-md-12">
+    <div class="row mt-3 ml-1">
+        <c:if test="${sceneReview.time eq null}">
+            <div class="col-lg-9 col-md-12">
                 <div class="alert alert-secondary" role="alert">
                     <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                 </div>
             </div>
-        </div>
-    </c:if>
-    
-    <c:if test="${sceneReview.time ne null}">
-    <div class="row mt-3 ml-1">
+        </c:if>
+        <c:if test="${sceneReview.time ne null}">
         <div class="col-lg-9 col-md-12">
             <c:if  test="${sceneReview.trgtSrExist == true}">
                 <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
@@ -95,6 +82,9 @@
                 <c:if test="${not empty sessionScope.loginUser}">
                     <form id="addCommentForm" action="addComment" method="post">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
+                    <input type="hidden" name="map.lat">
+                    <input type="hidden" name="map.lng">
+                    <input type="hidden" name="map.mapName">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -114,21 +104,38 @@
                             
                             <button type="button" class="btn btn-dark mt-2 float-right" onclick="addComment()">
                                 <i class="fas fa-paper-plane"></i> 등록</button>
-                            
-                            <!-- <div id="map" class="mt-2" style="display:none;"></div> -->
                           </div>
-                          
                         </div>
                     </div>
+                    </form>
                     
                     <div class="card mt-2" id="map-container">
                       <div class="card-body p-0">
+                        <div style="display:none">
+                            <div id="search_box" class="pl-2 form-inline">
+                                <input type="text" class="form-control mr-sm-2" id="search_keyword" placeholder="검색">
+                            </div>
+                        </div>
                         <div id="map"></div>
                       </div>
                     </div>
-                    </form>
                 </c:if>
                 
+                
+                <c:forEach items="${cmtList}" var="cmt">
+                    <div class="media mt-2">
+                        <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
+                        <div class="media-body">
+                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
+                            <p>${cmt.cont}
+                            <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
+                                <br><a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
+                                    <i class="fas fa-map-marker-alt"></i> ${cmt.map.mapName}</a>
+                            </c:if>
+                            </p>
+                        </div>
+                    </div>
+                </c:forEach>
                 
             </c:if>
             <c:if  test="${sceneReview.trgtSrExist == false}">
@@ -137,13 +144,15 @@
                 </div>
             </c:if>
         </div>
+        </c:if>
+        
         <div class="col-lg-3 col-md-12">
             
             
             
         </div>
     </div>
-    </c:if>
+    
     
 <%-- <button type="button" class="btn btn-primary" data-toggle="modal"
         data-target="#reportModal">신고하기</button>
@@ -153,7 +162,7 @@
 </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
@@ -170,6 +179,11 @@
      /* ===== 입력 모달 관련  ===== */
     var $modal = $('#srAddModal').modal({show : false});
     
+    var invalidTime = [];
+    <c:forEach items="${sceneList}" var="scene">
+        invalidTime.push('${scene.time}');
+    </c:forEach>
+    
     $('#srTimeSlider').on('input', function() {
         var sec_num = parseInt(this.value, 10);
         var hours   = Math.floor(sec_num / 3600);
@@ -180,7 +194,24 @@
         if (minutes < 10) {minutes = "0"+minutes;}
         if (seconds < 10) {seconds = "0"+seconds;}
         $('#time').val(hours+':'+minutes+':'+seconds);
+        
+        checkTimeValid();
     });
+    
+    // 장면 리뷰 시간 중복 체크
+    checkTimeValid();
+    $('#time').on('input', function(){
+        checkTimeValid();
+    });
+    
+    function checkTimeValid() {
+        var timeStr = $('#time').val();
+        if (invalidTime.includes(timeStr)) {
+            $('#time').removeClass('is-valid').addClass('is-invalid');
+        } else {
+            $('#time').removeClass('is-invalid').addClass('is-valid');
+        }
+    }
     
     function addSceneReview() {
         if (validateForm() == false)
@@ -195,6 +226,10 @@
         var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
         if (!(pattern.test(timeVal))) {
             alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
+            return false;
+        }
+        if ($('#srAddForm #time').hasClass('is-invalid')) {
+            alert('이미 등록된 시간입니다.');
             return false;
         }
         // 장면제목
@@ -229,32 +264,84 @@
             return;
         }
         
+        if (marker != null) {
+            $('#addCommentForm input[name="map.lat"]').val(marker.position.lat());
+            $('#addCommentForm input[name="map.lng"]').val(marker.position.lng());
+            $('#addCommentForm input[name="map.mapName"]').val(marker.address);
+        }
+        
         $('#addCommentForm').submit();
     }
     
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {
-        console.log('클릭함');
-        $('div#map-container').toggle();
+        $('div#map-container').toggle(function() {
+            if ($(this).css('display') == 'none') { //지도 숨김 시 marker remove
+                if (marker != null) {
+                    marker.setMap(null);
+                    marker = null;
+                }
+            }
+        });
     });
     
     var map;
-    function initMap() {
+    var marker;
+    var autocomplete;
+    var geocoder;
+    function initialize() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 37.4971473, lng: 127.0222202},
         zoom: 14
       });
+      map.controls[google.maps.ControlPosition.LEFT_TOP].push(document.getElementById('search_box'));
+      geocoder = new google.maps.Geocoder();
       
+      //마커
+      google.maps.event.addListener(map, 'click', function(event) {
+          geocoder.geocode({
+              'latLng': event.latLng
+          }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                  addMarker(event.latLng, map, results[0].formatted_address);
+              } else {
+                  addMarker(event.latLng, map, null);
+              }
+          });
+      });
       
+      //자동완성
+      var input = document.getElementById('search_keyword');
+      autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.addListener('place_changed', onPlaceChanged);
     }
     
-    function addMarker(location) {
-        var marker = new google.maps.Marker({
+    function onPlaceChanged() {
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("해당 검색어로 조회된 결과가 없습니다.");
+            return;
+        }
+        addMarker(place.geometry.location, map, place.formatted_address);
+        
+    }
+    
+    function addMarker(location, map, address) {
+      if (marker != null) marker.setMap(null);
+      
+      marker = new google.maps.Marker({
           position: location,
           map: map
-        });
-        markers.push(marker);
-      }
+      });
+      //map.setCenter(location);
+      map.panTo(location);
+      
+      if (address != null) marker.address = address;
+    }
+    
+    <c:if test="${not empty loginUser}">
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </c:if>
     </script>
 </body>
 </html>

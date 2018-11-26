@@ -1,16 +1,18 @@
 package bitcamp.java110.cms.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class SceneReviewCmt {
   
   protected int cmno;           // 댓글번호
   protected int srno;           // 장면번호
   protected int mno;            // 회원번호
-  protected String photo;        // 사진
+  protected String photo;       // 사진
   protected String cont;        // 내용
   protected Date createdDate;   // 생성일시
   protected Date modifiedDate;  // 수정일시
+  protected SceneReviewMap map; // 지도
+  protected Member member;      // 작성자
   
   public int getCmno() {
     return cmno;
@@ -54,11 +56,23 @@ public class SceneReviewCmt {
   public void setModifiedDate(Date modifiedDate) {
     this.modifiedDate = modifiedDate;
   }
+  public SceneReviewMap getMap() {
+    return map;
+  }
+  public void setMap(SceneReviewMap map) {
+    this.map = map;
+  }
+  public Member getMember() {
+    return member;
+  }
+  public void setMember(Member member) {
+    this.member = member;
+  }
   
   @Override
   public String toString() {
-    return "SceneReviewComment [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo="
-        + photo + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate="
-        + modifiedDate + "]";
+    return "SceneReviewCmt [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo=" + photo
+        + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
+        + ", map=" + map + ", member=" + member + "]";
   }
 }
