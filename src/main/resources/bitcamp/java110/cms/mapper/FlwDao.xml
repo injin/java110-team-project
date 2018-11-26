@@ -31,6 +31,17 @@
         limit #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
+    <select id="flwlistall" resultMap="flwMap" parameterType="int">
+        select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
+        from mv_memb m1,
+        mv_memb m2 ,
+        mv_flw f
+        where m1.mno != m2.mno
+        and m1.mno = f.mno
+        and m2.mno = f.flw
+        and m1.mno = #{mno}
+    </select>
+    
     <select id="getTotalCnt" resultType="int" parameterType="int">
         select count(m2.mno)
         from mv_memb m1, mv_memb m2 ,mv_flw f

@@ -21,6 +21,11 @@ public class flwServiceImpl implements FlwService{
     }
 
    @Override
+   public List<Member> listAll(int mno) {
+       return flwDao.flwlistall(mno);
+   }
+
+   @Override
    public int getTotalCnt(int mno) {
        return flwDao.getTotalCnt(mno);
    }

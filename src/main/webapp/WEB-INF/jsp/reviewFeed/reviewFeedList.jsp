@@ -301,9 +301,35 @@
         });
         </c:forEach>
         
-        function openDetailModal(pstno) {
-            $('#detailModal').modal('show');
-        }
+       /*  function openDetailModal(pstno) {
+            
+            $.ajax({
+                url: "/app/movieInfo/listByKeyword",
+                method: "POST",
+                headers : {
+                    'Content-Type': 'application/json;'
+                },
+                data: JSON.stringify({ "keyword": request.term }),
+                success: function( data ) {
+                    response($.map(data.movieList, function (item) {
+
+                        if (item.poster_path != null) {
+                            poster_path = data.imgPrefix + item.poster_path;
+                        } else {
+                            poster_path = '/img/default-movie-img.png';
+                        }
+                        return {
+                            label: item.title,
+                            value: item.id,
+                            release_date:item.release_date,
+                            poster_path:poster_path
+                        }
+                    }));
+                }
+            });
+            
+            $('#detailModal:eq(0)').modal('show');
+        } */
         
     </script>
 </body>
