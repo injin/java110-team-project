@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
@@ -20,6 +22,8 @@ public class MainController {
   @Autowired TmdbSearch tmdbSearch;
   @Autowired PostService postService;
   @Autowired MemberService memberService;
+  @Autowired SceneReviewService sceneReviewService;
+  
   ServletContext sc;
   
 
@@ -31,7 +35,12 @@ public class MainController {
   }
 
   @RequestMapping("/")
-  public String main() {
+  public String main(Model model) {
+    
+    List<SceneReview> topSrList = sceneReviewService.listTopSr();
+    System.out.println("hot장면리뷰 목록" + topSrList.toString());
+    System.out.println("사이즈" + topSrList.size());
+    model.addAttribute("topSrList", topSrList);
     
     return "main";
     

@@ -87,6 +87,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public List<SceneReview> listTopSr() {
+    return sceneReviewDao.listTopSr();
+  }
+  
+  @Override
   public SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sr) {
     
     // 영화 정보 설정

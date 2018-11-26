@@ -16,5 +16,6 @@ public interface SceneReviewDao {
   SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
   List<SceneReviewCmt> listCmt(int srno);
+  List<SceneReview> listTopSr();
   void signOut(int mno);
 }

@@ -44,13 +44,13 @@ height: 24em;
             </h3>
         </div>
         <div class="row">
-        <c:forEach var="log" items="${list}">
+        <c:forEach var="top" items="${topSrList}">
             <div class="col-3 mb-3">
                 <div class="card" >
                     <img class="card-img-top" src="/img/ilidan.jpg"
                         alt="Card image cap">
                     <div class="card-body">
-                        <h5 class="card-title">${log.indirect}(xx분 장면)</h5>
+                        <h5 class="card-title">${top}(xx분 장면)</h5>
                     </div>
                 </div>
             </div>

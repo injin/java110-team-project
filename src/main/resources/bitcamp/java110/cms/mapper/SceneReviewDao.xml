@@ -93,6 +93,17 @@
          ORDER BY cdt DESC
     </select>
     
+    <select id="listTopSr" resultMap="srMap">
+        SELECT srno, titl, time, phot, count(pstno)as cnt
+          FROM mv_like ml,mv_sr ms 
+         WHERE ml.pstno=ms.srno
+           AND ml.type = 'sr'
+         GROUP BY pstno 
+        HAVING count(pstno)>0 
+         ORDER by cnt DESC
+         LIMIT 8
+    </select>
+    
     <update id="signOut" parameterType="int">
         UPDATE IGNORE mv_sr
         SET mno=21
