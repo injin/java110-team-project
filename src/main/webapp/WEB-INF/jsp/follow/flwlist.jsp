@@ -21,16 +21,10 @@
 }
 
 .th-fix {
-
-width: 15%; 
-text-align: center;
-
+	width: 15%;
+	text-align: center;
 }
-
-
 </style>
-
-
 
 
 </head>
@@ -40,7 +34,7 @@ text-align: center;
 
 
 
-	<div class="container">
+	<div class="container mt-1">
 		<div class="row flex-xl-nowarp">
 			<div class="col-12 col-md-3 col-xl-3">
 				<form action="flwlist" method="post" enctype="multipart/form-data">
@@ -53,22 +47,23 @@ text-align: center;
 					</div>
 				</form>
 			</div>
-			<main class="col-12 col-md-9 col-xl-8">
-		   <img style="width:820px; height : 450px;" src="${loginUser.coverImagePath}">
-	       <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="th-fix">나의 피드</th>
-                        <th scope="col" class="th-fix">정보수정</th>
-                        <th scope="col" class="th-fix">통  계</th>
-                        <th scope="col" class="th-fix">팔로우</th>
-                        <th scope="col" class="th-fix">활동로그</th>
-                        <th scope="col" class="th-fix">장면보관함</th>
-                    </tr>
-                </thead>
-            </table>
-			
-			<div class="row">
+			<main class="col-12 col-md-9 col-xl-8"> <img
+				style="width: 820px; height: 420px;"
+				src="${loginUser.coverImagePath}">
+			<table class="table" style="width: 820px;">
+				<thead>
+					<tr>
+						<th scope="col" class="th-fix">나의 피드</th>
+						<th scope="col" class="th-fix">정보수정</th>
+						<th scope="col" class="th-fix">통 계</th>
+						<th scope="col" class="th-fix">팔로우</th>
+						<th scope="col" class="th-fix">활동로그</th>
+						<th scope="col" class="th-fix">장면보관함</th>
+					</tr>
+				</thead>
+			</table>
+
+			<div class="row ml-1" style="width: 820px;">
 				<c:forEach items="${flwlist}" var="member">
 					<div class="col-lg-6 col-md-6 col-sm-12 mb-3">
 						<div class="card">
@@ -87,27 +82,26 @@ text-align: center;
 						</div>
 					</div>
 				</c:forEach>
-			</div>
-			<nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center ">
-                        <li class="page-item"><a class="page-link" href="#"
-                            aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                        </a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#"
-                            aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-                                class="sr-only">Next</span>
-                        </a></li>
-                    </ul>
-                </nav>
+				</div>
+				
+				<jsp:include page="flwpaging.jsp" flush="true">
+                    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+                    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+                    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+                    <jsp:param name="pageNo" value="${paging.pageNo}" />
+                    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+                    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+                    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+                </jsp:include>
+                <form id="listForm" action="flwlist" method="post">
+                    <input type="hidden" name="pageNo">
+                </form>
+               
 			</main>
-		
 		</div>
 	</div>
-
+	
+	
 	<form action="flwdelete" id="deleteForm" method="post">
 		<input type="hidden" name="flw">
 	</form>
@@ -117,13 +111,9 @@ text-align: center;
 	</form>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
-	<script type="text/javascript">
+	
+<script type="text/javascript">
 
-
-function removeFlw(number) {
-    $('#deleteForm input[name="flw"]').val(number);
-    $('#deleteForm').submit();
-}
 
 function addFlw(number){
   /*   $('#add input[name="flw"]').val(number);
@@ -132,6 +122,18 @@ function addFlw(number){
     console.log(number);
     
 }
+
+function removeFlw(number) {
+    $('#deleteForm input[name="flw"]').val(number);
+    $('#deleteForm').submit();
+}
+
+ function goPage(pageNo){
+    
+    $('#listForm input[name="pageNo"]').val(pageNo);
+    $('#listForm').submit();
+    
+} 
 
 </script>
 
