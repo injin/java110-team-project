@@ -68,7 +68,7 @@
   <main role="main" class="container">
   <div id="detail">
   
-    <form action="updateInfo" method="post" id="detailForm"
+    <form action="update" method="post" id="detailForm"
       enctype="multipart/form-data">
       <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
       <input type="hidden" name="profileImage"
@@ -97,7 +97,7 @@
         </div>
       </div>
       <hr>
-
+      <section id="cover-area">
       <h3 id="cover-img">커버 사진</h3>
       <div class="cover-upload">
         <div class="cover-edit">
@@ -109,6 +109,7 @@
             style="background-image: url('${loginUser.coverImagePath}');"></div>
         </div>
       </div>
+      </section>
       <hr>
 
       <h3 id="gr_anly">선호 장르 분석</h3>
