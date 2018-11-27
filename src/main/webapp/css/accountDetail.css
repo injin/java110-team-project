@@ -34,7 +34,7 @@
   font-family: 'FontAwesome';
   color: #757575;
   position: absolute;
-  top: 10px;
+  top: 7px;
   left: 0;
   right: 0;
   text-align: center;
@@ -59,40 +59,19 @@
 /* ------------------------------------------------------------------------------------ */
 
 .cover-upload {
-  display: block;
-  overflow: visible;
   position: relative;
+  margin: 0px 15rem;
 }
-
-
-
-
-.cover-preview {
-  display: block;
-  position: relative;
-  width: 40rem;
-  height: 30rem;
-  border: 6px solid #F8F8F8;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  margine: 0px;
-}
-.cover-preview > div {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50%;
-}
-
-/* 버튼 */
 .cover-edit {
-  /* position: relative; */
+  position: absolute;
   right: 12px;
   z-index: 1;
-  top: 10px;
+}
+.cover-edit input {
+  display: none;
 }
 .cover-edit input + label {
-  /* display: inline-block; */
+  display: inline-block;
   width: 34px;
   height: 34px;
   margin-bottom: 0;
@@ -104,9 +83,6 @@
   font-weight: normal;
   transition: all 0.2s ease-in-out;
 }
-.cover-edit input {
-  display: none;
-}
 .cover-edit input + label:hover {
   background: #f1f1f1;
   border-color: #d6d6d6;
@@ -115,10 +91,39 @@
   content: "\f040";
   font-family: 'FontAwesome';
   color: #757575;
-  /* position: absolute; */
-  top: 10px;
+  position: absolute;
+  top: 7px;
   left: 0;
   right: 0;
   text-align: center;
   margin: auto;
+}
+#asdf{
+  
+}
+/* 이미지 출력창 */
+.cover-preview {
+  width: 40rem;
+  height: 30rem;
+  position: relative;
+  border: 6px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.cover-preview > div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.cover-upload {
+  width: 40rem;
+  height: 30rem;
+  display: inline-block;
+  
+  float:none;
+}
+#cover-area {
+  display: block;
+  
 }

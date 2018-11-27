@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+.cover-upload {
+  position: relative;
+  /* max-width: 205px; */
+  margin: 0px 15rem;
+}
+.cover-upload .cover-edit {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+.cover-upload .cover-edit input {
+  display: none;
+}
+.cover-upload .cover-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.cover-upload .cover-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+.cover-upload .cover-edit input + label:after {
+  content: "\f040";
+  font-family: 'FontAwesome';
+  color: #757575;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: auto;
+}
+.cover-upload .cover-preview {
+  width: 40rem;
+  height: 30rem;
+  position: relative;
+  border: 6px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.cover-upload .cover-preview > div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+    </style>
+</head>
+<body>
+    <main role="main" class="container">
+      <section id="cover-area">
+        <h3 id="cover-img">커버 사진</h3>
+        <div class="cover-upload">
+          <div class="cover-edit">
+            <input type='file' name="coverImage" id="imageUpload-cover"
+              accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
+          </div>
+          <div class="cover-preview row">
+            <div id="coverPreview"
+              style="background-image: url(MAIN.jpeg);"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+</body>
+<script>
+    $("#imageUpload-profile").change(function() {
+      profileURL(this);
+    });
+    function coverURL(input) {
+      if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              $('#coverPreview').css('background-image', 'url('+e.target.result +')');
+              $('#coverPreview').hide();
+              $('#coverPreview').fadeIn(650);
+          }
+          reader.readAsDataURL(input.files[0]);
+      }
+</script>
+</html>
