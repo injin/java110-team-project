@@ -141,7 +141,7 @@ input.form-control {
 						<c:choose>
 							<c:when test="${empty sessionScope.loginUser.pr}">
 								<input type="text" class="pr form-control" name="pr"
-									value="자기소개">
+									value="자기소개를 입력해 주세요.">
 							</c:when>
 							<c:otherwise>
 								<input type="text" class="pr form-control" name="pr"
@@ -151,20 +151,29 @@ input.form-control {
 				</div>
 			</section>
             <hr>
+            
+            
+            
+            
 			<section id="cover-area">
 				<h3 id="cover-img">커버 사진</h3>
+				<div id="asdf">
 				<div class="cover-upload">
 					<div class="cover-edit">
 						<input type='file' name="coverImage" id="imageUpload-cover"
 							accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
 					</div>
 					<div class="cover-preview row">
-						<div id="coverPreview"
-							style="background-image: url('${loginUser.coverImagePath}');"></div>
+						<div id="coverPreview" style="background-image: url('${loginUser.coverImagePath}');"></div>
 					</div>
+				</div>
 				</div>
 			</section>
 			<hr>
+
+
+
+
 
 			<h3 id="gr_anly">선호 장르 분석</h3>
 
