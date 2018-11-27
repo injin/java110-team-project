@@ -59,40 +59,21 @@
 /* ------------------------------------------------------------------------------------ */
 
 .cover-upload {
-  display: block;
-  overflow: visible;
   position: relative;
+  /* max-width: 205px; */
+  margin: 0px 15rem;
 }
-
-
-
-
-.cover-preview {
-  display: block;
-  position: relative;
-  width: 40rem;
-  height: 30rem;
-  border: 6px solid #F8F8F8;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
-  margine: 0px;
-}
-.cover-preview > div {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50%;
-}
-
-/* 버튼 */
-.cover-edit {
-  /* position: relative; */
+.cover-upload .cover-edit {
+  position: absolute;
   right: 12px;
   z-index: 1;
   top: 10px;
 }
-.cover-edit input + label {
-  /* display: inline-block; */
+.cover-upload .cover-edit input {
+  display: none;
+}
+.cover-upload .cover-edit input + label {
+  display: inline-block;
   width: 34px;
   height: 34px;
   margin-bottom: 0;
@@ -104,21 +85,32 @@
   font-weight: normal;
   transition: all 0.2s ease-in-out;
 }
-.cover-edit input {
-  display: none;
-}
-.cover-edit input + label:hover {
+.cover-upload .cover-edit input + label:hover {
   background: #f1f1f1;
   border-color: #d6d6d6;
 }
-.cover-edit input + label:after {
+.cover-upload .cover-edit input + label:after {
   content: "\f040";
   font-family: 'FontAwesome';
   color: #757575;
-  /* position: absolute; */
+  position: absolute;
   top: 10px;
   left: 0;
   right: 0;
   text-align: center;
   margin: auto;
+}
+.cover-upload .cover-preview {
+  width: 40rem;
+  height: 30rem;
+  position: relative;
+  border: 6px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.cover-upload .cover-preview > div {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }

@@ -54,27 +54,14 @@
 h3, .h3 {
   text-align: center;
 }
-#text-section {
+#nickname-section {
     width: 100%;
     height: 40px;
-    padding-left: 40%;
+    padding: 0 45%;
 }
+
 input.form-control {
     text-align: center;
-}
-.outter {
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-}
-.inner {
-  position: relative;
-  display: inline-block;
-}
-.nickname {
-    width: 10%;
-    width: 10rem;
-    margine: 2rem;
 }
 </style>
 </head>
@@ -90,11 +77,14 @@ input.form-control {
       <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
       <input type="hidden" name="profileImage"
         value="${sessionScope.loginUser.profileImage}">
+        
+        
       <h3 class="mt-3">닉네임</h3>
       <section id="nickname-section">
-        <div class="outter">
-          <div class="inner">
-            <input type="text" class="nickname form-control" name="nickname" value="${member.nickname}">
+        <div class="form-group row">
+          <div class="nickname">
+            <input type="text" class="nickname form-control" name="nickname"
+                value="${member.nickname}">
           </div>
         </div>
       </section>
