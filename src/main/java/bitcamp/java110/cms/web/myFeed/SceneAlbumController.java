@@ -88,8 +88,8 @@ public class SceneAlbumController {
       Paging paging,
       Model model) {
     System.out.println("pageNo: "+paging.getPageNo());
-    System.out.println("detail Title :" + sceneAlbum.getLbmTitle());
-    
+    System.out.println("detail Title : " + sceneAlbum.getLbmTitle());
+    System.out.println("detail open : "+ sceneAlbum.isOpen());
     System.out.println(sceneAlbum);
     
     List<SceneReview> sceneReview = new ArrayList<>();
