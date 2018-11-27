@@ -136,7 +136,12 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<Post> listTopMp() {
-    // TODO Auto-generated method stub
-    return postDao.listTopMp();
+    List<Post> posts2 =postDao.listTopMp();
+
+    for(int i=0;i<posts2.size();i++)
+    {
+      posts2.get(i).setPhotos(postPhotoDao.findByNo(posts2.get(i).getPstno()));
+    }
+    return posts2;
   }
 }
