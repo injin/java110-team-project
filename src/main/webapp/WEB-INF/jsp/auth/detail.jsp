@@ -62,6 +62,20 @@ h3, .h3 {
 input.form-control {
     text-align: center;
 }
+.outter {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+.inner {
+  position: relative;
+  display: inline-block;
+}
+.nickname {
+    width: 10%;
+    width: 10rem;
+    margine: 2rem;
+}
 </style>
 </head>
 <!-- http://localhost:8888/app/auth/detail -->
@@ -77,12 +91,11 @@ input.form-control {
       <input type="hidden" name="profileImage"
         value="${sessionScope.loginUser.profileImage}">
       <h3 class="mt-3">닉네임</h3>
-      <section id="text-section">
-        <div class="form-group row">
-            <div class="col-xs-12 col-md-6 col-lg-4 ">
-            <input type="text" class="form-control" name="nickname"
-                value="${member.nickname}">
-            </div>
+      <section id="nickname-section">
+        <div class="outter">
+          <div class="inner">
+            <input type="text" class="nickname form-control" name="nickname" value="${member.nickname}">
+          </div>
         </div>
       </section>
       <hr>
