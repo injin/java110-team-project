@@ -1,8 +1,6 @@
 package bitcamp.java110.cms.web;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,16 +20,15 @@ public class StatisticController {
             HttpSession session
             ) {
         
-        Member member = (Member)session.getAttribute("loginUser");
+       Member member = (Member)session.getAttribute("loginUser");
         
-        Map<String,Object> condition = new HashMap<>();
-        condition.put("mno", member.getMno());
+       int mno = member.getMno();
+       List<Integer> favGrList = member.getFavGrList();
         
-   /*     List<Integer> favGrList = member.getFavGrList(condition);*/
-        
-        System.out.println(member.getMno());
-        
-        return "staticstic";
+       model.addAttribute("mno",  mno);
+       model.addAttribute("favGrList", favGrList);
+       
+        return null;
     }
     
     

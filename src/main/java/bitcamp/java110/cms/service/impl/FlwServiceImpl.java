@@ -9,7 +9,7 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
 
 @Service
-public class flwServiceImpl implements FlwService{
+public class FlwServiceImpl implements FlwService{
 
      @Autowired
      FlwDao flwDao;
