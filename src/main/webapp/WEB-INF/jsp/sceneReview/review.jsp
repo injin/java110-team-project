@@ -33,7 +33,8 @@
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
                         <c:if test="${not empty sessionScope.loginUser}">
-                        <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
+                        <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-icon" ><img src="/img/btn-pencil.png"></a>
+                        <a href="#" data-toggle="modal" data-target="#srBoxModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
                         </c:if>
                     </h3>
                     <p>(${tmdbMovie.releaseDate})</p>

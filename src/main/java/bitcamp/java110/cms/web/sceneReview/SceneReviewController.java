@@ -78,10 +78,7 @@ public class SceneReviewController {
     }
     
     sceneReviewService.addCmt(comment);
-    
-    System.out.println("올릴 댓글" + comment.toString());
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());
-    System.out.println("대상 장면" + sr.toString());
     
     return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
               + "&time=" + sr.getTime();
