@@ -40,8 +40,6 @@ public class MainController {
     
     List<Post> topMpList = postService.listTopMp();
     List<SceneReview> topSrList = sceneReviewService.listTopSr();
-    System.out.println("hot영화리뷰 목록"+ topMpList.toString());
-    System.out.println("핫영화리뷰사이즈" + topMpList.size());
     model.addAttribute("topSrList", topSrList);
     model.addAttribute("topMpList", topMpList);
     
@@ -64,8 +62,6 @@ public class MainController {
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
-    System.out.println("회원: "+ memberList.toString());
-    
     
     // 해쉬태그
     List<Post> hashList = postService.findByKeyword(keyword);
