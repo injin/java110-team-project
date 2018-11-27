@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostHashtagDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
 
 @Service
@@ -22,7 +24,8 @@ public class PostServiceImpl implements PostService {
   @Autowired PostDao postDao;
   @Autowired MovieDao movieDao;
   @Autowired FlwDao flwDao;
-  
+  @Autowired PostCmtDao postCmtDao;
+
   @Transactional(
       // 트랜잭션 관리자의 이름이 transactionPost 라면
       // 다음 속성은 생략해도 된다.
@@ -53,20 +56,20 @@ public class PostServiceImpl implements PostService {
     List<String> plst = post.getPhotos();
     List<String> hlst = post.getHtags();
     String resultFtags = post.getFtagsForAdd();
-    
+
     if(resultFtags != null && !resultFtags.trim().equals("")) {
       String[] flst = resultFtags.split(",");
-      
+
       for(int i=0;i<flst.length;i++)
       {
         HashMap<String, Object> params = new HashMap<>();
         params.put("pstno", post.getPstno());
         params.put("flwno", flst[i]);
-        
+
         flwDao.insertForPost(params);
       }
     }
-    
+
     for(int i=0;i<plst.size();i++)
     {
       HashMap<String, Object> params = new HashMap<>();
@@ -84,8 +87,8 @@ public class PostServiceImpl implements PostService {
 
       postHashtagDao.insert(params);
     }
-    
-   
+
+
   }
 
   @Override
@@ -102,6 +105,7 @@ public class PostServiceImpl implements PostService {
     {
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
     }
+    
     return posts;
   }
 
@@ -138,5 +142,14 @@ public class PostServiceImpl implements PostService {
   public List<Post> listTopMp() {
     // TODO Auto-generated method stub
     return postDao.listTopMp();
+  }
+
+  public void addCmt(PostCmt postCmt) {
+
+    postCmtDao.insertCmt(postCmt);
+  }
+  
+  public List<PostCmt> findCmts(int no) {
+    return postCmtDao.findCmtList(no);
   }
 }

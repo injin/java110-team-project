@@ -72,16 +72,16 @@
 						<%-- 댓글 작성란 --%>
 						<c:choose>
 							<c:when test="${not empty sessionScope.loginUser}">
+							<input type="hidden" name="pstno" id="dpstno"/>
 								<div class="card mb-2">
 									<div class="media" style="padding: .5rem;">
-
 										<div>
 											<img class="mr-2 profile-medium"
 												src="${loginUser.profileImagePath}" alt="login-profileImage">
 											<div style="text-align: -webkit-center;">${sessionScope.loginUser.nickname}</div>
 										</div>
 										<div class="media-body text-right">
-											<textarea class="form-control" name="cont"
+											<textarea class="form-control" name="content" id="pCmt"
 												placeholder="Write a comment"></textarea>
 										</div>
 										<button type="button" class="btn btn-dark mt-2"
@@ -90,6 +90,7 @@
 										</button>
 									</div>
 								</div>
+
 							</c:when>
 							<c:otherwise>
                                         <div class="media-body text-right mb-2">
@@ -101,8 +102,8 @@
 						<%-- 댓글리스트 --%>
 						<div class="comment-main rounded m-0">
 
-							<ul class="p-0">
-								<li>
+							<ul class="p-0" id="cmt-area">
+								<!-- <li>
 									<div class="row comment-box p-1 pt-3 pr-4">
 										<div class="col-3 user-img text-center">
 											<img src="/img/default-profile-img.png" class="main-cmt-img">
@@ -119,60 +120,8 @@
 											</p>
 										</div>
 									</div>
-								</li>
-								<li>
-									<div class="row comment-box p-1 pt-3 pr-4">
-										<div class="col-3 user-img text-center">
-											<img src="/img/default-profile-img.png" class="main-cmt-img">
-											<label>닉네임</label>
-										</div>
-										<div class="col-9 user-comment bg-light rounded">
-											<p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.Lorem
-												ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum
-												dolor sit amet.</p>
-											<p class="w-100 p-2 m-0">
-												<span class="float-right"> <i
-													class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00
-												</span>
-											</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="row comment-box p-1 pt-3 pr-4">
-										<div class="col-3 user-img text-center">
-											<img src="/img/default-profile-img.png" class="main-cmt-img">
-											<label>닉네임</label>
-										</div>
-										<div class="col-9 user-comment bg-light rounded">
-											<p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.Lorem
-												ipsum dolor sit amet.Lorem ipsum dolor sit amet.Lorem ipsum
-												dolor sit amet.</p>
-											<p class="w-100 p-2 m-0">
-												<span class="float-right"> <i
-													class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00
-												</span>
-											</p>
-										</div>
-									</div>
-								</li>
-								<li>
-									<div class="row comment-box p-1 pt-3 pr-4">
-										<div class="col-3 user-img text-center">
-											<img src="/img/default-profile-img.png" class="main-cmt-img">
-											<label>닉네임</label>
-										</div>
-										<div class="col-9 user-comment bg-light rounded">
-											<p class="w-100 p-2 m-0">Lorem ipsum dolor sit amet.Lorem
-												ipsum dolor sit amet.</p>
-											<p class="w-100 p-2 m-0">
-												<span class="float-right"> <i
-													class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00
-												</span>
-											</p>
-										</div>
-									</div>
-								</li>
+								</li> -->
+								
 
 
 							</ul>

@@ -192,23 +192,11 @@
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 									<li><c:if test="${not empty post.ftags}">
-											<!-- <a data-toggle="dropdown" id="fDropdown" href="#"
-												data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false"
-												style="color: blue; font-size: 0.2rem; vertical-align: top;"> -->
 											<c:forEach items="${post.ftags}" var="ftag">
 												<a href="#"
 													style="color: blue; font-size: 0.2rem; vertical-align: top;">
 													${ftag.nickname} </a>
 											</c:forEach>
-
-
-
-											<%-- </a><div class="dropdown-menu" aria-labelledby="fDropdown">
-												<c:forEach items="${post.ftags}" var="ftag">
-													<a class="dropdown-item" href="#">${ftag.nickname}</a>
-												</c:forEach>
-											</div> --%>
 										</c:if></li>
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
@@ -321,6 +309,7 @@
             fary.push('${ft.nickname}');
             </c:forEach>
             postList.push({
+                pstno: '${post.pstno}',
                 title: '${post.title}',
                 profileImagePath: '${post.member.profileImagePath}',
                 nick:'${post.member.nickname}',
@@ -336,7 +325,8 @@
              $('#detailModal #movie-title').text(postList[index].title);
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
              $('#detailModal #ownerNick').text(postList[index].nick);
-             $('#detailModal #dCont').html($('#reviewCont-'+index).html()); 
+             $('#detailModal #dCont').html($('#reviewCont-'+index).html());
+             $('#detailModal #dpstno').val(postList[index].pstno); 
              
              /* 별 부분*/
              var star = postList[index].star;
@@ -351,13 +341,6 @@
              }
              $('#detail-star').html(html);
              }
-             
-            /* 물어볼것임
-            console.log(postList[index].photos);
-             console.log(${fn:length(postList[index].photos[0])});
-             console.log(postList[index].photos[0].phot);
-             console.log(postList[index].photos[0]);
-             console.log(postList[index].photos.length); */
              
               /* 이미지 추가부분*/
              var h ='';
@@ -377,7 +360,7 @@
                  else{
                      h += '    <div class="carousel-item">';        
                  }
-             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
+             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
              h += '    </div>';
              }
              h += '</div>';
@@ -394,8 +377,6 @@
               
              $('#carouselExampleIndicators').html(h); 
              
-
-             
              /* 친구태그 부분*/
              html ='';
              for (var i=0; i<postList[index].dftags.length; i++) {
@@ -405,36 +386,87 @@
              }
              $('#dftags').html(html); 
              
+             listCmt(postList[index].pstno);
              
-           /*  
+            $('#detailModal').modal('show');
+        }
+        
+         /* 댓글 리스트 받아오는 함수 */
+        function listCmt(pstno) {
             $.ajax({
-                url: "/app/movieInfo/listByKeyword",
-                method: "POST",
+                type:'POST',
+                url:'/app/reviewFeed/listCmt',
                 headers : {
-                    'Content-Type': 'application/json;'
+                    'Content-Type': 'application/json'
                 },
-                data: JSON.stringify({ "keyword": request.term }),
-                success: function( data ) {
-                    response($.map(data.movieList, function (item) {
-
-                        if (item.poster_path != null) {
-                            poster_path = data.imgPrefix + item.poster_path;
-                        } else {
-                            poster_path = '/img/default-movie-img.png';
-                        }
-                        return {
-                            label: item.title,
-                            value: item.id,
-                            release_date:item.release_date,
-                            poster_path:poster_path
-                        }
-                    }));
+                data: JSON.stringify({ 
+                    "pstno" : pstno
+                }),
+                before: function() {
+                    $('#pCmt').val('');
+                },
+                success:function(data){
+                    console.log('modal로 댓글 리스트가져오기');
+                    makeCmtHtml(data);
                 }
             });
-             */
-            $('#detailModal').modal('show');
-        } 
+        }
         
+         /* 댓글정보 html로 만드는 함수*/
+        function makeCmtHtml(data) {
+            var html = '';
+            console.log(data.cmtsResult);
+              for (var i=0;i<data.cmtsResult.length;i++) {
+                  
+                html += '<li>';
+                html += '<div class="row comment-box p-1 pt-3 pr-4">';
+                html += '    <div class="col-3 user-img text-center">';
+                html += '        <img src="';
+                html += '/img/default-profile-img.png';
+                /* html += data.cmtsResult[i].profileImage; */
+                html += '" class="main-cmt-img">';
+                html += '        <label>';
+                html += data.cmtsResult[i].nickname; 
+                html += '        </label>';
+                html += '    </div>';
+                html += '    <div class="col-9 user-comment bg-light rounded">';
+                html += '        <p class="w-100 p-2 m-0">';
+                html += data.cmtsResult[i].content; 
+                html += '        </p>';
+                html += '        <p class="w-100 p-2 m-0">';
+                html += '            <span class="float-right">';
+                html += '            <i class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00 ';
+                html += '            </span>';
+                html += '        </p>';
+                html += '    </div>';
+                html += '</div>';
+                html += '</li> ';   
+            }  
+            
+            $('#cmt-area').html(html);  
+        }
+        
+         function addCmt() {
+             var contVal = $('#addCmtForm textarea[name="content"]').val();
+             console.log(contVal);
+             if (contVal == '') {
+                 alert('내용을 입력해주세요.');
+                 return;
+             }
+             
+              $.ajax({
+                     type:'POST',
+                     url:'/app/reviewFeed/addCmt',
+                     data: { 
+                         "pstno" : $('#dpstno').val(),
+                         "content" : $('#pCmt').val()
+                         },
+                     success:function(data){
+                         console.log('modal에서 댓글 등록');
+                         listCmt($('#dpstno').val());
+                     }
+                 });
+         }
     </script>
 </body>
 </html>
