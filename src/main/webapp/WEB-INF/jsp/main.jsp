@@ -29,6 +29,10 @@
 .p-hot{
     max-height:2em;
 }
+.p-hot2{
+    max-height:2em;
+    padding-top:3em;
+}
 
 </style>
 
@@ -113,13 +117,16 @@
                               <div class="card-body hot" onclick="openDetailModal(${post.pstno})" style="cursor: pointer;">
                                 <h5 class="card-title">${post.title} 리뷰</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
-                                <p class="card-text p-hot">${post.content}</p>
                                 <c:choose>
                                 <c:when test="${not empty post.photos[0].phot}">
+                                <p class="card-text p-hot">${post.content}</p>
                                 <img class="img-sr" src="/upload/post/${post.photos[0].phot}">
                                 </c:when>
                                 <c:otherwise>
+                                <div>
+                                 <p class="card-text p-hot2">${post.content}</p>
                                <!--  <img class="img-sr" src="/img/default-movie-img.png"> -->
+                                </div>
                                 </c:otherwise>
                                 </c:choose>
                               </div>

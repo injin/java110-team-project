@@ -12,7 +12,7 @@
 					<h5 class="modal-title" style="margin-right: 1rem">리뷰 작성하기</h5>
 					<!-- 영화 검색 -->
 					<input type="hidden" id="pstTypeNo" name="pstTypeNo">
-					<div class="input-group ui-widget ui-front onlyMovie">
+					<div class="input-group ui-widget ui-front onlyMovie msearch" style="width:29em">
 						<div class="input-group-prepend">
 							<div class="input-group-text">영화</div>
 						</div>
@@ -44,13 +44,13 @@
 						<textarea name="content" class="form-control" rows="10"
 							id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
-					<div class="input-group" style="text-align: center;">
+					<div class="input-group" style="text-align: auto;">
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
 						</div>
 						<section id="examples">
 							<div class="example example_objects_as_tags">
-								<div class="bs-example">
+								<div class="bs-example ftag">
 									<input type="text" id="flw"/>
 								</div>
 							</div>
