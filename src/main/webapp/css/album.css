@@ -64,6 +64,7 @@ img{
 .boxList{
 	border-right: 1px solid #e9ecef;
     height: 35.3em;
+    overflow: auto;
 }
 .title_box{
 	font-size: 1.5rem; 
@@ -72,7 +73,7 @@ img{
 }
 .title_edit{
     margin-left: 0.5rem; 
-	/* display: none; */
+	/* display: none !important; */
 }
 /* .title_edit:hover{
     

@@ -63,11 +63,17 @@ public class SceneAlbumController {
   public String detail(
       SceneAlbum sceneAlbum,
       Paging paging,
-      Model model) {
+      Model model,
+      HttpSession session) {
+    
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    
     System.out.println("pageNo: "+paging.getPageNo());
     System.out.println("detail Title : " + sceneAlbum.getLbmTitle());
     System.out.println("detail open : "+ sceneAlbum.isOpen());
     System.out.println(sceneAlbum);
+    
+    
     
     List<SceneReview> sceneReview = new ArrayList<>();
     sceneReview = sceneReviewService.list(157336);
@@ -75,6 +81,7 @@ public class SceneAlbumController {
     model.addAttribute("title", sceneAlbum.getLbmTitle());
     model.addAttribute("sceneAlbum", sceneAlbum);
     model.addAttribute("sceneReview", sceneReview);
+    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     return "sceneAlbum/detailAlbum";
   }
   
