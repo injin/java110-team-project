@@ -10,7 +10,7 @@
 
                 <!-- Modal-Header -->
                 <div class="modal-header form-inline">
-                    <h5 class="modal-title">앨범 수정</h5>
+                    <h5 class="modal-title"></h5>
 
                     <div class="title_box">
                     ${sceneAlbum.lbmTitle}
@@ -42,11 +42,16 @@
 
                 <div class="modal-body p-0">
                         <div class="row mbr-justify-content-center">
-                             <div class="col-lg-3 boxList">
+                             <div class="col-lg-3 boxBorder">
+                             <div class="scrollbar-light-blue boxList">
                                 <c:forEach items="${sceneAlbumList}" var="album">
-                                    <div class="overflow">${album.lbmTitle}</div>
+                                    <div class="album_title al_wrap">
+                                    <div class="al_overflow">${album.lbmTitle}</div></div>
                                 </c:forEach>
+                                </div>
+                                <div class="al_add"><i class="fas fa-plus"></i>보관함 추가</div>
                              </div>
+                             
                              <div class="col-lg-9">
                              </div>
                         </div>
