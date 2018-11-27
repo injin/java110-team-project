@@ -11,9 +11,9 @@ public interface SceneReviewDao {
   Integer insert(SceneReview sceneReview);
   Integer insertCmt(SceneReviewCmt sceneReviewCmt);
   Integer insertCmtMap(SceneReviewMap sceneReviewMap);
-  Integer findOne(int mvno);
+  Integer findOneSrno(int mvno);
   SceneReview findByNo(int srno);
-  List<SceneReview> list(int mvno);
+  List<SceneReview> findAll(int mvno);
   int getTotalCmtCnt(int srno);
   List<SceneReviewCmt> listCmt(Map<String, Object> condition);
   List<SceneReview> listTopSr();

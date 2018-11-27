@@ -89,12 +89,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <span>모달 바디!</span>
+        <c:choose>
+            <c:when test="${not empty sceneAlbumList}">
+                <c:forEach items="${sceneAlbumList}">
+                    
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <span>보관함이 없습니다.</span>
+            </c:otherwise>
+        </c:choose>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      
     </div>
   </div>
 </div>

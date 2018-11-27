@@ -14,6 +14,7 @@ import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
+import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -25,16 +26,20 @@ public class SceneReviewController {
   @Autowired ServletContext sc;
   @Autowired TmdbMovies tmdbMovies;
   @Autowired SceneReviewService sceneReviewService;
+  @Autowired SceneAlbumService sceneAlbumService;
   
   @RequestMapping("/review")
-  public String findScene(SceneReview sr, Model model, Paging paging) {
+  public String findScene(SceneReview sr, Model model, 
+      Paging paging, HttpSession session) {
     
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
     MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
     sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
     
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
+    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     
     if (sr.getSrno() !=null) {
       paging.setTotalCount(sceneReviewService.getTotalCmtCnt(sr.getSrno()));

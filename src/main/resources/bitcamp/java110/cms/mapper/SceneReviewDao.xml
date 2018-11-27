@@ -54,7 +54,7 @@
         VALUES (#{cmno}, #{mapName}, #{lat}, #{lng})
     </insert>
     
-    <select id="findOne" resultType="int" parameterType="int">
+    <select id="findOneSrno" resultType="int" parameterType="int">
         SELECT srno
           FROM mv_sr
          WHERE mvno = #{value}
@@ -68,7 +68,7 @@
          WHERE srno = #{value}
     </select>
     
-    <select id="list" resultMap="srMap" parameterType="int">
+    <select id="findAll" resultMap="srMap" parameterType="int">
         SELECT srno, mvno, mno, titl, time, phot, cont, spo
           FROM mv_sr
          WHERE mvno = #{mvno}

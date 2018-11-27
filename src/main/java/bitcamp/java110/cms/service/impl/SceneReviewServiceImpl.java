@@ -70,7 +70,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   
   @Override
   public List<SceneReview> list(int mvno) {
-    return sceneReviewDao.list(mvno);
+    return sceneReviewDao.findAll(mvno);
   }
   
   @Override
@@ -98,7 +98,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     sr.setMovieDb(tmdbMovie);
     
     if (sr.getSrno() == null) {
-      Integer defaultSrno = sceneReviewDao.findOne(tmdbMovie.getId());
+      Integer defaultSrno = sceneReviewDao.findOneSrno(tmdbMovie.getId());
       if (defaultSrno != null) {
         sr.setSrno(defaultSrno);
       } else {
