@@ -61,10 +61,15 @@ img{
 	margin: 0.2rem;
 	margin-top: 0.75rem;
 }
-.boxList{
+.boxBorder{
+	height: 35.3em;
 	border-right: 1px solid #e9ecef;
-    height: 35.3em;
-    overflow: auto;
+}
+.boxList{
+	width: 13.2rem !important;
+	height: 32rem;
+	padding-top: 0.5rem;
+    overflow: hidden;
 }
 .title_box{
 	font-size: 1.5rem; 
@@ -73,13 +78,44 @@ img{
 }
 .title_edit{
     margin-left: 0.5rem; 
-	/* display: none !important; */
 }
-/* .title_edit:hover{
+.album_title{
+	width: 12.7rem !important;
+    /* width: 13.2rem !important; */
+    height: 3rem;
+    background-color: #d5dae0;
     
-	display: inline-block;
-	
-} */
+}
+.al_add{
+	width: 13.2rem;
+	height: 3.34rem;
+	background-color: #00cc99;
+	color: white;
+	font-size: 1.4rem;
+    text-align: center;
+    padding: 0.6rem;
+}
+.al_add i{
+	    margin-right: 1rem;
+}
+.al_overflow {
+    font-size: 1.4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    margin: 0;
+    padding: 0;
+}
+.al_wrap{
+    display: flex;
+    background: white;
+    padding: 0.5rem 1rem 0rem 1.3rem;
+    border-radius: 0.5rem;
+    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5rem;
+}
 /* 앨범 추가 모달 */
 .modal-content{
     margin: 0 auto;

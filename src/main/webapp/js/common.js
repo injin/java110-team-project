@@ -1,3 +1,11 @@
+// 마우스 오버시 스크롤 효과
+$('.boxList').on('mouseover', function(){
+            $('.scrollbar-light-blue').css('overflow', 'auto');
+        }).on('mouseleave', function(){
+            $('.scrollbar-light-blue').css('overflow', 'hidden');    
+        });
+
+
 // LOGIN ========================
 Kakao.init('6295fa2342cde6565c7cbf2e4d4e5428');
 function loginWithKakao() {
