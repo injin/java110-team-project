@@ -56,11 +56,29 @@ img{
     padding-bottom: 2rem;
 }
 #mgrModal .globe, #mgrModal .lock{
-	margin-top: 1rem;
 	font-size: 1.5rem;
 	float: right; 
 	margin: 0.2rem;
+	margin-top: 0.75rem;
 }
+.boxList{
+	border-right: 1px solid #e9ecef;
+    height: 35.3em;
+}
+.title_box{
+	font-size: 1.5rem; 
+	font-weight: bold;
+	cursor: pointer;
+}
+.title_edit{
+    margin-left: 0.5rem; 
+	/* display: none; */
+}
+/* .title_edit:hover{
+    
+	display: inline-block;
+	
+} */
 /* 앨범 추가 모달 */
 .modal-content{
     margin: 0 auto;
