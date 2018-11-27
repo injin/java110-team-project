@@ -137,7 +137,14 @@
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/common.js"></script>
-
+    <script>
+    
+    $('.title_box').on('mouseover', function(){
+        $('.title_edit').css('visibility', 'visible');
+    }).on('mouseleave', function(){
+        $('.title_edit').css('visibility', 'hidden');    
+    });
+    </script>
 
 </body>
 </html>

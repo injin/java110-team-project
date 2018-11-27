@@ -99,6 +99,7 @@
             $('#detailForm').submit();
 
         }
+
     </script>
 
 
