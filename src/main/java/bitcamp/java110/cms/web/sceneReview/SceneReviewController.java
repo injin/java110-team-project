@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
@@ -26,7 +27,7 @@ public class SceneReviewController {
   @Autowired SceneReviewService sceneReviewService;
   
   @RequestMapping("/review")
-  public String findScene(SceneReview sr, Model model) {
+  public String findScene(SceneReview sr, Model model, Paging paging) {
     
     MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
     sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
@@ -34,7 +35,11 @@ public class SceneReviewController {
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
-    if (sr.getSrno() !=null) model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno()));
+    
+    if (sr.getSrno() !=null) {
+      paging.setTotalCount(sceneReviewService.getTotalCmtCnt(sr.getSrno()));
+      model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno(), paging));
+    }
     
     return "sceneReview/review";
   }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
@@ -63,15 +64,6 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public SceneReview findByTime(int mvno, String time) {
-    Map<String, Object> condition = new HashMap<>();
-    condition.put("mvno", mvno);
-    condition.put("time", time);
-    
-    return sceneReviewDao.findByTime(condition);
-  }
-  
-  @Override
   public SceneReview findByNo(int srno) {
     return sceneReviewDao.findByNo(srno);
   }
@@ -82,8 +74,16 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public List<SceneReviewCmt> listCmt(int srno) {
-    return sceneReviewDao.listCmt(srno);
+  public int getTotalCmtCnt(int srno) {
+    return sceneReviewDao.getTotalCmtCnt(srno);
+  }
+  
+  @Override
+  public List<SceneReviewCmt> listCmt(int srno, Paging paging) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("srno", srno);
+    condition.put("paging", paging);
+    return sceneReviewDao.listCmt(condition);
   }
   
   @Override
@@ -97,16 +97,6 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     // 영화 정보 설정
     sr.setMovieDb(tmdbMovie);
     
-    // 장면 시간 설정
-    /*if (sr.getTime() == null) {
-      String defaultTime = sceneReviewDao.findDefaultTime(tmdbMovie.getId());
-      if (defaultTime != null) {
-        sr.setTime(defaultTime);
-      } else {
-        return sr;
-      }
-    }*/
-    
     if (sr.getSrno() == null) {
       Integer defaultSrno = sceneReviewDao.findOne(tmdbMovie.getId());
       if (defaultSrno != null) {
@@ -116,7 +106,6 @@ public class SceneReviewServiceImpl implements SceneReviewService {
       }
     }
     
-    //SceneReview findMovie = findByTime(tmdbMovie.getId(), sr.getTime());
     SceneReview findSr = findByNo(sr.getSrno());
     if (findSr != null) {
       findSr.setTrgtSrExist(true);

@@ -92,7 +92,7 @@
                         <div class="media">
                           <div>
                               <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="Generic placeholder image">
-                              <div>${loginUser.nickname}</div>
+                              <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
                             <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
@@ -143,6 +143,21 @@
                         </div>
                     </div>
                 </c:forEach>
+                
+                <jsp:include page="paging.jsp" flush="true">
+                    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+                    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+                    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+                    <jsp:param name="pageNo" value="${paging.pageNo}" />
+                    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+                    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+                    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+                </jsp:include>
+                <form id="cmtListForm" action="review" method="get">
+                    <input type="hidden" name="srno" value="${sceneReview.srno}">
+                    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+                    <input type="hidden" name="pageNo">
+                </form>
                 </c:if>
                 
             </c:if>
@@ -280,6 +295,9 @@
         
         $('#addCommentForm').submit();
     }
+    
+    
+    
     
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {
