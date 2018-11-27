@@ -11,12 +11,11 @@ public interface SceneReviewDao {
   Integer insert(SceneReview sceneReview);
   Integer insertCmt(SceneReviewCmt sceneReviewCmt);
   Integer insertCmtMap(SceneReviewMap sceneReviewMap);
-  String findDefaultTime(int mvno);
   Integer findOne(int mvno);
-  SceneReview findByTime(Map<String, Object> condition);
   SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
-  List<SceneReviewCmt> listCmt(int srno);
+  int getTotalCmtCnt(int srno);
+  List<SceneReviewCmt> listCmt(Map<String, Object> condition);
   List<SceneReview> listTopSr();
   void signOut(int mno);
 }

@@ -54,27 +54,12 @@
         VALUES (#{cmno}, #{mapName}, #{lat}, #{lng})
     </insert>
     
-    <select id="findDefaultTime" resultType="string" parameterType="int">
-        SELECT time
-          FROM mv_sr
-         WHERE mvno = #{value}
-         ORDER BY time ASC
-         LIMIT 1
-    </select>
-    
     <select id="findOne" resultType="int" parameterType="int">
         SELECT srno
           FROM mv_sr
          WHERE mvno = #{value}
          ORDER BY time ASC
          LIMIT 1
-    </select>
-    
-    <select id="findByTime" resultMap="srMap" parameterType="map">
-        SELECT srno, mvno, mno, titl, time, phot, cont, spo
-          FROM mv_sr
-         WHERE mvno = #{mvno}
-           AND time = #{time}
     </select>
     
     <select id="findByNo" resultMap="srMap" parameterType="int">
@@ -90,15 +75,22 @@
          ORDER BY time ASC
     </select>
     
-    <select id="listCmt" resultMap="srCmtMap" parameterType="int">
+    <select id="getTotalCmtCnt" resultType="int" parameterType="int">
+        SELECT count(cmno)
+          FROM mv_sr_cmt
+         WHERE srno = #{srno}
+    </select>
+    
+    <select id="listCmt" resultMap="srCmtMap" parameterType="map">
         SELECT cmt.cmno, srno, mb.mno, phot, cont, cdt, mdt
               , mpno, mp_nm, lat, lng, nick, p_phot
           FROM mv_sr_cmt cmt LEFT JOIN mv_sr_map mp
                ON cmt.cmno = mp.cmno
                INNER JOIN mv_memb mb
                ON cmt.mno = mb.mno
-         WHERE cmt.srno = #{value}
+         WHERE cmt.srno = #{srno}
          ORDER BY cdt DESC
+         LIMIT #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
     <select id="listTopSr" resultMap="srMap">
