@@ -50,6 +50,14 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
+  public List<SceneAlbum> list2(int mno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("srno", srno);
+    return sceneAlbumDao.findAll2(condition);
+  }
+  
+  @Override
   public List<SceneAlbum> pageList(int mno, Paging paging) {
     
     Map<String, Object> condition = new HashMap<>();
@@ -72,4 +80,5 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   public void delete(int no) {
 
   }
+  
 }

@@ -91,8 +91,13 @@
       <div class="modal-body">
         <c:choose>
             <c:when test="${not empty sceneAlbumList}">
-                <c:forEach items="${sceneAlbumList}">
-                    
+                <c:forEach items="${sceneAlbumList}" var="album">
+                    <div class="media">
+                      <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                      <div class="media-body">
+                        <h5 class="mt-0">${album.lbmTitle}</h5>
+                      </div>
+                    </div>
                 </c:forEach>
             </c:when>
             <c:otherwise>

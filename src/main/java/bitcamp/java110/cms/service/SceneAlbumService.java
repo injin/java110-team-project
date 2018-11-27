@@ -8,6 +8,7 @@ public interface SceneAlbumService {
   
     void add (SceneAlbum sceneAlbum);
     List<SceneAlbum> list(int mno);
+    List<SceneAlbum> list2(int mno, int srno);
     List<SceneAlbum> pageList(int mno, Paging paging);
     int getTotalCnt(int mno);
     SceneAlbum get(int no);

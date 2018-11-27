@@ -54,7 +54,8 @@
                     <c:forEach items="${sceneList}" var="scene">
                         <div class="scene-box">
                             <img class="scene-img" src="${scene.imgPath}" data-toggle="tooltip"
-                                 data-placement="top" title="${scene.title} (${scene.time})">
+                                 data-placement="top" title="${scene.title} (${scene.time})"
+                                 onclick="goToSr(${scene.srno})">
                         </div>
                     </c:forEach>
                 </div>
@@ -173,7 +174,7 @@
         </c:if>
         
         <div class="col-lg-3 col-md-12">
-            
+            <span>${sceneAlbumList}</span>
         </div>
     </div>
     
@@ -199,6 +200,10 @@
     }).on('mouseleave', function() {
         $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
     });
+    
+    function goToSr(srno) {
+        location.href = 'review?mvno=${sceneReview.mvno}&srno=' + srno;
+    }
     
      /* ===== 입력 모달 관련  ===== */
     var $modal = $('#srAddModal').modal({show : false});
