@@ -12,6 +12,11 @@
 				<div class="modal-header form-inline">
 					<h5 class="modal-title">앨범 수정</h5>
 
+                    <div class="title_box">
+                    ${sceneAlbum.lbmTitle}
+                    <span class="title_edit"> <i class="far fa-edit" style="font-size: 1rem;"></i></span>
+                    </div>
+                   
 					<!-- 공개여부 -->
 					<div class="row">
 						<c:choose>
@@ -35,14 +40,13 @@
 				</div>
 				<!-- modal-header -->
 
-				<div class="modal-body">
-					<div class="form-group">
+				<div class="modal-body p-0">
 						<div class="row mbr-justify-content-center">
-							<div class="col-lg-12 mbr-col-md-12">
-							 <div class="col-lg-3"></div>
-							</div>
+							 <div class="col-lg-3 boxList">
+							 </div>
+							 <div class="col-lg-9">
+							 </div>
 						</div>
-					</div>
 				</div>
 				<!-- modal-body -->
 
