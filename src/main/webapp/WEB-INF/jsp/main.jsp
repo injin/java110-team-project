@@ -22,6 +22,13 @@
 .hot-sr{
     height:5em;
 }
+.hot{
+    height:20em;
+    max-height:20em;
+}
+.p-hot{
+    max-height:2em;
+}
 
 </style>
 
@@ -82,155 +89,127 @@
         </div>
         
         <!-- 슬라이더 START -->
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div id="hotSr" class="carousel slide" data-ride="carousel">
         
             <ul class="carousel-indicators mb-0 pb-0">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#hotSr" data-slide-to="0" class="active"></li>
+                <li data-target="#hotSr" data-slide-to="1"></li>
+                <li data-target="#hotSr" data-slide-to="2"></li>
             </ul>
 
             
+            
+            
+            
             <div class="carousel-inner no-padding my-5">
-                <div class="carousel-item  active">
-                    <div class="row pl-3 pr-3">
+                <c:forEach items="${topMpList}" var="post" varStatus="status">
+                    <c:if test="${status.index%3 == 0}">
+                        <div class="carousel-item  <c:if test="${status.first}">active</c:if>">
+                            <div class="row pl-3 pr-3">
+                    </c:if>
+                    
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
-                                <h5 class="card-title">XXX 리뷰</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
-                                <p class="card-text">인터스텔라 쨩쨩맨</p>
+                              <div class="card-body hot" onclick="openDetailModal(${post.pstno})" style="cursor: pointer;">
+                                <h5 class="card-title">${post.title} 리뷰</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                <p class="card-text p-hot">${post.content}</p>
                                 <c:choose>
-                                <c:when test="${not empty post.pstno}">
-                                <img class="img-sr" src="/upload/sceneReview/${post.photo}">
+                                <c:when test="${not empty post.photos[0].phot}">
+                                <img class="img-sr" src="/upload/post/${post.photos[0].phot}">
                                 </c:when>
                                 <c:otherwise>
-                                <img class="img-sr" src="/img/default-movie-img.png">
+                               <!--  <img class="img-sr" src="/img/default-movie-img.png"> -->
                                 </c:otherwise>
                                 </c:choose>
                               </div>
                             </div>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
-                             
-                                    <h5 class="card-title">인터스테라 가르강튀아 리뷰</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">작성자:호일동</h6>
-                                    <p class="card-text">블랙홀의 신비함이란 미쳐따</p>
-                                    <img class="img-sr" src="/img/가르강튀아.gif">
-                                
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
-                                <h5 class="card-title">XXX 리뷰</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
-                                <p class="card-text">스파이더맨 쨩쨩맨</p>
-                                <c:choose>
-                                <c:when test="${not empty post.pstno}">
-                                <img class="img-sr" src="/upload/sceneReview/${post.photo}">
-                                </c:when>
-                                <c:otherwise>
-                                <img class="img-sr" src="/img/default-movie-img.png">
-                                </c:otherwise>
-                                </c:choose>
-                              </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-               <!--  <div class="carousel-item">
-                    <div class="row pl-3 pr-3">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <img class="img-sr" src="/img/가르강튀아.gif">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                <div class="carousel-item">
-                    <div class="row pl-3 pr-3">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <img class="img-sr" src="/img/가르강튀아.gif">
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="card card-hot-sr">
-                              <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                              </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div> -->
-            </div>
-           
+                    
+                    <c:if test="${status.index%3 == 2 || status.last}">
+               </div>
+          </div>
+                    </c:if>
+                </c:forEach>
+    </div>
         
-        
-            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <a class="carousel-control-prev" href="#hotSr" data-slide="prev">
                 <span class="carousel-control-prev-icon sp"></span>
             </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next">
+            <a class="carousel-control-next" href="#hotSr" data-slide="next">
+                <span class="carousel-control-next-icon sp"></span>
+            </a>
+
+        </div>
+        <!-- 슬라이더 END -->
+    </div>
+    
+    <div class="block-wide pb-3">
+        <div class="text-center" style="margin-top: 50px" >
+            <h3 class="mb-5">
+                <strong>장면 앨범</strong>
+            </h3>
+        </div>
+        
+        <!-- 슬라이더 START -->
+        <div id="scn" class="carousel slide" data-ride="carousel">
+        
+            <ul class="carousel-indicators mb-0 pb-0">
+                <li data-target="#scn" data-slide-to="0" class="active"></li>
+                <li data-target="#scn" data-slide-to="1"></li>
+                <li data-target="#scn" data-slide-to="2"></li>
+            </ul>
+
+            
+            
+            
+            
+            <div class="carousel-inner no-padding my-5">
+                <c:forEach items="${topMpList}" var="post" varStatus="status">
+                    <c:if test="${status.index%3 == 0}">
+                        <div class="carousel-item  <c:if test="${status.first}">active</c:if>">
+                            <div class="row pl-3 pr-3">
+                    </c:if>
+                    
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="card card-hot-sr">
+                              <div class="album" onclick="albumDetail('${album.lbmTitle}')"
+                            style="cursor: pointer;">
+                            <img src="/img/default.jpg">
+                            <c:choose>
+                                <c:when test="${album.open == 'true'}">
+                                    <div class="row">
+                                        <span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+                                        <span style="margin-left: 1.3rem;"><i
+                                            class="fas fa-globe-americas globe"
+                                            style="float: right; margin: 0.2rem;"></i></span>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="row">
+                                        <span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+                                        <span style="margin-left: 1.3rem;"><i
+                                            class="fas fa-lock lock"> </i></span>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                            <span style="font-size: 0.8rem; float: left;">14개</span> <span
+                                style="float: left; clear: both;">${album.cdt}</span>
+                        </div>
+                            </div>
+                        </div>
+                    
+                    <c:if test="${status.index%3 == 2 || status.last}">
+               </div>
+          </div>
+                    </c:if>
+                </c:forEach>
+    </div>
+    
+    <a class="carousel-control-prev" href="#scn" data-slide="prev">
+                <span class="carousel-control-prev-icon sp"></span>
+            </a>
+            <a class="carousel-control-next" href="#scn" data-slide="next">
                 <span class="carousel-control-next-icon sp"></span>
             </a>
 

@@ -13,20 +13,21 @@
         <result column="cdt" property="cdt" />
         <result column="mdt" property="mdt" />
         <result column="opn" property="open" />
+        <result column="include" property="include" />
     </resultMap>
 
     <insert id="insert" parameterType="sceneAlbum"
         useGeneratedKeys="true" keyColumn="lbmno" keyProperty="lbmno">
         insert into mv_lbm( mno, lbm_nm, cdt,opn)
         values(1, #{lbmTitle},
-        now(),if(#{open},'u','l'));
+        now(),if(#{open},'u','l'))
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
 
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
     </select>
     
-    <select id="findAll" resultMap="sceneAlbumMap">
+    <select id="findAll" resultMap="sceneAlbumMap" parameterType="int">
         select
             l.lbmno,
             l.mno,
@@ -34,31 +35,51 @@
             l.phot,
             l.cdt,
             l.mdt,
-            (l.opn ='u') opn   
+            (l.opn ='u') opn
         from mv_lbm l
             inner join mv_memb m on m.mno = l.mno
-            where l.mno = 1
-        order by
-            cdt desc;
-    </select>
-    
-    <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="int">
-        select
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            (l.opn ='u') opn   
-        from mv_lbm l
-            inner join mv_memb m on m.mno = l.mno
-            where l.mno = 1
+            where l.mno = #{mno}
         order by
             cdt desc
-        limit #{start}, 6;
     </select>
     
+    <select id="findAll2" resultMap="sceneAlbumMap" parameterType="map">
+        select lbm.lbmno,
+               lbm.lbm_nm,
+               (sr.srno is not null) as include
+          from mv_lbm lbm 
+                left join (
+                    select lbmno, srno
+                    from mv_lbm_sr
+                    where srno=#{srno}) sr
+            on lbm.lbmno = sr.lbmno
+         where lbm.mno=#{mno}
+    </select>
+    
+    <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="map">
+        select
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn   
+        from mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            where l.mno = #{mno}
+        order by
+            cdt desc
+        limit #{paging.startRowNo} , #{paging.pageSize}
+    </select>
+    
+    <select id="getTotalCnt" resultType="int" parameterType="int">
+        select
+            count(l.lbmno)
+        from mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            where l.mno = #{mno}
+    </select>
     
     <delete id="delete" parameterType="int">
     </delete>

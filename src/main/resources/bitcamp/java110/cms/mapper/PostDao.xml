@@ -36,6 +36,7 @@
 			<result column="p_phot" property="profileImage" />
 		</association>
 	</resultMap>
+    
 
 	<select id="findAll" resultMap="postMap2">
 		select
@@ -84,6 +85,19 @@
 
 	<select id="findByNo" resultMap="postMap" parameterType="int">
 	</select>
+    
+    <select id="listTopMp" resultMap="postMap2">
+        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, cdt, cont, count(ml.pstno)as cnt
+          FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
+         WHERE ml.pstno=mpo.pstno 
+         AND mpo.mvno=mv.mvno
+         AND mpo.mno=memb.mno
+           AND ml.type = 'mp'
+         GROUP BY ml.pstno 
+        HAVING count(ml.pstno)>0 
+         ORDER by cnt DESC
+         LIMIT 9
+    </select>
 
 	<insert id="insert" parameterType="post" useGeneratedKeys="true"
 		keyColumn="pstno" keyProperty="pstno">

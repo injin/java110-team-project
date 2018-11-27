@@ -6,22 +6,32 @@
 <section>
 	<div class="row mbr-justify-content-center">
 		<div class="col-lg-12 mbr-col-md-12">
-
+			<!--  <div class="row col-lg-9" style="float:right; border-right:1px solid silver; 
+                      border-left:1px solid silver;" >
 			<div class="a_btn btn btn-success btn-lg"
-				onclick="document.getElementById('btnAlbum').click();">
+				onclick="document.getElementById('btnAlbum').click();" 
+				style="margin-top: 1rem; ">
 				앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
 					data-target="#albumModal" />
 			</div>
-
+           </div> -->
 			<!-- 앨범 목록 -->
 			<div class="row albumList col-lg-9">
+				<div class="col-lg-12" style="float: right;">
+					<div class="a_btn btn btn-success btn-lg"
+						onclick="document.getElementById('btnAlbum').click();"
+						style="margin-top: 1rem;">
+						앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
+							data-target="#albumModal" />
+					</div>
+				</div>
 				<c:forEach items="${sceneAlbumList}" var="album">
 					<!-- begin="0" end="5" -->
 					<!-- 앨범 하나 -->
 
 					<div class="row" style="margin: 0;">
-						<div class="album" onclick="albumDetail('${album.lbmTitle}')"
-						  style="cursor: pointer;">
+						<div class="album" onclick="albumDetail('${album.lbmTitle}','${album.open}')"
+							style="cursor: pointer;">
 							<img src="/img/default.jpg">
 							<c:choose>
 								<c:when test="${album.open == 'true'}">
@@ -47,6 +57,7 @@
 				</c:forEach>
 				<form action="detail" method="get" id="detailForm">
 					<input type="hidden" name="lbmTitle">
+					<input type="hidden" name="open">
 				</form>
 				<!-- 페이징버튼 -->
 

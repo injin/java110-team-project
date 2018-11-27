@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -191,17 +192,23 @@
 									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 									<li><c:if test="${not empty post.ftags}">
-											<a data-toggle="dropdown" id="fDropdown" href="#"
+											<!-- <a data-toggle="dropdown" id="fDropdown" href="#"
 												data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="false"
-												style="color: blue; font-size: 0.2rem; vertical-align: top;">
-												친구태그 </a>
+												style="color: blue; font-size: 0.2rem; vertical-align: top;"> -->
+											<c:forEach items="${post.ftags}" var="ftag">
+												<a href="#"
+													style="color: blue; font-size: 0.2rem; vertical-align: top;">
+													${ftag.nickname} </a>
+											</c:forEach>
 
-											<div class="dropdown-menu" aria-labelledby="fDropdown">
+
+
+											<%-- </a><div class="dropdown-menu" aria-labelledby="fDropdown">
 												<c:forEach items="${post.ftags}" var="ftag">
 													<a class="dropdown-item" href="#">${ftag.nickname}</a>
 												</c:forEach>
-											</div>
+											</div> --%>
 										</c:if></li>
 								</ul>
 								<c:if test="${post.pstTypeNo ==0}">
@@ -225,19 +232,19 @@
 
 
 								<%-- 이미지 클릭시 상세모달로 --%>
-								<img
-								    onclick="openDetailModal(${post.pstno})"
+								<img onclick="openDetailModal(${status.index})"
 									src="/upload/post/${post.photos[0].phot}"
+									data-title="${post.title}"
 									style="width: 20rem; height: 13rem; margin-left: 1rem;" />
-									<input type="hidden" data-toggle="modal" id="detailPst"
-										data-target="#detailModal"/>
-                            
+								<input type="hidden" data-toggle="modal" id="detailPst"
+									data-target="#detailModal" />
+
 							</c:if>
 						</div>
-						
+
 						<div class="row">
-						
-						<%-- 좋아요 --%>
+
+							<%-- 좋아요 --%>
 							<div class="col-6" style="text-align: left;">
 								<a href="#" style="color: black"> <i
 									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
@@ -245,7 +252,7 @@
 									class="far fa-comment btmIcon"></i>0
 								</a>
 							</div>
-							
+
 							<%-- 별점 --%>
 							<c:if test="${post.pstTypeNo ==0}">
 								<div class='col-6' style="text-align: right;">
@@ -301,7 +308,104 @@
         });
         </c:forEach>
         
-         function openDetailModal(pstno) {
+        var postList = [];
+        
+        
+        <c:forEach items="${postList}" var="post">
+        var pary =[];
+	        <c:forEach items="${post.photos}" var="pht">
+	        pary.push('${pht.phot}');
+	        </c:forEach>
+	        var fary =[];    
+	        <c:forEach items="${post.ftags}" var="ft">
+            fary.push('${ft.nickname}');
+            </c:forEach>
+            postList.push({
+                title: '${post.title}',
+                profileImagePath: '${post.member.profileImagePath}',
+                nick:'${post.member.nickname}',
+                star:'${post.star}',
+                photos:pary,
+                dftags:fary
+            })
+        </c:forEach>
+        
+        
+         function openDetailModal(index) {
+             
+             $('#detailModal #movie-title').text(postList[index].title);
+             $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
+             $('#detailModal #ownerNick').text(postList[index].nick);
+             $('#detailModal #dCont').html($('#reviewCont-'+index).html()); 
+             
+             /* 별 부분*/
+             var star = postList[index].star;
+             if(star != 0){
+                 var html='';
+             for (var i=0; i<5; i++) {
+                 if (i< star) {
+                     html += '<i class="fas fa-star sStar"></i>';
+                 } else {
+                     html += '<i class="far fa-star sStar"></i>';
+                 }
+             }
+             $('#detail-star').html(html);
+             }
+             
+            /* 물어볼것임
+            console.log(postList[index].photos);
+             console.log(${fn:length(postList[index].photos[0])});
+             console.log(postList[index].photos[0].phot);
+             console.log(postList[index].photos[0]);
+             console.log(postList[index].photos.length); */
+             
+              /* 이미지 추가부분*/
+             var h ='';
+             h += '<ol class="carousel-indicators">';
+             for (var i=0; i<postList[index].photos.length; i++) {
+                 if(i ==0){
+             h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
+                 }else{
+                     h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
+                 }
+             }
+             h += '</ol>';
+             h += '<div class="carousel-inner">';
+             for (var i=0; i<postList[index].photos.length; i++) {
+                 if(i ==0){
+             h += '    <div class="carousel-item active">';}
+                 else{
+                     h += '    <div class="carousel-item">';        
+                 }
+             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
+             h += '    </div>';
+             }
+             h += '</div>';
+             
+             h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
+             h += '    role="button" data-slide="prev">';
+             h += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
+             h += '    <span class="sr-only">Previous</span>';
+             h += '</a> <a class="carousel-control-next"';
+             h += '    href="#carouselExampleIndicators" role="button" data-slide="next">';
+             h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
+             h += '    <span class="sr-only">Next</span>';
+             h += '</a>';
+              
+             $('#carouselExampleIndicators').html(h); 
+             
+
+             
+             /* 친구태그 부분*/
+             html ='';
+             for (var i=0; i<postList[index].dftags.length; i++) {
+                 html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
+                 html += postList[index].dftags[i];
+                  html +='</a>';
+             }
+             $('#dftags').html(html); 
+             
+             
            /*  
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",

@@ -133,4 +133,15 @@ public class PostServiceImpl implements PostService {
     }
     postPhotoDao.delete(no);
   }
+
+  @Override
+  public List<Post> listTopMp() {
+    List<Post> posts2 =postDao.listTopMp();
+
+    for(int i=0;i<posts2.size();i++)
+    {
+      posts2.get(i).setPhotos(postPhotoDao.findByNo(posts2.get(i).getPstno()));
+    }
+    return posts2;
+  }
 }

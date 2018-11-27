@@ -8,17 +8,19 @@
     border-left:1px solid silver;
     border-right:1px solid silver;
 }
-.detailList .test{
+.detailList .scene{
 	border: 1px solid silver;
 	width: 14.5rem;
 	height: 9.5rem;
 	margin: 1rem;
 }
+img{
+	width: 14.5rem;
+    height: 9.5rem;
+}
 .titl{
 	font-weight: bold;
-}
-.titl h4{
-	display: inline;
+    font-size: 1.7rem;
 }
 
 /* 페이징 */
@@ -30,12 +32,64 @@
 	background-color: #e9ecef;
 	pointer-events: none;
 }
+/* 앨범 수정 모달 */
+#mgrModal .modal-content{
+    margin: 0 auto;
+    width: 110%;
+    height: 40rem;
+    margin-top: 20%;
+}
 
-/* 모달 */
+#mgrModal .modal-title{
+	margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    
+}
+#mgrModal .close{
+	font-size: 2.4rem;
+    font-weight: 600;
+    padding-top: 0;
+    margin-right: 0;
+    padding-right: 0.5rem;
+    padding-bottom: 2rem;
+}
+#mgrModal .globe, #mgrModal .lock{
+	font-size: 1.5rem;
+	float: right; 
+	margin: 0.2rem;
+	margin-top: 0.75rem;
+}
+.boxList{
+	border-right: 1px solid #e9ecef;
+    height: 35.3em;
+    overflow: auto;
+}
+.title_box{
+	font-size: 1.5rem; 
+	font-weight: bold;
+	cursor: pointer;
+}
+.title_edit{
+    margin-left: 0.5rem; 
+	/* display: none !important; */
+}
+/* .title_edit:hover{
+    
+	display: inline-block;
+	
+} */
+/* 앨범 추가 모달 */
 .modal-content{
     margin: 0 auto;
     width: 70%;
     margin-top: 30%;
+}
+.modal-title{
+	margin-right: 1rem;
+	font-weight: bold;
+	
 }
 /* 피드 공통 */
 .jumbotron{

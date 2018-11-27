@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
+import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
@@ -24,9 +26,11 @@ public class SceneReviewController {
   @Autowired ServletContext sc;
   @Autowired TmdbMovies tmdbMovies;
   @Autowired SceneReviewService sceneReviewService;
+  @Autowired SceneAlbumService sceneAlbumService;
   
   @RequestMapping("/review")
-  public String findScene(SceneReview sr, Model model) {
+  public String findScene(SceneReview sr, Model model, 
+      Paging paging, HttpSession session) {
     
     MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
     sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
@@ -34,7 +38,15 @@ public class SceneReviewController {
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
-    if (sr.getSrno() !=null) model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno()));
+    
+    if (sr.getSrno() !=null) {
+      paging.setTotalCount(sceneReviewService.getTotalCmtCnt(sr.getSrno()));
+      model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno(), paging));
+      
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      if (loginUser != null)
+        model.addAttribute("sceneAlbumList", sceneAlbumService.list2(loginUser.getMno(), sr.getSrno()));
+    }
     
     return "sceneReview/review";
   }
@@ -73,13 +85,10 @@ public class SceneReviewController {
     }
     
     sceneReviewService.addCmt(comment);
-    
-    System.out.println("올릴 댓글" + comment.toString());
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());
-    System.out.println("대상 장면" + sr.toString());
     
     return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
-              + "&time=" + sr.getTime();
+              + "&srno=" + sr.getSrno();
   }
   
 }

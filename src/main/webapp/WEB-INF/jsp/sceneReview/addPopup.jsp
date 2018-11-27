@@ -77,3 +77,35 @@
     </div>
   </div>
 </div>
+
+
+<div class="modal fade" id="srAlbumAddModal" tabindex="-1" role="dialog" aria-labelledby="srAlbumAddModalTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">보관하기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <c:choose>
+            <c:when test="${not empty sceneAlbumList}">
+                <c:forEach items="${sceneAlbumList}" var="album">
+                    <div class="media">
+                      <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                      <div class="media-body">
+                        <h5 class="mt-0">${album.lbmTitle}</h5>
+                      </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <span>보관함이 없습니다.</span>
+            </c:otherwise>
+        </c:choose>
+      </div>
+      
+    </div>
+  </div>
+</div>
