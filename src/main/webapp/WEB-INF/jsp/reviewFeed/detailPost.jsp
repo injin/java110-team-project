@@ -43,11 +43,8 @@
 							<ul
 								style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
 								<li><a href="#" style="color: black;" id="ownerNick">닉네임</a></li>
-								<li><a data-toggle="dropdown" id="fDropdown" href="#"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="false"
-									style="color: blue; font-size: 0.2rem; vertical-align: top;">
-										친구태그 </a></li>
+								<%-- 친구태그 --%>
+								<li id="dftags"></li>
 							</ul>
 
 						</div>
@@ -70,10 +67,6 @@
 						<%-- 별점 --%>
 						<div class='col-6' id="detail-star" style="text-align: right;"></div>
 					</div>
-
-
-
-
 
 					<div class="row col" style="margin: 0; padding: 0;">
 						<%-- 댓글 작성란 --%>

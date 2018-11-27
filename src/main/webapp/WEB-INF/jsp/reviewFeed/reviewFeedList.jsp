@@ -309,18 +309,24 @@
         </c:forEach>
         
         var postList = [];
+        
+        
         <c:forEach items="${postList}" var="post">
-	        var pary =[];
+        var pary =[];
 	        <c:forEach items="${post.photos}" var="pht">
 	        pary.push('${pht.phot}');
 	        </c:forEach>
+	        var fary =[];    
+	        <c:forEach items="${post.ftags}" var="ft">
+            fary.push('${ft.nickname}');
+            </c:forEach>
             postList.push({
                 title: '${post.title}',
                 profileImagePath: '${post.member.profileImagePath}',
                 nick:'${post.member.nickname}',
                 star:'${post.star}',
                 photos:pary,
-                ftags:'${post.ftags}'
+                dftags:fary
             })
         </c:forEach>
         
@@ -330,8 +336,9 @@
              $('#detailModal #movie-title').text(postList[index].title);
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
              $('#detailModal #ownerNick').text(postList[index].nick);
-             /* $('#detailModal #dCont').html($('#reviewCont-'+index).cont); */
-             console.log($('#reviewCont-'+index).html);
+             $('#detailModal #dCont').html($('#reviewCont-'+index).html()); 
+             
+             /* 별 부분*/
              var star = postList[index].star;
              if(star != 0){
                  var html='';
@@ -352,7 +359,7 @@
              console.log(postList[index].photos[0]);
              console.log(postList[index].photos.length); */
              
-              
+              /* 이미지 추가부분*/
              var h ='';
              h += '<ol class="carousel-indicators">';
              for (var i=0; i<postList[index].photos.length; i++) {
@@ -386,6 +393,18 @@
              h += '</a>';
               
              $('#carouselExampleIndicators').html(h); 
+             
+
+             
+             /* 친구태그 부분*/
+             html ='';
+             for (var i=0; i<postList[index].dftags.length; i++) {
+                 html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
+                 html += postList[index].dftags[i];
+                  html +='</a>';
+             }
+             $('#dftags').html(html); 
+             
              
            /*  
             $.ajax({
