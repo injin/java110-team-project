@@ -8,6 +8,7 @@ public interface SceneAlbumDao {
 
   int insert(SceneAlbum sceneAlbum);
   List<SceneAlbum> findAll(int mno);
+  List<SceneAlbum> findAll2(Map<String, Object> condition);
   List<SceneAlbum> findByPageNo(Map<String, Object> condition);
   int getTotalCnt(int mno);
   SceneAlbum findByNo(int no);

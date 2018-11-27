@@ -13,6 +13,7 @@
         <result column="cdt" property="cdt" />
         <result column="mdt" property="mdt" />
         <result column="opn" property="open" />
+        <result column="include" property="include" />
     </resultMap>
 
     <insert id="insert" parameterType="sceneAlbum"
@@ -40,6 +41,19 @@
             where l.mno = #{mno}
         order by
             cdt desc
+    </select>
+    
+    <select id="findAll2" resultMap="sceneAlbumMap" parameterType="map">
+        select lbm.lbmno,
+               lbm.lbm_nm,
+               (sr.srno is not null) as include
+          from mv_lbm lbm 
+                left join (
+                    select lbmno, srno
+                    from mv_lbm_sr
+                    where srno=#{srno}) sr
+            on lbm.lbmno = sr.lbmno
+         where lbm.mno=#{mno}
     </select>
     
     <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="map">

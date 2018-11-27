@@ -11,6 +11,7 @@ import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
@@ -24,6 +25,7 @@ import info.movito.themoviedbapi.model.MovieDb;
 public class SceneReviewServiceImpl implements SceneReviewService {
   
   @Autowired SceneReviewDao sceneReviewDao;
+  @Autowired SceneAlbumDao sceneAlbumDao;
   @Autowired MovieDao movieDao;
   @Autowired MlogDao logDao;
   

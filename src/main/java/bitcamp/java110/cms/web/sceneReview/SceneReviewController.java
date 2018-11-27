@@ -32,18 +32,20 @@ public class SceneReviewController {
   public String findScene(SceneReview sr, Model model, 
       Paging paging, HttpSession session) {
     
-    int mno = ((Member)session.getAttribute("loginUser")).getMno();
     MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
     sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
     
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
-    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     
     if (sr.getSrno() !=null) {
       paging.setTotalCount(sceneReviewService.getTotalCmtCnt(sr.getSrno()));
       model.addAttribute("cmtList", sceneReviewService.listCmt(sr.getSrno(), paging));
+      
+      Member loginUser = (Member)session.getAttribute("loginUser");
+      if (loginUser != null)
+        model.addAttribute("sceneAlbumList", sceneAlbumService.list2(loginUser.getMno(), sr.getSrno()));
     }
     
     return "sceneReview/review";
@@ -86,7 +88,7 @@ public class SceneReviewController {
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());
     
     return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
-              + "&time=" + sr.getTime();
+              + "&srno=" + sr.getSrno();
   }
   
 }
