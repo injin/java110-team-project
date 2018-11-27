@@ -310,12 +310,17 @@
         
         var postList = [];
         <c:forEach items="${postList}" var="post">
+	        var pary =[];
+	        <c:forEach items="${post.photos}" var="pht">
+	        pary.push('${pht.phot}');
+	        </c:forEach>
             postList.push({
                 title: '${post.title}',
                 profileImagePath: '${post.member.profileImagePath}',
                 nick:'${post.member.nickname}',
                 star:'${post.star}',
-                photos:'${post.photos}'
+                photos:pary,
+                ftags:'${post.ftags}'
             })
         </c:forEach>
         
@@ -340,27 +345,35 @@
              $('#detail-star').html(html);
              }
              
-             console.log(postList[index].photos);
+            /* 물어볼것임
+            console.log(postList[index].photos);
              console.log(${fn:length(postList[index].photos[0])});
              console.log(postList[index].photos[0].phot);
              console.log(postList[index].photos[0]);
-             console.log(postList[index].photos.length);
-             /* 
+             console.log(postList[index].photos.length); */
+             
+              
              var h ='';
-             for (var i=0; i<postList[index].photos.length; i++) {
-                 
              h += '<ol class="carousel-indicators">';
+             for (var i=0; i<postList[index].photos.length; i++) {
+                 if(i ==0){
              h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
-             h += '</ol>';
-             
-             h += '<div class="carousel-inner">';
-             
-             h += '    <div class="carousel-item active">';
-             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i].phot +'" alt="'+ i +'_slide">';
-             h += '    </div>';
-             
-             h += '</div>';
+                 }else{
+                     h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
+                 }
              }
+             h += '</ol>';
+             h += '<div class="carousel-inner">';
+             for (var i=0; i<postList[index].photos.length; i++) {
+                 if(i ==0){
+             h += '    <div class="carousel-item active">';}
+                 else{
+                     h += '    <div class="carousel-item">';        
+                 }
+             h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
+             h += '    </div>';
+             }
+             h += '</div>';
              
              h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
              h += '    role="button" data-slide="prev">';
@@ -371,8 +384,8 @@
              h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
              h += '    <span class="sr-only">Next</span>';
              h += '</a>';
-              */
-             
+              
+             $('#carouselExampleIndicators').html(h); 
              
            /*  
             $.ajax({
