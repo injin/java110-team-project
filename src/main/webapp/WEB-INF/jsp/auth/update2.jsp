@@ -48,39 +48,81 @@
   background-color: #00cc9991;
   border-color: #545b62;
 }
+
 #signOutSection {
   padding: 1rem;
   height: 200px;
 }
+
 #signOutBtn {
   float: right;
   display: inline-block;
 }
+
 .confirm {
   text-align: center;
+}
+
+h3, .h3 {
+  text-align: center;
+}
+
+#nickname-section {
+  width: 100%;
+  height: 40px;
+}
+
+input.form-control {
+  text-align: center;
+}
+
+#pr-section {
+  width: 100%;
+  padding: 1% 20%;
+}
+
+#signOutSection {
+  height: 150px;
+}
+
+.pr {
+  height: 100px;
+}
+.nickname {
+    width: 10%;
+    width: 10rem;
+    margine: 2rem;
+}
+.outter {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+.inner {
+  position: relative;
+  display: inline-block;
 }
 </style>
 </head>
 <!-- http://localhost:8888/app/auth/update  -->
 <body class="borderGray bgGray">
   <jsp:include page="../include/header.jsp"></jsp:include>
-  
+
   <main role="main" class="container">
   <div id="detail">
-  
-    <form action="updateInfo" method="post" id="detailForm"
+
+    <form action="update" method="post" id="detailForm"
       enctype="multipart/form-data">
       <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
-      <input type="hidden" name="profileImage"
-        value="${sessionScope.loginUser.profileImage}">
       <h3 class="mt-3">닉네임</h3>
-
-      <div class="form-group row">
-        <div class="col-xs-12 col-md-6 col-lg-4 ">
-          <input type="text" class="form-control" name="nickname"
-            value="${member.nickname}">
+      <section id="nickname-section">
+        <div class="outter">
+          <div class="inner">
+            <input type="text" class="nickname form-control" name="nickname" value="${member.nickname}">
+          </div>
         </div>
-      </div>
+      </section>
+      
       <hr>
 
       <h3>프로필 사진</h3>
@@ -90,25 +132,52 @@
             accept=".png, .jpg, .jpeg" /> <label for="imageUpload-profile"></label>
         </div>
         <div class="avatar-preview">
-
           <div id="profilePreview"
             style="background-image: url('${loginUser.profileImagePath}');"></div>
-
         </div>
       </div>
+      
       <hr>
-
-      <h3 id="cover-img">커버 사진</h3>
-      <div class="cover-upload">
-        <div class="cover-edit">
-          <input type='file' name="coverImage" id="imageUpload-cover"
-            accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
+      
+      <h3>자기소개</h3>
+      <section id="pr-section">
+        <div>
+          <div class="form-group">
+            <c:choose>
+              <c:when test="${empty sessionScope.loginUser.pr}">
+                <input type="text" class="pr form-control" name="pr"
+                  value="자기소개">
+              </c:when>
+              <c:otherwise>
+                <input type="text" class="pr form-control" name="pr"
+                  value="${sessionScope.loginUser.pr}">
+              </c:otherwise>
+            </c:choose>
+          </div>
         </div>
-        <div class="cover-preview">
-          <div id="coverPreview"
-            style="background-image: url('${loginUser.coverImagePath}');"></div>
+      </section>
+      
+      
+      
+      
+      <hr>
+      <section id="cover-area">
+        <h3 id="cover-img">커버 사진</h3>
+        <div class="cover-upload">
+          <div class="cover-edit">
+            <input type='file' name="coverImage" id="imageUpload-cover"
+              accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
+          </div>
+          <div class="cover-preview row">
+            <div id="coverPreview"
+              style="background-image: url('${loginUser.coverImagePath}');"></div>
+          </div>
         </div>
-      </div>
+      </section>
+      
+      
+      
+      
       <hr>
 
       <h3 id="gr_anly">선호 장르 분석</h3>
@@ -116,31 +185,42 @@
       <div class="gr_anly">
         <div class="btn-group-toggle" data-toggle="buttons">
           <c:forEach items="${favList}" var="genre">
-            <label class="btn btn-checkbox btn-secondary active" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}"></label>
+            <label class="btn btn-checkbox btn-secondary active"
+              id="${genre.grno}">${genre.grName}<input type="checkbox"
+              name="favGrList" value="${genre.grno}" checked></label>
           </c:forEach>
           <c:forEach items="${genreList}" var="genre">
-            <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}"></label>
+            <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">${genre.grName}<input
+              type="checkbox" name="favGrList" value="${genre.grno}"></label>
           </c:forEach>
         </div>
       </div>
 
       <hr>
 
+
       <div class="confirm">
-        <label class="btn btn-checkbox btn-secondary active">회원 정보 수정<input type="submit" class="btn btn-default" style="display: none;" value="수정"></label>
+        <label class="btn btn-checkbox btn-secondary active">회원 정보
+          수정<input type="submit" class="btn btn-default"
+          style="display: none;" value="수정">
+        </label>
       </div>
     </form>
     <hr>
+          <hr>
     <section id="signOutSection" style="padding:">
-        <h3>회원 탈퇴</h3>
-        <pre >
-                MovieStaGram에서 탈퇴를 하시면
-                    일부 기록은 삭제되지 않을 수 있습니다.
-        </pre>
-        <form action="signOut" method="post">
-          <input type="hidden" name="mno" value="${member.mno}">
-          <label class="btn btn-checkbox btn-secondary active" id="signOutBtn" onclick="bye()">회원 탈퇴<button type="submit" class="btn" style="display: none;" ></button></label>
-        </form>
+      <h3>회원 탈퇴</h3>
+      <div id="signOutMessage">
+        <pre>MovieStaGram에서 탈퇴를 하시면
+    일부 기록은 삭제되지 않을 수 있습니다.</pre>
+      </div>
+      <form action="signOut" method="post">
+        <input type="hidden" name="mno" value="${member.mno}"> <label
+          class="btn btn-checkbox btn-secondary active" id="signOutBtn"
+          onclick="bye()">회원 탈퇴
+          <button type="submit" class="btn" style="display: none;"></button>
+        </label>
+      </form>
     </section>
   </div>
   </main>
@@ -184,7 +264,5 @@
   }
   </script>
 </body>
-
-
 
 </html>

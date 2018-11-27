@@ -8,51 +8,61 @@
         <form action="add" method="post">
             <div class="modal-content">
 
+                <!-- Modal-Header -->
                 <div class="modal-header form-inline">
-                    <h5 class="modal-title" >보관함 수정</h5>
-                    
-                    <c:choose>
-                                <c:when test="${sceneAlbum.open == 'true'}">
-                                    <div class="row">
-                                        <span style="margin-left: 1.3rem;"><i
-                                            class="fas fa-globe-americas globe"
-                                            style="float: right; margin: 0.2rem;"></i></span>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="row">
-                                        <span style="margin-left: 1.3rem;"><i
-                                            class="fas fa-lock lock"> </i></span>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
-                    
-                    <!-- 모달 닫기 -->
-                    <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close" style="margin-left: 0px">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title"></h5>
+
+                    <div class="title_box">
+                    ${sceneAlbum.lbmTitle}
+                    <span class="title_edit"> <i class="far fa-edit" style="font-size: 1rem;"></i></span>
+                    </div>
+                   
+                    <!-- 공개여부 -->
+                    <div class="row">
+                        <c:choose>
+                            <c:when test="${sceneAlbum.open == 'true'}">
+                                <span> <i class="fas fa-globe-americas globe"></i>
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span> <i class="fas fa-lock lock"></i>
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <!-- 모달 닫기 -->
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
                 </div>
                 <!-- modal-header -->
 
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" name="lbmTitle" class="form-control"
-                            id="albumTitle" placeholder="보관함명">
-                    </div>
-                
-                    <label style="margin-right: 1rem;"><input type="radio" name="open" value="true" checked>전체공개</label>
-                    <label><input type="radio" name="open" value="false">나만보기</label>
+                <div class="modal-body p-0">
+                        <div class="row mbr-justify-content-center">
+                             <div class="col-lg-3 boxBorder">
+                             <div class="scrollbar-light-blue boxList">
+                                <c:forEach items="${sceneAlbumList}" var="album">
+                                    <div class="album_title al_wrap">
+                                    <div class="al_overflow">${album.lbmTitle}</div></div>
+                                </c:forEach>
+                                </div>
+                                <div class="al_add"><i class="fas fa-plus"></i>보관함 추가</div>
+                             </div>
+                             
+                             <div class="col-lg-9">
+                             </div>
+                        </div>
                 </div>
-                
                 <!-- modal-body -->
 
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">CANCEL</button>
                     <button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>
-                </div>
+                </div> -->
 
             </div>
         </form>

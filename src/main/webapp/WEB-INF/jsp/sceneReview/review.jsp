@@ -33,7 +33,10 @@
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
                         <c:if test="${not empty sessionScope.loginUser}">
-                        <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-pencil" ><img src="/img/btn-pencil.png"></a>
+                            <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-icon" ><img src="/img/btn-pencil.png"></a>
+                            <c:if  test="${sceneReview.trgtSrExist == true}">
+                            <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
+                            </c:if>
                         </c:if>
                     </h3>
                     <p>(${tmdbMovie.releaseDate})</p>
@@ -51,7 +54,8 @@
                     <c:forEach items="${sceneList}" var="scene">
                         <div class="scene-box">
                             <img class="scene-img" src="${scene.imgPath}" data-toggle="tooltip"
-                                 data-placement="top" title="${scene.title} (${scene.time})">
+                                 data-placement="top" title="${scene.title} (${scene.time})"
+                                 onclick="goToSr(${scene.srno})">
                         </div>
                     </c:forEach>
                 </div>
@@ -91,7 +95,7 @@
                         <div class="media">
                           <div>
                               <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="Generic placeholder image">
-                              <div>${loginUser.nickname}</div>
+                              <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
                             <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
@@ -141,6 +145,21 @@
                         </div>
                     </div>
                 </c:forEach>
+                
+                <jsp:include page="paging.jsp" flush="true">
+                    <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+                    <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+                    <jsp:param name="startPageNo" value="${paging.startPageNo}" />
+                    <jsp:param name="pageNo" value="${paging.pageNo}" />
+                    <jsp:param name="endPageNo" value="${paging.endPageNo}" />
+                    <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+                    <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
+                </jsp:include>
+                <form id="cmtListForm" action="review" method="get">
+                    <input type="hidden" name="srno" value="${sceneReview.srno}">
+                    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+                    <input type="hidden" name="pageNo">
+                </form>
                 </c:if>
                 
             </c:if>
@@ -153,9 +172,7 @@
         </c:if>
         
         <div class="col-lg-3 col-md-12">
-            
-            
-            
+            <span>${sceneAlbumList}</span>
         </div>
     </div>
     
@@ -181,6 +198,10 @@
     }).on('mouseleave', function() {
         $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
     });
+    
+    function goToSr(srno) {
+        location.href = 'review?mvno=${sceneReview.mvno}&srno=' + srno;
+    }
     
      /* ===== 입력 모달 관련  ===== */
     var $modal = $('#srAddModal').modal({show : false});
@@ -278,6 +299,9 @@
         
         $('#addCommentForm').submit();
     }
+    
+    
+    
     
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {

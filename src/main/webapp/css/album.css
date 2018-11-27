@@ -32,8 +32,91 @@ img{
 	background-color: #e9ecef;
 	pointer-events: none;
 }
+/* 앨범 수정 모달 */
+#mgrModal .modal-content{
+    margin: 0 auto;
+    width: 110%;
+    height: 40rem;
+    margin-top: 20%;
+}
 
-/* 모달 */
+#mgrModal .modal-title{
+	margin-left: 1rem;
+    margin-right: 1rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    
+}
+#mgrModal .close{
+	font-size: 2.4rem;
+    font-weight: 600;
+    padding-top: 0;
+    margin-right: 0;
+    padding-right: 0.5rem;
+    padding-bottom: 2rem;
+}
+#mgrModal .globe, #mgrModal .lock{
+	font-size: 1.5rem;
+	float: right; 
+	margin: 0.2rem;
+	margin-top: 0.75rem;
+}
+.boxBorder{
+	height: 35.3em;
+	border-right: 1px solid #e9ecef;
+}
+.boxList{
+	width: 13.2rem !important;
+	height: 32rem;
+	padding-top: 0.5rem;
+    overflow: hidden;
+}
+.title_box{
+	font-size: 1.5rem; 
+	font-weight: bold;
+	cursor: pointer;
+}
+.title_edit{
+    margin-left: 0.5rem; 
+}
+.album_title{
+	width: 12.7rem !important;
+    /* width: 13.2rem !important; */
+    height: 3rem;
+    background-color: #d5dae0;
+    
+}
+.al_add{
+	width: 13.2rem;
+	height: 3.34rem;
+	background-color: #00cc99;
+	color: white;
+	font-size: 1.4rem;
+    text-align: center;
+    padding: 0.6rem;
+}
+.al_add i{
+	    margin-right: 1rem;
+}
+.al_overflow {
+    font-size: 1.4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    margin: 0;
+    padding: 0;
+}
+.al_wrap{
+    display: flex;
+    background: white;
+    padding: 0.5rem 1rem 0rem 1.3rem;
+    border-radius: 0.5rem;
+    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 0.5rem;
+}
+/* 앨범 추가 모달 */
 .modal-content{
     margin: 0 auto;
     width: 70%;

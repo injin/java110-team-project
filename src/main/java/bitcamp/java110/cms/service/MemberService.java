@@ -9,6 +9,6 @@ public interface MemberService {
   List<Member> findByNick (String keyword);
   Member findById (String id);
   void signOut(int mno);
-  List<Integer> getFavGnrList(int mno);
-  List<Integer> getFavMvList(int mno);
+  List<Integer> getFavGnrDBList(int mno);
+  List<Integer> getFavMvDBList(int mno);
 }

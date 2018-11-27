@@ -48,6 +48,21 @@
   background-color: #00cc9991;
   border-color: #545b62;
 }
+.confirm {
+  text-align: center;
+}
+h3, .h3 {
+  text-align: center;
+}
+#nickname-section {
+    width: 100%;
+    height: 40px;
+    padding: 0 45%;
+}
+
+input.form-control {
+    text-align: center;
+}
 </style>
 </head>
 <!-- http://localhost:8888/app/auth/detail -->
@@ -62,14 +77,17 @@
       <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
       <input type="hidden" name="profileImage"
         value="${sessionScope.loginUser.profileImage}">
+        
+        
       <h3 class="mt-3">닉네임</h3>
-
-      <div class="form-group row">
-        <div class="col-xs-12 col-md-6 col-lg-4 ">
-          <input type="text" class="form-control" name="nickname"
-            value="${member.nickname}">
+      <section id="nickname-section">
+        <div class="form-group row">
+          <div class="nickname">
+            <input type="text" class="nickname form-control" name="nickname"
+                value="${member.nickname}">
+          </div>
         </div>
-      </div>
+      </section>
       <hr>
 
       <h3>프로필 사진</h3>
@@ -86,8 +104,8 @@
         </div>
       </div>
       <hr>
-
       <h3 id="cover-img">커버 사진</h3>
+      <section id="cover-area">
       <div class="cover-upload">
         <div class="cover-edit">
           <input type='file' name="coverImage" id="imageUpload-cover"
@@ -98,6 +116,7 @@
             style="background-image: url('${loginUser.coverImagePath}');"></div>
         </div>
       </div>
+      </section>
       <hr>
 
       <h3 id="gr_anly">선호 장르 분석</h3>
@@ -113,7 +132,7 @@
       <hr>
 
       <h3 id="mv_anly">인생영화선정</h3>
-      <p>취향 분석을 위한 작품 10개를 선정해 주세요.</p>
+      <p>취향 분석을 위한 작품 10~15개를 선정해 주세요.</p>
 
       <section class="my-mv-list" style="height: 300px; margin: 2rem;">
         <div class="srchNlist">
@@ -149,9 +168,9 @@
 
       <hr>
       <input type="hidden" name="selecList" id="test">
-      <div class="confirm" style="">
-        <input type="submit" class="btn btn-default" value="확인"> <input
-          type="reset" class="btn btn-default" value="취소">
+      <div class="confirm">
+        <label class="btn btn-checkbox btn-secondary active">확인<input type="button" onclick="signUpCheck()" class="btn btn-default" style="display: none;" value="확인"></label>
+        <label class="btn btn-checkbox btn-secondary active">취소<input type="reset" class="btn btn-default" style="display: none;" value="취소"></label>
       </div>
     </form>
   </div>
@@ -311,7 +330,6 @@
           break;
           }
     }
-      
   }
       
   function removeList(id) {
@@ -345,6 +363,18 @@
   
       $chooseMvList.append(print);
   }
+  $form = $('#detailForm')
+  function signUpCheck(){
+      var form = document.detailForm;
+      /* if(!selecList.value){ */
+      if(selecList.length == 0){
+        alert("영화를 선정 해 주세요");
+        $inputKeyword.focus();
+        return
+      }
+      $form.submit();
+  }
+  
   </script>
 </body>
 </html>

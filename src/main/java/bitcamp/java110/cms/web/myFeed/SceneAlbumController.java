@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.SceneAlbumService;
@@ -39,34 +40,10 @@ public class SceneAlbumController {
       Model model,
       HttpSession session) throws Exception {
     
-   // int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    paging.setTotalCount(sceneAlbumService.getTotalCnt(mno));
     
-    paging.setTotalCount(sceneAlbumService.getTotalCnt(1));
-    System.out.println(sceneAlbumService.getTotalCnt(1));
-    
-    System.out.println("pageNo: " +paging.getPageNo() + "pageSize: "+ paging.getPageSize());
-    System.out.println("받은 페이지" + paging.getPageNo());
-    
-/*    
-    
-    // 출력될 앨범 
-    System.out.println(sceneAlbumList);
-//    try {
-
-      paging.setEndPageNo(endPageNo);
-
-*/
-    
-    List<SceneAlbum> sceneAlbumList = new ArrayList<SceneAlbum>();
-    int endPageNo = (int)(sceneAlbumService.list().size()/6) + 1;
-    paging.setEndPageNo(endPageNo);
-    sceneAlbumList = sceneAlbumService.pageList(paging.getStartRowNo());
-    
-    /*  } catch (Exception e) {
-      throw e;
-  }
- */   
-    model.addAttribute("sceneAlbumList", sceneAlbumList);
+    model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(mno, paging));
     model.addAttribute("paging", paging);
     return "sceneAlbum/album";
   }
@@ -86,11 +63,17 @@ public class SceneAlbumController {
   public String detail(
       SceneAlbum sceneAlbum,
       Paging paging,
-      Model model) {
-    System.out.println("pageNo: "+paging.getPageNo());
-    System.out.println("detail Title :" + sceneAlbum.getLbmTitle());
+      Model model,
+      HttpSession session) {
     
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    
+    System.out.println("pageNo: "+paging.getPageNo());
+    System.out.println("detail Title : " + sceneAlbum.getLbmTitle());
+    System.out.println("detail open : "+ sceneAlbum.isOpen());
     System.out.println(sceneAlbum);
+    
+    
     
     List<SceneReview> sceneReview = new ArrayList<>();
     sceneReview = sceneReviewService.list(157336);
@@ -98,6 +81,7 @@ public class SceneAlbumController {
     model.addAttribute("title", sceneAlbum.getLbmTitle());
     model.addAttribute("sceneAlbum", sceneAlbum);
     model.addAttribute("sceneReview", sceneReview);
+    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     return "sceneAlbum/detailAlbum";
   }
   
