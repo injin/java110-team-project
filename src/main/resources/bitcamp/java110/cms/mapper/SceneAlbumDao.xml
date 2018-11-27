@@ -59,6 +59,13 @@
         limit #{start}, 6;
     </select>
     
+    <select id="getTotalCnt" resultType="int" parameterType="int">
+        select
+            count(l.lbmno)
+        from mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            where l.mno = #{mno};
+    </select>
     
     <delete id="delete" parameterType="int">
     </delete>

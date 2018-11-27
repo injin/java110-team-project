@@ -8,17 +8,19 @@
     border-left:1px solid silver;
     border-right:1px solid silver;
 }
-.detailList .test{
+.detailList .scene{
 	border: 1px solid silver;
 	width: 14.5rem;
 	height: 9.5rem;
 	margin: 1rem;
 }
+img{
+	width: 14.5rem;
+    height: 9.5rem;
+}
 .titl{
 	font-weight: bold;
-}
-.titl h4{
-	display: inline;
+    font-size: 1.7rem;
 }
 
 /* 페이징 */
@@ -36,6 +38,11 @@
     margin: 0 auto;
     width: 70%;
     margin-top: 30%;
+}
+.modal-title{
+	margin-right: 1rem;
+	font-weight: bold;
+	
 }
 /* 피드 공통 */
 .jumbotron{

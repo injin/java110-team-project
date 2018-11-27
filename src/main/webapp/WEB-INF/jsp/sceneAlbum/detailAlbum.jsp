@@ -25,9 +25,9 @@
 	padding: 0.1rem 0.3rem;
 }
 
-.container-size {
-	margin-left: 200px;
-	margin-right: 200px;
+.th-fix {
+	width: 15%;
+	text-align: center;
 }
 </style>
 
@@ -39,7 +39,7 @@
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
 	<main role="main" class="container">
-	<div class="container mt-1">
+	<div class="container">
 		<div class="row flex-xl-nowarp">
 			<div class="col-12 col-md-3 col-xl-3">
 				<form action="flwlist" method="post" enctype="multipart/form-data">
@@ -54,9 +54,10 @@
 			</div>
 			<!-- main 태그 말고 다른 태그로 !  -->
 			<div class="col-12 col-md-9 col-xl-8">
-				<img style="width: 820px; height: 420px;"
+				<img style="width: 52.1rem; height: 420px;"
 					src="${loginUser.coverImagePath}">
-				<table class="table" style="width: 820px;">
+				<table class="table"
+					style="width: 52.1rem; border-right: 1px solid silver; border-left: 1px solid silver; margin-bottom: 0px;">
 					<thead>
 						<tr>
 							<th scope="col" class="th-fix">나의 피드</th>
@@ -68,7 +69,7 @@
 						</tr>
 					</thead>
 				</table>
-				<div class="row ml-1" style="width: 820px;"></div>
+				<div class="row ml-1" style="width: 52.1rem;"></div>
 			</div>
 		</div>
 	</div>
@@ -79,20 +80,32 @@
 	<section>
 		<div class="row mbr-justify-content-center">
 			<div class="col-lg-12 mbr-col-md-12">
-			
-    <!-- <div class="row detailList col-lg-9"> -->
-            <%-- <span class="titl"><h4>${title}</h4></span> --%>
-				<div class="a_btn btn btn-success btn-lg"
-					onclick="document.getElementById('btnAlbum').click();">
-					수정하기<input type="hidden" data-toggle="modal" id="btnAlbum"
-						data-target="#albumModal" />
-				</div>
-				<!-- 앨범 목록 -->
+
 				<div class="row detailList col-lg-9">
+					<div class="col-lg-12 mt-4 ml-1 mb-5">
+						<span class="titl">${title}</span>
+						<div class="a_btn btn btn-success btn-lg mr-2"
+							onclick="document.getElementById('mgrAlbum').click();">
+							수정하기<input type="hidden" data-toggle="modal" id="mgrAlbum"
+								data-target="#mgrModal" />
+						</div>
+					</div>
+					<!-- 앨범 목록 -->
 					<div class="row" style="margin: 0 auto;">
-						<div class="row test"></div>
-						<div class="row test"></div>
-						<div class="row test"></div>
+						<!-- 장면 -->
+						<c:forEach var="sceneReview" items="${sceneReview}" >
+							<div class="row scene">
+								<a
+									href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
+									<img class="card-img-top hot-sr-img"
+									src="/upload/sceneReview/${sceneReview.photo}"
+									alt="Card image cap">
+								</a>
+
+							</div>
+						</c:forEach>
+						<!-- <div class="row test"></div>
+						<div class="row test"></div> -->
 					</div>
 					<!-- 페이징버튼 -->
 
@@ -111,7 +124,10 @@
 
 				</div>
 			</div>
-</div>
+		</div>
+
+		<jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
+
 	</section>
 	</main>
 
