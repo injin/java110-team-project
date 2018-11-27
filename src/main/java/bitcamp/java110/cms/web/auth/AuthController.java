@@ -108,9 +108,9 @@ public class AuthController {
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
-        @RequestParam(name="favMvIdList", required=false)
+        @RequestParam(name="favMvIdList", required=true)
                 List<Integer> favMvIdList,
-        @RequestParam(name="favMvTitleList", required=false)
+        @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
       System.out.println("Controller Start Add Member");
@@ -163,7 +163,7 @@ public class AuthController {
           (Member)session.getAttribute("loginUser"));
       
       List<Genre> gnrList = genreService.getList();
-      List<Integer> favList = memberService.getFavGnrList(((Member)session.getAttribute("loginUser")).getMno());
+      List<Integer> favList = memberService.getFavGnrDBList(((Member)session.getAttribute("loginUser")).getMno());
       List<Genre> favGnrList = new ArrayList<Genre>();
       
       for (int j : favList) {
@@ -189,6 +189,8 @@ public class AuthController {
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
+        @RequestParam(name="pr", required=false)
+                String pr,
         HttpSession session) throws Exception {
       
       System.out.println("Controller Start Update Member");
@@ -209,11 +211,15 @@ public class AuthController {
         member.setCoverImage(coverImg);
       }
       
-      
-      //    favGenreList Control
       if (favGrList != null && favGrList.size() > 0) {
-        
         member.setFavGrList(favGrList);
+      }
+      
+      System.out.println("pr?");
+      
+      if (pr != null && pr != "") {
+        System.out.println(pr);
+        member.setPr(pr);
       }
       
       session.setAttribute("loginUser", member);

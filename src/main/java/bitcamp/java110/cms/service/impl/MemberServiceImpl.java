@@ -53,6 +53,7 @@ public class MemberServiceImpl implements MemberService {
     return memberDao.findByNick(keyword);
   }
   
+  @SuppressWarnings("null")
   @Transactional(propagation=Propagation.REQUIRED,
                  rollbackFor=Exception.class)
   @Override
@@ -60,8 +61,12 @@ public class MemberServiceImpl implements MemberService {
     System.out.println("Service Recieve Member\n :\t" + member);
     
     memberDao.update(member);
+    List<Integer> originList = getFavGnrDBList(member.getMno());
     
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
+      if(originList != null || originList.size() > 0) {
+        favGenreDao.deleteAll(member.getMno());
+      }
       for (int i = 0; i < member.getFavGrList().size(); i++) {
         HashMap<String, Object> params = new HashMap<>();
         params.put("mno", member.getMno());
@@ -116,12 +121,12 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
-  public List<Integer> getFavGnrList(int mno){
+  public List<Integer> getFavGnrDBList(int mno){
     return favGenreDao.getFavGnrList(mno);
   }
   
   @Override
-  public List<Integer> getFavMvList(int mno){
+  public List<Integer> getFavMvDBList(int mno){
     return null;
   }
 }

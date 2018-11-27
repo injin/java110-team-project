@@ -59,6 +59,31 @@
 .confirm {
   text-align: center;
 }
+h3, .h3 {
+  text-align: center;
+}
+#nickname-section {
+    width: 100%;
+    height: 40px;
+    padding-left: 40%;
+}
+input.form-control {
+    text-align: center;
+}
+#pr-section {
+    width: 100%;
+    /* height: 100px; */
+    padding: 2% 20%;
+}
+#signOutSection{
+    height: 150px;
+/*     width: 100%;
+    padding:45%; */
+}
+
+.pr {
+    height: 100px;
+}
 </style>
 </head>
 <!-- http://localhost:8888/app/auth/update  -->
@@ -74,13 +99,14 @@
       <input type="hidden" name="profileImage"
         value="${sessionScope.loginUser.profileImage}">
       <h3 class="mt-3">닉네임</h3>
-
-      <div class="form-group row">
-        <div class="col-xs-12 col-md-6 col-lg-4 ">
-          <input type="text" class="form-control" name="nickname"
-            value="${member.nickname}">
+      <section id="nickname-section">
+        <div class="form-group row">
+          <div class="col-xs-12 col-md-6 col-lg-4 ">
+            <input type="text" class="form-control" name="nickname"
+              value="${member.nickname}">
+          </div>
         </div>
-      </div>
+      </section>
       <hr>
 
       <h3>프로필 사진</h3>
@@ -104,7 +130,7 @@
           <input type='file' name="coverImage" id="imageUpload-cover"
             accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
         </div>
-        <div class="cover-preview">
+        <div class="cover-preview row">
           <div id="coverPreview"
             style="background-image: url('${loginUser.coverImagePath}');"></div>
         </div>
@@ -117,13 +143,33 @@
       <div class="gr_anly">
         <div class="btn-group-toggle" data-toggle="buttons">
           <c:forEach items="${favList}" var="genre">
-            <label class="btn btn-checkbox btn-secondary active" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}"></label>
+            <label class="btn btn-checkbox btn-secondary active" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}" checked></label>
           </c:forEach>
           <c:forEach items="${genreList}" var="genre">
             <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">${genre.grName}<input type="checkbox" name="favGrList" value="${genre.grno}"></label>
           </c:forEach>
         </div>
       </div>
+
+      <hr>
+      <h3>자기소개</h3>
+      <section id="pr-section">
+        <div>
+            <div class="form-group">
+            <c:choose>
+                <c:when test="${empty sessionScope.loginUser.pr}">
+                    <input type="text" class="pr form-control" name="pr" value="자기소개">
+                </c:when>
+                <c:otherwise>
+                    <input type="text" class="pr form-control" name="pr" value="${sessionScope.loginUser.pr}">
+                </c:otherwise>
+            </c:choose>
+          </div>
+        </div>
+      </section>
+
+
+
 
       <hr>
 
@@ -133,15 +179,15 @@
     </form>
     <hr>
     <section id="signOutSection" style="padding:">
-        <h3>회원 탈퇴</h3>
-        <pre >
-                MovieStaGram에서 탈퇴를 하시면
-                    일부 기록은 삭제되지 않을 수 있습니다.
-        </pre>
-        <form action="signOut" method="post">
-          <input type="hidden" name="mno" value="${member.mno}">
-          <label class="btn btn-checkbox btn-secondary active" id="signOutBtn" onclick="bye()">회원 탈퇴<button type="submit" class="btn" style="display: none;" ></button></label>
-        </form>
+      <h3>회원 탈퇴</h3>
+      <div id="signOutMessage">
+<pre>MovieStaGram에서 탈퇴를 하시면
+    일부 기록은 삭제되지 않을 수 있습니다.</pre>
+      </div>
+      <form action="signOut" method="post">
+        <input type="hidden" name="mno" value="${member.mno}">
+        <label class="btn btn-checkbox btn-secondary active" id="signOutBtn" onclick="bye()">회원 탈퇴<button type="submit" class="btn" style="display: none;" ></button></label>
+      </form>
     </section>
   </div>
   </main>

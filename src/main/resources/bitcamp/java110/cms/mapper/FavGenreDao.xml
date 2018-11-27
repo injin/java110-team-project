@@ -26,4 +26,11 @@
             mno=#{mno}
     </select>
     
+    <select id="deleteAll" parameterType="int">
+        DELETE
+            FROM mv_memb_gr
+        WHERE
+            mno=#{mno}
+    </select>
+    
 </mapper>
