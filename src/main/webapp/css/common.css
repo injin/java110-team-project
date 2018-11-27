@@ -16,7 +16,7 @@ main {
     min-height: 75rem;
     
 }
-main.borderGray {
+.borderGray {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
