@@ -22,6 +22,10 @@
 .hot-sr{
     height:5em;
 }
+.hot{
+    height:15em;
+    max-height:15em;
+}
 
 </style>
 
@@ -103,18 +107,18 @@
                     
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="card card-hot-sr">
-                              <div class="card-body" onclick="openDetailModal(${post.pstno})">
-                                <h5 class="card-title">XXX 리뷰</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">작성자:xxx</h6>
-                                <p class="card-text">인터스텔라 쨩쨩맨</p>
-                                <%-- <c:choose>
+                              <div class="card-body hot" onclick="openDetailModal(${post.pstno})">
+                                <h5 class="card-title">${post.title} 리뷰</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                <p class="card-text">${post.content}</p>
+                                <c:choose>
                                 <c:when test="${not empty post.pstno}">
                                 <img class="img-sr" src="/upload/sceneReview/${post.photo}">
                                 </c:when>
                                 <c:otherwise>
                                 <img class="img-sr" src="/img/default-movie-img.png">
                                 </c:otherwise>
-                                </c:choose> --%>
+                                </c:choose>
                               </div>
                             </div>
                         </div>
