@@ -93,7 +93,7 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-
+    System.out.println(post.toString());
     postService.add(post);
 
     String originPath = request.getHeader("referer");
@@ -127,8 +127,15 @@ public class ReviewFeedController {
   }
   
   @RequestMapping("/myFeed")
-  public String myFeed() {
+  public String myFeed(
+      Post post,
+      Model model,
+      HttpSession session) {
     
+    List<Post> list =
+        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
+    
+    model.addAttribute("postList", list);
     return "include/myFeed";
   }
 }

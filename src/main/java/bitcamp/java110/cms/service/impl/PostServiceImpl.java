@@ -153,7 +153,7 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<Post> listTopMp() {
-    List<Post> posts2 =postDao.listTopMp();
+    List<Post> posts2 = postDao.listTopMp();
 
     for(int i=0;i<posts2.size();i++)
     {
@@ -173,8 +173,13 @@ public class PostServiceImpl implements PostService {
   
   
   /* JEAHA 작업영역 */
+  @Override
   public List<Post> getMyPostList(int mno){
-    return null;
+    System.out.println("ServiceImple try to get My postList");
+    List<Post> postList = postDao.getMyPostList(mno);
+    System.out.println(postList.toString());
+    System.out.println("Getting get My postList is success!");
+    return postList;
   }
   
   
