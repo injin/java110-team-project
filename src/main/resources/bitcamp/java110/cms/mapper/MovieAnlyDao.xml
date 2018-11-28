@@ -10,6 +10,11 @@
         values (#{mno}, #{mvno}, 10)
     </insert>
     
+    <insert id="signIn2" parameterType="map">
+        INSERT INTO mv_mv_gr (mno, mvno)
+        values (#{mno}, #{mvno})
+    </insert>
+    
     <insert id="insertNotExists" parameterType="map">
         INSERT INTO mv_mv_anly(mno, mvno, pnt)
             SELECT #{mno}, #{mvno}, 10 
@@ -57,6 +62,15 @@
         where 
             mno=#{mno} and mvno=#{mvno} 
     </update>
+    
+    <insert id="insertGrNotExists" parameterType="map">
+        INSERT INTO mv_mv_gr (mvno, grno)
+            SELECT #{mvno}, #{grno}
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_mv_gr
+                          WHERE mvno=#{mvno})
+    </insert>
     
     <select id="getFavMvList" resultType="list" parameterType="int">
         <!-- 가입시 최초등록을 하지 않았다면 추후에 등록 할 수 없게 하는것이 나을지도.. -->
