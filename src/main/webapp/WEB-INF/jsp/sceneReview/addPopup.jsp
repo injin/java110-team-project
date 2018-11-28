@@ -11,7 +11,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4">
         
         <form action="add" method="post" id="srAddForm" enctype="multipart/form-data">
             <!-- 장면시간 슬라이더 -->
@@ -88,16 +88,34 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4 scrollbar-light-blue">
         <c:choose>
             <c:when test="${not empty sceneAlbumList}">
                 <c:forEach items="${sceneAlbumList}" var="album">
-                    <div class="media">
-                      <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
-                      <div class="media-body">
-                        <h5 class="mt-0">${album.lbmTitle}</h5>
-                      </div>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="media">
+                              <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                              <div class="media-body">
+                                <h5 class="mt-0">${album.lbmTitle}
+                                    <c:if test="${album.include == true}">
+                                        <button type="button" class="btn btn-secondary float-right" disabled>보관됨</button>
+                                    </c:if>
+                                    <c:if test="${album.include == false}">
+                                        <button type="button" class="btn btn-secondary float-right" 
+                                            onclick="addToSrlAlbum(${album.lbmno})">보관하기</button>
+                                        <form id="addSrAlbumForm" action="addToSrAlbum" method="post">
+                                            <input type="hidden" name="lbmno" value="">
+                                            <input type="hidden" name="srno" value="${scene.srno}">
+                                        </form>
+                                        
+                                    </c:if>
+                                </h5>
+                              </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </c:forEach>
             </c:when>
             <c:otherwise>
@@ -105,7 +123,6 @@
             </c:otherwise>
         </c:choose>
       </div>
-      
     </div>
   </div>
 </div>

@@ -206,4 +206,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
+/* srAlbum modal */
+#srAlbumAddModal .modal-body {
+    max-height: 25em;
+    overflow-y: scroll;
+}
