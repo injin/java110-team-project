@@ -70,11 +70,6 @@ public class AuthController {
         return "redirect:/app/";
     }
     
-    /**
-     * !!주석 삭제 금지!!
-     * 제하 To Do
-     * !! SginOut 할 때 DB에서 삭제 해야하므로 DAO완성시 추가 해야함!!
-     */
     @RequestMapping("/signOut")
     public String signout(
         HttpSession session,
@@ -92,6 +87,7 @@ public class AuthController {
       return "redirect:/app/";
     }
     
+    //  가입시 최초 상세정보 수정 페이지 출력.
     @RequestMapping("/detail")
     public String detailForm(
         Model model,
@@ -104,16 +100,17 @@ public class AuthController {
       return "/auth/detail";
     }
     
+    //  가입시 최초 상세정보 수정 메소드.
     @PostMapping("/init")
-    public String add(
+    public String firstInit (
         Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
-        @RequestParam(name="favMvIdList", required=false)
+        @RequestParam(name="favMvIdList", required=true)
                 List<Integer> favMvIdList,
-        @RequestParam(name="favMvTitleList", required=false)
+        @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
       System.out.println("Controller Start Add Member");
@@ -156,6 +153,7 @@ public class AuthController {
       return "redirect:/app/";
     }
     
+    //  상시 상세정보 수정 페이지 출력
     @RequestMapping("/update")
     public String detailUpdate(
         Model model,
@@ -165,7 +163,7 @@ public class AuthController {
           (Member)session.getAttribute("loginUser"));
       
       List<Genre> gnrList = genreService.getList();
-      List<Integer> favList = memberService.getFavGnrList(((Member)session.getAttribute("loginUser")).getMno());
+      List<Integer> favList = memberService.getFavGnrDBList(((Member)session.getAttribute("loginUser")).getMno());
       List<Genre> favGnrList = new ArrayList<Genre>();
       
       for (int j : favList) {
@@ -180,23 +178,23 @@ public class AuthController {
       model.addAttribute("genreList", gnrList);
       model.addAttribute("favList", favGnrList);
       
-      
-      return "/auth/detailUpdate";
+      return "/auth/update";
     }
     
-    @PostMapping("/updateInfo")
+    //  상시 상세정보 수정 update
+    @PostMapping("/update")
     public String update(
         Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
                 List<Integer> favGrList,
-        @RequestParam(name="favMvIdList", required=false)
-                List<Integer> favMvIdList,
-        @RequestParam(name="favMvTitleList", required=false)
-                List<String> favMvTitleList,
+        @RequestParam(name="pr", required=false)
+                String pr,
         HttpSession session) throws Exception {
-      System.out.println("Controller Start Add Member");
+      
+      System.out.println("Controller Start Update Member");
+      
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -213,9 +211,15 @@ public class AuthController {
         member.setCoverImage(coverImg);
       }
       
-      //    favGenreList Control
       if (favGrList != null && favGrList.size() > 0) {
         member.setFavGrList(favGrList);
+      }
+      
+      System.out.println("pr?");
+      
+      if (pr != null && pr != "") {
+        System.out.println(pr);
+        member.setPr(pr);
       }
       
       session.setAttribute("loginUser", member);
@@ -224,3 +228,9 @@ public class AuthController {
       return "redirect:/app/";
     }
 }
+
+
+//  Controller에서 메소드 이름을 바꿔 줬음.
+//  AuthServide AuthServieImple
+//  MemverService, MemberServiceImple 메소드 이름 바꿔줘야 함.
+

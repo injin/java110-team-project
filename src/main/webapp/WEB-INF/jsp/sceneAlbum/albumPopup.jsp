@@ -27,10 +27,8 @@
                             id="albumTitle" placeholder="보관함명">
                     </div>
                 
-                <label>
-                    <input type="radio" name="open" value="true" checked>전체공개
-                    <input type="radio" name="open" value="false">나만보기
-                </label>
+                    <label style="margin-right: 1rem;"><input type="radio" name="open" value="true" checked>전체공개</label>
+                    <label><input type="radio" name="open" value="false">나만보기</label>
                 </div>
                 
                 <!-- modal-body -->

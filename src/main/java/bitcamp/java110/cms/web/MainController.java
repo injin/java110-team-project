@@ -37,10 +37,11 @@ public class MainController {
   @RequestMapping("/")
   public String main(Model model) {
     
+    
+    List<Post> topMpList = postService.listTopMp();
     List<SceneReview> topSrList = sceneReviewService.listTopSr();
-    System.out.println("hot장면리뷰 목록" + topSrList.toString());
-    System.out.println("사이즈" + topSrList.size());
     model.addAttribute("topSrList", topSrList);
+    model.addAttribute("topMpList", topMpList);
     
     return "main";
     
@@ -61,8 +62,6 @@ public class MainController {
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
-    System.out.println("회원: "+ memberList.toString());
-    
     
     // 해쉬태그
     List<Post> hashList = postService.findByKeyword(keyword);

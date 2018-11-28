@@ -1,6 +1,8 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -8,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.SceneAlbumService;
+import bitcamp.java110.cms.web.myFeed.Paging;
 
 @Service
 public class SceneAlbumServiceImpl implements SceneAlbumService {
@@ -16,27 +19,20 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   /*@Autowired MovieDao movieDao;*/
 
   @Transactional(
-      // 트랜잭션 관리자의 이름이 transactionPost 라면
-      // 다음 속성은 생략해도 된다.
-      //transactionPost="transactionPost",
-
-      // 이 메서드를 호출하는 쪽에 이미 트랜잭션이 있으면 그 트랜잭션에 소속되게 하고,
-      // 없으면 새 트랜잭션을 만들어서 수행한다.
-      // 기본 값은 propagation=Propagation.REQUIRED 이다.
       propagation=Propagation.REQUIRED,
-
-      // 메서드를 실행 중에 Exception 예외가 발생하면 rollback을 수행한다.
-      rollbackFor=Exception.class
-      )
+      rollbackFor=Exception.class)
   @Override
-  public void add(SceneAlbum sceneAlbum) {
+  public void add(int mno, SceneAlbum sceneAlbum) {
 
  /*     HashMap<String, Object> params = new HashMap<>();
       params.put("lbmTitle", sceneAlbum.getLbmTitle());
       params.put("open", sceneAlbum.isOpen());
       ieDao.insert(params);
 */
-    sceneAlbumDao.insert(sceneAlbum);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("sceneAlbum", sceneAlbum);
+    sceneAlbumDao.insert(condition);
 /*
     List<String> plst = sceneAlbum.getPhotos();
     for(int i=0;i<plst.size();i++)
@@ -50,22 +46,33 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
 
   }
 
+  
   @Override
-  public List<SceneAlbum> list() {
-    
-    List<SceneAlbum> lists = sceneAlbumDao.findAll();
-    
-    return lists;
+  public List<SceneAlbum> list(int mno) {
+    return sceneAlbumDao.findAll(mno);
   }
   
   @Override
-  public List<SceneAlbum> pageList(int pageNo) {
+  public List<SceneAlbum> list2(int mno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("srno", srno);
+    return sceneAlbumDao.findAll2(condition);
+  }
+  
+  @Override
+  public List<SceneAlbum> pageList(int mno, Paging paging) {
     
-    List<SceneAlbum> lists = sceneAlbumDao.findByPageNo(pageNo);
-    
-    return lists;
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("paging", paging);
+    return sceneAlbumDao.findByPageNo(condition);
   }
 
+  @Override
+  public int getTotalCnt(int mno) {
+    return sceneAlbumDao.getTotalCnt(mno);
+  }
   @Override
   public SceneAlbum get(int no) {
     return null;
@@ -76,4 +83,5 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   public void delete(int no) {
 
   }
+  
 }

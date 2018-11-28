@@ -2,20 +2,24 @@ package bitcamp.java110.cms.web.reviewFeed;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.PostService;
 
@@ -88,11 +92,34 @@ public class ReviewFeedController {
     } 
     post.setHtags(strs);
 
-    
-    System.out.println(post);
-
     postService.add(post);
 
     return "redirect:list";
+  }
+  
+
+  @PostMapping("addCmt")
+  public String addCmt(PostCmt comment,
+                    HttpSession session) throws Exception {
+
+    Member member = (Member)session.getAttribute("loginUser");
+    comment.setMno(member.getMno());
+    
+    postService.addCmt(comment);
+    
+    return "redirect:list";
+  }
+  
+  @RequestMapping("listCmt")
+  public @ResponseBody Map<String, Object> listCmt(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) throws Exception {
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    int pstno = Integer.valueOf((String)request.get("pstno"));
+    List<PostCmt> cmtsResult = postService.findCmts(pstno);
+    resultMap.put("cmtsResult", cmtsResult);
+    
+    return resultMap;
   }
 }

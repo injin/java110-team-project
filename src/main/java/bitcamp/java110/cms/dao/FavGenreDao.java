@@ -8,4 +8,5 @@ public interface FavGenreDao {
   void insert(Map<String, Object> params);
   void signOut(int mno);
   List<Integer> getFavGnrList(int mno);
+  void deleteAll(int mno);
 }

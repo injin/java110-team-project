@@ -2,6 +2,7 @@ package bitcamp.java110.cms.service;
 
 import java.util.List;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.PostCmt;
 
 public interface PostService {
   
@@ -9,6 +10,9 @@ public interface PostService {
     List<Post> list();
     Post get(int no);
     List<Post> findByKeyword(String keyword);
+    List<Post> listTopMp();
+    List<PostCmt> findCmts(int no);
+    void addCmt(PostCmt postCmt);
     void delete(int no);
 }
 

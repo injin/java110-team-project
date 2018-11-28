@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PostDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcamp.java110.cms.dao.PostCmtDao">
+
+	<insert id="insertCmt" parameterType="PostCmt"
+		useGeneratedKeys="true" keyColumn="pcno">
+		insert into mv_post_cmt(pstno,mno,cont,cdt)
+		values(#{pstno},#{mno},#{content},now())
+	</insert>
+
+	<select id="findCmtList" parameterType="int" resultType="map">
+		select
+		  p.cont as content,
+		  p.mno,
+		  m.p_phot as profileImage,
+		  m.nick as nickname,
+		  p.cdt as createdDate
+		from mv_post_cmt p
+		inner join mv_memb m on m.mno = p.mno
+		where p.pstno=#{value}
+		order by cdt desc
+	</select>
+
+</mapper>

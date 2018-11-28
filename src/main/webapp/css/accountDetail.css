@@ -34,7 +34,7 @@
   font-family: 'FontAwesome';
   color: #757575;
   position: absolute;
-  top: 10px;
+  top: 7px;
   left: 0;
   right: 0;
   text-align: center;
@@ -56,23 +56,21 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-
+/* ------------------------------------------------------------------------------------ */
 
 .cover-upload {
   position: relative;
-  max-width: 205px;
-  margin: 50px auto;
+  margin: 0px 15rem;
 }
-.cover-upload .cover-edit {
+.cover-edit {
   position: absolute;
   right: 12px;
   z-index: 1;
-  top: 10px;
 }
-.cover-upload .cover-edit input {
+.cover-edit input {
   display: none;
 }
-.cover-upload .cover-edit input + label {
+.cover-edit input + label {
   display: inline-block;
   width: 34px;
   height: 34px;
@@ -85,32 +83,124 @@
   font-weight: normal;
   transition: all 0.2s ease-in-out;
 }
-.cover-upload .cover-edit input + label:hover {
+.cover-edit input + label:hover {
   background: #f1f1f1;
   border-color: #d6d6d6;
 }
-.cover-upload .cover-edit input + label:after {
+.cover-edit input + label:after {
   content: "\f040";
   font-family: 'FontAwesome';
   color: #757575;
   position: absolute;
-  top: 10px;
+  top: 7px;
   left: 0;
   right: 0;
   text-align: center;
   margin: auto;
 }
-.cover-upload .cover-preview {
-  width: 192px;
-  height: 192px;
+#asdf{
+  
+}
+/* 이미지 출력창 */
+.cover-preview {
+  width: 40rem;
+  height: 30rem;
   position: relative;
   border: 6px solid #F8F8F8;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 }
-.cover-upload .cover-preview > div {
+.cover-preview > div {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+.cover-upload {
+  width: 40rem;
+  height: 30rem;
+  display: inline-block;
+  
+  float:none;
+}
+#cover-area {
+  display: block;
+}
+
+.list-group-item {
+    padding: 0.3rem 0.3rem;
+}
+
+#list-search-movie {
+    max-height: 250px;
+    overflow: auto;
+}
+
+.gr_anly {
+    padding: 1rem;
+    margin: 2em;
+}
+
+.gr_anly label {
+    width: 6em;
+    margin: 1rem;
+    border-radius: 30em;
+}
+
+.btn-secondary {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #00cc9991;
+    border-color: #545b62;
+}
+
+#signOutSection {
+    padding: 1rem;
+    height: 200px;
+}
+
+#signOutBtn {
+    float: right;
+    display: inline-block;
+}
+
+.confirm {
+    text-align: center;
+}
+
+h3, .h3 {
+    text-align: center;
+}
+
+input.form-control {
+    text-align: center;
+}
+
+#nickname-section {
+    width: 100%;
+    height: 40px;
+    padding: 2% 40%;
+}
+
+#pr-section {
+    width: 100%;
+    padding: 0 20%;
+}
+
+#signOutSection {
+    height: 150px;
+}
+
+.pr {
+    height: 100px;
+}
+#nickname-section {
+    width: 100%;
+    height: 40px;
+    padding: 0 45%;
 }
