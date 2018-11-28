@@ -22,14 +22,17 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
       propagation=Propagation.REQUIRED,
       rollbackFor=Exception.class)
   @Override
-  public void add(SceneAlbum sceneAlbum) {
+  public void add(int mno, SceneAlbum sceneAlbum) {
 
  /*     HashMap<String, Object> params = new HashMap<>();
       params.put("lbmTitle", sceneAlbum.getLbmTitle());
       params.put("open", sceneAlbum.isOpen());
       ieDao.insert(params);
 */
-    sceneAlbumDao.insert(sceneAlbum);
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("sceneAlbum", sceneAlbum);
+    sceneAlbumDao.insert(condition);
 /*
     List<String> plst = sceneAlbum.getPhotos();
     for(int i=0;i<plst.size();i++)

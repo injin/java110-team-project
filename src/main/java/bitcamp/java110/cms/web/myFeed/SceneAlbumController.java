@@ -51,11 +51,12 @@ public class SceneAlbumController {
 
   @PostMapping("/add")
   public String album(
-      SceneAlbum sceneAlbum
-      ) {
+      SceneAlbum sceneAlbum,
+      HttpSession session) {
     
     System.out.println(sceneAlbum);
-    sceneAlbumService.add(sceneAlbum);
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    sceneAlbumService.add(mno, sceneAlbum);
     return "redirect:list";
   }
   
