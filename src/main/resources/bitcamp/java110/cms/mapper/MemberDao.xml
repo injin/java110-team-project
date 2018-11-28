@@ -54,7 +54,16 @@
       from mv_memb
       where nick like concat('%',#{keyword},'%');
     </select>
-     
+    
+    <update id="signOut2" parameterType="int">
+     UPDATE IGNORE
+            mv_post
+        SET
+            mno=21
+        WHERE
+            mno=#{mno}
+    </update>
+    
     <delete id="signOut" parameterType="int">
         DELETE
             FROM mv_memb

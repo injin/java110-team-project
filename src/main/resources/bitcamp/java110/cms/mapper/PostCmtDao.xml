@@ -37,5 +37,14 @@
 		where p.pstno=#{value}
 		order by cdt desc
 	</select>
+	
+	<update id="signOut" parameterType="int">
+        UPDATE IGNORE
+            mv_post_cmt
+        SET
+            mno=21
+        WHERE
+            mno=#{mno}
+    </update>
 
 </mapper>
