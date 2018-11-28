@@ -46,6 +46,7 @@
 		  mv.titl,
 		  p.star,
 		  p.cont,
+		  p.cdt,
 		  0 as likes,
 		  (p.opn ='u') opn,
 		  m.nick,

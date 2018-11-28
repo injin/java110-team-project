@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -204,6 +205,7 @@
 											</c:forEach>
 										</c:if></li>
 								</ul>
+								<span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
 								<c:if test="${post.pstTypeNo ==0}">
 									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
 										<b><i>${post.title}</i></b>
@@ -242,7 +244,7 @@
 								<a href="#" style="color: black"> <i
 									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
 								</a> <a href="#" style="color: black"> <i
-									class="far fa-comment btmIcon"></i>0
+									class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
 								</a>
 							</div>
 
@@ -320,7 +322,8 @@
                 nick:'${post.member.nickname}',
                 star:'${post.star}',
                 photos:pary,
-                dftags:fary
+                dftags:fary,
+                createdDate:'${post.createdDate}'
             })
         </c:forEach>
         
@@ -331,7 +334,8 @@
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
              $('#detailModal #ownerNick').text(postList[index].nick);
              $('#detailModal #dCont').html($('#reviewCont-'+index).html());
-             $('#detailModal #dpstno').val(postList[index].pstno); 
+             $('#detailModal #dpstno').val(postList[index].pstno);
+             $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
              
              /* 별 부분*/
              var star = postList[index].star;
@@ -423,12 +427,10 @@
             console.log(data.cmtsResult);
               for (var i=0;i<data.cmtsResult.length;i++) {
                   
-
                 html += '<li>';
                 html += '<div class="row comment-box p-1 pt-3 pr-4">';
                 html += '    <div class="col-3 user-img text-center">';
                 html += '        <img src="';
-                /* html += '/img/default-profile-img.png'; */
                  html += data.cmtsResult[i].member.profileImagePath; 
                 html += '" class="main-cmt-img">';
                 html += '        <label>';

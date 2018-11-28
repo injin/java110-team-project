@@ -45,8 +45,9 @@
 								<li><a href="#" style="color: black;" id="ownerNick">닉네임</a></li>
 								<%-- 친구태그 --%>
 								<li id="dftags"></li>
+								
 							</ul>
-
+                            <span class="cmt-date" id="cdate"></span>
 						</div>
 					</div>
 
@@ -58,9 +59,9 @@
 						<%-- 좋아요 --%>
 						<div class="col-6" style="text-align: left;">
 							<a href="#" style="color: black"> <i
-								class="far fa-thumbs-up btmIcon" style="color: red;"></i>0
+								class="far fa-thumbs-up btmIcon" style="color: red;"></i><%-- 좋아요개수 --%>
 							</a> <a href="#" style="color: black"> <i
-								class="far fa-comment btmIcon"></i>0
+								class="far fa-comment btmIcon"></i><%-- 댓글개수 --%>
 							</a>
 						</div>
 
