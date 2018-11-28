@@ -12,13 +12,8 @@
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
 <style>
-.cmt-date {
-    color: #ccc;
-    font-size: 0.9em;
-}
-.cmt-img {
-    max-width: 35em;
-}
+
+
 
 </style>
 </head>
@@ -35,7 +30,11 @@
                         <c:if test="${not empty sessionScope.loginUser}">
                             <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-icon" ><img src="/img/btn-pencil.png"></a>
                             <c:if  test="${sceneReview.trgtSrExist == true}">
-                            <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
+                                <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
+                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == false}">dis-none</c:if>" id="btn-heart-full" 
+                                        onclick="cancelLike()"><img src="/img/btn-heart-full.png"></span>
+                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == true}">dis-none</c:if>" id="btn-heart-empty" 
+                                        onclick="addLike()"><img src="/img/btn-heart-empty.png"></span>
                             </c:if>
                         </c:if>
                     </h3>
@@ -128,19 +127,19 @@
                     </div>
                 </c:if>
                 
-                
                 <c:if test="${not empty cmtList}">
                 <c:forEach items="${cmtList}" var="cmt">
                     <div class="media mt-3">
-                        <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
+                        <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
                         <div class="media-body">
-                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
-                            <p class="mb-0">${cmt.cont}
+                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span><br>
+                            <div class="break-all">${cmt.cont}</div>
+                            
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
-                                <br><a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
+                                <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
                                     <i class="fas fa-map-marker-alt"></i> ${cmt.map.mapName}</a>
                             </c:if>
-                            </p>
+                            
                             <c:if test="${cmt.photo ne null}">
                                 <img src="/upload/sceneReview/${cmt.photo}" class="rounded cmt-img" alt="댓글 이미지">
                             </c:if>
@@ -376,6 +375,32 @@
         $('#addSrAlbumForm input[name="lbmno"]').val(lbmno);
         $('#addSrAlbumForm').submit();
     }
+    
+    /* ===== 좋아요 관련  ===== */
+    function addLike() {
+        $.ajax({
+            url : "/app/sceneReview/addLike",
+            type: "post",
+            data : { "srno" : '${sceneReview.srno}' },
+            success : function(data) {
+                $('span[id^="btn-heart-"]').hide();
+                $('span#btn-heart-full').show();
+            }
+        });
+    }
+    
+    function cancelLike() {
+        $.ajax({
+            url : "/app/sceneReview/cancelLike",
+            type: "post",
+            data : { "srno" : '${sceneReview.srno}' },
+            success : function(data) {
+                $('span[id^="btn-heart-"]').hide();
+                $('span#btn-heart-empty').show();
+            }
+        });
+    }
+    
     </script>
 </body>
 </html>
