@@ -5,7 +5,7 @@ import java.util.Map;
 
 import bitcamp.java110.cms.domain.Member;
 
-public interface FlwDao {
+public interface FlwDao { 
 
     List<Member> flwlist(Map<String,Object> condition);
     int getTotalCnt(int mno);
