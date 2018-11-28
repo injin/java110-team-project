@@ -96,6 +96,14 @@ a.btn-icon > img {
     display: none;
 }
 
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
+.cmt-img {
+    max-width: 35em;
+}
+
 /*===== range slider =====*/
 .slidecontainer {
     width: 100%;
@@ -206,4 +214,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
+/* srAlbum modal */
+#srAlbumAddModal .modal-body {
+    max-height: 25em;
+    overflow-y: scroll;
+}

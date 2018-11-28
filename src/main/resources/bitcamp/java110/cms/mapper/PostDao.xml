@@ -46,6 +46,7 @@
 		  mv.titl,
 		  p.star,
 		  p.cont,
+		  p.cdt,
 		  0 as likes,
 		  (p.opn ='u') opn,
 		  m.nick,
@@ -118,5 +119,27 @@
         WHERE
             mno=#{mno}
     </update>
+    
+    <select id="getMyPostList" resultMap="postMap2" parameterType="int">
+        SELECT
+            p.pstno,
+            p.mvno,
+            p.ptno,
+            mv.titl,
+            p.star,
+            p.cont,
+            0 as likes,
+            p.opn,
+            m.nick,
+            m.p_phot
+        FROM mv_post p
+            INNER JOIN mv_memb m on m.mno = p.mno
+            INNER JOIN mv_mv mv on mv.mvno = p.mvno
+        WHERE p.mno=#{mno}
+        ORDER BY cdt desc
+        LIMIT 25
+            
+    </select>
+    
 
 </mapper>

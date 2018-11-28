@@ -29,7 +29,6 @@ public class MlogController {
     int mno = member.getMno();
     
     List<Mlog> logList = mlogservice.getList(mno);
-    System.out.println(logList);
     
     model.addAttribute("list", logList);
     

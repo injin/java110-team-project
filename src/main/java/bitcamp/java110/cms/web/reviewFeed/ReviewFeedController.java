@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +65,8 @@ public class ReviewFeedController {
   public String add(
       Post post,
       MultipartFile[] files,
-      HttpSession session) throws Exception {
+      HttpSession session,
+      HttpServletRequest request) throws Exception {
 
     Member m = (Member)session.getAttribute("loginUser");
     post.setMno(m.getMno());
@@ -91,10 +93,12 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-
+    System.out.println(post.toString());
     postService.add(post);
 
-    return "redirect:list";
+    String originPath = request.getHeader("referer");
+    return "redirect:" + originPath.substring(
+        originPath.indexOf("/app"));
   }
   
 
@@ -119,7 +123,19 @@ public class ReviewFeedController {
     int pstno = Integer.valueOf((String)request.get("pstno"));
     List<PostCmt> cmtsResult = postService.findCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
-    
     return resultMap;
+  }
+  
+  @RequestMapping("/myFeed")
+  public String myFeed(
+      Post post,
+      Model model,
+      HttpSession session) {
+    
+    List<Post> list =
+        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
+    
+    model.addAttribute("postList", list);
+    return "include/myFeed";
   }
 }

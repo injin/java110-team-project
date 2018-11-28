@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>리뷰피드</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
@@ -17,6 +18,10 @@
 <link rel='stylesheet' href='/css/detailPost.css'>
 
 <style>
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
 .wPost {
 	background: white;
 	padding: 1rem 1rem 0 1rem;
@@ -60,6 +65,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: pre-line;
+    word-break: break-all;
 }
 
 .mauto {
@@ -199,6 +205,7 @@
 											</c:forEach>
 										</c:if></li>
 								</ul>
+								<span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
 								<c:if test="${post.pstTypeNo ==0}">
 									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
 										<b><i>${post.title}</i></b>
@@ -237,7 +244,7 @@
 								<a href="#" style="color: black"> <i
 									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
 								</a> <a href="#" style="color: black"> <i
-									class="far fa-comment btmIcon"></i>0
+									class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
 								</a>
 							</div>
 
@@ -315,7 +322,8 @@
                 nick:'${post.member.nickname}',
                 star:'${post.star}',
                 photos:pary,
-                dftags:fary
+                dftags:fary,
+                createdDate:'${post.createdDate}'
             })
         </c:forEach>
         
@@ -326,7 +334,8 @@
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
              $('#detailModal #ownerNick').text(postList[index].nick);
              $('#detailModal #dCont').html($('#reviewCont-'+index).html());
-             $('#detailModal #dpstno').val(postList[index].pstno); 
+             $('#detailModal #dpstno').val(postList[index].pstno);
+             $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
              
              /* 별 부분*/
              var star = postList[index].star;
@@ -422,27 +431,26 @@
                 html += '<div class="row comment-box p-1 pt-3 pr-4">';
                 html += '    <div class="col-3 user-img text-center">';
                 html += '        <img src="';
-                html += '/img/default-profile-img.png';
-                /* html += data.cmtsResult[i].profileImage; */
+                 html += data.cmtsResult[i].member.profileImagePath; 
                 html += '" class="main-cmt-img">';
                 html += '        <label>';
-                html += data.cmtsResult[i].nickname; 
+                html += data.cmtsResult[i].member.nickname; 
                 html += '        </label>';
                 html += '    </div>';
                 html += '    <div class="col-9 user-comment bg-light rounded">';
-                html += '        <p class="w-100 p-2 m-0">';
+                html += '        <p class="w-100 p-2 m-0" style="word-break: break-word;">';
                 html += data.cmtsResult[i].content; 
                 html += '        </p>';
                 html += '        <p class="w-100 p-2 m-0">';
-                html += '            <span class="float-right">';
-                html += '            <i class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00 ';
-                html += '            </span>';
+                html += '            <span class="cmt-date float-right">';
+                html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
+                html += '          </span>';
                 html += '        </p>';
                 html += '    </div>';
                 html += '</div>';
                 html += '</li> ';   
             }  
-            
+            //.toLocaleDateString() 이건 시간만
             $('#cmt-area').html(html);  
         }
         

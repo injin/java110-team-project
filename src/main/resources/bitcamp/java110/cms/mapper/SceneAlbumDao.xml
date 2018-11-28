@@ -16,11 +16,11 @@
         <result column="include" property="include" />
     </resultMap>
 
-    <insert id="insert" parameterType="sceneAlbum"
+    <insert id="insert" parameterType="map" 
         useGeneratedKeys="true" keyColumn="lbmno" keyProperty="lbmno">
         insert into mv_lbm( mno, lbm_nm, cdt,opn)
-        values(1, #{lbmTitle},
-        now(),if(#{open},'u','l'))
+        values(#{mno}, #{sceneAlbum.lbmTitle},
+        now(),if(#{sceneAlbum.open},'u','l'))
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
 

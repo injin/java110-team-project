@@ -5,19 +5,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.PostCmtDao">
 
+    <resultMap type="bitcamp.java110.cms.domain.PostCmt" id="cmt">
+        <id column="pstno" property="pstno" />
+        <result column="mno" property="mno" />
+        <result column="cdt" property="createdDate" />
+        <result column="mdt" property="modifiedDate" />
+        <result column="cont" property="content" />
+        <association property="member" javaType="member">
+            <id column="mno" property="mno" />
+            <result column="nick" property="nickname" />
+            <result column="p_phot" property="profileImage" />
+        </association>
+    </resultMap>
+
+
 	<insert id="insertCmt" parameterType="PostCmt"
 		useGeneratedKeys="true" keyColumn="pcno">
 		insert into mv_post_cmt(pstno,mno,cont,cdt)
 		values(#{pstno},#{mno},#{content},now())
 	</insert>
 
-	<select id="findCmtList" parameterType="int" resultType="map">
+	<select id="findCmtList" parameterType="int" resultMap="cmt">
 		select
-		  p.cont as content,
+		  p.cont ,
 		  p.mno,
-		  m.p_phot as profileImage,
-		  m.nick as nickname,
-		  p.cdt as createdDate
+		  m.p_phot ,
+		  m.nick ,
+		  p.cdt 
 		from mv_post_cmt p
 		inner join mv_memb m on m.mno = p.mno
 		where p.pstno=#{value}
