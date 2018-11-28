@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>리뷰피드</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
@@ -17,6 +17,10 @@
 <link rel='stylesheet' href='/css/detailPost.css'>
 
 <style>
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
 .wPost {
 	background: white;
 	padding: 1rem 1rem 0 1rem;
@@ -60,6 +64,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: pre-line;
+    word-break: break-all;
 }
 
 .mauto {
@@ -422,21 +427,21 @@
                 html += '<div class="row comment-box p-1 pt-3 pr-4">';
                 html += '    <div class="col-3 user-img text-center">';
                 html += '        <img src="';
-                html += '/img/default-profile-img.png';
-                /* html += data.cmtsResult[i].profileImage; */
+                /* html += '/img/default-profile-img.png'; */
+                 html += data.cmtsResult[i].member.profileImagePath; 
                 html += '" class="main-cmt-img">';
                 html += '        <label>';
-                html += data.cmtsResult[i].nickname; 
+                html += data.cmtsResult[i].member.nickname; 
                 html += '        </label>';
                 html += '    </div>';
                 html += '    <div class="col-9 user-comment bg-light rounded">';
-                html += '        <p class="w-100 p-2 m-0">';
+                html += '        <p class="w-100 p-2 m-0" style="word-break: break-word;">';
                 html += data.cmtsResult[i].content; 
                 html += '        </p>';
                 html += '        <p class="w-100 p-2 m-0">';
-                html += '            <span class="float-right">';
-                html += '            <i class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00 ';
-                html += '            </span>';
+                html += '            <span class="cmt-date float-right">';
+                html += data.cmtsResult[i].createdDate;
+                html += '          </span>';
                 html += '        </p>';
                 html += '    </div>';
                 html += '</div>';

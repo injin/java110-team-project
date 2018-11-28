@@ -91,4 +91,15 @@ public class SceneReviewController {
               + "&srno=" + sr.getSrno();
   }
   
+  @RequestMapping("addToSrAlbum")
+  public String addToSrAlbum(
+      int lbmno, int srno) {
+    
+    sceneReviewService.addToSrAlbum(lbmno, srno);
+    
+    SceneReview sr = sceneReviewService.findByNo(srno);
+    return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
+              + "&srno=" + sr.getSrno();
+  }
+  
 }

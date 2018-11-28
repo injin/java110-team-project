@@ -3,13 +3,12 @@
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 /* detailList */
 .detailList{
+    margin: 0 auto;
+    padding-left: 1.9rem;
     float : right;
     clear: both;
-    border-left:1px solid silver;
-    border-right:1px solid silver;
 }
 .detailList .scene{
-	border: 1px solid silver;
 	width: 14.5rem;
 	height: 9.5rem;
 	margin: 1rem;
@@ -147,11 +146,10 @@ img{
 }
 
 .albumList{
-	padding-left: 2rem;
+	margin: 0 auto;
+	padding-left: 2.5rem;
     float : right;
     clear: both;
-    border-left:1px solid silver;
-    border-right:1px solid silver;
 }
 .album img{
 	width: 12rem;

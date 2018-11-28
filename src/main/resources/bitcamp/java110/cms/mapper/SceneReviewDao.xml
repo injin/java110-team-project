@@ -104,6 +104,11 @@
          LIMIT 8
     </select>
     
+    <insert id="addToSrAlbum" parameterType="map">
+        INSERT INTO mv_lbm_sr(lbmno, srno)
+        VALUES (#{lbmno}, #{srno})
+    </insert>
+    
     <update id="signOut" parameterType="int">
         UPDATE IGNORE mv_sr
         SET mno=21
