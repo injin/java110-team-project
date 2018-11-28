@@ -100,7 +100,7 @@
 							</c:otherwise>
 						</c:choose>
 						<%-- 댓글리스트 --%>
-						<div class="comment-main rounded m-0">
+						<div class="comment-main rounded m-0" style="width: 100%;">
 
 							<ul class="p-0" id="cmt-area">
 								<!-- <li>
