@@ -114,5 +114,14 @@
         SET mno=21
         WHERE mno=#{mno}
     </update>
+    
+    <update id="signOut2" parameterType="int">
+        UPDATE IGNORE
+            mv_sr_cmt
+        SET
+            mno=21
+        WHERE
+            mno=#{mno}
+    </update>
 
 </mapper>

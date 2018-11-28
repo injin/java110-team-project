@@ -114,6 +114,7 @@ public class MemberServiceImpl implements MemberService {
     System.out.println("SignOut Process 6");
     logDao.signOut1(mno);
     logDao.signOut2(mno);
+    flwDao.signOut3(mno);
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
     System.out.println("SignOut Process 7");

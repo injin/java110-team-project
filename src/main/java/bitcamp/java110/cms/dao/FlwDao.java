@@ -15,5 +15,6 @@ public interface FlwDao {
     List<Member> listForPost(int no);
     void signOut1(int mno);
     void signOut2(int mno);
+    void signOut3(int mno);
     List<Member> flwlistall(int mno);
 }
