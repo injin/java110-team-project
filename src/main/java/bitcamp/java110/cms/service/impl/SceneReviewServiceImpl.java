@@ -94,6 +94,14 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public void addToSrAlbum(int lbmno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("srno", srno);
+    sceneReviewDao.addToSrAlbum(condition);
+  }
+  
+  @Override
   public SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sr) {
     
     // 영화 정보 설정
