@@ -21,8 +21,7 @@
             FROM DUAL
         WHERE NOT EXISTS (SELECT mvno
                             FROM mv_mv
-                          WHERE mvno=#{mvno}
-                          )
+                          WHERE mvno=#{mvno})
     </insert>
 
     <select id="findByNo"

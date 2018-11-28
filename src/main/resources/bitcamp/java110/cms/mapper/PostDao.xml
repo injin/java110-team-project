@@ -83,7 +83,6 @@
  
     </select>
     
-
 	<select id="findByNo" resultMap="postMap" parameterType="int">
 	</select>
     
@@ -108,9 +107,6 @@
 		,now(),#{content},#{star},if(#{open},'u','l'));
 	</insert>
 
-	<delete id="delete" parameterType="int">
-	</delete>
-	
 	<update id="signOut" parameterType="int">
         UPDATE IGNORE
             mv_post
@@ -141,5 +137,34 @@
             
     </select>
     
-
+    <update id="deleteUnlockPost" parameterType="int">
+        UPDATE IGNORE
+            mv_post
+        SET
+            mno=21,
+            cont='삭제된 게시물 입니다',
+            mdt=now()
+        WHERE
+            opn='u'
+            AND pstno=#{pstno}
+    </update>
+    
+    <delete id="deleteLockPost" parameterType="int">
+        DELETE post, type, tag, phot, flw, cmt
+         FROM mv_post AS post
+         LEFT JOIN mv_post_type         AS type
+            ON type.ptno = post.pstno
+         LEFT JOIN mv_post_tag    AS tag
+            ON tag.pstno = post.pstno
+         LEFT JOIN mv_post_phot         AS phot
+            ON phot.pstno = post.pstno
+         LEFT JOIN mv_post_flw_tag    AS flw
+            ON flw.pstno = post.pstno
+         LEFT JOIN mv_post_cmt    AS cmt
+            ON cmt.pstno = post.pstno
+         WHERE
+            opn='l'
+            AND post.pstno=#{pstno}
+    </delete>
+    
 </mapper>
