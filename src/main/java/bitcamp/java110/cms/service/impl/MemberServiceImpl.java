@@ -82,6 +82,7 @@ public class MemberServiceImpl implements MemberService {
         //  mv_mv table에 insert
         movieDao.insertNotExists(member.getFavMvList().get(i));
         
+        
         //  mv_mv_anly에 insert
         HashMap<String, Integer> params = new HashMap<>();
         params.put("mno", member.getMno());

@@ -13,4 +13,5 @@ public interface MovieAnlyDao {
   void signOut(int mno);
   int getOneFav(int mno);
   List<Integer> getFavMvList(int mno);
+  void insertGrNotExists(int mvno, int grno);
 }

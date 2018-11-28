@@ -72,10 +72,10 @@ public class RecommendServiceImple implements RecommendService {
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
     MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
-//    System.out.println("mvdb : " + mvdb.toString());
-//    System.out.println(mvdb.getOverview());
-//    System.out.println(mvdb.getBackdropPath());
-//    System.out.println(mvdb.getRuntime());
+    System.out.println("mvdb : " + mvdb.toString());
+    System.out.println(mvdb.getOverview());
+    System.out.println(mvdb.getBackdropPath());
+    System.out.println(mvdb.getRuntime());
     return mvdb;
   }
 
