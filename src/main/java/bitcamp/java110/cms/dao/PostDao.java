@@ -12,4 +12,5 @@ public interface PostDao {
   List<Post> findByKeyword(String keyword);
   List<Post> listTopMp();
   void signOut(int mno);
+  List<Post> getMyPostList(int mno);
 }

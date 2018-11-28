@@ -31,26 +31,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>moviestagram</title>
+    <meta charset="UTF-8">
+    <title>moviestagram</title>
 
-<link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel='stylesheet' href='/css/fontawesome.css'>
-<link rel='stylesheet' href='/css/all.css'>
-<link rel='stylesheet' href='/css/common.css'>
-<link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
-<link rel='stylesheet' href='/css/rcmd.css'>
+	<link rel='stylesheet' href='/css/bootstrap.css'>
+	<link rel='stylesheet' href='/css/fontawesome.css'>
+	<link rel='stylesheet' href='/css/all.css'>
+	<link rel='stylesheet' href='/css/common.css'>
+	<link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
+	<link rel='stylesheet' href='/css/rcmd.css'>
 
 </head>
 <body class="borderGray bgGray" style="background-color: dimgray;">
     <jsp:include page="../include/header.jsp"></jsp:include>
+<%-- ========================================================================================== --%>
     <main role="main" class="container borderGray"> <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
             <h1>${sessionScope.loginUser.nickname}님만을 위한 취향 저격추천 영화</h1>
         </c:when>
     </c:choose>
     <hr>
-
+<%-- ========================================================================================== --%>
     <section id="random-base-section">
         <h3 id="randomBaseTitle"></h3>
         <div id="randomBaseCarousel" class="list-container">
@@ -69,6 +70,7 @@
     </section>
     <br>
     <hr>
+<%-- ========================================================================================== --%>
     <h2>MD 추천 영화</h2>
     <hr>
     <section>
@@ -101,6 +103,7 @@
         </div>
     </section>
     <hr>
+<%-- ========================================================================================== --%>
     <section>
         <h3>${listName2}</h3>
         <div id="carousel2" class="list-container">
@@ -130,10 +133,8 @@
             </div>
         </div>
     </section>
-    
     <hr>
-    
-    
+<%-- ========================================================================================== --%>
     </main>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script

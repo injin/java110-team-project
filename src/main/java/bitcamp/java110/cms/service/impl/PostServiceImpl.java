@@ -170,4 +170,15 @@ public class PostServiceImpl implements PostService {
   public List<PostCmt> findCmts(int no) {
     return postCmtDao.findCmtList(no);
   }
+  
+  
+  /* JEAHA 작업영역 */
+  public List<Post> getMyPostList(int mno){
+    return null;
+  }
+  
+  
+  /* JEAHA 작업영역 */
+  
+  
 }
