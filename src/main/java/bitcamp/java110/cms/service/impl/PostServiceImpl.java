@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FlwDao;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
@@ -25,6 +26,7 @@ public class PostServiceImpl implements PostService {
   @Autowired MovieDao movieDao;
   @Autowired FlwDao flwDao;
   @Autowired PostCmtDao postCmtDao;
+  @Autowired MovieAnlyDao movieAnlyDao;
 
   @Transactional(
       // 트랜잭션 관리자의 이름이 transactionPost 라면
@@ -48,7 +50,6 @@ public class PostServiceImpl implements PostService {
       params.put("mvno", post.getMvno());
       params.put("titl", post.getTitle());
       movieDao.insert(params);
-
     }
 
     postDao.insert(post);
@@ -88,7 +89,19 @@ public class PostServiceImpl implements PostService {
       postHashtagDao.insert(params);
     }
 
+    if(post.getPstTypeNo() == 0) {
 
+      HashMap<String, Object> mparams = new HashMap<>();
+      mparams.put("mno", post.getMno());
+      mparams.put("mvno", post.getMvno());
+      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
+
+      if(movieAnlyDao.findOne(mparams)>0) { // 이미 해당회원,영화정보가있음.
+        movieAnlyDao.update(mparams);
+      }else { // 해당 정보없을때 영화분석테이블에 삽입
+        movieAnlyDao.insertPost(mparams);    
+      }
+    }
   }
 
   @Override
@@ -105,7 +118,7 @@ public class PostServiceImpl implements PostService {
     {
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
     }
-    
+
     return posts;
   }
 
@@ -153,7 +166,7 @@ public class PostServiceImpl implements PostService {
 
     postCmtDao.insertCmt(postCmt);
   }
-  
+
   public List<PostCmt> findCmts(int no) {
     return postCmtDao.findCmtList(no);
   }
