@@ -95,10 +95,13 @@
     </delete>
     
     <delete id="signOut3" parameterType="int">
-       DELETE
-           FROM mv_post_flw_tag
-       WHERE
-           flwno=#{mno}
+       UPDATE IGNORE
+            mv_post_flw_tag
+        SET
+            flwno=21
+        WHERE EXISTS (SELECT mno
+                    FROM mv_memb
+                    WHERE mno=#{mno})
     </delete>
   
 </mapper>

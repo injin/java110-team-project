@@ -123,7 +123,7 @@
                                 <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" alt="${list2.title}"/>
                             </c:when>
                             <c:otherwise>
-                                <img class="item-image" src="/img/default-movie-img.png" alt="${list1.title}"/>
+                                <img class="item-image" src="/img/default-movie-img.png" alt="${list2.title}"/>
                             </c:otherwise>
                         </c:choose>
                             <span class="item-title">${list2.title}</span>
