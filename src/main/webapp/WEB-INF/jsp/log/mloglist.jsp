@@ -11,19 +11,6 @@
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
 <link rel='stylesheet' href='/css/common.css'>
-<style>
-
-#mypage-profile-img {
-    max-height: 14em;
-}
-#mypage-cover-img {
-    width: 100%;
-}
-#mypage-right {
-    min-height: 75em;
-}
-
-</style>
 </head>
 <body>
     <jsp:include page="../include/header.jsp"></jsp:include>
@@ -36,14 +23,31 @@
               <img class="card-img-top" id="mypage-profile-img" src="${loginUser.profileImagePath}" alt="프로필 이미지">
               <div class="card-body">
                 <h5 class="card-title">${loginUser.nickname}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">${loginUser.pr}</p>
               </div>
             </div>
                 
             </aside>
             <div class="col-9 borderGray p-0" id="mypage-right">
                 <img src="${loginUser.coverImagePath}" id="mypage-cover-img">
-                <div class="row mt-3 pl-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <table class="table">
+                      <thead id="mypage-menu">
+                        <tr class="d-flex">
+                          <th scope="col" class="col-2 text-center"><a href="#">나의피드</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">활동로그</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
+                        </tr>
+                      </thead>
+                    </table>
+                    </div>
+                </div>
+
+                <div class="row pl-3 pr-3">
                     <div class="col-lg-2 col-md-4 col-sm-12">
                         <div class="input-group mb-3">
                             <select class="custom-select" id="logType">
@@ -56,9 +60,7 @@
                             </select>
                         </div>
                     </div>
-                </div>
-
-                <div class="row pl-3">
+                    
                     <div class="logList col-lg-12" id="list-mp">
                         <h4>영화리뷰 로그</h4>
                         <ul class="list-group">
@@ -80,7 +82,7 @@
                         </c:forEach>
                         </ul>
                     </div>
-                    <div class="logList" id="list-dp">
+                    <div class="logList col-lg-12" id="list-dp">
                         <h4>일상리뷰 로그</h4>
                         <ul class="list-group">
                         <c:forEach var="log" items="${list}">
@@ -105,7 +107,7 @@
                         </c:forEach>
                         </ul>
                     </div>
-                    <div class="logList" id="list-sr">
+                    <div class="logList col-lg-12" id="list-sr">
                         <h4>장면리뷰 로그</h4>
                         <ul class="list-group">
                         <c:forEach var="log" items="${list}">
@@ -128,7 +130,7 @@
                         </c:forEach>
                         </ul>
                     </div>
-                    <div class="logList" id="list-pc">
+                    <div class="logList col-lg-12" id="list-pc">
                         <h4>게시물 댓글</h4>
                         <ul class="list-group">
                         <c:forEach var="log" items="${list}">
@@ -144,7 +146,7 @@
                         </c:forEach>
                         </ul>
                     </div>
-                    <div class="logList" id="list-sc">
+                    <div class="logList col-lg-12" id="list-sc">
                         <h4>장면리뷰 댓글</h4>
                         <ul class="list-group">
                         <c:forEach var="log" items="${list}">
@@ -160,7 +162,7 @@
                         </c:forEach>
                         </ul>
                     </div>
-                    <div class="logList" id="list-fr">
+                    <div class="logList col-lg-12" id="list-fr">
                         <h4>친구</h4>
                         <ul class="list-group">
                         <c:forEach var="log" items="${list}">

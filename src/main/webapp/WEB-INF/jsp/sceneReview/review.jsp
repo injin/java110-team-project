@@ -87,6 +87,7 @@
                 </c:choose>
                 
                 <c:if test="${not empty sessionScope.loginUser}">
+                    <form id="addCommentForm" action="addComment" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
                     <input type="hidden" name="map.lat">
                     <input type="hidden" name="map.lng">
@@ -113,6 +114,7 @@
                           </div>
                         </div>
                     </div>
+                    </form>
                     
                     <div class="card mt-2" id="map-container">
                       <div class="card-body p-0">

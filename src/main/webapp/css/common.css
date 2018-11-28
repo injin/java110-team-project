@@ -27,6 +27,22 @@ main {
     resize: none;
 }
 
+/*==== 마이페이지 메뉴 ==== */
+#mypage-profile-img {
+    max-height: 14em;
+}
+#mypage-cover-img {
+    width: 100%;
+    height: 25em;
+}
+#mypage-right {
+    min-height: 75em;
+}
+#mypage-menu a {
+    color: #212529;
+    font-weight: normal;
+}
+
 /*==== 스크롤바 ==== */
 /* 클래스명 : scrollbar-light-blue */
 .scrollbar-light-blue::-webkit-scrollbar-track {
