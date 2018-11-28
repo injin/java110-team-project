@@ -174,7 +174,7 @@
         </c:if>
         
         <div class="col-lg-3 col-md-12">
-            <span>${sceneAlbumList}</span>
+            
         </div>
     </div>
     
@@ -302,9 +302,6 @@
         $('#addCommentForm').submit();
     }
     
-    
-    
-    
     /* ===== 지도 관련  ===== */
     $('#btn-map').click(function() {
         $('div#map-container').toggle(function() {
@@ -372,6 +369,13 @@
     <c:if test="${not empty loginUser}">
         google.maps.event.addDomListener(window, 'load', initialize);
     </c:if>
+    
+    
+    /* ===== 앨범 관련  ===== */
+    function addToSrlAlbum(lbmno) {
+        $('#addSrAlbumForm input[name="lbmno"]').val(lbmno);
+        $('#addSrAlbumForm').submit();
+    }
     </script>
 </body>
 </html>

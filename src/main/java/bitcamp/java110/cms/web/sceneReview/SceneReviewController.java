@@ -91,4 +91,9 @@ public class SceneReviewController {
               + "&srno=" + sr.getSrno();
   }
   
+  /*@RequestMapping("addToSrAlbum")
+  public String addToSrAlbum() {
+    
+  }*/
+  
 }
