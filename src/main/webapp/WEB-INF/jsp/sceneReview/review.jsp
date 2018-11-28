@@ -133,7 +133,7 @@
                         <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
                         <div class="media-body">
                             <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span><br>
-                            <div class="break-all">${cmt.cont}</div>
+                            <div class="break-all cmt-cont">${cmt.cont}</div>
                             
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
@@ -187,9 +187,14 @@
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
+    <script src="/js/vendor/linkify.js"></script>
+    <script src="/js/vendor/linkify-jquery.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
+    $('.cmt-cont').linkify({
+        target: "_blank"
+    });
     
     /* ===== 하단 장면 목록 박스 관련  ===== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
