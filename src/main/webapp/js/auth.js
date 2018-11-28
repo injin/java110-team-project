@@ -181,8 +181,8 @@
   function signUpCheck(){
       var form = document.detailForm;
       /* if(!selecList.value){ */
-      if(selecList.length == 0){
-        alert("영화를 선정 해 주세요");
+      if(selecList.length <= 5){
+        alert("영화를 5편 이상 선정 해 주세요");
         $inputKeyword.focus();
         return
       }

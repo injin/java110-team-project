@@ -7,4 +7,5 @@ public interface PostCmtDao {
   
   Integer insertCmt(PostCmt postCmt);
   List<PostCmt> findCmtList(int no);
+  void signOut(int mno);
 }
