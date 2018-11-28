@@ -10,6 +10,11 @@
         values (#{mno}, #{mvno}, 10)
     </insert>
     
+    <insert id="signIn2" parameterType="map">
+        INSERT INTO mv_mv_gr (mno, mvno)
+        values (#{mno}, #{mvno})
+    </insert>
+    
     <insert id="insertNotExists" parameterType="map">
         INSERT INTO mv_mv_anly(mno, mvno, pnt)
             SELECT #{mno}, #{mvno}, 10 
@@ -58,8 +63,7 @@
             mno=#{mno} and mvno=#{mvno} 
     </update>
     
-    <insert id="insertGrNotExist" parameterType="map">
-\
+    <insert id="insertGrNotExists" parameterType="map">
         INSERT INTO mv_mv_gr (mvno, grno)
             SELECT #{mvno}, #{grno}
             FROM DUAL

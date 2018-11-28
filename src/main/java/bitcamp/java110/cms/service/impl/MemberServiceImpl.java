@@ -2,24 +2,31 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.MemberDao;
 import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
-import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
+import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostHashtagDao;
 import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
+import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -36,6 +43,10 @@ public class MemberServiceImpl implements MemberService {
   @Autowired ReportDao rptDao;
   @Autowired SceneAlbumDao lbmDao;
   @Autowired SceneReviewDao rvDao;
+  
+  @Autowired Environment env;
+  @Autowired TmdbMovies tmdbMovies;
+  @Autowired MovieAnlyDao mvAnlyDao;
   
   @Transactional(propagation=Propagation.REQUIRED,
                   rollbackFor=Exception.class)
@@ -88,6 +99,25 @@ public class MemberServiceImpl implements MemberService {
         params.put("mno", member.getMno());
         params.put("mvno", member.getFavMvList().get(i).getMvno());
         movieAnlyDao.insertNotExists(params);
+        
+        //  mv_mv_gr에 insert
+        saveMvId(member.getFavMvList().get(i).getMvno());
+      }
+    }
+  }
+  
+  protected void saveMvId (int mvno) {
+    String tmdbKey = env.getProperty("tmdb.key");
+    
+    tmdbMovies = new TmdbApi(tmdbKey).getMovies();
+    MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
+    List <Genre> genres = mvdb.getGenres();
+    Map <String, Integer> params = new HashMap<>();
+    if(genres.size() > 0) {
+      for(Genre g : genres) {
+        params.put("mvno", mvdb.getId());
+        params.put("grno", g.getId());
+        mvAnlyDao.insertGrNotExists(params);
       }
     }
   }
