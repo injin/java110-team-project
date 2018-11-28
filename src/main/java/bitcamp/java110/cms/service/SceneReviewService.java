@@ -15,6 +15,7 @@ public interface SceneReviewService {
   int getTotalCmtCnt(int srno);
   List<SceneReviewCmt> listCmt(int srno, Paging paging);
   List<SceneReview> listTopSr();
+  void addToSrAlbum(int lbmno, int srno);
   SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sceneReview);
   
 }

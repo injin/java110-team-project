@@ -95,18 +95,23 @@
                     <div class="card mt-1">
                         <div class="card-body">
                             <div class="media">
-                              <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                              <c:if test="${album.include == true}">
+                                <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                              </c:if>
+                              <c:if test="${album.include == false}">
+                                <img class="mr-3" src="/img/btn-box-empty.png" alt="앨범 이미지">
+                              </c:if>
                               <div class="media-body">
                                 <h5 class="mt-0">${album.lbmTitle}
                                     <c:if test="${album.include == true}">
                                         <button type="button" class="btn btn-secondary float-right" disabled>보관됨</button>
                                     </c:if>
                                     <c:if test="${album.include == false}">
-                                        <button type="button" class="btn btn-secondary float-right" 
+                                        <button type="button" class="btn btn-primary float-right" 
                                             onclick="addToSrlAlbum(${album.lbmno})">보관하기</button>
                                         <form id="addSrAlbumForm" action="addToSrAlbum" method="post">
                                             <input type="hidden" name="lbmno" value="">
-                                            <input type="hidden" name="srno" value="${scene.srno}">
+                                            <input type="hidden" name="srno" value="${sceneReview.srno}">
                                         </form>
                                         
                                     </c:if>
