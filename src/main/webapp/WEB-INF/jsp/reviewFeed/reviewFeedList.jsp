@@ -422,11 +422,11 @@
                 html += '<div class="row comment-box p-1 pt-3 pr-4">';
                 html += '    <div class="col-3 user-img text-center">';
                 html += '        <img src="';
-                html += '/img/default-profile-img.png';
-                /* html += data.cmtsResult[i].profileImage; */
+                /* html += '/img/default-profile-img.png'; */
+                 html += data.cmtsResult[i].member.profileImagePath; 
                 html += '" class="main-cmt-img">';
                 html += '        <label>';
-                html += data.cmtsResult[i].nickname; 
+                html += data.cmtsResult[i].member.nickname; 
                 html += '        </label>';
                 html += '    </div>';
                 html += '    <div class="col-9 user-comment bg-light rounded">';
