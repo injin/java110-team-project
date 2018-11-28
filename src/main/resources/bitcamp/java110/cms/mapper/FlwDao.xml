@@ -93,5 +93,12 @@
        WHERE
            mno=#{mno}
     </delete>
+    
+    <delete id="signOut3" parameterType="int">
+       DELETE
+           FROM mv_post_flw_tag
+       WHERE
+           flwno=#{mno}
+    </delete>
   
 </mapper>

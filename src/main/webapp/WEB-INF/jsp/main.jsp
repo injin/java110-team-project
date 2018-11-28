@@ -255,6 +255,7 @@ function showCont(cont, index) {
                                             data-target="#detailModal" />
                                         <h5 class="card-title">${post.title} 리뷰</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${status.index}">
                                                  <script>
@@ -263,9 +264,7 @@ function showCont(cont, index) {
                                                  </script>
                                         </p>
                                         <img class="img-sr"
-                                            src="/upload/post/${post.photos[0].phot}"
-                                            onclick="openDetailModal(${status.index})"
-                                            style="cursor: pointer">
+                                            src="/upload/post/${post.photos[0].phot}">
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -278,6 +277,7 @@ function showCont(cont, index) {
                                             data-target="#detailModal" />
                                         <h5 class="card-title">${post.title}리뷰</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot2 reviewCont"
                                             id="reviewCont-${status.index}">
                                             <script>
@@ -432,7 +432,8 @@ function showCont(cont, index) {
            nick:'${post.member.nickname}',
            star:'${post.star}',
            photos:pary,
-           dftags:fary
+           dftags:fary,
+           createdDate:'${post.createdDate}'
        })
    </c:forEach>
    
@@ -443,7 +444,7 @@ function showCont(cont, index) {
        $('#detailModal #ownerNick').text(topMpList[index].nick);
        $('#detailModal #dCont').html($('#reviewCont-'+index).html());
        $('#detailModal #dpstno').val(topMpList[index].pstno); 
-       
+       $('#detailModal #cdate').text(new Date(topMpList[index].createdDate).toLocaleString()); 
        /* 별 부분*/
        var star = topMpList[index].star;
        if(star != 0){
@@ -548,8 +549,8 @@ function showCont(cont, index) {
            html += data.cmtsResult[i].content; 
            html += '        </p>';
            html += '        <p class="w-100 p-2 m-0">';
-           html += '            <span class="float-right">';
-           html += '            <i class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00 ';
+           html += '            <span class="cmt-date float-right">';
+           html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
            html += '            </span>';
            html += '        </p>';
            html += '    </div>';

@@ -13,14 +13,14 @@ public class SceneAlbum {
   protected boolean include;
   protected boolean open;
   protected int srno;
+  protected int srCnt;
   
   @Override
   public String toString() {
     return "SceneAlbum [lbmno=" + lbmno + ", mno=" + mno + ", lbmTitle=" + lbmTitle + ", phot="
         + phot + ", cdt=" + cdt + ", mdt=" + mdt + ", include=" + include + ", open=" + open
-        + ", srno=" + srno + "]";
+        + ", srno=" + srno + ", srCnt=" + srCnt + "]";
   }
-  
   public int getLbmno() {
     return lbmno;
   }
@@ -74,6 +74,12 @@ public class SceneAlbum {
   }
   public void setSrno(int srno) {
     this.srno = srno;
+  }
+  public int getSrCnt() {
+    return srCnt;
+  }
+  public void setSrCnt(int srCnt) {
+    this.srCnt = srCnt;
   }
   
   
