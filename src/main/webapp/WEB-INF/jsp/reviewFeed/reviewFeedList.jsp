@@ -423,6 +423,7 @@
             console.log(data.cmtsResult);
               for (var i=0;i<data.cmtsResult.length;i++) {
                   
+
                 html += '<li>';
                 html += '<div class="row comment-box p-1 pt-3 pr-4">';
                 html += '    <div class="col-3 user-img text-center">';
@@ -440,14 +441,14 @@
                 html += '        </p>';
                 html += '        <p class="w-100 p-2 m-0">';
                 html += '            <span class="cmt-date float-right">';
-                html += data.cmtsResult[i].createdDate;
+                html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
                 html += '          </span>';
                 html += '        </p>';
                 html += '    </div>';
                 html += '</div>';
                 html += '</li> ';   
             }  
-            
+            //.toLocaleDateString() 이건 시간만
             $('#cmt-area').html(html);  
         }
         
