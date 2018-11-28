@@ -42,7 +42,7 @@ public class MemberServiceImpl implements MemberService {
   @Autowired PostHashtagDao tagDao;
   @Autowired ReportDao rptDao;
   @Autowired SceneAlbumDao lbmDao;
-  @Autowired SceneReviewDao rvDao;
+  @Autowired SceneReviewDao srDao;
   
   @Autowired Environment env;
   @Autowired TmdbMovies tmdbMovies;
@@ -130,7 +130,8 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void signOut(int mno) {
     System.out.println(mno + "\nSignOut Process 1");
-    rvDao.signOut(mno);
+    srDao.signOut1(mno);
+    srDao.signOut2(mno);
     System.out.println("SignOut Process 2");
     lbmDao.signOut1(mno);
     lbmDao.signOut2(mno);
@@ -151,6 +152,7 @@ public class MemberServiceImpl implements MemberService {
     System.out.println("SignOut Process 7");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
+    System.out.println("LastProcess");
     memberDao.signOut(mno);
     System.out.println("END?");
     

@@ -18,5 +18,6 @@ public interface SceneReviewDao {
   List<SceneReviewCmt> listCmt(Map<String, Object> condition);
   List<SceneReview> listTopSr();
   Integer addToSrAlbum(Map<String, Object> condition);
-  void signOut(int mno);
+  void signOut1(int mno);
+  void signOut2(int mno);
 }
