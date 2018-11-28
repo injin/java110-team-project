@@ -42,7 +42,7 @@
 									</div>
 								</c:otherwise>
 							</c:choose>
-							<span style="font-size: 0.8rem; float: left;">14개</span> <span
+							<span style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> <span
 								style="float: left; clear: both;">${album.cdt}</span>
 						</div>
 					</div>

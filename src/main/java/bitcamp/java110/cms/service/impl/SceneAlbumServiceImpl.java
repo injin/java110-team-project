@@ -79,6 +79,7 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   public int getTotalCnt(int mno) {
     return sceneAlbumDao.getTotalCnt(mno);
   }
+  
   @Override
   public SceneAlbum get(int no) {
     return null;
