@@ -45,7 +45,7 @@
                              <div class="col-lg-3 boxBorder">
                              <div class="scrollbar-light-blue boxList">
                                 <c:forEach items="${sceneAlbumList}" var="album">
-                                    <div class="album_title al_wrap">
+                                    <div class="album_title al_wrap text-center">
                                     <div class="al_overflow">${album.lbmTitle}</div></div>
                                 </c:forEach>
                                 </div>
