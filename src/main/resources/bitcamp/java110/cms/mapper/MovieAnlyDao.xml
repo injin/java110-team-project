@@ -20,6 +20,20 @@
                           )
     </insert>
     
+    <insert id="insertPost" parameterType="map">
+        INSERT INTO mv_mv_anly(mno, mvno, pnt)
+            values (#{mno}, #{mvno}, #{pnt}) 
+    </insert>
+    
+    
+     <select id="findOne" parameterType="map" resultType="int">
+        SELECT count(*)
+        from 
+            mv_mv_anly
+        where 
+            mno=#{mno} and mvno=#{mvno} 
+    </select>
+    
     <delete id="signOut" parameterType="int">
         DELETE
             FROM mv_mv_anly
@@ -35,6 +49,14 @@
         AND RAND()
         LIMIT 1
     </select>
+    
+     <update id="update" parameterType="int">
+        update mv_mv_anly
+        set 
+            pnt = (pnt+#{pnt})
+        where 
+            mno=#{mno} and mvno=#{mvno} 
+    </update>
     
     <select id="getFavMvList" resultType="list" parameterType="int">
         <!-- 가입시 최초등록을 하지 않았다면 추후에 등록 할 수 없게 하는것이 나을지도.. -->
