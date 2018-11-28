@@ -98,6 +98,14 @@ public class SceneReviewController {
               + "&srno=" + sr.getSrno();
   }
   
+  @RequestMapping("deleteComment")
+  public String deleteComment(int srno, int mvno, int cmno) {
+    
+    sceneReviewService.deleteCmt(cmno);
+    return "redirect:/app/sceneReview/review?mvno=" + mvno
+              + "&srno=" + srno;
+  }
+  
   @RequestMapping("addToSrAlbum")
   public String addToSrAlbum(
       int lbmno, int srno) {
