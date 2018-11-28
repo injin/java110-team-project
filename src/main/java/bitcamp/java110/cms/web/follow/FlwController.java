@@ -33,7 +33,7 @@ public class FlwController {
         condition.put("mno", mno);
         condition.put("paging", paging);
         List<Member> flwList = flwService.list(condition);
-        System.out.println("페이징 정보" + paging.toString());
+        
         
         model.addAttribute("flwlist" , flwList);
         model.addAttribute("paging" , paging);
