@@ -127,8 +127,15 @@ public class ReviewFeedController {
   }
   
   @RequestMapping("/myFeed")
-  public String myFeed() {
+  public String myFeed(
+      Post post,
+      Model model,
+      HttpSession session) {
     
+    List<Post> list =
+        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
+    
+    model.addAttribute("postList", list);
     return "include/myFeed";
   }
 }
