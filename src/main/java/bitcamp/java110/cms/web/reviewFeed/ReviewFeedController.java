@@ -93,7 +93,7 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-
+    System.out.println(post.toString());
     postService.add(post);
 
     String originPath = request.getHeader("referer");

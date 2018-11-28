@@ -4,7 +4,8 @@
     padding: 1rem 1rem 0 1rem;
     border-radius: 0.5rem;
     box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
+    margin: 2rem 4rem;
+    width: 45rem;
 }
 
 .pst {
