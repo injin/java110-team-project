@@ -6,7 +6,7 @@ import bitcamp.java110.cms.web.myFeed.Paging;
 
 public interface SceneAlbumService {
   
-    void add (SceneAlbum sceneAlbum);
+    void add (int mno, SceneAlbum sceneAlbum);
     List<SceneAlbum> list(int mno);
     List<SceneAlbum> list2(int mno, int srno);
     List<SceneAlbum> pageList(int mno, Paging paging);
