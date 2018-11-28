@@ -18,7 +18,7 @@
     <main role="main" class="container pt-0">
         <div class="row">
             <aside class="col-3">
-                <div class="card mt-2">
+                <div class="mt-2">
                   <img class="card-img-top" id="mypage-profile-img" src="${loginUser.profileImagePath}" alt="프로필 이미지">
                   <div class="card-body">
                     <h5 class="card-title">${loginUser.nickname}</h5>
