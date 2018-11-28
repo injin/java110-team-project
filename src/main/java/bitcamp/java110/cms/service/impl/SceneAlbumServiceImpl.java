@@ -45,7 +45,13 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     }*/
 
   }
-
+  @Override
+  public List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("sceneAlbum", sceneAlbum);
+    return sceneAlbumDao.srAlbumList(condition);
+  }
   
   @Override
   public List<SceneAlbum> list(int mno) {

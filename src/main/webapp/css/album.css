@@ -4,14 +4,18 @@
 /* detailList */
 .detailList{
     margin: 0 auto;
-    padding-left: 1.9rem;
     float : right;
     clear: both;
 }
 .detailList .scene{
 	width: 14.5rem;
 	height: 9.5rem;
-	margin: 1rem;
+	margin-bottom: 1rem;
+	float: left;
+}
+.sr_empty{
+	margin: 0 auto;
+    padding-top: 9em;
 }
 img{
 	width: 14.5rem;
@@ -98,7 +102,7 @@ img{
 	    margin-right: 1rem;
 }
 .al_overflow {
-    font-size: 1.4rem;
+    font-size: 1.1rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
