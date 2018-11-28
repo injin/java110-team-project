@@ -63,24 +63,35 @@ public class SceneAlbumController {
   @RequestMapping("/detail")
   public String detail(
       SceneAlbum sceneAlbum,
-      Paging paging,
       Model model,
       HttpSession session) {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     
-    System.out.println("pageNo: "+paging.getPageNo());
     System.out.println("detail Title : " + sceneAlbum.getLbmTitle());
     System.out.println("detail open : "+ sceneAlbum.isOpen());
     System.out.println(sceneAlbum);
     
+    // 현재 클릭된 앨범 안의 장면목록들   => 여기에 현재 클릭된 앨범의 앨범명, 공개여부 나타남! sceneAlbum 대체 가능
+    List<SceneAlbum> srList = new ArrayList<>(); 
+    srList = sceneAlbumService.srList(mno, sceneAlbum);
     
+    System.out.println("srList" + srList.size());
     
     List<SceneReview> sceneReview = new ArrayList<>();
-    sceneReview = sceneReviewService.list(157336);
-    System.out.println(sceneReview);
-    model.addAttribute("title", sceneAlbum.getLbmTitle());
+    
+    // 내 앨범 속 장면별 영화 찾기
+    for(SceneAlbum sr : srList) {
+      sceneReview.add(sceneReviewService.findByNo(sr.getSrno()));
+    }
+    System.out.println("srList: "+srList);
+    // 현재 클릭된 앨범에 담긴 장면
+    model.addAttribute("srList", srList);
+    
+    // 현재 클릭된 앨범의 앨범명, 공개여부...
     model.addAttribute("sceneAlbum", sceneAlbum);
+    
+    // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
     model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     return "sceneAlbum/detailAlbum";

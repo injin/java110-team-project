@@ -22,7 +22,7 @@
 					<!-- 앨범 하나 -->
 
 					<div class="row" style="margin: 0;">
-						<div class="album" onclick="albumDetail('${album.lbmTitle}','${album.open}')"
+						<div class="album" onclick="albumDetail('${album.lbmTitle}','${album.open}', '${album.lbmno}')"
 							style="cursor: pointer;">
 							<img src="/img/default.jpg">
 							<c:choose>
@@ -50,6 +50,7 @@
 				<form action="detail" method="get" id="detailForm">
 					<input type="hidden" name="lbmTitle">
 					<input type="hidden" name="open">
+					<input type="hidden" name="lbmno">
 				</form>
 				<!-- 페이징버튼 -->
 

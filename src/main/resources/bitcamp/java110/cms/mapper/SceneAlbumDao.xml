@@ -24,6 +24,19 @@
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
 
+    <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
+        select
+            l.mno,
+            l.opn,
+            l.lbm_nm,
+            l.lbmno,
+            s.srno
+        from
+            mv_lbm_sr s, mv_lbm l
+        where
+            s.lbmno = l.lbmno and l.mno=#{mno} and l.lbmno=#{sceneAlbum.lbmno}   
+    </select>
+    
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
     </select>
     
@@ -54,6 +67,7 @@
                     where srno=#{srno}) sr
             on lbm.lbmno = sr.lbmno
          where lbm.mno=#{mno}
+         order by cdt desc;
     </select>
     
     <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="map">
