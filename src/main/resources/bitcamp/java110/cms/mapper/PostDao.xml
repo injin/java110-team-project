@@ -118,5 +118,7 @@
         WHERE
             mno=#{mno}
     </update>
+    
+    
 
 </mapper>

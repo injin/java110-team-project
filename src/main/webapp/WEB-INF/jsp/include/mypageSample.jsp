@@ -34,11 +34,11 @@
                       <thead id="mypage-menu">
                         <tr class="d-flex">
                           <th scope="col" class="col-2 text-center"><a href="#">나의피드</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
                           <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
                           <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
                           <th scope="col" class="col-2 text-center"><a href="#">활동로그</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
                         </tr>
                       </thead>
                     </table>
