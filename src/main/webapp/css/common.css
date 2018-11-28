@@ -8,23 +8,29 @@ body {
   min-height: 75rem;
   padding-top: 3.5rem;
 }
-.bgGray {
-    background-color: #F2F4F7;
-}
-
 main {
     min-height: 75rem;
-    
+}
+.bgGray {
+    background-color: #F2F4F7;
 }
 .borderGray {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-
 .w50 { width: 50px; }
 
 .resize-none {
     resize: none;
+}
+.break-all {
+    word-break: break-all;
+}
+.c-pointer {
+    cursor: pointer;
+}
+.dis-none {
+    display: none;
 }
 
 /*==== 마이페이지 메뉴 ==== */

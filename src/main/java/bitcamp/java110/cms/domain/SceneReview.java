@@ -13,6 +13,7 @@ public class SceneReview {
   protected String photo;
   protected String cont;
   protected String spo;
+  protected boolean like;
   protected MovieDb movieDb;
   protected Movie movie; // mv_mv 테이블 등록용
   protected boolean trgtSrExist;
@@ -57,13 +58,19 @@ public class SceneReview {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont;
+    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
   }
   public String getSpo() {
     return spo;
   }
   public void setSpo(String spo) {
     this.spo = spo;
+  }
+  public boolean isLike() {
+    return like;
+  }
+  public void setLike(boolean like) {
+    this.like = like;
   }
   public MovieDb getMovieDb() {
     return movieDb;
