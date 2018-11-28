@@ -70,12 +70,13 @@
     <script src="/js/common.js"></script>
 
     <script>
-        function albumDetail(lbmTitle, open) {
+        function albumDetail(lbmTitle, open, lbmno) {
             //alert(lbmTitle);
             console.log(lbmTitle);
             console.log(open);
             $('#detailForm input[name="lbmTitle"]').val(lbmTitle);
             $('#detailForm input[name="open"]').val(open);
+            $('#detailForm input[name="lbmno"]').val(lbmno);
             $('#detailForm').submit();
 
         }

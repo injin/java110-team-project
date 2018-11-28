@@ -115,7 +115,7 @@
         UPDATE IGNORE
             mv_post
         SET
-            mno=00000000
+            mno=21
         WHERE
             mno=#{mno}
     </update>
