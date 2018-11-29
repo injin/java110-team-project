@@ -1,8 +1,9 @@
 //mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseItems = $('#random-base-items');
-window.onload=getSimilarBaseFavList();
+$('#popover').popover('click')
 
+window.onload=getSimilarBaseFavList();
 function getSimilarBaseFavList(){
   $.ajax("/app/rcmd/smlrList", {
     method: "POST",
@@ -14,7 +15,7 @@ function getSimilarBaseFavList(){
     },
     success: function(data) {
       if (jQuery.isEmptyObject(data)) {
-        print = '<p>취향 분석을 위해 회원 정보를 수정해 주십시오.</p>';
+        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
       }  else {
         print = makeHtml(data);
       }

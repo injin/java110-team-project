@@ -108,6 +108,40 @@
         }).on('mouseleave', function() {
             $('.title_edit').css('visibility', 'hidden');
         });
+        
+        function editAlbum(obj){
+            console.log($(obj).data('lbmno'));
+            console.log($(obj).data('lbm-title'));
+            $('.title_box').text($(obj).data('lbm-title'));
+            
+            $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/srList',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  $(obj).data('lbmno')
+                }),
+                success:function(data){
+                    console.log('장면리스트가져옴');
+                    console.log(data);
+                    showSrList(data);
+                }
+            });
+        }
+        
+        function showSrList(data){
+            var html = '';
+            for(var i=0; i<data.sceneReview.length; i++){
+                console.log(data.sceneReview[i].photo);
+            html += '<img class="card-img-top hot-sr-img col-4 scene"';
+            html += '           src="/upload/sceneReview/'
+            html +=                     data.sceneReview[i].photo;
+            html += '"           alt="Card image cap">';
+            }
+            $('.srlist').html(html);
+        }
     </script>
 
 </body>

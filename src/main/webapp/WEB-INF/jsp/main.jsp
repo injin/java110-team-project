@@ -103,19 +103,9 @@
     font-size: 1.5rem;
     color: #FFD119;
 }
+
 </style>
 <script>
-function postShow(id) {
-    if (id == 'btnIlsang') {
-        $("#pstTypeNo").val(1);
-        $('.onlyMovie').hide();
-    } else if(id == 'detailPst'){
-        
-    } else {
-        $("#pstTypeNo").val(0);
-        $('.onlyMovie').show();
-    }
-}
 
 function showCont(cont, index) {
 
@@ -255,6 +245,7 @@ function showCont(cont, index) {
                                             data-target="#detailModal" />
                                         <h5 class="card-title">${post.title} 리뷰</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${status.index}">
                                                  <script>
@@ -263,9 +254,7 @@ function showCont(cont, index) {
                                                  </script>
                                         </p>
                                         <img class="img-sr"
-                                            src="/upload/post/${post.photos[0].phot}"
-                                            onclick="openDetailModal(${status.index})"
-                                            style="cursor: pointer">
+                                            src="/upload/post/${post.photos[0].phot}">
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -278,6 +267,7 @@ function showCont(cont, index) {
                                             data-target="#detailModal" />
                                         <h5 class="card-title">${post.title}리뷰</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
+                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot2 reviewCont"
                                             id="reviewCont-${status.index}">
                                             <script>
@@ -432,7 +422,8 @@ function showCont(cont, index) {
            nick:'${post.member.nickname}',
            star:'${post.star}',
            photos:pary,
-           dftags:fary
+           dftags:fary,
+           createdDate:'${post.createdDate}'
        })
    </c:forEach>
    
@@ -443,7 +434,7 @@ function showCont(cont, index) {
        $('#detailModal #ownerNick').text(topMpList[index].nick);
        $('#detailModal #dCont').html($('#reviewCont-'+index).html());
        $('#detailModal #dpstno').val(topMpList[index].pstno); 
-       
+       $('#detailModal #cdate').text(new Date(topMpList[index].createdDate).toLocaleString()); 
        /* 별 부분*/
        var star = topMpList[index].star;
        if(star != 0){
@@ -459,39 +450,51 @@ function showCont(cont, index) {
        }
        
         /* 이미지 추가부분*/
-       var h ='';
-       h += '<ol class="carousel-indicators">';
-       for (var i=0; i<topMpList[index].photos.length; i++) {
-           if(i ==0){
-       h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
-           }else{
-               h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
-           }
-       }
-       h += '</ol>';
-       h += '<div class="carousel-inner">';
-       for (var i=0; i<topMpList[index].photos.length; i++) {
-           if(i ==0){
-       h += '    <div class="carousel-item active">';}
-           else{
-               h += '    <div class="carousel-item">';        
-           }
-       h += '        <img class="d-block w-100" src="/upload/post/'+ topMpList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
-       h += '    </div>';
-       }
-       h += '</div>';
-       
-       h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
-       h += '    role="button" data-slide="prev">';
-       h += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
-       h += '    <span class="sr-only">Previous</span>';
-       h += '</a> <a class="carousel-control-next"';
-       h += '    href="#carouselExampleIndicators" role="button" data-slide="next">';
-       h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
-       h += '    <span class="sr-only">Next</span>';
-       h += '</a>';
+        if (topMpList[index].photos.length == 0) {
+            $('#leftcol').hide();
+            $('#rightcol').removeClass('col-4').addClass('col-12');
+            $('#detailModal .modal-dialog').css('maxWidth', '35rem');
+        } else {
+            
+            var h ='';
+            h += '<ol class="carousel-indicators">';
+            for (var i=0; i<topMpList[index].photos.length; i++) {
+                if(i ==0){
+            h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
+                }else{
+                    h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
+                }
+            }
+            h += '</ol>';
+            h += '<div class="carousel-inner">';
+            for (var i=0; i<topMpList[index].photos.length; i++) {
+                if(i ==0){
+            h += '    <div class="carousel-item active">';}
+                else{
+                    h += '    <div class="carousel-item">';        
+                }
+            h += '        <img class="d-block w-100" src="/upload/post/'+ topMpList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
+            h += '    </div>';
+            }
+            h += '</div>';
+            
+            h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
+            h += '    role="button" data-slide="prev">';
+            h += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
+            h += '    <span class="sr-only">Previous</span>';
+            h += '</a> <a class="carousel-control-next"';
+            h += '    href="#carouselExampleIndicators" role="button" data-slide="next">';
+            h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
+            h += '    <span class="sr-only">Next</span>';
+            h += '</a>';
+             
+            $('#carouselExampleIndicators').html(h); 
+            
+            $('#leftcol').show();
+            $('#rightcol').removeClass('col-12').addClass('col-4');
+            $('#detailModal .modal-dialog').css('maxWidth', '70rem');
+        }
         
-       $('#carouselExampleIndicators').html(h); 
        
        /* 친구태그 부분*/
        html ='';
@@ -505,6 +508,7 @@ function showCont(cont, index) {
        listCmt(topMpList[index].pstno);
        
       $('#detailModal').modal('show');
+      
   }
    function listCmt(pstno) {
        $.ajax({
@@ -548,8 +552,8 @@ function showCont(cont, index) {
            html += data.cmtsResult[i].content; 
            html += '        </p>';
            html += '        <p class="w-100 p-2 m-0">';
-           html += '            <span class="float-right">';
-           html += '            <i class="fa fa-clock mr-1" aria-hidden="true"></i> 01 : 00 ';
+           html += '            <span class="cmt-date float-right">';
+           html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
            html += '            </span>';
            html += '        </p>';
            html += '    </div>';
@@ -581,6 +585,7 @@ function showCont(cont, index) {
                 }
             });
     }
+    
     </script>
 </body>
 </html>

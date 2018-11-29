@@ -14,6 +14,7 @@
         <result column="mdt" property="mdt" />
         <result column="opn" property="open" />
         <result column="include" property="include" />
+        <result column="srCnt" property="srCnt" />
     </resultMap>
 
     <insert id="insert" parameterType="map" 
@@ -78,13 +79,23 @@
             l.phot,
             l.cdt,
             l.mdt,
-            (l.opn ='u') opn   
-        from mv_lbm l
+            (l.opn ='u') opn,
+            sr.cnt as srCnt  
+        from 
+            mv_lbm l
             inner join mv_memb m on m.mno = l.mno
-            where l.mno = #{mno}
+            left join (SELECT
+                            l.lbmno, count(s.srno) as cnt
+                        from
+                            mv_lbm l, mv_lbm_sr s
+                        where
+                            l.lbmno = s.lbmno 
+                        group by lbmno) as sr on l.lbmno = sr.lbmno
+        where l.mno = #{mno}
         order by
             cdt desc
         limit #{paging.startRowNo} , #{paging.pageSize}
+        
     </select>
     
     <select id="getTotalCnt" resultType="int" parameterType="int">
@@ -94,7 +105,7 @@
             inner join mv_memb m on m.mno = l.mno
             where l.mno = #{mno}
     </select>
-    
+
     <delete id="delete" parameterType="int">
     </delete>
     
@@ -113,12 +124,11 @@
         FROM
             mv_lbm_sr
         WHERE
-            (SELECT lbmno
-             FROM
-                mv_lbm
-             WHERE
-                 opn='L'
-                 AND mno=#{mno} )
+            lbmno  IN (SELECT lbmno
+                        FROM
+                            mv_lbm
+                        WHERE
+                            AND mno=#{mno})
     </delete>
     
     <delete id="signOut3" parameterType="int">

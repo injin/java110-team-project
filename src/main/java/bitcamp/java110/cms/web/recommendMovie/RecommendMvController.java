@@ -72,7 +72,7 @@ public class RecommendMvController {
   public String list (Model model,
       HttpSession session) {
     
-    System.out.println("LIST REQUEST START");
+//    System.out.println("LIST REQUEST START");
     
     int[] n = rcmdService.RandomNums(rcmdService.getCount());
     System.out.println(Arrays.toString(n));
@@ -88,7 +88,7 @@ public class RecommendMvController {
   public @ResponseBody Map<String, Object> smlrListById (
       HttpSession session) throws Exception {
     
-    System.out.println("smlrList REQUEST START");
+//    System.out.println("smlrList REQUEST START");
     
     int triggerMvId;
     Map<String, Object> returnValue= new HashMap<>();
@@ -100,11 +100,11 @@ public class RecommendMvController {
       returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
       returnValue.put("smlrList", smlrList.getResults());
       
-      System.out.println("\nsmlr REQUEST COMPLETE\n");
+      System.out.println("smlr REQUEST COMPLETE\n");
       return returnValue;
     }   catch (Exception e) {
       returnValue = new HashMap<>();
-      System.out.println("\nsmlr REQUEST return null\n");
+      System.out.println("smlr REQUEST return null\n");
       return returnValue;
     }
   }

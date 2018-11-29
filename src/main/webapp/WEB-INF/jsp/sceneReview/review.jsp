@@ -132,8 +132,13 @@
                     <div class="media mt-3">
                         <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
                         <div class="media-body">
-                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span><br>
-                            <div class="break-all">${cmt.cont}</div>
+                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
+                                <c:if test="${cmt.member.mno eq sessionScope.loginUser.mno}">
+                                    &nbsp;<i class="far fa-edit c-pointer" onclick="editComment(this)"></i>
+                                    &nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(${cmt.cmno})"></i>
+                                </c:if>
+                            </span><br>
+                            <div class="break-all cmt-cont">${cmt.cont}</div>
                             
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
@@ -183,13 +188,24 @@
 <jsp:include page="../report/report.jsp"></jsp:include> --%>
 
 <%@ include file="addPopup.jsp" %>
+<form id="deleteCommentForm" action="deleteComment">
+    <input type="hidden" name="srno" value="${sceneReview.srno}">
+    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+    <input type="hidden" name="cmno">
+</form>
+
 </main>
 
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
+    <script src="/js/vendor/linkify.js"></script>
+    <script src="/js/vendor/linkify-jquery.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
+    $('.cmt-cont').linkify({
+        target: "_blank"
+    });
     
     /* ===== 하단 장면 목록 박스 관련  ===== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
@@ -280,7 +296,7 @@
         return true;
     }
     
-    /* ===== 댓글 입력 관련  ===== */
+    /* ===== 댓글 관련  ===== */
     function contMore() {
         $('#p-cont').text('${sceneReview.cont}');
     }
@@ -297,8 +313,18 @@
             $('#addCommentForm input[name="map.lng"]').val(marker.position.lng());
             $('#addCommentForm input[name="map.mapName"]').val(marker.address);
         }
-        
         $('#addCommentForm').submit();
+    }
+    
+    function deleteComment(cmno) {
+        $('#deleteCommentForm input[name="cmno"]').val(cmno);
+        $('#deleteCommentForm').submit();
+    }
+    
+    function editComment(obj) {
+        var $divCont = $(obj).parent().next('.cmt-cont');
+        
+        
     }
     
     /* ===== 지도 관련  ===== */

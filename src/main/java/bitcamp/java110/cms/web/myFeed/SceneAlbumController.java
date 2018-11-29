@@ -1,14 +1,18 @@
 package bitcamp.java110.cms.web.myFeed;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
@@ -97,5 +101,30 @@ public class SceneAlbumController {
     return "sceneAlbum/detailAlbum";
   }
   
+  @RequestMapping("srList")
+  public @ResponseBody Map<String, Object> srList(
+      @RequestBody Map<String, Object> request,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    Map<String, Object> resultMap = new HashMap<>();
+    int lbmno = (int)request.get("lbmno");
+    
+    List<SceneAlbum> srList = new ArrayList<>();
+    SceneAlbum sceneAlbum = new SceneAlbum();
+    sceneAlbum.setLbmno(lbmno);
+    srList = sceneAlbumService.srList(mno, sceneAlbum);
+    
+    List<SceneReview> sceneReview = new ArrayList<>();
+    
+    // 내 앨범 속 장면별 영화 찾기
+    for(SceneAlbum sr : srList) {
+      sceneReview.add(sceneReviewService.findByNo(sr.getSrno()));
+    }
+    resultMap.put("srList", srList);
+    resultMap.put("sceneReview", sceneReview);
+    return resultMap;
+  }
  
 }

@@ -93,6 +93,10 @@
          LIMIT #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
+    <delete id="deleteCmt" parameterType="int">
+        DELETE FROM mv_sr_cmt WHERE cmno = #{cmno}
+    </delete>
+    
     <select id="listTopSr" resultMap="srMap">
         SELECT srno, mvno, titl, time, phot, count(pstno)as cnt
           FROM mv_like ml,mv_sr ms 
@@ -109,19 +113,19 @@
         VALUES (#{lbmno}, #{srno})
     </insert>
     
-    <update id="signOut" parameterType="int">
-        UPDATE IGNORE mv_sr
-        SET mno=21
-        WHERE mno=#{mno}
-    </update>
-    
-    <update id="signOut2" parameterType="int">
+    <update id="signOut1" parameterType="int">
         UPDATE IGNORE
             mv_sr_cmt
         SET
             mno=21
         WHERE
             mno=#{mno}
+    </update>
+    
+    <update id="signOut2" parameterType="int">
+        UPDATE IGNORE mv_sr
+        SET mno=21
+        WHERE mno=#{mno}
     </update>
 
 </mapper>

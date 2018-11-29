@@ -52,7 +52,7 @@ public class AuthServiceImpl implements AuthService {
       newbie.setNickname("(알수없음)");
     }
     if (properties != null && properties.get("profile_image") != null
-          || properties.get("profile_image") != "") {
+          && properties.get("profile_image") != "") {
       newbie.setProfileImage(properties.get("profile_image").toString());
     }
     
