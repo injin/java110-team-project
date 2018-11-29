@@ -113,26 +113,15 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
-      
-      
       System.out.println("Controller Start Add Member");
+      
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
-        System.out.println("profileImageFile is not null");
-        
         String profileImg = UUID.randomUUID().toString();
         profileImageFile.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
         member.setProfileImage(profileImg);
-        
-        System.out.println(profileImg);
       }
-      if(profileImageFile.equals("") || profileImageFile.getSize() == 0) {
-        System.out.println("??");
-      }
-      System.out.println("WHERE IS P_PHOT?");
-      
-      
       
       //    coverImage Control
       if (coverImage != null && coverImage.getSize() > 0) {
@@ -237,9 +226,3 @@ public class AuthController {
       return "redirect:/app/";
     }
 }
-
-
-//  Controller에서 메소드 이름을 바꿔 줬음.
-//  AuthServide AuthServieImple
-//  MemberService, MemberServiceImple 메소드 이름 바꿔줘야 함.
-

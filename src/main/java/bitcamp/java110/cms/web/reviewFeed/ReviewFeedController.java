@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -166,6 +167,20 @@ public class ReviewFeedController {
         postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
     
     model.addAttribute("postList", list);
+    System.out.println("list출력\t:"+list+"\n");
     return "include/myFeed";
   }
+  
+  @RequestMapping(value="/delete", method=RequestMethod.POST, consumes="application/json")
+  public @ResponseBody String delete (
+      @RequestBody Map<String, Object> request) {
+    System.out.println("REQUEST");
+//    int postId = Integer.valueOf((int)request.get("postId"));
+//    System.out.println(postId + " delete request");
+//    postService.deletePost(postId);
+//    System.out.println("delete : " + postId);
+    return "ok";
+  }
+  
+  
 }

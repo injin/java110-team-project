@@ -151,8 +151,9 @@
 <%-- ========================================================================================== --%>
           <%-- 포스터 보이는 부분 --%>
       <c:forEach items="${postList}" var="post" varStatus="status">
-        <c:if test="${post.open}">
-          <div class="wPost reviewPst">
+          <%-- ID --%>
+          <div class="wPost reviewPst" id="${post.pstno}">
+          <%-- ID --%>
             <div class="media row" style="padding: 0 1rem">
               <img src="${post.member.profileImagePath}"
                 style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
@@ -172,18 +173,23 @@
                 <div id="drop">
                     <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
                         <div class="btn-group" role="group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                <!-- <a class="dropdown-item" href="#">Dropdown link</a>
-                                <a class="dropdown-item" href="#">Dropdown link</a> -->
-                                <button type="button" class="btn btn-secondary btn-xs">수정</button>
+                            <button id="btnGroupDrop" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><!-- style="display: none;" -->
+                            <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
+                                <button type="button" class="btn btn-xs" onclick='updatePost(${post.pstno})'>수정</button>
                                 <br>
-                                <button type="button" class="btn btn-secondary btn-xs">삭제</button>
+                                <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>삭제</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <%-- 버튼 --%>
+                <div style="float: right;">
+                    <c:choose>
+                        <c:when test="${post.open == true}"> <i class="fas fa-globe-americas globe"></i> </c:when>
+                        <c:when test="${post.open == false}" > <i class="fas fa-lock lock"></i> </c:when>
+                    </c:choose>
+                </div>
+                <%-- 여기까지 --%>
                 <c:if test="${post.pstTypeNo ==0}">
                   <p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
                     <b><i>${post.title}</i></b>
@@ -197,6 +203,7 @@
             <div class="clearfix media row" style="margin: 0.2rem 0">
               <div class="media-body">
                 <p class="reviewCont" id="reviewCont-${status.index}">
+                    ${post}
                   <script>
                     showCont("${post.content}",
                         "${status.index}");
@@ -247,7 +254,6 @@
               </c:if>
             </div>
           </div>
-        </c:if>
       </c:forEach>
           <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
@@ -265,6 +271,42 @@
   <script src="/js/typeahead.bundle.min.js"></script>
   <script src="/js/writingPost.js"></script>
   <script type="text/javascript">
+  /* 삭제하기 */
+  
+  function deletePost(id){
+    console.log(id);
+    $.ajax({
+      url: '/app/reviewFeed/delete',
+      headers: {"contentType" : "application/json; charset=UTF-8"},
+      type: 'post',
+      data: JSON.stringify({ "postId" : id }),
+      success: function(){
+        console.log(id);
+      }
+    });
+  }
+   
+   
+   /* 
+  function deletePost(id){
+	    console.log(id);
+	    $.ajax("/app/reviewFeed/delete", {
+	      method: "POST",
+	      headers:{"Content-Type": "application/json"},
+	      data: { "postId" : id },
+	      success: function(){
+	        console.log(id);
+	      }
+	    });
+	  }
+   */
+  
+  function updatePost(id){
+    console.log(id);
+    }
+  
+  
+  /* 원래 있던 부분 */
   var flwList = [];
   <c:forEach items="${userFlwList}" var="lst">
   flwList.push({
