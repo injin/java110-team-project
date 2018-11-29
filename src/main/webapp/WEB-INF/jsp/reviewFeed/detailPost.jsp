@@ -28,13 +28,13 @@
 
 
 				<%-- 왼쪽 col,사진부분 --%>
-				<div class="col-8">
+				<div class="col-8" id="leftcol">
 					<div id="carouselExampleIndicators" class="carousel slide"
 						data-ride="carousel"></div>
 				</div>
 
 				<%-- 오른쪽 col --%>
-				<div class="col-4">
+				<div class="col-4" id="rightcol">
 
 					<div class="media row" style="padding: 0 1rem">
 						<img id="ownerImg" src="/img/default-profile-img.png"
