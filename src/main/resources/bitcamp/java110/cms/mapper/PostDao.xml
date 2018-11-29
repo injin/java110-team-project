@@ -38,27 +38,86 @@
 	</resultMap>
     
 
-	<select id="findAll" resultMap="postMap2">
-		select
-		  p.pstno,
-		  p.mvno,
-		  p.ptno,
-		  mv.titl,
-		  p.star,
-		  p.cont,
-		  p.cdt,
-		  0 as likes,
-		  (p.opn ='u') opn,
-		  m.nick,
-		  m.p_phot
-		from
-		  mv_post p
-		  inner join mv_memb m on m.mno = p.mno
-		  inner join mv_mv mv on mv.mvno = p.mvno
-		order by
-		  cdt desc
-
+	<select id="findAll" resultMap="postMap2" parameterType="int">
+    select
+          p.pstno,
+          p.mvno,
+          p.ptno,
+          mv.titl,
+          p.star,
+          p.cont,
+          p.cdt,
+          0 as likes,
+          (p.opn ='u') opn,
+          m.mno,
+          m.nick,
+          m.p_phot,
+          if(isnull(f.flw), 0, 10) as flwpoint,
+          
+          CASE  WHEN (now()-p.cdt)&lt; 10800 THEN 20
+             WHEN (now()-p.cdt)&lt; 21600 THEN 15 
+             WHEN (now()-p.cdt)&lt; 43200 THEN 10 
+             WHEN (now()-p.cdt)&lt; 86400 THEN 5 
+             ELSE 0 
+             END AS "time_point"
+       
+        from
+          mv_post p
+          inner join mv_memb m on m.mno = p.mno
+          inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select mno, flw from mv_flw where mno = #{mno}
+          ) f on f.flw = m.mno
+        where p.opn ='u'
+        order by
+          (time_point+flwpoint) desc,cdt desc
+		limit 15
 	</select>
+	
+	<select id="findSome" resultMap="postMap2" parameterType="map">
+  WITH TEMP AS
+(
+select
+          p.pstno,
+          p.mvno,
+          p.ptno,
+          mv.titl,
+          p.star,
+          p.cont,
+          p.cdt,
+          0 as likes,
+          (p.opn ='u') opn,
+          m.mno,
+          m.nick,
+          m.p_phot,
+          if(isnull(f.flw), 0, 10) as flwpoint,
+    ROW_NUMBER() OVER( order by
+          (time_point+flwpoint) desc,cdt desc) as rnum,
+        LAG(pstno) OVER(order by
+          (time_point+flwpoint) desc,cdt desc ) AS prevpstno,
+    CASE  WHEN (now()-p.cdt)&lt;10800      THEN 20
+             WHEN (now()-p.cdt)&lt;21600      THEN 15 
+             WHEN (now()-p.cdt)&lt;43200      THEN 10 
+             WHEN (now()-p.cdt)&lt;86400      THEN 5 
+                                         ELSE 0 
+       END AS "time_point"
+        from
+          mv_post p
+          inner join mv_memb m on m.mno = p.mno
+          inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select mno, flw from mv_flw where mno = #{mno}
+          ) f on f.flw = m.mno
+        order by
+          (time_point+flwpoint) desc,cdt desc
+)
+
+select * 
+from temp
+where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno})
+
+    </select>
+	
 
         <select id="findByKeyword" parameterType="String" resultMap="postMap2">
        select 

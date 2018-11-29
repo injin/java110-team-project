@@ -1,10 +1,13 @@
 package bitcamp.java110.cms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class Post {
+public class Post implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   protected int pstno;
   protected int mno;
   protected int pstTypeNo;
@@ -125,11 +128,11 @@ public class Post {
   }
   @Override
   public String toString() {
-    return "[pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
         + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
-        + ", ftagsForAdd=" + ftagsForAdd + "]\n";
+        + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
   
 }

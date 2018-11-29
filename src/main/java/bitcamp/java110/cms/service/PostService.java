@@ -1,13 +1,14 @@
 package bitcamp.java110.cms.service;
 
 import java.util.List;
+import java.util.Map;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 
 public interface PostService {
   
     void add (Post post);
-    List<Post> list();
+    List<Post> list(Map<String, Object> params);
     Post get(int no);
     List<Post> findByKeyword(String keyword);
     List<Post> listTopMp();

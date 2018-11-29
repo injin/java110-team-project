@@ -188,6 +188,9 @@
 
 			<%-- 포스터 보이는 부분 --%>
 			<c:forEach items="${postList}" var="post" varStatus="status">
+			<c:if test="${status.last}">
+			 <c:set var="lastpstno" value="${post.pstno}"/>
+			</c:if>
 				<c:if test="${post.open}">
 					<div class="wPost reviewPst">
 						<div class="media row" style="padding: 0 1rem">
@@ -223,12 +226,12 @@
                                     </script>
 								</p>
 							</div>
-							<c:if test="${post.photos[0].phot !=null}">
+							<c:if test="${post.photos[0] !=null}">
 
 
 								<%-- 이미지 클릭시 상세모달로 --%>
 								<img onclick="openDetailModal(${status.index})"
-									src="/upload/post/${post.photos[0].phot}"
+									src="/upload/post/${post.photos[0]}"
 									data-title="${post.title}"
 									style="width: 20rem; height: 13rem; margin-left: 1rem;" />
 								<input type="hidden" data-toggle="modal" id="detailPst"
@@ -265,7 +268,9 @@
 									</c:if>
 								</div>
 							</c:if>
+							
 						</div>
+						
 					</div>
 				</c:if>
 			</c:forEach>
@@ -285,7 +290,6 @@
 				</div>
 			</c:when>
 		</c:choose>
-
 	</div>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
@@ -309,7 +313,7 @@
         <c:forEach items="${postList}" var="post">
         var pary =[];
 	        <c:forEach items="${post.photos}" var="pht">
-	        pary.push('${pht.phot}');
+	        pary.push('${pht}');
 	        </c:forEach>
 	        var fary =[];    
 	        <c:forEach items="${post.ftags}" var="ft">
@@ -326,7 +330,6 @@
                 createdDate:'${post.createdDate}'
             })
         </c:forEach>
-        
         
          function openDetailModal(index) {
              
@@ -475,6 +478,27 @@
                      }
                  });
          }
+         
+         var lstpstno = '${lastpstno}';
+         
+         $(window).scroll(function() {
+             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                 $.ajax({
+                     type:'POST',
+                     url:'/app/reviewFeed/morePost',
+                     headers : {
+                         'Content-Type': 'application/json'
+                     },
+                     data: JSON.stringify({ 
+                         "pstno" : lstpstno
+                     }),
+                     success:function(data){
+                         console.log('더많은 postlist 요청함');
+                     }
+                 });
+             }
+           })
+         
     </script>
 </body>
 </html>

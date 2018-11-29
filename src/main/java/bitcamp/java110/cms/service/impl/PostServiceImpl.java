@@ -2,6 +2,7 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -105,10 +106,15 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<Post> list() {
-
-    List<Post> posts =postDao.findAll();
-
+  public List<Post> list(Map<String, Object> params) {
+    List<Post> posts = null;
+    
+    if((params.get("prevpstno")).equals("x")) {
+     posts =postDao.findAll((int)(params.get("mno")));
+    }else {
+     posts =postDao.findSome(params);
+    }
+    
     for(int i=0;i<posts.size();i++)
     {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));

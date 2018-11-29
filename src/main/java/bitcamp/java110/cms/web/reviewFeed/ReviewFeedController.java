@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
@@ -35,7 +36,7 @@ public class ReviewFeedController {
   public ReviewFeedController(
       PostService postService, 
       FlwService flwService,
-      ServletContext sc) {
+      ServletContext sc) { 
     this.postService = postService;
     this.flwService = flwService;
     this.sc = sc;
@@ -54,7 +55,11 @@ public class ReviewFeedController {
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
     }
     
-    List<Post> list = postService.list();
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", (member==null)?0:member.getMno());
+    params.put("prevpstno", "x");
+    
+    List<Post> list = postService.list(params); 
     
     model.addAttribute("postList", list);
     
@@ -112,6 +117,31 @@ public class ReviewFeedController {
     postService.addCmt(comment);
     
     return "redirect:list";
+  }
+  
+  @RequestMapping("morePost")
+  @ResponseBody
+  public Object morePost(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) throws Exception {
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    
+    // 무한스크롤여기서하자
+    Map<String, Object> resultMap = new HashMap<>();
+    int pstno = Integer.valueOf((String)request.get("pstno"));
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", (member==null)?0:member.getMno());
+    params.put("prevpstno", pstno);
+    
+    System.out.println("parms 잘나옴=> "+params);
+    List<Post> postsResult = postService.list(params); 
+    
+    resultMap.put("postsResult", postsResult);
+    System.out.println("여기"+postsResult);
+    
+    return resultMap;
   }
   
   @RequestMapping("listCmt")
