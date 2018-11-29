@@ -53,7 +53,6 @@ public class AuthServiceImpl implements AuthService {
     }
     if (properties != null && properties.get("profile_image") != null
           && properties.get("profile_image") != "") {
-      System.out.println(properties.get("profile_image").toString());
       newbie.setProfileImage(properties.get("profile_image").toString());
     }
     

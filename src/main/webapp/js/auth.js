@@ -135,56 +135,55 @@
   function addList(id, title) {
     for (var i in selecList) {
       if (selecList[i].mvno === id){
-              alert('이미 선택한 영화 입니다.');
-              break;
-          } else {
-            makeFavListHtml(id, title);
-            selecList.add({mvno:id, title:title});
-            console.log(id + ' 등록');
+          alert('이미 선택한 영화 입니다.');
           break;
-          }
+      } else {
+        makeFavListHtml(id, title);
+        selecList.add({mvno:id, title:title});
+        console.log(id + ' 등록');
+      break;
+      }
     }
   }
       
   function removeList(id) {
     console.log(id + ' 삭제');
-      var idx;
-      for (var i in selecList) {
-          if (selecList[i].mvno == id){
-              idx = i;
-              break;
-          }
+    var idx;
+    for (var i in selecList) {
+      if (selecList[i].mvno == id){
+        idx = i;
+      break;
       }
-      if (idx > -1) {
-          selecList.splice(idx, 1);
-          console.log(selecList);
-      }
-      $('#mv-li-'+id).remove();
+    }
+    if (idx > -1) {
+      selecList.splice(idx, 1);
+      console.log(selecList);
+    }
+    $('#mv-li-'+id).remove();
   }
   
   function makeFavListHtml(id, title) {
-      var print = '';
+    var print = '';
   
-      print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
-      print += '<div class="media-body">';
-      print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
-      print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
-      print += ' class="badge badge-primary badge-pill">제거</button>';
-      print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
-      print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
-      print += '</div>';
-      print += '</li>';
+    print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
+    print += '<div class="media-body">';
+    print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
+    print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
+    print += ' class="badge badge-primary badge-pill">제거</button>';
+    print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
+    print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
+    print += '</div>';
+    print += '</li>';
   
-      $chooseMvList.append(print);
+    $chooseMvList.append(print);
   }
   $form = $('#detailForm')
   function signUpCheck(){
-      var form = document.detailForm;
-      /* if(!selecList.value){ */
-      if(selecList.length <= 5){
-        alert("영화를 5편 이상 선정 해 주세요");
-        $inputKeyword.focus();
-        return
-      }
-      $form.submit();
+    var form = document.detailForm;
+    if(selecList.length <= 5) {
+      alert("영화를 5편 이상 선정 해 주세요");
+      $inputKeyword.focus();
+      return
+    }
+    $form.submit();
   }

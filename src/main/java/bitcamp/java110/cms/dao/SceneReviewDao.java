@@ -16,6 +16,7 @@ public interface SceneReviewDao {
   List<SceneReview> findAll(int mvno);
   Integer getTotalCmtCnt(int srno);
   List<SceneReviewCmt> listCmt(Map<String, Object> condition);
+  Integer deleteCmt(int cmno);
   List<SceneReview> listTopSr();
   Integer addToSrAlbum(Map<String, Object> condition);
   void signOut1(int mno);

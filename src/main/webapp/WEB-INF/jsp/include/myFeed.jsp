@@ -92,7 +92,7 @@
           <table class="table">
             <thead id="mypage-menu">
             <tr class="d-flex">
-              <th scope="col" class="col-2 text-center"><a href="#">나의피드</a></th>
+              <th scope="col" class="col-2 text-center"><a href="#">리뷰피드</a></th>
               <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
               <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
               <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
@@ -168,11 +168,29 @@
                       </c:forEach>
                     </c:if></li>
                 </ul>
+                <%-- 버튼 들어갈 부분 --%>
+                <div id="drop">
+                    <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <!-- <a class="dropdown-item" href="#">Dropdown link</a>
+                                <a class="dropdown-item" href="#">Dropdown link</a> -->
+                                <button type="button" class="btn btn-secondary btn-xs">수정</button>
+                                <br>
+                                <button type="button" class="btn btn-secondary btn-xs">삭제</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%-- 버튼 --%>
                 <c:if test="${post.pstTypeNo ==0}">
                   <p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
                     <b><i>${post.title}</i></b>
                   </p>
                 </c:if>
+                
+                
               </div>
             </div>
             <%-- 내용보여주는부분 --%>

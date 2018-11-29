@@ -124,12 +124,11 @@
         FROM
             mv_lbm_sr
         WHERE
-            (SELECT lbmno
-             FROM
-                mv_lbm
-             WHERE
-                 opn='L'
-                 AND mno=#{mno} )
+            lbmno  IN (SELECT lbmno
+                        FROM
+                            mv_lbm
+                        WHERE
+                            AND mno=#{mno})
     </delete>
     
     <delete id="signOut3" parameterType="int">

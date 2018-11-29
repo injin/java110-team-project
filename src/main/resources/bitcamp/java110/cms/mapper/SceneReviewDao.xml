@@ -93,6 +93,10 @@
          LIMIT #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
+    <delete id="deleteCmt" parameterType="int">
+        DELETE FROM mv_sr_cmt WHERE cmno = #{cmno}
+    </delete>
+    
     <select id="listTopSr" resultMap="srMap">
         SELECT srno, mvno, titl, time, phot, count(pstno)as cnt
           FROM mv_like ml,mv_sr ms 

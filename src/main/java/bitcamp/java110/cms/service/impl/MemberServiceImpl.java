@@ -73,12 +73,16 @@ public class MemberServiceImpl implements MemberService {
   public void update(Member member) {
     System.out.println("Service Recieve Member\n :\t" + member);
     
+    System.out.println("member.getCoverImage() : " + member.getCoverImage());
     memberDao.update(member);
+    System.out.println("service update member");
+    
     List<Integer> originList = getFavGnrDBList(member.getMno());
     
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
       if(originList != null || originList.size() > 0) {
         favGenreDao.deleteAll(member.getMno());
+        System.out.println("service update favGrList");
       }
       for (int i = 0; i < member.getFavGrList().size(); i++) {
         HashMap<String, Object> params = new HashMap<>();

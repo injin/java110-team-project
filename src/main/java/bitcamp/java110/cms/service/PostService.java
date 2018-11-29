@@ -17,9 +17,9 @@ public interface PostService {
     
     /* JEAHA 작업영역 */
     List<Post> getMyPostList(int mno);
-//    void createPost(Post p);
 //    Post updatePost(int pstno);
-//    void deletePost(int pstno);
+    void deleteUnlockPost(int pstno);
+    void deleteLockPost(int pstno);
     /* JEAHA 작업영역 */
 }
 

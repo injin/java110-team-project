@@ -87,7 +87,7 @@ img{
     /* width: 13.2rem !important; */
     height: 3rem;
     background-color: #d5dae0;
-    
+    cursor: pointer;
 }
 .al_add{
 	width: 13.2rem;
@@ -118,6 +118,13 @@ img{
     border-radius: 0.5rem;
     box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.3);
     margin-bottom: 0.5rem;
+}
+.srlist{
+    height: 35.3rem;
+}
+.srlist .scene{
+	margin-top: 3rem;
+	margin-bottom: 1rem;
 }
 /* 앨범 추가 모달 */
 .modal-content{
