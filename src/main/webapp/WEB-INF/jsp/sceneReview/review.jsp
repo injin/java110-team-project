@@ -134,11 +134,11 @@
                         <div class="media-body">
                             <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
                                 <c:if test="${cmt.member.mno eq sessionScope.loginUser.mno}">
-                                    &nbsp;<i class="far fa-edit c-pointer" onclick="editComment(this)"></i>
+                                    &nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this)"></i>
                                     &nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(${cmt.cmno})"></i>
                                 </c:if>
                             </span><br>
-                            <div class="break-all cmt-cont">${cmt.cont}</div>
+                            <div class="break-all cmt-cont" data-cont="${cmt.cont}" data-cmno="${cmt.cmno}">${cmt.cont}</div>
                             
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
@@ -192,6 +192,13 @@
     <input type="hidden" name="srno" value="${sceneReview.srno}">
     <input type="hidden" name="mvno" value="${sceneReview.mvno}">
     <input type="hidden" name="cmno">
+</form>
+
+<form id="editCommentForm" action="editComment">
+    <input type="hidden" name="srno" value="${sceneReview.srno}">
+    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+    <input type="hidden" name="cmno">
+    <input type="hidden" name="cont">
 </form>
 
 </main>
@@ -321,10 +328,30 @@
         $('#deleteCommentForm').submit();
     }
     
-    function editComment(obj) {
-        var $divCont = $(obj).parent().next('.cmt-cont');
+    function showEditForm(obj) {
         
+        $(obj).hide();
+        var $divCont = $(obj).parent().next().next();
+        var cmno = $divCont.data('cmno');
+        var contStr = $divCont.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+        var editHtml = '<div class="card p-2"><div class="media"><div class="media-body">';
+            editHtml += '<textarea class="form-control" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
+            editHtml += '<button type="button" class="btn btn-dark mt-2 float-right" onclick="editComment(' + cmno + ')">';
+            editHtml += '<i class="fas fa-paper-plane"></i> 수정</button>';
+            editHtml += '</div></div></div>';
+        $divCont.html(editHtml);
+    }
+    
+    function editComment(cmno) {
+        var contVal = $('#textarea-cmt-' + cmno).val();
+        if (contVal == '') {
+            alert('댓글을 입력해 주세요');
+            return;
+        }
         
+        $('#editCommentForm input[name="cmno"]').val(cmno);
+        $('#editCommentForm input[name="cont"]').val(contVal);
+        $('#editCommentForm').submit();
     }
     
     /* ===== 지도 관련  ===== */
