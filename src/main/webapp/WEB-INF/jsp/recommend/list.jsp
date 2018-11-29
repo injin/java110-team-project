@@ -71,6 +71,10 @@
     </div>
   </section>
   <br>
+  <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이 좋아하신 영화를 기준으로 비슷한 영화 목록을 가져왔어요.">
+  추천 기준
+  </button>
+  <br>
   <hr>
 <%-- ========================================================================================== --%>
   <h2>MD 추천 영화</h2>

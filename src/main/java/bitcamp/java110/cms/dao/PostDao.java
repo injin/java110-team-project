@@ -13,4 +13,6 @@ public interface PostDao {
   List<Post> listTopMp();
   void signOut(int mno);
   List<Post> getMyPostList(int mno);
+  void deleteUnlockPost(int pstno);
+  void deleteLockPost(int pstno);
 }

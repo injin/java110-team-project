@@ -54,10 +54,10 @@ public class RecommendServiceImple implements RecommendService {
   }
   @Override
   public List<MovieDb> getList(int thmno){
-    System.out.println("\nthmno : " + thmno);
+//    System.out.println("\nthmno : " + thmno);
     List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
     List<MovieDb> mvList = new ArrayList<>(); 
-    System.out.println(idList.toString());
+//    System.out.println(idList.toString());
     for (int i = 0; i < idList.size(); i++) {
       int id = (int)idList.get(i);
       MovieDb mv = getMvById(id);
@@ -102,9 +102,7 @@ public class RecommendServiceImple implements RecommendService {
   @Override
   public int[] RandomNums(int root){
     int[] n = new int[2];
-    
-    System.out.println("Random Range : " + root);
-    
+//    System.out.println("Random Range : " + root);
     for (int i = 0; i < n.length; i++) {
       n[i] = (int)(Math.random() * root + 1);
       for (int j = 0; j <= i-1; j++) {

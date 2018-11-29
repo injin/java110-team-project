@@ -48,16 +48,12 @@
                 
                 <div class="row pl-3 pr-3">
                     <!-- 작업공간 START -->
-
-
 <%-- ========================================================================================== --%>
       <main role="main" class="container">
          <div id="detail">
             <form action="update" method="post" id="detailForm"
                enctype="multipart/form-data">
                <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
-               <input type="hidden" name="profileImage"
-                  value="${sessionScope.loginUser.profileImage}">
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
                   <div class="form-group row">
@@ -159,8 +155,6 @@
       </main>
       <hr>
 <%-- ========================================================================================== --%>
-
-
                     <!-- 작업공간 END -->
                 </div>
                 

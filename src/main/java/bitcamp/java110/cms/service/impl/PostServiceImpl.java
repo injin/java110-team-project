@@ -181,7 +181,11 @@ public class PostServiceImpl implements PostService {
     System.out.println("Getting get My postList is success!");
     return postList;
   }
+  @Override
+  public void deleteUnlockPost(int pstno) { }
   
+  @Override
+  public void deleteLockPost(int pstno) { }
   
   /* JEAHA 작업영역 */
   
