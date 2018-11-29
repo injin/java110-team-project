@@ -89,6 +89,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public void deleteCmt(int cmno) {
+    sceneReviewDao.deleteCmt(cmno);
+  }
+  
+  @Override
   public List<SceneReview> listTopSr() {
     return sceneReviewDao.listTopSr();
   }
