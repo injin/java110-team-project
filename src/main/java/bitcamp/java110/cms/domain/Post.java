@@ -125,11 +125,11 @@ public class Post {
   }
   @Override
   public String toString() {
-    return "[pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "\n[pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
         + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
-        + ", ftagsForAdd=" + ftagsForAdd + "]\n";
+        + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
   
 }

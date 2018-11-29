@@ -174,18 +174,27 @@ public class PostServiceImpl implements PostService {
   
   /* JEAHA 작업영역 */
   @Override
-  public List<Post> getMyPostList(int mno){
+  public List<Post> getMyPostList(int mno) {
     System.out.println("ServiceImple try to get My postList");
-    List<Post> postList = postDao.getMyPostList(mno);
-    System.out.println(postList.toString());
+
+    List<Post> posts = postDao.getMyPostList(mno);
+    System.out.println("getMyPostList \n"+posts);
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+    }
+
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
+    }
+
     System.out.println("Getting get My postList is success!");
-    return postList;
+    return posts;
   }
   @Override
-  public void deleteUnlockPost(int pstno) { }
+  public void deletePost(int pstno) {
+    postDao.deletePost(pstno);
+  }
   
-  @Override
-  public void deleteLockPost(int pstno) { }
   
   /* JEAHA 작업영역 */
   
