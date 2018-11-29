@@ -234,7 +234,7 @@ function showCont(cont, index) {
 
                             <c:choose>
                                 <c:when
-                                    test="${not empty post.photos[0].phot}">
+                                    test="${not empty post.photos[0]}">
                                     <div class="card-body hot"
                                         onclick="openDetailModal(${status.index})"
                                         data-title="${post.title}"
@@ -254,7 +254,7 @@ function showCont(cont, index) {
                                                  </script>
                                         </p>
                                         <img class="img-sr"
-                                            src="/upload/post/${post.photos[0].phot}">
+                                            src="/upload/post/${post.photos[0]}">
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -409,7 +409,7 @@ function showCont(cont, index) {
    <c:forEach items="${topMpList}" var="post">
    var pary =[];
        <c:forEach items="${post.photos}" var="pht">
-       pary.push('${pht.phot}');
+       pary.push('${pht}');
        </c:forEach>
        var fary =[];    
        <c:forEach items="${post.ftags}" var="ft">

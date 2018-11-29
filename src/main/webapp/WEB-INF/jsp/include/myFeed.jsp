@@ -203,12 +203,12 @@
                   </script>
                 </p>
               </div>
-              <c:if test="${post.photos[0].phot !=null}">
+              <c:if test="${post.photos[0] !=null}">
 
 
                 <%-- 이미지 클릭시 상세모달로 --%>
                 <img onclick="openDetailModal(${status.index})"
-                  src="/upload/post/${post.photos[0].phot}"
+                  src="/upload/post/${post.photos[0]}"
                   data-title="${post.title}"
                   style="width: 20rem; height: 13rem; margin-left: 1rem;" />
                 <input type="hidden" data-toggle="modal" id="detailPst"
@@ -279,7 +279,7 @@
   <c:forEach items="${postList}" var="post">
   var pary =[];
     <c:forEach items="${post.photos}" var="pht">
-    pary.push('${pht.phot}');
+    pary.push('${pht}');
     </c:forEach>
     var fary =[];  
     <c:forEach items="${post.ftags}" var="ft">

@@ -235,8 +235,8 @@
 										<p>${post.content}</p>
 									</div>
 									<!-- <span style="color:blue;font-size:0.2rem">더보기...</span>  -->
-									<c:if test="${post.photos[0].phot !=null}">
-										<img src="/upload/post/${post.photos[0].phot}"
+									<c:if test="${post.photos[0] !=null}">
+										<img src="/upload/post/${post.photos[0]}"
 											style="width: 20rem; height: 13rem; margin-left: 1rem;" />
 									</c:if>
 								</div>
