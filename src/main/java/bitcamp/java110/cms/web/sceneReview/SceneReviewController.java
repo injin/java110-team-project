@@ -16,6 +16,7 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.LikeService;
+import bitcamp.java110.cms.service.ReportService;
 import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -31,6 +32,7 @@ public class SceneReviewController {
   @Autowired SceneReviewService sceneReviewService;
   @Autowired SceneAlbumService sceneAlbumService;
   @Autowired LikeService likeService;
+  @Autowired ReportService reportService;
   
   @RequestMapping("/review")
   public String findScene(SceneReview sr, Model model, 
@@ -51,6 +53,7 @@ public class SceneReviewController {
       if (loginUser != null) {
         model.addAttribute("sceneAlbumList", sceneAlbumService.list2(loginUser.getMno(), sr.getSrno()));
         sr.setLike(likeService.checkLike(sr.getSrno(), Constants.LOG_DO_TYPE_SR, loginUser.getMno()));
+        sr.setReported(reportService.checkReported(sr.getSrno().toString(), loginUser.getMno()));
       }
       
     }

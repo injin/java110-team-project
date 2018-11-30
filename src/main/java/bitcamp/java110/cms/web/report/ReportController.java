@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Report;
 import bitcamp.java110.cms.service.ReportService;
@@ -32,7 +31,6 @@ public class ReportController {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     report.setMno(mno);
-    report.setTarget(Constants.LOG_DO_TYPE_SR);
     
     return reportService.add(report);
   }
