@@ -94,8 +94,8 @@ public class SceneReviewController {
       comment.setPhoto(filename);
     }
     
-    sceneReviewService.addCmt(comment);
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());
+    sceneReviewService.addCmt(comment, sr);
     
     return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
               + "&srno=" + sr.getSrno();
