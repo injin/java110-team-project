@@ -24,7 +24,31 @@
         now(),if(#{sceneAlbum.open},'u','l'))
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
-
+    
+    <select id="listScA"  resultMap="sceneAlbumMap">
+        select
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn,
+            sr.cnt as srCnt  
+        from 
+            mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            left join (SELECT
+                            l.lbmno, count(s.srno) as cnt
+                        from
+                            mv_lbm l, mv_lbm_sr s
+                        where
+                            l.lbmno = s.lbmno 
+                        group by lbmno) as sr on l.lbmno = sr.lbmno
+             where l.opn='u'
+    
+    </select>
+    
     <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
         select
             l.mno,
@@ -94,7 +118,9 @@
         where l.mno = #{mno}
         order by
             cdt desc
+        <if test="paging != null">
         limit #{paging.startRowNo} , #{paging.pageSize}
+        </if>
         
     </select>
     
@@ -113,6 +139,25 @@
             mdt=now() 
         WHERE lbmno = #{lbmno}
     </update>
+    
+    <select id="checkImg" parameterType="map" resultType="boolean">
+        select phot = (select phot from mv_sr where srno=#{srno})
+		from mv_lbm
+		where lbmno = #{lbmno}
+    </select>
+    
+     <delete id="removeImg" parameterType="map">
+        DELETE 
+        FROM mv_lbm_sr 
+        WHERE lbmno = #{lbmno} and srno = #{srno}
+    </delete>
+    
+    <update id="setImgNull" parameterType="int">
+        UPDATE mv_lbm
+           SET phot = null
+         WHERE lbmno = #{lbmno}
+    </update>
+    
     
     <delete id="delete" parameterType="int">
     </delete>

@@ -21,11 +21,11 @@
                     <div class="row">
                         <c:choose>
                             <c:when test="${sceneAlbum.open == 'true'}">
-                                <span> <i class="fas fa-globe-americas globe"></i>
+                                <span class="openIcon"> <i class="fas fa-globe-americas globe"></i>
                                 </span>
                             </c:when>
                             <c:otherwise>
-                                <span> <i class="fas fa-lock lock"></i>
+                                <span class="openIcon"> <i class="fas fa-lock lock"></i>
                                 </span>
                             </c:otherwise>
                         </c:choose>
@@ -48,11 +48,16 @@
                                     <div class="album_title al_wrap text-center" 
                                     onclick="editAlbum(this)"
                                     data-lbmno="${album.lbmno}"
-                                    data-lbm-title="${album.lbmTitle}">
+                                    data-lbm-title="${album.lbmTitle}"
+                                    data-open="${album.open}">
                                     <div class="al_overflow">${album.lbmTitle}</div></div>
                                 </c:forEach>
                                 </div>
-                                <div class="al_add"><i class="fas fa-plus"></i>보관함 추가</div>
+                                <div class="al_add" onclick="document.getElementById('btnaddAlbum').click();"><i class="fas fa-plus"></i>보관함 추가</div>
+                                <input type="hidden" data-toggle="modal" id="btnaddAlbum"
+                            data-target="#albumModal" />
+                            
+                            
                              </div>
                              
                              <div class="col-lg-9 pl-0">

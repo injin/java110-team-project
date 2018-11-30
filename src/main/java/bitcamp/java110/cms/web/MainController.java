@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -25,6 +27,7 @@ public class MainController {
   @Autowired PostService postService;
   @Autowired MemberService memberService;
   @Autowired SceneReviewService sceneReviewService;
+  @Autowired SceneAlbumService sceneAlbumService;
   @Autowired FlwService flwService;
   
   ServletContext sc;
@@ -47,11 +50,16 @@ public class MainController {
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
     }
     
-    List<Post> topMpList = postService.listTopMp();
-    List<SceneReview> topSrList = sceneReviewService.listTopSr();
-    model.addAttribute("topSrList", topSrList);
+    List<Post> topMpList = postService.listTopMp(); //핫리뷰리스트
     model.addAttribute("topMpList", topMpList);
-    System.out.println(topMpList);
+    
+    List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
+    model.addAttribute("topSrList", topSrList);
+    
+    List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트
+    model.addAttribute("albumList", listScA);
+    
+    System.out.println(listScA);
     return "main";
     
   }

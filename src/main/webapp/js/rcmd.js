@@ -1,7 +1,7 @@
 //mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseItems = $('#random-base-items');
-$('#popover').popover('click')
+//$('#popover').popover('click');
 
 window.onload=getSimilarBaseFavList();
 function getSimilarBaseFavList(){
