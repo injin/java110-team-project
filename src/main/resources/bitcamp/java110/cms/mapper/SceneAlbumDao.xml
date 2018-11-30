@@ -106,6 +106,14 @@
             where l.mno = #{mno}
     </select>
 
+    <update id="addImg" parameterType="map">
+        UPDATE mv_lbm 
+        SET 
+            phot= #{phot},
+            mdt=now() 
+        WHERE lbmno = #{lbmno}
+    </update>
+    
     <delete id="delete" parameterType="int">
     </delete>
     

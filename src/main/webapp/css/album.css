@@ -122,9 +122,28 @@ img{
 .srlist{
     height: 35.3rem;
 }
-.srlist .scene{
+.srlist .col-4{
+	margin-right: 0;
+    height: 9.5rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+/* .srlist .scene{
 	margin-top: 3rem;
 	margin-bottom: 1rem;
+} */
+.btn-group i{
+	float: right;
+    position: relative;
+    top: 1.8rem;
+    right: -10rem;
+    font-size: 1rem;
+    color: silver;
+    cursor: pointer;
+}
+.dropdown-menu.show {
+	top: 2rem !important; 
+    left: 1.7rem !important;
 }
 /* 앨범 추가 모달 */
 .modal-content{
