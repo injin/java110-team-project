@@ -115,7 +115,7 @@ select
 select * 
 from temp
 where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno})
-
+limit 15
     </select>
 	
 

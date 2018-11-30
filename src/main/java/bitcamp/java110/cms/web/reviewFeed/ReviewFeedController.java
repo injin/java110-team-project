@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
@@ -135,11 +134,9 @@ public class ReviewFeedController {
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", pstno);
     
-    System.out.println("parms 잘나옴=> "+params);
     List<Post> postsResult = postService.list(params); 
     
     resultMap.put("postsResult", postsResult);
-    System.out.println("여기"+postsResult);
     
     return resultMap;
   }
