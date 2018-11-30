@@ -142,5 +142,38 @@ public class SceneAlbumController {
     return sceneAlbumService.addImg(lbmno, phot);
   }
   
+  @RequestMapping("removeImg")
+  public @ResponseBody Map<String, Object> removeImg(
+      @RequestBody Map<String, Object> request,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    int lbmno = Integer.valueOf((String)request.get("lbmno"));
+    int srno = Integer.valueOf((String)request.get("srno"));
+    System.out.println("lbmno: " +lbmno);
+    System.out.println("srno: " +srno);
+    
+    sceneAlbumService.removeImg(lbmno, srno);
+    
+    List<SceneAlbum> srList = new ArrayList<>();
+    SceneAlbum sceneAlbum = new SceneAlbum();
+    sceneAlbum.setLbmno(lbmno);
+    srList = sceneAlbumService.srList(mno, sceneAlbum);
+    
+    List<SceneReview> sceneReview = new ArrayList<>();
+    
+    // 내 앨범 속 장면별 영화 찾기
+    for(SceneAlbum sr : srList) {
+      sceneReview.add(sceneReviewService.findByNo(sr.getSrno()));
+    }
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("srList", srList);
+    resultMap.put("sceneReview", sceneReview);
+    return resultMap;
+    
+  }
+  
  
 }

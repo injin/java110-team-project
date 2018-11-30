@@ -100,8 +100,7 @@
         var word = text.split(' ');
         var newHTML = "";
 
-        word
-                .forEach(function(value, index) {
+        word.forEach(function(value, index) {
                     var str = "";
                     var endBr = value.endsWith('<br>');
                     var valueArr = [ value ];
@@ -110,8 +109,7 @@
                         str = "<br>";
                     }
 
-                    valueArr
-                            .forEach(function(value2, index) {
+                    valueArr.forEach(function(value2, index) {
                                 if (index == (valueArr.length - 1)
                                         && endBr == false) {
                                     str = "";
@@ -140,7 +138,7 @@
         <c:if test="${empty sessionScope.loginUser}">
             <c:set var="feedAlign" value="mauto"></c:set>
         </c:if>
-        <div class="col-8 ${feedAlign}">
+        <div class="col-8 ${feedAlign}" id="pstShw">
 
             <%-- 글 작성 부분 --%>
             <div class="wPost">
@@ -219,10 +217,10 @@
                         <%-- 내용보여주는부분 --%>
                         <div class="clearfix media row" style="margin: 0.2rem 0">
                             <div class="media-body">
-                                <p class="reviewCont" id="reviewCont-${status.index}">
+                                <p class="reviewCont" id="reviewCont-${post.pstno}">
                                     <script>
                                         showCont("${post.content}",
-                                                "${status.index}");
+                                                "${post.pstno}");
                                     </script>
                                 </p>
                             </div>
@@ -230,7 +228,7 @@
 
 
                                 <%-- 이미지 클릭시 상세모달로 --%>
-                                <img onclick="openDetailModal(${status.index})"
+                                <img onclick="openDetailModal(${post.pstno})"
                                     src="/upload/post/${post.photos[0]}"
                                     data-title="${post.title}"
                                     style="width: 20rem; height: 13rem; margin-left: 1rem;" />
@@ -307,9 +305,8 @@
         });
         </c:forEach>
         
+        
         var postList = [];
-        
-        
         <c:forEach items="${postList}" var="post">
         var pary =[];
             <c:forEach items="${post.photos}" var="pht">
@@ -331,7 +328,15 @@
             })
         </c:forEach>
         
-         function openDetailModal(index) {
+         function openDetailModal(pstno) {
+             
+             for (var i=0; i<postList.length; i++) {
+                 if(postList[i].pstno == pstno){
+                     var index = i;
+                     break;
+                 }
+             }
+             
              
              $('#detailModal #movie-title').text(postList[index].title);
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
@@ -457,6 +462,106 @@
             $('#cmt-area').html(html);  
         }
         
+         // 무한스크롤
+        function morePostHtml(data){
+            var html = '';
+            console.log(data.postsResult);
+                  //console.log(data.postsResult[i].pstno);
+              for (var i=0;i<data.postsResult.length;i++) {
+                  
+                html += '<p>ddd</p>';
+                <%-- 
+                <c:forEach items="${postList}" var="post" varStatus="status">';
+                <c:if test="${status.last}">';
+                 <c:set var="lastpstno" value="${post.pstno}"/>';
+                </c:if>';
+                    <c:if test="${post.open}">
+                        <div class="wPost reviewPst">
+                            <div class="media row" style="padding: 0 1rem">
+                                <img src="${post.member.profileImagePath}"
+                                    style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
+                                <div class="media-body">
+                                    <ul
+                                        style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
+                                        <li><a href="#" style="color: black;">${post.member.nickname}</a></li>
+                                        <li><c:if test="${not empty post.ftags}">
+                                                <c:forEach items="${post.ftags}" var="ftag">
+                                                    <a href="#"
+                                                        style="color: blue; font-size: 0.2rem; vertical-align: top;">
+                                                        ${ftag.nickname} </a>
+                                                </c:forEach>
+                                            </c:if></li>
+                                    </ul>
+                                    <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+                                    <c:if test="${post.pstTypeNo ==0}">
+                                        <p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
+                                            <b><i>${post.title}</i></b>
+                                        </p>
+                                    </c:if>
+                                </div>
+                            </div>
+                            내용보여주는부분
+                            <div class="clearfix media row" style="margin: 0.2rem 0">
+                                <div class="media-body">
+                                    <p class="reviewCont" id="reviewCont-${post.pstno}">
+                                        <script>
+                                            showCont("${post.content}",
+                                                    "${post.pstno}");
+                                        </script>
+                                    </p>
+                                </div>
+                                <c:if test="${post.photos[0] !=null}">
+
+
+                                    이미지 클릭시 상세모달로
+                                    <img onclick="openDetailModal(${post.pstno})"
+                                        src="/upload/post/${post.photos[0]}"
+                                        data-title="${post.title}"
+                                        style="width: 20rem; height: 13rem; margin-left: 1rem;" />
+                                    <input type="hidden" data-toggle="modal" id="detailPst"
+                                        data-target="#detailModal" />
+
+                                </c:if>
+                            </div>
+
+                            <div class="row">
+
+                                좋아요
+                                <div class="col-6" style="text-align: left;">
+                                    <a href="#" style="color: black"> <i
+                                        class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+                                    </a> <a href="#" style="color: black"> <i
+                                        class="far fa-comment btmIcon"></i> 0댓글개수
+                                    </a>
+                                </div>
+
+                                별점
+                                <c:if test="${post.pstTypeNo ==0}">
+                                    <div class='col-6' style="text-align: right;">
+                                        <c:if test="${0 ne post.star}">
+                                            <c:forEach begin="1" end="5" var="x">
+                                                <c:choose>
+                                                    <c:when test="${x le post.star}">
+                                                        <i class="fas fa-star sStar"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="far fa-star sStar"></i>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </c:if>
+                                    </div>
+                                </c:if>
+                                
+                            </div>
+                            
+                        </div>
+                    </c:if>
+                </c:forEach> --%>
+            }  
+            $('#pstShw').append(html);  
+        }
+        
          function addCmt() {
              var contVal = $('#addCmtForm textarea[name="content"]').val();
              console.log(contVal);
@@ -494,6 +599,7 @@
                      }),
                      success:function(data){
                          console.log('더많은 postlist 요청함');
+                         morePostHtml(data);
                      }
                  });
              }

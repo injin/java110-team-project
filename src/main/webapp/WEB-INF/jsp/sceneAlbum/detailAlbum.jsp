@@ -57,7 +57,7 @@
             <div class="col-lg-12 mbr-col-md-12">
  -->
 					<div class="row detailList col-lg-12 p-0">
-						<div class="col-lg-12 mt-4 ml-1 mb-5">
+						<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
 							<span class="titl">${sceneAlbum.lbmTitle}</span>
 							<div class="a_btn btn btn-success btn-lg mr-2"
 								onclick="editButton('${sceneReview}')">
@@ -87,6 +87,7 @@
 
 					</div>
 					<jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
+					<jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
 				</section>
 
 			</div>
@@ -105,14 +106,31 @@
             $('.title_edit').css('visibility', 'hidden');
         });
         
+        // 모달 종료시 reload
+        $('#mgrModal').on('hidden.bs.modal', function (e) {           
+            
+            location.reload();
+            $('#mgrModal').show();
+        });
+        
+        // 수정하기 버튼 클릭
         function editButton(obj){
             document.getElementById('mgrAlbum').click();
             console.log(${obj});
         }
         
+        // 수정모달에서 앨범명 클릭시 변화
         function editAlbum(obj){
             console.log($(obj).data('lbmno'));
             console.log($(obj).data('lbm-title'));
+            console.log($(obj).data('open'));
+            
+            if($(obj).data('open')==true){
+                $('.openIcon').html('<i class="fas fa-globe-americas globe"></i>');
+            }else{
+                $('.openIcon').html('<i class="fas fa-lock lock"></i>');
+            }
+            
             $('.title_box').text($(obj).data('lbm-title'));
             
             $.ajax({
@@ -132,6 +150,7 @@
             });
         }
         
+        // 앨범별 보유 장면 - 수정모달에서 보여주기
         function showSrList(data){
             var html = '';
             for(var i=0; i<data.sceneReview.length; i++){
@@ -141,7 +160,7 @@
             html += '<a class="c-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>';
             html += '<div class="dropdown-menu">';
             html += '<a class="dropdown-item album-img" href="#" onclick="setImg(\'' + data.sceneReview[i].photo + '\', \'' + data.srList[i].lbmno + '\')">대표이미지 설정</a>';
-            html += '<a class="dropdown-item" href="#">삭제</a>';
+            html += '<a class="dropdown-item" href="#" onclick="removeImg(\'' + data.sceneReview[i].srno + '\', \'' + data.srList[i].lbmno + '\')">삭제</a>';
             html += '</div>';
             html += '</div>';
             html += '<img class="card-img-top hot-sr-img scene"';
@@ -152,18 +171,34 @@
             $('.srlist').html(html);
         }
         
-        function mydrop(obj){
-            //$('.mydrop').hide();
-            $(obj).next().toggle();
-         }
-          
-        function removeDrop(){
-                
+        // 앨범속 장면 삭제
+        function removeImg(srno, lbmno){
+            console.log('srno '+srno);
+            console.log('lbmno '+lbmno);
+
+             $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/removeImg',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  lbmno,
+                   "srno" : srno
+                }),
+                success:function(data){
+                    console.log('이미지 삭제함');
+                    alert('이미지 삭제 완료');
+                    showSrList(data);
+                    console.log(data);
+                }
+            }); 
         }
         
+        // 대표이미지 설정
         function setImg(photo, lbmno){
-            console.log('photo'+photo);
-            console.log('lbmno'+lbmno);
+            console.log('photo '+photo);
+            console.log('lbmno '+lbmno);
             
              $.ajax({
                 type:'POST',
@@ -178,7 +213,6 @@
                 success:function(data){
                     console.log('대표이미지 설정함');
                     alert('대표이미지 설정 완료');
-                    $('.mydrop').hide();
                     console.log(data);
                 }
             }); 

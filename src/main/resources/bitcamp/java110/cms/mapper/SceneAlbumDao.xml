@@ -102,7 +102,9 @@
         where l.mno = #{mno}
         order by
             cdt desc
+        <if test="paging != null">
         limit #{paging.startRowNo} , #{paging.pageSize}
+        </if>
         
     </select>
     
@@ -121,6 +123,25 @@
             mdt=now() 
         WHERE lbmno = #{lbmno}
     </update>
+    
+    <select id="checkImg" parameterType="map" resultType="boolean">
+        select phot = (select phot from mv_sr where srno=#{srno})
+		from mv_lbm
+		where lbmno = #{lbmno}
+    </select>
+    
+     <delete id="removeImg" parameterType="map">
+        DELETE 
+        FROM mv_lbm_sr 
+        WHERE lbmno = #{lbmno} and srno = #{srno}
+    </delete>
+    
+    <update id="setImgNull" parameterType="int">
+        UPDATE mv_lbm
+           SET phot = null
+         WHERE lbmno = #{lbmno}
+    </update>
+    
     
     <delete id="delete" parameterType="int">
     </delete>
