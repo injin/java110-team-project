@@ -294,22 +294,22 @@
   }
   
   function updatePost(id){
-	  var postId=id;
-	    console.log(postId);
-	    $.ajax({
-	      url: "/app/reviewFeed/update",
-	      type: "POST",
-	      data: { "postId" : postId },
-	      success: function(){
-	        /* console.log(id); */
-	        location.reload();
-	      },
-	      error: (xhr, status, msg) => {
-	          console.log(xhr);
-	          console.log(status);
-	          console.log(msg);
-	        }
-	    });
+    var postId=id;
+    console.log(postId);
+    $.ajax({
+      url: "/app/reviewFeed/update",
+      type: "POST",
+      data: { "postId" : postId },
+      success: function(){
+        /* console.log(id); */
+        location.reload();
+      },
+      error: (xhr, status, msg) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(msg);
+      }
+    });
   }
   
   
