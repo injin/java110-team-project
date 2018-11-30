@@ -54,7 +54,32 @@
   </c:choose>
   <hr>
 <%-- ========================================================================================== --%>
-  <section id="random-base-section">
+  <section id="anly-base-section" style="display: none;">
+    <h3 id="anlyBaseTitle"></h3>
+    <div id="anlyBaseCarousel" class="list-container">
+      <div class="control-container">
+        <div id="anly-left-scroll-btn" class="left-scroll button scroll left-scroll-btn">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div id="anly-right-scroll-btn" class="right-scroll button scroll right-scroll-btn">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="items" id="anly-base-items">
+
+      </div>
+    </div>
+  </section>
+  <br>
+  <!-- 
+  <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이">
+  추천 기준
+  </button>
+   -->
+  <br>
+<%-- ========================================================================================== --%>
+  <section id="random-base-section" style="display: none;">
+  <hr>
     <h3 id="randomBaseTitle"></h3>
     <div id="randomBaseCarousel" class="list-container">
       <div class="control-container">
@@ -69,13 +94,13 @@
 
       </div>
     </div>
-  </section>
   <br>
   <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이 좋아하신 영화를 기준으로 비슷한 영화 목록을 가져왔어요.">
   추천 기준
   </button>
   <br>
   <hr>
+  </section>
 <%-- ========================================================================================== --%>
   <h2>MD 추천 영화</h2>
   <hr>
@@ -108,9 +133,9 @@
       </div>
     </div>
   </section>
-  <hr>
 <%-- ========================================================================================== --%>
   <section>
+  <hr>
     <h3>${listName2}</h3>
     <div id="carousel2" class="list-container">
       <div class="control-container">
@@ -136,6 +161,42 @@
             <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
           </div>
         </c:forEach>
+      </div>
+    </div>
+  </section>
+  <%-- ========================================================================================== --%>
+  <section id="now-section" style="display: none;">
+  <hr>
+    <h3>현재 상영작</h3>
+    <div id="nowCarousel" class="list-container">
+      <div class="control-container">
+        <div id="left-scroll-now" class="left-scroll button scroll left-scroll-btn">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div id="right-scroll-now" class="right-scroll button scroll right-scroll-btn">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="items" id="now-items">
+
+      </div>
+    </div>
+  </section>
+  <hr>
+<%-- ========================================================================================== --%>
+  <section id="upcomming-section" style="display: none;">
+    <h3>개봉 예정작</h3>
+    <div id="upcommingCarousel" class="list-container">
+      <div class="control-container">
+        <div id="random-left-scroll-upcomming" class="left-scroll button scroll left-scroll-btn">
+          <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div id="random-right-scroll-upcomming" class="right-scroll button scroll right-scroll-btn">
+          <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="items" id="upcoming-items">
+
       </div>
     </div>
   </section>
