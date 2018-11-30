@@ -195,6 +195,18 @@ where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno
         LIMIT 25
     </select>
     
+    <select id="getPostType" resultType="String" parameterType="int">
+        SELECT opn
+        FROM mv_post
+        WHERE pstno=#{pstno}
+    </select>
+    
+    <select id="countCmt" resultType="int" parameterType="int">
+        SELECT COUNT(cont)
+        FROM  mv_post_cmt
+        WHERE pstno=#{pstno}
+    </select>
+    
     <update id="deleteUnlockPost" parameterType="int">
         UPDATE IGNORE
             mv_post
@@ -203,12 +215,20 @@ where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno
             cont='삭제된 게시물 입니다',
             mdt=now()
         WHERE
-            <!-- opn='u' -->
+            opn='u'
             AND pstno=#{pstno}
     </update>
     
     <delete id="deletePost" parameterType="int">
-        DELETE post, type, tag, phot, flw, cmt
+        DELETE IGNORE
+        FROM mv_post
+        WHERE pstno=#{pstno}
+    </delete>
+    
+    <delete id="deleteLockPost" parameterType="int">
+        DELETE IGNORE
+         post, type, tag, phot, flw, cmt
+         
          FROM mv_post AS post
          LEFT JOIN mv_post_type         AS type
             ON type.ptno = post.pstno
@@ -224,5 +244,8 @@ where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno
             opn='l'
             AND post.pstno=#{pstno}
     </delete>
+    
+    
+    
     
 </mapper>

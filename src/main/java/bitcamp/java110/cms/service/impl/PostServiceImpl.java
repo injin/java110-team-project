@@ -197,11 +197,19 @@ public class PostServiceImpl implements PostService {
     return posts;
   }
   @Override
-  public void deletePost(int pstno) {
-    postDao.deletePost(pstno);
+  public Boolean deletePost(int pstno) {
+    String type = postDao.getPostType(pstno);
+    if(type.equals("u")) {
+      if(postDao.countCmt(pstno) == 0) {
+        return postDao.deletePost(pstno);
+      }
+      return postDao.deleteUnlockPost(pstno);
+    } else if(type.equals("l")) {
+      return postDao.deleteLockPost(pstno);
+    }
+    System.out.println(pstno + "DELETE ERROR!!");
+    return false;
   }
-  
-  
   /* JEAHA 작업영역 */
   
   

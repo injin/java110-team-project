@@ -169,16 +169,15 @@ public class ReviewFeedController {
     return "include/myFeed";
   }
   
-  @RequestMapping(value="/delete"/*, method=RequestMethod.POST, consumes="application/json"*/)
+  @RequestMapping("/delete")
   public @ResponseBody Boolean delete (
-      /*@RequestBody Map<String, Integer> request,*/
+      int postId,
       HttpSession session) {
-    System.out.println("REQUEST");
-    /*int postId = Integer.valueOf((int)request.get("postId"));
-    System.out.println(postId + " delete request");*/
-//    postService.deletePost(postId);
-//    System.out.println("delete : " + postId);
-    return true;
+    System.out.println(postId + " delete request");
+    
+    Boolean result = postService.deletePost(postId);
+    System.out.println(result);
+    return result;
   }
   
 //  @RequestMapping("")

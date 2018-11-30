@@ -15,7 +15,9 @@ public interface PostDao {
   List<Post> listTopMp();
   void signOut(int mno);
   List<Post> getMyPostList(int mno);
-  void deleteUnlockPost(int pstno);
-  void deleteLockPost(int pstno);
-  void deletePost(int pstno);
+  Boolean deleteUnlockPost(int pstno);
+  Boolean deleteLockPost(int pstno);
+  Boolean deletePost(int pstno);
+  String getPostType(int pstno);
+  int countCmt(int pstno);
 }

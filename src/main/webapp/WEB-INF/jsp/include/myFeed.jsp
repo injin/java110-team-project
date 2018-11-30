@@ -278,14 +278,12 @@
     var postId = id;
     console.log(postId);
     $.ajax({
-      type: 'POST',
-      url: '/app/reviewFeed/delete',
-      headers: {
-        'contentType' : 'application/json; charset=UTF-8'
-      },
-      data: JSON.stringify({
-        'postId' : postId 
-      }),
+      url: "/app/reviewFeed/delete",
+      type: "POST",
+      /* headers: {
+        "contentType" : "application/json; charset=UTF-8"
+      }, */
+      data: { "postId" : postId },
       success: function(){
         console.log(id);
       },
@@ -293,6 +291,8 @@
           console.log(xhr);
           console.log(status);
           console.log(msg);
+          console.log(
+"code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
         }
     });
   }
