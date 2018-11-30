@@ -108,6 +108,7 @@ select
           left join (
             select mno, flw from mv_flw where mno = #{mno}
           ) f on f.flw = m.mno
+          where p.opn ='u'
         order by
           (time_point+flwpoint) desc,cdt desc
 )

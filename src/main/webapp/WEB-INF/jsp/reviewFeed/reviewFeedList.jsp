@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -19,62 +19,63 @@
 
 <style>
 .cmt-date {
-    color: #ccc;
-    font-size: 0.9em;
+	color: #ccc;
+	font-size: 0.9em;
 }
+
 .wPost {
-    background: white;
-    padding: 1rem 1rem 0 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
+	background: white;
+	padding: 1rem 1rem 0 1rem;
+	border-radius: 0.5rem;
+	box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+	margin: 2rem 0;
 }
 
 .pst {
-    padding: 1rem 0;
-    cursor: pointer !important;
+	padding: 1rem 0;
+	cursor: pointer !important;
 }
 
 .pst:hover {
-    background-color: #f2f2f2;
-    font-weight: bold;
+	background-color: #f2f2f2;
+	font-weight: bold;
 }
 
 .pst>i {
-    font-size: 2rem;
-    vertical-align: sub;
+	font-size: 2rem;
+	vertical-align: sub;
 }
 
 .btmIcon {
-    padding: 0 0.4rem 1rem 1rem;
-    font-size: 1.3rem;
-    vertical-align: sub;
+	padding: 0 0.4rem 1rem 1rem;
+	font-size: 1.3rem;
+	vertical-align: sub;
 }
 
 .hash {
-    color: blue;
-    font-weight: bold;
+	color: blue;
+	font-weight: bold;
 }
 
 .reviewCont {
-    height: 13rem;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    word-break: break-all;
+	height: 13rem;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	word-break: break-all;
 }
 
 .mauto {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .sStar {
-    font-size: 1.5rem;
-    color: #FFD119;
+	font-size: 1.5rem;
+	color: #FFD119;
 }
 </style>
 <script>
@@ -94,12 +95,10 @@
         }
     }
 
-    function showCont(cont, index) {
-
+    function makeContHtml(cont, index) {
         var text = cont.replace(/[\s]+/g, " ").trim();
         var word = text.split(' ');
         var newHTML = "";
-
         word.forEach(function(value, index) {
                     var str = "";
                     var endBr = value.endsWith('<br>');
@@ -108,7 +107,6 @@
                         valueArr = value.split('<br>');
                         str = "<br>";
                     }
-
                     valueArr.forEach(function(value2, index) {
                                 if (index == (valueArr.length - 1)
                                         && endBr == false) {
@@ -125,178 +123,183 @@
                                 }
                             });
                 });
+        return newHTML;
+    }
+    function showCont(cont, index) {
+
+        var newHTML = makeContHtml(cont, index);
         document.getElementById('reviewCont-' + index).innerHTML = newHTML;
     };
 </script>
 
 </head>
 <body class="borderGray bgGray">
-    <jsp:include page="../include/header.jsp"></jsp:include>
+	<jsp:include page="../include/header.jsp"></jsp:include>
 
-    <div role="main" class="container row mauto">
+	<div role="main" class="container row mauto">
 
-        <c:if test="${empty sessionScope.loginUser}">
-            <c:set var="feedAlign" value="mauto"></c:set>
-        </c:if>
-        <div class="col-8 ${feedAlign}" id="pstShw">
+		<c:if test="${empty sessionScope.loginUser}">
+			<c:set var="feedAlign" value="mauto"></c:set>
+		</c:if>
+		<div class="col-8 ${feedAlign}" id="pstShw">
 
-            <%-- 글 작성 부분 --%>
-            <div class="wPost">
-                <h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
-                <div style="border-bottom: 1px solid #00cc99; color: #00cc99">
-                    <c:choose>
-                        <c:when test="${not empty sessionScope.loginUser}">
+			<%-- 글 작성 부분 --%>
+			<div class="wPost">
+				<h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
+				<div style="border-bottom: 1px solid #00cc99; color: #00cc99">
+					<c:choose>
+						<c:when test="${not empty sessionScope.loginUser}">
                             ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
                         </c:when>
-                        <c:otherwise>
+						<c:otherwise>
                                                             로그인후 리뷰를 작성해주세요.
                         </c:otherwise>
-                    </c:choose>
-                </div>
-                <div class="row">
-                    <div class="col text-center pst"
-                        onclick="document.getElementById('btnIlsang').click();">
-                        <i class="far fa-image"></i> 일상 리뷰 올리기
-                        <c:choose>
-                            <c:when test="${not empty sessionScope.loginUser}">
-                                <input type="hidden" data-toggle="modal" id="btnIlsang"
-                                    onclick="postShow('btnIlsang')" data-target="#reviewModal" />
-                            </c:when>
-                            <c:otherwise>
-                                <input type="hidden" id="btnIlsang" onclick="loginError()" />
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                    <div class="col text-center pst"
-                        onclick="document.getElementById('btnMovie').click();">
-                        <i class="fas fa-film"></i> 영화 리뷰 올리기
-                        <c:choose>
-                            <c:when test="${not empty sessionScope.loginUser}">
-                                <input type="hidden" data-toggle="modal" id="btnMovie"
-                                    data-target="#reviewModal" onclick="postShow('btnMovie')" />
-                            </c:when>
-                            <c:otherwise>
-                                <input type="hidden" id="btnMovie" onclick="loginError()" />
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
-            </div>
+					</c:choose>
+				</div>
+				<div class="row">
+					<div class="col text-center pst"
+						onclick="document.getElementById('btnIlsang').click();">
+						<i class="far fa-image"></i> 일상 리뷰 올리기
+						<c:choose>
+							<c:when test="${not empty sessionScope.loginUser}">
+								<input type="hidden" data-toggle="modal" id="btnIlsang"
+									onclick="postShow('btnIlsang')" data-target="#reviewModal" />
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" id="btnIlsang" onclick="loginError()" />
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="col text-center pst"
+						onclick="document.getElementById('btnMovie').click();">
+						<i class="fas fa-film"></i> 영화 리뷰 올리기
+						<c:choose>
+							<c:when test="${not empty sessionScope.loginUser}">
+								<input type="hidden" data-toggle="modal" id="btnMovie"
+									data-target="#reviewModal" onclick="postShow('btnMovie')" />
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" id="btnMovie" onclick="loginError()" />
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
 
 
-            <%-- 포스터 보이는 부분 --%>
-            <c:forEach items="${postList}" var="post" varStatus="status">
-            <c:if test="${status.last}">
-             <c:set var="lastpstno" value="${post.pstno}"/>
-            </c:if>
-                <c:if test="${post.open}">
-                    <div class="wPost reviewPst">
-                        <div class="media row" style="padding: 0 1rem">
-                            <img src="${post.member.profileImagePath}"
-                                style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
-                            <div class="media-body">
-                                <ul
-                                    style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
-                                    <li><a href="#" style="color: black;">${post.member.nickname}</a></li>
-                                    <li><c:if test="${not empty post.ftags}">
-                                            <c:forEach items="${post.ftags}" var="ftag">
-                                                <a href="#"
-                                                    style="color: blue; font-size: 0.2rem; vertical-align: top;">
-                                                    ${ftag.nickname} </a>
-                                            </c:forEach>
-                                        </c:if></li>
-                                </ul>
-                                <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
-                                <c:if test="${post.pstTypeNo ==0}">
-                                    <p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
-                                        <b><i>${post.title}</i></b>
-                                    </p>
-                                </c:if>
-                            </div>
-                        </div>
-                        <%-- 내용보여주는부분 --%>
-                        <div class="clearfix media row" style="margin: 0.2rem 0">
-                            <div class="media-body">
-                                <p class="reviewCont" id="reviewCont-${post.pstno}">
-                                    <script>
+			<%-- 포스터 보이는 부분 --%>
+			<c:forEach items="${postList}" var="post" varStatus="status">
+				<c:if test="${status.last}">
+					<c:set var="lastpstno" value="${post.pstno}" />
+				</c:if>
+				<c:if test="${post.open}">
+					<div class="wPost reviewPst">
+						<div class="media row" style="padding: 0 1rem">
+							<img src="${post.member.profileImagePath}"
+								style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
+							<div class="media-body">
+								<ul
+									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
+									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
+									<li><c:if test="${not empty post.ftags}">
+											<c:forEach items="${post.ftags}" var="ftag">
+												<a href="#"
+													style="color: blue; font-size: 0.2rem; vertical-align: top;">
+													${ftag.nickname} </a>
+											</c:forEach>
+										</c:if></li>
+								</ul>
+								<span class="cmt-date">&nbsp;<fmt:formatDate
+										pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+								<c:if test="${post.pstTypeNo ==0}">
+									<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
+										<b><i>${post.title}</i></b>
+									</p>
+								</c:if>
+							</div>
+						</div>
+						<%-- 내용보여주는부분 --%>
+						<div class="clearfix media row" style="margin: 0.2rem 0">
+							<div class="media-body">
+								<p class="reviewCont" id="reviewCont-${post.pstno}">
+									<script>
                                         showCont("${post.content}",
                                                 "${post.pstno}");
                                     </script>
-                                </p>
-                            </div>
-                            <c:if test="${post.photos[0] !=null}">
+								</p>
+							</div>
+							<c:if test="${post.photos[0] !=null}">
 
 
-                                <%-- 이미지 클릭시 상세모달로 --%>
-                                <img onclick="openDetailModal(${post.pstno})"
-                                    src="/upload/post/${post.photos[0]}"
-                                    data-title="${post.title}"
-                                    style="width: 20rem; height: 13rem; margin-left: 1rem;" />
-                                <input type="hidden" data-toggle="modal" id="detailPst"
-                                    data-target="#detailModal" />
+								<%-- 이미지 클릭시 상세모달로 --%>
+								<img onclick="openDetailModal(${post.pstno})"
+									src="/upload/post/${post.photos[0]}" data-title="${post.title}"
+									style="width: 20rem; height: 13rem; margin-left: 1rem;" />
+								<input type="hidden" data-toggle="modal" id="detailPst"
+									data-target="#detailModal" />
 
-                            </c:if>
-                        </div>
+							</c:if>
+						</div>
 
-                        <div class="row">
+						<div class="row">
 
-                            <%-- 좋아요 --%>
-                            <div class="col-6" style="text-align: left;">
-                                <a href="#" style="color: black"> <i
-                                    class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
-                                </a> <a href="#" style="color: black"> <i
-                                    class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
-                                </a>
-                            </div>
+							<%-- 좋아요 --%>
+							<div class="col-6" style="text-align: left;">
+								<a href="#" style="color: black"> <i
+									class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+								</a> <a href="#" style="color: black"> <i
+									class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
+								</a>
+							</div>
 
-                            <%-- 별점 --%>
-                            <c:if test="${post.pstTypeNo ==0}">
-                                <div class='col-6' style="text-align: right;">
-                                    <c:if test="${0 ne post.star}">
-                                        <c:forEach begin="1" end="5" var="x">
-                                            <c:choose>
-                                                <c:when test="${x le post.star}">
-                                                    <i class="fas fa-star sStar"></i>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <i class="far fa-star sStar"></i>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </c:if>
-                                </div>
-                            </c:if>
-                            
-                        </div>
-                        
-                    </div>
-                </c:if>
-            </c:forEach>
+							<%-- 별점 --%>
+							<c:if test="${post.pstTypeNo ==0}">
+								<div class='col-6' style="text-align: right;">
+									<c:if test="${0 ne post.star}">
+										<c:forEach begin="1" end="5" var="x">
+											<c:choose>
+												<c:when test="${x le post.star}">
+													<i class="fas fa-star sStar"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="far fa-star sStar"></i>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</c:if>
+								</div>
+							</c:if>
 
-            <jsp:include page="writingPost.jsp"></jsp:include>
-            <jsp:include page="detailPost.jsp"></jsp:include>
-        </div>
+						</div>
 
-        <%-- 맞춤영화 추천 부분 --%>
-        <c:choose>
-            <c:when test="${not empty sessionScope.loginUser}">
-                <div class="col-4">
-                    <div class="wPost" style="position: fixed">
-                        <div style="color: black">
-                            ${sessionScope.loginUser.nickname}의 맞춤 영화</div>
-                    </div>
-                </div>
-            </c:when>
-        </c:choose>
-    </div>
+					</div>
+				</c:if>
+			</c:forEach>
 
-    <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script src="/js/jquery-ui.js"></script>
-    <script src="/js/starrr.js"></script>
-    <script src="/js/bootstrap-tagsinput.min.js"></script>
-    <script src="/js/typeahead.bundle.min.js"></script>
-    <script src="/js/writingPost.js"></script>
-    <script>
+			<jsp:include page="writingPost.jsp"></jsp:include>
+			<jsp:include page="detailPost.jsp"></jsp:include>
+		</div>
+
+		<%-- 맞춤영화 추천 부분 --%>
+		<c:choose>
+			<c:when test="${not empty sessionScope.loginUser}">
+				<div class="col-4">
+					<div class="wPost" style="position: fixed">
+						<div style="color: black">
+							${sessionScope.loginUser.nickname}의 맞춤 영화</div>
+					</div>
+				</div>
+			</c:when>
+		</c:choose>
+	</div>
+
+	<jsp:include page="../include/footer.jsp"></jsp:include>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/starrr.js"></script>
+	<script src="/js/bootstrap-tagsinput.min.js"></script>
+	<script src="/js/typeahead.bundle.min.js"></script>
+	<script src="/js/writingPost.js"></script>
+	<script>
         var flwList = [];
         <c:forEach items="${userFlwList}" var="lst">
         flwList.push({
@@ -327,7 +330,7 @@
                 createdDate:'${post.createdDate}'
             })
         </c:forEach>
-        
+            var lstpstno = '${lastpstno}';
          function openDetailModal(pstno) {
              
              for (var i=0; i<postList.length; i++) {
@@ -336,7 +339,6 @@
                      break;
                  }
              }
-             
              
              $('#detailModal #movie-title').text(postList[index].title);
              $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
@@ -462,109 +464,115 @@
             $('#cmt-area').html(html);  
         }
         
+         
+         
          // 무한스크롤
         function morePostHtml(data){
             var html = '';
-            console.log(data.postsResult);
-                  //console.log(data.postsResult[i].pstno);
-              for (var i=0;i<data.postsResult.length;i++) {
-                  
-                html += '<p>ddd</p>';
-                <%-- 
-                <c:forEach items="${postList}" var="post" varStatus="status">';
-                <c:if test="${status.last}">';
-                 <c:set var="lastpstno" value="${post.pstno}"/>';
-                </c:if>';
-                    <c:if test="${post.open}">
-                        <div class="wPost reviewPst">
-                            <div class="media row" style="padding: 0 1rem">
-                                <img src="${post.member.profileImagePath}"
-                                    style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
-                                <div class="media-body">
-                                    <ul
-                                        style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
-                                        <li><a href="#" style="color: black;">${post.member.nickname}</a></li>
-                                        <li><c:if test="${not empty post.ftags}">
-                                                <c:forEach items="${post.ftags}" var="ftag">
-                                                    <a href="#"
-                                                        style="color: blue; font-size: 0.2rem; vertical-align: top;">
-                                                        ${ftag.nickname} </a>
-                                                </c:forEach>
-                                            </c:if></li>
-                                    </ul>
-                                    <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
-                                    <c:if test="${post.pstTypeNo ==0}">
-                                        <p style="float: right; font-size: 1.5rem; margin-bottom: 0;">
-                                            <b><i>${post.title}</i></b>
-                                        </p>
-                                    </c:if>
-                                </div>
-                            </div>
-                            내용보여주는부분
-                            <div class="clearfix media row" style="margin: 0.2rem 0">
-                                <div class="media-body">
-                                    <p class="reviewCont" id="reviewCont-${post.pstno}">
-                                        <script>
-                                            showCont("${post.content}",
-                                                    "${post.pstno}");
-                                        </script>
-                                    </p>
-                                </div>
-                                <c:if test="${post.photos[0] !=null}">
+             
+            /* postList.push({}); */
+            
+            for (var i=0;i<data.postsResult.length;i++) {
 
+                if(i == data.postsResult.length-1){
+                    lstpstno = String(data.postsResult[i].pstno);
+                }
+                
+                html += '        <div class="wPost reviewPst">';
+                html += '            <div class="media row" style="padding: 0 1rem">';
+                html += '                <img src="';
+                html += data.postsResult[i].member.profileImagePath;
+                html += '" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />';
+                html += '                <div class="media-body">';
+                html += '                    <ul style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">';
+                html += '                        <li><a href="#" style="color: black;">';
+                html += data.postsResult[i].member.nickname;
+                html += '                            </a></li><li>';
+                
+                if('null' !=data.postsResult[i].ftags){
+                    for(var j=0;j<data.postsResult[i].ftags.length;j++){
+                        html += '<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
+                        html += data.postsResult[i].ftags[i]; 
+                        html += '</a>';
+                    }
+                }
+                                        
+                html += '                    </li></ul>';
+                
+                html += '<span class="cmt-date">&nbsp;';
+                html +=  new Date(data.postsResult[i].createdDate).toLocaleString();
+                html += '</span>'; 
+               if(data.postsResult[i].pstTypeNo == 0){
+                   html += '<p style="float: right; font-size: 1.5rem; margin-bottom: 0;">';
+                   html += '<b><i>';
+                   html += data.postsResult[i].title;
+                   html += '</i></b></p>';
+               }
+                                        
+                html += '               </div>';
+                html += '           </div>';
+                html += '           <div class="clearfix media row" style="margin: 0.2rem 0">';
+                html += '               <div class="media-body">';
+                html += '                   <p class="reviewCont" id="reviewCont-';
+                html += data.postsResult[i].pstno;
+                html += '">';
+                html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
+                html += '</p>';
+                html += '               </div>';
+                
+                
+                if('null' !=data.postsResult[i].photos){
+                    html += '   <img onclick="openDetailModal(';
+                    html += data.postsResult[i].pstno;
+                    html += '  )" src="/upload/post/';
+                    html += data.postsResult[i].photos[0];
+                    html += '" data-title="';
+                    html += data.postsResult[i].title;
+                    html += '"';
+                    html += '   style="width: 20rem; height: 13rem; margin-left: 1rem;"/>';
+                    html += ' <input type="hidden" data-toggle="modal" id="detailPst"data-target="#detailModal" />';
+                }
 
-                                    이미지 클릭시 상세모달로
-                                    <img onclick="openDetailModal(${post.pstno})"
-                                        src="/upload/post/${post.photos[0]}"
-                                        data-title="${post.title}"
-                                        style="width: 20rem; height: 13rem; margin-left: 1rem;" />
-                                    <input type="hidden" data-toggle="modal" id="detailPst"
-                                        data-target="#detailModal" />
+                    html += '        </div>';
 
-                                </c:if>
-                            </div>
+                    
+                    html += '       <div class="row">';
 
-                            <div class="row">
+                    html += '           <div class="col-6" style="text-align: left;">';
+                    html += '              <a href="#" style="color: black">'; 
+                    html += '               <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>';
+                    html +=                 0; // 좋아요개수임
+                    html += '               </a> <a href="#" style="color: black"> <i class="far fa-comment btmIcon"></i>';
+                    html += '              </a>';
+                    html += '           </div>';
 
-                                좋아요
-                                <div class="col-6" style="text-align: left;">
-                                    <a href="#" style="color: black"> <i
-                                        class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
-                                    </a> <a href="#" style="color: black"> <i
-                                        class="far fa-comment btmIcon"></i> 0댓글개수
-                                    </a>
-                                </div>
-
-                                별점
-                                <c:if test="${post.pstTypeNo ==0}">
-                                    <div class='col-6' style="text-align: right;">
-                                        <c:if test="${0 ne post.star}">
-                                            <c:forEach begin="1" end="5" var="x">
-                                                <c:choose>
-                                                    <c:when test="${x le post.star}">
-                                                        <i class="fas fa-star sStar"></i>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <i class="far fa-star sStar"></i>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </c:if>
-                                    </div>
-                                </c:if>
+                    
+                    html += '   <div class="col-6" style="text-align: right;">';
+                    if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
+                    
+                        for(var s = 0;s<5;s++){
+                            if(s<data.postsResult[i].star){
                                 
-                            </div>
+                                html += '<i class="fas fa-star sStar"></i>';    
+                            }else{
+                                
+                                html += '<i class="far fa-star sStar"></i>';
+                            }
+                        }
+                    }
+                                   
+                    html += '  </div>'; 
+                    html += '       </div>';
                             
-                        </div>
-                    </c:if>
-                </c:forEach> --%>
+                    html += '   </div>';
             }  
+            
             $('#pstShw').append(html);  
         }
         
          function addCmt() {
              var contVal = $('#addCmtForm textarea[name="content"]').val();
-             console.log(contVal);
+             
              if (contVal == '') {
                  alert('내용을 입력해주세요.');
                  return;
@@ -584,10 +592,11 @@
                  });
          }
          
-         var lstpstno = '${lastpstno}';
+         
          
          $(window).scroll(function() {
              if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                 console.log(lstpstno);
                  $.ajax({
                      type:'POST',
                      url:'/app/reviewFeed/morePost',
