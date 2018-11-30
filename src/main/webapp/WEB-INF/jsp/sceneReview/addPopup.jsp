@@ -124,7 +124,9 @@
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <span>보관함이 없습니다.</span>
+                <div class="alert alert-light" role="alert">
+                    <span>등록된 장면앨범이 없습니다. <br>정보수정 메뉴에서 장면앨범을 만들어 주세요.</span>
+                </div>
             </c:otherwise>
         </c:choose>
       </div>
