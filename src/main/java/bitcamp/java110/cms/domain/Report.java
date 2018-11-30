@@ -44,7 +44,7 @@ public class Report {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont;
+    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
   }
   public String getUrl() {
     return url;
