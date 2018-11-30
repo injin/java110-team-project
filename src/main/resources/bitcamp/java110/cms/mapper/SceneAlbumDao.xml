@@ -24,7 +24,15 @@
         now(),if(#{sceneAlbum.open},'u','l'))
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
-
+    
+    <select id="listScA"  resultMap="sceneAlbumMap">
+        Select lbmno, l.mno, lbm_nm, phot, cdt, mdt, srCnt
+        From mv_lbm l,mv_memb m
+        Where l.mno=m.mno
+        And l.opn='u'
+    
+    </select>
+    
     <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
         select
             l.mno,

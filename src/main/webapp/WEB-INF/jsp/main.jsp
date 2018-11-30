@@ -321,7 +321,7 @@ function showCont(cont, index) {
 
 
             <div class="carousel-inner no-padding my-5">
-                <c:forEach items="${topMpList}" var="post"
+                <c:forEach items="${albumList}" var="album"
                     varStatus="status">
                     <c:if test="${status.index%3 == 0}">
                         <div
@@ -332,37 +332,26 @@ function showCont(cont, index) {
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="card card-hot-sr">
                             <div class="album"
-                                onclick="albumDetail('${album.lbmTitle}')"
+                                onclick="albumDetail('${album.lbmTitle}','${album.open}', '${album.lbmno}')"
                                 style="cursor: pointer;">
-                                <img src="/img/default.jpg">
                                 <c:choose>
-                                    <c:when
-                                        test="${album.open == 'true'}">
-                                        <div class="row">
-                                            <span class="overflow"
-                                                style="margin-left: 1rem;">
-                                                <b>${album.lbmTitle}</b>
-                                            </span> <span
-                                                style="margin-left: 1.3rem;"><i
-                                                class="fas fa-globe-americas globe"
-                                                style="float: right; margin: 0.2rem;"></i></span>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="row">
-                                            <span class="overflow"
-                                                style="margin-left: 1rem;">
-                                                <b>${album.lbmTitle}</b>
-                                            </span> <span
-                                                style="margin-left: 1.3rem;"><i
-                                                class="fas fa-lock lock">
-                                            </i></span>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                                <span
-                                    style="font-size: 0.8rem; float: left;">14개</span>
-                                <span style="float: left; clear: both;">${album.cdt}</span>
+                                 <c:when test="${empty album.phot}">
+                                     <img src="/img/default.jpg">     
+                                 </c:when>
+                                 <c:otherwise>
+                                     <img class="card-img-top hot-sr-img scene"
+                                            src="/upload/sceneReview/${album.phot}"
+                                            alt="Card image cap">
+                                 </c:otherwise>
+                            </c:choose>
+                                    <div class="row">
+                                        <span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+                                        <span style="margin-left: 1.3rem;"><i
+                                            class="fas fa-globe-americas globe"
+                                            style="float: right; margin: 0.2rem;"></i></span>
+                                    </div>
+                                <span style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> <span
+                                style="float: left; clear: both;">${album.cdt}</span>
                             </div>
                         </div>
                     </div>

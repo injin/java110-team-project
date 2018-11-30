@@ -102,5 +102,10 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   public void delete(int no) {
 
   }
+  @Override
+  public List<SceneAlbum> listScA() {
+    // TODO Auto-generated method stub
+    return sceneAlbumDao.listScA();
+  }
   
 }

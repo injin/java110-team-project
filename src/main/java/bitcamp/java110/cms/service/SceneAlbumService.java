@@ -11,6 +11,7 @@ public interface SceneAlbumService {
     List<SceneAlbum> list(int mno);
     List<SceneAlbum> list2(int mno, int srno);
     List<SceneAlbum> pageList(int mno, Paging paging);
+    List<SceneAlbum> listScA();
     int getTotalCnt(int mno);
     boolean addImg(int lbmno, String phot);
     SceneAlbum get(int no);
