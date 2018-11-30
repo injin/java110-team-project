@@ -196,15 +196,20 @@ public class PostServiceImpl implements PostService {
     System.out.println("Getting get My postList is success!");
     return posts;
   }
+  
   @Override
   public Boolean deletePost(int pstno) {
     String type = postDao.getPostType(pstno);
     if(type.equals("u")) {
       if(postDao.countCmt(pstno) == 0) {
+        System.out.println(pstno + " has no CMT");
+        postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
+      System.out.println(pstno + " has CMT");
       return postDao.deleteUnlockPost(pstno);
     } else if(type.equals("l")) {
+      postDao.deleteLockPost(pstno);
       return postDao.deleteLockPost(pstno);
     }
     System.out.println(pstno + "DELETE ERROR!!");
