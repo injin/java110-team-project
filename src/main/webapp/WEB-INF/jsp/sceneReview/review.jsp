@@ -58,6 +58,11 @@
                         </div>
                     </c:forEach>
                 </div>
+                
+                <c:if test="${not empty sessionScope.loginUser}">
+                    <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
+                        <img src="/img/btn-siren.jpg"></a>
+                </c:if>
             </div>
             
         </div>
@@ -181,13 +186,10 @@
             
         </div>
     </div>
-    
-    
-<%-- <button type="button" class="btn btn-primary" data-toggle="modal"
-        data-target="#reportModal">신고하기</button>
-<jsp:include page="../report/report.jsp"></jsp:include> --%>
 
+<%@ include file="report.jsp" %>
 <%@ include file="addPopup.jsp" %>
+
 <form id="deleteCommentForm" action="deleteComment">
     <input type="hidden" name="srno" value="${sceneReview.srno}">
     <input type="hidden" name="mvno" value="${sceneReview.mvno}">
@@ -202,7 +204,7 @@
 </form>
 
 </main>
-
+    
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script src="/js/vendor/linkify.js"></script>
