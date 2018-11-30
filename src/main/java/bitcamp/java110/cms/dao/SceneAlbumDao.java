@@ -16,7 +16,9 @@ public interface SceneAlbumDao {
   int addImg(Map<String, Object> condition);
   boolean checkImg(Map<String, Object> condition);
   int removeImg(Map<String, Object> condition);
+  int removeLbm(int lbmno);
   int setImgNull(int lbmno);
+  int editLbm(Map<String, Object> condition);
   SceneAlbum findByNo(int no);
   int delete(int no);
   void signOut1(int mno);

@@ -102,6 +102,7 @@ img{
 	    margin-right: 1rem;
 }
 .al_overflow {
+    width: 12.7rem;
     font-size: 1.1rem;
     overflow: hidden;
     white-space: nowrap;
@@ -144,6 +145,10 @@ img{
 .dropdown-menu.show {
 	top: 2rem !important; 
     left: 1.7rem !important;
+}
+.al_trash{
+    margin-top: 0.4rem;
+    visibility: hidden;
 }
 /* 앨범 추가 모달 */
 .modal-content{

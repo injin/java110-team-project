@@ -24,7 +24,7 @@
                     <!-- 리뷰 작성 -->
                     <div class="form-group">
                         <input type="text" name="lbmTitle" class="form-control"
-                            id="albumTitle" placeholder="보관함명">
+                         autocomplete="off" id="albumTitle" placeholder="보관함명">
                     </div>
                 
                     <label style="margin-right: 1rem;"><input type="radio" name="open" value="true" checked>전체공개</label>

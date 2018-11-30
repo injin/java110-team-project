@@ -63,6 +63,9 @@
     </select>
     
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
+         SELECT * 
+         FROM mv_lbm
+         WHERE lbmno = #{lbmno}
     </select>
     
     <select id="findAll" resultMap="sceneAlbumMap" parameterType="int">
@@ -158,6 +161,18 @@
          WHERE lbmno = #{lbmno}
     </update>
     
+    <update id="editLbm" parameterType="map">
+        UPDATE mv_lbm 
+           SET lbm_nm= #{lbmTitle},
+               mdt=now()
+         WHERE lbmno = #{lbmno}
+    </update>
+    
+    <delete id="removeLbm" parameterType="int">
+        DELETE 
+        FROM mv_lbm 
+        WHERE lbmno = #{lbmno}
+    </delete>
     
     <delete id="delete" parameterType="int">
     </delete>

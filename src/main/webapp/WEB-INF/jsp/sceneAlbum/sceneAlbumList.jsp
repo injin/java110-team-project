@@ -20,7 +20,7 @@
 					<!-- 앨범 하나 -->
 
 					<div class="row" style="margin: 0;">
-						<div class="album" onclick="albumDetail('${album.lbmTitle}','${album.open}', '${album.lbmno}')"
+						<div class="album" onclick="albumDetail('${album.open}', '${album.lbmno}')"
 							style="cursor: pointer;">
 							<c:choose>
 							     <c:when test="${empty album.phot}">
@@ -56,7 +56,6 @@
 					</div>
 				</c:forEach>
 				<form action="detail" method="get" id="detailForm">
-					<input type="hidden" name="lbmTitle">
 					<input type="hidden" name="open">
 					<input type="hidden" name="lbmno">
 				</form>
