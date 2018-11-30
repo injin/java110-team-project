@@ -18,6 +18,7 @@
 <link rel='stylesheet' href='/css/detailPost.css'>
 
 <style>
+
 .cmt-date {
 	color: #ccc;
 	font-size: 0.9em;
@@ -309,8 +310,11 @@
         </c:forEach>
         
         
-        var postList = [];
+        
+        var postList = []; 
+         
         <c:forEach items="${postList}" var="post">
+        
         var pary =[];
             <c:forEach items="${post.photos}" var="pht">
             pary.push('${pht}');
@@ -319,17 +323,23 @@
             <c:forEach items="${post.ftags}" var="ft">
             fary.push('${ft.nickname}');
             </c:forEach>
-            postList.push({
-                pstno: '${post.pstno}',
-                title: '${post.title}',
-                profileImagePath: '${post.member.profileImagePath}',
-                nick:'${post.member.nickname}',
-                star:'${post.star}',
-                photos:pary,
-                dftags:fary,
-                createdDate:'${post.createdDate}'
-            })
-        </c:forEach>
+            
+             postList.push({
+                "pstno": '${post.pstno}',
+                "title": '${post.title}',
+                member:{
+                    "profileImagePath": '${post.member.profileImagePath}',
+                    "nickname":'${post.member.nickname}',    
+                },
+                "star":'${post.star}',
+                "photos":pary,
+                "ftags":fary,
+                "createdDate":'${post.createdDate}'
+            }) 
+            
+        </c:forEach> 
+            
+            
             var lstpstno = '${lastpstno}';
          function openDetailModal(pstno) {
              
@@ -339,28 +349,27 @@
                      break;
                  }
              }
-             
              $('#detailModal #movie-title').text(postList[index].title);
-             $('#detailModal #ownerImg').attr('src',postList[index].profileImagePath);
-             $('#detailModal #ownerNick').text(postList[index].nick);
-             $('#detailModal #dCont').html($('#reviewCont-'+index).html());
+             $('#detailModal #ownerImg').attr('src',postList[index].member.profileImagePath);
+             $('#detailModal #ownerNick').text(postList[index].member.nickname);
+             $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
              $('#detailModal #dpstno').val(postList[index].pstno);
              $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
              
              /* 별 부분*/
+             console.log(postList[index]);
              var star = postList[index].star;
+             var shtml='';
              if(star != 0){
-                 var html='';
              for (var i=0; i<5; i++) {
                  if (i< star) {
-                     html += '<i class="fas fa-star sStar"></i>';
+                     shtml += '<i class="fas fa-star sStar"></i>';
                  } else {
-                     html += '<i class="far fa-star sStar"></i>';
+                     shtml += '<i class="far fa-star sStar"></i>';
                  }
              }
-             $('#detail-star').html(html);
              }
-             
+             $('#detail-star').html(shtml);
               /* 이미지 추가부분*/
              var h ='';
              h += '<ol class="carousel-indicators">';
@@ -398,13 +407,14 @@
              
              /* 친구태그 부분*/
              html ='';
-             for (var i=0; i<postList[index].dftags.length; i++) {
+             for (var i=0; i<postList[index].ftags.length; i++) {
                  html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
-                 html += postList[index].dftags[i];
+                 html += postList[index].ftags[i].nickname;
                   html +='</a>';
              }
-             $('#dftags').html(html); 
+             $('#dftags').html(html);  
              
+             /* 댓글리스트 */
              listCmt(postList[index].pstno);
              
             $('#detailModal').modal('show');
@@ -419,11 +429,8 @@
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify({ 
-                    "pstno" : pstno
+                    "pstno" : pstno.toString()
                 }),
-                before: function() {
-                    $('#pCmt').val('');
-                },
                 success:function(data){
                     console.log('modal로 댓글 리스트가져오기');
                     makeCmtHtml(data);
@@ -470,7 +477,7 @@
         function morePostHtml(data){
             var html = '';
              
-            /* postList.push({}); */
+            postList = postList.concat(data.postsResult); 
             
             for (var i=0;i<data.postsResult.length;i++) {
 
@@ -492,7 +499,7 @@
                 if('null' !=data.postsResult[i].ftags){
                     for(var j=0;j<data.postsResult[i].ftags.length;j++){
                         html += '<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
-                        html += data.postsResult[i].ftags[i]; 
+                        html += data.postsResult[i].ftags[j].nickname; 
                         html += '</a>';
                     }
                 }
@@ -524,7 +531,7 @@
                 if('null' !=data.postsResult[i].photos){
                     html += '   <img onclick="openDetailModal(';
                     html += data.postsResult[i].pstno;
-                    html += '  )" src="/upload/post/';
+                    html += ')" src="/upload/post/';
                     html += data.postsResult[i].photos[0];
                     html += '" data-title="';
                     html += data.postsResult[i].title;
@@ -588,15 +595,18 @@
                      success:function(data){
                          console.log('modal에서 댓글 등록');
                          listCmt($('#dpstno').val());
+                         $('#pCmt').val('');
                      }
                  });
          }
          
-         
+         $('#detailModal').on('hidden.bs.modal', function (e) {
+             $(':input').val('');
+           })
          
          $(window).scroll(function() {
              if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                 console.log(lstpstno);
+                 
                  $.ajax({
                      type:'POST',
                      url:'/app/reviewFeed/morePost',

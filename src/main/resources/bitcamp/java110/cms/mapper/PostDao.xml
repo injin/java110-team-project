@@ -258,8 +258,4 @@ limit 15
             opn='l'
             AND post.pstno=#{pstno}
     </delete>
-    
-    
-    
-    
 </mapper>
