@@ -14,97 +14,9 @@
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
+<link rel='stylesheet' href='/css/main.css'>
 <style>
-.card-hot-sr {
-    max-height: 20em;
-}
-.hot-sr-img scene{
-    height: 14em;
-}
-.card-hot-sr .img-sr {
-    height: 10em;
-}
 
-.hot-sr-img {
-    height: 10em;
-}
-
-.hot-sr {
-    height: 5em;
-}
-
-.hot {
-    height: 20em;
-    max-height: 20em;
-}
-
-.p-hot {
-    max-height: 2em;
-}
-
-.p-hot2 {
-    max-height: 10em;
-    padding-top: 3em;
-}
-
-.c-hot {
-    margin-top: 5em;
-    padding-top: 1.5em;
-}
-
-.wPost {
-    background: white;
-    padding: 1rem 1rem 0 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-}
-
-.pst {
-    padding: 1rem 0;
-    cursor: pointer !important;
-}
-
-.pst:hover {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.pst>i {
-    font-size: 2rem;
-    vertical-align: sub;
-}
-
-.btmIcon {
-    padding: 0 0.4rem 1rem 1rem;
-    font-size: 1.3rem;
-    vertical-align: sub;
-}
-
-.hash {
-    color: blue;
-    font-weight: bold;
-}
-
-.reviewCont {
-    height: 13rem;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-}
-
-.mauto {
-    margin: 0 auto;
-}
-
-.sStar {
-    font-size: 1.5rem;
-    color: #FFD119;
-}
 
 </style>
 <script>
@@ -333,17 +245,17 @@ function showCont(cont, index) {
 
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="card card-hot-sr">
-                            <div class="album"
-                                onclick="albumDetail('${album.lbmTitle}','${album.open}', '${album.lbmno}')"
-                                style="cursor: pointer;">
+                            <div class="album">
                                 <c:choose>
                                  <c:when test="${empty album.phot}">
-                                     <img class="card-img-top hot-sr-img scene" src="/img/default.jpg">     
+                                     
+                                     <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
                                  </c:when>
                                  <c:otherwise>
-                                     <img class="card-img-top hot-sr-img scene"
+                                 <a href="/app/sceneAlbum/detail?lbmTitle=${album.lbmTitle}&open=true&lbmno=${album.lbmno}">
+                                     <img class="card-img-top hot-sr-img-scene"
                                             src="/upload/sceneReview/${album.phot}"
-                                            alt="Card image cap">
+                                            alt="Card image cap"></a>
                                  </c:otherwise>
                             </c:choose>
                                     <div class="row">
@@ -362,6 +274,11 @@ function showCont(cont, index) {
         </c:if>
         </c:forEach>
     </div>
+                <form action="detail" method="get" id="detailForm">
+                    <input type="hidden" name="lbmTitle">
+                    <input type="hidden" name="open">
+                    <input type="hidden" name="lbmno">
+                </form>
 
     <a class="carousel-control-prev" href="#scn" data-slide="prev">
         <span class="carousel-control-prev-icon sp"></span>

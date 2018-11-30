@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+.card-hot-sr {
+    max-height: 20em;
+}
+.hot-sr-img scene{
+    height: 14em;
+}
+.card-hot-sr .img-sr {
+    height: 10em;
+}
+
+.hot-sr-img {
+    height: 10em;
+}
+
+.hot-sr {
+    height: 5em;
+}
+
+.hot {
+    height: 20em;
+    max-height: 20em;
+}
+
+.p-hot {
+    max-height: 2em;
+}
+
+.p-hot2 {
+    max-height: 10em;
+    padding-top: 3em;
+}
+
+.c-hot {
+    margin-top: 5em;
+    padding-top: 1.5em;
+}
+
+.wPost {
+    background: white;
+    padding: 1rem 1rem 0 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+.pst {
+    padding: 1rem 0;
+    cursor: pointer !important;
+}
+
+.pst:hover {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.pst>i {
+    font-size: 2rem;
+    vertical-align: sub;
+}
+
+.btmIcon {
+    padding: 0 0.4rem 1rem 1rem;
+    font-size: 1.3rem;
+    vertical-align: sub;
+}
+
+.hash {
+    color: blue;
+    font-weight: bold;
+}
+
+.reviewCont {
+    height: 13rem;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+}
+
+.mauto {
+    margin: 0 auto;
+}
+
+.sStar {
+    font-size: 1.5rem;
+    color: #FFD119;
+}
+.album img{
+    height: 14em;
+}
+.overflow {
+    font-size:0.9rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    width: 9rem;
+}
