@@ -24,7 +24,17 @@
 					<div class="row" style="margin: 0;">
 						<div class="album" onclick="albumDetail('${album.lbmTitle}','${album.open}', '${album.lbmno}')"
 							style="cursor: pointer;">
-							<img src="/img/default.jpg">
+							<c:choose>
+							     <c:when test="${empty album.phot}">
+							         <img src="/img/default.jpg">     
+							     </c:when>
+							     <c:otherwise>
+							         <img class="card-img-top hot-sr-img scene"
+                                            src="/upload/sceneReview/${album.phot}"
+                                            alt="Card image cap">
+							     </c:otherwise>
+							</c:choose>
+							
 							<c:choose>
 								<c:when test="${album.open == 'true'}">
 									<div class="row">

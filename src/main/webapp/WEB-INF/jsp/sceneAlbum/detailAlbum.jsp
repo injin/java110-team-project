@@ -60,7 +60,7 @@
 						<div class="col-lg-12 mt-4 ml-1 mb-5">
 							<span class="titl">${sceneAlbum.lbmTitle}</span>
 							<div class="a_btn btn btn-success btn-lg mr-2"
-								onclick="document.getElementById('mgrAlbum').click();">
+								onclick="editButton('${sceneReview}')">
 								수정하기<input type="hidden" data-toggle="modal" id="mgrAlbum"
 									data-target="#mgrModal" />
 							</div>
@@ -97,17 +97,18 @@
 	</main>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/common.js"></script>
 	<script>
         $('.title_box').on('mouseover', function() {
             $('.title_edit').css('visibility', 'visible');
         }).on('mouseleave', function() {
             $('.title_edit').css('visibility', 'hidden');
         });
+        
+        function editButton(obj){
+            document.getElementById('mgrAlbum').click();
+            console.log(${obj});
+        }
         
         function editAlbum(obj){
             console.log($(obj).data('lbmno'));
@@ -135,12 +136,52 @@
             var html = '';
             for(var i=0; i<data.sceneReview.length; i++){
                 console.log(data.sceneReview[i].photo);
-            html += '<img class="card-img-top hot-sr-img col-4 scene"';
+            html += '<div class="col-4">';
+            html += '<div class="btn-group">';
+            html += '<a class="c-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>';
+            html += '<div class="dropdown-menu">';
+            html += '<a class="dropdown-item album-img" href="#" onclick="setImg(\'' + data.sceneReview[i].photo + '\', \'' + data.srList[i].lbmno + '\')">대표이미지 설정</a>';
+            html += '<a class="dropdown-item" href="#">삭제</a>';
+            html += '</div>';
+            html += '</div>';
+            html += '<img class="card-img-top hot-sr-img scene"';
             html += '           src="/upload/sceneReview/'
             html +=                     data.sceneReview[i].photo;
-            html += '"           alt="Card image cap">';
+            html += '"           alt="Card image cap"></div>';
             }
             $('.srlist').html(html);
+        }
+        
+        function mydrop(obj){
+            //$('.mydrop').hide();
+            $(obj).next().toggle();
+         }
+          
+        function removeDrop(){
+                
+        }
+        
+        function setImg(photo, lbmno){
+            console.log('photo'+photo);
+            console.log('lbmno'+lbmno);
+            
+             $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/addLbmImg',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  lbmno,
+                   "phot" : photo
+                }),
+                success:function(data){
+                    console.log('대표이미지 설정함');
+                    alert('대표이미지 설정 완료');
+                    $('.mydrop').hide();
+                    console.log(data);
+                }
+            }); 
         }
     </script>
 
