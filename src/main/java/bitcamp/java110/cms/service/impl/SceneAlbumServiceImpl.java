@@ -93,6 +93,24 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean removeImg(int lbmno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("srno", srno);
+    
+    boolean isCoverImg = sceneAlbumDao.checkImg(condition);
+    if (sceneAlbumDao.removeImg(condition) > 0) {
+      if (isCoverImg) {
+        sceneAlbumDao.setImgNull(lbmno);
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  @Override
   public SceneAlbum get(int no) {
     return null;
   }

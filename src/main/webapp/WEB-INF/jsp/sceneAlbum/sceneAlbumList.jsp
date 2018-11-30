@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<section>
-	<div class="row mbr-justify-content-center">
 		<div class="col-lg-12 mbr-col-md-12">
 			
 			<!-- 앨범 목록 -->
@@ -63,7 +61,8 @@
 					<input type="hidden" name="lbmno">
 				</form>
 				<!-- 페이징버튼 -->
-
+                
+                <c:if test="${!empty sceneAlbum}">
 				<jsp:include page="paging.jsp" flush="true">
 					<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
 					<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
@@ -76,9 +75,6 @@
 				<form class="listForm" action="list" method="post">
 					<input type="hidden" name="pageNo">
 				</form>
-
+                </c:if>
 			</div>
 		</div>
-
-	</div>
-</section>
