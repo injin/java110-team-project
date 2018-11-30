@@ -201,10 +201,12 @@ public class PostServiceImpl implements PostService {
     String type = postDao.getPostType(pstno);
     if(type.equals("u")) {
       if(postDao.countCmt(pstno) == 0) {
+        postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
       return postDao.deleteUnlockPost(pstno);
     } else if(type.equals("l")) {
+      postDao.deleteLockPost(pstno);
       return postDao.deleteLockPost(pstno);
     }
     System.out.println(pstno + "DELETE ERROR!!");

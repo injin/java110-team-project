@@ -275,7 +275,8 @@
   /* 삭제하기 */
   
   function deletePost(id){
-    var postId = id;
+    var postId=id;
+    var $post=${'#postId'};
     console.log(postId);
     $.ajax({
       url: "/app/reviewFeed/delete",
@@ -286,6 +287,7 @@
       data: { "postId" : postId },
       success: function(){
         console.log(id);
+        $post.hide();
       },
       error: (xhr, status, msg) => {
           console.log(xhr);

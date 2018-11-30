@@ -221,8 +221,21 @@ limit 15
     
     <delete id="deletePost" parameterType="int">
         DELETE IGNORE
-        FROM mv_post
-        WHERE pstno=#{pstno}
+         post, type, tag, phot, flw, cmt
+         
+         FROM mv_post AS post
+         LEFT JOIN mv_post_type         AS type
+            ON type.ptno = post.pstno
+         LEFT JOIN mv_post_tag    AS tag
+            ON tag.pstno = post.pstno
+         LEFT JOIN mv_post_phot         AS phot
+            ON phot.pstno = post.pstno
+         LEFT JOIN mv_post_flw_tag    AS flw
+            ON flw.pstno = post.pstno
+         LEFT JOIN mv_post_cmt    AS cmt
+            ON cmt.pstno = post.pstno
+         WHERE
+            post.pstno=#{pstno}
     </delete>
     
     <delete id="deleteLockPost" parameterType="int">
