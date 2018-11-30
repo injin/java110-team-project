@@ -26,10 +26,26 @@
     </insert>
     
     <select id="listScA"  resultMap="sceneAlbumMap">
-        Select lbmno, l.mno, lbm_nm, phot, cdt, mdt, srCnt
-        From mv_lbm l,mv_memb m
-        Where l.mno=m.mno
-        And l.opn='u'
+        select
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn,
+            sr.cnt as srCnt  
+        from 
+            mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            left join (SELECT
+                            l.lbmno, count(s.srno) as cnt
+                        from
+                            mv_lbm l, mv_lbm_sr s
+                        where
+                            l.lbmno = s.lbmno 
+                        group by lbmno) as sr on l.lbmno = sr.lbmno
+             where l.opn='u'
     
     </select>
     

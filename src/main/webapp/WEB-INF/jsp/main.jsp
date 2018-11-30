@@ -18,7 +18,9 @@
 .card-hot-sr {
     max-height: 20em;
 }
-
+.hot-sr-img scene{
+    height: 14em;
+}
 .card-hot-sr .img-sr {
     height: 10em;
 }
@@ -336,7 +338,7 @@ function showCont(cont, index) {
                                 style="cursor: pointer;">
                                 <c:choose>
                                  <c:when test="${empty album.phot}">
-                                     <img src="/img/default.jpg">     
+                                     <img class="card-img-top hot-sr-img scene" src="/img/default.jpg">     
                                  </c:when>
                                  <c:otherwise>
                                      <img class="card-img-top hot-sr-img scene"
@@ -346,9 +348,7 @@ function showCont(cont, index) {
                             </c:choose>
                                     <div class="row">
                                         <span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
-                                        <span style="margin-left: 1.3rem;"><i
-                                            class="fas fa-globe-americas globe"
-                                            style="float: right; margin: 0.2rem;"></i></span>
+                                        <span style="margin-left: 1.3rem;"></i></span>
                                     </div>
                                 <span style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> <span
                                 style="float: left; clear: both;">${album.cdt}</span>
