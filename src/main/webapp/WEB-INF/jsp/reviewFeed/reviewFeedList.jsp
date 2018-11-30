@@ -77,6 +77,10 @@
 	font-size: 1.5rem;
 	color: #FFD119;
 }
+#btnGroupDrop {
+    margin: 10px;
+    padding: 0px;
+}
 </style>
 <script>
     function loginError() {

@@ -216,6 +216,13 @@ public class PostServiceImpl implements PostService {
     return false;
   }
   /* JEAHA 작업영역 */
+
+  @Override
+  public String updatePost(Post post) {
+    // TODO Auto-generated method stub
+    //  ADD(Post post)와 같은 방식??
+    return null;
+  }
   
   
 }
