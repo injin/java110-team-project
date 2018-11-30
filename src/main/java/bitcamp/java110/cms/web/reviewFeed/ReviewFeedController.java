@@ -168,14 +168,13 @@ public class ReviewFeedController {
   }
   
   @RequestMapping("/delete")
-  public @ResponseBody Boolean delete (
+  public String delete (
       int postId,
-      HttpSession session) {
-    System.out.println(postId + " delete request");
-    
-    Boolean result = postService.deletePost(postId);
-    System.out.println(result);
-    return result;
+      HttpServletRequest request) {
+    postService.deletePost(postId);
+    String originPath = request.getHeader("referer");
+    return "redirect:" + originPath.substring(
+        originPath.indexOf("/app"));
   }
   
 //  @RequestMapping("")

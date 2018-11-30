@@ -276,18 +276,14 @@
   
   function deletePost(id){
     var postId=id;
-    var $post=${'#postId'};
     console.log(postId);
     $.ajax({
       url: "/app/reviewFeed/delete",
       type: "POST",
-      /* headers: {
-        "contentType" : "application/json; charset=UTF-8"
-      }, */
       data: { "postId" : postId },
       success: function(){
         console.log(id);
-        $post.hide();
+        location.reload();
       },
       error: (xhr, status, msg) => {
           console.log(xhr);
