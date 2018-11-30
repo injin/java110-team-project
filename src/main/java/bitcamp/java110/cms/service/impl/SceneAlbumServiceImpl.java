@@ -81,6 +81,18 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
+  public boolean addImg(int lbmno, String phot) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("phot", phot);
+    if (sceneAlbumDao.addImg(condition) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  @Override
   public SceneAlbum get(int no) {
     return null;
   }

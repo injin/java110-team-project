@@ -117,6 +117,16 @@ public class SceneReviewController {
               + "&srno=" + sr.getSrno();
   }
   
+  @RequestMapping("editComment")
+  public String editComment(int srno, int mvno, 
+      SceneReviewCmt comment) {
+    
+    sceneReviewService.updateCmt(comment);
+    
+    return "redirect:/app/sceneReview/review?mvno=" + mvno
+        + "&srno=" + srno;
+  }
+  
   @RequestMapping("addLike")
   public @ResponseBody boolean addLike(
       HttpSession session, int srno) {

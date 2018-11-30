@@ -94,6 +94,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public void updateCmt(SceneReviewCmt sceneReviewCmt) {
+    sceneReviewDao.updateCmt(sceneReviewCmt);
+  }
+  
+  @Override
   public List<SceneReview> listTopSr() {
     return sceneReviewDao.listTopSr();
   }

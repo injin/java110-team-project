@@ -48,7 +48,7 @@
                                     <div class="album_title al_wrap text-center" 
                                     onclick="editAlbum(this)"
                                     data-lbmno="${album.lbmno}"
-                                    data-lbm-title="${album.lbmTitle}"}>
+                                    data-lbm-title="${album.lbmTitle}">
                                     <div class="al_overflow">${album.lbmTitle}</div></div>
                                 </c:forEach>
                                 </div>
@@ -56,8 +56,9 @@
                              </div>
                              
                              <div class="col-lg-9 pl-0">
-                             <div class="srlist">
-                             </div>
+                                <div class="srlist">
+                                  
+                                </div>
                              </div>
                         </div>
                 </div>

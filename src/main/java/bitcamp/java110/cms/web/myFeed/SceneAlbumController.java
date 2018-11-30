@@ -126,5 +126,21 @@ public class SceneAlbumController {
     resultMap.put("sceneReview", sceneReview);
     return resultMap;
   }
+  
+  @RequestMapping("addLbmImg")
+  public @ResponseBody boolean addLbmImg(
+      @RequestBody Map<String, Object> request,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    int lbmno = Integer.valueOf((String)request.get("lbmno"));
+    String phot = (String)request.get("phot");
+    System.out.println("lbmno: " +lbmno);
+    System.out.println("phot: " +phot);
+    
+    return sceneAlbumService.addImg(lbmno, phot);
+  }
+  
  
 }

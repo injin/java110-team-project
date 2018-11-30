@@ -97,6 +97,12 @@
         DELETE FROM mv_sr_cmt WHERE cmno = #{cmno}
     </delete>
     
+    <update id="updateCmt" parameterType="sceneReviewCmt">
+        UPDATE mv_sr_cmt
+           SET cont = #{cont}
+         WHERE cmno = #{cmno}
+    </update>
+    
     <select id="listTopSr" resultMap="srMap">
         SELECT srno, mvno, titl, time, phot, count(pstno)as cnt
           FROM mv_like ml,mv_sr ms 

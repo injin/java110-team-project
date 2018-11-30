@@ -184,7 +184,7 @@ limit 15
             p.star,
             p.cont,
             0 as likes,
-            p.opn,
+            (p.opn ='u') opn,
             m.nick,
             m.p_phot
         FROM mv_post p
@@ -193,10 +193,9 @@ limit 15
         WHERE p.mno=#{mno}
         ORDER BY cdt desc
         LIMIT 25
-            
     </select>
     
-    <update id="deleteUnlockPost" parameterType="int">
+    <update id="deletePost" parameterType="int">
         UPDATE IGNORE
             mv_post
         SET
@@ -204,7 +203,7 @@ limit 15
             cont='삭제된 게시물 입니다',
             mdt=now()
         WHERE
-            opn='u'
+            <!-- opn='u' -->
             AND pstno=#{pstno}
     </update>
     
