@@ -184,6 +184,4 @@ public class ReviewFeedController {
     System.out.println(postId + " update REQUEST");
     return null;
   }
-  
-  
 }

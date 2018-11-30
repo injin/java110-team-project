@@ -258,7 +258,9 @@ limit 15
             AND post.pstno=#{pstno}
     </delete>
     
-    
+    <update id="updatePost" parameterType="int">
+        
+    </update>
     
     
 </mapper>

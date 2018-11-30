@@ -196,6 +196,7 @@ public class PostServiceImpl implements PostService {
     System.out.println("Getting get My postList is success!");
     return posts;
   }
+  
   @Override
   public Boolean deletePost(int pstno) {
     String type = postDao.getPostType(pstno);
