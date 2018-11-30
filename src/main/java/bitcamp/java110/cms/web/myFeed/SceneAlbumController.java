@@ -72,7 +72,6 @@ public class SceneAlbumController {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     
-    System.out.println("detail Title : " + sceneAlbum.getLbmTitle());
     System.out.println("detail open : "+ sceneAlbum.isOpen());
     System.out.println(sceneAlbum);
     
@@ -93,10 +92,11 @@ public class SceneAlbumController {
     model.addAttribute("srList", srList);
     
     // 현재 클릭된 앨범의 앨범명, 공개여부...
-    model.addAttribute("sceneAlbum", sceneAlbum);
+    model.addAttribute("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
     
     // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
+    
     model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
     return "sceneAlbum/detailAlbum";
   }
@@ -175,5 +175,39 @@ public class SceneAlbumController {
     
   }
   
+  @RequestMapping("removeLbm")
+  public @ResponseBody Map<String, Object> removeLbm(
+      @RequestBody Map<String, Object> request,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    int lbmno = (int)request.get("lbmno");
+    System.out.println("lbmno: " +lbmno);
+    
+    sceneAlbumService.removeLbm(lbmno);
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
+    return resultMap;
+    
+  }
+  
+  @RequestMapping("editLbm")
+  public @ResponseBody Map<String, Object> editLbm(
+      @RequestBody SceneAlbum sceneAlbum,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    System.out.println("lbmno: " +sceneAlbum.getLbmno());
+    System.out.println("lbmTitle: " +sceneAlbum.getLbmTitle());
+    
+    sceneAlbumService.editLbm(sceneAlbum.getLbmno(), sceneAlbum.getLbmTitle());
+    Map<String, Object> resultMap = new HashMap<>();
+    resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
+    return resultMap;
+    
+  }
  
 }

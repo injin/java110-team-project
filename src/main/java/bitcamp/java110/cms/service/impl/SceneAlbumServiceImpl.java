@@ -111,8 +111,31 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
-  public SceneAlbum get(int no) {
-    return null;
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean removeLbm(int lbmno) {
+    if(sceneAlbumDao.removeLbm(lbmno) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean editLbm(int lbmno, String lbmTitle) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("lbmTitle", lbmTitle);
+    if(sceneAlbumDao.editLbm(condition) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  public SceneAlbum get(int lbmno) {
+    return sceneAlbumDao.findByNo(lbmno);
   }
 
   @Transactional

@@ -15,7 +15,9 @@ public interface SceneAlbumService {
     int getTotalCnt(int mno);
     boolean addImg(int lbmno, String phot);
     boolean removeImg(int lbmno, int srno);
-    SceneAlbum get(int no);
+    boolean removeLbm(int lbmno);
+    boolean editLbm(int lbmno, String lbmTitle);
+    SceneAlbum get(int lbmno);
     void delete(int no);
     
 }

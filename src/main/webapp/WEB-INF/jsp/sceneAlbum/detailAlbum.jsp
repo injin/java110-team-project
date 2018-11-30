@@ -59,8 +59,11 @@
 					<div class="row detailList col-lg-12 p-0">
 						<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
 							<span class="titl">${sceneAlbum.lbmTitle}</span>
+							
 							<div class="a_btn btn btn-success btn-lg mr-2"
-								onclick="editButton('${sceneReview}')">
+								onclick="editButton(this)"
+								data-lbmno="${sceneAlbum.lbmno}"
+                                        data-lbm-title="${sceneAlbum.lbmTitle}" data-open="${sceneAlbum.open}">
 								수정하기<input type="hidden" data-toggle="modal" id="mgrAlbum"
 									data-target="#mgrModal" />
 							</div>
@@ -100,23 +103,111 @@
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script>
-        $('.title_box').on('mouseover', function() {
+		// 모달 종료시 reload
+	    $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
+	        location.reload();
+	        $('#mgrModal').show();
+	    });
+		
+        // 모달 상단에 앨범명 수정 위한 마우스 오버 이벤트 
+        $(document.body).on('mouseover', '.title_box', function() {
             $('.title_edit').css('visibility', 'visible');
-        }).on('mouseleave', function() {
+        }).on('mouseleave', '.title_box', function() {
             $('.title_edit').css('visibility', 'hidden');
         });
         
-        // 모달 종료시 reload
-        $('#mgrModal').on('hidden.bs.modal', function (e) {           
-            
-            location.reload();
-            $('#mgrModal').show();
+        $(document.body).on('mouseover', '.album_title', function() {
+            $(this).find('.al_trash').css('visibility', 'visible');
+        }).on('mouseleave', '.album_title', function() {
+            $(this).find('.al_trash').css('visibility', 'hidden');
         });
+        
+        // 상단의 앨범 편집 버튼 누를 경우 
+        function editTitle(lbmno){
+            console.log('editTitle.lbmno : '+lbmno);
+            var html = '';
+            html += '<div class="form-group">';
+            html += '<input type="text" name="tContent" class="form-control" placeholder="보관함명">';
+            html += '<a href=#><i class="far fa-check-circle" onclick="editBtn('+lbmno+')" style="font-size:1.5rem;"></i></a></div>';
+            
+            $('.title_box').html(html);
+        }
+        
+        function editBtn(lbmno){
+            
+            var html='';
+            html += $('.title_box input[name="tContent"]').val();
+            html += '<span class="title_edit" onclick="editTitle('+lbmno+')">';
+            html += '<i class="far fa-edit" style="font-size: 1rem;"></i></span>';
+            
+            
+             $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/editLbm',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" : lbmno,
+                   "lbmTitle": $('.title_box input[name="tContent"]').val()
+                }),
+                success:function(data){
+                    console.log('앨범명 수정');
+                    alert('앨범명 수정 완료');
+                    console.log(data);
+                    showLbmList(data);
+                    $('.title_box').html(html);
+                }
+            }); 
+        }
+        
+        // 앨범 삭제
+        function removeLbm(lbmno){
+            console.log('removeLbm ' + lbmno);
+            
+            $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/removeLbm',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  lbmno,
+                }),
+                success:function(data){
+                    console.log('앨범 삭제함');
+                    alert('앨범 삭제 완료');
+                    showLbmList(data);
+                    console.log(data);
+                    
+                }
+            }); 
+        }
+        
+        // 앨범 목록 보여주기
+         function showLbmList(data){
+            var html = '';
+            for(var i=0; i<data.sceneAlbumList.length; i++){
+                
+            html += '<div class="album_title al_wrap text-center"';
+            html += 'onclick="editAlbum(this)" data-lbmno="'+data.sceneAlbumList[i].lbmno
+             +'" data-lbm-title="'+ data.sceneAlbumList[i].lbmTitle +'" data-open="' + data.sceneAlbumList[i].open +'">';
+            html += '<div class="al_overflow">'+data.sceneAlbumList[i].lbmTitle+ '</div>';
+            html += '<i class="fas fa-trash-alt al_trash"';
+            html += '   onclick="removeLbm('+data.sceneAlbumList[i].lbmno+')"></i></div>';
+                
+            }
+            $('.boxList').html(html);
+        } 
         
         // 수정하기 버튼 클릭
         function editButton(obj){
             document.getElementById('mgrAlbum').click();
-            console.log(${obj});
+            editAlbum(obj);
+            
+            //alert(obj);
+            //showSrList(obj);
+            
         }
         
         // 수정모달에서 앨범명 클릭시 변화
@@ -124,6 +215,7 @@
             console.log($(obj).data('lbmno'));
             console.log($(obj).data('lbm-title'));
             console.log($(obj).data('open'));
+            var lbmno = $(obj).data('lbmno');
             
             if($(obj).data('open')==true){
                 $('.openIcon').html('<i class="fas fa-globe-americas globe"></i>');
@@ -131,7 +223,7 @@
                 $('.openIcon').html('<i class="fas fa-lock lock"></i>');
             }
             
-            $('.title_box').text($(obj).data('lbm-title'));
+            $('.title_box').html($(obj).data('lbm-title')+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
             
             $.ajax({
                 type:'POST',
