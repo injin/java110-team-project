@@ -263,7 +263,8 @@
   </main>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
-
+  <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
+  
   <jsp:include page="../include/footer.jsp"></jsp:include>
   <script src="/js/jquery-ui.js"></script>
   <script src="/js/starrr.js"></script>
@@ -274,36 +275,33 @@
   /* 삭제하기 */
   
   function deletePost(id){
-    console.log(id);
+    var postId = id;
+    console.log(postId);
     $.ajax({
-      url: '/app/reviewFeed/delete',
-      headers: {"contentType" : "application/json; charset=UTF-8"},
-      type: 'post',
-      data: JSON.stringify({ "postId" : id }),
+      url: "/app/reviewFeed/delete",
+      type: "POST",
+      /* headers: {
+        "contentType" : "application/json; charset=UTF-8"
+      }, */
+      data: { "postId" : postId },
       success: function(){
         console.log(id);
-      }
+      },
+      error: (xhr, status, msg) => {
+          console.log(xhr);
+          console.log(status);
+          console.log(msg);
+          console.log(
+"code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        }
     });
   }
-   
-   
-   /* 
-  function deletePost(id){
-	    console.log(id);
-	    $.ajax("/app/reviewFeed/delete", {
-	      method: "POST",
-	      headers:{"Content-Type": "application/json"},
-	      data: { "postId" : id },
-	      success: function(){
-	        console.log(id);
-	      }
-	    });
-	  }
-   */
   
   function updatePost(id){
+    var postId = id;
     console.log(id);
-    }
+    
+  }
   
   
   /* 원래 있던 부분 */

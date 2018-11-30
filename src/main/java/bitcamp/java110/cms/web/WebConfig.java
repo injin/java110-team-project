@@ -6,8 +6,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import bitcamp.java110.cms.web.interceptor.AuthInterceptor;
-
 // 이 클래스가 IoC 컨테이너가 사용해야 할 설정 정보를 담고 있는 클래스임을
 // 프론트 컨트롤러에게 알려주기 위해서는 다음 애노테이션을 반드시 붙여야 한다.
 @Configuration
