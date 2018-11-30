@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import bitcamp.java110.cms.domain.Member;
@@ -168,16 +167,18 @@ public class ReviewFeedController {
     return "include/myFeed";
   }
   
-  @RequestMapping(value="/delete", method=RequestMethod.POST, consumes="application/json")
-  public @ResponseBody String delete (
-      @RequestBody Map<String, Object> request) {
-    System.out.println("REQUEST");
-//    int postId = Integer.valueOf((int)request.get("postId"));
-//    System.out.println(postId + " delete request");
-//    postService.deletePost(postId);
-//    System.out.println("delete : " + postId);
-    return "ok";
+  @RequestMapping("/delete")
+  public @ResponseBody Boolean delete (
+      int postId,
+      HttpSession session) {
+    System.out.println(postId + " delete request");
+    
+    Boolean result = postService.deletePost(postId);
+    System.out.println(result);
+    return result;
   }
+  
+//  @RequestMapping("")
   
   
 }
