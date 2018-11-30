@@ -1,9 +1,18 @@
-//mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
+//  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseItems = $('#random-base-items');
+//TheMovieDb에서 nowPlayingMovieList 가져오기.
+var $nowSection = $('#now-section');
+var $nowItems = $('#now-items');
+//	TheMovieDb에서 UpcommingMovieList 가져오기.
+var $upcommingSection = $('#upcomming-section');
+var $upcommingItems = $('#upcoming-items');
 //$('#popover').popover('click');
 
 window.onload=getSimilarBaseFavList();
+window.onload=getUpcommigList();
+window.onload=getNowList();
+
 function getSimilarBaseFavList(){
   $.ajax("/app/rcmd/smlrList", {
     method: "POST",
@@ -32,9 +41,66 @@ function getSimilarBaseFavList(){
   });
 }
 
+function getUpcommigList(){
+  $.ajax("/app/rcmd/upcommig", {
+    method: "POST",
+    headers : {
+      'Content-Type': 'application/json'
+    },
+    before: function() {
+      $upcommingSection.hide();
+    },
+    success: function(data) {
+      if (jQuery.isEmptyObject(data)) {
+        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
+      }  else {
+        print = makeHtml(data);
+      }
+      $upcommingItems.html(print);
+    },
+    complete: function() {
+      $upcommingSection.show();
+    },
+    error: (xhr, status, msg) => {
+      $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
+      console.log(status);
+      console.log(msg);
+    }
+  });
+}
+
+function getNowList(){
+  $.ajax("/app/rcmd/now", {
+    method: "POST",
+    headers : {
+      'Content-Type': 'application/json'
+    },
+    before: function() {
+      $nowSection.hide();
+    },
+    success: function(data) {
+      if (jQuery.isEmptyObject(data)) {
+        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
+      }  else {
+        print = makeHtml(data);
+      }
+      $nowItems.html(print);
+    },
+    complete: function() {
+      $nowSection.show();
+    },
+    error: (xhr, status, msg) => {
+      $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
+      console.log(status);
+      console.log(msg);
+    }
+  });
+}
+
 function makeHtml(data) {
+	console.log(data);
   var html = '';
-  data.smlrList.forEach(function(obj, idx) {
+  data.list.forEach(function(obj, idx) {
     html += '<div class="item" onclick="toDetail('+obj.id+')">';
     if (obj.poster_path != null) {
       html += '<img class="item-image" src="https://image.tmdb.org/t/p/w500' + obj.poster_path + '" alt="' + obj.title + '"/>';
@@ -50,7 +116,6 @@ function makeHtml(data) {
   });
   return html;
 }
-
 
 //시간이 남으면 마우스 휠로도 컨트롤 가능하게 ㄱㄱ
 function MouseWheelHandler(e, element) {
@@ -129,7 +194,6 @@ Carousel.prototype.isScrolledAllRight = function() {
   }else {
     return true;
   }
-
   return false;
 };
 
@@ -141,6 +205,15 @@ Carousel.prototype.setRightScrollOpacity = function() {
   }
 };
 
+var anlyBase = new Carousel('#anlyBaseCarousel');
+anlyBase.setLeftScrollOpacity();
+anlyBase.setRightScrollOpacity();
+
+
+var randomBase = new Carousel('#randomBaseCarousel');
+randomBase.setLeftScrollOpacity();
+randomBase.setRightScrollOpacity();
+
 var carousel1 = new Carousel('#carousel1');
 carousel1.setLeftScrollOpacity();
 carousel1.setRightScrollOpacity();
@@ -149,9 +222,13 @@ var carousel2 = new Carousel('#carousel2');
 carousel2.setLeftScrollOpacity();
 carousel2.setRightScrollOpacity();
 
-var randomBase = new Carousel('#randomBaseCarousel');
-randomBase.setLeftScrollOpacity();
-randomBase.setRightScrollOpacity();
+var nowBase = new Carousel('#nowCarousel');
+nowBase.setLeftScrollOpacity();
+nowBase.setRightScrollOpacity();
+
+var upcommingBase = new Carousel('#upcommingCarousel');
+upcommingBase.setLeftScrollOpacity();
+upcommingBase.setRightScrollOpacity();
 
 function click() {
   console.log('clicked');

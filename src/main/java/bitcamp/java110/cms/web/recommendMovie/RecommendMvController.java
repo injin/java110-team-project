@@ -80,11 +80,11 @@ public class RecommendMvController {
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
     model.addAttribute("list2", rcmdService.getList(n[1]));
-    System.out.println("\nREQUEST COMPLETE\n");
+    System.out.println("\nMD REQUEST COMPLETE\n");
     return "/recommend/list";
   }
   
-  @RequestMapping(value="/smlrList")
+  @RequestMapping("/smlrList")
   public @ResponseBody Map<String, Object> smlrListById (
       HttpSession session) throws Exception {
     
@@ -98,14 +98,36 @@ public class RecommendMvController {
       MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
       
       returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
-      returnValue.put("smlrList", smlrList.getResults());
-      
-      System.out.println("smlr REQUEST COMPLETE\n");
+      returnValue.put("list", smlrList.getResults());
+      System.out.println("\nsmlr REQUEST COMPLETE\n");
       return returnValue;
     }   catch (Exception e) {
       returnValue = new HashMap<>();
-      System.out.println("smlr REQUEST return null\n");
+      System.out.println("\nsmlr REQUEST return null\n");
       return returnValue;
     }
   }
+  
+  //    현재 상영작
+  @RequestMapping("/now")
+  public @ResponseBody Map<String, Object> nowList (
+      HttpSession session) throws Exception {
+    MovieResultsPage nowList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
+    Map<String, Object> returnValue= new HashMap<>();
+    returnValue.put("list", nowList.getResults());
+    System.out.println("\nNowPlaying REQUEST COMPLETE\n");
+    return returnValue;
+  }
+  
+  //    개봉 예정작
+  @RequestMapping("/upcommig")
+  public @ResponseBody Map<String, Object> comeList (
+      HttpSession session) throws Exception {
+    MovieResultsPage upcommingList = tmdbMovies.getUpcoming(Constants.LANGUAGE_KO, 1, "KR");
+    Map<String, Object> returnValue= new HashMap<>();
+    returnValue.put("list", upcommingList.getResults());
+    System.out.println("\nUpcomming REQUEST COMPLETE\n");
+    return returnValue;
+  }
+  
 }
