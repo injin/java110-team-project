@@ -33,7 +33,6 @@
             l.phot,
             l.cdt,
             l.mdt,
-            (l.opn ='u') opn,
             sr.cnt as srCnt  
         from 
             mv_lbm l
@@ -45,7 +44,8 @@
                         where
                             l.lbmno = s.lbmno 
                         group by lbmno) as sr on l.lbmno = sr.lbmno
-             where l.opn='u'
+             where l.opn='u' and l.phot is not null
+             order by rand() limit 9;
     
     </select>
     

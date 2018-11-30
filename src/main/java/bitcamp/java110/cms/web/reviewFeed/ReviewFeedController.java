@@ -182,8 +182,7 @@ public class ReviewFeedController {
       int postId,
       HttpServletRequest request) {
     System.out.println(postId + " update REQUEST");
+    System.out.println(postService.get(postId));
     return null;
   }
-  
-  
 }

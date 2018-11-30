@@ -59,7 +59,7 @@
                     </c:forEach>
                 </div>
                 
-                <c:if test="${not empty sessionScope.loginUser}">
+                <c:if test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
                     <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
                         <img src="/img/btn-siren.jpg"></a>
                 </c:if>
@@ -452,6 +452,48 @@
             success : function(data) {
                 $('span[id^="btn-heart-"]').hide();
                 $('span#btn-heart-empty').show();
+            }
+        });
+    }
+    
+    /* ==== 신고관련 ==== */
+    function reportSceneReview() {
+        var reportTypeArr = [];
+        for (i = 0; i<reportForm.reportType.length; i++) {
+            if (reportForm.reportType[i].checked) {
+                reportTypeArr.push(reportForm.reportType[i].value);
+            }
+        }
+        
+        if (reportTypeArr.length == 0) {
+            alert('신고 사유를 1개 이상 선택해 주세요.');
+            return;
+        }
+        
+        $.ajax({
+            url : "/app/report/add",
+            type: "post",
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            data : JSON.stringify({ 
+                "url" : '/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}',
+                "types" : reportTypeArr,
+                "cont" : $('#reportModal textarea[name="cont"]').val(),
+                "target" : '${sceneReview.srno}'
+            
+            }),
+            success : function(data) {
+                if (data) {
+                    alert('신고되었습니다.');
+                    $('a#btn-siren').remove();
+                } else {
+                    alert('문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
+                }
+                    
+            },
+            complete : function() {
+                $('#reportModal').modal('hide');
             }
         });
     }

@@ -8,7 +8,7 @@ public interface ReportDao {
 
   int insert(Report report);
   List<Report> findAll(Map<String, Object> params);
-  Report findByNo(int no);
+  Report findOne(Map<String, Object> params);
   int delete(int no);
   void signOut(int mno);
 }

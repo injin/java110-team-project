@@ -20,13 +20,17 @@
         
     </select>
     
-    <select id="findByNo" resultMap="reportMap" parameterType="int">
+    <select id="findOne" resultMap="reportMap" parameterType="map">
+        select rptno, mno, trgt, cont, url, hndl, cdt
+          from mv_rpt
+         where mno = #{mno}
+           and trgt = #{target}
     </select>
     
     <insert id="insert" parameterType="report" 
             useGeneratedKeys="true" keyColumn="rptno" keyProperty="rptno">
-        insert into mv_rpt(mno, cont, url, cdt)
-        values(4, 'ewer', 'hihihi', now())
+        insert into mv_rpt(mno, trgt, cont, url, cdt)
+        values(#{mno}, #{target}, #{cont}, #{url}, now())
     </insert>
     
     <delete id="delete" parameterType="int">

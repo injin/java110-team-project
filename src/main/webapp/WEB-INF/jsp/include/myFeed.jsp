@@ -151,9 +151,7 @@
 <%-- ========================================================================================== --%>
           <%-- 포스터 보이는 부분 --%>
       <c:forEach items="${postList}" var="post" varStatus="status">
-          <%-- ID --%>
-          <div class="wPost reviewPst" id="${post.pstno}">
-          <%-- ID --%>
+          <div class="wPost reviewPst">
             <div class="media row" style="padding: 0 1rem">
               <img src="${post.member.profileImagePath}"
                 style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
@@ -272,6 +270,7 @@
   <script src="/js/typeahead.bundle.min.js"></script>
   <script src="/js/writingPost.js"></script>
   <script type="text/javascript">
+<%-- ========================================================================================== --%>
   /* 삭제하기 */
   
   function deletePost(id){
@@ -294,24 +293,24 @@
   }
   
   function updatePost(id){
-	  var postId=id;
-	    console.log(postId);
-	    $.ajax({
-	      url: "/app/reviewFeed/update",
-	      type: "POST",
-	      data: { "postId" : postId },
-	      success: function(){
-	        /* console.log(id); */
-	        location.reload();
-	      },
-	      error: (xhr, status, msg) => {
-	          console.log(xhr);
-	          console.log(status);
-	          console.log(msg);
-	        }
-	    });
+    var postId=id;
+    console.log(postId);
+    $.ajax({
+      url: "/app/reviewFeed/update",
+      type: "POST",
+      data: { "postId" : postId },
+      success: function(){
+        /* console.log(id); */
+        location.reload();
+      },
+      error: (xhr, status, msg) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(msg);
+      }
+    });
   }
-  
+<%-- ========================================================================================== --%>
   
   /* 원래 있던 부분 */
   var flwList = [];
