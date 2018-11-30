@@ -49,20 +49,32 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     mlog.setIndirect(sceneReview.getMovie().getTitle());
     mlog.setAct(Constants.LOG_ACT_TYPE_WR);
     mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
-                + "&time=" + sceneReview.getTime());
+                + "&srno=" + sceneReview.getSrno());
     logDao.insert(mlog);
   }
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
-  public void addCmt(SceneReviewCmt sceneReviewCmt) {
+  public void addCmt(SceneReviewCmt sceneReviewCmt, SceneReview sceneReview) {
+    // 댓글 입력
     sceneReviewDao.insertCmt(sceneReviewCmt);
     
+    // 댓글 지도 입력
     SceneReviewMap map = sceneReviewCmt.getMap();
-    map.setCmno(sceneReviewCmt.getCmno());
     if (map.getLat() != null && map.getLng() != null) {
+      map.setCmno(sceneReviewCmt.getCmno());
       sceneReviewDao.insertCmtMap(map);
     }
+    
+    // 로그 입력
+    Mlog mlog = new Mlog();
+    mlog.setMno(sceneReviewCmt.getMno());
+    mlog.setDirect(Constants.LOG_DO_TYPE_SC);
+    mlog.setIndirect(sceneReviewCmt.getMvnm());
+    mlog.setAct(Constants.LOG_ACT_TYPE_WR);
+    mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
+                  + "&srno=" + sceneReview.getSrno());
+    logDao.insert(mlog);
   }
   
   @Override

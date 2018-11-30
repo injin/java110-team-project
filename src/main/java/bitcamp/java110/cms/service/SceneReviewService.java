@@ -9,7 +9,7 @@ import info.movito.themoviedbapi.model.MovieDb;
 public interface SceneReviewService {
   
   void add(SceneReview sceneReview);
-  void addCmt(SceneReviewCmt sceneReviewCmt);
+  void addCmt(SceneReviewCmt sceneReviewCmt, SceneReview sceneReview);
   SceneReview findByNo(int srno);
   List<SceneReview> list(int mvno);
   int getTotalCmtCnt(int srno);

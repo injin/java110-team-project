@@ -13,6 +13,7 @@
         <result column="phot"      property="photo" />
         <result column="cont"      property="cont" />
         <result column="spo"       property="spo" />
+        <result column="mvnm"      property="movie.title" />
     </resultMap>
     
     <resultMap type="sceneReviewCmt" id="srCmtMap">

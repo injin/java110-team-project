@@ -96,6 +96,7 @@
                     <input type="hidden" name="map.lat">
                     <input type="hidden" name="map.lng">
                     <input type="hidden" name="map.mapName">
+                    <input type="hidden" name="mvnm" value="${tmdbMovie.title}">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
