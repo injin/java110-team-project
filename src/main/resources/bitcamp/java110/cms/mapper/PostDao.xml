@@ -195,7 +195,7 @@ where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno
         LIMIT 25
     </select>
     
-    <update id="deletePost" parameterType="int">
+    <update id="deleteUnlockPost" parameterType="int">
         UPDATE IGNORE
             mv_post
         SET
@@ -207,7 +207,7 @@ where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno
             AND pstno=#{pstno}
     </update>
     
-    <delete id="deleteLockPost" parameterType="int">
+    <delete id="deletePost" parameterType="int">
         DELETE post, type, tag, phot, flw, cmt
          FROM mv_post AS post
          LEFT JOIN mv_post_type         AS type
