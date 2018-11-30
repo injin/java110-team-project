@@ -18,7 +18,6 @@
 <link rel='stylesheet' href='/css/detailPost.css'>
 
 <style>
-
 .cmt-date {
 	color: #ccc;
 	font-size: 0.9em;
@@ -70,6 +69,20 @@
 	word-break: break-all;
 }
 
+.smlrImg {
+	width: 3rem;
+	max-height: 4rem;
+}
+
+.trData {
+	padding: 1rem 0;
+}
+
+.trData:hover {
+	background-color: #f2f2f2;
+	cursor: pointer !important;
+}
+
 .mauto {
 	margin: 0 auto;
 }
@@ -77,6 +90,10 @@
 .sStar {
 	font-size: 1.5rem;
 	color: #FFD119;
+}
+
+td {
+	border: 1px solid #ccc;
 }
 </style>
 <script>
@@ -285,12 +302,46 @@
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4">
-					<div class="wPost" style="position: fixed">
-						<div style="color: black">
-							${sessionScope.loginUser.nickname}의 맞춤 영화</div>
+					<div class="wPost" style="text-align: center; padding: 0;">
+						<div style="padding: 0.5rem 0;background-color:#ccc;border-radius: 0.5rem 0.5rem 0 0;">${sessionScope.loginUser.nickname}의맞춤
+							영화</div>
+						<table>
+							<colgroup>
+								<col width="25%" />
+								<col width="35%" />
+								<col width="35%" />
+							</colgroup>
+							<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
+
+								<tr onclick="toDetail(${smlrMv.id})" class="trData">
+									<td><c:choose>
+											<c:when test="${not empty smlrMv.posterPath}">
+												<img class="smlrImg"
+													src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
+													alt="${smlrMv.title}" />
+											</c:when>
+											<c:otherwise>
+												<img class="smlrImg" src="/img/default-movie-img.png"
+													alt="${smlrMv.title}" />
+											</c:otherwise>
+										</c:choose></td>
+									<td>${smlrMv.title}</td>
+									<td class="col"><span class="row" style="display: block;">${smlrMv.releaseDate}</span>
+										<span class="row" style="display: block;">
+											<%-- ${smlrMv.genres} --%>장르
+									</span></td>
+								</tr>
+							</c:forEach>
+						</table>
+
+					</div>
+
+					<div class="wPost" style="text-align: center; padding: 0.5rem 0;background-color:#ccc;">
+						<a href="/app/rcmd/list" style="color: black;">더 많은 추천 영화 보기</a>
 					</div>
 				</div>
 			</c:when>
+
 		</c:choose>
 	</div>
 
@@ -301,6 +352,7 @@
 	<script src="/js/typeahead.bundle.min.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script>
+
         var flwList = [];
         <c:forEach items="${userFlwList}" var="lst">
         flwList.push({
@@ -471,8 +523,6 @@
             $('#cmt-area').html(html);  
         }
         
-         
-         
          // 무한스크롤
         function morePostHtml(data){
             var html = '';
@@ -603,6 +653,10 @@
          $('#detailModal').on('hidden.bs.modal', function (e) {
              $(':input').val('');
            })
+         
+           function toDetail(id) {
+  window.location.href = '/app/sceneReview/review?mvno='+ id;
+}
          
          $(window).scroll(function() {
              if ($(window).scrollTop() == $(document).height() - $(window).height()) {

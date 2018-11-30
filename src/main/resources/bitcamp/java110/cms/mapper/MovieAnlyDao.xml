@@ -45,7 +45,7 @@
         FROM mv_mv_anly 
         WHERE 
             mno=#{mno}
-        AND RAND()
+        ORDER BY RAND()
         LIMIT 1
     </select>
     

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,28 +19,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.PostService;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 @Controller
 @RequestMapping("/reviewFeed")
 public class ReviewFeedController {
 
-   PostService postService;
-   ServletContext sc;
-   FlwService flwService;
+  @Autowired PostService postService;
+   @Autowired ServletContext sc;
+   @Autowired FlwService flwService;
+   @Autowired TmdbMovies tmdbMovies;
+   @Autowired MovieAnlyDao anlyDao;
 
-  public ReviewFeedController(
+  /*public ReviewFeedController(
       PostService postService, 
       FlwService flwService,
       ServletContext sc) { 
     this.postService = postService;
     this.flwService = flwService;
     this.sc = sc;
-  }
+  }*/
 
   @RequestMapping("/list")
   public String list(
@@ -48,19 +55,23 @@ public class ReviewFeedController {
       HttpSession session)  throws Exception {
 
     Member member = (Member) session.getAttribute("loginUser");
-
+    
+    
     if(member != null) {
       List<Member> flwList = flwService.listAll(member.getMno());
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
+      
+      int triggerMvId = anlyDao.getOneFav(member.getMno());
+      MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      model.addAttribute("smlrList", smlrList.getResults());
     }
     
     Map<String, Object> params = new HashMap<>();
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", "x");
     
-    List<Post> list = postService.list(params); 
+    model.addAttribute("postList", postService.list(params));
     
-    model.addAttribute("postList", list);
     
     return "reviewFeed/reviewFeedList";
   }
@@ -97,7 +108,6 @@ public class ReviewFeedController {
       strs.add(mat.group(1)); 
     } 
     post.setHtags(strs);
-    System.out.println(post.toString());
     postService.add(post);
 
     String originPath = request.getHeader("referer");
