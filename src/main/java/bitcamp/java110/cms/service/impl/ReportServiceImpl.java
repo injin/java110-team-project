@@ -47,17 +47,25 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public Report get(int no) {
-    return reportDao.findByNo(no);
-  }
-
-  @Override
   public void delete(int no) {
     if (reportDao.delete(no) == 0) {
       throw new RuntimeException("해당 번호의 데이터가 없습니다.");
     }
     reportTypeDao.delete(no);
     
+  }
+
+  @Override
+  public boolean checkReported(String target, int mno) {
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("mno", mno);
+    params.put("target", target);
+    
+    if (reportDao.findOne(params) != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 

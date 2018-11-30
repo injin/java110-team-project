@@ -7,6 +7,6 @@ public interface ReportService {
   
     boolean add (Report report);
     List<Report> list(int pageNo, int pageSize);
-    Report get(int no);
     void delete(int no);
+    boolean checkReported(String target, int mno);
 }

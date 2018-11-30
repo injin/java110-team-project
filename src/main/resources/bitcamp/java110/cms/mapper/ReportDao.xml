@@ -20,7 +20,11 @@
         
     </select>
     
-    <select id="findByNo" resultMap="reportMap" parameterType="int">
+    <select id="findOne" resultMap="reportMap" parameterType="map">
+        select rptno, mno, trgt, cont, url, hndl, cdt
+          from mv_rpt
+         where mno = #{mno}
+           and trgt = #{target}
     </select>
     
     <insert id="insert" parameterType="report" 
