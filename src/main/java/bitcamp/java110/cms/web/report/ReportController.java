@@ -1,12 +1,13 @@
 package bitcamp.java110.cms.web.report;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Report;
 import bitcamp.java110.cms.service.ReportService;
 
@@ -15,40 +16,25 @@ import bitcamp.java110.cms.service.ReportService;
 public class ReportController {
 
   ReportService reportService;
-  ServletContext sc;
 
-  public ReportController(
-      ReportService reportService,
-      ServletContext sc) {
+  public ReportController(ReportService reportService) {
     this.reportService = reportService;
-    this.sc = sc;
   }
 
   @RequestMapping("/list")
   public String list() {
-    System.out.println("장면리뷰에 들어옴");
     return "sceneReview/review";
   }
 
   @PostMapping("/add")
-  public String add(Report report,
-        Model model,
-        String[] reportType) throws Exception{
-    System.out.println("신고submit");
+  public @ResponseBody boolean add(
+      @RequestBody Report report, HttpSession session) throws Exception{
     
-    // 신고유형
-    List<String> types = new ArrayList<>();
-    for(String t : reportType) {
-      types.add(t);
-      System.out.println(t);
-    }
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    report.setMno(mno);
+    report.setTarget(Constants.LOG_DO_TYPE_SR);
     
-    report.setTypes(types);
-    System.out.println(report.getCont());
-    model.addAttribute("type", types);
-    model.addAttribute("cont", report.getCont());
-    reportService.add(report);
-    return "report/admin";
+    return reportService.add(report);
   }
 
 
