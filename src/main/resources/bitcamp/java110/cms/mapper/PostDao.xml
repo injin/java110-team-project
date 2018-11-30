@@ -144,6 +144,7 @@ limit 15
     </select>
     
 	<select id="findByNo" resultMap="postMap" parameterType="int">
+	   
 	</select>
     
     <select id="listTopMp" resultMap="postMap2">
