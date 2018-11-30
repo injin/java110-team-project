@@ -177,7 +177,13 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
   
-//  @RequestMapping("")
+  @RequestMapping("/update")
+  public String update (
+      int postId,
+      HttpServletRequest request) {
+    System.out.println(postId + " update REQUEST");
+    return null;
+  }
   
   
 }
