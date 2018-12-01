@@ -23,7 +23,6 @@ import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.MovieDb;
 
 @Controller
-
 @RequestMapping("/sceneReview")
 public class SceneReviewController {
   
@@ -55,7 +54,6 @@ public class SceneReviewController {
         sr.setLike(likeService.checkLike(sr.getSrno(), Constants.LOG_DO_TYPE_SR, loginUser.getMno()));
         sr.setReported(reportService.checkReported(sr.getSrno().toString(), loginUser.getMno()));
       }
-      
     }
     
     return "sceneReview/review";

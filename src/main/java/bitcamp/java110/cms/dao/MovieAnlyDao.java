@@ -14,4 +14,6 @@ public interface MovieAnlyDao {
   int getOneFav(int mno);
   List<Integer> getFavMvList(int mno);
   void insertGrNotExists(Map<String, Integer> params);
+  void insertGrAllNotExists(Map<String, Object> params);
+  boolean checkGrExist(int mvno);
 }

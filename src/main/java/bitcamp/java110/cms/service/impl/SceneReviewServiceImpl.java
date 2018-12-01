@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,8 @@ import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.domain.SceneReviewMap;
 import bitcamp.java110.cms.service.SceneReviewService;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
@@ -30,6 +33,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Autowired MovieDao movieDao;
   @Autowired MlogDao logDao;
   @Autowired MovieAnlyDao movieAnlyDao;
+  @Autowired TmdbMovies tmdbMovies;
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
@@ -63,6 +67,21 @@ public class SceneReviewServiceImpl implements SceneReviewService {
       movieAnlyDao.update(mparams);
     } else {
       movieAnlyDao.insertPost(mparams);
+    }
+    
+    // 영화 장르 추가
+    if (!movieAnlyDao.checkGrExist(sceneReview.getMvno())) {
+      List<Genre> genres = tmdbMovies.getMovie(sceneReview.getMvno(), Constants.LANGUAGE_KO).getGenres();
+      List<Integer> grnoList = new ArrayList<>();
+      if (genres.size() > 0) {
+        for(Genre g: genres) {
+          grnoList.add(g.getId());
+        }
+      }
+      HashMap<String, Object> gparams = new HashMap<>();
+      gparams.put("mvno", sceneReview.getMvno());
+      gparams.put("grnoList", grnoList);
+      movieAnlyDao.insertGrAllNotExists(gparams);
     }
     
   }
