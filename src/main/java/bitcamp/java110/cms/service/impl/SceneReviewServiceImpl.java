@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.MlogDao;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
@@ -28,6 +29,7 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Autowired SceneAlbumDao sceneAlbumDao;
   @Autowired MovieDao movieDao;
   @Autowired MlogDao logDao;
+  @Autowired MovieAnlyDao movieAnlyDao;
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
@@ -51,6 +53,18 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
                 + "&srno=" + sceneReview.getSrno());
     logDao.insert(mlog);
+    
+    // 영화분석 점수 추가
+    HashMap<String, Object> mparams = new HashMap<>();
+    mparams.put("mno", sceneReview.getMno());
+    mparams.put("mvno", sceneReview.getMvno());
+    mparams.put("pnt", 10);
+    if (movieAnlyDao.findOne(mparams) > 0) {
+      movieAnlyDao.update(mparams);
+    } else {
+      movieAnlyDao.insertPost(mparams);
+    }
+    
   }
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -75,6 +89,17 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
                   + "&srno=" + sceneReview.getSrno());
     logDao.insert(mlog);
+    
+    // 영화분석 점수 추가
+    HashMap<String, Object> mparams = new HashMap<>();
+    mparams.put("mno", sceneReviewCmt.getMno());
+    mparams.put("mvno", sceneReview.getMvno());
+    mparams.put("pnt", 5);
+    if (movieAnlyDao.findOne(mparams) > 0) {
+      movieAnlyDao.update(mparams);
+    } else {
+      movieAnlyDao.insertPost(mparams);
+    }
   }
   
   @Override
@@ -101,7 +126,9 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public void deleteCmt(int cmno) {
+    sceneReviewDao.deleteCmtMap(cmno);
     sceneReviewDao.deleteCmt(cmno);
   }
   
