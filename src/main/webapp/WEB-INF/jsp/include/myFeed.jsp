@@ -291,16 +291,18 @@
         }
     });
   }
+<%-- ========================================================================================== --%>
+  /* UPDATE 대체 어떻게 하는거야!! */
   
   function updatePost(id){
-    var postId=id;
-    console.log(postId);
-    $.ajax({
+    console.log(id);
+    console.log("UPDATE 대체 어떻게 하는거야!!");
+    openEditingModal();
+/*     $.ajax({
       url: "/app/reviewFeed/update",
       type: "POST",
       data: { "postId" : postId },
       success: function(){
-        /* console.log(id); */
         location.reload();
       },
       error: (xhr, status, msg) => {
@@ -308,7 +310,7 @@
         console.log(status);
         console.log(msg);
       }
-    });
+    }); */
   }
 <%-- ========================================================================================== --%>
   <%-- detailPost.jsp에 Post 객체 보내는 방식(JavaScript이용.)으로 보내면 될것 같은데  --%>
