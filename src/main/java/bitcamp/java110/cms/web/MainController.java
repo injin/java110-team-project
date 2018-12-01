@@ -59,7 +59,6 @@ public class MainController {
     List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트
     model.addAttribute("albumList", listScA);
     
-    System.out.println(listScA);
     return "main";
     
   }
@@ -75,14 +74,12 @@ public class MainController {
       String keyword,
       Model model) throws Exception{
 
-    System.out.println(keyword);
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
     
     // 해쉬태그
     List<Post> hashList = postService.findByKeyword(keyword);
-    //System.out.println(hashList.toString());
     
     // 영화 찾기
     MovieResultsPage response = tmdbSearch.searchMovie(
@@ -100,9 +97,6 @@ public class MainController {
     model.addAttribute("totalPages", response.getTotalPages());
     model.addAttribute("totalResults", response.getTotalResults());
 
-    System.out.println("reponse: "+response.getResults().size());
-    System.out.println("imgPrefix: "+ Constants.TMDB_IMG_PREFIX_W500);
-    //System.out.println(model.toString());
     return "/search/search";
   }
 

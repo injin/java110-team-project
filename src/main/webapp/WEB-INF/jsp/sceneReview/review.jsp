@@ -59,10 +59,13 @@
                     </c:forEach>
                 </div>
                 
-                <c:if test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
-                    <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
-                        <img src="/img/btn-siren.jpg"></a>
+                <c:if test="${sceneReview.trgtSrExist == true}">
+                    <c:if test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
+                        <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
+                            <img src="/img/btn-siren.jpg"></a>
+                    </c:if>
                 </c:if>
+                
             </div>
             
         </div>
@@ -217,7 +220,7 @@
         target: "_blank"
     });
     
-    /* ===== 하단 장면 목록 박스 관련  ===== */
+    /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
@@ -230,7 +233,7 @@
         location.href = 'review?mvno=${sceneReview.mvno}&srno=' + srno;
     }
     
-     /* ===== 입력 모달 관련  ===== */
+     /* ========== 입력 모달 관련  ========== */
     var $modal = $('#srAddModal').modal({show : false});
     
     var invalidTime = [];
@@ -258,10 +261,19 @@
         checkTimeValid();
     });
     
+    function checkTimeFormat(value) {
+        var regex = new RegExp(/^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/);
+        return regex.test(value);
+    }
+    
     function checkTimeValid() {
         var timeStr = $('#time').val();
-        if (invalidTime.includes(timeStr)) {
+        if (checkTimeFormat(timeStr) == false) {
             $('#time').removeClass('is-valid').addClass('is-invalid');
+            $('#invalid-txt').text('형식에 맞지 않는 시간입니다. 예) 00:00:00');
+        } else if (invalidTime.includes(timeStr)) {
+            $('#time').removeClass('is-valid').addClass('is-invalid');
+            $('#invalid-txt').text('등록 불가능한 시간입니다.');
         } else {
             $('#time').removeClass('is-invalid').addClass('is-valid');
         }
@@ -277,8 +289,7 @@
     function validateForm() {
         // 장면 시간 검사
         var timeVal = $('#srAddForm #time').val();
-        var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
-        if (!(pattern.test(timeVal))) {
+        if (checkTimeFormat(timeVal) == false) {
             alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
             return false;
         }
@@ -306,7 +317,7 @@
         return true;
     }
     
-    /* ===== 댓글 관련  ===== */
+    /* ========== 댓글 관련  ========== */
     function contMore() {
         $('#p-cont').text('${sceneReview.cont}');
     }
@@ -357,7 +368,7 @@
         $('#editCommentForm').submit();
     }
     
-    /* ===== 지도 관련  ===== */
+    /* ========== 지도 관련  ========== */
     $('#btn-map').click(function() {
         $('div#map-container').toggle(function() {
             if ($(this).css('display') == 'none') { //지도 숨김 시 marker remove
@@ -426,13 +437,13 @@
     </c:if>
     
     
-    /* ===== 앨범 관련  ===== */
+    /* ========== 앨범 관련  ========== */
     function addToSrlAlbum(lbmno) {
         $('#addSrAlbumForm input[name="lbmno"]').val(lbmno);
         $('#addSrAlbumForm').submit();
     }
     
-    /* ===== 좋아요 관련  ===== */
+    /* ========== 좋아요 관련  ========== */
     function addLike() {
         $.ajax({
             url : "/app/sceneReview/addLike",
@@ -457,7 +468,7 @@
         });
     }
     
-    /* ==== 신고관련 ==== */
+    /* ========= 신고관련 ========= */
     function reportSceneReview() {
         var reportTypeArr = [];
         for (i = 0; i<reportForm.reportType.length; i++) {

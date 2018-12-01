@@ -27,7 +27,7 @@
               </div>
               <input type="text" class="form-control is-invalid" placeholder="장면시간" aria-label="장면시간"
                     aria-describedby="basic-addon1" name="time" id="time" value="00:00:00" autocomplete="off">
-              <div class="invalid-feedback">등록 불가능한 시간입니다.</div>
+              <div class="invalid-feedback"><span id="invalid-txt">등록 불가능한 시간입니다.</span></div>
               <div class="valid-feedback">등록 가능한 시간입니다.</div>
               <!-- <input type="hidden" name="time"> -->
             </div>
