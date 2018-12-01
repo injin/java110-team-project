@@ -297,6 +297,7 @@
   function updatePost(id){
     console.log(id);
     console.log("UPDATE 대체 어떻게 하는거야!!");
+    openEditingModal();
 /*     $.ajax({
       url: "/app/reviewFeed/update",
       type: "POST",
