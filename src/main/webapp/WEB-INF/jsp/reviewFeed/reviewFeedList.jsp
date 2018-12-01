@@ -337,7 +337,7 @@ td {
                     </div>
 
                     <div class="wPost" style="text-align: center; padding: 0.5rem 0;background-color:#ccc;">
-                        <a href="/app/rcmd/list" style="color: black;">더 많은 추천 영화 보기</a>
+                        <a href="/app/rcmd/anly" style="color: black;">더 많은 추천 영화 보기</a>
                     </div>
                 </div>
             </c:when>

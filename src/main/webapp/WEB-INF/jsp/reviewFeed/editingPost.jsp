@@ -7,7 +7,7 @@
 	<div class="modal-dialog modal-lg" role="document" id="rModal">
 		<form action="add" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
-
+                <input type="hidden" name="postNo" value="${post.pstno}">
 				<div class="modal-header form-inline">
 					<h5 class="modal-title" style="margin-right: 1rem">리뷰 작성하기</h5>
 					<!-- 영화 검색 -->
@@ -19,19 +19,20 @@
 						<input type="text"
 							class="form-control ui-autocomplete-input ui-autocomplete-loading"
 							id="movieSearch" name="title" placeholder="영화를 검색해주세요"
-							autocomplete="off"> <input type="hidden" id="movieId"
-							name="mvno" value="0">
+							autocomplete="off">
+							<input type="hidden" id="movieId" name="mvno" value="0">
 					</div>
 					<!-- 공개여부 스위치 -->
-					<label class="switch"> <input type="checkbox" name="open"
-						class="open" checked> <span class="slider round"> <i
-							class="fas fa-lock lock" style="display: none;"></i> <i
-							class="fas fa-globe-americas globe"></i>
-					</span>
+					<label class="switch">
+					   <input type="checkbox" name="open" class="open" checked>
+				       <span class="slider round">
+				           <i class="fas fa-lock lock" style="display: none;"></i>
+				           <i class="fas fa-globe-americas globe"></i>
+				       </span>
 					</label>
 					<!-- 모달 닫기 -->
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close" style="margin-left: 0px">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+					       style="margin-left: 0px">
 						<span aria-hidden="true">&times;</span>
 					</button>
 
@@ -41,8 +42,8 @@
 				<div class="modal-body">
 					<!-- 리뷰 작성 -->
 					<div class="form-group">
-						<textarea name="content" class="form-control" rows="10"
-							id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
+						<textarea name="content" class="form-control" rows="10" id="reviewTxtarea"
+						  placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
 					<div class="input-group" style="text-align: auto;">
 						<div class="input-group-prepend">
@@ -85,8 +86,7 @@
 				<!-- modal-body -->
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">CANCEL</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
 					<button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>
 				</div>
 

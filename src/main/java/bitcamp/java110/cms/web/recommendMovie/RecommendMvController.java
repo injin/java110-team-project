@@ -80,7 +80,7 @@ public class RecommendMvController {
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
     model.addAttribute("list2", rcmdService.getList(n[1]));
-    System.out.println("\nMD REQUEST COMPLETE\n");
+    System.out.println("MD REQUEST COMPLETE\n");
     return "/recommend/list";
   }
   
@@ -99,11 +99,11 @@ public class RecommendMvController {
       
       returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
       returnValue.put("list", smlrList.getResults());
-      System.out.println("\nsmlr REQUEST COMPLETE\n");
+      System.out.println("smlr REQUEST COMPLETE\n");
       return returnValue;
     }   catch (Exception e) {
       returnValue = new HashMap<>();
-      System.out.println("\nsmlr REQUEST return null\n");
+      System.out.println("smlr REQUEST return null\n");
       return returnValue;
     }
   }
@@ -115,7 +115,7 @@ public class RecommendMvController {
     MovieResultsPage nowList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
     Map<String, Object> returnValue= new HashMap<>();
     returnValue.put("list", nowList.getResults());
-    System.out.println("\nNowPlaying REQUEST COMPLETE\n");
+    System.out.println("NowPlaying REQUEST COMPLETE\n");
     return returnValue;
   }
   
@@ -126,7 +126,7 @@ public class RecommendMvController {
     MovieResultsPage upcommingList = tmdbMovies.getUpcoming(Constants.LANGUAGE_KO, 1, "KR");
     Map<String, Object> returnValue= new HashMap<>();
     returnValue.put("list", upcommingList.getResults());
-    System.out.println("\nUpcomming REQUEST COMPLETE\n");
+    System.out.println("Upcomming REQUEST COMPLETE\n");
     return returnValue;
   }
   
