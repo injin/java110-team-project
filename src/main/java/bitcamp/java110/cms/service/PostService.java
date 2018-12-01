@@ -18,8 +18,8 @@ public interface PostService {
     
     /* JEAHA 작업영역 */
     List<Post> getMyPostList(int mno);
-//    Post updatePost(int pstno);
     Boolean deletePost(int pstno);
+    String updatePost(Post post);
     /* JEAHA 작업영역 */
 }
 

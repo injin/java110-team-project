@@ -259,9 +259,19 @@ limit 15
             opn='l'
             AND post.pstno=#{pstno}
     </delete>
-    
-   <update id="updatePost" parameterType="int">
         
+    <update id="updatePost" parameterType="post">
+<!--
+       UPDATE mv_memb
+       <trim prefix="SET" suffixOverrides=",">
+          <if test="nickname != null">nick = #{nickname},</if>
+          <if test="profileImage != null">p_phot = #{profileImage},</if>
+          <if test="coverImage != null">c_phot = #{coverImage},</if>
+          <if test="pr != null">pr = #{pr},</if>
+       </trim>
+       WHERE
+          mno=#{mno}
+-->
     </update>
     
 </mapper>
