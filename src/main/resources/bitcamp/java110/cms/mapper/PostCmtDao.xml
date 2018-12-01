@@ -6,7 +6,7 @@
 <mapper namespace="bitcamp.java110.cms.dao.PostCmtDao">
 
     <resultMap type="bitcamp.java110.cms.domain.PostCmt" id="cmt">
-        <id column="pstno" property="pstno" />
+        <id column="pcno" property="pcno" />
         <result column="mno" property="mno" />
         <result column="cdt" property="createdDate" />
         <result column="mdt" property="modifiedDate" />
@@ -25,8 +25,13 @@
 		values(#{pstno},#{mno},#{content},now())
 	</insert>
 
+    <delete id="deleteCmt" parameterType="int">
+        DELETE FROM mv_post_cmt WHERE pcno = #{pcno}
+    </delete>
+
 	<select id="findCmtList" parameterType="int" resultMap="cmt">
 		select
+		  p.pcno,
 		  p.cont ,
 		  p.mno,
 		  m.p_phot ,

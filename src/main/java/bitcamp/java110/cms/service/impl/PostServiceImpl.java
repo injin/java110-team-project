@@ -133,7 +133,6 @@ public class PostServiceImpl implements PostService {
   public List<Post> findByKeyword(String keyword) {
 
     List<Post> hashposts = postDao.findByKeyword(keyword);
-    //System.out.println(hashposts);
 
     for(int i=0;i<hashposts.size();i++)
     {
@@ -177,6 +176,11 @@ public class PostServiceImpl implements PostService {
     return postCmtDao.findCmtList(no);
   }
   
+  @Override
+  public void deleteCmt(int pcno) {
+    
+    postCmtDao.deleteCmt(pcno);
+  }
   
   /* JEAHA 작업영역 */
   @Override

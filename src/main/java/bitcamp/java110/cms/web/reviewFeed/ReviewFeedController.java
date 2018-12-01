@@ -33,21 +33,13 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 @RequestMapping("/reviewFeed")
 public class ReviewFeedController {
 
-  @Autowired PostService postService;
+   @Autowired PostService postService; 
    @Autowired ServletContext sc;
    @Autowired FlwService flwService;
    @Autowired TmdbMovies tmdbMovies;
    @Autowired MovieAnlyDao anlyDao;
 
-  /*public ReviewFeedController(
-      PostService postService, 
-      FlwService flwService,
-      ServletContext sc) { 
-    this.postService = postService;
-    this.flwService = flwService;
-    this.sc = sc;
-  }*/
-
+   // 처음 피드리스트화면에 들어갔을 때  
   @RequestMapping("/list")
   public String list(
       Post post,
@@ -76,6 +68,63 @@ public class ReviewFeedController {
     return "reviewFeed/reviewFeedList";
   }
 
+  // 피드 무한스크롤
+  @RequestMapping("morePost")
+  @ResponseBody
+  public Object morePost(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) throws Exception {
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    int pstno = Integer.valueOf((String)request.get("pstno"));
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", (member==null)?0:member.getMno());
+    params.put("prevpstno", pstno);
+    
+    List<Post> postsResult = postService.list(params); 
+    
+    resultMap.put("postsResult", postsResult);
+    
+    return resultMap;
+  }
+  
+  // 댓글 추가
+  @PostMapping("addCmt")
+  public String addCmt(PostCmt comment,
+                    HttpSession session) throws Exception {
+
+    Member member = (Member)session.getAttribute("loginUser");
+    comment.setMno(member.getMno());
+    
+    postService.addCmt(comment);
+    
+    return "redirect:list";
+  }
+  
+  // 댓글 삭제
+  @RequestMapping("deleteCmt")
+  public @ResponseBody void deleteComment(@RequestBody Map<String, Object> request) {
+    int pcno = Integer.valueOf((String)request.get("pcno"));
+    postService.deleteCmt(pcno);
+  }
+  
+  // 댓글 목록
+  @RequestMapping("listCmt")
+  public @ResponseBody Map<String, Object> listCmt(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) throws Exception {
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    int pstno = Integer.valueOf((String)request.get("pstno"));
+    List<PostCmt> cmtsResult = postService.findCmts(pstno);
+    resultMap.put("cmtsResult", cmtsResult);
+    return resultMap;
+  }
+  
+  // 포스트 추가
   @PostMapping("/add")
   public String add(
       Post post,
@@ -115,54 +164,28 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
   
-
-  @PostMapping("addCmt")
-  public String addCmt(PostCmt comment,
-                    HttpSession session) throws Exception {
-
-    Member member = (Member)session.getAttribute("loginUser");
-    comment.setMno(member.getMno());
-    
-    postService.addCmt(comment);
-    
-    return "redirect:list";
+  // 포스트 삭제
+  @RequestMapping("/delete")
+  public String delete (
+      int postId,
+      HttpServletRequest request) {
+    postService.deletePost(postId);
+    String originPath = request.getHeader("referer");
+    return "redirect:" + originPath.substring(
+        originPath.indexOf("/app"));
   }
   
-  @RequestMapping("morePost")
-  @ResponseBody
-  public Object morePost(
-      @RequestBody Map<String, Object> request,
-      HttpSession session) throws Exception {
-    
-    Member member = (Member)session.getAttribute("loginUser");
-    
-    // 무한스크롤여기서하자
-    Map<String, Object> resultMap = new HashMap<>();
-    int pstno = Integer.valueOf((String)request.get("pstno"));
-    
-    Map<String, Object> params = new HashMap<>();
-    params.put("mno", (member==null)?0:member.getMno());
-    params.put("prevpstno", pstno);
-    
-    List<Post> postsResult = postService.list(params); 
-    
-    resultMap.put("postsResult", postsResult);
-    
-    return resultMap;
+  // 포스트 수정
+  @RequestMapping("/update")
+  public String update (
+      int postId,
+      HttpServletRequest request) {
+    System.out.println(postId + " update REQUEST");
+    System.out.println(postService.get(postId));
+    return null;
   }
   
-  @RequestMapping("listCmt")
-  public @ResponseBody Map<String, Object> listCmt(
-      @RequestBody Map<String, Object> request,
-      HttpSession session) throws Exception {
-    
-    Map<String, Object> resultMap = new HashMap<>();
-    int pstno = Integer.valueOf((String)request.get("pstno"));
-    List<PostCmt> cmtsResult = postService.findCmts(pstno);
-    resultMap.put("cmtsResult", cmtsResult);
-    return resultMap;
-  }
-  
+  // 마이페이지-나의피드
   @RequestMapping("/myFeed")
   public String myFeed(
       Post post,
@@ -175,24 +198,5 @@ public class ReviewFeedController {
     model.addAttribute("postList", list);
     System.out.println("list출력\t:"+list+"\n");
     return "include/myFeed";
-  }
-  
-  @RequestMapping("/delete")
-  public String delete (
-      int postId,
-      HttpServletRequest request) {
-    postService.deletePost(postId);
-    String originPath = request.getHeader("referer");
-    return "redirect:" + originPath.substring(
-        originPath.indexOf("/app"));
-  }
-  
-  @RequestMapping("/update")
-  public String update (
-      int postId,
-      HttpServletRequest request) {
-    System.out.println(postId + " update REQUEST");
-    System.out.println(postService.get(postId));
-    return null;
   }
 }

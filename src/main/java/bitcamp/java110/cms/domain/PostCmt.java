@@ -5,23 +5,32 @@ import java.sql.Date;
 public class PostCmt {
 
   protected int pstno;
+  protected int pcno;
   protected int mno;
   protected Date createdDate;
   protected Date modifiedDate;
   protected String content;
   protected Member member;
   
+  
+  public int getPstno() {
+    return pstno;
+  }
+  public void setPstno(int pstno) {
+    this.pstno = pstno;
+  }
   public Member getMember() {
     return member;
   }
   public void setMember(Member member) {
     this.member = member;
   }
-  public int getPstno() {
-    return pstno;
+ 
+  public int getPcno() {
+    return pcno;
   }
-  public void setPstno(int pstno) {
-    this.pstno = pstno;
+  public void setPcno(int pcno) {
+    this.pcno = pcno;
   }
   public int getMno() {
     return mno;
@@ -49,7 +58,8 @@ public class PostCmt {
   }
   @Override
   public String toString() {
-    return "PostCmt [pstno=" + pstno + ", mno=" + mno + ", createdDate=" + createdDate
-        + ", modifiedDate=" + modifiedDate + ", content=" + content + ", member=" + member + "]";
+    return "PostCmt [pstno=" + pstno + ", pcno=" + pcno + ", mno=" + mno + ", createdDate="
+        + createdDate + ", modifiedDate=" + modifiedDate + ", content=" + content + ", member="
+        + member + "]";
   }
 }
