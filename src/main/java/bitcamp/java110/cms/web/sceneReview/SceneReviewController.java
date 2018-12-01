@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.web.sceneReview;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -38,11 +39,17 @@ public class SceneReviewController {
       Paging paging, HttpSession session) {
     
     MovieDb tmdbMovie = tmdbMovies.getMovie(sr.getMvno(), Constants.LANGUAGE_KO);
+    List<MovieDb> smlrList = tmdbMovies.getSimilarMovies(
+                                sr.getMvno(), 
+                                Constants.LANGUAGE_KO,
+                                1).getResults();
     sr = sceneReviewService.initSceneReview(tmdbMovie, sr);
     
     model.addAttribute("tmdbMovie", tmdbMovie);
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
+    model.addAttribute("smlrList", smlrList);
+    model.addAttribute("posterPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
     if (sr.getSrno() !=null) {
       paging.setTotalCount(sceneReviewService.getTotalCmtCnt(sr.getSrno()));
