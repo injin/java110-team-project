@@ -78,6 +78,9 @@ a#btn-siren {
     color: #00cc99;
     cursor: pointer;
 }
+.smlr-movie:hover h6 {
+    text-decoration: underline;
+}
 
 /*===== comment =====*/
 #comment-area {
@@ -172,7 +175,6 @@ a#btn-siren {
 }
 
 input.default:checked + .slider {
-  /* background-color: #444; */
   background-color: #00b386;
 }
 input.primary:checked + .slider {
