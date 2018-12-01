@@ -167,6 +167,7 @@ td {
 				<div style="border-bottom: 1px solid #00cc99; color: #00cc99">
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginUser}">
+						  <input type="hidden" id="sessionMno" value="${sessionScope.loginUser.mno}"/>
                             ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
                         </c:when>
 						<c:otherwise>
@@ -516,6 +517,12 @@ td {
                 html += '          </span>';
                 html += '        </p>';
                 html += '    </div>';
+
+                if(data.cmtsResult[i].member.mno == '${sessionScope.loginUser.mno}'){
+                    html += '&nbsp;<i class="far fa-edit c-pointer"></i>';
+                    html += '&nbsp;<i class="fas fa-times c-pointer"></i>';   
+                } 
+                
                 html += '</div>';
                 html += '</li> ';   
             }  
