@@ -185,10 +185,48 @@ public class ReviewFeedController {
   @RequestMapping("/update")
   public String update (
       int postId,
-      HttpServletRequest request) {
+      Post post,
+      MultipartFile[] files,
+      HttpSession session,
+      HttpServletRequest request) throws Exception {
+    
+    
     System.out.println(postId + " update REQUEST");
     System.out.println(postService.get(postId));
-    return null;
+    
+    
+    
+    
+    Member m = (Member)session.getAttribute("loginUser");
+    post.setMno(m.getMno());
+
+    List<String> filenames = new ArrayList<>();
+
+    // 사진 데이터 처리
+    for(int i=0;i<files.length;i++) {
+      MultipartFile file = files[i];
+      if (file.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        System.out.println(filename);
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
+        filenames.add(filename);
+      }
+    }
+    post.setPhotos(filenames);
+
+    // 해시 태그 처리
+    Pattern MY_PATTERN = Pattern.compile("#(\\S+)"); 
+    Matcher mat = MY_PATTERN.matcher(post.getContent()); 
+    List<String> strs=new ArrayList<String>(); 
+    while (mat.find()) { 
+      strs.add(mat.group(1)); 
+    } 
+    post.setHtags(strs);
+    postService.add(post);
+
+    String originPath = request.getHeader("referer");
+    return "redirect:" + originPath.substring(
+        originPath.indexOf("/app"));
   }
   
   // 마이페이지-나의피드

@@ -225,13 +225,74 @@ public class PostServiceImpl implements PostService {
     return false;
   }
   /* JEAHA 작업영역 */
+  //  ADD(Post post)와 같은 방식??
 
+
+  @Transactional(
+      propagation=Propagation.REQUIRED,
+      rollbackFor=Exception.class)
   @Override
-  public String updatePost(Post post) {
-    // TODO Auto-generated method stub
-    //  ADD(Post post)와 같은 방식??
-    return null;
+  public void updatePost(Post post) {
+
+    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
+
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("mvno", post.getMvno());
+      params.put("titl", post.getTitle());
+      movieDao.insert(params);
+    }
+
+    postDao.insert(post);
+
+    List<String> plst = post.getPhotos();
+    List<String> hlst = post.getHtags();
+    String resultFtags = post.getFtagsForAdd();
+
+    if(resultFtags != null && !resultFtags.trim().equals("")) {
+      String[] flst = resultFtags.split(",");
+
+      for(int i=0;i<flst.length;i++)
+      {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pstno", post.getPstno());
+        params.put("flwno", flst[i]);
+
+        flwDao.insertForPost(params);
+      }
+    }
+
+    for(int i=0;i<plst.size();i++)
+    {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("phot", plst.get(i));
+      params.put("pstno", post.getPstno());
+
+      postPhotoDao.insert(params);
+    }
+
+    for(int i=0;i<hlst.size();i++)
+    {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("cont", hlst.get(i));
+      params.put("pstno", post.getPstno());
+
+      postHashtagDao.insert(params);
+    }
+
+    if(post.getPstTypeNo() == 0) {
+
+      HashMap<String, Object> mparams = new HashMap<>();
+      mparams.put("mno", post.getMno());
+      mparams.put("mvno", post.getMvno());
+      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
+
+      if(movieAnlyDao.findOne(mparams)>0) { // 이미 해당회원,영화정보가있음.
+        movieAnlyDao.update(mparams);
+      }else { // 해당 정보없을때 영화분석테이블에 삽입
+        movieAnlyDao.insertPost(mparams);
+      }
+    }
   }
-  
+
   
 }
