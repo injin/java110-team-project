@@ -497,7 +497,9 @@ td {
                 html += '        </p>';
                 html += '        <p class="w-100 p-2 m-0">';
                 if(data.cmtsResult[i].member.mno == '${sessionScope.loginUser.mno}'){
-                    html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this)"></i>';
+                    html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
+                    html += data.cmtsResult[i].pcno;
+                    html += ')"></i>';
                     html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
                     html += data.cmtsResult[i].pcno;
                     html += ')"></i>';   
@@ -533,12 +535,12 @@ td {
             });
         }
         
-        function showEditForm(obj) {
+        function showEditForm(obj,pcno) {
             
             $(obj).hide();
-            var $divCont = $(obj).parent().parent().parent();
-            console.log($divCont);
-            /* var contStr = $divCont.data('content').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+            var $editCont = $(obj).parent().prev().text();
+            var $editArea = $(obj).parent().parent().parent().parent();
+
             var editHtml = '<div class="card mb-2">';
             editHtml += '<div class="media" style="padding: .5rem;">';
             editHtml += '    <div>';
@@ -546,19 +548,21 @@ td {
             editHtml += '        <div style="text-align: -webkit-center;">${sessionScope.loginUser.nickname}</div>';
             editHtml += '    </div>';
             editHtml += '    <div class="media-body text-right">';
-            editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment"></textarea>';
+            editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment">';
+            editHtml += $editCont;
+            editHtml += '        </textarea>';
             editHtml += '    </div>';
-            editHtml += '    <button type="button" class="btn btn-dark mt-2" onclick="addCmt()" style="height: 3rem; padding: 0 .5rem;">';
+            editHtml += '    <button type="button" class="btn btn-dark mt-2" onclick="editComment(' + pcno + ')" style="height: 3rem; padding: 0 .5rem;">';
             editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
             editHtml += '    </button>';
             editHtml += '</div>';
             editHtml += '</div>';
         
-            $divCont.html(editHtml); */
+            $editArea.html(editHtml); 
         }
         
-        /* function editComment(cmno) {
-            var contVal = $('#textarea-cmt-' + cmno).val();
+        function editComment(pcno) {
+            var contVal = $('#editCmt').val();
             if (contVal == '') {
                 alert('댓글을 입력해 주세요');
                 return;
@@ -571,15 +575,16 @@ td {
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify({ 
-                    "pcno" : pcno.toString()
+                    "pcno" : pcno.toString(),
+                    "content" : contVal.toString()
                     }),
                 success:function(data){
-                    console.log('modal에서 댓글 삭제');
+                    console.log('modal에서 댓글 수정');
                     listCmt($('#dpstno').val());
                     $('#pCmt').val('');
                 }
             });
-        } */
+        } 
         
          // 무한스크롤
         function morePostHtml(data){

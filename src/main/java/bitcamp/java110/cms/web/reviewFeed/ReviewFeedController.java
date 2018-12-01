@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -111,9 +109,14 @@ public class ReviewFeedController {
   
   // 댓글 수정
   @RequestMapping("editCmt")
-  public void editComment(int srno, int mvno, 
-      PostCmt comment) {
-    postService.updateCmt(comment);
+  public @ResponseBody void editComment(@RequestBody Map<String, Object> request) {
+    int pcno = Integer.valueOf((String)request.get("pcno"));
+
+    PostCmt postCmt = new PostCmt();
+    postCmt.setContent((String)request.get("content"));
+    postCmt.setPcno(pcno);
+    postService.updateCmt(postCmt);
+    
   }
   
   // 댓글 목록

@@ -33,7 +33,7 @@
 	<update id="updateCmt" parameterType="PostCmt">
 		UPDATE mv_post_cmt
 		SET cont = #{content}
-		WHERE cmno = #{pcno}
+		WHERE pcno = #{pcno}
 	</update>
 	<select id="findCmtList" parameterType="int" resultMap="cmt">
 		select
