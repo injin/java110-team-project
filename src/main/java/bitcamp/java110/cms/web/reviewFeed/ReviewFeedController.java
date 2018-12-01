@@ -24,7 +24,6 @@ import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
-import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -110,16 +109,13 @@ public class ReviewFeedController {
     postService.deleteCmt(pcno);
   }
   
-  /*// 댓글 수정
+  // 댓글 수정
   @RequestMapping("editCmt")
-  public String editComment(int srno, int mvno, 
-      SceneReviewCmt comment) {
+  public void editComment(int srno, int mvno, 
+      PostCmt comment) {
     
     postService.updateCmt(comment);
-    
-    return "redirect:/app/sceneReview/review?mvno=" + mvno
-        + "&srno=" + srno;
-  }*/
+  }
   
   // 댓글 목록
   @RequestMapping("listCmt")

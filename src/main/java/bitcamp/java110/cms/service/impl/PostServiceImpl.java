@@ -106,6 +106,11 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
+  public void updateCmt(PostCmt postCmt) {
+    postCmtDao.updateCmt(postCmt);
+  }
+  
+  @Override
   public List<Post> list(Map<String, Object> params) {
     List<Post> posts = null;
     

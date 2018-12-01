@@ -16,6 +16,7 @@ public interface PostService {
     void addCmt(PostCmt postCmt);
     void delete(int no);
     void deleteCmt(int pcno);
+    void updateCmt(PostCmt postCmt);
     /* JEAHA 작업영역 */
     List<Post> getMyPostList(int mno);
     Boolean deletePost(int pstno);
