@@ -8,6 +8,8 @@ temp/
 Debug/
 Release/
 
+.bin
+.bin/
 .DS_Store
 .classpath
 .project
