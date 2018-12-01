@@ -17,7 +17,6 @@ import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
-import bitcamp.java110.cms.dao.PostHashtagDao;
 import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
@@ -39,7 +38,6 @@ public class MemberServiceImpl implements MemberService {
   @Autowired MlogDao logDao;
   @Autowired PostDao postDao;
   @Autowired PostCmtDao postCmtDao;
-  @Autowired PostHashtagDao tagDao;
   @Autowired ReportDao rptDao;
   @Autowired SceneAlbumDao lbmDao;
   @Autowired SceneReviewDao srDao;
@@ -142,7 +140,6 @@ public class MemberServiceImpl implements MemberService {
     lbmDao.signOut3(mno);
     System.out.println("SignOut Process 3");
     rptDao.signOut(mno);
-    tagDao.signOut(mno);
     System.out.println("SignOut Process 4");
     postCmtDao.signOut(mno);
     System.out.println("SignOut Process 5");

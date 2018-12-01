@@ -62,7 +62,7 @@ public class ReviewFeedController {
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", "x");
     
-    model.addAttribute("postList", postService.list(params));
+    model.addAttribute("postList", postService.getPosts(params));
     
     
     return "reviewFeed/reviewFeedList";
@@ -84,7 +84,7 @@ public class ReviewFeedController {
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", pstno);
     
-    List<Post> postsResult = postService.list(params); 
+    List<Post> postsResult = postService.getPosts(params); 
     
     resultMap.put("postsResult", postsResult);
     
@@ -104,7 +104,7 @@ public class ReviewFeedController {
   
   // 댓글 삭제
   @RequestMapping("deleteCmt")
-  public @ResponseBody void deleteComment(@RequestBody Map<String, Object> request) {
+  public @ResponseBody void deleteCmt(@RequestBody Map<String, Object> request) {
     int pcno = Integer.valueOf((String)request.get("pcno"));
     postService.deleteCmt(pcno);
   }
@@ -113,7 +113,6 @@ public class ReviewFeedController {
   @RequestMapping("editCmt")
   public void editComment(int srno, int mvno, 
       PostCmt comment) {
-    
     postService.updateCmt(comment);
   }
   
@@ -125,7 +124,7 @@ public class ReviewFeedController {
     
     Map<String, Object> resultMap = new HashMap<>();
     int pstno = Integer.valueOf((String)request.get("pstno"));
-    List<PostCmt> cmtsResult = postService.findCmts(pstno);
+    List<PostCmt> cmtsResult = postService.getCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
     return resultMap;
   }
@@ -140,9 +139,8 @@ public class ReviewFeedController {
 
     Member m = (Member)session.getAttribute("loginUser");
     post.setMno(m.getMno());
-
     List<String> filenames = new ArrayList<>();
-
+    
     // 사진 데이터 처리
     for(int i=0;i<files.length;i++) {
       MultipartFile file = files[i];
@@ -155,15 +153,7 @@ public class ReviewFeedController {
     }
     post.setPhotos(filenames);
 
-    // 해시 태그 처리
-    Pattern MY_PATTERN = Pattern.compile("#(\\S+)"); 
-    Matcher mat = MY_PATTERN.matcher(post.getContent()); 
-    List<String> strs=new ArrayList<String>(); 
-    while (mat.find()) { 
-      strs.add(mat.group(1)); 
-    } 
-    post.setHtags(strs);
-    postService.add(post);
+    postService.addPost(post);
 
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
@@ -176,6 +166,7 @@ public class ReviewFeedController {
       int postId,
       HttpServletRequest request) {
     postService.deletePost(postId);
+    
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
@@ -187,7 +178,7 @@ public class ReviewFeedController {
       int postId,
       HttpServletRequest request) {
     System.out.println(postId + " update REQUEST");
-    System.out.println(postService.get(postId));
+    System.out.println(postService.getOnePost(postId));
     return null;
   }
   
@@ -198,11 +189,13 @@ public class ReviewFeedController {
       Model model,
       HttpSession session) {
     
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", ((Member)session.getAttribute("loginUser")).getMno());
+    params.put("prevpstno", "only");
     List<Post> list =
-        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
+        postService.getPosts(params);
     
     model.addAttribute("postList", list);
-    System.out.println("list출력\t:"+list+"\n");
     return "include/myFeed";
   }
 }

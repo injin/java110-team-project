@@ -50,7 +50,7 @@ public class MainController {
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
     }
     
-    List<Post> topMpList = postService.listTopMp(); //핫리뷰리스트
+    List<Post> topMpList = postService.getHotPosts(); //핫리뷰리스트
     model.addAttribute("topMpList", topMpList);
     
     List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
@@ -79,7 +79,7 @@ public class MainController {
     List<Member> memberList = memberService.findByNick(keyword);
     
     // 해쉬태그
-    List<Post> hashList = postService.findByKeyword(keyword);
+    List<Post> hashList = postService.keywordPosts(keyword);
     
     // 영화 찾기
     MovieResultsPage response = tmdbSearch.searchMovie(

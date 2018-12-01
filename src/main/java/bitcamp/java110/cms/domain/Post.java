@@ -23,7 +23,6 @@ public class Post implements Serializable {
 
   protected Member member;
   protected List<String> photos;
-  protected List<String> htags;
   protected List<Member> ftags;
   protected String ftagsForAdd;
   
@@ -120,18 +119,12 @@ public class Post implements Serializable {
   public void setPhotos(List<String> photos) {
     this.photos = photos;
   }
-  public List<String> getHtags() {
-    return htags;
-  }
-  public void setHtags(List<String> htags) {
-    this.htags = htags;
-  }
   @Override
   public String toString() {
     return "\n[pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
-        + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
+        + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
         + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
   
