@@ -550,10 +550,55 @@ td {
                     $('#pCmt').val('');
                 }
             });
-            
-            $('#deleteCommentForm input[name="pcno"]').val(pcno);
-            $('#deleteCommentForm').submit();
         }
+        
+        function showEditForm(obj) {
+            
+            $(obj).hide();
+            var $divCont = $(obj).parent().parent().parent();
+            console.log($divCont);
+            /* var contStr = $divCont.data('content').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+            var editHtml = '<div class="card mb-2">';
+            editHtml += '<div class="media" style="padding: .5rem;">';
+            editHtml += '    <div>';
+            editHtml += '        <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="login-profileImage">';
+            editHtml += '        <div style="text-align: -webkit-center;">${sessionScope.loginUser.nickname}</div>';
+            editHtml += '    </div>';
+            editHtml += '    <div class="media-body text-right">';
+            editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment"></textarea>';
+            editHtml += '    </div>';
+            editHtml += '    <button type="button" class="btn btn-dark mt-2" onclick="addCmt()" style="height: 3rem; padding: 0 .5rem;">';
+            editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
+            editHtml += '    </button>';
+            editHtml += '</div>';
+            editHtml += '</div>';
+        
+            $divCont.html(editHtml); */
+        }
+        
+        /* function editComment(cmno) {
+            var contVal = $('#textarea-cmt-' + cmno).val();
+            if (contVal == '') {
+                alert('댓글을 입력해 주세요');
+                return;
+            }
+            
+            $.ajax({
+                type:'POST',
+                url:'/app/reviewFeed/editCmt',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({ 
+                    "pcno" : pcno.toString()
+                    }),
+                success:function(data){
+                    console.log('modal에서 댓글 삭제');
+                    listCmt($('#dpstno').val());
+                    $('#pCmt').val('');
+                }
+            });
+        } */
         
          // 무한스크롤
         function morePostHtml(data){

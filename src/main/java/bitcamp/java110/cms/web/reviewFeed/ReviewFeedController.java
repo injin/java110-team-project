@@ -24,6 +24,7 @@ import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
+import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -93,15 +94,13 @@ public class ReviewFeedController {
   
   // 댓글 추가
   @PostMapping("addCmt")
-  public String addCmt(PostCmt comment,
+  public @ResponseBody void addCmt(PostCmt comment,
                     HttpSession session) throws Exception {
 
     Member member = (Member)session.getAttribute("loginUser");
     comment.setMno(member.getMno());
     
     postService.addCmt(comment);
-    
-    return "redirect:list";
   }
   
   // 댓글 삭제
@@ -110,6 +109,17 @@ public class ReviewFeedController {
     int pcno = Integer.valueOf((String)request.get("pcno"));
     postService.deleteCmt(pcno);
   }
+  
+  /*// 댓글 수정
+  @RequestMapping("editCmt")
+  public String editComment(int srno, int mvno, 
+      SceneReviewCmt comment) {
+    
+    postService.updateCmt(comment);
+    
+    return "redirect:/app/sceneReview/review?mvno=" + mvno
+        + "&srno=" + srno;
+  }*/
   
   // 댓글 목록
   @RequestMapping("listCmt")
