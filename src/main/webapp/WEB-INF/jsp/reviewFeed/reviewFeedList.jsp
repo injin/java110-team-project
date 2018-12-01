@@ -246,6 +246,7 @@ td {
                                         showCont("${post.content}",
                                                 "${post.pstno}");
                                     </script>
+<<<<<<< HEAD
 								</p>
 							</div>
 							<c:if test="${post.photos[0] !=null}">
@@ -356,6 +357,116 @@ td {
 	<script src="/js/typeahead.bundle.min.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script>
+=======
+                                </p>
+                            </div>
+                            <c:if test="${post.photos[0] !=null}">
+
+
+                                <%-- 이미지 클릭시 상세모달로 --%>
+                                <img onclick="openDetailModal(${post.pstno})"
+                                    src="/upload/post/${post.photos[0]}" data-title="${post.title}"
+                                    style="width: 20rem; height: 13rem; margin-left: 1rem;" />
+                                <input type="hidden" data-toggle="modal" id="detailPst"
+                                    data-target="#detailModal" />
+
+                            </c:if>
+                        </div>
+
+                        <div class="row">
+
+                            <%-- 좋아요 --%>
+                            <div class="col-6" style="text-align: left;">
+                                <a href="#" style="color: black"> <i
+                                    class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+                                </a> <a href="#" style="color: black"> <i
+                                    class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
+                                </a>
+                            </div>
+
+                            <%-- 별점 --%>
+                            <c:if test="${post.pstTypeNo ==0}">
+                                <div class='col-6' style="text-align: right;">
+                                    <c:if test="${0 ne post.star}">
+                                        <c:forEach begin="1" end="5" var="x">
+                                            <c:choose>
+                                                <c:when test="${x le post.star}">
+                                                    <i class="fas fa-star sStar"></i>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <i class="far fa-star sStar"></i>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:if>
+                                </div>
+                            </c:if>
+
+                        </div>
+
+                    </div>
+                </c:if>
+            </c:forEach>
+
+            <jsp:include page="writingPost.jsp"></jsp:include>
+            <jsp:include page="detailPost.jsp"></jsp:include>
+        </div>
+
+        <%-- 맞춤영화 추천 부분 --%>
+        <c:choose>
+            <c:when test="${not empty sessionScope.loginUser}">
+                <div class="col-4">
+                    <div class="wPost" style="text-align: center; padding: 0;">
+                        <div style="padding: 0.5rem 0;background-color:#ccc;border-radius: 0.5rem 0.5rem 0 0;">${sessionScope.loginUser.nickname}의맞춤
+                            영화</div>
+                        <table>
+                            <colgroup>
+                                <col width="25%" />
+                                <col width="35%" />
+                                <col width="35%" />
+                            </colgroup>
+                            <c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
+
+                                <tr onclick="toDetail(${smlrMv.id})" class="trData">
+                                    <td><c:choose>
+                                            <c:when test="${not empty smlrMv.posterPath}">
+                                                <img class="smlrImg"
+                                                    src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
+                                                    alt="${smlrMv.title}" />
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img class="smlrImg" src="/img/default-movie-img.png"
+                                                    alt="${smlrMv.title}" />
+                                            </c:otherwise>
+                                        </c:choose></td>
+                                    <td>${smlrMv.title}</td>
+                                    <td class="col"><span class="row" style="display: block;">${smlrMv.releaseDate}</span>
+                                        <span class="row" style="display: block;">
+                                            <%-- ${smlrMv.genres} --%>장르
+                                    </span></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+
+                    </div>
+
+                    <div class="wPost" style="text-align: center; padding: 0.5rem 0;background-color:#ccc;">
+                        <a href="/app/rcmd/anly" style="color: black;">더 많은 추천 영화 보기</a>
+                    </div>
+                </div>
+            </c:when>
+
+        </c:choose>
+    </div>
+
+    <jsp:include page="../include/footer.jsp"></jsp:include>
+    <script src="/js/jquery-ui.js"></script>
+    <script src="/js/starrr.js"></script>
+    <script src="/js/bootstrap-tagsinput.min.js"></script>
+    <script src="/js/typeahead.bundle.min.js"></script>
+    <script src="/js/writingPost.js"></script>
+    <script>
+>>>>>>> j2
 
         var flwList = [];
         <c:forEach items="${userFlwList}" var="lst">
