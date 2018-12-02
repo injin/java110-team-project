@@ -8,9 +8,9 @@
   metadata-complete="false">
 
     <description>
-             미니프로젝트로 [수업 관리 시스템]을 구현한 웹 애플리케이션이다.
+            영화 장면리뷰 SNS를 구현한 웹 애플리케이션이다.
     </description>
-    <display-name>Classroom Management System</display-name>
+    <display-name>Moviestagram</display-name>
     
     <!-- 컨텍스트 초기화 파라미터 설정 -->
     

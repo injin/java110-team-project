@@ -7,9 +7,3 @@
     <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script src="/js/bootstrap.bundle.js"></script>
     <script src="/js/common.js"></script>
-
-<footer class="footer">
-  <div class="container">
-    <span class="text-muted">Place sticky footer content here.</span>
-  </div>
-</footer>

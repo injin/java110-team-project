@@ -198,10 +198,7 @@ public class ReviewFeedController {
   
   // 포스트 가져오기
   @RequestMapping("/edit")
-  public @ResponseBody Post edit (
-      int postId) {
-    System.out.println("Call post" + postId);
-    System.out.println(postService.getOnePost(postId));
+  public @ResponseBody Post edit (int postId) {
     return postService.getOnePost(postId);
   }
   

@@ -85,6 +85,12 @@ background-color: #d5dae0; }
   height: 2.5em;
   border-radius: 100%;
 }
+.profile-large {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  border-radius: 100%;
+}
 
 /*==== top 버튼 ==== */
 .return-top{
