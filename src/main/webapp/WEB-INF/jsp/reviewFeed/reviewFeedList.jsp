@@ -59,14 +59,8 @@
 
 .reviewCont {
 	height: 13rem;
-	-ms-text-overflow: ellipsis;
-	-o-text-overflow: ellipsis;
-	text-overflow: ellipsis;
-	white-space: pre-line;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: pre-line;
 	word-break: break-all;
+	overflow: auto;
 }
 
 .smlrImg {
@@ -134,8 +128,7 @@ td {
                                             + "'>"
                                             + value2 + "&nbsp;</a></span>" + str);
                                 } else {
-                                    newHTML += "<span class='other'>" + value2
-                                            + "&nbsp;</span>" + str;
+                                    newHTML +=  (value2+ str);
                                 }
                             });
                 });
@@ -145,7 +138,12 @@ td {
     function showCont(cont, index) {
         var newHTML = makeContHtml(cont, index);
         document.getElementById('reviewCont-' + index).innerHTML = newHTML;
+        console.log(newHTML);
     }
+    
+    function countLines(index) {
+    }
+    
 </script>
 
 </head>
@@ -756,7 +754,7 @@ td {
                     html += '   </div>';
             }  
             
-            $('#pstShw').append(html);  
+            $('#pstShw').append(html); 
         }
         
         $(window).scroll(function() {
