@@ -49,6 +49,10 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     
+    // Apache Tiles 라이브러리
+    compile group: 'org.apache.tiles', name: 'tiles-core', version: '3.0.8'
+    compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.8'
+    
     compile 'com.google.guava:guava:23.0'
     testCompile 'junit:junit:4.12'
     compile group: 'info.movito', name: 'themoviedbapi', version:'1.8'

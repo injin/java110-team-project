@@ -12,7 +12,7 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
 
 @Controller
-@RequestMapping("/flw")
+@RequestMapping("/follow")
 public class FlwController {
 
     @Autowired
@@ -25,20 +25,16 @@ public class FlwController {
             HttpSession session) {
         
         int mno = ((Member)session.getAttribute("loginUser")).getMno();
-        
         paging.setTotalCount(flwService.getTotalCnt(mno));
-        
         
         Map<String,Object> condition = new HashMap<>();
         condition.put("mno", mno);
         condition.put("paging", paging);
         List<Member> flwList = flwService.list(condition);
-        System.out.println("페이징 정보" + paging.toString());
         
         model.addAttribute("flwlist" , flwList);
         model.addAttribute("paging" , paging);
         return "follow/flwlist";
-
     }
 
  
