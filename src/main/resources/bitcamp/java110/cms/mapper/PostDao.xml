@@ -280,7 +280,7 @@ limit 15
     </delete>
         
     <update id="updatePost" parameterType="post">
-
+        
        UPDATE mv_post
        <trim prefix="SET" suffixOverrides=",">
           <if test="mvno != null">mvno = #{mvno},</if>
