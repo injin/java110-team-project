@@ -31,7 +31,7 @@ public class Post implements Serializable {
   public boolean isLikeCheck() {
     return likeCheck;
   }
-  public void setLikeCheck(boolean likeCheck) {
+  public void setLikeCheck(Boolean likeCheck) {
     this.likeCheck = likeCheck;
   }
   public String getFtagsForAdd() {

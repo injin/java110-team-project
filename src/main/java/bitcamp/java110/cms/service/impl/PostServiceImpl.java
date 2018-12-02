@@ -41,7 +41,9 @@ public class PostServiceImpl implements PostService {
     }else {
       posts =postDao.findSome(params);
     }
-
+    
+    
+    
     for(int i=0;i<posts.size();i++)
     {
       System.out.println(posts.get(i).isLikeCheck());
