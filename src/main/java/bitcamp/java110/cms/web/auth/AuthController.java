@@ -74,11 +74,6 @@ public class AuthController {
     public String signout(
         HttpSession session,
         @RequestParam(required=false)int mno) {
-      //    비로그인 유저가 들어온다면 돌려보냄. 안되네?
-      if (session.getAttribute("loginUser") == null) {
-        System.out.println("null?");
-        return "redirect:/app/";
-      }
       
       authService.signOut(mno);
       System.out.println("Bye" + mno + "\n");
@@ -185,6 +180,7 @@ public class AuthController {
     //  상시 상세정보 수정 update
     @PostMapping("/update")
     public String update(
+        HttpServletRequest request,
         Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
@@ -223,6 +219,9 @@ public class AuthController {
       session.setAttribute("loginUser", member);
       System.out.println("Controller Send Member To Service");
       memberService.update(member);
-      return "redirect:/app/";
+      
+      String originPath = request.getHeader("referer");
+      return "redirect:" + originPath.substring(
+          originPath.indexOf("/app"));
     }
 }

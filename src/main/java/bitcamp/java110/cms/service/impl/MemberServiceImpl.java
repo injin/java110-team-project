@@ -70,10 +70,7 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void update(Member member) {
     System.out.println("Service Recieve Member\n :\t" + member);
-    
-    System.out.println("member.getCoverImage() : " + member.getCoverImage());
     memberDao.update(member);
-    System.out.println("service update member");
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
     
@@ -106,6 +103,7 @@ public class MemberServiceImpl implements MemberService {
         saveMvId(member.getFavMvList().get(i).getMvno());
       }
     }
+    System.out.println("service update member");
   }
   
   protected void saveMvId (int mvno) {
