@@ -54,17 +54,13 @@ public class RecommendServiceImple implements RecommendService {
   }
   @Override
   public List<MovieDb> getList(int thmno){
-//    System.out.println("\nthmno : " + thmno);
     List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
     List<MovieDb> mvList = new ArrayList<>(); 
-//    System.out.println(idList.toString());
     for (int i = 0; i < idList.size(); i++) {
       int id = (int)idList.get(i);
       MovieDb mv = getMvById(id);
       mvList.add(mv);
     }
-    
-    System.out.println("Service return mvList");
     return mvList;
   }
 

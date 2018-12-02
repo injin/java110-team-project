@@ -71,11 +71,9 @@
     </div>
   </section>
   <br>
-  <!-- 
   <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이">
   추천 기준
   </button>
-   -->
   <br>
 <%-- ========================================================================================== --%>
   <section id="random-base-section" style="display: none;">
@@ -94,10 +92,6 @@
 
       </div>
     </div>
-  <br>
-  <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이 좋아하신 영화를 기준으로 비슷한 영화 목록을 가져왔어요.">
-  추천 기준
-  </button>
   <br>
   <hr>
   </section>
@@ -164,7 +158,10 @@
       </div>
     </div>
   </section>
-  <%-- ========================================================================================== --%>
+<%-- ========================================================================================== --%>
+  <hr>
+  <br>
+<%-- ========================================================================================== --%>
   <section id="now-section" style="display: none;">
   <hr>
     <h3>현재 상영작</h3>

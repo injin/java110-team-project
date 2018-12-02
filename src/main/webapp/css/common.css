@@ -6,7 +6,7 @@ h1,h2,h3,h4,h5,h6 {
 
 body {
   min-height: 75rem;
-  padding-top: 3.5rem;
+  padding-top: 2.5rem;
 }
 main {
     min-height: 75rem;
@@ -31,6 +31,11 @@ main {
 }
 .dis-none {
     display: none;
+}
+
+/* HEADER SIZE */
+.navbar {
+    padding: 0rem;
 }
 
 /*==== 마이페이지 메뉴 ==== */

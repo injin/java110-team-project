@@ -1,6 +1,7 @@
 //  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseItems = $('#random-base-items');
+var $randomBaseTitle = $('#randomBaseTitle');
 //TheMovieDb에서 nowPlayingMovieList 가져오기.
 var $nowSection = $('#now-section');
 var $nowItems = $('#now-items');
@@ -23,12 +24,14 @@ function getSimilarBaseFavList(){
       $randomBaseSection.hide();
     },
     success: function(data) {
+      console.log(data.triggerTitle);
       if (jQuery.isEmptyObject(data)) {
         print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
       }  else {
         print = makeHtml(data);
       }
       $randomBaseItems.html(print);
+      $randomBaseTitle.html('좋아하신 "' + data.triggerTitle + '"의 비슷한 작품들.');
     },
     complete: function() {
       $randomBaseSection.show();
@@ -98,7 +101,7 @@ function getNowList(){
 }
 
 function makeHtml(data) {
-	console.log(data);
+//	console.log(data);
   var html = '';
   data.list.forEach(function(obj, idx) {
     html += '<div class="item" onclick="toDetail('+obj.id+')">';
@@ -152,9 +155,7 @@ function Carousel(carouselId) {
 
   function smoothScroll(move) {
     var element = $(items);
-    console.log(element)
     var delta = element.scrollLeft() - move;
-    console.log(delta)
     element.animate({
       scrollLeft: delta
     }, 500);
@@ -229,10 +230,6 @@ nowBase.setRightScrollOpacity();
 var upcommingBase = new Carousel('#upcommingCarousel');
 upcommingBase.setLeftScrollOpacity();
 upcommingBase.setRightScrollOpacity();
-
-function click() {
-  console.log('clicked');
-}
 
 function toDetail(id) {
   console.log(id);

@@ -46,9 +46,9 @@
         </ul>
         
         <form action="<c:url value='/app/searchResult'/>" class="form-inline my-2 my-lg-0" method="get">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" 
+          <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" 
                 aria-label="Search" name="keyword" id="keyword" autocomplete="off">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          <button class="btn btn-outline-primary btn-sm my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </div>
