@@ -205,6 +205,7 @@ limit 15
             p.star,
             p.cont,
             0 as likes,
+            p.cdt,
             (p.opn ='u') opn,
             m.nick,
             m.p_phot

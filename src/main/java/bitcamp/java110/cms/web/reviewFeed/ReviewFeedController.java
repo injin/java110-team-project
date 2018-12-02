@@ -184,6 +184,27 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
   
+  // 포스트 가져오기
+  @RequestMapping("/editor")
+  public @ResponseBody Post edit (int postId) {
+    return postService.getOnePost(postId);
+  }
+  
+  // 포스트 수정
+  @RequestMapping("/update")
+  public String updatePost (
+      Post post,
+      MultipartFile[] files,
+      HttpSession session,
+      HttpServletRequest request) throws Exception {
+    
+    
+    
+    String originPath = request.getHeader("referer");
+    return "redirect:" + originPath.substring(
+        originPath.indexOf("/app"));
+  }
+  
   // 포스트 삭제
   @RequestMapping("/delete")
   public String delete (
@@ -194,22 +215,6 @@ public class ReviewFeedController {
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
-  }
-  
-  // 포스트 가져오기
-  @RequestMapping("/edit")
-  public @ResponseBody Post edit (int postId) {
-    return postService.getOnePost(postId);
-  }
-  
-  // 포스트 수정
-  @RequestMapping("/update")
-  public String update (
-      int postId,
-      HttpServletRequest request) {
-    System.out.println(postId + " update REQUEST");
-    System.out.println(postService.getOnePost(postId));
-    return null;
   }
   
   // 마이페이지-나의피드
@@ -223,7 +228,7 @@ public class ReviewFeedController {
     params.put("mno", ((Member)session.getAttribute("loginUser")).getMno());
     params.put("prevpstno", "only");
     List<Post> list =
-        postService.getPosts(params);
+        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
     
     model.addAttribute("postList", list);
     return "include/myFeed";

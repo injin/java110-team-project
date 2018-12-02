@@ -9,12 +9,13 @@ public interface PostService {
   
     /* 포스트 */
     List<Post> getPosts(Map<String, Object> params);
+    List<Post> getMyPostList(int mno);
     Post getOnePost(int pstno);
     List<Post> keywordPosts(String keyword);
     List<Post> getHotPosts();
     void addPost (Post post);
     Boolean deletePost(int pstno);
-    String updatePost(Post post);
+    void updatePost(Post post);
     
     /* 댓글 */
     List<PostCmt> getCmts(int no);
