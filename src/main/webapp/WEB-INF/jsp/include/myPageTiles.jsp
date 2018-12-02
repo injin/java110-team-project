@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="t" %>
 
 <!DOCTYPE html>
 <html>
@@ -35,9 +36,9 @@
                         <tr class="d-flex">
                           <th scope="col" class="col-2 text-center"><a href="#">나의피드</a></th>
                           <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">활동로그</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="">통계</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></th>
                           <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
                         </tr>
                       </thead>
@@ -48,11 +49,8 @@
                 <div class="row pl-3 pr-3">
                     <!-- 작업공간 START -->
                     
-                    
-                    
-                    
-                    
-                    
+                    <jsp:include page="../include/scriptInclude.jsp"></jsp:include>
+                    <t:insertAttribute name="body"/>
                     
                     <!-- 작업공간 END -->
                 </div>
@@ -62,9 +60,6 @@
 
     </main>
 
-    <jsp:include page="../include/footer.jsp"></jsp:include>
-    <script type="text/javascript">
-        
-    </script>
+    <jsp:include page="../include/footer2.jsp"></jsp:include>
 </body>
 </html>

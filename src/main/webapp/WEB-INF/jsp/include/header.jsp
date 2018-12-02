@@ -31,7 +31,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                   <!-- <a class="dropdown-item" href="#">메뉴1</a> -->
-                  <a class="dropdown-item" href="<c:url value='/app/mloglist'/>">Log</a>
+                  <a class="dropdown-item" href="<c:url value='/app/log/mloglist'/>">Log</a>
                   <a class="dropdown-item" href="javascript:logoutKakao()">Logout</a>
                 </div>
               </li>

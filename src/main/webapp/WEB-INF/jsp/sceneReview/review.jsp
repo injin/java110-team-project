@@ -236,6 +236,7 @@
         target: "_blank"
     });
     
+    
     /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
@@ -448,7 +449,7 @@
       if (address != null) marker.address = address;
     }
     
-    <c:if test="${not empty loginUser}">
+    <c:if test="${not empty loginUser && sceneReview.trgtSrExist == true}">
         google.maps.event.addDomListener(window, 'load', initialize);
     </c:if>
     
