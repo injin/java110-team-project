@@ -249,8 +249,17 @@ td {
 
                             <%-- 좋아요 --%>
                             <div class="col-6" style="text-align: left;">
-                                <a href="#" style="color: black"> <i
-                                    class="far fa-thumbs-up btmIcon" style="color: red;"></i>${post.likeCnt}
+                                <a href="#" style="color: black">
+                                <c:out value="${post.likeCheck}"/>
+                                <c:choose>
+                                <c:when test="${post.likeCheck}">
+                                <i class="fas fa-thumbs-up btmIcon" style="color: red;"></i>
+                                </c:when>
+                                <c:otherwise> 
+                                <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>
+                                </c:otherwise>
+                                </c:choose>
+                                ${post.likeCnt}
                                 </a> <a href="#" style="color: black"> <i
                                     class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
                                 </a>
@@ -379,7 +388,7 @@ td {
         </c:forEach> 
             
             
-            var lstpstno = '${lastpstno}';
+         var lstpstno = '${lastpstno}';
          function openDetailModal(pstno) {
              
              for (var i=0; i<postList.length; i++) {
@@ -655,9 +664,16 @@ td {
                     
                     html += '       <div class="row">';
                     html += '           <div class="col-6" style="text-align: left;">';
-                    html += '              <a href="#" style="color: black">'; 
-                    html += '               <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>';
-                    html +=                 0; // 좋아요개수임
+                    html += '              <a href="#" style="color: black">';
+                    
+                    html+= data.postsResult[i].likeCheck;
+                    
+                    if(data.postsResult[i].likeCheck){
+                    html += '               <i class="fas fa-thumbs-up btmIcon" style="color: red;"></i>';
+                    }else{
+                    html +='                <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>';
+                    }
+                    html += data.postsResult[i].likeCnt;
                     html += '               </a> <a href="#" style="color: black"> <i class="far fa-comment btmIcon"></i>';
                     html += '              </a>';
                     html += '           </div>';

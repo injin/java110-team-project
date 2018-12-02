@@ -62,7 +62,6 @@ public class ReviewFeedController {
     
     model.addAttribute("postList", postService.getPosts(params));
     
-    
     return "reviewFeed/reviewFeedList";
   }
 
@@ -83,7 +82,7 @@ public class ReviewFeedController {
     params.put("prevpstno", pstno);
     
     List<Post> postsResult = postService.getPosts(params); 
-    
+
     resultMap.put("postsResult", postsResult);
     
     return resultMap;

@@ -27,7 +27,7 @@
 		<result column="cdt" property="createdDate" />
 		<result column="mdt" property="modifiedDate" />
 		<result column="cont" property="content" />
-		<result column="likes" property="likeCnt" />
+		<result column="likes" property="likeCheck" />
 		<result column="star" property="star" />
 		<result column="opn" property="open" />
 		<association property="member" javaType="member">
@@ -47,7 +47,7 @@
           p.star,
           p.cont,
           p.cdt,
-          0 as likes,
+          if(isnull(lk.pstno), false, true) as likes,
           (p.opn ='u') opn,
           m.mno,
           m.nick,
@@ -65,6 +65,9 @@
           mv_post p
           inner join mv_memb m on m.mno = p.mno
           inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select pstno from mv_like where mno = #{mno} and (type = 'mp' or type = 'dp')
+          ) lk on lk.pstno = p.pstno
           left join (
             select mno, flw from mv_flw where mno = #{mno}
           ) f on f.flw = m.mno
@@ -85,7 +88,7 @@ select
           p.star,
           p.cont,
           p.cdt,
-          0 as likes,
+          if(isnull(lk.pstno), false, true) as likes,
           (p.opn ='u') opn,
           m.mno,
           m.nick,
@@ -93,7 +96,7 @@ select
           if(isnull(f.flw), 0, 10) as flwpoint,
     ROW_NUMBER() OVER( order by
           (time_point+flwpoint) desc,cdt desc) as rnum,
-        LAG(pstno) OVER(order by
+        LAG(p.pstno) OVER(order by
           (time_point+flwpoint) desc,cdt desc ) AS prevpstno,
     CASE  WHEN (now()-p.cdt)&lt;10800      THEN 20
              WHEN (now()-p.cdt)&lt;21600      THEN 15 
@@ -105,6 +108,9 @@ select
           mv_post p
           inner join mv_memb m on m.mno = p.mno
           inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select pstno from mv_like where mno = #{mno} and (type = 'mp' or type = 'dp')
+          ) lk on lk.pstno = p.pstno
           left join (
             select mno, flw from mv_flw where mno = #{mno}
           ) f on f.flw = m.mno

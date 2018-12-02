@@ -48,5 +48,4 @@ public class LikeServiceImpl implements LikeService {
     else
       return false;
   }
-
 }

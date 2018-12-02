@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FlwDao;
+import bitcamp.java110.cms.dao.LikeDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
@@ -25,7 +26,8 @@ public class PostServiceImpl implements PostService {
   @Autowired FlwDao flwDao;
   @Autowired PostCmtDao postCmtDao;
   @Autowired MovieAnlyDao movieAnlyDao;
-
+  @Autowired LikeDao likeDao;
+  
   /* 포스트 */
 
   @Override
@@ -42,8 +44,15 @@ public class PostServiceImpl implements PostService {
 
     for(int i=0;i<posts.size();i++)
     {
+      System.out.println(posts.get(i).isLikeCheck());
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
+      
+      HashMap<String, Object> lparams = new HashMap<>();
+      lparams.put("pstno", posts.get(i).getPstno());
+      lparams.put("type", (posts.get(i).getPstTypeNo()==0)?"mp":"dp");
+
+      posts.get(i).setLikeCnt(likeDao.findAll(lparams).size());
     }
     return posts;
   }

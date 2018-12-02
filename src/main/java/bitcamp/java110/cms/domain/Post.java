@@ -17,6 +17,7 @@ public class Post implements Serializable {
   protected Date modifiedDate;
   protected String content;
   protected int likeCnt;
+  protected boolean likeCheck;
   protected int star;
   protected boolean open;
   
@@ -27,8 +28,12 @@ public class Post implements Serializable {
   protected String ftagsForAdd;
   
   
-  
-  
+  public boolean isLikeCheck() {
+    return likeCheck;
+  }
+  public void setLikeCheck(boolean likeCheck) {
+    this.likeCheck = likeCheck;
+  }
   public String getFtagsForAdd() {
     return ftagsForAdd;
   }
@@ -121,11 +126,10 @@ public class Post implements Serializable {
   }
   @Override
   public String toString() {
-    return "\n[pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-        + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
-        + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
+        + ", content=" + content + ", likeCnt=" + likeCnt + ", likeCheck=" + likeCheck + ", star="
+        + star + ", open=" + open + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
         + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
-  
 }

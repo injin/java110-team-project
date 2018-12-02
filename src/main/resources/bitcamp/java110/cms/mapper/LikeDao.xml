@@ -12,6 +12,13 @@
            AND mno = #{mno}
     </select>
     
+     <select id="findAll" parameterType="map" resultType="like">
+        SELECT pstno, type, mno
+          FROM mv_like
+         WHERE pstno = #{pstno}
+           AND type = #{type}
+    </select>
+    
     <insert id="add" parameterType="like">
         INSERT INTO mv_like(pstno, type, mno)
         VALUES (#{pstno}, #{type}, #{mno})

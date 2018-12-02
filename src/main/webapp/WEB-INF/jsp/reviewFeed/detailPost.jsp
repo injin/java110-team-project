@@ -59,9 +59,9 @@
 						<%-- 좋아요 --%>
 						<div class="col-6" style="text-align: left;">
 							<a href="#" style="color: black"> <i
-								class="far fa-thumbs-up btmIcon" style="color: red;"></i><%-- 좋아요개수 --%>
+								class="far fa-thumbs-up btmIcon" style="color: red;"></i>
 							</a> <a href="#" style="color: black"> <i
-								class="far fa-comment btmIcon"></i><%-- 댓글개수 --%>
+								class="far fa-comment btmIcon"></i>
 							</a>
 						</div>
 
