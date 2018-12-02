@@ -13,6 +13,7 @@ import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
@@ -61,9 +62,17 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public Post getOnePost(int pstno) {
-    
-    return postDao.findByNo(pstno);
+  public Post getOnePost(int pstNo) {
+    Post post = (Post)postDao.findByNo(pstNo);
+    List<String> photos = postPhotoDao.findByNo(pstNo);  
+    if ( photos != null && photos.size() > 0) {
+      post.setPhotos(photos);
+    }
+    List<Member> ftags = flwDao.listForPost(pstNo);
+    if ( ftags != null && ftags.size() > 0) {
+      post.setFtags(ftags);
+    }
+    return post;
   }
 
   @Override

@@ -295,8 +295,6 @@
   /* UPDATE 대체 어떻게 하는거야!! */
   
   function updatePost(id){
-    console.log(id);
-    console.log("UPDATE 대체 어떻게 하는거야!!");
     //openEditingModal();
      $.ajax({
       url: "/app/reviewFeed/edit",
@@ -307,6 +305,13 @@
     		  console.log('null object');
     	  } else {
     		  console.log(data);
+    		  if(pstTypeNo = 1){
+                openEditingModal(data);
+    		  } else {
+                openEditingModal(data);
+    		  }
+    		  
+    		  
     	  }
       },
       error: (xhr, status, msg) => {
