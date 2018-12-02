@@ -49,8 +49,9 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public Post getOnePost(int no) {
-    return postDao.findByNo(no);
+  public Post getOnePost(int pstno) {
+    
+    return postDao.findByNo(pstno);
   }
 
   @Override

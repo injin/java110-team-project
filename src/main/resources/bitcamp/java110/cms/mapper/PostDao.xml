@@ -144,7 +144,20 @@ limit 15
     </select>
     
 	<select id="findByNo" resultMap="postMap" parameterType="int">
-	   
+        SELECT
+            pstno,
+            mno,
+            ptno,
+            mvno,
+            cdt,
+            mdt,
+            cont,
+            star,
+            opn
+        FROM
+            mv_post
+        WHERE
+            pstno=#{psetno}
 	</select>
     
     <select id="listTopMp" resultMap="postMap2">
@@ -261,17 +274,21 @@ limit 15
     </delete>
         
     <update id="updatePost" parameterType="post">
-<!--
-       UPDATE mv_memb
+
+       UPDATE mv_post
        <trim prefix="SET" suffixOverrides=",">
-          <if test="nickname != null">nick = #{nickname},</if>
-          <if test="profileImage != null">p_phot = #{profileImage},</if>
-          <if test="coverImage != null">c_phot = #{coverImage},</if>
-          <if test="pr != null">pr = #{pr},</if>
+          <if test="mvno != null">mvno = #{mvno},</if>
+          <if test="content != null">cont = #{content},</if>
+          <if test="star != null">star = #{star},</if>
+          <if test="open != null">opn = #{open},</if>
        </trim>
        WHERE
-          mno=#{mno}
--->
+          pstno=#{pstno}
+          
+          <!--
+          UPDATE `mv_post` SET `pstno`=[value-1],`mno`=[value-2],`ptno`=[value-3],`mvno`=[value-4],`cdt`=[value-5],`mdt`=[value-6],`cont`=[value-7],`star`=[value-8],`opn`=[value-9] WHERE 1 
+           -->
+          
     </update>
     
 </mapper>
