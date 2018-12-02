@@ -250,18 +250,14 @@ td {
                             <%-- 좋아요 --%>
                             <div class="col-6" style="text-align: left;">
                                 <a href="#" style="color: black">
-                                <c:out value="${post.likeCheck}"/>
-                                <c:choose>
-                                <c:when test="${post.likeCheck}">
-                                <i class="fas fa-thumbs-up btmIcon" style="color: red;"></i>
-                                </c:when>
-                                <c:otherwise> 
-                                <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>
-                                </c:otherwise>
-                                </c:choose>
-                                ${post.likeCnt}
+                                <i class="fas fa-thumbs-up btmIcon <c:if test="${!post.likeCheck}">dis-none</c:if>"
+                                 id="btn-like-full" onclick="cancelLike(${post.pstno},${post.pstTypeNo})" style="color: red;"></i>
+                                <i class="far fa-thumbs-up btmIcon <c:if test="${post.likeCheck}">dis-none</c:if>"
+                                 id="btn-like-empty" onclick="addLike(${post.pstno},${post.pstTypeNo})"style="color: red;"></i>
+                                <span id="lCnt">${post.likeCnt}</span>
                                 </a> <a href="#" style="color: black"> <i
-                                    class="far fa-comment btmIcon"></i> <%-- 0댓글개수 --%>
+                                    class="far fa-comment btmIcon"></i> 
+                                    <span id="cCnt">${post.cmtCnt}</span>
                                 </a>
                             </div>
 
@@ -387,8 +383,9 @@ td {
             
         </c:forEach> 
             
-            
          var lstpstno = '${lastpstno}';
+         
+         /* ========== 모달상세 관련  ========== */         
          function openDetailModal(pstno) {
              
              for (var i=0; i<postList.length; i++) {
@@ -466,8 +463,38 @@ td {
              
             $('#detailModal').modal('show');
         }
-        
-         /* 댓글 리스트 받아오는 함수 */
+         
+         $('#detailModal').on('hidden.bs.modal', function (e) {
+             $(':input').val('');
+           })
+          
+         function toDetail(id) {
+            window.location.href = '/app/sceneReview/review?mvno='+ id;
+          }
+          
+         
+         /* ========== 댓글 관련  ========== */
+         function addCmt() {
+             var contVal = $('#addCmtForm textarea[name="content"]').val();
+             
+             if (contVal == '') {
+                 alert('내용을 입력해주세요.');
+                 return;
+             }
+             
+              $.ajax({
+                     type:'POST',
+                     url:'/app/reviewFeed/addCmt',
+                     data: { 
+                         "pstno" : $('#dpstno').val(),
+                         "content" : $('#pCmt').val()
+                         },
+                     success:function(data){
+                         listCmt($('#dpstno').val());
+                         $('#pCmt').val('');
+                     }
+                 });
+         }
         function listCmt(pstno) {
             $.ajax({
                 type:'POST',
@@ -479,13 +506,11 @@ td {
                     "pstno" : pstno.toString()
                 }),
                 success:function(data){
-                    console.log('modal로 댓글 리스트가져오기');
                     makeCmtHtml(data);
                 }
             });
         }
         
-         /* 댓글정보 html로 만드는 함수*/
         function makeCmtHtml(data) {
             var html = '';
               for (var i=0;i<data.cmtsResult.length;i++) {
@@ -537,7 +562,6 @@ td {
                     "pcno" : pcno.toString()
                     }),
                 success:function(data){
-                    console.log('modal에서 댓글 삭제');
                     listCmt($('#dpstno').val());
                     $('#pCmt').val('');
                 }
@@ -588,14 +612,14 @@ td {
                     "content" : contVal.toString()
                     }),
                 success:function(data){
-                    console.log('modal에서 댓글 수정');
                     listCmt($('#dpstno').val());
                     $('#pCmt').val('');
                 }
             });
         } 
         
-         // 무한스크롤
+        
+        /* ========== 피드 무한스크롤 ========== */
         function morePostHtml(data){
             var html = '';
              
@@ -666,17 +690,29 @@ td {
                     html += '           <div class="col-6" style="text-align: left;">';
                     html += '              <a href="#" style="color: black">';
                     
-                    html+= data.postsResult[i].likeCheck;
-                    
-                    if(data.postsResult[i].likeCheck){
-                    html += '               <i class="fas fa-thumbs-up btmIcon" style="color: red;"></i>';
-                    }else{
-                    html +='                <i class="far fa-thumbs-up btmIcon" style="color: red;"></i>';
+                    html += '<i class="fas fa-thumbs-up btmIcon';
+                    if(!data.postsResult[i].likeCheck){
+                        html += ' dis-none ';
                     }
+                    html += '"id="btn-like-full" onclick="cancelLike(';
+                    html += data.postsResult[i].pstno;
+                    html += ',';
+                    html += data.postsResult[i].pstTypeNo;
+                    html += ')" style="color: red;"></i>';
+                    html += '<i class="far fa-thumbs-up btmIcon';
+                    if(data.postsResult[i].likeCheck){
+                        html += ' dis-none ';
+                    }
+                    html += '"id="btn-like-empty" onclick="addLike(';
+                    html += data.postsResult[i].pstno;
+                    html += ',';
+                    html += data.postsResult[i].pstTypeNo;
+                    html += ')"style="color: red;"></i><span id="lCnt">';
                     html += data.postsResult[i].likeCnt;
-                    html += '               </a> <a href="#" style="color: black"> <i class="far fa-comment btmIcon"></i>';
-                    html += '              </a>';
-                    html += '           </div>';
+                    html += '               </span></a> <a href="#" style="color: black"> <i class="far fa-comment btmIcon"></i>';
+                    html += '              </a><span id="cCnt">';
+                    html +=  data.postsResult[i].cmtCnt;
+                    html += '           </span></div>';
                     
                     html += '   <div class="col-6" style="text-align: right;">';
                     if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
@@ -701,55 +737,64 @@ td {
             $('#pstShw').append(html);  
         }
         
-         function addCmt() {
-             var contVal = $('#addCmtForm textarea[name="content"]').val();
-             
-             if (contVal == '') {
-                 alert('내용을 입력해주세요.');
-                 return;
-             }
-             
-              $.ajax({
-                     type:'POST',
-                     url:'/app/reviewFeed/addCmt',
-                     data: { 
-                         "pstno" : $('#dpstno').val(),
-                         "content" : $('#pCmt').val()
-                         },
-                     success:function(data){
-                         listCmt($('#dpstno').val());
-                         $('#pCmt').val('');
-                     }
-                 });
-         }
+        $(window).scroll(function() {
+            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                
+                $.ajax({
+                    type:'POST',
+                    url:'/app/reviewFeed/morePost',
+                    headers : {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ 
+                        "pstno" : lstpstno
+                    }),
+                    success:function(data){
+                        morePostHtml(data);
+                    }
+                });
+            }
+          })
+          
+        /* ========== 좋아요 관련  ========== */
+        function addLike(pstno,pstTypeNo) {
+            $.ajax({
+                url : "/app/reviewFeed/addLike",
+                type: "post",
+                data : { 
+                    "pstno" : pstno,
+                    "pstTypeNo":pstTypeNo
+                    },
+                success : function(data) {
+                  console.log("좋아요 등록");
+                  $('#btn-like-full').show();
+                  $('#btn-like-empty').hide();
+                  $('#lCnt').text(parseInt($('#lCnt').text())+1);
+                }
+            });
+        }
+        
+        function cancelLike(pstno,pstTypeNo) {
+            $.ajax({
+                url : "/app/reviewFeed/cancelLike",
+                type: "post",
+                data : { 
+                    "pstno" : pstno,
+                    "pstTypeNo":pstTypeNo
+                    },
+                success : function(data) {
+                    console.log("좋아요 취소"); 
+                    $('#btn-like-empty').show();
+                    $('#btn-like-full').hide();
+                    $('#lCnt').text(parseInt($('#lCnt').text())-1);
+                }
+            });
+        }
+        
+        
          
-         $('#detailModal').on('hidden.bs.modal', function (e) {
-             $(':input').val('');
-           })
-         
-           function toDetail(id) {
-  window.location.href = '/app/sceneReview/review?mvno='+ id;
-}
-         
-         $(window).scroll(function() {
-             if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-                 
-                 $.ajax({
-                     type:'POST',
-                     url:'/app/reviewFeed/morePost',
-                     headers : {
-                         'Content-Type': 'application/json'
-                     },
-                     data: JSON.stringify({ 
-                         "pstno" : lstpstno
-                     }),
-                     success:function(data){
-                         console.log('더많은 postlist 요청함');
-                         morePostHtml(data);
-                     }
-                 });
-             }
-           })
+       
+      
          
     </script>
 </body>

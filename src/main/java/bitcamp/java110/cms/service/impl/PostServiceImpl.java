@@ -46,15 +46,16 @@ public class PostServiceImpl implements PostService {
     
     for(int i=0;i<posts.size();i++)
     {
-      System.out.println(posts.get(i).isLikeCheck());
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
+      posts.get(i).setCmtCnt(postCmtDao.findCmtList(posts.get(i).getPstno()).size());
       
       HashMap<String, Object> lparams = new HashMap<>();
       lparams.put("pstno", posts.get(i).getPstno());
       lparams.put("type", (posts.get(i).getPstTypeNo()==0)?"mp":"dp");
 
       posts.get(i).setLikeCnt(likeDao.findAll(lparams).size());
+      
     }
     return posts;
   }

@@ -23,6 +23,7 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.FlwService;
+import bitcamp.java110.cms.service.LikeService;
 import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -35,6 +36,7 @@ public class ReviewFeedController {
    @Autowired ServletContext sc;
    @Autowired FlwService flwService;
    @Autowired TmdbMovies tmdbMovies;
+   @Autowired LikeService likeService;
    @Autowired MovieAnlyDao anlyDao;
 
    // 처음 피드리스트화면에 들어갔을 때  
@@ -129,6 +131,24 @@ public class ReviewFeedController {
     List<PostCmt> cmtsResult = postService.getCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
     return resultMap;
+  }
+  
+  // 좋아요 추가
+  @RequestMapping("addLike")
+  public @ResponseBody void addLike(
+      HttpSession session, int pstno, int pstTypeNo) {
+    
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    likeService.addLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP, mno);
+  }
+  
+  // 좋아요 취소
+  @RequestMapping("cancelLike")
+  public @ResponseBody void cancelLike(
+      HttpSession session, int pstno, int pstTypeNo) {
+    
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    likeService.cancelLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP, mno);
   }
   
   // 포스트 추가

@@ -17,6 +17,7 @@ public class Post implements Serializable {
   protected Date modifiedDate;
   protected String content;
   protected int likeCnt;
+  protected int cmtCnt;
   protected boolean likeCheck;
   protected int star;
   protected boolean open;
@@ -28,6 +29,13 @@ public class Post implements Serializable {
   protected String ftagsForAdd;
   
   
+  
+  public int getCmtCnt() {
+    return cmtCnt;
+  }
+  public void setCmtCnt(int cmtCnt) {
+    this.cmtCnt = cmtCnt;
+  }
   public boolean isLikeCheck() {
     return likeCheck;
   }
