@@ -196,6 +196,15 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
   
+  // 포스트 가져오기
+  @RequestMapping("/edit")
+  public @ResponseBody Post edit (
+      int postId) {
+    System.out.println("Call post" + postId);
+    System.out.println(postService.getOnePost(postId));
+    return postService.getOnePost(postId);
+  }
+  
   // 포스트 수정
   @RequestMapping("/update")
   public String update (
