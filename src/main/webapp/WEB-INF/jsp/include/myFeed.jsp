@@ -305,7 +305,12 @@
     		  console.log('null object');
     	  } else {
     		  console.log(data);
-    		  openEditingModal(data);
+    		  if(pstTypeNo = 1){
+                openEditingModal(data);
+    		  } else {
+                openEditingModal(data);
+    		  }
+    		  
     		  
     	  }
       },
