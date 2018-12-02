@@ -135,20 +135,22 @@ public class ReviewFeedController {
   
   // 좋아요 추가
   @RequestMapping("addLike")
-  public @ResponseBody void addLike(
+  public @ResponseBody int addLike(
       HttpSession session, int pstno, int pstTypeNo) {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     likeService.addLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP, mno);
+    return likeService.listLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP).size();
   }
   
   // 좋아요 취소
   @RequestMapping("cancelLike")
-  public @ResponseBody void cancelLike(
+  public @ResponseBody int cancelLike(
       HttpSession session, int pstno, int pstTypeNo) {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     likeService.cancelLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP, mno);
+    return likeService.listLike(pstno, (pstTypeNo==0)?Constants.LOG_DO_TYPE_MP:Constants.LOG_DO_TYPE_DP).size();
   }
   
   // 포스트 추가

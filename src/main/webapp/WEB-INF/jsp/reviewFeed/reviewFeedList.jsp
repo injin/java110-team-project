@@ -249,16 +249,15 @@ td {
 
                             <%-- 좋아요 --%>
                             <div class="col-6" style="text-align: left;">
-                                <a href="#" style="color: black">
-                                <i class="fas fa-thumbs-up btmIcon <c:if test="${!post.likeCheck}">dis-none</c:if>"
-                                 id="btn-like-full" onclick="cancelLike(${post.pstno},${post.pstTypeNo})" style="color: red;"></i>
-                                <i class="far fa-thumbs-up btmIcon <c:if test="${post.likeCheck}">dis-none</c:if>"
-                                 id="btn-like-empty" onclick="addLike(${post.pstno},${post.pstTypeNo})"style="color: red;"></i>
-                                <span id="lCnt">${post.likeCnt}</span>
-                                </a> <a href="#" style="color: black"> <i
-                                    class="far fa-comment btmIcon"></i> 
-                                    <span id="cCnt">${post.cmtCnt}</span>
-                                </a>
+                                <i class="fas fa-thumbs-up btmIcon c-pointer <c:if test="${!post.likeCheck}">dis-none</c:if>"
+                                 id="btn-like-full-${post.pstno}" onclick="cancelLike(${post.pstno},${post.pstTypeNo})" style="color: red;"></i>
+                                <i class="far fa-thumbs-up btmIcon c-pointer <c:if test="${post.likeCheck}">dis-none</c:if>"
+                                 id="btn-like-empty-${post.pstno}" onclick="addLike(${post.pstno},${post.pstTypeNo});"style="color: red;"></i>
+                                <span id="lCnt-${post.pstno}">${post.likeCnt}</span>
+                                 <i
+                                    class="far fa-comment btmIcon c-pointer"></i> 
+                                    <span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
+                               
                             </div>
 
                             <%-- 별점 --%>
@@ -690,27 +689,35 @@ td {
                     html += '           <div class="col-6" style="text-align: left;">';
                     html += '              <a href="#" style="color: black">';
                     
-                    html += '<i class="fas fa-thumbs-up btmIcon';
+                    html += '<i class="fas fa-thumbs-up btmIcon c-pointer';
                     if(!data.postsResult[i].likeCheck){
                         html += ' dis-none ';
                     }
-                    html += '"id="btn-like-full" onclick="cancelLike(';
+                    html += '"id="btn-like-full-';
+                    html += data.postsResult[i].pstno;
+                    html += '" onclick="cancelLike(';
                     html += data.postsResult[i].pstno;
                     html += ',';
                     html += data.postsResult[i].pstTypeNo;
                     html += ')" style="color: red;"></i>';
-                    html += '<i class="far fa-thumbs-up btmIcon';
+                    html += '<i class="far fa-thumbs-up btmIcon c-pointer';
                     if(data.postsResult[i].likeCheck){
                         html += ' dis-none ';
                     }
-                    html += '"id="btn-like-empty" onclick="addLike(';
+                    html += '"id="btn-like-empty-';
+                    html += data.postsResult[i].pstno;
+                    html += '" onclick="addLike(';
                     html += data.postsResult[i].pstno;
                     html += ',';
                     html += data.postsResult[i].pstTypeNo;
-                    html += ')"style="color: red;"></i><span id="lCnt">';
+                    html += ')"style="color: red;"></i><span id="lCnt-';
+                    html += data.postsResult[i].pstno;
+                    html += '">';
                     html += data.postsResult[i].likeCnt;
-                    html += '               </span></a> <a href="#" style="color: black"> <i class="far fa-comment btmIcon"></i>';
-                    html += '              </a><span id="cCnt">';
+                    html += '               </span><i class="far fa-comment btmIcon c-pointer"></i>';
+                    html += '              <span id="cCnt-';
+                    html += data.postsResult[i].pstno;
+                    html += '">';
                     html +=  data.postsResult[i].cmtCnt;
                     html += '           </span></div>';
                     
@@ -758,7 +765,7 @@ td {
           
         /* ========== 좋아요 관련  ========== */
         function addLike(pstno,pstTypeNo) {
-            $.ajax({
+             $.ajax({
                 url : "/app/reviewFeed/addLike",
                 type: "post",
                 data : { 
@@ -766,12 +773,11 @@ td {
                     "pstTypeNo":pstTypeNo
                     },
                 success : function(data) {
-                  console.log("좋아요 등록");
-                  $('#btn-like-full').show();
-                  $('#btn-like-empty').hide();
-                  $('#lCnt').text(parseInt($('#lCnt').text())+1);
+                  $('#btn-like-full-'+pstno).show();
+                  $('#btn-like-empty-'+pstno).hide();
+                  $('#lCnt-'+pstno).text(data);
                 }
-            });
+            }); 
         }
         
         function cancelLike(pstno,pstTypeNo) {
@@ -783,18 +789,12 @@ td {
                     "pstTypeNo":pstTypeNo
                     },
                 success : function(data) {
-                    console.log("좋아요 취소"); 
-                    $('#btn-like-empty').show();
-                    $('#btn-like-full').hide();
-                    $('#lCnt').text(parseInt($('#lCnt').text())-1);
+                    $('#btn-like-empty-'+pstno).show();
+                    $('#btn-like-full-'+pstno).hide();
+                    $('#lCnt-'+pstno).text(data);
                 }
             });
         }
-        
-        
-         
-       
-      
          
     </script>
 </body>

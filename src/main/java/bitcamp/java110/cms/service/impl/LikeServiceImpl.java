@@ -1,5 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import bitcamp.java110.cms.dao.LikeDao;
@@ -47,5 +49,15 @@ public class LikeServiceImpl implements LikeService {
       return true;
     else
       return false;
+  }
+  
+  @Override
+  public List<Like> listLike(int pstno, String type){
+
+    HashMap<String, Object> lparams = new HashMap<>();
+    lparams.put("pstno", pstno);
+    lparams.put("type", type);
+
+    return likeDao.findAll(lparams);
   }
 }
