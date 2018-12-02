@@ -51,7 +51,7 @@
 						</div>
 					</div>
 
-					<p class="reviewCont" style="border: 1px solid silver;" id="dCont">내용</p>
+					<p class="reviewCont" style="border: 1px solid silver;overflow:auto;" id="dCont">내용</p>
 
 
 					<div class="row">
