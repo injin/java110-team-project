@@ -687,7 +687,6 @@ td {
                     
                     html += '       <div class="row">';
                     html += '           <div class="col-6" style="text-align: left;">';
-                    html += '              <a href="#" style="color: black">';
                     
                     html += '<i class="fas fa-thumbs-up btmIcon c-pointer';
                     if(!data.postsResult[i].likeCheck){
