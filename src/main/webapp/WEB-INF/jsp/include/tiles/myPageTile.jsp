@@ -14,7 +14,7 @@
 <link rel='stylesheet' href='/css/common.css'>
 </head>
 <body>
-    <jsp:include page="../include/header.jsp"></jsp:include>
+    <jsp:include page="../header.jsp"></jsp:include>
 
     <main role="main" class="container pt-0">
         <div class="row">
@@ -47,19 +47,20 @@
                 </div>
                 
                 <div class="row pl-3 pr-3">
-                    <!-- 작업공간 START -->
                     
-                    <jsp:include page="../include/scriptInclude.jsp"></jsp:include>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+                    <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
+                    <script src="/js/bootstrap.bundle.js"></script>
+                    <script src="/js/common.js"></script>
+                    
                     <t:insertAttribute name="body"/>
                     
-                    <!-- 작업공간 END -->
                 </div>
-                
             </div>
         </div>
 
     </main>
 
-    <jsp:include page="../include/footer2.jsp"></jsp:include>
+    <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

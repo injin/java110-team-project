@@ -5,7 +5,7 @@
  
 <tiles-definitions>
  
-    <definition name=".base-template" template="/WEB-INF/jsp/include/myPageTiles.jsp">
+    <definition name=".base-template" template="/WEB-INF/jsp/include/tiles/myPageTile.jsp">
         <put-attribute name="body" />
     </definition>
  
