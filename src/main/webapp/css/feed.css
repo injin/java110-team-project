@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
+
 .wPost {
     background: white;
     padding: 1rem 1rem 0 1rem;
@@ -43,6 +48,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre-line;
+    word-break: break-all;
+}
+
+.smlrImg {
+    width: 3rem;
+    max-height: 4rem;
+}
+
+.trData {
+    padding: 1rem 0;
+}
+
+.trData:hover {
+    background-color: #f2f2f2;
+    cursor: pointer !important;
 }
 
 .mauto {
@@ -54,6 +74,10 @@
     color: #FFD119;
 }
 
+td {
+    border: 1px solid #ccc;
+}
+/* ============================== */
 #drop {
     float: right;
     
