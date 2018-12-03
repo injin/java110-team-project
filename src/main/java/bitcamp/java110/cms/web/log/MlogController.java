@@ -1,14 +1,15 @@
 package bitcamp.java110.cms.web.log;
 
 import java.util.List;
-import javax.servlet.ServletContext;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import bitcamp.java110.cms.dao.MemberDao;
-import bitcamp.java110.cms.dao.MlogDao;
+import org.springframework.web.bind.annotation.ResponseBody;
+import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.service.MlogService;
@@ -18,9 +19,6 @@ import bitcamp.java110.cms.service.MlogService;
 public class MlogController {
  
   @Autowired MlogService mlogservice;
-  @Autowired MlogDao mlogDao;
-  @Autowired ServletContext sc;
-  @Autowired MemberDao memberDao;
   
   @RequestMapping("/mloglist")
   public String list(Model model,
@@ -30,13 +28,29 @@ public class MlogController {
     Member member = (Member)session.getAttribute("loginUser");
     int mno = member.getMno();
     
-    List<Mlog> logList = mlogservice.getList(mno);
-    System.out.println("로그 사이즈" + logList.size());
-    
-    model.addAttribute("list", logList);
-    
+    model.addAttribute("mpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_MP));
+    model.addAttribute("dpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_DP));
+    model.addAttribute("pcList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_PC));
+    model.addAttribute("scList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_SC));
+    model.addAttribute("frList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_FR));
+    model.addAttribute("srList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_SR));
     
     return "log/mloglist";
+  }
+  
+  @RequestMapping("/more")
+  public @ResponseBody List<Mlog> more(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) {
+    
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    int lastno = (int)request.get("lastno");
+    String type = (String)request.get("type");
+    
+    System.out.println("마지막번호" + lastno);
+    System.out.println("타입" + type);
+    
+    return mlogservice.getListMore(mno, type, lastno);
   }
   
 
