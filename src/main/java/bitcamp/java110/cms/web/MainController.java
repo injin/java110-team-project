@@ -43,13 +43,6 @@ public class MainController {
   @RequestMapping("/")
   public String main(Model model, HttpSession session) {
     
-    Member member = (Member) session.getAttribute("loginUser");
-    
-    if(member != null) {
-      List<Member> flwList = flwService.listAll(member.getMno());
-      model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
-    }
-    
     List<Post> topMpList = postService.getHotPosts(); //핫리뷰리스트
     model.addAttribute("topMpList", topMpList);
     
@@ -58,7 +51,7 @@ public class MainController {
     
     List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트
     model.addAttribute("albumList", listScA);
-    
+
     return "main";
     
   }
