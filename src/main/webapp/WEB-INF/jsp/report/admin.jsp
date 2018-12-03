@@ -37,10 +37,25 @@
     <script type="text/javascript"></script>
     <script src="/js/bootstrap2-toggle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/adminlist.js"></script>
     
-
+    <script>
+     $( "tr" )
+    .filter( ":even" )
+      .hide()
+    .end()
+    .filter( ":odd" )
+      .click(function() {
+        $(this)
+          .toggleClass( "active" )
+          .next()
+            .stop( true, true )
+            .slideToggle();
+      });
+     
+    </script>
     
 </body>
 </html>
