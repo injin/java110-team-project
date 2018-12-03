@@ -10,12 +10,23 @@
     </definition>
  
     <definition name="follow/*" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/follow/{1}.jsp" />
+      <put-attribute name="body" value="/WEB-INF/jsp/follow/{1}.jsp"/>
     </definition>
     
     <definition name="log/*" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp" />
+      <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp"/>
     </definition>
     
+    <definition name="include/myFeed" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/include/myFeed.jsp"/>
+    </definition>
+    
+    <definition name="statis/tic" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/statis/tic.jsp"/>
+    </definition>
+    
+    <definition name="statis/tic" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/statis/tic.jsp"/>
+    </definition>
  
 </tiles-definitions>

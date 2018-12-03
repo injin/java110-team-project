@@ -25,6 +25,7 @@ public class FlwController {
             HttpSession session) {
         
         int mno = ((Member)session.getAttribute("loginUser")).getMno();
+        model.addAttribute("targetUser", session.getAttribute("loginUser"));
         paging.setTotalCount(flwService.getTotalCnt(mno));
         
         Map<String,Object> condition = new HashMap<>();

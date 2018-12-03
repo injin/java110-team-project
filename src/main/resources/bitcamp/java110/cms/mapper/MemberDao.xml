@@ -37,6 +37,19 @@
          where mid = #{id}
     </select>
     
+    <select id="findByMno" resultMap="memberMap" parameterType="int">
+        SELECT
+            mno,
+            mid,
+            nick,
+            p_phot,
+            c_phot,
+            pr
+        FROM mv_memb
+        WHERE mno = #{value}
+        LIMIT 1
+    </select>
+    
     <update id="update" parameterType="member">
 	   UPDATE mv_memb
 	   <trim prefix="SET" suffixOverrides=",">
