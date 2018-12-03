@@ -166,4 +166,11 @@ public class MemberServiceImpl implements MemberService {
   public List<Integer> getFavMvDBList(int mno){
     return null;
   }
+
+  @Override
+  public Member findByMno(int tgtMno) {
+    return memberDao.findByMno(tgtMno);
+  }
+  
+  
 }

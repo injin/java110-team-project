@@ -26,6 +26,7 @@ public class MlogController {
   public String list(Model model,
       HttpSession session) {
     
+    model.addAttribute("targetUser", session.getAttribute("loginUser"));
     Member member = (Member)session.getAttribute("loginUser");
     int mno = member.getMno();
     

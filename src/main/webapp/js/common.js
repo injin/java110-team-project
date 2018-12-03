@@ -1,3 +1,8 @@
+/**
+ * INJIN -> JEAHA 새끼야 
+ * 프로필 사진 누르면 그 사람 피드로 넘어가게 js 만들렴!
+ */
+
 // 마우스 오버시 스크롤 효과
 $('.boxList').on('mouseover', function(){
             $('.scrollbar-light-blue').css('overflow', 'auto');

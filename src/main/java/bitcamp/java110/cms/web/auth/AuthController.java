@@ -154,7 +154,6 @@ public class AuthController {
     public String detailUpdate(
         Model model,
         HttpSession session) {
-      
       model.addAttribute("member", 
           (Member)session.getAttribute("loginUser"));
       
