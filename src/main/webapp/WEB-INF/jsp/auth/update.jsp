@@ -49,13 +49,14 @@
 <%-- ========================================================================================== --%>
                <section id="cover-area">
                   <h3 id="cover-img">커버 사진</h3>
-                  <div id="asdf">
+                  <div id="cover" class="row">
                      <div class="cover-upload">
                         <div class="cover-edit">
                            <input type='file' name="coverImage" id="imageUpload-cover"
-                              accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
+                              accept=".png, .jpg, .jpeg" />
+                           <label for="imageUpload-cover"></label>
                         </div>
-                        <div class="cover-preview row">
+                        <div class="cover-preview">
                            <div id="coverPreview" style="background-image: url('${loginUser.coverImagePath}');"></div>
                         </div>
                      </div>
