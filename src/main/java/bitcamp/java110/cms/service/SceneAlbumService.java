@@ -17,6 +17,7 @@ public interface SceneAlbumService {
     boolean removeImg(int lbmno, int srno);
     boolean removeLbm(int lbmno);
     boolean editLbm(int lbmno, String lbmTitle);
+    boolean editOpen(SceneAlbum sceneAlbum);
     SceneAlbum get(int lbmno);
     void delete(int no);
     

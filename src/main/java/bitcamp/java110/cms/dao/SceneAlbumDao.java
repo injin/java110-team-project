@@ -19,6 +19,7 @@ public interface SceneAlbumDao {
   int removeLbm(int lbmno);
   int setImgNull(int lbmno);
   int editLbm(Map<String, Object> condition);
+  int editOpen(SceneAlbum sceneAlbum);
   SceneAlbum findByNo(int no);
   int delete(int no);
   void signOut1(int mno);

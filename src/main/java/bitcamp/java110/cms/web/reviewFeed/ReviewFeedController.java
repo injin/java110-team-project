@@ -236,21 +236,16 @@ public class ReviewFeedController {
     int visitor = ((Member)session.getAttribute("loginUser")).getMno();
     model.addAttribute("targetUser", memberService.findByMno(id));
 
-
     List<Post> list = null;
     if(visitor == id) {
       params.put("prevpstno", "owner");
       params.put("mno", id);
       list = postService.getPosts(params);
-      System.out.println("myFeed");
     } else {
       params.put("prevpstno", "visitor");
       params.put("mno", id);
       list = postService.getPosts(params);
-      System.out.println("othersFeed");
     }
-    System.out.println(list);
-
     model.addAttribute("postList", list);
     return "include/Feed";
   }
