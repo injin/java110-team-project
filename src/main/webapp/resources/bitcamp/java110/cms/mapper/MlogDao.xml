@@ -16,7 +16,8 @@
     </resultMap>
     
     <select id="list" resultMap="mlogMap" parameterType="int">
-        select lgno,
+        select* from(
+       (select lgno,
                m.mno,
                m.nick,
                do,
@@ -26,7 +27,74 @@
                cdt
          from mv_log l
         inner join mv_memb m on l.mno=m.mno
-        where m.mno=#{mno}
+        where m.mno=#{mno} and do='mp'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='dp'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='sr'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='pc'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='sc'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='fr'
+        limit 10)) 
+        as content
     </select>
     
     <insert id="insert" parameterType="mlog">

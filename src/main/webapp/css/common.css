@@ -32,7 +32,10 @@ main {
 .dis-none {
     display: none;
 }
-
+/*==== textarea 리사이즈none ==== */
+.textarea-resizenone{
+	resize: none;
+}
 /* HEADER SIZE */
 .navbar {
     padding: 0rem;

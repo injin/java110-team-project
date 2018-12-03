@@ -119,6 +119,9 @@
                             l.lbmno = s.lbmno 
                         group by lbmno) as sr on l.lbmno = sr.lbmno
         where l.mno = #{mno}
+        <if test="isMyAlbum == false">
+            and l.opn ='u'
+        </if>
         order by
             cdt desc
         <if test="paging != null">
@@ -127,12 +130,15 @@
         
     </select>
     
-    <select id="getTotalCnt" resultType="int" parameterType="int">
+    <select id="getTotalCnt" resultType="int" parameterType="map">
         select
             count(l.lbmno)
         from mv_lbm l
             inner join mv_memb m on m.mno = l.mno
             where l.mno = #{mno}
+            <if test="isMyAlbum == false">
+            and l.opn ='u'
+            </if>
     </select>
 
     <update id="addImg" parameterType="map">
