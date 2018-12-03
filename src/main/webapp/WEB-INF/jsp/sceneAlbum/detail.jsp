@@ -103,23 +103,37 @@
             }); 
         }
         
-        
-        
         function editOpen(lbmno, open){
             console.log('lbmno ' +lbmno);
             console.log('open ' +open);
-           /*  $( ".openIcon" ).toggle(
-                    function() {
+            
+            var html='<button type="button" class="close" data-dismiss="modal"';
+               html+='aria-label="Close">';
+               html+='<span aria-hidden="true">&times;</span>';
+               html+='</button>';
+            
+            $( ".openIcon" ).toggleClass(function(){
+               if($(this).find('i').hasClass('globe')){
+                   $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');   
+               }else{
+                   $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i></span>');
+               }
+                
+            });
+            $('.openIcon').parent().append(html);
+        }  
+                    
+                  /*   function() {
                         console.log('this'+$(this));
-                      $( this ).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
+                      $( this ).html('<i class="fas fa-lock lock"></i>');
                     }, function() {
-                      $( this ).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
+                      $( this ).html('<i class="fas fa-globe-americas globe"></i>');
                     }
-                  ); */
+                   */
            /*  if(open == true){
                 $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
             }else{
-                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
+                $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
             }
              */
            /*  $.ajax({
@@ -138,7 +152,7 @@
                     
                 }
             });  */
-        }
+        
         
         // 앨범 삭제
         function removeLbm(lbmno){
@@ -190,12 +204,17 @@
             console.log($(obj).data('lbm-title'));
             var open = $(obj).data('open');
             var lbmno = $(obj).data('lbmno');
+            var html='<button type="button" class="close" data-dismiss="modal"';
+            html+='aria-label="Close">';
+            html+='<span aria-hidden="true">&times;</span>';
+            html+='</button>';
+            
             if($(obj).data('open')==true){
                 $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
             }else{
                 $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
             }
-            
+            $('.openIcon').parent().append(html);
             $('.title_box').html($(obj).data('lbm-title')+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
             
             $.ajax({

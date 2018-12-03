@@ -36,9 +36,9 @@
 						</c:choose>
 
 						<!-- 모달 닫기 -->
-						<button type="button" class="close" data-dismiss="modal"
+						<button type="button" data-dismiss="modal"
 							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
+							<span class="close" aria-hidden="true">&times;</span>
 						</button>
 					</div>
 
