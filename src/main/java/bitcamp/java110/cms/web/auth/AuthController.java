@@ -108,7 +108,6 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
-      System.out.println("Controller Start Add Member");
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
@@ -144,7 +143,6 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      System.out.println("Controller Send Member To Service");
       memberService.update(member);
       return "redirect:/app/";
     }
@@ -188,8 +186,6 @@ public class AuthController {
                 String pr,
         HttpSession session) throws Exception {
       
-      System.out.println("Controller Start Update Member");
-      
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -215,7 +211,6 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      System.out.println("Controller Send Member To Service");
       memberService.update(member);
       
       String originPath = request.getHeader("referer");
