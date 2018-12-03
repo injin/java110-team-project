@@ -19,7 +19,7 @@
     
     <select id="findAll" resultMap="reportMap" parameterType="map">
         
-        select rptno, m.nick as nick , url, cdt, hndl
+        select rptno, m.nick as nick , url, cdt, (hndl = 'Y')hndl ,cont
         from mv_rpt r
         inner join mv_memb m on r.mno =  m.mno;
        
@@ -35,8 +35,8 @@
     
     <insert id="insert" parameterType="report" 
             useGeneratedKeys="true" keyColumn="rptno" keyProperty="rptno">
-        insert into mv_rpt(mno, trgt, cont, url, cdt)
-        values(#{mno}, #{target}, #{cont}, #{url}, now())
+        insert into mv_rpt(mno, trgt, cont, url, cdt, hndl)
+        values(#{mno}, #{target}, #{cont}, #{url}, now(), 'N')
     </insert>
     
     <delete id="delete" parameterType="int">
