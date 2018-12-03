@@ -17,10 +17,9 @@
 
     <div class="logList col-lg-12" id="list-mp">
         <h4>영화리뷰 로그</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'mp'}">
-                <li class="list-group-item">
+        <ul class="list-group" id="ul-mp">
+        <c:forEach var="log" items="${mpList}" varStatus="status">
+            <li class="list-group-item">
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
@@ -32,102 +31,103 @@
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
             </li>
+            <c:if test="${status.last}">
+                <c:set var="mplastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
     </div>
     <div class="logList col-lg-12" id="list-dp">
         <h4>일상리뷰 로그</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'dp'}">
-                    <li class="list-group-item">
-                    <span style="float: left; margin-bottom: 0">
-                        <a href="#">${log.nick}</a>님이
-                        <c:if test="${log.act eq 'wr'}">
-                            <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 작성했습니다
-                        </c:if>
-                        <c:if test="${log.act eq 'lk'}">
-                            <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 좋아합니다
-                        </c:if>
-                    </span>
-                    <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
-                </li>
-                <%-- <a href="#" class="list-group-item list-group-item-action">
-                    <p style="float: left; margin-bottom: 0">${log.text}</p>
-                    <p style="float: right; margin-bottom: 0">${log.createdDate}</p>
-                </a> --%>
+        <ul class="list-group" id="ul-dp">
+        <c:forEach var="log" items="${dpList}" varStatus="status">
+            <li class="list-group-item">
+                <span style="float: left; margin-bottom: 0">
+                    <a href="#">${log.nick}</a>님이
+                    <c:if test="${log.act eq 'wr'}">
+                        <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 작성했습니다
+                    </c:if>
+                    <c:if test="${log.act eq 'lk'}">
+                        <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 좋아합니다
+                    </c:if>
+                </span>
+                <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+            </li>
+            <c:if test="${status.last}">
+                <c:set var="dplastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
     </div>
     <div class="logList col-lg-12" id="list-sr">
         <h4>장면리뷰 로그</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'sr'}">
-                <li class="list-group-item">
-                    <span style="float: left; margin-bottom: 0">
-                        <a href="#">${log.nick}</a>님이
-                        <c:if test="${log.act eq 'wr'}">
-                            <a href="<c:url value="${log.url}"/>">${log.indirect}</a> 에 장면 리뷰를 작성했습니다
-                        </c:if>
-                        <c:if test="${log.act eq 'lk'}">
-                            <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 좋아합니다
-                        </c:if>
-                    </span>
-                    <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
-                </li>
-                    <%-- <p style="float: left; margin-bottom: 0">${log.text}</p>
-                    <p style="float: right; margin-bottom: 0">${log.createdDate}</p> --%>
+        <ul class="list-group" id="ul-sr">
+        <c:forEach var="log" items="${srList}" varStatus="status">
+            <li class="list-group-item">
+                <span style="float: left; margin-bottom: 0">
+                    <a href="#">${log.nick}</a>님이
+                    <c:if test="${log.act eq 'wr'}">
+                        <a href="<c:url value="${log.url}"/>">${log.indirect}</a> 에 장면 리뷰를 작성했습니다
+                    </c:if>
+                    <c:if test="${log.act eq 'lk'}">
+                        <a href="${log.url}">${log.indirect}</a> 에 장면 리뷰를 좋아합니다
+                    </c:if>
+                </span>
+                <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+            </li>
+            <c:if test="${status.last}">
+                <c:set var="srlastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
     </div>
     <div class="logList col-lg-12" id="list-pc">
         <h4>게시물 댓글</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'pc'}">
-                <li class="list-group-item">
-                    <span style="float: left; margin-bottom: 0">
-                        <a href="#">${log.nick}</a>님이 
-                        <a href="${log.url}">${log.indirect}</a> 님의 게시물에 댓글을 작성했습니다
-                    </span>
-                    <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
-                </li>
+        <ul class="list-group" id="ul-pc">
+        <c:forEach var="log" items="${pcList}" varStatus="status">
+            <li class="list-group-item">
+                <span style="float: left; margin-bottom: 0">
+                    <a href="#">${log.nick}</a>님이 
+                    <a href="${log.url}">${log.indirect}</a> 님의 게시물에 댓글을 작성했습니다
+                </span>
+                <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+            </li>
+            <c:if test="${status.last}">
+                <c:set var="pclastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
     </div>
     <div class="logList col-lg-12" id="list-sc">
         <h4>장면리뷰 댓글</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'sc'}">
-                <li class="list-group-item">
-                    <span style="float: left; margin-bottom: 0">
-                        <a href="#">${log.nick}</a>님이 
-                        <a href="${log.url}">${log.indirect}</a> 의 장면 리뷰에 댓글을 작성하였습니다
-                    </span>
-                    <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
-                </li>
+        <ul class="list-group" id="ul-sc">
+        <c:forEach var="log" items="${scList}" varStatus="status">
+            <li class="list-group-item">
+                <span style="float: left; margin-bottom: 0">
+                    <a href="#">${log.nick}</a>님이 
+                    <a href="${log.url}">${log.indirect}</a> 의 장면 리뷰에 댓글을 작성하였습니다
+                </span>
+                <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+            </li>
+            <c:if test="${status.last}">
+                <c:set var="sclastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
     </div>
     <div class="logList col-lg-12" id="list-fr">
         <h4>친구</h4>
-        <ul class="list-group">
-        <c:forEach var="log" items="${list}">
-            <c:if test="${log.direct eq 'fr'}">
-               <li class="list-group-item">
-                    <span style="float: left; margin-bottom: 0">
-                        <a href="#">${log.nick}</a>님이 
-                        <a href="${log.url}">${log.indirect}</a> 을/를 팔로우 했습니다
-                    </span>
-                    <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
-                </li>
+        <ul class="list-group" id="ul-fr">
+        <c:forEach var="log" items="${frList}" varStatus="status">
+           <li class="list-group-item">
+                <span style="float: left; margin-bottom: 0">
+                    <a href="#">${log.nick}</a>님이 
+                    <a href="${log.url}">${log.indirect}</a> 을/를 팔로우 했습니다
+                </span>
+                <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
+            </li>
+            <c:if test="${status.last}">
+                <c:set var="frlastno" value="${log.lgno}"/>
             </c:if>
         </c:forEach>
         </ul>
@@ -138,6 +138,14 @@
     <img src="/img/top-btn.png"  width="50" height="50"></a>
     
     <script>
+        var lastnoMap = new Map();
+        lastnoMap.set('mp', '${mplastno}');
+        lastnoMap.set('dp', '${dplastno}');
+        lastnoMap.set('pc', '${pclastno}');
+        lastnoMap.set('sr', '${srlastno}');
+        lastnoMap.set('sc', '${sclastno}');
+        lastnoMap.set('fr', '${frlastno}');
+        
         // 기본으로 게시물 목록만 보여줌
         var initType = $('#logType').val();
         showSelectedLogList(initType);
@@ -152,10 +160,58 @@
             showSelectedLogList(selectedLogType);
         });
         
+       function makeSrLiHtml(value) {
+           var html = '';
+           if(value.act == 'wr')
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>'+ 님이;
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href='+value.url+'>'+value.indirect'</a>'+에 일상 리뷰를 작성했습니다';
+           if(value.act == 'lk')
+               html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>'+ 님이;
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href='+value.url+'>'+value.indirect'</a>'+에 일상 리뷰를 좋아합니다;
+           return html;
+       }
+       function makeScLiHtml(value) {
+           
+       }
        
         window.onscroll = function(ev) {
             if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                alert("you're at the bottom of the page");
+                var currentType = $('#logType').val();
+                var lastno = lastnoMap.get(currentType);
+                
+                if (lastno == '') return;
+                
+                $.ajax({
+                    url : "/app/log/more",
+                    type: "post",
+                    headers : {
+                        'Content-Type': 'application/json'
+                    },
+                    data : JSON.stringify({
+                        "lastno" : parseInt(lastno),
+                        "type" : currentType
+                    }),
+                    success: function(data) {
+                        var html = '';
+                        data.forEach(function(value, index){
+                            console.log(value);
+                            if (value.direct == 'sr') {
+                                html += makeSrLiHtml(value);
+                            } else if () {
+                                
+                            }
+                            
+                        });
+                        $('#ul-' + currentType).append(html)
+                    }
+                });
+                
             }
         };
     </script>

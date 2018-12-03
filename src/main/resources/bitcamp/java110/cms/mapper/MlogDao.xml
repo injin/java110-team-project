@@ -16,6 +16,88 @@
     </resultMap>
     
     <select id="list" resultMap="mlogMap" parameterType="int">
+        select* from(
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='mp'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='dp'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='sr'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='pc'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='sc'
+        limit 10)
+        union all
+        (select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno=#{mno} and do='fr'
+        limit 10)) 
+        as content
+    </select>
+    
+    <select id="listByType" resultMap="mlogMap" parameterType="map">
         select lgno,
                m.mno,
                m.nick,
@@ -27,6 +109,27 @@
          from mv_log l
         inner join mv_memb m on l.mno=m.mno
         where m.mno=#{mno}
+          and do = #{type}
+        order by lgno desc
+        limit 10
+    </select>
+    
+    <select id="listMore" resultMap="mlogMap" parameterType="map">
+        select lgno,
+               m.mno,
+               m.nick,
+               do,
+               io,
+               act,
+               url,
+               cdt
+         from mv_log l
+        inner join mv_memb m on l.mno=m.mno
+        where m.mno= #{mno}
+          and do = #{type}
+          and lgno <![CDATA[ < ]]> #{lastno}
+        order by lgno desc
+        limit 10
     </select>
     
     <insert id="insert" parameterType="mlog">
