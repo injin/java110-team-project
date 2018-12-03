@@ -17,6 +17,7 @@
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/feed.css'>
+<link rel='stylesheet' href='/css/album.css'>
 </head>
 <body>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -40,7 +41,7 @@
                       <thead id="mypage-menu">
                         <tr class="d-flex">
                           <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/myFeed?tgtMno=${targetUser.mno}"/>">피드</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></th>
                           <c:choose>
                             <c:when test="${targetUser.mno == loginUser.mno}">
 	                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/stsc/list"/>">통계</a></th>
