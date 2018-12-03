@@ -14,14 +14,15 @@
 
 
 	<select id="postData" resultMap="stscMap" parameterType="int">
-		select a.mno, c.gr_nm as gr_nm, count(b.grno) + round(AVG(d.star),1) as cnt
+		select
+		a.mno, c.gr_nm as gr_nm, sum(pnt) as pnt
 		from mv_mv_anly a
 		inner join mv_mv_gr b on a.mvno = b.mvno
 		inner join mv_gr c on c.grno= b.grno
-		inner join mv_post d on a.mvno = d.mvno
-		where a.mno= #{mno}
-		group by c.gr_nm
-		order by cnt desc
+		inner join mv_mv d on d.mvno = a.mvno
+		where a.mno =#{mno}
+		GROUP by gr_nm
+		order by pnt desc
 	</select>
 
 	<select id="mvTitl" resultMap="stscMap" parameterType="int">

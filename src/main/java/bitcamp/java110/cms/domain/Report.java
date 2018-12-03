@@ -13,9 +13,7 @@ public class Report {
   protected boolean hndl;
   protected Date createdDate;
   protected String nick;
-  
   protected List<String> types;
-  
 
   public int getRptno() {
     return rptno;

@@ -23,7 +23,7 @@
 						<c:choose>
 							<c:when test="${sceneAlbum.open == 'true'}">
 								<span class="openIcon"
-									onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbumopen})">
+									onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbum.open})">
 									<i class="fas fa-globe-americas globe"></i>
 								</span>
 							</c:when>
@@ -53,8 +53,9 @@
 							<div class="scrollbar-light-blue boxList">
 								<c:forEach items="${sceneAlbumList}" var="album">
 									<div class="album_title al_wrap text-center"
-										onclick="editAlbum(this)" data-lbmno="${album.lbmno}"
-										data-lbm-title="${album.lbmTitle}" data-open="${album.open}">
+									    <%-- id="album-${album.lbmno}" --%>
+										onclick="editAlbum(${album.lbmno}, '${album.lbmTitle}',${album.open})"<%--  data-lbmno="${album.lbmno}"
+										data-lbm-title="${album.lbmTitle}" data-open="${album.open}" --%>>
 										<div class="al_overflow">${album.lbmTitle}</div>
 										<i class="fas fa-trash-alt al_trash"
 											onclick="removeLbm(${album.lbmno})"></i>
