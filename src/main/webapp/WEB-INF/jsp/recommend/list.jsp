@@ -43,7 +43,7 @@
   <link rel='stylesheet' href='/css/rcmd.css'>
 
 </head>
-<body class="borderGray bgGray" style="background-color: dimgray;">
+<body class="borderGray">
   <jsp:include page="../include/header.jsp"></jsp:include>
 <%-- ========================================================================================== --%>
   <main role="main" class="container borderGray"> 
