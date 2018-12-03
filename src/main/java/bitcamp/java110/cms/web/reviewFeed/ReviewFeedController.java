@@ -205,8 +205,6 @@ public class ReviewFeedController {
       HttpSession session,
       HttpServletRequest request) throws Exception {
 
-
-
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));

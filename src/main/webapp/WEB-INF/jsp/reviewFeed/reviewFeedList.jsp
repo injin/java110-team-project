@@ -46,7 +46,6 @@
                                 }
                             });
                 });
-          
         return newHTML;
     }
     
@@ -170,18 +169,16 @@
 									class="fas fa-thumbs-up btmIcon c-pointer likeColor 
 									<c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
 									<c:if test="${!post.likeCheck}"> dis-none</c:if>"
-									id="btn-like-full-${post.pstno}" 
-									onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i>
-								<i
+									id="btn-like-full-${post.pstno}"
+									onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
 									class="far fa-thumbs-up btmIcon c-pointer likeColor 
 									<c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
 									<c:if test="${post.likeCheck}"> dis-none</c:if>"
-									id="btn-like-empty-${post.pstno}" 
-									onclick="addLike(${post.pstno},${post.pstTypeNo});"></i>
-								<span id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
-									class="far fa-comment btmIcon c-pointer"></i> <span
-									id="cCnt-${post.pstno}">${post.cmtCnt}</span>
-
+									id="btn-like-empty-${post.pstno}"
+									onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
+									id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
+									class="far fa-comment btmIcon c-pointer" onclick="showMore(this,${post.pstno})"></i>
+								<span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
 							</div>
 
 							<%-- 별점 --%>
@@ -207,9 +204,6 @@
 					</div>
 				</c:if>
 			</c:forEach>
-
-			<jsp:include page="writingPost.jsp"></jsp:include>
-			<jsp:include page="detailPost.jsp"></jsp:include>
 		</div>
 
 		<%-- 맞춤영화 추천 부분 --%>
@@ -258,6 +252,8 @@
 
 	</div>
 
+	<jsp:include page="writingPost.jsp"></jsp:include>
+	<jsp:include page="detailPost.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/starrr.js"></script>
@@ -297,7 +293,10 @@
                 "star":'${post.star}',
                 "photos":pary,
                 "ftags":fary,
-                "createdDate":'${post.createdDate}'
+                "likeCheck":'${post.likeCheck}',
+                "pstTypeNo":'${post.pstTypeNo}',
+                "createdDate":'${post.createdDate}',
+                "likeCnt":'${post.likeCnt}'
             }) 
             
         </c:forEach> 
