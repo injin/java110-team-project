@@ -30,7 +30,9 @@ function openDetailModal(pstno) {
     }
     $('#detail-star').html(shtml);
     /* 이미지 추가부분*/
+
     if (postList[index].photos.length == 0) {
+        
         $('#leftcol').hide();
         $('#rightcol').removeClass('col-4').addClass('col-12');
         $('#detailModal .modal-dialog').css('maxWidth', '35rem');
