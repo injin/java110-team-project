@@ -161,6 +161,43 @@
             }); 
         }
         
+        
+        
+        function editOpen(lbmno, open){
+            console.log('lbmno ' +lbmno);
+            console.log('open ' +open);
+           /*  $( ".openIcon" ).toggle(
+                    function() {
+                        console.log('this'+$(this));
+                      $( this ).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
+                    }, function() {
+                      $( this ).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
+                    }
+                  ); */
+           /*  if(open == true){
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
+            }else{
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
+            }
+             */
+           /*  $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/removeLbm',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  lbmno,
+                }),
+                success:function(data){
+                    console.log('앨범 삭제함');
+                    alert('앨범 삭제 완료');
+                    showLbmList(data);
+                    
+                }
+            });  */
+        }
+        
         // 앨범 삭제
         function removeLbm(lbmno){
             console.log('removeLbm ' + lbmno);
@@ -178,7 +215,6 @@
                     console.log('앨범 삭제함');
                     alert('앨범 삭제 완료');
                     showLbmList(data);
-                    console.log(data);
                     
                 }
             }); 
@@ -205,22 +241,17 @@
             document.getElementById('mgrAlbum').click();
             editAlbum(obj);
             
-            //alert(obj);
-            //showSrList(obj);
-            
         }
         
         // 수정모달에서 앨범명 클릭시 변화
         function editAlbum(obj){
-            console.log($(obj).data('lbmno'));
             console.log($(obj).data('lbm-title'));
-            console.log($(obj).data('open'));
+            var open = $(obj).data('open');
             var lbmno = $(obj).data('lbmno');
-            
             if($(obj).data('open')==true){
-                $('.openIcon').html('<i class="fas fa-globe-americas globe"></i>');
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
             }else{
-                $('.openIcon').html('<i class="fas fa-lock lock"></i>');
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
             }
             
             $('.title_box').html($(obj).data('lbm-title')+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
@@ -236,7 +267,6 @@
                 }),
                 success:function(data){
                     console.log('장면리스트가져옴');
-                    console.log(data);
                     showSrList(data);
                 }
             });
@@ -265,8 +295,6 @@
         
         // 앨범속 장면 삭제
         function removeImg(srno, lbmno){
-            console.log('srno '+srno);
-            console.log('lbmno '+lbmno);
 
              $.ajax({
                 type:'POST',
@@ -282,7 +310,6 @@
                     console.log('이미지 삭제함');
                     alert('이미지 삭제 완료');
                     showSrList(data);
-                    console.log(data);
                 }
             }); 
         }
@@ -305,7 +332,6 @@
                 success:function(data){
                     console.log('대표이미지 설정함');
                     alert('대표이미지 설정 완료');
-                    console.log(data);
                 }
             }); 
         }
