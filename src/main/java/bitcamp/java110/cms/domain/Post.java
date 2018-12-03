@@ -134,10 +134,10 @@ public class Post implements Serializable {
   }
   @Override
   public String toString() {
-    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "[pstno=" + pstno + ", open=" + open + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
         + ", content=" + content + ", likeCnt=" + likeCnt + ", likeCheck=" + likeCheck + ", star="
-        + star + ", open=" + open + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
-        + ", ftagsForAdd=" + ftagsForAdd + "]";
+        + star + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
+        + ", ftagsForAdd=" + ftagsForAdd + "]\n";
   }
 }

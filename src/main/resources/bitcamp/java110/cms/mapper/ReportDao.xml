@@ -13,10 +13,16 @@
         <result column="url" property="url" />
         <result column="hndl" property="hndl" />
         <result column="cdt" property="createdDate" />
+        <result column ="nick" property="nick" />
     </resultMap>
 
     
     <select id="findAll" resultMap="reportMap" parameterType="map">
+        
+        select rptno, m.nick as nick , url, cdt, hndl
+        from mv_rpt r
+        inner join mv_memb m on r.mno =  m.mno;
+       
         
     </select>
     

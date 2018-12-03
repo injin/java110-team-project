@@ -10,21 +10,20 @@
 		<tr>
 			<th scope="col">신고번호</th>
 			<th scope="col">신고자</th>
-			<th scope="col" width="300">신고링크</th>
+			<th scope="col">신고링크</th>
 			<th scope="col">신고날짜</th>
 			<th scope="col">처리여부</th>
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${findAll}" var ="report" >
 		<tr>
-			<td>1</td>
-			<td>민성</td>
-			<td></td>
-			<td>2018.11.11</td>
-			<td>270</td>
+			<td>${report.rptno}</td>
+			<td>${report.nick}</td>
+			<td><a href ="${report.url}">${report.url}</a></td>
+			<td>${report.createdDate}</td>
+			<td ><input type="checkbox" data-toggle="toggle" data-on="${report.hndl }" data-off="처리"></td>
 		</tr>
-
+     </c:forEach>
 	</tbody>
-
-
 </table>

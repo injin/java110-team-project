@@ -8,14 +8,16 @@
 		<div class="row detailList col-lg-12 p-0">
 			<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
 				<span class="titl">${sceneAlbum.lbmTitle}</span>
-				
+				<c:if test="${isMyAlbum == true}">
 				<div class="a_btn btn btn-success btn-lg mr-2"
 					onclick="editButton(this)"
 					data-lbmno="${sceneAlbum.lbmno}"
                                      data-lbm-title="${sceneAlbum.lbmTitle}" data-open="${sceneAlbum.open}">
-					수정하기<input type="hidden" data-toggle="modal" id="mgrAlbum"
-						data-target="#mgrModal" />
+					수정하기
 				</div>
+				<input type="hidden" data-toggle="modal" id="mgrAlbum"
+                        data-target="#mgrModal" />
+				</c:if>
 			</div>
 			<!-- 앨범 목록 -->
 			<div class="row col-lg-12" style="margin: 0 auto;">

@@ -12,15 +12,10 @@ public class Report {
   protected String url;
   protected boolean hndl;
   protected Date createdDate;
+  protected String nick;
   
   protected List<String> types;
   
-  @Override
-  public String toString() {
-    return "Report [rptno=" + rptno + ", mno=" + mno + ", target=" + target + ", cont=" + cont
-        + ", url=" + url + ", hndl=" + hndl + ", createdDate=" + createdDate + ", types=" + types
-        + "]";
-  }
 
   public int getRptno() {
     return rptno;
@@ -56,7 +51,7 @@ public class Report {
     return hndl;
   }
   public void setHndl(boolean hndl) {
-    this.hndl = hndl;
+      this.hndl = hndl;
   }
   public Date getCreatedDate() {
     return createdDate;
@@ -71,6 +66,20 @@ public class Report {
     this.types = types;
   }
 
+public String getNick() {
+    return nick;
+}
+
+public void setNick(String nick) {
+    this.nick = nick;
+}
+
+@Override
+public String toString() {
+    return "Report [rptno=" + rptno + ", mno=" + mno + ", target=" + target + ", cont=" + cont + ", url=" + url
+            + ", hndl=" + hndl + ", createdDate=" + createdDate + ", nick=" + nick + ", types=" + types + "]";
+}
+  
   
   
   

@@ -38,11 +38,11 @@ public class ReportServiceImpl implements ReportService {
   }
 
   @Override
-  public List<Report> list(int pageNo, int pageSize) {
-    HashMap<String, Object> params = new HashMap<>();
+  public List<Report> list() {
+ /*   HashMap<String, Object> params = new HashMap<>();
     params.put("rowNo", (pageNo - 1)*pageSize);
-    params.put("size", pageSize);
-    return reportDao.findAll(params);
+    params.put("size", pageSize);*/
+    return reportDao.findAll();
 
   }
 

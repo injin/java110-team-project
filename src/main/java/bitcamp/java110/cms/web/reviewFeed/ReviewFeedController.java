@@ -24,8 +24,8 @@ import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.LikeService;
-import bitcamp.java110.cms.service.PostService;
 import bitcamp.java110.cms.service.MemberService;
+import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
@@ -219,25 +219,34 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
   
-  // 마이페이지-나의피드
-  @RequestMapping("/myFeed")
-  public String myFeed(
+  // 마이페이지-피드
+  @RequestMapping("/Feed")
+  public String Feed(
       Post post,
       Model model,
-      int tgtMno) {
-    
-    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
-    System.out.println(tgtMno);
-    System.out.println(memberService.findByMno(tgtMno));
-    
-    
+      int id,
+      HttpSession session) {
     Map<String, Object> params = new HashMap<>();
-    params.put("mno", tgtMno);
-    params.put("prevpstno", "only");
-    List<Post> list =
-        postService.getMyPostList(tgtMno);
+    
+    int visitor = ((Member)session.getAttribute("loginUser")).getMno();
+    model.addAttribute("targetUser", memberService.findByMno(id));
+    
+    
+    List<Post> list = null;
+    if(visitor == id) {
+      params.put("prevpstno", "owner");
+      params.put("mno", id);
+      list = postService.getPosts(params);
+      System.out.println("myFeed");
+    } else {
+      params.put("prevpstno", "visitor");
+      params.put("mno", id);
+      list = postService.getPosts(params);
+      System.out.println("othersFeed");
+    }
+    System.out.println(list);
     
     model.addAttribute("postList", list);
-    return "include/myFeed";
+    return "include/Feed";
   }
 }

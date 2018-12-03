@@ -7,6 +7,7 @@
  
     <definition name=".base-template" template="/WEB-INF/jsp/include/tiles/myPageTile.jsp">
         <put-attribute name="body" />
+        <put-list-attribute name="cssFiles"></put-list-attribute>
     </definition>
  
     <definition name="follow/*" extends=".base-template">
@@ -17,8 +18,15 @@
       <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp"/>
     </definition>
     
-    <definition name="include/myFeed" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/include/myFeed.jsp"/>
+    <definition name="include/Feed" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/include/Feed.jsp"/>
+      <put-list-attribute name="cssFiles">
+        <add-attribute value="/css/writingPost.css"/>
+        <add-attribute value="/css/bootstrap-tagsinput.css"/>
+        <add-attribute value="/css/starrr.css"/>
+        <add-attribute value="/css/detailPost.css"/>
+        <add-attribute value="/css/feed.css"/>
+      </put-list-attribute>
     </definition>
     
     <definition name="statis/tic" extends=".base-template">
@@ -27,6 +35,9 @@
     
     <definition name="sceneAlbum/*" extends=".base-template">
       <put-attribute name="body" value="/WEB-INF/jsp/sceneAlbum/{1}.jsp"/>
+      <put-list-attribute name="cssFiles">
+        <add-attribute value="/css/album.css"/>
+      </put-list-attribute>
     </definition>
     
 </tiles-definitions>
