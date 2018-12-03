@@ -10,9 +10,9 @@ public interface SceneAlbumService {
     List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum);
     List<SceneAlbum> list(int mno);
     List<SceneAlbum> list2(int mno, int srno);
-    List<SceneAlbum> pageList(int mno, Paging paging);
+    List<SceneAlbum> pageList(int mno, Paging paging, boolean isMyAlbum);
     List<SceneAlbum> listScA();
-    int getTotalCnt(int mno);
+    int getTotalCnt(int mno, boolean isMyAlbum);
     boolean addImg(int lbmno, String phot);
     boolean removeImg(int lbmno, int srno);
     boolean removeLbm(int lbmno);

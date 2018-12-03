@@ -13,20 +13,24 @@
 					<h5 class="modal-title"></h5>
 
 					<div class="title_box">
-						${sceneAlbum.lbmTitle} <span class="title_edit" onclick="editTitle(${sceneAlbum.lbmno})">
-							 <i class="far fa-edit" style="font-size: 1rem;"></i></span>
+						${sceneAlbum.lbmTitle} <span class="title_edit"
+							onclick="editTitle(${sceneAlbum.lbmno})"> <i
+							class="far fa-edit" style="font-size: 1rem;"></i></span>
 					</div>
 
-					<!-- 공개여부 -->
 					<div class="row">
+						<!-- 공개여부 -->
 						<c:choose>
 							<c:when test="${sceneAlbum.open == 'true'}">
-								<span class="openIcon"> <i
-									class="fas fa-globe-americas globe"></i>
+								<span class="openIcon"
+									onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbumopen})">
+									<i class="fas fa-globe-americas globe"></i>
 								</span>
 							</c:when>
 							<c:otherwise>
-								<span class="openIcon"> <i class="fas fa-lock lock"></i>
+								<span class="openIcon"
+									onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbumopen})">
+									<i class="fas fa-lock lock"></i>
 								</span>
 							</c:otherwise>
 						</c:choose>
@@ -43,6 +47,8 @@
 
 				<div class="modal-body p-0">
 					<div class="row mbr-justify-content-center">
+					   
+					   <!-- 앨범리스트 -->
 						<div class="col-lg-3 boxBorder">
 							<div class="scrollbar-light-blue boxList">
 								<c:forEach items="${sceneAlbumList}" var="album">
@@ -61,22 +67,15 @@
 							</div>
 							<input type="hidden" data-toggle="modal" id="btnaddAlbum"
 								data-target="#albumModal" />
-
-
 						</div>
 
+                        <!-- 앨범별 장면 출력 부분 -->
 						<div class="col-lg-9 pl-0">
 							<div class="srlist"></div>
 						</div>
 					</div>
 				</div>
 				<!-- modal-body -->
-
-				<!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">CANCEL</button>
-                    <button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>
-                </div> -->
 
 			</div>
 		</form>

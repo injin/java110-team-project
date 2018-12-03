@@ -31,6 +31,7 @@ public class MlogController {
     int mno = member.getMno();
     
     List<Mlog> logList = mlogservice.getList(mno);
+    System.out.println("로그 사이즈" + logList.size());
     
     model.addAttribute("list", logList);
     

@@ -4,9 +4,9 @@
  */
 
 // 마우스 오버시 스크롤 효과
-$('.boxList').on('mouseover', function(){
+$(document.body).on('mouseover', '.boxList', function(){
             $('.scrollbar-light-blue').css('overflow', 'auto');
-        }).on('mouseleave', function(){
+        }).on('mouseleave', '.boxList', function(){
             $('.scrollbar-light-blue').css('overflow', 'hidden');    
         });
 

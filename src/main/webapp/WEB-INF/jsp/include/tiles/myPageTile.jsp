@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="t" %>
+<%@ taglib prefix="t" uri="http://tiles.apache.org/tags-tiles" %>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,12 @@
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/feed.css'>
+
+<t:importAttribute name="cssFiles"/>
+<c:forEach var="css" items="${cssFiles}">
+    <link rel="stylesheet" type="text/css" href="${css}">
+</c:forEach>
+
 </head>
 <body>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -40,13 +46,13 @@
                       <thead id="mypage-menu">
                         <tr class="d-flex">
                           <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/myFeed?id=${targetUser.mno}"/>">피드</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></th>
                           <c:choose>
                             <c:when test="${targetUser.mno == loginUser.mno}">
-	                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/stsc/list"/>">통계</a></th>
-	                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></th>
-	                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></th>
-	                          <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
+                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/stsc/list"/>">통계</a></th>
+                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></th>
+                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></th>
+                              <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
                             </c:when>
                             <c:otherwise>
                               <th scope="col" class="col-2 text-center"></th>

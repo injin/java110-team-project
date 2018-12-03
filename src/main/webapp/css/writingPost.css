@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* ============================== 작성post 관련 ============================== */
+
 /* ========== 친구태그 관련  ========== */
 #ftag-input {
 	text-align: auto;
@@ -303,4 +305,94 @@ input:checked+.slider:before {
 
 .modal-title {
 	margin-right: 1rem;
+}
+
+/* ============================== 피드 메인 관련 ============================== */
+
+/* ========== 작성 관련  ========== */
+.wPost {
+	background: white;
+	padding: 1rem 1rem 0 1rem;
+	border-radius: 0.5rem;
+	box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+	margin: 2rem 0;
+}
+
+.mauto {
+	margin: 0 auto;
+}
+
+.dmvDiv {
+	padding: 0.5rem 0;
+	background-color: #ccc;
+	border-radius: 0.5rem 0.5rem 0 0;
+}
+
+#wreviewH6 {
+	font-size: 0.7rem;
+	font-weight: bold;
+}
+
+#wreviewDiv {
+	border-bottom: 1px solid #00cc99;
+	color: #00cc99;
+}
+
+.pst {
+	padding: 1rem 0;
+	cursor: pointer !important;
+}
+
+.pst:hover {
+	background-color: #f2f2f2;
+	font-weight: bold;
+}
+
+.pst>i {
+	font-size: 2rem;
+	vertical-align: sub;
+}
+
+/* ========== 맞춤 영화 관련  ========== */
+.smlrImg {
+	width: 3rem;
+	max-height: 4rem;
+}
+
+.trData {
+	padding: 1rem 0;
+}
+
+.trData:hover {
+	background-color: #f2f2f2;
+	cursor: pointer !important;
+}
+
+.divMore {
+	padding: 0.5rem 0;
+	background-color: #ccc;
+}
+
+td {
+	border: 1px solid #ccc;
+}
+
+/* ========== 포스터 리스트 관련  ========== */
+.memberul {
+	float: left;
+	list-style: none;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+
+.tagName {
+	color: blue;
+	font-size: 0.2rem;
+	vertical-align: top;
+}
+
+.pstImgtoDetail {
+	width: 20rem;
+	height: 13rem;
+	margin-left: 1rem;
 }
