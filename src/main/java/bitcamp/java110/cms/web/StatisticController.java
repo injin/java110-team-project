@@ -32,7 +32,7 @@ public class StatisticController {
             HttpSession session
             ) {
      
-        
+       model.addAttribute("targetUser", session.getAttribute("loginUser"));
        Member member = (Member)session.getAttribute("loginUser");
        int mno = member.getMno();
        
@@ -45,7 +45,7 @@ public class StatisticController {
     
      
        
-       return "statistic";
+       return "statis/tic";
     }
     
     

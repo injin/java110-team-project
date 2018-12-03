@@ -58,6 +58,7 @@
 				<form action="detail" method="get" id="detailForm">
 					<input type="hidden" name="open">
 					<input type="hidden" name="lbmno">
+					<input type="hidden" name="tgtMno" value="${targetUser.mno}">
 				</form>
 				<!-- 페이징버튼 -->
                 
@@ -73,6 +74,7 @@
 				</jsp:include>
 				<form class="listForm" action="list" method="post">
 					<input type="hidden" name="pageNo">
+					<input type="hidden" name="tgtMno" value="${targetUser.mno}">
 				</form>
                 </c:if>
 			</div>

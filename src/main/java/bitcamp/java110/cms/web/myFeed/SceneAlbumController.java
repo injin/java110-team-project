@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 
@@ -25,31 +25,24 @@ public class SceneAlbumController {
 
   @Autowired SceneAlbumService sceneAlbumService;
   @Autowired SceneReviewService sceneReviewService;
-  
-  
-  ServletContext sc;
-
-  public SceneAlbumController(SceneAlbumService sceneAlbumService,
-      SceneReviewService sceneReviewService, ServletContext sc) {
-    super();
-    this.sceneAlbumService = sceneAlbumService;
-    this.sceneReviewService = sceneReviewService;
-    this.sc = sc;
-  }
+  @Autowired MemberService memberService;
 
   @RequestMapping("/list")
   public String list(
       SceneAlbum sceneAlbum,
       Paging paging,
       Model model,
-      HttpSession session) throws Exception {
+      HttpSession session,
+      int tgtMno) throws Exception {
     
-    int mno = ((Member)session.getAttribute("loginUser")).getMno();
-    paging.setTotalCount(sceneAlbumService.getTotalCnt(mno));
+    boolean showAll = (tgtMno == ((Member)session.getAttribute("loginUser")).getMno());
+    System.out.println("showAll 확인" + showAll);
+    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
+    paging.setTotalCount(sceneAlbumService.getTotalCnt(tgtMno, showAll));
     
-    model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(mno, paging));
+    model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(tgtMno, paging, showAll));
     model.addAttribute("paging", paging);
-    return "sceneAlbum/album";
+    return "sceneAlbum/list";
   }
 
 
@@ -58,7 +51,6 @@ public class SceneAlbumController {
       SceneAlbum sceneAlbum,
       HttpSession session) {
     
-    System.out.println(sceneAlbum);
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     sceneAlbumService.add(mno, sceneAlbum);
     return "redirect:list";
@@ -68,18 +60,14 @@ public class SceneAlbumController {
   public String detail(
       SceneAlbum sceneAlbum,
       Model model,
-      HttpSession session) {
+      int tgtMno) {
     
-    int mno = ((Member)session.getAttribute("loginUser")).getMno();
-    
-    System.out.println("detail open : "+ sceneAlbum.isOpen());
-    System.out.println(sceneAlbum);
+    Member targetUser = memberService.findByMno(tgtMno);
+    model.addAttribute("targetUser", targetUser);
     
     // 현재 클릭된 앨범 안의 장면목록들   => 여기에 현재 클릭된 앨범의 앨범명, 공개여부 나타남! sceneAlbum 대체 가능
     List<SceneAlbum> srList = new ArrayList<>(); 
-    srList = sceneAlbumService.srList(mno, sceneAlbum);
-    
-    System.out.println("srList" + srList.size());
+    srList = sceneAlbumService.srList(tgtMno, sceneAlbum);
     
     List<SceneReview> sceneReview = new ArrayList<>();
     
@@ -87,7 +75,6 @@ public class SceneAlbumController {
     for(SceneAlbum sr : srList) {
       sceneReview.add(sceneReviewService.findByNo(sr.getSrno()));
     }
-    System.out.println("srList: "+srList);
     // 현재 클릭된 앨범에 담긴 장면
     model.addAttribute("srList", srList);
     
@@ -97,8 +84,8 @@ public class SceneAlbumController {
     // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
     
-    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
-    return "sceneAlbum/detailAlbum";
+    model.addAttribute("sceneAlbumList", sceneAlbumService.list(tgtMno));
+    return "sceneAlbum/detail";
   }
   
   @RequestMapping("srList")
@@ -136,8 +123,6 @@ public class SceneAlbumController {
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     int lbmno = Integer.valueOf((String)request.get("lbmno"));
     String phot = (String)request.get("phot");
-    System.out.println("lbmno: " +lbmno);
-    System.out.println("phot: " +phot);
     
     return sceneAlbumService.addImg(lbmno, phot);
   }
@@ -151,8 +136,6 @@ public class SceneAlbumController {
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     int lbmno = Integer.valueOf((String)request.get("lbmno"));
     int srno = Integer.valueOf((String)request.get("srno"));
-    System.out.println("lbmno: " +lbmno);
-    System.out.println("srno: " +srno);
     
     sceneAlbumService.removeImg(lbmno, srno);
     
@@ -183,7 +166,6 @@ public class SceneAlbumController {
    
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     int lbmno = (int)request.get("lbmno");
-    System.out.println("lbmno: " +lbmno);
     
     sceneAlbumService.removeLbm(lbmno);
     
@@ -200,8 +182,6 @@ public class SceneAlbumController {
       )throws Exception{
    
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
-    System.out.println("lbmno: " +sceneAlbum.getLbmno());
-    System.out.println("lbmTitle: " +sceneAlbum.getLbmTitle());
     
     sceneAlbumService.editLbm(sceneAlbum.getLbmno(), sceneAlbum.getLbmTitle());
     Map<String, Object> resultMap = new HashMap<>();

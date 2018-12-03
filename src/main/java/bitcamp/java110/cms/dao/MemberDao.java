@@ -7,6 +7,7 @@ public interface MemberDao {
 
   int insert(Member member);
   Member findById(String id);
+  Member findByMno(int mno);
   List<Member> findByNick (String keyword);
   void update(Member member);
   void signOut(int mno);
