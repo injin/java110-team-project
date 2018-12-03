@@ -1,93 +1,88 @@
 @charset "UTF-8";
 
+/* ========== 친구태그 관련  ========== */
+#ftag-input {
+	text-align: auto;
+}
 
+.ftag {
+	width: 37em;
+}
 
 .label-info {
-    background-color: #5bc0de;
+	background-color: #5bc0de;
+	padding: 3px;
 }
+
 .label {
-    display: inline;
-    padding: .2em .6em .3em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: inherit;;
-    border-radius: .25em;
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: inherit;;
+	border-radius: .25em;
 }
-
-
 
 .bootstrap-tagsinput {
-    width: 100%;
+	width: 100%;
 }
 
-.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-query, .twitter-typeahead .tt-hint {
+	margin-bottom: 0;
+}
+
 .twitter-typeahead .tt-hint {
-    margin-bottom: 0;
-}
-
-.twitter-typeahead .tt-hint
-{
-    display: none;
+	display: none;
 }
 
 .tt-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    float: left;
-    min-width: 160px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    list-style: none;
-    font-size: 14px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-clip: padding-box;
-    cursor: pointer;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 160px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	list-style: none;
+	font-size: 14px;
+	background-color: #ffffff;
+	border: 1px solid #cccccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	background-clip: padding-box;
+	cursor: pointer;
 }
 
 .tt-suggestion {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: 1.428571429;
-    color: #333333;
-    white-space: nowrap;
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: normal;
+	line-height: 1.428571429;
+	color: #333333;
+	white-space: nowrap;
 }
 
-.tt-suggestion:hover,
-.tt-suggestion:focus {
-  color: #ffffff;
-  text-decoration: none;
-  outline: 0;
-  background-color: #428bca;
+.tt-suggestion:hover, .tt-suggestion:focus {
+	color: #ffffff;
+	text-decoration: none;
+	outline: 0;
+	background-color: #428bca;
 }
 
-
-
-<!-- 위 전부 친구태그-->
-
-.input-tags {
-  width: 100%;
-  padding: 15px;
-  display: block;
-  margin: 0 auto;
-}
-
-.label-info {
-  background-color: #5bc0de;
-  padding: 3px;
+/* ========== 영화 검색 관련  ========== */
+.msearch {
+	max-width: 100%;
+	margin-right: 5em;
+	width: 29em;
 }
 
 .ui-autocomplete {
@@ -118,14 +113,6 @@
 	*border-bottom-width: 2px;
 }
 
-.photo-star-section{
-	margin: 0.5rem 0.5rem 0.5rem 0rem;
-}
-
-#media-list li:hover {
-	background-color: #e2e2e2;
-}
-
 .ui-autocomplete-loading {
 	background: white right center no-repeat;
 }
@@ -139,36 +126,18 @@
 	height: 20%
 }
 
-#media-list li img{
+/* ========== 이미지 업로드 관련  ========== */
+#media-list li:hover {
+	background-color: #e2e2e2;
+}
+
+#media-list li img {
 	width: 100px;
 	height: 100px
 }
 
-#media-list li{
+#media-list li {
 	height: 102px
-}
-
-#reviewModal{
-	margin:auto;
-	width: 40%;
-}
-
-.lock {
-	position: relative;
-	left: 15%;
-	top: 15%;
-}
-
-.globe {
-	position: relative;
-	left: 60%;
-	top: 15%;
-}
-
-div#hint_brand .modal-dialog {
-	top: 110px;
-	width: 567px;
-	max-width: 100%
 }
 
 li.myupload span {
@@ -197,7 +166,7 @@ li.myupload span i {
 	font-size: 54px
 }
 
-#media-list li{
+#media-list li {
 	float: left;
 	border: 1px solid #ccc;
 	background: #ccc;
@@ -206,7 +175,7 @@ li.myupload span i {
 	width: 102px
 }
 
-#media-list li:last-child{
+#media-list li:last-child {
 	margin-right: 0
 }
 
@@ -220,7 +189,7 @@ li.myupload span i {
 	display: none
 }
 
-#media-list li:hover .post-thumb{
+#media-list li:hover .post-thumb {
 	display: block
 }
 
@@ -243,43 +212,13 @@ a.remove-pic {
 	position: relative
 }
 
-textarea.form-control.upostTextarea {
-	border: 0;
-	box-shadow: none;
-	height: 85px;
-	resize: none
-}
-
-ul.btn-nav {
+ul#media-list {
 	list-style: none;
 	padding: 0;
 	margin: 0
 }
 
-ul.btn-nav li {
-	position: relative;
-	float: left;
-	margin: 0 10px 0 0
-}
-
-ul.btn-nav li span input {
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	z-index: 9;
-	opacity: 0;
-	filter: alpha(opacity = 100)
-}
-
-ul#media-list{
-	list-style: none;
-	padding: 0;
-	margin: 0
-}
-
-/* The switch - the box around the slider */
+/* ========== 공개/비공개 스위치  ========== */
 .switch {
 	position: absolute;
 	display: inline-block;
@@ -288,14 +227,12 @@ ul#media-list{
 	right: 50px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
 
-/* The slider */
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -334,7 +271,6 @@ input:checked+.slider:before {
 	transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
 	border-radius: 34px;
 }
@@ -342,12 +278,29 @@ input:checked+.slider:before {
 .slider.round:before {
 	border-radius: 50%;
 }
-.msearch{
-    width:29.3em;
-    max-width:100%;
-    margin-right:5em;
+
+.lock {
+	position: relative;
+	left: 15%;
+	top: 15%;
 }
-.ftag{
-    width:37em;
-    
+
+.globe {
+	position: relative;
+	left: 60%;
+	top: 15%;
+}
+
+/* ========== 그외  ========== */
+.photo-star-section {
+	margin: 0.5rem 0.5rem 0.5rem 0rem;
+}
+
+#reviewModal {
+	margin: auto;
+	width: 40%;
+}
+
+.modal-title {
+	margin-right: 1rem;
 }

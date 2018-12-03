@@ -1,5 +1,6 @@
 $(function() {
 
+    /* ========== 이미지 업로드 관련  ========== */
     var names = [];  
   
     $('body').on('change', '.picupload', function(event) {
@@ -38,10 +39,10 @@ $(function() {
         if (yet != -1) {
             names.splice(yet, 1);
         }
-        // return array of file name
         console.log(names);
     });
-
+    
+    /* ========== 일상/영화게시물 구분 관련  ========== */
     $('.starrr').starrr({
         change: function(e, value){
             $("#star").val(value);
@@ -54,7 +55,7 @@ $(function() {
             $("#star").val(0);
         }
     });
-
+    
     $('.open').on('click', function(e) {
         
         if(this.checked) {
@@ -66,6 +67,26 @@ $(function() {
         }
     });
     
+    /* ========== 친구태그 관련  ========== */
+    var fList = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: flwList
+      });
+      fList.initialize();
+
+      elt = $('.example_objects_as_tags > > input');
+      elt.tagsinput({
+        itemValue: 'value',
+        itemText: 'text',
+        typeaheadjs: {
+          name: 'fList',
+          displayKey: 'text',
+          source: fList.ttAdapter()
+        }
+      });
+    
+    // 글 작성
     $('#modalSubmit').on('click', function(e) {
 
         console.log($("#pstTypeNo").val() == 0);
@@ -93,6 +114,7 @@ $(function() {
         $("#ftagsForAdd").val($("#flw").val());
     });
 
+    // 영화 자동완성
     $( "#movieSearch" ).autocomplete({
         source: function( request, response ) {
             $.ajax({
@@ -140,31 +162,9 @@ $(function() {
         .appendTo( ul );
     };
     
+    // 창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {           
-        /*$(this).find('form')[0].reset();
-        $('.globe').show();
-        $('.lock').hide();*/
         location.reload();
         $('#reviewModal').show();
     })
-    
-    // 여기서부터 전부 친구태그
-    var fList = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: flwList
-      });
-      fList.initialize();
-
-      elt = $('.example_objects_as_tags > > input');
-      elt.tagsinput({
-        itemValue: 'value',
-        itemText: 'text',
-        typeaheadjs: {
-          name: 'fList',
-          displayKey: 'text',
-          source: fList.ttAdapter()
-        }
-      });
-      // 여기까지 전부 친구태그
 });
