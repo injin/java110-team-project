@@ -36,11 +36,13 @@ public class PostServiceImpl implements PostService {
 
     List<Post> posts = null;
     if((params.get("prevpstno")).equals("x")) {
-      posts =postDao.findAll((int)(params.get("mno")));
-    }else if((params.get("prevpstno")).equals("only")){
+      posts = postDao.findAll((int)(params.get("mno")));
+    }else if((params.get("prevpstno")).equals("owner")){
       posts = postDao.getMyPostList((int)(params.get("mno")));
-    }else {
-      posts =postDao.findSome(params);
+    }else if((params.get("prevpstno")).equals("visitor")){
+      posts = postDao.getOthersPostList((int)(params.get("mno")));
+    } else {
+      posts = postDao.findSome(params);
     }
     
     
@@ -60,7 +62,31 @@ public class PostServiceImpl implements PostService {
     }
     return posts;
   }
-
+  
+  @Override
+  public List<Post> getMyPostList(int mno) {
+    List<Post> posts = postDao.getMyPostList(mno);
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+    }
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
+    }
+    return posts;
+  }
+  
+  @Override
+  public List<Post> getOtherPostList(int mno) {
+    List<Post> posts = postDao.getOthersPostList(mno);
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+    }
+    for(int i = 0; i < posts.size(); i++) {
+      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
+    }
+    return posts;
+  }
+  
   @Override
   public Post getOnePost(int pstNo) {
     Post post = (Post)postDao.findByNo(pstNo);
@@ -143,18 +169,6 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);    
       }
     }
-  }
-  
-  @Override
-  public List<Post> getMyPostList(int mno) {
-    List<Post> posts = postDao.getMyPostList(mno);
-    for(int i = 0; i < posts.size(); i++) {
-      posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
-    }
-    for(int i = 0; i < posts.size(); i++) {
-      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
-    }
-    return posts;
   }
   
   @Override

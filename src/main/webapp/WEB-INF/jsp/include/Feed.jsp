@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- ========================================================================================== --%>
           <!-- 작업공간 START -->
+<%-- ====================================== if ================================================ --%>
           <%-- 글 작성 부분 --%>
+            <c:if test="${targetUser.mno == loginUser.mno}">
             <div class="wPost">
-                <%-- 
                 <h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
                 <div style="border-bottom: 1px solid #00cc99; color: #00cc99">
                     <c:choose>
@@ -21,8 +21,6 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-                 --%>
-                 
                 <div class="row">
                     <div class="col text-center pst"
                         onclick="document.getElementById('btnIlsang').click();">
@@ -52,7 +50,8 @@
                     </div>
                 </div>
             </div>
-<%-- ========================================================================================== --%>
+            </c:if>
+<%-- ====================================== if ================================================ --%>
           <%-- 포스터 보이는 부분 --%>
             <c:forEach items="${postList}" var="post" varStatus="status">
                 <c:if test="${status.last}">
