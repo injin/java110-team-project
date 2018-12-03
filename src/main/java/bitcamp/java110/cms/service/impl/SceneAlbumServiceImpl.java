@@ -138,6 +138,16 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean editOpen(SceneAlbum sceneAlbum) {
+    if(sceneAlbumDao.editOpen(sceneAlbum) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
   public SceneAlbum get(int lbmno) {
     return sceneAlbumDao.findByNo(lbmno);
   }

@@ -75,8 +75,8 @@
 				<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 			</jsp:include>
 			<form class="listForm" action="list" method="get">
-				<input type="hidden" name="pageNo"> <input type="hidden"
-					name="tgtMno" value="${targetUser.mno}">
+				<input type="hidden" name="pageNo"> 
+				<input type="hidden" name="tgtMno" value="${targetUser.mno}">
 			</form>
 		</c:if>
 	</div>

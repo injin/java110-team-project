@@ -50,14 +50,14 @@ public class SceneAlbumController {
   }
 
 
-  @PostMapping("/add")
+  @RequestMapping("/add")
   public String album(
       SceneAlbum sceneAlbum,
       HttpSession session) {
     
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
     sceneAlbumService.add(mno, sceneAlbum);
-    return "redirect:list";
+    return "redirect:list?tgtMno=" + mno;
   }
   
   @RequestMapping("/detail")
@@ -190,6 +190,23 @@ public class SceneAlbumController {
     sceneAlbumService.editLbm(sceneAlbum.getLbmno(), sceneAlbum.getLbmTitle());
     Map<String, Object> resultMap = new HashMap<>();
     resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
+    return resultMap;
+    
+  }
+  
+  @RequestMapping("editOpen")
+  public @ResponseBody Map<String, Object> editOpen(
+      @RequestBody SceneAlbum sceneAlbum,
+      HttpSession session
+      )throws Exception{
+   
+    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    sceneAlbumService.editOpen(sceneAlbum);
+    
+    Map<String, Object> resultMap = new HashMap<>();
+    System.out.println("sceneAlbum: "+sceneAlbumService.get(sceneAlbum.getLbmno()));
+    resultMap.put("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
+    //resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
     return resultMap;
     
   }
