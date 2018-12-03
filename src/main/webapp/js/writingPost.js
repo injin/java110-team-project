@@ -168,3 +168,197 @@ $(function() {
         $('#reviewModal').show();
     })
 });
+
+/* ========== 피드 무한스크롤 ========== */
+function morePostHtml(data){
+    var html = '';
+     
+    postList = postList.concat(data.postsResult); 
+    
+    for (var i=0;i<data.postsResult.length;i++) {
+        if(i == data.postsResult.length-1){
+            lstpstno = String(data.postsResult[i].pstno);
+        }
+        
+        html += '        <div class="wPost reviewPst">';
+        html += '            <div class="media row pr-3 pl-3">';
+        html += '                <img src="';
+        html += data.postsResult[i].member.profileImagePath;
+        html += '"                   class="rprofileImg"/>';
+        html += '                <div class="media-body">';
+        html += '                    <ul class="memberul">';
+        html += '                        <li><a href="#" class="text-dark">';
+        html += data.postsResult[i].member.nickname;
+        html += '                            </a></li><li>';
+        
+        if('null' !=data.postsResult[i].ftags){
+            for(var j=0;j<data.postsResult[i].ftags.length;j++){
+                html += '<a href="#" class="tagName">';
+                html += data.postsResult[i].ftags[j].nickname; 
+                html += '</a>';
+            }
+        }
+                                
+        html += '                    </li></ul>';
+        
+        html += '<span class="cmt-date">&nbsp;';
+        html +=  new Date(data.postsResult[i].createdDate).toLocaleString();
+        html += '</span>'; 
+       if(data.postsResult[i].pstTypeNo == 0){
+           html += '<p class="dptitle">';
+           html += '<b><i>';
+           html += data.postsResult[i].title;
+           html += '</i></b></p>';
+       }
+                                
+        html += '               </div>';
+        html += '           </div>';
+        html += '           <div class="clearfix media row m-1">';
+        html += '               <div class="media-body">';
+        html += '                   <p class="reviewCont" id="reviewCont-';
+        html += data.postsResult[i].pstno;
+        html += '">';
+        html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
+        html += '</p>';
+        html += '               </div>';
+        
+        
+        if('null' !=data.postsResult[i].photos){
+            html += '   <img onclick="openDetailModal(';
+            html += data.postsResult[i].pstno;
+            html += ')" src="/upload/post/';
+            html += data.postsResult[i].photos[0];
+            html += '" data-title="';
+            html += data.postsResult[i].title;
+            html += '"   class="pstImgtoDetail"/>';
+            html += ' <input type="hidden" data-toggle="modal" id="detailPst"data-target="#detailModal" />';
+        }
+            html += '        </div>';
+            
+            html += '       <div class="row">';
+            html += '           <div class="col-6 text-left">';
+            
+            html += '<i class="fas fa-thumbs-up btmIcon c-pointer likeColor';
+            if(!data.postsResult[i].likeCheck){
+                html += ' dis-none ';
+            }
+            html += '"id="btn-like-full-';
+            html += data.postsResult[i].pstno;
+            html += '" onclick="cancelLike(';
+            html += data.postsResult[i].pstno;
+            html += ',';
+            html += data.postsResult[i].pstTypeNo;
+            html += ')"></i>';
+            html += '<i class="far fa-thumbs-up btmIcon c-pointer likeColor';
+            if(data.postsResult[i].likeCheck){
+                html += ' dis-none ';
+            }
+            html += '"id="btn-like-empty-';
+            html += data.postsResult[i].pstno;
+            html += '" onclick="addLike(';
+            html += data.postsResult[i].pstno;
+            html += ',';
+            html += data.postsResult[i].pstTypeNo;
+            html += ')"></i><span id="lCnt-';
+            html += data.postsResult[i].pstno;
+            html += '">';
+            html += data.postsResult[i].likeCnt;
+            html += '</span><i class="far fa-comment btmIcon c-pointer"></i>';
+            html += '<span id="cCnt-';
+            html += data.postsResult[i].pstno;
+            html += '">';
+            html +=  data.postsResult[i].cmtCnt;
+            html += '</span></div>';
+            
+            html += '   <div class="col-6 text-right">';
+            if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
+            
+                for(var s = 0;s<5;s++){
+                    if(s<data.postsResult[i].star){
+                        
+                        html += '<i class="fas fa-star sStar"></i>';    
+                    }else{
+                        
+                        html += '<i class="far fa-star sStar"></i>';
+                    }
+                }
+            }
+                           
+            html += '  </div>'; 
+            html += '       </div>';
+                    
+            html += '   </div>';
+    }  
+    
+    $('#pstShw').append(html); 
+}
+
+$(window).scroll(function() {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        
+        $.ajax({
+            type:'POST',
+            url:'/app/reviewFeed/morePost',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({ 
+                "pstno" : lstpstno
+            }),
+            success:function(data){
+                morePostHtml(data);
+            }
+        });
+    }
+  })
+  
+/* ========== 좋아요 관련  ========== */
+function addLike(pstno,pstTypeNo) {
+     $.ajax({
+        url : "/app/reviewFeed/addLike",
+        type: "post",
+        data : { 
+            "pstno" : pstno,
+            "pstTypeNo":pstTypeNo
+            },
+        success : function(data) {
+          $('#btn-like-full-'+pstno).show();
+          $('#btn-like-empty-'+pstno).hide();
+          $('#lCnt-'+pstno).text(data);
+        }
+    }); 
+}
+
+function cancelLike(pstno,pstTypeNo) {
+    $.ajax({
+        url : "/app/reviewFeed/cancelLike",
+        type: "post",
+        data : { 
+            "pstno" : pstno,
+            "pstTypeNo":pstTypeNo
+            },
+        success : function(data) {
+            $('#btn-like-empty-'+pstno).show();
+            $('#btn-like-full-'+pstno).hide();
+            $('#lCnt-'+pstno).text(data);
+        }
+    });
+}
+
+//로그인 에러
+function loginError() {
+    alert('로그인 후 작성할 수 있습니다.');
+}
+
+// 일상/영화게시물 올리기
+function postShow(id) {
+    if (id == 'btnIlsang') {
+        $("#pstTypeNo").val(1);
+        $('.onlyMovie').hide();
+    } else if(id == 'detailPst'){
+        
+    } else {
+        $("#pstTypeNo").val(0);
+        $('.onlyMovie').show();
+    }
+}

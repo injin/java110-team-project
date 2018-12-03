@@ -45,9 +45,9 @@
 								<li><a href="#" style="color: black;" id="ownerNick">닉네임</a></li>
 								<%-- 친구태그 --%>
 								<li id="dftags"></li>
-								
+
 							</ul>
-                            <span class="cmt-date" id="cdate"></span>
+							<span class="cmt-date" id="cdate"></span>
 						</div>
 					</div>
 
@@ -73,7 +73,7 @@
 						<%-- 댓글 작성란 --%>
 						<c:choose>
 							<c:when test="${not empty sessionScope.loginUser}">
-							<input type="hidden" name="pstno" id="dpstno"/>
+								<input type="hidden" name="pstno" id="dpstno" />
 								<div class="card mb-2">
 									<div class="media" id="insideCard">
 										<div>
@@ -94,10 +94,10 @@
 
 							</c:when>
 							<c:otherwise>
-                                        <div class="media-body text-right mb-2">
-                                            <textarea class="form-control" name="cont"
-                                                placeholder="로그인 후 사용가능합니다." disabled></textarea>
-                                        </div>
+								<div class="media-body text-right mb-2">
+									<textarea class="form-control" name="cont"
+										placeholder="로그인 후 사용가능합니다." disabled></textarea>
+								</div>
 							</c:otherwise>
 						</c:choose>
 						<%-- 댓글리스트 --%>

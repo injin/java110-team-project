@@ -29,9 +29,38 @@
 	padding: .5rem;
 }
 
-/* ========== 내용/닉네임/친구태그/별/좋아요 관련  ========== */
+.cmt-date {
+	color: #ccc;
+	font-size: 0.9em;
+}
+
+.wbw {
+	word-break: break-word;
+}
+
+.edcmt {
+	height: 3rem;
+	padding: 0 .5rem;
+}
+
+/* ========== 내용/닉네임/친구태그/별/좋아요/이미지 관련  ========== */
+.likeColor {
+	color: red;
+}
+
 #dCont {
 	border: 1px solid silver;
+	overflow: auto;
+}
+
+.hash {
+	color: blue;
+	font-weight: bold;
+}
+
+.reviewCont {
+	height: 13rem;
+	word-break: break-word;
 	overflow: auto;
 }
 
@@ -40,4 +69,25 @@
 	height: 2.5rem;
 	border-radius: 50%;
 	margin-right: 0.5rem;
+}
+
+.sStar {
+	font-size: 1.5rem;
+	color: #FFD119;
+}
+
+.btmIcon {
+	padding: 0 0.4rem 1rem 1rem;
+	font-size: 1.3rem;
+	vertical-align: sub;
+}
+
+.dptitle {
+	float: right;
+	font-size: 1.5rem;
+	margin-bottom: 0;
+}
+
+.carouselHeight {
+	height: 44rem;
 }
