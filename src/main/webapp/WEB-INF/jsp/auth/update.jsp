@@ -4,11 +4,10 @@
 <%-- ========================================================================================== --%>
      <main role="main" class="container">
          <div id="detail">
-            <form action="update" method="post" id="detailForm"
-               enctype="multipart/form-data">
+            <form action="update" method="post" id="detailForm" enctype="multipart/form-data">
                <input type="hidden" name="mno" value="${loginUser.mno}">
-               <input type="hidden" name="profileImage"
-                  value="${loginUser.profileImage}">
+               <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
+               <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
                   <div class="form-group row">
@@ -38,12 +37,10 @@
                   <div class="form-group">
                      <c:choose>
                         <c:when test="${empty loginUser.pr}">
-                           <input type="text" class="pr form-control" name="pr"
-                              value="자기소개를 입력해 주세요.">
+                           <input type="text" class="pr form-control" name="pr" value="자기소개를 입력해 주세요.">
                         </c:when>
                         <c:otherwise>
-                           <input type="text" class="pr form-control" name="pr"
-                              value="${loginUser.pr}">
+                           <input type="text" class="pr form-control" name="pr" value="${loginUser.pr}">
                         </c:otherwise>
                      </c:choose>
                   </div>
@@ -75,8 +72,10 @@
                            name="favGrList" value="${genre.grno}" checked></label>
                      </c:forEach>
                      <c:forEach items="${genreList}" var="genre">
-                        <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">${genre.grName}<input
-                           type="checkbox" name="favGrList" value="${genre.grno}"></label>
+                        <label class="btn btn-checkbox btn-secondary" id="${genre.grno}">
+                            ${genre.grName}
+                            <input type="checkbox" name="favGrList" value="${genre.grno}">
+                        </label>
                      </c:forEach>
                   </div>
                </div>

@@ -39,10 +39,8 @@ public class PostServiceImpl implements PostService {
       posts = postDao.findAll((int)(params.get("mno")));
     }else if((params.get("prevpstno")).equals("owner")){
       posts = postDao.getMyPostList((int)(params.get("mno")));
-      System.out.println("my Feed\n" + posts);
     }else if((params.get("prevpstno")).equals("visitor")){
       posts = postDao.getOthersPostList((int)(params.get("mno")));
-      System.out.println("other's Feed\n" + posts);
     } else {
       posts = postDao.findSome(params);
     }
