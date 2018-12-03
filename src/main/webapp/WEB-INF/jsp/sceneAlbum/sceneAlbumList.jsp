@@ -7,6 +7,7 @@
 			
 			<!-- 앨범 목록 -->
 			<div class="row albumList">
+			    <c:if test="${isMyAlbum == true}">
 				<div class="col-lg-12" style="float: right;">
 					<div class="a_btn btn btn-success btn-lg"
 						onclick="document.getElementById('btnAlbum').click();"
@@ -15,6 +16,7 @@
 							data-target="#albumModal" />
 					</div>
 				</div>
+				</c:if>
 				<c:forEach items="${sceneAlbumList}" var="album">
 					<!-- begin="0" end="5" -->
 					<!-- 앨범 하나 -->
@@ -72,7 +74,7 @@
 					<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
 					<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 				</jsp:include>
-				<form class="listForm" action="list" method="post">
+				<form class="listForm" action="list" method="get">
 					<input type="hidden" name="pageNo">
 					<input type="hidden" name="tgtMno" value="${targetUser.mno}">
 				</form>
