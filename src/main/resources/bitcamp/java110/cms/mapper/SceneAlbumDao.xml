@@ -167,6 +167,13 @@
          WHERE lbmno = #{lbmno}
     </update>
     
+    <update id="editOpen" parameterType="map">
+        UPDATE mv_lbm 
+           SET opn = if(#{open},'u','l'),
+               mdt=now()
+         WHERE lbmno = #{lbmno}
+    </update>
+    
     <update id="editLbm" parameterType="map">
         UPDATE mv_lbm 
            SET lbm_nm= #{lbmTitle},

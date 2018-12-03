@@ -3,51 +3,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-	<!-- 앨범 상세 -->
-	<section class="col-lg-12">
-		<div class="row detailList col-lg-12 p-0">
-			<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
-				<span class="titl">${sceneAlbum.lbmTitle}</span>
-				<c:if test="${isMyAlbum == true}">
+<!-- 앨범 상세 -->
+<section class="col-lg-12">
+	<div class="row detailList col-lg-12 p-0">
+		<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
+			<span class="titl">${sceneAlbum.lbmTitle}</span>
+			<c:if test="${isMyAlbum == true}">
 				<div class="a_btn btn btn-success btn-lg mr-2"
-					onclick="editButton(this)"
-					data-lbmno="${sceneAlbum.lbmno}"
-                                     data-lbm-title="${sceneAlbum.lbmTitle}" data-open="${sceneAlbum.open}">
-					수정하기
-				</div>
+					onclick="editButton(${sceneAlbum.lbmno}, '${sceneAlbum.lbmTitle}', ${sceneAlbum.open})" <%-- data-lbmno="${sceneAlbum.lbmno}"
+					data-lbm-title="${sceneAlbum.lbmTitle}"
+					data-open="${sceneAlbum.open}" --%>>수정하기</div>
 				<input type="hidden" data-toggle="modal" id="mgrAlbum"
-                        data-target="#mgrModal" />
-				</c:if>
-			</div>
-			<!-- 앨범 목록 -->
-			<div class="row col-lg-12" style="margin: 0 auto;">
-				<!-- 장면 -->
-				<c:if test="${empty sceneReview}">
-					<span class="sr_empty">보관된 장면이 없습니다.</span>
-				</c:if>
-				<c:forEach var="sceneReview" items="${sceneReview}"
-					varStatus="status">
-					<div class="col-4 scene">
-						<a
-							href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
-							<img class="card-img-top hot-sr-img"
-							src="/upload/sceneReview/${sceneReview.photo}"
-							alt="Card image cap">
-						</a>
-					</div>
-
-				</c:forEach>
-			</div>
-
+					data-target="#mgrModal" />
+			</c:if>
 		</div>
-		<jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
-		<jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
-	</section>
+		<!-- 앨범 목록 -->
+		<div class="row col-lg-12" style="margin: 0 auto;">
+			<!-- 장면 -->
+			<c:if test="${empty sceneReview}">
+				<span class="sr_empty">보관된 장면이 없습니다.</span>
+			</c:if>
+			<c:forEach var="sceneReview" items="${sceneReview}"
+				varStatus="status">
+				<div class="col-4 scene">
+					<a
+						href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
+						<img class="card-img-top hot-sr-img"
+						src="/upload/sceneReview/${sceneReview.photo}"
+						alt="Card image cap">
+					</a>
+				</div>
 
-	<script>
+			</c:forEach>
+		</div>
+
+	</div>
+	<jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
+	<jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
+</section>
+
+<script>
 		// 모달 종료시 reload
 	    $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
 	        location.reload();
+	        alert('okok');
 	        $('#mgrModal').show();
 	    });
 		
@@ -103,9 +102,48 @@
             }); 
         }
         
+     // 수정하기 버튼 클릭
+        function editButton(lbmno, lbmTitle, open){
+            document.getElementById('mgrAlbum').click();
+            console.log('editButton: lbmno, lbmTitle, open' +lbmno +lbmTitle+open);
+            editAlbum(lbmno, lbmTitle, open);
+            
+        }
+        
+        // 수정모달에서 앨범명 클릭시 변화
+        function editAlbum(lbmno, lbmTitle, open){
+                        
+            var html='<button type="button" class="close" data-dismiss="modal"';
+            html+='aria-label="Close">';
+            html+='<span aria-hidden="true">&times;</span>';
+            html+='</button>';
+            
+            if(open==true){
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i></span>');
+            }else{
+                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');
+            }
+            $('.openIcon').parent().append(html);
+            $('.title_box').html(lbmTitle+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
+            
+            $.ajax({
+                type:'POST',
+                url: '/app/sceneAlbum/srList',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                   "lbmno" :  lbmno
+                }),
+                success:function(data){
+                    //console.log('장면리스트가져옴');
+                    showSrList(data);
+                }
+            });
+        }
+        
+        // 공개여부 수정
         function editOpen(lbmno, open){
-            console.log('lbmno ' +lbmno);
-            console.log('open ' +open);
             
             var html='<button type="button" class="close" data-dismiss="modal"';
                html+='aria-label="Close">';
@@ -114,45 +152,35 @@
             
             $( ".openIcon" ).toggleClass(function(){
                if($(this).find('i').hasClass('globe')){
-                   $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');   
+                   open = false;
+                   console.log('공개 ->비공개' + open);
+                   $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');
                }else{
+                   open = true;
+                   console.log('비공개 ->공개' + open);
                    $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i></span>');
                }
                 
             });
             $('.openIcon').parent().append(html);
-        }  
-                    
-                  /*   function() {
-                        console.log('this'+$(this));
-                      $( this ).html('<i class="fas fa-lock lock"></i>');
-                    }, function() {
-                      $( this ).html('<i class="fas fa-globe-americas globe"></i>');
-                    }
-                   */
-           /*  if(open == true){
-                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
-            }else{
-                $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
-            }
-             */
-           /*  $.ajax({
+          
+             $.ajax({
                 type:'POST',
-                url: '/app/sceneAlbum/removeLbm',
+                url: '/app/sceneAlbum/editOpen',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify({
                    "lbmno" :  lbmno,
+                   "open" : open
                 }),
                 success:function(data){
-                    console.log('앨범 삭제함');
-                    alert('앨범 삭제 완료');
-                    showLbmList(data);
-                    
+                    //console.log('공개여부 수정완료');
+                    //alert('공개여부 수정완료');
+                    editAlbum(data.sceneAlbum.lbmno, data.sceneAlbum.lbmTitle, data.sceneAlbum.open);
                 }
-            });  */
-        
+            });   
+        }
         
         // 앨범 삭제
         function removeLbm(lbmno){
@@ -165,7 +193,7 @@
                     'Content-Type': 'application/json'
                 },
                 data: JSON.stringify({
-                   "lbmno" :  lbmno,
+                   "lbmno" :  lbmno
                 }),
                 success:function(data){
                     console.log('앨범 삭제함');
@@ -182,8 +210,7 @@
             for(var i=0; i<data.sceneAlbumList.length; i++){
                 
             html += '<div class="album_title al_wrap text-center"';
-            html += 'onclick="editAlbum(this)" data-lbmno="'+data.sceneAlbumList[i].lbmno
-             +'" data-lbm-title="'+ data.sceneAlbumList[i].lbmTitle +'" data-open="' + data.sceneAlbumList[i].open +'">';
+            html += 'onclick="editAlbum(' + data.lbmno + ',\'' + data.sceneAlbumList[i].lbmTitle + '\','+ data.sceneAlbumList[i].open+')">'; 
             html += '<div class="al_overflow">'+data.sceneAlbumList[i].lbmTitle+ '</div>';
             html += '<i class="fas fa-trash-alt al_trash"';
             html += '   onclick="removeLbm('+data.sceneAlbumList[i].lbmno+')"></i></div>';
@@ -192,49 +219,9 @@
             $('.boxList').html(html);
         } 
         
-        // 수정하기 버튼 클릭
-        function editButton(obj){
-            document.getElementById('mgrAlbum').click();
-            editAlbum(obj);
-            
-        }
-        
-        // 수정모달에서 앨범명 클릭시 변화
-        function editAlbum(obj){
-            console.log($(obj).data('lbm-title'));
-            var open = $(obj).data('open');
-            var lbmno = $(obj).data('lbmno');
-            var html='<button type="button" class="close" data-dismiss="modal"';
-            html+='aria-label="Close">';
-            html+='<span aria-hidden="true">&times;</span>';
-            html+='</button>';
-            
-            if($(obj).data('open')==true){
-                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i>');
-            }else{
-                $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i>');
-            }
-            $('.openIcon').parent().append(html);
-            $('.title_box').html($(obj).data('lbm-title')+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
-            
-            $.ajax({
-                type:'POST',
-                url: '/app/sceneAlbum/srList',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: JSON.stringify({
-                   "lbmno" :  $(obj).data('lbmno')
-                }),
-                success:function(data){
-                    console.log('장면리스트가져옴');
-                    showSrList(data);
-                }
-            });
-        }
-        
         // 앨범별 보유 장면 - 수정모달에서 보여주기
         function showSrList(data){
+            console.log('showSrList 진입');
             var html = '';
             for(var i=0; i<data.sceneReview.length; i++){
                 console.log(data.sceneReview[i].photo);
