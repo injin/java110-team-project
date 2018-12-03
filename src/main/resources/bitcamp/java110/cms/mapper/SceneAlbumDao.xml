@@ -119,7 +119,7 @@
                             l.lbmno = s.lbmno 
                         group by lbmno) as sr on l.lbmno = sr.lbmno
         where l.mno = #{mno}
-        <if test="showAll == false">
+        <if test="isMyAlbum == false">
             and l.opn ='u'
         </if>
         order by
@@ -136,7 +136,7 @@
         from mv_lbm l
             inner join mv_memb m on m.mno = l.mno
             where l.mno = #{mno}
-            <if test="showAll == false">
+            <if test="isMyAlbum == false">
             and l.opn ='u'
             </if>
     </select>

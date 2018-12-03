@@ -67,20 +67,20 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
-  public List<SceneAlbum> pageList(int mno, Paging paging, boolean showAll) {
+  public List<SceneAlbum> pageList(int mno, Paging paging, boolean isMyAlbum) {
     
     Map<String, Object> condition = new HashMap<>();
     condition.put("mno", mno);
     condition.put("paging", paging);
-    condition.put("showAll", showAll);
+    condition.put("isMyAlbum", isMyAlbum);
     return sceneAlbumDao.findByPageNo(condition);
   }
 
   @Override
-  public int getTotalCnt(int mno, boolean showAll) {
+  public int getTotalCnt(int mno, boolean isMyAlbum) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("mno", mno);
-    condition.put("showAll", showAll);
+    condition.put("isMyAlbum", isMyAlbum);
     return sceneAlbumDao.getTotalCnt(condition);
   }
   
