@@ -242,14 +242,15 @@ function showCont(cont, index) {
                                      <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
                                  </c:when>
                                  <c:otherwise>
-                                 <a href="/app/sceneAlbum/detail?lbmTitle=${album.lbmTitle}&open=true&lbmno=${album.lbmno}">
+                                 <a href="/app/sceneAlbum/detail?open=true&lbmno=${album.lbmno}&tgtMno=${album.mno}">
                                      <img class="card-img-top hot-sr-img-scene"
                                             src="/upload/sceneReview/${album.phot}"
                                             alt="Card image cap"></a>
                                  </c:otherwise>
                             </c:choose>
                                     <div class="row">
-                                        <span class="overflow" style="margin-left: 1rem;"> <b>${album.lbmTitle}</b></span>
+                                        <span class="overflow" style="margin-left: 1rem; margin-top:1em;"> 
+                                        <h6><b>${album.lbmTitle}</b></h6></span>
                                         <span style="margin-left: 1.3rem;"></i></span>
                                     </div>
                                 <span style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> <span
