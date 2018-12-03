@@ -12,7 +12,7 @@ public interface SceneAlbumDao {
   List<SceneAlbum> findAll2(Map<String, Object> condition);
   List<SceneAlbum> findByPageNo(Map<String, Object> condition);
   List<SceneAlbum> listScA();
-  int getTotalCnt(int mno);
+  int getTotalCnt(Map<String, Object> condition);
   int addImg(Map<String, Object> condition);
   boolean checkImg(Map<String, Object> condition);
   int removeImg(Map<String, Object> condition);

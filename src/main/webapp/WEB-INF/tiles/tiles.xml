@@ -25,8 +25,8 @@
       <put-attribute name="body" value="/WEB-INF/jsp/statis/tic.jsp"/>
     </definition>
     
-    <definition name="statis/tic" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/statis/tic.jsp"/>
+    <definition name="sceneAlbum/*" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/sceneAlbum/{1}.jsp"/>
     </definition>
- 
+    
 </tiles-definitions>
