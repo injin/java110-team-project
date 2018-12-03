@@ -156,15 +156,11 @@ function makeCmtHtml(data) {
 
             html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
             html += data.cmtsResult[i].pcno;
-            html += ',';
-          /*  html += data.session.profileImagePath.toString();
-            html += ',';*/
-            console.log(typeof data.session.profileImagePath);
-            console.log(data.session.profileImagePath);
-            console.log(typeof data.session.nickname);
-            console.log(data.session.nickname);
+            html += ',\'';
+            html += data.session.profileImagePath;
+            html += '\',\'';
             html += data.session.nickname;
-            html += ')"></i>';
+            html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
             html += ')"></i>';   
@@ -199,8 +195,8 @@ function deleteComment(pcno) {
     });
 }
 
-function showEditForm(obj,pcno,nickname) {
-    /*,profileImagePath*/
+function showEditForm(obj,pcno,profileImagePath,nickname) {
+
     $(obj).hide();
     var $editCont = $(obj).parent().prev().text();
     var $editArea = $(obj).parent().parent().parent().parent();
@@ -209,7 +205,7 @@ function showEditForm(obj,pcno,nickname) {
     editHtml += '<div class="media" style="padding: .5rem;">';
     editHtml += '    <div>';
     editHtml += '        <img class="mr-2 profile-medium" src="';
-    /*editHtml += profileImagePath;*/
+    editHtml += profileImagePath;
     editHtml += '" alt="login-profileImage">';
     editHtml += '        <div style="text-align: -webkit-center;">';
     editHtml += nickname;
