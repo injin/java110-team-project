@@ -53,15 +53,19 @@ img{
 #mgrModal .close{
 	font-size: 2.4rem;
     font-weight: 600;
-    padding-top: 0;
+    padding: 0;
+    margin-right: 0.5rem;
+    margin-bottom: 2rem;
+    /* padding-top: 0;
     margin-right: 0;
     padding-right: 0.5rem;
-    padding-bottom: 2rem;
+    padding-bottom: 2rem; */
 }
 #mgrModal .globe, #mgrModal .lock{
 	font-size: 1.5rem;
 	float: right; 
 	margin: 0.2rem;
+    margin-right: 1.7rem;
 	margin-top: 0.75rem;
 }
 .boxBorder{
