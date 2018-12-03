@@ -154,8 +154,7 @@ public class AuthController {
     public String detailUpdate(
         Model model,
         HttpSession session) {
-      model.addAttribute("member", 
-          (Member)session.getAttribute("loginUser"));
+      model.addAttribute("targetUser", session.getAttribute("loginUser"));
       
       List<Genre> gnrList = genreService.getList();
       List<Integer> favList = memberService.getFavGnrDBList(((Member)session.getAttribute("loginUser")).getMno());
@@ -173,7 +172,7 @@ public class AuthController {
       model.addAttribute("genreList", gnrList);
       model.addAttribute("favList", favGnrList);
       
-      return "/auth/update";
+      return "auth/update";
     }
     
     //  상시 상세정보 수정 update

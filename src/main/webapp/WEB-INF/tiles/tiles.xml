@@ -40,4 +40,11 @@
       </put-list-attribute>
     </definition>
     
+    <definition name="auth/update" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/auth/update.jsp"/>
+      <put-list-attribute name="cssFiles">
+        <add-attribute value="/css/accountDetail.css"/>
+      </put-list-attribute>
+    </definition>
+    
 </tiles-definitions>
