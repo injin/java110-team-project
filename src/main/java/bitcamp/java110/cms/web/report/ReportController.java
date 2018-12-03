@@ -22,7 +22,7 @@ public class ReportController {
 
   @RequestMapping("/list")
   public String list() {
-    return "sceneReview/review";
+    return "report/admin";
   }
 
   @PostMapping("/add")

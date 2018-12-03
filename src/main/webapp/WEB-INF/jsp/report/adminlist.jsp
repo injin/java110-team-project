@@ -19,16 +19,7 @@
 		<tr>
 			<td>1</td>
 			<td>민성</td>
-			<td>
-				<div class="dropdown">
-					<button onclick="myFunction()" class="dropbtn">▼</button>
-					<div id="myDropdown" class="dropdown-content" width="500"
-						style="float: left;">
-						<a href="#">${cont}</a>
-					</div>
-				</div> 
-				${type}
-			</td>
+			<td></td>
 			<td>2018.11.11</td>
 			<td>270</td>
 		</tr>
