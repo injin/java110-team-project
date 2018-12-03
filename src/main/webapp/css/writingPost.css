@@ -283,6 +283,7 @@ input:checked+.slider:before {
 
 .lock {
 	position: relative;
+	right: 15%;
 	left: 15%;
 	top: 15%;
 }
