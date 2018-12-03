@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 
@@ -24,20 +25,24 @@ public class SceneAlbumController {
 
   @Autowired SceneAlbumService sceneAlbumService;
   @Autowired SceneReviewService sceneReviewService;
+  @Autowired MemberService memberService;
 
   @RequestMapping("/list")
   public String list(
       SceneAlbum sceneAlbum,
       Paging paging,
       Model model,
-      HttpSession session) throws Exception {
-
-    int mno = ((Member)session.getAttribute("loginUser")).getMno();
-    paging.setTotalCount(sceneAlbumService.getTotalCnt(mno));
+      HttpSession session,
+      int tgtMno) throws Exception {
     
-    model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(mno, paging));
+    boolean showAll = (tgtMno == ((Member)session.getAttribute("loginUser")).getMno());
+    System.out.println("showAll 확인" + showAll);
+    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
+    paging.setTotalCount(sceneAlbumService.getTotalCnt(tgtMno, showAll));
+    
+    model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(tgtMno, paging, showAll));
     model.addAttribute("paging", paging);
-    return "sceneAlbum/album";
+    return "sceneAlbum/list";
   }
 
 
@@ -55,13 +60,14 @@ public class SceneAlbumController {
   public String detail(
       SceneAlbum sceneAlbum,
       Model model,
-      HttpSession session) {
+      int tgtMno) {
     
-    int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    Member targetUser = memberService.findByMno(tgtMno);
+    model.addAttribute("targetUser", targetUser);
     
     // 현재 클릭된 앨범 안의 장면목록들   => 여기에 현재 클릭된 앨범의 앨범명, 공개여부 나타남! sceneAlbum 대체 가능
     List<SceneAlbum> srList = new ArrayList<>(); 
-    srList = sceneAlbumService.srList(mno, sceneAlbum);
+    srList = sceneAlbumService.srList(tgtMno, sceneAlbum);
     
     List<SceneReview> sceneReview = new ArrayList<>();
     
@@ -78,8 +84,8 @@ public class SceneAlbumController {
     // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
     
-    model.addAttribute("sceneAlbumList", sceneAlbumService.list(mno));
-    return "sceneAlbum/detailAlbum";
+    model.addAttribute("sceneAlbumList", sceneAlbumService.list(tgtMno));
+    return "sceneAlbum/detail";
   }
   
   @RequestMapping("srList")
