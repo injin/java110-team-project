@@ -142,7 +142,9 @@
                     <div class="media mt-3">
                         <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
                         <div class="media-body">
-                            <span class="c-pointer" onclick="goToFeed(${cmt.member.mno})">${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
+                            <span>
+                                <span <c:if test="${cmt.member.mno != 21}">class="c-pointer" onclick="goToFeed(${cmt.member.mno})"</c:if>>${cmt.member.nickname}</span>&nbsp;
+                                <span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
                                 <c:if test="${cmt.member.mno eq sessionScope.loginUser.mno}">
                                     &nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this)"></i>
                                     &nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(${cmt.cmno})"></i>
