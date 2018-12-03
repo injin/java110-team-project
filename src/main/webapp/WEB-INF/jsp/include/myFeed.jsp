@@ -3,112 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>${loginUser.nickname}</title>
-  <link rel='stylesheet' href='/css/bootstrap.css'>
-  <link rel="stylesheet" href="/css/fontawesome.css">
-  <link rel="stylesheet" href="/css/all.css">
-  <link rel='stylesheet' href='/css/common.css'>
-  <link rel='stylesheet' href='/css/writingPost.css'>
-  <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
-  <link rel='stylesheet' href='/css/starrr.css'>
-  <link rel='stylesheet' href='/css/detailPost.css'>
-  <link rel='stylesheet' href='/css/feed.css'>
-  
-  <script>
-    function loginError() {
-        alert('로그인 후 작성할 수 있습니다.');
-    }
-    function postShow(id) {
-        if (id == 'btnIlsang') {
-            $("#pstTypeNo").val(1);
-            $('.onlyMovie').hide();
-        } else if(id == 'detailPst'){
-            
-        } else {
-            $("#pstTypeNo").val(0);
-            $('.onlyMovie').show();
-        }
-    }
-    function makeContHtml(cont, index) {
-        var text = cont.replace(/[\s]+/g, " ").trim();
-        var word = text.split(' ');
-        var newHTML = "";
-        word.forEach(function(value, index) {
-                    var str = "";
-                    var endBr = value.endsWith('<br>');
-                    var valueArr = [ value ];
-                    if (value.includes('<br>')) {
-                        valueArr = value.split('<br>');
-                        str = "<br>";
-                    }
-                    valueArr.forEach(function(value2, index) {
-                                if (index == (valueArr.length - 1)
-                                        && endBr == false) {
-                                    str = "";
-                                }
-                                if (value2.startsWith("#")) {
-                                    newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
-                                            + value2.substring(1)
-                                            + "'>"
-                                            + value2 + "&nbsp;</a></span>" + str);
-                                } else {
-                                    newHTML += "<span class='other'>" + value2
-                                            + "&nbsp;</span>" + str;
-                                }
-                            });
-                });
-          
-        return newHTML;
-    }
-    function showCont(cont, index) {
-        var newHTML = makeContHtml(cont, index);
-        document.getElementById('reviewCont-' + index).innerHTML = newHTML;
-    }
-  </script>
-</head>
-<body>
-  <jsp:include page="../include/header.jsp"></jsp:include>
-
-  <main role="main" class="container pt-0">
-    <div class="row">
-      <aside class="col-3">
-        <div class="mt-2">
-          <img class="card-img-top" id="mypage-profile-img" src="${loginUser.profileImagePath}" alt="프로필 이미지">
-          <div class="card-body">
-          <h5 class="card-title">${loginUser.nickname}</h5>
-          <p class="card-text">${loginUser.pr}</p>
-          </div>
-        </div>
-      </aside>
-      <div class="col-9 borderGray p-0" id="mypage-right">
-        <img src="${loginUser.coverImagePath}" id="mypage-cover-img">
-        <div class="row">
-          <div class="col-lg-12">
-          <table class="table">
-            <thead id="mypage-menu">
-            <tr class="d-flex">
-              <th scope="col" class="col-2 text-center"><a href="#">리뷰피드</a></th>
-              <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
-              <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
-              <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
-              <th scope="col" class="col-2 text-center"><a href="#">활동로그</a></th>
-              <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
-            </tr>
-            </thead>
-          </table>
-          </div>
-        </div>
-        
-        <div class="row pl-3 pr-3">
 <%-- ========================================================================================== --%>
           <!-- 작업공간 START -->
           <%-- 글 작성 부분 --%>
             <div class="wPost">
+                <%-- 
                 <h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
                 <div style="border-bottom: 1px solid #00cc99; color: #00cc99">
                     <c:choose>
@@ -122,6 +21,8 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
+                 --%>
+                 
                 <div class="row">
                     <div class="col text-center pst"
                         onclick="document.getElementById('btnIlsang').click();">
@@ -271,20 +172,66 @@
             </c:forEach>
           <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
-        </div>
-      </div>
-    </div>
-  </main>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
   
-  <jsp:include page="../include/footer.jsp"></jsp:include>
   <script src="/js/jquery-ui.js"></script>
   <script src="/js/starrr.js"></script>
   <script src="/js/bootstrap-tagsinput.min.js"></script>
   <script src="/js/typeahead.bundle.min.js"></script>
   <script src="/js/writingPost.js"></script>
+  <script>
+    function loginError() {
+        alert('로그인 후 작성할 수 있습니다.');
+    }
+    function postShow(id) {
+        if (id == 'btnIlsang') {
+            $("#pstTypeNo").val(1);
+            $('.onlyMovie').hide();
+        } else if(id == 'detailPst'){
+            
+        } else {
+            $("#pstTypeNo").val(0);
+            $('.onlyMovie').show();
+        }
+    }
+    function makeContHtml(cont, index) {
+        var text = cont.replace(/[\s]+/g, " ").trim();
+        var word = text.split(' ');
+        var newHTML = "";
+        word.forEach(function(value, index) {
+                    var str = "";
+                    var endBr = value.endsWith('<br>');
+                    var valueArr = [ value ];
+                    if (value.includes('<br>')) {
+                        valueArr = value.split('<br>');
+                        str = "<br>";
+                    }
+                    valueArr.forEach(function(value2, index) {
+                                if (index == (valueArr.length - 1)
+                                        && endBr == false) {
+                                    str = "";
+                                }
+                                if (value2.startsWith("#")) {
+                                    newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
+                                            + value2.substring(1)
+                                            + "'>"
+                                            + value2 + "&nbsp;</a></span>" + str);
+                                } else {
+                                    newHTML += "<span class='other'>" + value2
+                                            + "&nbsp;</span>" + str;
+                                }
+                            });
+                });
+          
+        return newHTML;
+    }
+    function showCont(cont, index) {
+        var newHTML = makeContHtml(cont, index);
+        document.getElementById('reviewCont-' + index).innerHTML = newHTML;
+    }
+  </script>
   <script type="text/javascript">
 <%-- ========================================================================================== --%>
   /* 삭제하기 */

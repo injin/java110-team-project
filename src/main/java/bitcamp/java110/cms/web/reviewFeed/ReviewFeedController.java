@@ -25,19 +25,21 @@ import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.LikeService;
 import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.service.MemberService;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 @Controller
 @RequestMapping("/reviewFeed")
 public class ReviewFeedController {
-
-   @Autowired PostService postService; 
-   @Autowired ServletContext sc;
-   @Autowired FlwService flwService;
-   @Autowired TmdbMovies tmdbMovies;
-   @Autowired LikeService likeService;
-   @Autowired MovieAnlyDao anlyDao;
+  
+  @Autowired MemberService memberService;
+  @Autowired PostService postService; 
+  @Autowired ServletContext sc;
+  @Autowired FlwService flwService;
+  @Autowired TmdbMovies tmdbMovies;
+  @Autowired LikeService likeService;
+  @Autowired MovieAnlyDao anlyDao;
 
    // 처음 피드리스트화면에 들어갔을 때  
   @RequestMapping("/list")
@@ -222,13 +224,18 @@ public class ReviewFeedController {
   public String myFeed(
       Post post,
       Model model,
-      HttpSession session) {
+      int tgtMno) {
+    
+    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
+    System.out.println(tgtMno);
+    System.out.println(memberService.findByMno(tgtMno));
+    
     
     Map<String, Object> params = new HashMap<>();
-    params.put("mno", ((Member)session.getAttribute("loginUser")).getMno());
+    params.put("mno", tgtMno);
     params.put("prevpstno", "only");
     List<Post> list =
-        postService.getMyPostList(((Member)session.getAttribute("loginUser")).getMno());
+        postService.getMyPostList(tgtMno);
     
     model.addAttribute("postList", list);
     return "include/myFeed";
