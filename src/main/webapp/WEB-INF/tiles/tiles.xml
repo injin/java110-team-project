@@ -18,8 +18,15 @@
       <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp"/>
     </definition>
     
-    <definition name="include/myFeed" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/include/myFeed.jsp"/>
+    <definition name="include/Feed" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/include/Feed.jsp"/>
+      <put-list-attribute name="cssFiles">
+        <add-attribute value="/css/writingPost.css"/>
+        <add-attribute value="/css/bootstrap-tagsinput.css"/>
+        <add-attribute value="/css/starrr.css"/>
+        <add-attribute value="/css/detailPost.css"/>
+        <add-attribute value="/css/feed.css"/>
+      </put-list-attribute>
     </definition>
     
     <definition name="statis/tic" extends=".base-template">

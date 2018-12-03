@@ -12,11 +12,6 @@
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
 <link rel='stylesheet' href='/css/common.css'>
-<link rel='stylesheet' href='/css/writingPost.css'>
-<link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
-<link rel='stylesheet' href='/css/starrr.css'>
-<link rel='stylesheet' href='/css/detailPost.css'>
-<link rel='stylesheet' href='/css/feed.css'>
 
 <t:importAttribute name="cssFiles"/>
 <c:forEach var="css" items="${cssFiles}">
@@ -45,7 +40,7 @@
                     <table class="table">
                       <thead id="mypage-menu">
                         <tr class="d-flex">
-                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/myFeed?id=${targetUser.mno}"/>">피드</a></th>
+                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></th>
                           <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></th>
                           <c:choose>
                             <c:when test="${targetUser.mno == loginUser.mno}">

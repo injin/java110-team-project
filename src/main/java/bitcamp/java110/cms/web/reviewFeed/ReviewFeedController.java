@@ -220,7 +220,7 @@ public class ReviewFeedController {
   }
   
   // 마이페이지-피드
-  @RequestMapping("/myFeed")
+  @RequestMapping("/Feed")
   public String Feed(
       Post post,
       Model model,
@@ -247,6 +247,6 @@ public class ReviewFeedController {
     System.out.println(list);
     
     model.addAttribute("postList", list);
-    return "include/myFeed";
+    return "include/Feed";
   }
 }
