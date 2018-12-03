@@ -315,7 +315,6 @@ function showCont(cont, index) {
            "createdDate":'${post.createdDate}'
        })
    </c:forEach>
-       console.log(postList);
     </script>
 </body>
 </html>
