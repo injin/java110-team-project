@@ -90,19 +90,21 @@
                                 </c:if>
                             </div>
                         <%-- dropDownBtn 들어갈 부분 --%>
-                        <div id="drop">
-                            <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><!-- style="display: none;" -->
-                                    <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-                                        <button type="button" class="btn btn-xs" onclick='updatePost(${post.pstno})'>수정</button>
-                                        <br>
-                                        <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>삭제</button>
+                        <c:if test="${targetUser.mno == loginUser.mno}">
+                            <div id="drop">
+                                <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><!-- style="display: none;" -->
+                                        <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
+                                            <button type="button" class="btn btn-xs" onclick='updatePost(${post.pstno})'>수정</button>
+                                            <br>
+                                            <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>삭제</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                         <%-- dropDownBtn 여기까지 --%>
                         </div>
 <%-- =================================== POST HEADER ========================================== --%>
