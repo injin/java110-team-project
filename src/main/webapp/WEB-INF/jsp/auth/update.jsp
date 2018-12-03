@@ -1,69 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원 상세 정보 수정</title>
-    <link rel='stylesheet' href='/css/bootstrap.css'>
-    <link rel="stylesheet" href="/css/fontawesome.css">
-    <link rel="stylesheet" href="/css/all.css">
-    <link rel='stylesheet' href='/css/common.css'>
-    <link rel='stylesheet' href='/css/accountDetail.css'>
-</head>
-<body>
-    <jsp:include page="../include/header.jsp"></jsp:include>
-
-    <main role="main" class="container pt-0">
-        <div class="row">
-            <aside class="col-3">
-                <div class="mt-2">
-                  <img class="card-img-top" id="mypage-profile-img" src="${loginUser.profileImagePath}" alt="프로필 이미지">
-                  <div class="card-body">
-                    <h5 class="card-title">${loginUser.nickname}</h5>
-                    <p class="card-text">${loginUser.pr}</p>
-                  </div>
-                </div>
-            </aside>
-            <div class="col-9 borderGray p-0" id="mypage-right">
-                <img src="${loginUser.coverImagePath}" id="mypage-cover-img">
-                <div class="row">
-                    <div class="col-lg-12">
-                    <table class="table">
-                      <thead id="mypage-menu">
-                        <tr class="d-flex">
-                          <th scope="col" class="col-2 text-center"><a href="#">나의피드</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">장면보관함</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">통계</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">팔로우</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">활동로그</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
-                        </tr>
-                      </thead>
-                    </table>
-                    </div>
-                </div>
-                
-                <div class="row pl-3 pr-3">
-                    <!-- 작업공간 START -->
-
-
 <%-- ========================================================================================== --%>
-      <main role="main" class="container">
+     <main role="main" class="container">
          <div id="detail">
             <form action="update" method="post" id="detailForm"
                enctype="multipart/form-data">
-               <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
+               <input type="hidden" name="mno" value="${loginUser.mno}">
                <input type="hidden" name="profileImage"
-                  value="${sessionScope.loginUser.profileImage}">
+                  value="${loginUser.profileImage}">
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
                   <div class="form-group row">
                      <div class="nickname">
                         <input type="text" class="nickname form-control" name="nickname"
-                           value="${member.nickname}">
+                           value="${loginUser.nickname}">
                      </div>
                   </div>
                </section>
@@ -86,13 +37,13 @@
                <section id="pr-section">
                   <div class="form-group">
                      <c:choose>
-                        <c:when test="${empty sessionScope.loginUser.pr}">
+                        <c:when test="${empty loginUser.pr}">
                            <input type="text" class="pr form-control" name="pr"
                               value="자기소개를 입력해 주세요.">
                         </c:when>
                         <c:otherwise>
                            <input type="text" class="pr form-control" name="pr"
-                              value="${sessionScope.loginUser.pr}">
+                              value="${loginUser.pr}">
                         </c:otherwise>
                      </c:choose>
                   </div>
@@ -148,7 +99,7 @@
     일부 기록은 삭제되지 않을 수 있습니다.</pre>
                </div>
                <form action="signOut" method="post">
-                  <input type="hidden" name="mno" value="${member.mno}"> <label
+                  <input type="hidden" name="mno" value="${loginUser.mno}"> <label
                      class="btn btn-checkbox btn-secondary active" id="signOutBtn"
                      onclick="bye()">회원 탈퇴
                   <button type="submit" class="btn" style="display: none;"></button>
@@ -156,23 +107,10 @@
                </form>
             </section>
          </div>
-      </main>
+     </main>
 <%-- ========================================================================================== --%>
-
-
-                    <!-- 작업공간 END -->
-                </div>
-                
-            </div>
-        </div>
-
-    </main>
-
-    <jsp:include page="../include/footer.jsp"></jsp:include>
-        <%-- jQuery가 꼬일경우 아래 셋을 확인 하라 --%>
-    <script src="/js/bootstrap.bundle.js"></script>
-    <!-- <script src="/js/jquery-ui.js"></script> -->
+    <%-- jQuery가 꼬일경우 아래 셋을 확인 하라 --%>
+    <%-- <script src="/js/bootstrap.bundle.js"></script> --%>
+    <%-- <script src="/js/jquery-ui.js"></script> --%>
     <script src="/js/bootstrap.js"></script>
     <script src="/js/auth.js"></script>
-</body>
-</html>

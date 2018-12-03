@@ -60,7 +60,12 @@
 
 .cover-upload {
   position: relative;
-  margin: 0px 15rem;
+  /* margin: 0px 15rem; */
+  
+  width: 40rem;
+  height: 30rem;
+  display: inline-block;
+  float:none;
 }
 .cover-edit {
   position: absolute;
@@ -116,13 +121,7 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.cover-upload {
-  width: 40rem;
-  height: 30rem;
-  display: inline-block;
-  
-  float:none;
-}
+
 #cover-area {
   display: block;
 }
