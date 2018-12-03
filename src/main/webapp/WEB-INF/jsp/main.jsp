@@ -9,16 +9,12 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
-<link rel='stylesheet' href='/css/writingPost.css'>
+<link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
-<link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/main.css'>
-<style>
 
-
-</style>
 <script>
 
 function showCont(cont, index) {
@@ -131,8 +127,7 @@ function showCont(cont, index) {
             </ul>
 
             <div class="carousel-inner no-padding my-5">
-                <c:forEach items="${topMpList}" var="post"
-                    varStatus="status">
+                <c:forEach items="${topMpList}" var="post" varStatus="status">
                     <c:if test="${status.index%3 == 0}">
                         <div
                             class="carousel-item  <c:if test="${status.first}">active</c:if>">
@@ -146,7 +141,7 @@ function showCont(cont, index) {
                                 <c:when
                                     test="${not empty post.photos[0]}">
                                     <div class="card-body hot"
-                                        onclick="openDetailModal(${status.index})"
+                                        onclick="openDetailModal(${post.pstno})"
                                         data-title="${post.title}"
                                         style="cursor: pointer">
                                         <input type="hidden"
@@ -157,10 +152,10 @@ function showCont(cont, index) {
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
                                         <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot reviewCont"
-                                            id="reviewCont-${status.index}">
+                                            id="reviewCont-${post.pstno}">
                                                  <script>
                                                          showCont("${post.content}",
-                                                                  "${status.index}");
+                                                                  "${post.pstno}");
                                                  </script>
                                         </p>
                                         <img class="img-sr"
@@ -169,7 +164,7 @@ function showCont(cont, index) {
                                 </c:when>
                                 <c:otherwise>
                                     <div class="card-body hot"
-                                        onclick="openDetailModal(${status.index})"
+                                        onclick="openDetailModal(${post.pstno})"
                                         style="cursor: pointer">
                                         <input type="hidden"
                                             data-toggle="modal"
@@ -179,13 +174,12 @@ function showCont(cont, index) {
                                         <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
                                         <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
                                         <p class="card-text p-hot2 reviewCont"
-                                            id="reviewCont-${status.index}">
+                                            id="reviewCont-${post.pstno}">
                                             <script>
                                                 showCont("${post.content}",
-                                                        "${status.index}");
+                                                        "${post.pstno}");
                                             </script>
                                         </p>
-                                        <!--  <img class="img-sr" src="/img/default-movie-img.png"> -->
                                     </div>
                                 </c:otherwise>
                             </c:choose>
@@ -284,8 +278,8 @@ function showCont(cont, index) {
 
     </div>
     <!-- 슬라이더 END -->
+    
     </div>
-
     </main>
     <jsp:include page="reviewFeed/writingPost.jsp"></jsp:include>
     <jsp:include page="reviewFeed/detailPost.jsp"></jsp:include>
@@ -294,20 +288,10 @@ function showCont(cont, index) {
     <script src="/js/starrr.js"></script>
     <script src="/js/bootstrap-tagsinput.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
-    <script src="/js/writingPost.js"></script>
+    <script src="/js/detailPost.js"></script>
     <script>
-
-   var flwList = [];
-   <c:forEach items="${userFlwList}" var="lst">
-   flwList.push({
-       "value" : "${lst.mno}",
-       "text" : "${lst.nickname}"
-   });
-   </c:forEach>
-   
-   var topMpList = [];
-   
-   
+  
+   var postList = [];
    <c:forEach items="${topMpList}" var="post">
    var pary =[];
        <c:forEach items="${post.photos}" var="pht">
@@ -317,177 +301,21 @@ function showCont(cont, index) {
        <c:forEach items="${post.ftags}" var="ft">
        fary.push('${ft.nickname}');
        </c:forEach>
-       topMpList.push({
-           pstno: '${post.pstno}',
-           title: '${post.title}',
-           profileImagePath: '${post.member.profileImagePath}',
-           nick:'${post.member.nickname}',
-           star:'${post.star}',
-           photos:pary,
-           dftags:fary,
-           createdDate:'${post.createdDate}'
+       
+       postList.push({
+           "pstno": '${post.pstno}',
+           "title": '${post.title}',
+           member:{
+               "profileImagePath": '${post.member.profileImagePath}',
+               "nickname":'${post.member.nickname}',    
+           },
+           "star":'${post.star}',
+           "photos":pary,
+           "ftags":fary,
+           "createdDate":'${post.createdDate}'
        })
    </c:forEach>
-   
-   function openDetailModal(index) {
-       console.log(index);
-       $('#detailModal #movie-title').text(topMpList[index].title);
-       $('#detailModal #ownerImg').attr('src',topMpList[index].profileImagePath);
-       $('#detailModal #ownerNick').text(topMpList[index].nick);
-       $('#detailModal #dCont').html($('#reviewCont-'+index).html());
-       $('#detailModal #dpstno').val(topMpList[index].pstno); 
-       $('#detailModal #cdate').text(new Date(topMpList[index].createdDate).toLocaleString()); 
-       /* 별 부분*/
-       var star = topMpList[index].star;
-       if(star != 0){
-           var html='';
-       for (var i=0; i<5; i++) {
-           if (i< star) {
-               html += '<i class="fas fa-star sStar"></i>';
-           } else {
-               html += '<i class="far fa-star sStar"></i>';
-           }
-       }
-       $('#detail-star').html(html);
-       }
-       
-        /* 이미지 추가부분*/
-        if (topMpList[index].photos.length == 0) {
-            $('#leftcol').hide();
-            $('#rightcol').removeClass('col-4').addClass('col-12');
-            $('#detailModal .modal-dialog').css('maxWidth', '35rem');
-        } else {
-            
-            var h ='';
-            h += '<ol class="carousel-indicators">';
-            for (var i=0; i<topMpList[index].photos.length; i++) {
-                if(i ==0){
-            h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
-                }else{
-                    h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
-                }
-            }
-            h += '</ol>';
-            h += '<div class="carousel-inner">';
-            for (var i=0; i<topMpList[index].photos.length; i++) {
-                if(i ==0){
-            h += '    <div class="carousel-item active">';}
-                else{
-                    h += '    <div class="carousel-item">';        
-                }
-            h += '        <img class="d-block w-100" src="/upload/post/'+ topMpList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
-            h += '    </div>';
-            }
-            h += '</div>';
-            
-            h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
-            h += '    role="button" data-slide="prev">';
-            h += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
-            h += '    <span class="sr-only">Previous</span>';
-            h += '</a> <a class="carousel-control-next"';
-            h += '    href="#carouselExampleIndicators" role="button" data-slide="next">';
-            h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
-            h += '    <span class="sr-only">Next</span>';
-            h += '</a>';
-             
-            $('#carouselExampleIndicators').html(h); 
-            
-            $('#leftcol').show();
-            $('#rightcol').removeClass('col-12').addClass('col-4');
-            $('#detailModal .modal-dialog').css('maxWidth', '70rem');
-        }
-        
-       
-       /* 친구태그 부분*/
-       html ='';
-       for (var i=0; i<topMpList[index].dftags.length; i++) {
-           html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
-           html += topMpList[index].dftags[i];
-            html +='</a>';
-       }
-       $('#dftags').html(html); 
-       
-       listCmt(topMpList[index].pstno);
-       
-      $('#detailModal').modal('show');
-      
-  }
-   function listCmt(pstno) {
-       $.ajax({
-           type:'POST',
-           url:'/app/reviewFeed/listCmt',
-           headers : {
-               'Content-Type': 'application/json'
-           },
-           data: JSON.stringify({ 
-               "pstno" : pstno
-           }),
-           before: function() {
-               $('#pCmt').val('');
-           },
-           success:function(data){
-               console.log('modal로 댓글 리스트가져오기');
-               makeCmtHtml(data);
-           }
-       });
-   }
-   
-    /* 댓글정보 html로 만드는 함수*/
-   function makeCmtHtml(data) {
-       var html = '';
-       console.log(data.cmtsResult);
-         for (var i=0;i<data.cmtsResult.length;i++) {
-             
-           html += '<li>';
-           html += '<div class="row comment-box p-1 pt-3 pr-4">';
-           html += '    <div class="col-3 user-img text-center">';
-           html += '        <img src="';
-           html += '/img/default-profile-img.png';
-           /* html += data.cmtsResult[i].profileImage; */
-           html += '" class="main-cmt-img">';
-           html += '        <label>';
-           html += data.cmtsResult[i].nickname; 
-           html += '        </label>';
-           html += '    </div>';
-           html += '    <div class="col-9 user-comment bg-light rounded">';
-           html += '        <p class="w-100 p-2 m-0">';
-           html += data.cmtsResult[i].content; 
-           html += '        </p>';
-           html += '        <p class="w-100 p-2 m-0">';
-           html += '            <span class="cmt-date float-right">';
-           html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
-           html += '            </span>';
-           html += '        </p>';
-           html += '    </div>';
-           html += '</div>';
-           html += '</li> ';   
-       }  
-       
-       $('#cmt-area').html(html);  
-   }
-   
-    function addCmt() {
-        var contVal = $('#addCmtForm textarea[name="content"]').val();
-        console.log(contVal);
-        if (contVal == '') {
-            alert('내용을 입력해주세요.');
-            return;
-        }
-        
-         $.ajax({
-                type:'POST',
-                url:'/app/reviewFeed/addCmt',
-                data: { 
-                    "pstno" : $('#dpstno').val(),
-                    "content" : $('#pCmt').val()
-                    },
-                success:function(data){
-                    console.log('modal에서 댓글 등록');
-                    listCmt($('#dpstno').val());
-                }
-            });
-    }
-    
+       console.log(postList);
     </script>
 </body>
 </html>

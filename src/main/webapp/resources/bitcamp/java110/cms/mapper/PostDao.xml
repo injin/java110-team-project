@@ -5,95 +5,108 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.PostDao">
 
-	<resultMap type="post" id="postMap">
-		<id column="pstno" property="pstno" />
-		<result column="mno" property="mno" />
-		<result column="ptno" property="pstTypeNo" />
-		<result column="mvno" property="mvno" />
-		<result column="cdt" property="createdDate" />
-		<result column="mdt" property="modifiedDate" />
-		<result column="cont" property="content" />
-		<result column="likes" property="likeCnt" />
-		<result column="star" property="star" />
-		<result column="opn" property="open" />
-	</resultMap>
+    <resultMap type="post" id="postMap">
+        <id column="pstno" property="pstno" />
+        <result column="mno" property="mno" />
+        <result column="ptno" property="pstTypeNo" />
+        <result column="mvno" property="mvno" />
+        <result column="cdt" property="createdDate" />
+        <result column="mdt" property="modifiedDate" />
+        <result column="cont" property="content" />
+        <result column="likes" property="likeCnt" />
+        <result column="star" property="star" />
+        <result column="opn" property="open" />
+    </resultMap>
 
-	<resultMap type="post" id="postMap2">
-		<id column="pstno" property="pstno" />
-		<result column="mno" property="mno" />
-		<result column="ptno" property="pstTypeNo" />
-		<result column="mvno" property="mvno" />
-		<result column="titl" property="title" />
-		<result column="cdt" property="createdDate" />
-		<result column="mdt" property="modifiedDate" />
-		<result column="cont" property="content" />
-		<result column="likes" property="likeCnt" />
-		<result column="star" property="star" />
-		<result column="opn" property="open" />
-		<association property="member" javaType="member">
-		    <id column="mno" property="mno" />
-			<result column="nick" property="nickname" />
-			<result column="p_phot" property="profileImage" />
-		</association>
-	</resultMap>
+    <resultMap type="post" id="postMap2">
+        <id column="pstno" property="pstno" />
+        <result column="mno" property="mno" />
+        <result column="ptno" property="pstTypeNo" />
+        <result column="mvno" property="mvno" />
+        <result column="titl" property="title" />
+        <result column="cdt" property="createdDate" />
+        <result column="mdt" property="modifiedDate" />
+        <result column="cont" property="content" />
+        <result column="likes" property="likeCnt" />
+        <result column="star" property="star" />
+        <result column="opn" property="open" />
+        <association property="member" javaType="member">
+            <id column="mno" property="mno" />
+            <result column="nick" property="nickname" />
+            <result column="p_phot" property="profileImage" />
+        </association>
+    </resultMap>
 
-	<select id="findAll" resultMap="postMap2">
-		select
-		  p.pstno,
-		  p.mvno,
-		  p.ptno,
-		  mv.titl,
-		  p.star,
-		  p.cont,
-		  0 as likes,
-		  (p.opn ='u') opn,
-		  m.nick,
-		  m.p_phot
-		from
-		  mv_post p
-		  inner join mv_memb m on m.mno = p.mno
-		  inner join mv_mv mv on mv.mvno = p.mvno
-		order by
-		  cdt desc
+    <select id="findAll" resultMap="postMap2">
+        select
+        p.pstno,
+        p.mvno,
+        p.ptno,
+        mv.titl,
+        p.star,
+        p.cont,
+        0 as likes,
+        (p.opn ='u') opn,
+        m.nick,
+        m.p_phot
+        from
+        mv_post p
+        inner join mv_memb m on m.mno = p.mno
+        inner join mv_mv mv on mv.mvno = p.mvno
+        order by
+        cdt desc
 
-	</select>
-
-        <select id="findByKeyword" parameterType="String" resultMap="postMap2">
-       select 
-            p.cont,
-            pt.pstno,
-            p.mvno,
-            p.ptno,
-            mv.titl,
-            p.star,
-            0 as likes,
-            (p.opn ='u') opn,
-            m.nick,
-            m.p_phot
-       from 
-            mv_post p
-            inner join mv_post_tag pt on p.pstno = pt.pstno 
-            inner join mv_memb m on m.mno = p.mno
-            inner join mv_mv mv on mv.mvno = p.mvno
-       where pt.cont like concat('%',#{keyword},'%')
-       order by
-          cdt desc;    
- 
     </select>
-    
 
-	<select id="findByNo" resultMap="postMap" parameterType="int">
-	</select>
+    <select id="findByKeyword" parameterType="String"
+        resultMap="postMap2">
+        select
+        p.cont,
+        pt.pstno,
+        p.mvno,
+        p.ptno,
+        mv.titl,
+        p.star,
+        0 as likes,
+        (p.opn ='u') opn,
+        m.nick,
+        m.p_phot
+        from
+        mv_post p
+        inner join mv_post_tag pt on p.pstno = pt.pstno
+        inner join mv_memb m on m.mno = p.mno
+        inner join mv_mv mv on mv.mvno = p.mvno
+        where pt.cont like concat('%',#{keyword},'%')
+        order by
+        cdt desc;
 
-	<insert id="insert" parameterType="post" useGeneratedKeys="true"
-		keyColumn="pstno" keyProperty="pstno">
-		insert into mv_post( mno, ptno,mvno,
-		cdt, cont,star, opn)
-		values(#{mno}, #{pstTypeNo},#{mvno}
-		,now(),#{content},#{star},if(#{open},'u','l'));
-	</insert>
+    </select>
 
-	<delete id="delete" parameterType="int">
-	</delete>
+
+    <select id="findByNo" resultMap="postMap" parameterType="int">
+    </select>
+    <select id="listTopMp" resultMap="postMap2">
+        SELECT ml.pstno, memb.nick,memb.p_phot,mpo.star,
+        mpo.mno, mpo.mvno, titl, cdt, cont, count(ml.pstno)as cnt
+        FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
+        WHERE ml.pstno=mpo.pstno
+        AND mpo.mvno=mv.mvno
+        AND mpo.mno=memb.mno
+        AND ml.type = 'mp'
+        GROUP BY ml.pstno
+        HAVING count(ml.pstno)>0
+        ORDER by cnt DESC
+        LIMIT 9
+    </select>
+    <insert id="insert" parameterType="post"
+        useGeneratedKeys="true" keyColumn="pstno" keyProperty="pstno">
+        insert into mv_post( mno, ptno,mvno,
+        cdt, cont,star, opn)
+        values(#{mno}, #{pstTypeNo},#{mvno}
+        ,now(),#{content},#{star},if(#{open},'u','l'));
+    </insert>
+
+    <delete id="delete" parameterType="int">
+    </delete>
 
 </mapper>

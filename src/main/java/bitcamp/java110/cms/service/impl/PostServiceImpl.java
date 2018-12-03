@@ -93,6 +93,7 @@ public class PostServiceImpl implements PostService {
     for(int i=0;i<posts.size();i++)
     {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
+      posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
     }
     return posts;
   }
