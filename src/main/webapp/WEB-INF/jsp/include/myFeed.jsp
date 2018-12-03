@@ -68,6 +68,7 @@
                                         <c:choose>
                                             <c:when test="${post.open == false}" > <i class="fas fa-lock lock"></i> </c:when>
                                         </c:choose>
+<%-- ==================================== POST OPEN? ========================================== --%>
                                     </li>
                                     <li>
                                         <c:if test="${not empty post.ftags}">

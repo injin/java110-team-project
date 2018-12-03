@@ -9,8 +9,6 @@ public interface PostService {
   
     /* 포스트 */
     List<Post> getPosts(Map<String, Object> params);
-    List<Post> getMyPostList(int mno);
-    List<Post> getOtherPostList(int mno);
     Post getOnePost(int pstno);
     List<Post> keywordPosts(String keyword);
     List<Post> getHotPosts();

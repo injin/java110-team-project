@@ -206,14 +206,14 @@ limit 15
             p.cont,
             0 as likes,
             p.cdt,
-            (p.opn ='u') opn,
+            (p.opn = 'u') opn,
+            <!-- p.opn, -->
             m.nick,
             m.p_phot
         FROM mv_post p
             INNER JOIN mv_memb m on m.mno = p.mno
             INNER JOIN mv_mv mv on mv.mvno = p.mvno
         WHERE p.mno = #{mno}
-            AND p.opn = 'u'
         ORDER BY cdt desc
         LIMIT 25
     </select>
@@ -235,6 +235,7 @@ limit 15
             INNER JOIN mv_memb m on m.mno = p.mno
             INNER JOIN mv_mv mv on mv.mvno = p.mvno
         WHERE p.mno=#{mno}
+            AND p.opn = 'u'
         ORDER BY cdt desc
         LIMIT 25
     </select>
