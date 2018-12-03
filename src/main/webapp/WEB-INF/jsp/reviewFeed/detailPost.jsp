@@ -28,13 +28,13 @@
 
 
 				<%-- 왼쪽 col,사진부분 --%>
-				<div class="col-8">
+				<div class="col-8" id="leftcol">
 					<div id="carouselExampleIndicators" class="carousel slide"
 						data-ride="carousel"></div>
 				</div>
 
 				<%-- 오른쪽 col --%>
-				<div class="col-4">
+				<div class="col-4" id="rightcol">
 
 					<div class="media row" style="padding: 0 1rem">
 						<img id="ownerImg" src="/img/default-profile-img.png"
@@ -45,12 +45,13 @@
 								<li><a href="#" style="color: black;" id="ownerNick">닉네임</a></li>
 								<%-- 친구태그 --%>
 								<li id="dftags"></li>
+								
 							</ul>
-
+                            <span class="cmt-date" id="cdate"></span>
 						</div>
 					</div>
 
-					<p class="reviewCont" style="border: 1px solid silver;" id="dCont">내용</p>
+					<p class="reviewCont" style="border: 1px solid silver;overflow:auto;" id="dCont">내용</p>
 
 
 					<div class="row">
@@ -58,9 +59,9 @@
 						<%-- 좋아요 --%>
 						<div class="col-6" style="text-align: left;">
 							<a href="#" style="color: black"> <i
-								class="far fa-thumbs-up btmIcon" style="color: red;"></i>0
+								class="far fa-thumbs-up btmIcon" style="color: red;"></i>
 							</a> <a href="#" style="color: black"> <i
-								class="far fa-comment btmIcon"></i>0
+								class="far fa-comment btmIcon"></i>
 							</a>
 						</div>
 
@@ -100,7 +101,7 @@
 							</c:otherwise>
 						</c:choose>
 						<%-- 댓글리스트 --%>
-						<div class="comment-main rounded m-0">
+						<div class="comment-main rounded m-0 scrollbar-light-blue" style="width: 100%;">
 
 							<ul class="p-0" id="cmt-area">
 								<!-- <li>

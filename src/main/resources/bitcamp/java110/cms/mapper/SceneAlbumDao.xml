@@ -14,6 +14,7 @@
         <result column="mdt" property="mdt" />
         <result column="opn" property="open" />
         <result column="include" property="include" />
+        <result column="srCnt" property="srCnt" />
     </resultMap>
 
     <insert id="insert" parameterType="map" 
@@ -23,8 +24,48 @@
         now(),if(#{sceneAlbum.open},'u','l'))
         <!-- #{mno}, true면 unlock, false면 lock -->
     </insert>
-
+    
+    <select id="listScA"  resultMap="sceneAlbumMap">
+        select
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            sr.cnt as srCnt  
+        from 
+            mv_lbm l
+            inner join mv_memb m on m.mno = l.mno
+            left join (SELECT
+                            l.lbmno, count(s.srno) as cnt
+                        from
+                            mv_lbm l, mv_lbm_sr s
+                        where
+                            l.lbmno = s.lbmno 
+                        group by lbmno) as sr on l.lbmno = sr.lbmno
+             where l.opn='u' and l.phot is not null
+             order by rand() limit 9;
+    
+    </select>
+    
+    <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
+        select
+            l.mno,
+            l.opn,
+            l.lbm_nm,
+            l.lbmno,
+            s.srno
+        from
+            mv_lbm_sr s, mv_lbm l
+        where
+            s.lbmno = l.lbmno and l.mno=#{mno} and l.lbmno=#{sceneAlbum.lbmno}   
+    </select>
+    
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
+         SELECT * 
+         FROM mv_lbm
+         WHERE lbmno = #{lbmno}
     </select>
     
     <select id="findAll" resultMap="sceneAlbumMap" parameterType="int">
@@ -54,6 +95,7 @@
                     where srno=#{srno}) sr
             on lbm.lbmno = sr.lbmno
          where lbm.mno=#{mno}
+         order by cdt desc;
     </select>
     
     <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="map">
@@ -64,13 +106,25 @@
             l.phot,
             l.cdt,
             l.mdt,
-            (l.opn ='u') opn   
-        from mv_lbm l
+            (l.opn ='u') opn,
+            sr.cnt as srCnt  
+        from 
+            mv_lbm l
             inner join mv_memb m on m.mno = l.mno
-            where l.mno = #{mno}
+            left join (SELECT
+                            l.lbmno, count(s.srno) as cnt
+                        from
+                            mv_lbm l, mv_lbm_sr s
+                        where
+                            l.lbmno = s.lbmno 
+                        group by lbmno) as sr on l.lbmno = sr.lbmno
+        where l.mno = #{mno}
         order by
             cdt desc
+        <if test="paging != null">
         limit #{paging.startRowNo} , #{paging.pageSize}
+        </if>
+        
     </select>
     
     <select id="getTotalCnt" resultType="int" parameterType="int">
@@ -80,6 +134,45 @@
             inner join mv_memb m on m.mno = l.mno
             where l.mno = #{mno}
     </select>
+
+    <update id="addImg" parameterType="map">
+        UPDATE mv_lbm 
+        SET 
+            phot= #{phot},
+            mdt=now() 
+        WHERE lbmno = #{lbmno}
+    </update>
+    
+    <select id="checkImg" parameterType="map" resultType="boolean">
+        select phot = (select phot from mv_sr where srno=#{srno})
+		from mv_lbm
+		where lbmno = #{lbmno}
+    </select>
+    
+     <delete id="removeImg" parameterType="map">
+        DELETE 
+        FROM mv_lbm_sr 
+        WHERE lbmno = #{lbmno} and srno = #{srno}
+    </delete>
+    
+    <update id="setImgNull" parameterType="int">
+        UPDATE mv_lbm
+           SET phot = null
+         WHERE lbmno = #{lbmno}
+    </update>
+    
+    <update id="editLbm" parameterType="map">
+        UPDATE mv_lbm 
+           SET lbm_nm= #{lbmTitle},
+               mdt=now()
+         WHERE lbmno = #{lbmno}
+    </update>
+    
+    <delete id="removeLbm" parameterType="int">
+        DELETE 
+        FROM mv_lbm 
+        WHERE lbmno = #{lbmno}
+    </delete>
     
     <delete id="delete" parameterType="int">
     </delete>
@@ -99,12 +192,11 @@
         FROM
             mv_lbm_sr
         WHERE
-            (SELECT lbmno
-             FROM
-                mv_lbm
-             WHERE
-                 opn='L'
-                 AND mno=#{mno} )
+            lbmno  IN (SELECT lbmno
+                        FROM
+                            mv_lbm
+                        WHERE
+                            AND mno=#{mno})
     </delete>
     
     <delete id="signOut3" parameterType="int">

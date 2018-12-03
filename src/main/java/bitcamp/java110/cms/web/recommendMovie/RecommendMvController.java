@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.web.recommendMovie;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -42,10 +41,6 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
  * RecormendServiceImple
  * RecommendDao
  * RecommendDao.xml
- * 
- * 
- * 취향 분석까지 들어가기엔 시간이 모자르니 simmilarList로 대체하고 시간이 남는다면 하자.
- * 
  */
 
 @Controller
@@ -64,7 +59,7 @@ public class RecommendMvController {
   
   @RequestMapping("anly")
   public String waiting() {
-    System.out.println("list 진입 시도");
+//    System.out.println("list 진입 시도");
     return "/recommend/anly";
   }
   
@@ -72,23 +67,19 @@ public class RecommendMvController {
   public String list (Model model,
       HttpSession session) {
     
-    System.out.println("LIST REQUEST START");
-    
     int[] n = rcmdService.RandomNums(rcmdService.getCount());
-    System.out.println(Arrays.toString(n));
+//    System.out.println(Arrays.toString(n));
     model.addAttribute("listName1", rcmdService.getListName(n[0]));
     model.addAttribute("list1", rcmdService.getList(n[0]));
     model.addAttribute("listName2", rcmdService.getListName(n[1]));
     model.addAttribute("list2", rcmdService.getList(n[1]));
-    System.out.println("\nREQUEST COMPLETE\n");
+//    System.out.println("MD REQUEST COMPLETE\n");
     return "/recommend/list";
   }
   
-  @RequestMapping(value="/smlrList")
+  @RequestMapping("/smlrList")
   public @ResponseBody Map<String, Object> smlrListById (
       HttpSession session) throws Exception {
-    
-    System.out.println("smlrList REQUEST START");
     
     int triggerMvId;
     Map<String, Object> returnValue= new HashMap<>();
@@ -98,14 +89,36 @@ public class RecommendMvController {
       MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
       
       returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
-      returnValue.put("smlrList", smlrList.getResults());
-      
-      System.out.println("\nsmlr REQUEST COMPLETE\n");
+      returnValue.put("list", smlrList.getResults());
+//      System.out.println("smlr REQUEST COMPLETE\n");
       return returnValue;
     }   catch (Exception e) {
       returnValue = new HashMap<>();
-      System.out.println("\nsmlr REQUEST return null\n");
+//      System.out.println("smlr REQUEST return null\n");
       return returnValue;
     }
   }
+  
+  //    현재 상영작
+  @RequestMapping("/now")
+  public @ResponseBody Map<String, Object> nowList (
+      HttpSession session) throws Exception {
+    MovieResultsPage nowList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
+    Map<String, Object> returnValue= new HashMap<>();
+    returnValue.put("list", nowList.getResults());
+//    System.out.println("NowPlaying REQUEST COMPLETE\n");
+    return returnValue;
+  }
+  
+  //    개봉 예정작
+  @RequestMapping("/upcommig")
+  public @ResponseBody Map<String, Object> comeList (
+      HttpSession session) throws Exception {
+    MovieResultsPage upcommingList = tmdbMovies.getUpcoming(Constants.LANGUAGE_KO, 1, "KR");
+    Map<String, Object> returnValue= new HashMap<>();
+    returnValue.put("list", upcommingList.getResults());
+//    System.out.println("Upcomming REQUEST COMPLETE\n");
+    return returnValue;
+  }
+  
 }

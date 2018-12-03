@@ -5,7 +5,7 @@ import java.util.Map;
 
 import bitcamp.java110.cms.domain.Member;
 
-public interface FlwDao {
+public interface FlwDao { 
 
     List<Member> flwlist(Map<String,Object> condition);
     int getTotalCnt(int mno);
@@ -15,5 +15,6 @@ public interface FlwDao {
     List<Member> listForPost(int no);
     void signOut1(int mno);
     void signOut2(int mno);
+    void signOut3(int mno);
     List<Member> flwlistall(int mno);
 }

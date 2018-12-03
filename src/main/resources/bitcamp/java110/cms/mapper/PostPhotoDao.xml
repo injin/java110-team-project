@@ -11,7 +11,7 @@
 		values(#{phot},#{pstno})
 	</insert>
 
-	<select id="findByNo" resultType="hashmap" parameterType="int">
+	<select id="findByNo" resultType="string" parameterType="int">
 		select
     		phot
 		from mv_post_phot 

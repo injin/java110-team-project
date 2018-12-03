@@ -1,10 +1,13 @@
 package bitcamp.java110.cms.domain;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class Post {
+public class Post implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+  
   protected int pstno;
   protected int mno;
   protected int pstTypeNo;
@@ -14,19 +17,31 @@ public class Post {
   protected Date modifiedDate;
   protected String content;
   protected int likeCnt;
+  protected int cmtCnt;
+  protected boolean likeCheck;
   protected int star;
   protected boolean open;
   
 
   protected Member member;
   protected List<String> photos;
-  protected List<String> htags;
   protected List<Member> ftags;
   protected String ftagsForAdd;
   
   
   
-  
+  public int getCmtCnt() {
+    return cmtCnt;
+  }
+  public void setCmtCnt(int cmtCnt) {
+    this.cmtCnt = cmtCnt;
+  }
+  public boolean isLikeCheck() {
+    return likeCheck;
+  }
+  public void setLikeCheck(Boolean likeCheck) {
+    this.likeCheck = likeCheck;
+  }
   public String getFtagsForAdd() {
     return ftagsForAdd;
   }
@@ -117,19 +132,12 @@ public class Post {
   public void setPhotos(List<String> photos) {
     this.photos = photos;
   }
-  public List<String> getHtags() {
-    return htags;
-  }
-  public void setHtags(List<String> htags) {
-    this.htags = htags;
-  }
   @Override
   public String toString() {
     return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-        + ", content=" + content + ", likeCnt=" + likeCnt + ", star=" + star + ", open=" + open
-        + ", member=" + member + ", photos=" + photos + ", htags=" + htags + ", ftags=" + ftags
+        + ", content=" + content + ", likeCnt=" + likeCnt + ", likeCheck=" + likeCheck + ", star="
+        + star + ", open=" + open + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
         + ", ftagsForAdd=" + ftagsForAdd + "]";
   }
-  
 }

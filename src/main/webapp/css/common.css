@@ -6,25 +6,36 @@ h1,h2,h3,h4,h5,h6 {
 
 body {
   min-height: 75rem;
-  padding-top: 3.5rem;
+  padding-top: 2.5rem;
+}
+main {
+    min-height: 75rem;
 }
 .bgGray {
     background-color: #F2F4F7;
-}
-
-main {
-    min-height: 75rem;
-    
 }
 .borderGray {
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
 }
-
 .w50 { width: 50px; }
 
 .resize-none {
     resize: none;
+}
+.break-all {
+    word-break: break-all;
+}
+.c-pointer {
+    cursor: pointer;
+}
+.dis-none {
+    display: none;
+}
+
+/* HEADER SIZE */
+.navbar {
+    padding: 0rem;
 }
 
 /*==== 마이페이지 메뉴 ==== */
@@ -77,6 +88,12 @@ background-color: #d5dae0; }
   display: inline-block;
   width: 2.5em;
   height: 2.5em;
+  border-radius: 100%;
+}
+.profile-large {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
   border-radius: 100%;
 }
 

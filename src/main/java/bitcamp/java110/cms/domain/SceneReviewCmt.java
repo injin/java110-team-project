@@ -12,7 +12,9 @@ public class SceneReviewCmt {
   protected Date createdDate;   // 생성일시
   protected Date modifiedDate;  // 수정일시
   protected SceneReviewMap map; // 지도
+  protected String mvnm;        // 영화이름
   protected Member member;      // 작성자
+  
   
   public int getCmno() {
     return cmno;
@@ -62,6 +64,12 @@ public class SceneReviewCmt {
   public void setMap(SceneReviewMap map) {
     this.map = map;
   }
+  public String getMvnm() {
+    return mvnm;
+  }
+  public void setMvnm(String mvnm) {
+    this.mvnm = mvnm;
+  }
   public Member getMember() {
     return member;
   }
@@ -73,6 +81,6 @@ public class SceneReviewCmt {
   public String toString() {
     return "SceneReviewCmt [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo=" + photo
         + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-        + ", map=" + map + ", member=" + member + "]";
+        + ", map=" + map + ", mvnm=" + mvnm + ", member=" + member + "]";
   }
 }

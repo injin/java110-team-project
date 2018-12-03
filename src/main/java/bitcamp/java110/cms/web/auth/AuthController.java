@@ -74,11 +74,6 @@ public class AuthController {
     public String signout(
         HttpSession session,
         @RequestParam(required=false)int mno) {
-      //    비로그인 유저가 들어온다면 돌려보냄. 안되네?
-      if (session.getAttribute("loginUser") == null) {
-        System.out.println("null?");
-        return "redirect:/app/";
-      }
       
       authService.signOut(mno);
       System.out.println("Bye" + mno + "\n");
@@ -114,6 +109,7 @@ public class AuthController {
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
       System.out.println("Controller Start Add Member");
+      
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
         String profileImg = UUID.randomUUID().toString();
@@ -184,6 +180,7 @@ public class AuthController {
     //  상시 상세정보 수정 update
     @PostMapping("/update")
     public String update(
+        HttpServletRequest request,
         Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
@@ -215,22 +212,16 @@ public class AuthController {
         member.setFavGrList(favGrList);
       }
       
-      System.out.println("pr?");
-      
       if (pr != null && pr != "") {
-        System.out.println(pr);
         member.setPr(pr);
       }
       
       session.setAttribute("loginUser", member);
       System.out.println("Controller Send Member To Service");
       memberService.update(member);
-      return "redirect:/app/";
+      
+      String originPath = request.getHeader("referer");
+      return "redirect:" + originPath.substring(
+          originPath.indexOf("/app"));
     }
 }
-
-
-//  Controller에서 메소드 이름을 바꿔 줬음.
-//  AuthServide AuthServieImple
-//  MemverService, MemberServiceImple 메소드 이름 바꿔줘야 함.
-

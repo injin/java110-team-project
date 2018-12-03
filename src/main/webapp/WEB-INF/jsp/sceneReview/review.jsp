@@ -11,14 +11,10 @@
 <link rel="stylesheet" href="/css/all.css">
 <link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/card.css">
 <style>
-.cmt-date {
-    color: #ccc;
-    font-size: 0.9em;
-}
-.cmt-img {
-    max-width: 35em;
-}
+
+
 
 </style>
 </head>
@@ -35,7 +31,11 @@
                         <c:if test="${not empty sessionScope.loginUser}">
                             <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-icon" ><img src="/img/btn-pencil.png"></a>
                             <c:if  test="${sceneReview.trgtSrExist == true}">
-                            <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
+                                <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
+                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == false}">dis-none</c:if>" id="btn-heart-full" 
+                                        onclick="cancelLike()"><img src="/img/btn-heart-full.png"></span>
+                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == true}">dis-none</c:if>" id="btn-heart-empty" 
+                                        onclick="addLike()"><img src="/img/btn-heart-empty.png"></span>
                             </c:if>
                         </c:if>
                     </h3>
@@ -59,6 +59,14 @@
                         </div>
                     </c:forEach>
                 </div>
+                
+                <c:if test="${sceneReview.trgtSrExist == true}">
+                    <c:if test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
+                        <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
+                            <img src="/img/btn-siren.jpg"></a>
+                    </c:if>
+                </c:if>
+                
             </div>
             
         </div>
@@ -92,6 +100,7 @@
                     <input type="hidden" name="map.lat">
                     <input type="hidden" name="map.lng">
                     <input type="hidden" name="map.mapName">
+                    <input type="hidden" name="mvnm" value="${tmdbMovie.title}">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -128,19 +137,24 @@
                     </div>
                 </c:if>
                 
-                
                 <c:if test="${not empty cmtList}">
                 <c:forEach items="${cmtList}" var="cmt">
                     <div class="media mt-3">
-                        <div><img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image"></div>
+                        <img class="mr-2 profile-medium2" src="${cmt.member.profileImagePath}" alt="Generic placeholder image">
                         <div class="media-body">
-                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span></span>
-                            <p class="mb-0">${cmt.cont}
+                            <span>${cmt.member.nickname}&nbsp;<span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
+                                <c:if test="${cmt.member.mno eq sessionScope.loginUser.mno}">
+                                    &nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this)"></i>
+                                    &nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(${cmt.cmno})"></i>
+                                </c:if>
+                            </span><br>
+                            <div class="break-all cmt-cont" data-cont="${cmt.cont}" data-cmno="${cmt.cmno}">${cmt.cont}</div>
+                            
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
-                                <br><a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
+                                <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
                                     <i class="fas fa-map-marker-alt"></i> ${cmt.map.mapName}</a>
                             </c:if>
-                            </p>
+                            
                             <c:if test="${cmt.photo ne null}">
                                 <img src="/upload/sceneReview/${cmt.photo}" class="rounded cmt-img" alt="댓글 이미지">
                             </c:if>
@@ -174,25 +188,56 @@
         </c:if>
         
         <div class="col-lg-3 col-md-12">
-            <span>${sceneAlbumList}</span>
+            <c:if test="${fn:length(smlrList) > 0}">
+            <div class="wrap d-inline-block w-100">
+                <h5><b>유사영화</b></h5>
+                <c:forEach items="${smlrList}" var="smlrMovie" begin="0" end="3">
+                    <div class="mt-1 c-pointer smlr-movie" onclick="window.location.href='/app/sceneReview/review?mvno=${smlrMovie.id}'">
+                    <div class="media">
+                      <img class="mr-2 w50" src="${posterPrefix}${smlrMovie.posterPath}" alt="${smlrMovie.title}">
+                      <div class="media-body">
+                        <h6 class="mt-1"><b>${smlrMovie.title}</b></h6>
+                        <span>(${smlrMovie.releaseDate})</span>
+                      </div>
+                    </div>
+                    </div>
+                </c:forEach>
+            </div>
+            </c:if>
         </div>
     </div>
-    
-    
-<%-- <button type="button" class="btn btn-primary" data-toggle="modal"
-        data-target="#reportModal">신고하기</button>
-<jsp:include page="../report/report.jsp"></jsp:include> --%>
 
+<%@ include file="report.jsp" %>
 <%@ include file="addPopup.jsp" %>
-</main>
 
+<form id="deleteCommentForm" action="deleteComment">
+    <input type="hidden" name="srno" value="${sceneReview.srno}">
+    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+    <input type="hidden" name="cmno">
+</form>
+
+<form id="editCommentForm" action="editComment">
+    <input type="hidden" name="srno" value="${sceneReview.srno}">
+    <input type="hidden" name="mvno" value="${sceneReview.mvno}">
+    <input type="hidden" name="cmno">
+    <input type="hidden" name="cont">
+</form>
+
+</main>
+    
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
+    <script src="/js/vendor/linkify.js"></script>
+    <script src="/js/vendor/linkify-jquery.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
+    $('.cmt-cont').linkify({
+        target: "_blank"
+    });
     
-    /* ===== 하단 장면 목록 박스 관련  ===== */
+    
+    /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
@@ -205,7 +250,7 @@
         location.href = 'review?mvno=${sceneReview.mvno}&srno=' + srno;
     }
     
-     /* ===== 입력 모달 관련  ===== */
+     /* ========== 입력 모달 관련  ========== */
     var $modal = $('#srAddModal').modal({show : false});
     
     var invalidTime = [];
@@ -233,10 +278,19 @@
         checkTimeValid();
     });
     
+    function checkTimeFormat(value) {
+        var regex = new RegExp(/^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/);
+        return regex.test(value);
+    }
+    
     function checkTimeValid() {
         var timeStr = $('#time').val();
-        if (invalidTime.includes(timeStr)) {
+        if (checkTimeFormat(timeStr) == false) {
             $('#time').removeClass('is-valid').addClass('is-invalid');
+            $('#invalid-txt').text('형식에 맞지 않는 시간입니다. 예) 00:00:00');
+        } else if (invalidTime.includes(timeStr)) {
+            $('#time').removeClass('is-valid').addClass('is-invalid');
+            $('#invalid-txt').text('등록 불가능한 시간입니다.');
         } else {
             $('#time').removeClass('is-invalid').addClass('is-valid');
         }
@@ -252,8 +306,7 @@
     function validateForm() {
         // 장면 시간 검사
         var timeVal = $('#srAddForm #time').val();
-        var pattern = /[0-9]{2}:[0-9]{2}:[0-9]{2}/gi;
-        if (!(pattern.test(timeVal))) {
+        if (checkTimeFormat(timeVal) == false) {
             alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
             return false;
         }
@@ -281,7 +334,7 @@
         return true;
     }
     
-    /* ===== 댓글 입력 관련  ===== */
+    /* ========== 댓글 관련  ========== */
     function contMore() {
         $('#p-cont').text('${sceneReview.cont}');
     }
@@ -298,14 +351,41 @@
             $('#addCommentForm input[name="map.lng"]').val(marker.position.lng());
             $('#addCommentForm input[name="map.mapName"]').val(marker.address);
         }
-        
         $('#addCommentForm').submit();
     }
     
+    function deleteComment(cmno) {
+        $('#deleteCommentForm input[name="cmno"]').val(cmno);
+        $('#deleteCommentForm').submit();
+    }
     
+    function showEditForm(obj) {
+        
+        $(obj).hide();
+        var $divCont = $(obj).parent().next().next();
+        var cmno = $divCont.data('cmno');
+        var contStr = $divCont.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+        var editHtml = '<div class="card p-2"><div class="media"><div class="media-body">';
+            editHtml += '<textarea class="form-control" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
+            editHtml += '<button type="button" class="btn btn-dark mt-2 float-right" onclick="editComment(' + cmno + ')">';
+            editHtml += '<i class="fas fa-paper-plane"></i> 수정</button>';
+            editHtml += '</div></div></div>';
+        $divCont.html(editHtml);
+    }
     
+    function editComment(cmno) {
+        var contVal = $('#textarea-cmt-' + cmno).val();
+        if (contVal == '') {
+            alert('댓글을 입력해 주세요');
+            return;
+        }
+        
+        $('#editCommentForm input[name="cmno"]').val(cmno);
+        $('#editCommentForm input[name="cont"]').val(contVal);
+        $('#editCommentForm').submit();
+    }
     
-    /* ===== 지도 관련  ===== */
+    /* ========== 지도 관련  ========== */
     $('#btn-map').click(function() {
         $('div#map-container').toggle(function() {
             if ($(this).css('display') == 'none') { //지도 숨김 시 marker remove
@@ -369,9 +449,84 @@
       if (address != null) marker.address = address;
     }
     
-    <c:if test="${not empty loginUser}">
+    <c:if test="${not empty loginUser && sceneReview.trgtSrExist == true}">
         google.maps.event.addDomListener(window, 'load', initialize);
     </c:if>
+    
+    
+    /* ========== 앨범 관련  ========== */
+    function addToSrlAlbum(lbmno) {
+        $('#addSrAlbumForm input[name="lbmno"]').val(lbmno);
+        $('#addSrAlbumForm').submit();
+    }
+    
+    /* ========== 좋아요 관련  ========== */
+    function addLike() {
+        $.ajax({
+            url : "/app/sceneReview/addLike",
+            type: "post",
+            data : { "srno" : '${sceneReview.srno}' },
+            success : function(data) {
+                $('span[id^="btn-heart-"]').hide();
+                $('span#btn-heart-full').show();
+            }
+        });
+    }
+    
+    function cancelLike() {
+        $.ajax({
+            url : "/app/sceneReview/cancelLike",
+            type: "post",
+            data : { "srno" : '${sceneReview.srno}' },
+            success : function(data) {
+                $('span[id^="btn-heart-"]').hide();
+                $('span#btn-heart-empty').show();
+            }
+        });
+    }
+    
+    /* ========= 신고관련 ========= */
+    function reportSceneReview() {
+        var reportTypeArr = [];
+        for (i = 0; i<reportForm.reportType.length; i++) {
+            if (reportForm.reportType[i].checked) {
+                reportTypeArr.push(reportForm.reportType[i].value);
+            }
+        }
+        
+        if (reportTypeArr.length == 0) {
+            alert('신고 사유를 1개 이상 선택해 주세요.');
+            return;
+        }
+        
+        $.ajax({
+            url : "/app/report/add",
+            type: "post",
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            data : JSON.stringify({ 
+                "url" : '/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}',
+                "types" : reportTypeArr,
+                "cont" : $('#reportModal textarea[name="cont"]').val(),
+                "target" : '${sceneReview.srno}'
+            
+            }),
+            success : function(data) {
+                if (data) {
+                    alert('신고되었습니다.');
+                    $('a#btn-siren').remove();
+                } else {
+                    alert('문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
+                }
+                    
+            },
+            complete : function() {
+                $('#reportModal').modal('hide');
+            }
+        });
+    }
+    
     </script>
 </body>
 </html>

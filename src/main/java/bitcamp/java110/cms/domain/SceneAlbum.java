@@ -9,16 +9,18 @@ public class SceneAlbum {
   protected String lbmTitle;
   protected String phot;
   protected Date cdt;
-  protected Date md;
+  protected Date mdt;
   protected boolean include;
   protected boolean open;
+  protected int srno;
+  protected int srCnt;
   
   @Override
   public String toString() {
     return "SceneAlbum [lbmno=" + lbmno + ", mno=" + mno + ", lbmTitle=" + lbmTitle + ", phot="
-        + phot + ", cdt=" + cdt + ", md=" + md + ", include=" + include + ", open=" + open + "]";
+        + phot + ", cdt=" + cdt + ", mdt=" + mdt + ", include=" + include + ", open=" + open
+        + ", srno=" + srno + ", srCnt=" + srCnt + "]";
   }
-  
   public int getLbmno() {
     return lbmno;
   }
@@ -49,11 +51,11 @@ public class SceneAlbum {
   public void setCdt(Date cdt) {
     this.cdt = cdt;
   }
-  public Date getMd() {
-    return md;
+  public Date getMdt() {
+    return mdt;
   }
-  public void setMd(Date md) {
-    this.md = md;
+  public void setMdt(Date mdt) {
+    this.mdt = mdt;
   }
   public boolean isOpen() {
     return open;
@@ -66,6 +68,18 @@ public class SceneAlbum {
   }
   public void setInclude(boolean include) {
     this.include = include;
+  }
+  public int getSrno() {
+    return srno;
+  }
+  public void setSrno(int srno) {
+    this.srno = srno;
+  }
+  public int getSrCnt() {
+    return srCnt;
+  }
+  public void setSrCnt(int srCnt) {
+    this.srCnt = srCnt;
   }
   
   

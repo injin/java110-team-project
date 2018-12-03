@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>
+ 
+    <definition name=".base-template" template="/WEB-INF/jsp/include/tiles/myPageTile.jsp">
+        <put-attribute name="body" />
+    </definition>
+ 
+    <definition name="follow/*" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/follow/{1}.jsp" />
+    </definition>
+    
+    <definition name="log/*" extends=".base-template">
+      <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp" />
+    </definition>
+    
+ 
+</tiles-definitions>

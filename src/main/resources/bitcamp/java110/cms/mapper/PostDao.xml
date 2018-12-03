@@ -27,7 +27,7 @@
 		<result column="cdt" property="createdDate" />
 		<result column="mdt" property="modifiedDate" />
 		<result column="cont" property="content" />
-		<result column="likes" property="likeCnt" />
+		<result column="likes" property="likeCheck" />
 		<result column="star" property="star" />
 		<result column="opn" property="open" />
 		<association property="member" javaType="member">
@@ -38,26 +38,93 @@
 	</resultMap>
     
 
-	<select id="findAll" resultMap="postMap2">
-		select
-		  p.pstno,
-		  p.mvno,
-		  p.ptno,
-		  mv.titl,
-		  p.star,
-		  p.cont,
-		  0 as likes,
-		  (p.opn ='u') opn,
-		  m.nick,
-		  m.p_phot
-		from
-		  mv_post p
-		  inner join mv_memb m on m.mno = p.mno
-		  inner join mv_mv mv on mv.mvno = p.mvno
-		order by
-		  cdt desc
-
+	<select id="findAll" resultMap="postMap2" parameterType="int">
+    select
+          p.pstno,
+          p.mvno,
+          p.ptno,
+          mv.titl,
+          p.star,
+          p.cont,
+          p.cdt,
+          if(isnull(lk.pstno), false, true) as likes,
+          (p.opn ='u') opn,
+          m.mno,
+          m.nick,
+          m.p_phot,
+          if(isnull(f.flw), 0, 10) as flwpoint,
+          
+          CASE  WHEN (now()-p.cdt)&lt; 10800 THEN 20
+             WHEN (now()-p.cdt)&lt; 21600 THEN 15 
+             WHEN (now()-p.cdt)&lt; 43200 THEN 10 
+             WHEN (now()-p.cdt)&lt; 86400 THEN 5 
+             ELSE 0 
+             END AS "time_point"
+       
+        from
+          mv_post p
+          inner join mv_memb m on m.mno = p.mno
+          inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select pstno from mv_like where mno = #{mno} and (type = 'mp' or type = 'dp')
+          ) lk on lk.pstno = p.pstno
+          left join (
+            select mno, flw from mv_flw where mno = #{mno}
+          ) f on f.flw = m.mno
+        where p.opn ='u'
+        order by
+          (time_point+flwpoint) desc,cdt desc
+		limit 15
 	</select>
+	
+	<select id="findSome" resultMap="postMap2" parameterType="map">
+  WITH TEMP AS
+(
+select
+          p.pstno,
+          p.mvno,
+          p.ptno,
+          mv.titl,
+          p.star,
+          p.cont,
+          p.cdt,
+          if(isnull(lk.pstno), false, true) as likes,
+          (p.opn ='u') opn,
+          m.mno,
+          m.nick,
+          m.p_phot,
+          if(isnull(f.flw), 0, 10) as flwpoint,
+    ROW_NUMBER() OVER( order by
+          (time_point+flwpoint) desc,cdt desc) as rnum,
+        LAG(p.pstno) OVER(order by
+          (time_point+flwpoint) desc,cdt desc ) AS prevpstno,
+    CASE  WHEN (now()-p.cdt)&lt;10800      THEN 20
+             WHEN (now()-p.cdt)&lt;21600      THEN 15 
+             WHEN (now()-p.cdt)&lt;43200      THEN 10 
+             WHEN (now()-p.cdt)&lt;86400      THEN 5 
+                                         ELSE 0 
+       END AS "time_point"
+        from
+          mv_post p
+          inner join mv_memb m on m.mno = p.mno
+          inner join mv_mv mv on mv.mvno = p.mvno
+          left join (
+            select pstno from mv_like where mno = #{mno} and (type = 'mp' or type = 'dp')
+          ) lk on lk.pstno = p.pstno
+          left join (
+            select mno, flw from mv_flw where mno = #{mno}
+          ) f on f.flw = m.mno
+          where p.opn ='u'
+        order by
+          (time_point+flwpoint) desc,cdt desc
+)
+
+select * 
+from temp
+where rnum <![CDATA[ >= ]]> (select rnum from temp where prevpstno = #{prevpstno})
+limit 15
+    </select>
+	
 
         <select id="findByKeyword" parameterType="String" resultMap="postMap2">
        select 
@@ -82,8 +149,21 @@
  
     </select>
     
-
 	<select id="findByNo" resultMap="postMap" parameterType="int">
+        SELECT
+            pstno,
+            mno,
+            ptno,
+            mvno,
+            cdt,
+            mdt,
+            cont,
+            star,
+            opn
+        FROM
+            mv_post
+        WHERE
+            pstno=#{psetno}
 	</select>
     
     <select id="listTopMp" resultMap="postMap2">
@@ -107,16 +187,115 @@
 		,now(),#{content},#{star},if(#{open},'u','l'));
 	</insert>
 
-	<delete id="delete" parameterType="int">
-	</delete>
-	
 	<update id="signOut" parameterType="int">
         UPDATE IGNORE
             mv_post
         SET
-            mno=00000000
+            mno=21
         WHERE
             mno=#{mno}
     </update>
-
+    
+    <select id="getMyPostList" resultMap="postMap2" parameterType="int">
+        SELECT
+            p.pstno,
+            p.mvno,
+            p.ptno,
+            mv.titl,
+            p.star,
+            p.cont,
+            0 as likes,
+            p.cdt,
+            (p.opn ='u') opn,
+            m.nick,
+            m.p_phot
+        FROM mv_post p
+            INNER JOIN mv_memb m on m.mno = p.mno
+            INNER JOIN mv_mv mv on mv.mvno = p.mvno
+        WHERE p.mno=#{mno}
+        ORDER BY cdt desc
+        LIMIT 25
+    </select>
+    
+    <select id="getPostType" resultType="String" parameterType="int">
+        SELECT opn
+        FROM mv_post
+        WHERE pstno=#{pstno}
+    </select>
+    
+    <select id="countCmt" resultType="int" parameterType="int">
+        SELECT COUNT(cont)
+        FROM  mv_post_cmt
+        WHERE pstno=#{pstno}
+    </select>
+    
+    <update id="deleteUnlockPost" parameterType="int">
+        UPDATE IGNORE
+            mv_post
+        SET
+            mno=21,
+            cont='삭제된 게시물 입니다',
+            mdt=now()
+        WHERE
+            opn='u'
+            AND pstno=#{pstno}
+    </update>
+    
+    <delete id="deletePost" parameterType="int">
+        DELETE IGNORE
+         post, type, tag, phot, flw, cmt
+         
+         FROM mv_post AS post
+         LEFT JOIN mv_post_type         AS type
+            ON type.ptno = post.pstno
+         LEFT JOIN mv_post_tag    AS tag
+            ON tag.pstno = post.pstno
+         LEFT JOIN mv_post_phot         AS phot
+            ON phot.pstno = post.pstno
+         LEFT JOIN mv_post_flw_tag    AS flw
+            ON flw.pstno = post.pstno
+         LEFT JOIN mv_post_cmt    AS cmt
+            ON cmt.pstno = post.pstno
+         WHERE
+            post.pstno=#{pstno}
+    </delete>
+    
+    <delete id="deleteLockPost" parameterType="int">
+        DELETE IGNORE
+         post, type, tag, phot, flw, cmt
+         
+         FROM mv_post AS post
+         LEFT JOIN mv_post_type         AS type
+            ON type.ptno = post.pstno
+         LEFT JOIN mv_post_tag    AS tag
+            ON tag.pstno = post.pstno
+         LEFT JOIN mv_post_phot         AS phot
+            ON phot.pstno = post.pstno
+         LEFT JOIN mv_post_flw_tag    AS flw
+            ON flw.pstno = post.pstno
+         LEFT JOIN mv_post_cmt    AS cmt
+            ON cmt.pstno = post.pstno
+         WHERE
+            opn='l'
+            AND post.pstno=#{pstno}
+    </delete>
+        
+    <update id="updatePost" parameterType="post">
+        
+       UPDATE mv_post
+       <trim prefix="SET" suffixOverrides=",">
+          <if test="mvno != null">mvno = #{mvno},</if>
+          <if test="content != null">cont = #{content},</if>
+          <if test="star != null">star = #{star},</if>
+          <if test="open != null">opn = #{open},</if>
+       </trim>
+       WHERE
+          pstno=#{pstno}
+          
+          <!--
+          UPDATE `mv_post` SET `pstno`=[value-1],`mno`=[value-2],`ptno`=[value-3],`mvno`=[value-4],`cdt`=[value-5],`mdt`=[value-6],`cont`=[value-7],`star`=[value-8],`opn`=[value-9] WHERE 1 
+           -->
+          
+    </update>
+    
 </mapper>

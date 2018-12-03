@@ -14,6 +14,7 @@ import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.service.MlogService;
 
 @Controller
+@RequestMapping("/log")
 public class MlogController {
  
   @Autowired MlogService mlogservice;

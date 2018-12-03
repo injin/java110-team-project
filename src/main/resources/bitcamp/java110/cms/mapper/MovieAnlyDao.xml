@@ -16,9 +16,22 @@
             FROM DUAL
         WHERE NOT EXISTS (SELECT mvno
                             FROM mv_mv_anly
-                          WHERE mvno=#{mvno}
-                          )
+                          WHERE mvno=#{mvno})
     </insert>
+    
+    <insert id="insertPost" parameterType="map">
+        INSERT INTO mv_mv_anly(mno, mvno, pnt)
+            values (#{mno}, #{mvno}, #{pnt}) 
+    </insert>
+    
+    
+     <select id="findOne" parameterType="map" resultType="int">
+        SELECT count(*)
+        from 
+            mv_mv_anly
+        where 
+            mno=#{mno} and mvno=#{mvno} 
+    </select>
     
     <delete id="signOut" parameterType="int">
         DELETE
@@ -32,8 +45,39 @@
         FROM mv_mv_anly 
         WHERE 
             mno=#{mno}
-        AND RAND()
+        ORDER BY RAND()
         LIMIT 1
+    </select>
+    
+     <update id="update" parameterType="int">
+        update mv_mv_anly
+        set 
+            pnt = (pnt+#{pnt})
+        where 
+            mno=#{mno} and mvno=#{mvno} 
+    </update>
+    
+    <insert id="insertGrNotExists" parameterType="map">
+        INSERT INTO mv_mv_gr (mvno, grno)
+            SELECT #{mvno}, #{grno}
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_mv_gr
+                          WHERE mvno=#{mvno})
+    </insert>
+    
+    <insert id="insertGrAllNotExists" parameterType="map">
+        INSERT INTO mv_mv_gr (mvno, grno)
+        VALUES
+        <foreach collection="grnoList" item="grno" separator=" , ">
+            (#{mvno}, #{grno})
+        </foreach>
+    </insert>
+    
+    <select id="checkGrExist" resultType="boolean" parameterType="int">
+        SELECT count(grno) > 0
+          FROM mv_mv_gr
+         WHERE mvno = #{value}
     </select>
     
     <select id="getFavMvList" resultType="list" parameterType="int">

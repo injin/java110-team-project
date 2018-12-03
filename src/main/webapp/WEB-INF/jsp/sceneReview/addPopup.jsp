@@ -11,7 +11,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4">
         
         <form action="add" method="post" id="srAddForm" enctype="multipart/form-data">
             <!-- 장면시간 슬라이더 -->
@@ -27,7 +27,7 @@
               </div>
               <input type="text" class="form-control is-invalid" placeholder="장면시간" aria-label="장면시간"
                     aria-describedby="basic-addon1" name="time" id="time" value="00:00:00" autocomplete="off">
-              <div class="invalid-feedback">등록 불가능한 시간입니다.</div>
+              <div class="invalid-feedback"><span id="invalid-txt">등록 불가능한 시간입니다.</span></div>
               <div class="valid-feedback">등록 가능한 시간입니다.</div>
               <!-- <input type="hidden" name="time"> -->
             </div>
@@ -88,24 +88,48 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4 scrollbar-light-blue">
         <c:choose>
             <c:when test="${not empty sceneAlbumList}">
                 <c:forEach items="${sceneAlbumList}" var="album">
-                    <div class="media">
-                      <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
-                      <div class="media-body">
-                        <h5 class="mt-0">${album.lbmTitle}</h5>
-                      </div>
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <div class="media">
+                              <c:if test="${album.include == true}">
+                                <img class="mr-3" src="/img/btn-box.png" alt="앨범 이미지">
+                              </c:if>
+                              <c:if test="${album.include == false}">
+                                <img class="mr-3" src="/img/btn-box-empty.png" alt="앨범 이미지">
+                              </c:if>
+                              <div class="media-body">
+                                <h5 class="mt-0">${album.lbmTitle}
+                                    <c:if test="${album.include == true}">
+                                        <button type="button" class="btn btn-secondary float-right" disabled>보관됨</button>
+                                    </c:if>
+                                    <c:if test="${album.include == false}">
+                                        <button type="button" class="btn btn-primary float-right" 
+                                            onclick="addToSrlAlbum(${album.lbmno})">보관하기</button>
+                                        <form id="addSrAlbumForm" action="addToSrAlbum" method="post">
+                                            <input type="hidden" name="lbmno" value="">
+                                            <input type="hidden" name="srno" value="${sceneReview.srno}">
+                                        </form>
+                                        
+                                    </c:if>
+                                </h5>
+                              </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <span>보관함이 없습니다.</span>
+                <div class="alert alert-light" role="alert">
+                    <span>등록된 장면앨범이 없습니다. <br>정보수정 메뉴에서 장면앨범을 만들어 주세요.</span>
+                </div>
             </c:otherwise>
         </c:choose>
       </div>
-      
     </div>
   </div>
 </div>

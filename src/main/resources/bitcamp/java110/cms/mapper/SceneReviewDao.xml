@@ -13,6 +13,7 @@
         <result column="phot"      property="photo" />
         <result column="cont"      property="cont" />
         <result column="spo"       property="spo" />
+        <result column="mvnm"      property="movie.title" />
     </resultMap>
     
     <resultMap type="sceneReviewCmt" id="srCmtMap">
@@ -93,6 +94,21 @@
          LIMIT #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
+    <delete id="deleteCmt" parameterType="int">
+        DELETE FROM mv_sr_cmt WHERE cmno = #{cmno}
+    </delete>
+    
+    <delete id="deleteCmtMap" parameterType="int">
+        DELETE FROM mv_sr_map
+         WHERE cmno = #{cmno}
+    </delete>
+    
+    <update id="updateCmt" parameterType="sceneReviewCmt">
+        UPDATE mv_sr_cmt
+           SET cont = #{cont}
+         WHERE cmno = #{cmno}
+    </update>
+    
     <select id="listTopSr" resultMap="srMap">
         SELECT srno, mvno, titl, time, phot, count(pstno)as cnt
           FROM mv_like ml,mv_sr ms 
@@ -104,7 +120,21 @@
          LIMIT 8
     </select>
     
-    <update id="signOut" parameterType="int">
+    <insert id="addToSrAlbum" parameterType="map">
+        INSERT INTO mv_lbm_sr(lbmno, srno)
+        VALUES (#{lbmno}, #{srno})
+    </insert>
+    
+    <update id="signOut1" parameterType="int">
+        UPDATE IGNORE
+            mv_sr_cmt
+        SET
+            mno=21
+        WHERE
+            mno=#{mno}
+    </update>
+    
+    <update id="signOut2" parameterType="int">
         UPDATE IGNORE mv_sr
         SET mno=21
         WHERE mno=#{mno}

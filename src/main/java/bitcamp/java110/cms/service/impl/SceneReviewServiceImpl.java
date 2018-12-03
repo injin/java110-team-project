@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.MlogDao;
+import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
@@ -19,6 +21,8 @@ import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.domain.SceneReviewMap;
 import bitcamp.java110.cms.service.SceneReviewService;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
@@ -28,6 +32,8 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Autowired SceneAlbumDao sceneAlbumDao;
   @Autowired MovieDao movieDao;
   @Autowired MlogDao logDao;
+  @Autowired MovieAnlyDao movieAnlyDao;
+  @Autowired TmdbMovies tmdbMovies;
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
@@ -49,19 +55,69 @@ public class SceneReviewServiceImpl implements SceneReviewService {
     mlog.setIndirect(sceneReview.getMovie().getTitle());
     mlog.setAct(Constants.LOG_ACT_TYPE_WR);
     mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
-                + "&time=" + sceneReview.getTime());
+                + "&srno=" + sceneReview.getSrno());
     logDao.insert(mlog);
+    
+    // 영화분석 점수 추가
+    HashMap<String, Object> mparams = new HashMap<>();
+    mparams.put("mno", sceneReview.getMno());
+    mparams.put("mvno", sceneReview.getMvno());
+    mparams.put("pnt", 10);
+    if (movieAnlyDao.findOne(mparams) > 0) {
+      movieAnlyDao.update(mparams);
+    } else {
+      movieAnlyDao.insertPost(mparams);
+    }
+    
+    // 영화 장르 추가
+    if (!movieAnlyDao.checkGrExist(sceneReview.getMvno())) {
+      List<Genre> genres = tmdbMovies.getMovie(sceneReview.getMvno(), Constants.LANGUAGE_KO).getGenres();
+      List<Integer> grnoList = new ArrayList<>();
+      if (genres.size() > 0) {
+        for(Genre g: genres) {
+          grnoList.add(g.getId());
+        }
+      }
+      HashMap<String, Object> gparams = new HashMap<>();
+      gparams.put("mvno", sceneReview.getMvno());
+      gparams.put("grnoList", grnoList);
+      movieAnlyDao.insertGrAllNotExists(gparams);
+    }
+    
   }
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
-  public void addCmt(SceneReviewCmt sceneReviewCmt) {
+  public void addCmt(SceneReviewCmt sceneReviewCmt, SceneReview sceneReview) {
+    // 댓글 입력
     sceneReviewDao.insertCmt(sceneReviewCmt);
     
+    // 댓글 지도 입력
     SceneReviewMap map = sceneReviewCmt.getMap();
-    map.setCmno(sceneReviewCmt.getCmno());
     if (map.getLat() != null && map.getLng() != null) {
+      map.setCmno(sceneReviewCmt.getCmno());
       sceneReviewDao.insertCmtMap(map);
+    }
+    
+    // 로그 입력
+    Mlog mlog = new Mlog();
+    mlog.setMno(sceneReviewCmt.getMno());
+    mlog.setDirect(Constants.LOG_DO_TYPE_SC);
+    mlog.setIndirect(sceneReviewCmt.getMvnm());
+    mlog.setAct(Constants.LOG_ACT_TYPE_WR);
+    mlog.setUrl("/app/sceneReview/review?mvno=" + sceneReview.getMvno() 
+                  + "&srno=" + sceneReview.getSrno());
+    logDao.insert(mlog);
+    
+    // 영화분석 점수 추가
+    HashMap<String, Object> mparams = new HashMap<>();
+    mparams.put("mno", sceneReviewCmt.getMno());
+    mparams.put("mvno", sceneReview.getMvno());
+    mparams.put("pnt", 5);
+    if (movieAnlyDao.findOne(mparams) > 0) {
+      movieAnlyDao.update(mparams);
+    } else {
+      movieAnlyDao.insertPost(mparams);
     }
   }
   
@@ -89,8 +145,28 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public void deleteCmt(int cmno) {
+    sceneReviewDao.deleteCmtMap(cmno);
+    sceneReviewDao.deleteCmt(cmno);
+  }
+  
+  @Override
+  public void updateCmt(SceneReviewCmt sceneReviewCmt) {
+    sceneReviewDao.updateCmt(sceneReviewCmt);
+  }
+  
+  @Override
   public List<SceneReview> listTopSr() {
     return sceneReviewDao.listTopSr();
+  }
+  
+  @Override
+  public void addToSrAlbum(int lbmno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("srno", srno);
+    sceneReviewDao.addToSrAlbum(condition);
   }
   
   @Override

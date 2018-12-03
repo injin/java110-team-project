@@ -2,6 +2,7 @@ package bitcamp.java110.cms.web;
 
 import java.util.List;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
+import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
 import info.movito.themoviedbapi.TmdbSearch;
 import info.movito.themoviedbapi.model.core.MovieResultsPage;
@@ -23,6 +27,8 @@ public class MainController {
   @Autowired PostService postService;
   @Autowired MemberService memberService;
   @Autowired SceneReviewService sceneReviewService;
+  @Autowired SceneAlbumService sceneAlbumService;
+  @Autowired FlwService flwService;
   
   ServletContext sc;
   
@@ -35,13 +41,23 @@ public class MainController {
   }
 
   @RequestMapping("/")
-  public String main(Model model) {
+  public String main(Model model, HttpSession session) {
     
+    Member member = (Member) session.getAttribute("loginUser");
     
-    List<Post> topMpList = postService.listTopMp();
-    List<SceneReview> topSrList = sceneReviewService.listTopSr();
-    model.addAttribute("topSrList", topSrList);
+    if(member != null) {
+      List<Member> flwList = flwService.listAll(member.getMno());
+      model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
+    }
+    
+    List<Post> topMpList = postService.getHotPosts(); //핫리뷰리스트
     model.addAttribute("topMpList", topMpList);
+    
+    List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
+    model.addAttribute("topSrList", topSrList);
+    
+    List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트
+    model.addAttribute("albumList", listScA);
     
     return "main";
     
@@ -58,14 +74,12 @@ public class MainController {
       String keyword,
       Model model) throws Exception{
 
-    System.out.println(keyword);
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
     
     // 해쉬태그
-    List<Post> hashList = postService.findByKeyword(keyword);
-    //System.out.println(hashList.toString());
+    List<Post> hashList = postService.keywordPosts(keyword);
     
     // 영화 찾기
     MovieResultsPage response = tmdbSearch.searchMovie(
@@ -83,9 +97,6 @@ public class MainController {
     model.addAttribute("totalPages", response.getTotalPages());
     model.addAttribute("totalResults", response.getTotalResults());
 
-    System.out.println("reponse: "+response.getResults().size());
-    System.out.println("imgPrefix: "+ Constants.TMDB_IMG_PREFIX_W500);
-    //System.out.println(model.toString());
     return "/search/search";
   }
 

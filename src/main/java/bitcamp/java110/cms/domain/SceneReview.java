@@ -13,6 +13,8 @@ public class SceneReview {
   protected String photo;
   protected String cont;
   protected String spo;
+  protected boolean like;
+  protected boolean reported;
   protected MovieDb movieDb;
   protected Movie movie; // mv_mv 테이블 등록용
   protected boolean trgtSrExist;
@@ -57,13 +59,25 @@ public class SceneReview {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont;
+    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
   }
   public String getSpo() {
     return spo;
   }
   public void setSpo(String spo) {
     this.spo = spo;
+  }
+  public boolean isLike() {
+    return like;
+  }
+  public void setLike(boolean like) {
+    this.like = like;
+  }
+  public boolean isReported() {
+    return reported;
+  }
+  public void setReported(boolean reported) {
+    this.reported = reported;
   }
   public MovieDb getMovieDb() {
     return movieDb;
@@ -99,7 +113,8 @@ public class SceneReview {
   @Override
   public String toString() {
     return "SceneReview [srno=" + srno + ", mvno=" + mvno + ", mno=" + mno + ", title=" + title
-        + ", time=" + time + ", photo=" + photo + ", cont=" + cont + ", spo=" + spo + ", movieDb="
-        + movieDb + ", movie=" + movie + ", trgtSrExist=" + trgtSrExist + "]";
+        + ", time=" + time + ", photo=" + photo + ", cont=" + cont + ", spo=" + spo + ", like="
+        + like + ", reported=" + reported + ", movieDb=" + movieDb + ", movie=" + movie
+        + ", trgtSrExist=" + trgtSrExist + "]";
   }
 }

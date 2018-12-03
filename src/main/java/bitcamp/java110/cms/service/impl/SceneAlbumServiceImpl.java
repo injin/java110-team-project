@@ -45,7 +45,13 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     }*/
 
   }
-
+  @Override
+  public List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("mno", mno);
+    condition.put("sceneAlbum", sceneAlbum);
+    return sceneAlbumDao.srAlbumList(condition);
+  }
   
   @Override
   public List<SceneAlbum> list(int mno) {
@@ -73,15 +79,74 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   public int getTotalCnt(int mno) {
     return sceneAlbumDao.getTotalCnt(mno);
   }
+  
   @Override
-  public SceneAlbum get(int no) {
-    return null;
+  public boolean addImg(int lbmno, String phot) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("phot", phot);
+    if (sceneAlbumDao.addImg(condition) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean removeImg(int lbmno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("srno", srno);
+    
+    boolean isCoverImg = sceneAlbumDao.checkImg(condition);
+    if (sceneAlbumDao.removeImg(condition) > 0) {
+      if (isCoverImg) {
+        sceneAlbumDao.setImgNull(lbmno);
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean removeLbm(int lbmno) {
+    if(sceneAlbumDao.removeLbm(lbmno) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean editLbm(int lbmno, String lbmTitle) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("lbmTitle", lbmTitle);
+    if(sceneAlbumDao.editLbm(condition) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  public SceneAlbum get(int lbmno) {
+    return sceneAlbumDao.findByNo(lbmno);
   }
 
   @Transactional
   @Override
   public void delete(int no) {
 
+  }
+  @Override
+  public List<SceneAlbum> listScA() {
+    // TODO Auto-generated method stub
+    return sceneAlbumDao.listScA();
   }
   
 }

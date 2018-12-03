@@ -1,15 +1,5 @@
 @charset "UTF-8";
 
-/*===== report =====*/
-#report{
-	width: 35%;
-    margin-top: 10%;
-	
-}
-.modal-header, .modal-body{
-	/* padding:20px 16px 20px 30px; */
-}
-
 /*===== movie cover =====*/
 #movie-cover {
     width: 100%;
@@ -57,7 +47,7 @@ a.btn-icon > img {
     left: 0;
     width: 100%;
     padding-left: 2em;
-    padding-right: 2em;
+    padding-right: 4em;
     display: flex;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -73,6 +63,11 @@ a.btn-icon > img {
     background-size: cover;
     cursor: pointer;
 }
+a#btn-siren {
+    position: absolute;
+    bottom: 35px;
+    right: 2em;
+}
 
 /*===== main  =====*/
 #span-sr-time {
@@ -82,6 +77,9 @@ a.btn-icon > img {
 .span-more {
     color: #00cc99;
     cursor: pointer;
+}
+.smlr-movie:hover h6 {
+    text-decoration: underline;
 }
 
 /*===== comment =====*/
@@ -94,6 +92,14 @@ a.btn-icon > img {
 }
 #map-container {
     display: none;
+}
+
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
+.cmt-img {
+    max-width: 35em;
 }
 
 /*===== range slider =====*/
@@ -169,7 +175,6 @@ a.btn-icon > img {
 }
 
 input.default:checked + .slider {
-  /* background-color: #444; */
   background-color: #00b386;
 }
 input.primary:checked + .slider {
@@ -206,4 +211,8 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-
+/* srAlbum modal */
+#srAlbumAddModal .modal-body {
+    max-height: 25em;
+    overflow-y: scroll;
+}
