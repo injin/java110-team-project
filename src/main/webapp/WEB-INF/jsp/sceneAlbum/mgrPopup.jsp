@@ -21,12 +21,12 @@
 					<div class="row">
 						<c:choose>
 							<c:when test="${sceneAlbum.open == 'true'}">
-								<span class="openIcon"> <i
+								<span class="openIcon" onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbumopen})"> <i
 									class="fas fa-globe-americas globe"></i>
 								</span>
 							</c:when>
 							<c:otherwise>
-								<span class="openIcon"> <i class="fas fa-lock lock"></i>
+								<span class="openIcon" onclick="editOpen(${sceneAlbum.lbmno}, ${sceneAlbumopen})"> <i class="fas fa-lock lock"></i>
 								</span>
 							</c:otherwise>
 						</c:choose>
