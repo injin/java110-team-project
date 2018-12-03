@@ -7,7 +7,6 @@ import bitcamp.java110.cms.domain.Statistic;
 public interface StatisticDao {
 
     
-    List<Statistic> stscLabel(int no);
-    
-    
+    List<Statistic> postData(int no);
+    List<Statistic> mvTitl(int no);
 }

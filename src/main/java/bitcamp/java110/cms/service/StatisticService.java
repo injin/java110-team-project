@@ -8,6 +8,6 @@ public interface StatisticService {
 
     
     List<Statistic> list(int no);
-    
+    List<Statistic> list2(int no);
     
 }

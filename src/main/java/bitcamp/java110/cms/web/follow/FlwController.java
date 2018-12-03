@@ -34,6 +34,7 @@ public class FlwController {
         condition.put("paging", paging);
         List<Member> flwList = flwService.list(condition);
         
+        System.out.println(paging);
         
         model.addAttribute("flwlist" , flwList);
         model.addAttribute("paging" , paging);

@@ -20,6 +20,11 @@ public class StatisticServiceImpl implements StatisticService {
      @Override
     public List<Statistic> list(int no) {
          
-        return stscDao.stscLabel(no);
+        return stscDao.postData(no);
+    }
+     
+     @Override
+    public List<Statistic> list2(int no) {
+        return stscDao.mvTitl(no);
     }
 }

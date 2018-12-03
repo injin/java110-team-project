@@ -9,9 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import bitcamp.java110.cms.domain.Genre;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.Statistic;
+import bitcamp.java110.cms.service.PostService;
 import bitcamp.java110.cms.service.StatisticService;
 
 @Controller
@@ -21,25 +22,30 @@ public class StatisticController {
     @Autowired
     StatisticService stscService;
     
+    @Autowired
+    PostService postService;
     
     @RequestMapping("/list")
     public String stsc(
-            Genre genre,
+            Post post,
             Model model,
             HttpSession session
             ) {
+     
         
        Member member = (Member)session.getAttribute("loginUser");
        int mno = member.getMno();
        
-       List<Statistic> stscLabel = stscService.list(mno);
+       List<Statistic> postData = stscService.list(mno);
        
-       model.addAttribute("stscLabel", stscLabel);
+       List<Statistic> mvTitl = stscService.list2(mno);
        
+       model.addAttribute("postData", postData);
+       model.addAttribute("mvTitl" , mvTitl);
+    
+     
        
-       
-       
-        return "statistic";
+       return "statistic";
     }
     
     
