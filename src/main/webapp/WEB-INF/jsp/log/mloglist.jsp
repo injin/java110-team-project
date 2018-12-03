@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="logList col-lg-12" id="list-mp">
+    <div class="logList col-lg-12 mb-5" id="list-mp">
         <h4>영화리뷰 로그</h4>
         <ul class="list-group" id="ul-mp">
         <c:forEach var="log" items="${mpList}" varStatus="status">
@@ -37,7 +37,7 @@
         </c:forEach>
         </ul>
     </div>
-    <div class="logList col-lg-12" id="list-dp">
+    <div class="logList col-lg-12 mb-5" id="list-dp">
         <h4>일상리뷰 로그</h4>
         <ul class="list-group" id="ul-dp">
         <c:forEach var="log" items="${dpList}" varStatus="status">
@@ -59,7 +59,7 @@
         </c:forEach>
         </ul>
     </div>
-    <div class="logList col-lg-12" id="list-sr">
+    <div class="logList col-lg-12 mb-5" id="list-sr">
         <h4>장면리뷰 로그</h4>
         <ul class="list-group" id="ul-sr">
         <c:forEach var="log" items="${srList}" varStatus="status">
@@ -81,7 +81,7 @@
         </c:forEach>
         </ul>
     </div>
-    <div class="logList col-lg-12" id="list-pc">
+    <div class="logList col-lg-12 mb-5" id="list-pc">
         <h4>게시물 댓글</h4>
         <ul class="list-group" id="ul-pc">
         <c:forEach var="log" items="${pcList}" varStatus="status">
@@ -98,7 +98,7 @@
         </c:forEach>
         </ul>
     </div>
-    <div class="logList col-lg-12" id="list-sc">
+    <div class="logList col-lg-12 mb-5" id="list-sc">
         <h4>장면리뷰 댓글</h4>
         <ul class="list-group" id="ul-sc">
         <c:forEach var="log" items="${scList}" varStatus="status">
@@ -115,7 +115,7 @@
         </c:forEach>
         </ul>
     </div>
-    <div class="logList col-lg-12" id="list-fr">
+    <div class="logList col-lg-12 mb-5" id="list-fr">
         <h4>친구</h4>
         <ul class="list-group" id="ul-fr">
         <c:forEach var="log" items="${frList}" varStatus="status">
@@ -149,6 +149,8 @@
         // 기본으로 게시물 목록만 보여줌
         var initType = $('#logType').val();
         showSelectedLogList(initType);
+        
+        
 
         function showSelectedLogList(logType) {
             $('.logList').hide();
@@ -162,22 +164,114 @@
         
        function makeSrLiHtml(value) {
            var html = '';
-           if(value.act == 'wr')
-           html += '<li class="list-group-item">';
-           html += '<span style="float: left; margin-bottom: 0">';
-           html += '<a href="#">' + value.nick + '</a>'+ 님이;
-           html += '<span style="float: left; margin-bottom: 0">';
-           html += '<a href='+value.url+'>'+value.indirect'</a>'+에 일상 리뷰를 작성했습니다';
-           if(value.act == 'lk')
+           
                html += '<li class="list-group-item">';
-           html += '<span style="float: left; margin-bottom: 0">';
-           html += '<a href="#">' + value.nick + '</a>'+ 님이;
-           html += '<span style="float: left; margin-bottom: 0">';
-           html += '<a href='+value.url+'>'+value.indirect'</a>'+에 일상 리뷰를 좋아합니다;
+               html += '<span style="float: left; margin-bottom: 0">';
+               html += '<a href="#">' + value.nick + '</a>님이';
+           if(value.act == 'wr'){
+               html += '<a href='+value.url+'>'+value.indirect + '</a>에 장면 리뷰를 작성했습니다';
+           }
+           if(value.act == 'lk'){
+               html += '<a href='+value.url+'>'+value.indirect +'</a>에 장면 리뷰를 좋아합니다';
+           }
+               html += '</span>'
+               html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+               html += '</span>'
+               html += '</li>'
+               
            return html;
        }
-       function makeScLiHtml(value) {
+       function makeMpLiHtml(value) {
+           var html = '';
            
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>님이';
+       if(value.act == 'wr'){
+           html += '<a href='+value.url+'>'+value.indirect +'</a>에 영화 리뷰를 작성했습니다';
+           }
+       if(value.act == 'lk'){
+           html += '<a href='+value.url+'>'+value.indirect +'</a>에 영화 리뷰를 좋아합니다';
+           }
+           html += '</span>'
+           html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+           html += '</span>'
+           html += '</li>'
+       return html;
+       }
+       
+       
+       
+       function makeDpLiHtml(value) {
+           var html = '';
+           
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>님이';
+       if(value.act == 'wr'){
+           html += '<a href='+value.url+'>'+value.indirect +'</a>에 일상 리뷰를 작성했습니다';
+           }
+       if(value.act == 'lk'){
+           html += '<a href='+value.url+'>'+value.indirect +'</a>에 일상 리뷰를 좋아합니다';
+           }
+           html += '</span>'
+           html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+           html += '</span>'
+           html += '</li>'
+       return html;
+       }
+       
+       function makePcLiHtml(value) {
+           var html = '';
+           
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>님이';
+           html += '<a href='+value.url+'>'+value.indirect+'</a>님의 게시물에 댓글을 작성했습니다';
+           html += '</span>'
+           html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+           html += '</span>'
+           html += '</li>'
+       return html;
+       }
+       
+       function makeScLiHtml(value) {
+           var html = '';
+           
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>님이';
+           html += '<a href='+value.url+'>'+value.indirect +'</a>의 장면 리뷰에 댓글을 작성했습니다';
+           html += '</span>'
+           html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+           html += '</span>'
+           html += '</li>'
+       return html;
+       }
+       function makeFrLiHtml(value) {
+           var html = '';
+           
+           html += '<li class="list-group-item">';
+           html += '<span style="float: left; margin-bottom: 0">';
+           html += '<a href="#">' + value.nick + '</a>님이';
+           html += '<a href='+value.url+'>'+value.indirect +'</a>을/를 팔로우 했습니다';
+           html += '</span>'
+           html += '<span style="float: right; margin-bottom: 0">' + formatDate(value.createdDate);
+           html += '</span>'
+           html += '</li>'
+           return html;
+       }
+       
+       function formatDate(date) {
+           var d = new Date(date),
+               month = '' + (d.getMonth() + 1),
+               day = '' + d.getDate(),
+               year = d.getFullYear();
+
+           if (month.length < 2) month = '0' + month;
+           if (day.length < 2) day = '0' + day;
+
+           return [year, month, day].join('-');
        }
        
         window.onscroll = function(ev) {
@@ -199,14 +293,24 @@
                     }),
                     success: function(data) {
                         var html = '';
-                        data.forEach(function(value, index){
-                            console.log(value);
+                        data.forEach(function(value, index, array) {
                             if (value.direct == 'sr') {
                                 html += makeSrLiHtml(value);
-                            } else if () {
-                                
+                            } else if (value.direct == 'dp') {
+                                html += makeDpLiHtml(value);
+                            } else if (value.direct == 'pc') {
+                                html += makePcLiHtml(value);
+                            } else if (value.direct == 'sc') {
+                                html += makeScLiHtml(value);
+                            } else if (value.direct == 'fr') {
+                                html += makeFrLiHtml(value);
+                            } else if (value.direct == 'mp') {
+                                html += makeMpLiHtml(value);
                             }
                             
+                            if (index == (array.length-1)) { //마지막이면
+                                lastnoMap.set(currentType, value.lgno);
+                            }
                         });
                         $('#ul-' + currentType).append(html)
                     }

@@ -47,9 +47,6 @@ public class MlogController {
     int lastno = (int)request.get("lastno");
     String type = (String)request.get("type");
     
-    System.out.println("마지막번호" + lastno);
-    System.out.println("타입" + type);
-    
     return mlogservice.getListMore(mno, type, lastno);
   }
   
