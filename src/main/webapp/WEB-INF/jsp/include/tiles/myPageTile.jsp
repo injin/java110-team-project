@@ -47,7 +47,7 @@
                               <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/stsc/list"/>">통계</a></th>
                               <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></th>
                               <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></th>
-                              <th scope="col" class="col-2 text-center"><a href="#">정보수정</a></th>
+                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/auth/update"/>">정보수정</a></th>
                             </c:when>
                             <c:otherwise>
                               <th scope="col" class="col-2 text-center"></th>

@@ -152,10 +152,15 @@ function makeCmtHtml(data) {
         html += data.cmtsResult[i].content; 
         html += '        </p>';
         html += '        <p class="w-100 p-2 m-0">';
-        if(data.cmtsResult[i].member.mno == '${sessionScope.loginUser.mno}'){
+        if(data.cmtsResult[i].member.mno == data.session.mno){
+
             html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
             html += data.cmtsResult[i].pcno;
-            html += ')"></i>';
+            html += ',\'';
+            html += data.session.profileImagePath;
+            html += '\',\'';
+            html += data.session.nickname;
+            html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
             html += ')"></i>';   
@@ -190,7 +195,7 @@ function deleteComment(pcno) {
     });
 }
 
-function showEditForm(obj,pcno) {
+function showEditForm(obj,pcno,profileImagePath,nickname) {
 
     $(obj).hide();
     var $editCont = $(obj).parent().prev().text();
@@ -199,8 +204,12 @@ function showEditForm(obj,pcno) {
     var editHtml = '<div class="card mb-2">';
     editHtml += '<div class="media" style="padding: .5rem;">';
     editHtml += '    <div>';
-    editHtml += '        <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="login-profileImage">';
-    editHtml += '        <div style="text-align: -webkit-center;">${sessionScope.loginUser.nickname}</div>';
+    editHtml += '        <img class="mr-2 profile-medium" src="';
+    editHtml += profileImagePath;
+    editHtml += '" alt="login-profileImage">';
+    editHtml += '        <div style="text-align: -webkit-center;">';
+    editHtml += nickname;
+    editHtml += '</div>';
     editHtml += '    </div>';
     editHtml += '    <div class="media-body text-right">';
     editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment">';

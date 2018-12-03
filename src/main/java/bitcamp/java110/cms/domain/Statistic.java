@@ -6,10 +6,8 @@ public class Statistic {
      protected int grno;
      protected String gr_nm;
      protected int mvno;
-     protected double star;
-     protected double cnt;
+     protected int pnt;
      protected String titl;
-     
     public int getMno() {
         return mno;
     }
@@ -34,17 +32,11 @@ public class Statistic {
     public void setMvno(int mvno) {
         this.mvno = mvno;
     }
-    public double getStar() {
-        return star;
+    public int getPnt() {
+        return pnt;
     }
-    public void setStar(double star) {
-        this.star = star;
-    }
-    public double getCnt() {
-        return cnt;
-    }
-    public void setCnt(double cnt) {
-        this.cnt = cnt;
+    public void setPnt(int pnt) {
+        this.pnt = pnt;
     }
     public String getTitl() {
         return titl;
@@ -52,12 +44,10 @@ public class Statistic {
     public void setTitl(String titl) {
         this.titl = titl;
     }
-    
     @Override
     public String toString() {
-        return "Statistic [mno=" + mno + ", grno=" + grno + ", gr_nm=" + gr_nm + ", mvno=" + mvno + ", star=" + star
-                + ", cnt=" + cnt + ", titl=" + titl + "]";
+        return "Statistic [mno=" + mno + ", grno=" + grno + ", gr_nm=" + gr_nm + ", mvno=" + mvno + ", pnt=" + pnt
+                + ", titl=" + titl + "]";
     }
-     
      
 }

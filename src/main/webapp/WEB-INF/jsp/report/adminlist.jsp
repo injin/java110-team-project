@@ -16,14 +16,28 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${findAll}" var ="report" >
-		<tr>
-			<td>${report.rptno}</td>
-			<td>${report.nick}</td>
-			<td><a href ="${report.url}">${report.url}</a></td>
-			<td>${report.createdDate}</td>
-			<td ><input type="checkbox" data-toggle="toggle" data-on="${report.hndl }" data-off="처리"></td>
-		</tr>
-     </c:forEach>
+		<c:forEach items="${findAll}" var="report">
+			<tr>
+				<td>${report.rptno}</td>
+				<td>${report.nick}</td>
+				<td><a href="${report.url}">${report.url}</a></td>
+				<td>${report.createdDate}</td>
+				   <c:choose>
+					<c:when test="${report.hndl eq false}">
+						 <td>미처리</td>
+						</c:when>
+						<c:otherwise>
+							<td>처리</td>
+						</c:otherwise>
+				    </c:choose>
+			</tr>
+			<tr>
+			  <td></td>
+			  <td></td>
+			  <td>${report.cont}</td>
+			  <td></td>
+			  <td></td>
+			</tr>
+		</c:forEach>
 	</tbody>
 </table>
