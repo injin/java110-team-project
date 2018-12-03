@@ -43,7 +43,11 @@
 	padding: 0 .5rem;
 }
 
-/* ========== 내용/닉네임/친구태그/별/좋아요/이미지 관련  ========== */
+/* ========== 그외  ========== */
+#nickwrap {
+	list-style: none;
+}
+
 .likeColor {
 	color: red;
 }
@@ -90,4 +94,21 @@
 
 .carouselHeight {
 	height: 44rem;
+}
+
+#rModal {
+	max-width: 70rem;
+}
+
+#mh-p {
+	float: right;
+	font-size: 1.5rem;
+	margin-bottom: 0;
+}
+
+#ownerImg {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	margin-right: 0.5rem;
 }

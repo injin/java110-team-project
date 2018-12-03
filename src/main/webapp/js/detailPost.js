@@ -15,6 +15,7 @@ function openDetailModal(pstno) {
     $('#detailModal #dpstno').val(postList[index].pstno);
     $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
 
+    
     /* 별 부분*/
     var star = postList[index].star;
     var shtml='';
@@ -66,7 +67,7 @@ function openDetailModal(pstno) {
         h += '    <span class="sr-only">Next</span>';
         h += '</a>';
     }
-   
+
 
     $('#carouselExampleIndicators').html(h); 
 
