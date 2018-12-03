@@ -135,15 +135,11 @@ td {
           
         return newHTML;
     }
+    
     function showCont(cont, index) {
         var newHTML = makeContHtml(cont, index);
         document.getElementById('reviewCont-' + index).innerHTML = newHTML;
-        console.log(newHTML);
     }
-    
-    function countLines(index) {
-    }
-    
 </script>
 
 </head>
@@ -159,8 +155,8 @@ td {
 
 			<%-- 글 작성 부분 --%>
 			<div class="wPost">
-				<h6 style="font-size: 0.7rem; font-weight: bold">리뷰 작성하기</h6>
-				<div style="border-bottom: 1px solid #00cc99; color: #00cc99">
+				<h6 id="wreviewH6">리뷰 작성하기</h6>
+				<div id="wreviewDiv">
 					<c:choose>
 						<c:when test="${not empty sessionScope.loginUser}">
 							<input type="hidden" id="sessionMno"
@@ -209,12 +205,11 @@ td {
 				</c:if>
 				<c:if test="${post.open}">
 					<div class="wPost reviewPst list-group-item">
-						<div class="media row" style="padding: 0 1rem">
+						<div class="media row pr-3 pl-3">
 							<img src="${post.member.profileImagePath}"
-								style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
+								class="rprofileImg" />
 							<div class="media-body">
-								<ul
-									style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">
+								<ul class="memberul">
 									<li><a href="#" style="color: black;">${post.member.nickname}</a></li>
 									<li><c:if test="${not empty post.ftags}">
 											<c:forEach items="${post.ftags}" var="ftag">
@@ -644,12 +639,12 @@ td {
                 }
                 
                 html += '        <div class="wPost reviewPst">';
-                html += '            <div class="media row" style="padding: 0 1rem">';
+                html += '            <div class="media row pr-3 pl-3">';
                 html += '                <img src="';
                 html += data.postsResult[i].member.profileImagePath;
-                html += '" style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />';
+                html += '" class="rprofileImg" />';
                 html += '                <div class="media-body">';
-                html += '                    <ul style="float: left; list-style: none; padding-left: 0; margin-bottom: 0">';
+                html += '                    <ul class="memberul">';
                 html += '                        <li><a href="#" style="color: black;">';
                 html += data.postsResult[i].member.nickname;
                 html += '                            </a></li><li>';

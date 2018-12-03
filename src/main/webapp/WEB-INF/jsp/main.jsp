@@ -130,10 +130,6 @@ function showCont(cont, index) {
                 <li data-target="#hotSr" data-slide-to="2"></li>
             </ul>
 
-
-
-
-
             <div class="carousel-inner no-padding my-5">
                 <c:forEach items="${topMpList}" var="post"
                     varStatus="status">

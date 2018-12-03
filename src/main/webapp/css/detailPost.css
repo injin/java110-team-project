@@ -1,5 +1,4 @@
 /* ========== 댓글 관련  ========== */
-
 .comment-main {
 	height: 20rem;
 	overflow: auto;
@@ -31,8 +30,14 @@
 }
 
 /* ========== 내용/닉네임/친구태그/별/좋아요 관련  ========== */
-
 #dCont {
 	border: 1px solid silver;
 	overflow: auto;
+}
+
+.rprofileImg {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 50%;
+	margin-right: 0.5rem;
 }

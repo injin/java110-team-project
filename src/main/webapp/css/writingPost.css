@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* ============================== 작성post 관련 ============================== */
+
 /* ========== 친구태그 관련  ========== */
 #ftag-input {
 	text-align: auto;
@@ -303,4 +305,22 @@ input:checked+.slider:before {
 
 .modal-title {
 	margin-right: 1rem;
+}
+
+/* ============================== 피드 메인 관련 ============================== */
+#wreviewH6 {
+	font-size: 0.7rem;
+	font-weight: bold;
+}
+
+#wreviewDiv {
+	border-bottom: 1px solid #00cc99;
+	color: #00cc99;
+}
+
+.memberul {
+	float: left;
+	list-style: none;
+	padding-left: 0;
+	margin-bottom: 0;
 }
