@@ -13,9 +13,10 @@
 					onclick="editButton(this)"
 					data-lbmno="${sceneAlbum.lbmno}"
                                      data-lbm-title="${sceneAlbum.lbmTitle}" data-open="${sceneAlbum.open}">
-					수정하기<input type="hidden" data-toggle="modal" id="mgrAlbum"
-						data-target="#mgrModal" />
+					수정하기
 				</div>
+				<input type="hidden" data-toggle="modal" id="mgrAlbum"
+                        data-target="#mgrModal" />
 				</c:if>
 			</div>
 			<!-- 앨범 목록 -->
