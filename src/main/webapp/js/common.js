@@ -10,6 +10,10 @@ $(document.body).on('mouseover', '.boxList', function(){
             $('.scrollbar-light-blue').css('overflow', 'hidden');    
         });
 
+//	============================
+function goToFeed(mno){
+    location.href = "/app/reviewFeed/Feed?id=" + mno;
+}
 
 // LOGIN ========================
 Kakao.init('6295fa2342cde6565c7cbf2e4d4e5428');
