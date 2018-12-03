@@ -7,7 +7,7 @@ import bitcamp.java110.cms.domain.Report;
 public interface ReportDao {
 
   int insert(Report report);
-  List<Report> findAll(Map<String, Object> params);
+  List<Report> findAll();
   Report findOne(Map<String, Object> params);
   int delete(int no);
   void signOut(int mno);

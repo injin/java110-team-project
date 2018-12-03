@@ -7,15 +7,19 @@
 <meta charset="UTF-8">
 <title>moviestagram</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-    crossorigin="anonymous">
 <link rel='stylesheet' href='/css/adminlist.css'>
 <link rel='stylesheet' href='/css/common.css'>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/adminlist.js"></script>
+<link rel="stylesheet" href='/css/bootstrap2-toggle.min.css'>
+
+<style>
+
+.boxSize{
+ 
+  box-sizing: 0 !important;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -31,5 +35,12 @@
     <script src="/js/bootstrap.js"></script>
     <script src="/js/common.js"></script>
     <script type="text/javascript"></script>
+    <script src="/js/bootstrap2-toggle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/adminlist.js"></script>
+    
+
+    
 </body>
 </html>
