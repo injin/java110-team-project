@@ -167,12 +167,16 @@
 							<%-- 좋아요 --%>
 							<div class="col-6 text-left">
 								<i
-									class="fas fa-thumbs-up btmIcon c-pointer likeColor <c:if test="${!post.likeCheck}">dis-none</c:if>"
-									id="btn-like-full-${post.pstno}"
+									class="fas fa-thumbs-up btmIcon c-pointer likeColor 
+									<c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+									<c:if test="${!post.likeCheck}"> dis-none</c:if>"
+									id="btn-like-full-${post.pstno}" 
 									onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i>
 								<i
-									class="far fa-thumbs-up btmIcon c-pointer likeColor <c:if test="${post.likeCheck}">dis-none</c:if>"
-									id="btn-like-empty-${post.pstno}"
+									class="far fa-thumbs-up btmIcon c-pointer likeColor 
+									<c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+									<c:if test="${post.likeCheck}"> dis-none</c:if>"
+									id="btn-like-empty-${post.pstno}" 
 									onclick="addLike(${post.pstno},${post.pstTypeNo});"></i>
 								<span id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
 									class="far fa-comment btmIcon c-pointer"></i> <span
