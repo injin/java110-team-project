@@ -75,7 +75,6 @@ public class ReviewFeedController {
   public Object morePost(
       @RequestBody Map<String, Object> request,
       HttpSession session) throws Exception {
-
     Member member = (Member)session.getAttribute("loginUser");
 
     Map<String, Object> resultMap = new HashMap<>();
@@ -86,9 +85,7 @@ public class ReviewFeedController {
     params.put("prevpstno", pstno);
 
     List<Post> postsResult = postService.getPosts(params); 
-
     resultMap.put("postsResult", postsResult);
-
     return resultMap;
   }
 
@@ -136,7 +133,9 @@ public class ReviewFeedController {
     Member member = (Member)session.getAttribute("loginUser");
 
     resultMap.put("session", (member!=null)?member:new Member());  
-
+    
+    System.out.println("cmtsResult:"+resultMap.get("cmtsResult"));
+    System.out.println("session:"+resultMap.get("session"));
     return resultMap;
   }
 

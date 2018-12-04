@@ -49,7 +49,7 @@ public class Member implements Serializable {
     this.mno = mno;
   }
 
-  public boolean isAdmin() {
+  public Boolean isAdmin() {
     return admin;
   }
 

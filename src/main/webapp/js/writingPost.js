@@ -290,6 +290,7 @@ function morePostHtml(data){
 
     $('#pstShw').append(html); 
 }
+
 $(window).scroll(function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 
@@ -399,7 +400,6 @@ function showMore(element,pstno){
         }
         h += '</div>';
     }
-    console.log(h);
     $thisDiv.prev().html(h);
     
     h = '<p class="wbw" id="reviewCont-';
