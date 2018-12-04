@@ -11,18 +11,29 @@ function openEditingModal(pstno, type) {
 /* ========== data 가져옴  ========== */
 
   $('#editingModal #movieSearch').val(postList[index].title);
-//  console.log(postList[index].mvno);
-//  $('#editingModal #movieId').val(postList[index].mvno);
+  $('#editingModal #movieId').val(postList[index].mvno);
   
   if(postList[index].open === false){
+    console.log(postList[index].open);
     $('#editingModal input:checkbox[class="open"]').prop("checked", false);
-    $('#editingModal #l').css("display", "");
-    $('#editingModal #g').css("display", "none" );
+    $('#editingModal .l').css("display", "");
+    $('#editingModal .g').css("display", "none");
   }  else {
-	  $('#editingModal input:checkbox[class="open"]').prop("checked", true);
+    console.log(postList[index].open);
+    $('#editingModal input:checkbox[class="open"]').prop("checked", true);
+    $('#editingModal .l').css("display", "none");
+    $('#editingModal .g').css("display", "");
   }
   
-//  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
+//  $('#editingModal #reviewTxtarea').html($('#reviewCont-'+postList[index].pstno).text());
+  
+  var asdf = $('#reviewCont-'+postList[index].pstno).text();
+  
+  
+  $('#editingModal #reviewTxtarea').val(asdf);
+//  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).val());
+  
+  
 //  $('#editingModal #dpstno').val(postList[index].pstno);
 //  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   

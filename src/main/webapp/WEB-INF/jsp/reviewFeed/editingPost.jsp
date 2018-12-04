@@ -27,10 +27,10 @@
           
 <%-- ==================================== 공개 여부 스위치 ======================================== --%>
           <label class="switch">
-            <input type="checkbox" name="open" class="open">
+            <input type="checkbox" name="open" class="open" checked>
             <span class="slider round">
-              <i id="l" class="fas fa-lock lock" style="display: none;"></i>
-              <i id="g" class="fas fa-globe-americas globe"></i>
+              <i id="lock" class="fas fa-lock l" style="display: none;"></i>
+              <i id="globe" class="fas fa-globe-americas g" style=""></i>
             </span>
           </label>
           
