@@ -299,7 +299,7 @@ input:checked+.slider:before {
 	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
-#reviewModal {
+#reviewModal, #editingModal {
 	margin: auto;
 	width: 40%;
 }
