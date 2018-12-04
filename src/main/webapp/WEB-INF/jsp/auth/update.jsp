@@ -52,8 +52,7 @@
                   <div id="cover" class="row">
                      <div class="cover-upload">
                         <div class="cover-edit">
-                           <input type='file' name="coverImage" id="imageUpload-cover"
-                              accept=".png, .jpg, .jpeg" />
+                           <input type='file' name="coverImage" id="imageUpload-cover" accept=".png, .jpg, .jpeg" />
                            <label for="imageUpload-cover"></label>
                         </div>
                         <div class="cover-preview">
