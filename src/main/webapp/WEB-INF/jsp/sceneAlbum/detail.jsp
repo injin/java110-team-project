@@ -46,7 +46,6 @@
 		// 모달 종료시 reload
 	    $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
 	        location.reload();
-	        alert('okok');
 	        $('#mgrModal').show();
 	    });
 		
@@ -74,6 +73,7 @@
             $('.title_box').html(html);
         }
         
+        //앨범 명 수정?
         function editBtn(lbmno){
             
             var html='';
@@ -105,14 +105,15 @@
      // 수정하기 버튼 클릭
         function editButton(lbmno, lbmTitle, open){
             document.getElementById('mgrAlbum').click();
-            console.log('editButton: lbmno, lbmTitle, open' +lbmno +lbmTitle+open);
             editAlbum(lbmno, lbmTitle, open);
             
         }
         
         // 수정모달에서 앨범명 클릭시 변화
         function editAlbum(lbmno, lbmTitle, open){
-                        
+            
+            console.log('editAlbum: '+lbmno, lbmTitle, open);
+            
             var html='<button type="button" class="close" data-dismiss="modal"';
             html+='aria-label="Close">';
             html+='<span aria-hidden="true">&times;</span>';
@@ -123,6 +124,7 @@
             }else{
                 $('.openIcon').parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');
             }
+            
             $('.openIcon').parent().append(html);
             $('.title_box').html(lbmTitle+'<span class="title_edit" onclick="editTitle('+lbmno+')">'+'<i class="far fa-edit" style="font-size: 1rem;"></i></span>');
             
@@ -163,6 +165,7 @@
                 
             });
             $('.openIcon').parent().append(html);
+             
           
              $.ajax({
                 type:'POST',
@@ -177,9 +180,11 @@
                 success:function(data){
                     //console.log('공개여부 수정완료');
                     //alert('공개여부 수정완료');
+                    console.log('editopen 성공: '+data.sceneAlbum.lbmno, data.sceneAlbum.lbmTitle, data.sceneAlbum.open);
+                    showLbmList(data);
                     editAlbum(data.sceneAlbum.lbmno, data.sceneAlbum.lbmTitle, data.sceneAlbum.open);
                 }
-            });   
+            });    
         }
         
         // 앨범 삭제
@@ -210,7 +215,7 @@
             for(var i=0; i<data.sceneAlbumList.length; i++){
                 
             html += '<div class="album_title al_wrap text-center"';
-            html += 'onclick="editAlbum(' + data.lbmno + ',\'' + data.sceneAlbumList[i].lbmTitle + '\','+ data.sceneAlbumList[i].open+')">'; 
+            html += 'onclick="editAlbum(' + data.sceneAlbumList[i].lbmno + ',\'' + data.sceneAlbumList[i].lbmTitle + '\','+ data.sceneAlbumList[i].open+')">'; 
             html += '<div class="al_overflow">'+data.sceneAlbumList[i].lbmTitle+ '</div>';
             html += '<i class="fas fa-trash-alt al_trash"';
             html += '   onclick="removeLbm('+data.sceneAlbumList[i].lbmno+')"></i></div>';
