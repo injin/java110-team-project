@@ -1,8 +1,5 @@
 /* ========== 게시물 수정 모달  ========== */
 function openEditingModal(pstno, type) {
-
-  postShow(type);
-	
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
       var index = i;
@@ -12,13 +9,13 @@ function openEditingModal(pstno, type) {
   console.log(postList[index]);
   
 /* ========== data 가져옴  ========== */
-  $('#editingMadal #movieSearch').text(postList[index].title);
-  $('#editingMadal #movieId').val(postList[index].mvno);
-  $('#editingMadal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
-  $('#editingMadal #dpstno').val(postList[index].pstno);
-//  $('#editingMadal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
 
-/*
+  $('#editingModal #movieSearch').val(postList[index].title);
+  $('#editingModal #movieId').val(postList[index].mvno);
+  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
+//  $('#editingModal #dpstno').val(postList[index].pstno);
+//  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+  
    
   // 별 부분
   var star = postList[index].star;
@@ -27,14 +24,18 @@ function openEditingModal(pstno, type) {
     for (var i = 0; i < 5; i++) {
       if (i < star) {
         shtml += '<i class="fas fa-star sStar"></i>';
+        console.log('star');
       } else {
         shtml += '<i class="far fa-star sStar"></i>';
+        console.log('unstar');
       }
     }
   }
+  $('#starbtn').html(shtml);
   
+  postShow(type);
   
-  $('#detail-star').html(shtml);
+  /*
   
   // 이미지 추가부분
   if (postList[index].photos.length == 0) {

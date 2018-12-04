@@ -138,11 +138,11 @@
                  <c:choose>
                    <c:when test="${post.pstTypeNo == 0}">
                      <!-- 0 영화 -->
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
                             onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
                    </c:when>
                    <c:otherwise>
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
                             onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
                    </c:otherwise>
                  </c:choose>
@@ -336,13 +336,13 @@
             </c:forEach>
             
              postList.push({
-                "pstno": '${post.pstno}',
+                "pstno": ${post.pstno},
                 "title": '${post.title}',
                 member:{
                     "profileImagePath": '${post.member.profileImagePath}',
                     "nickname":'${post.member.nickname}',    
                 },
-                "star":'${post.star}',
+                "star": ${post.star},
                 "photos":pary,
                 "ftags":fary,
                 "likeCheck":'${post.likeCheck}',

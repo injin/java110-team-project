@@ -3,16 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- ====================================== Modal ============================================= --%>
 
-<div class="modal fade" id="editingModal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document" id="rModal">
+<div class="modal fade" id="editingModal" tabindex="-1" role="dialog"><!--  -->
+  <div class="modal-dialog modal-lg" role="document" id="rModal"><!--  -->
     <form action="add" method="post" enctype="multipart/form-data">
       <div class="modal-content">
       
         <div class="modal-header form-inline">
-          <h5 class="modal-title" style="margin-right: 1rem">리뷰 작성하기</h5>
+          <h5 class="modal-title" style="margin-right: 1rem">리뷰 수정 </h5>
 
 <%-- ====================================== 영화검색 ============================================ --%>
-          <input type="hidden" id="pstTypeNo" name="pstTypeNo">
+          <input type="hidden" id="pstTypeNo" name="pstTypeNo"><!--  -->
           
           <div class="input-group ui-widget ui-front onlyMovie msearch" style="width:29em">
             <div class="input-group-prepend">
@@ -20,9 +20,9 @@
             </div>
             <input type="text"
                 class="form-control ui-autocomplete-input ui-autocomplete-loading"
-                id="movieSearch" name="title" autocomplete="off">
+                id="movieSearch" name="title" autocomplete="off"><!--  -->
                 <!--  placeholder="영화를 검색해주세요" -->
-            <input type="hidden" id="movieId" name="mvno" value="0">
+            <input type="hidden" id="movieId" name="mvno" value="0"><!--  -->
           </div>
           
 <%-- ==================================== 공개 여부 스위치 ======================================== --%>
@@ -47,7 +47,7 @@
 <%-- ===================================== 리뷰 작성 ============================================ --%>
           <div class="form-group">
             <textarea name="content" class="form-control" rows="10"
-                 id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
+                 id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea><!--  -->
           </div>
           
 <%-- ===================================== 리뷰 작성 ============================================ --%>
@@ -55,14 +55,14 @@
             <div class="input-group-prepend">
               <div class="input-group-text">친구태그하기</div>
             </div>
-            <section id="examples">
+            <section id="examples"><!--  -->
               <div class="example example_objects_as_tags">
                 <div class="bs-example ftag">
-                  <input type="text" id="flw"/>
+                  <input type="text" id="flw"/><!--  -->
                 </div>
               </div>
             </section>
-            <input type="hidden" id="ftagsForAdd" name="ftagsForAdd" value="-1" />
+            <input type="hidden" id="ftagsForAdd" name="ftagsForAdd" value="-1" /><!--  -->
           </div>
           
           <div class="form-group">
@@ -73,19 +73,19 @@
               <i class="far fa-images"></i>사진 
               <input type="file" size="30"
                    style="display: none;" accept="image/*" class="picupload"
-                   id="picupload1" name="files" multiple />
+                   id="picupload1" name="files" multiple /><!--  -->
             </div>
             
 <%-- ===================================== 별 점 =============================================== --%>
             <button class="btn btn-primary onlyMovie photo-star-section"
-                 type="button" id="starbtn">
+                 type="button" id="starbtn"><!--  -->
               <i class="far fa-star"></i>별점
             </button>
-            <input type="hidden" id="star" name="star" value="0"/>
-            <div class='starrr onlyMovie photo-star-section' id="showStar"></div>
+            <input type="hidden" id="star" name="star" value="0"/><!--  -->
+            <div class='starrr onlyMovie photo-star-section' id="showStar"></div><!--  -->
             
 <%-- ================================= 사진 보이는 list ========================================== --%>
-            <ul id="media-list" class="clearfix">
+            <ul id="media-list" class="clearfix"><!--  -->
               <li class="myupload ">
                 <span>
                   <i class="fa fa-plus" aria-hidden="true"></i>
