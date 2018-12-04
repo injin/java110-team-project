@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Modal -->
 
-
-
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg" role="document" id="rModal">
 		<div class="modal-content">
@@ -70,7 +68,7 @@
 											<textarea class="form-control" name="content" id="pCmt"
 												placeholder="Write a comment"></textarea>
 										</div>
-										<button type="button" class="btn btn-dark mt-2" id="dSbtn"
+										<button type="button" class="btn btn-primary mt-2 dSbtn"
 											onclick="addCmt()">
 											<i class="fas fa-paper-plane"></i> 등록
 										</button>
