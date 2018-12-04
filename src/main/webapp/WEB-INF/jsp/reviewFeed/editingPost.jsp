@@ -27,11 +27,11 @@
           
 <%-- ==================================== 공개 여부 스위치 ======================================== --%>
           <label class="switch">
-            <input type="checkbox" name="open" class="open" checked>
-              <span class="slider round">
-                <i class="fas fa-lock lock" style="display: none;"></i>
-                <i class="fas fa-globe-americas globe"></i>
-              </span>
+            <input type="checkbox" name="open" class="open">
+            <span class="slider round">
+              <i id="l" class="fas fa-lock lock" style="display: none;"></i>
+              <i id="g" class="fas fa-globe-americas globe"></i>
+            </span>
           </label>
           
 <%-- ===================================== 모달 닫기 ============================================ --%>
