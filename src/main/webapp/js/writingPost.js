@@ -418,11 +418,13 @@ function showMore(element,pstno){
         h += '                  </div>';
         h += '            </div>';
         h += '            <div class="media-body text-right">';
-        h += '                <textarea class="form-control" name="content" id="mCmt-';
+        h += '                <textarea class="form-control resize-none" name="content" id="mCmt-';
         h += postList[index].pstno;
         h += '"                    placeholder="Write a comment"></textarea>';
         h += '            </div>';
-        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt()">';
+        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt(\'mPost\',';
+        h += postList[index].pstno; 
+        h += ')">';
         h += '                <i class="fas fa-paper-plane"></i> 등록';
         h += '            </button>';
         h += '    </div>';
