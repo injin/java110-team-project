@@ -305,7 +305,12 @@ function showCont(cont, index) {
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
-  
+    var sessionMember = {
+            "nickname" : '${sessionScope.loginUser.nickname}',
+            "profileImage" : '${sessionScope.loginUser.profileImage}',
+            "mno" : '${sessionScope.loginUser.mno}'
+    };
+    
    var postList = [];
    <c:forEach items="${topMpList}" var="post">
    var pary =[];

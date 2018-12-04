@@ -167,7 +167,7 @@ limit 15
 	</select>
     
     <select id="listTopMp" resultMap="postMap2">
-        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, cdt, cont, count(ml.pstno)as cnt
+        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, memb.p_phot, cdt, cont, count(ml.pstno)as cnt
           FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
          WHERE ml.pstno=mpo.pstno 
          AND mpo.mvno=mv.mvno
