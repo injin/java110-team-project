@@ -1,114 +1,114 @@
 /* ========== 댓글 관련  ========== */
 .comment-main {
-	max-height: 20rem;
-	overflow: auto;
-	overflow-x: hidden;
+    max-height: 20rem;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .comment-main ul {
-	list-style: none;
+    list-style: none;
 }
 
 .main-cmt-img {
-	width: 2rem !important;
-	height: 2rem !important;
-	border-radius: 50%;
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50%;
 }
 
 .user-comment {
-	background-color: #f3f3f3 !important;
-	box-shadow: 0px 5px 8px -4px #c1c1c1;
+    background-color: #f3f3f3 !important;
+    box-shadow: 0px 5px 8px -4px #c1c1c1;
 }
 
 .dSbtn {
-	height: 3rem;
-	padding: 0 .5rem;
+    height: 3rem;
+    padding: 0 .5rem;
 }
 
 .insideCard {
-	padding: .5rem;
+    padding: .5rem;
 }
 
 .cmt-date {
-	color: #ccc;
-	font-size: 0.9em;
+    color: #ccc;
+    font-size: 0.9em;
 }
 
 .wbw {
-	word-break: break-word;
+    word-break: break-word;
 }
 
 .edcmt {
-	height: 3rem;
-	padding: 0 .5rem;
+    height: 3rem;
+    padding: 0 .5rem;
 }
 
 /* ========== 그외  ========== */
 #nickwrap {
-	list-style: none;
+    list-style: none;
 }
 
 .likeColor {
-	color: red;
+    color: red;
 }
 
 #dCont {
-	border: 1px solid silver;
-	overflow: auto;
+    border: 1px solid silver;
+    overflow: auto;
 }
 
 .hash {
-	color: blue;
-	font-weight: bold;
+    color: blue;
+    font-weight: bold;
 }
 
 .reviewCont {
-	height: 13rem;
-	word-break: break-word;
-	overflow: auto;
+    height: 13rem;
+    word-break: break-word;
+    overflow: auto;
 }
 
 .rprofileImg {
-	width: 2.5rem;
-	height: 2.5rem;
-	border-radius: 50%;
-	margin-right: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
 }
 
 .sStar {
-	font-size: 1.5rem;
-	color: #FFD119;
+    font-size: 1.5rem;
+    color: #FFD119;
 }
 
 .btmIcon {
-	padding: 0 0.4rem 1rem 1rem;
-	font-size: 1.3rem;
-	vertical-align: sub;
+    padding: 0 0.4rem 1rem 1rem;
+    font-size: 1.3rem;
+    vertical-align: sub;
 }
 
 .dptitle {
-	float: right;
-	font-size: 1.5rem;
-	margin-bottom: 0;
+    float: right;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 .carouselHeight {
-	height: 44rem;
+    height: 44rem;
 }
 
 #rModal {
-	max-width: 70rem;
+    max-width: 70rem;
 }
 
 #mh-p {
-	float: right;
-	font-size: 1.5rem;
-	margin-bottom: 0;
+    float: right;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }
 
 #ownerImg {
-	width: 2.5rem;
-	height: 2.5rem;
-	border-radius: 50%;
-	margin-right: 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
 }
