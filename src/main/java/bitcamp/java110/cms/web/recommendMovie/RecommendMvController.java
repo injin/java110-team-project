@@ -36,9 +36,12 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
  * 
  * 연결된 source
  * RecommendMvController
- * recommend/recommend.jsp
+ * recommend/anly.jsp
+ * recommend/list.jsp
  * RecormendService
  * RecormendServiceImple
+ * rcmd.js
+ * jcmd.css
  * RecommendDao
  * RecommendDao.xml
  */

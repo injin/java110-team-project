@@ -134,14 +134,23 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
                <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-                 <button type="button" class="btn btn-xs" onclick='openEditingModal(${post.pstno})'>
-                    수정
-                 </button>
+                 
+                 <c:choose>
+                   <c:when test="${post.pstTypeNo == 0}">
+                     <!-- 0 영화 -->
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
+                            onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
+                   </c:when>
+                   <c:otherwise>
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
+                            onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
+                   </c:otherwise>
+                 </c:choose>
+                 
                  <br>
-                 <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>
-                    삭제
-                 </button>
+                 <button type="button" class="btn btn-xs" onclick="deletePost(${post.pstno})">삭제</button>
                </div>
+               
              </div>
            </div>
          </div>
@@ -220,13 +229,6 @@
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
   
-  <script src="/js/jquery-ui.js"></script>
-  <script src="/js/starrr.js"></script>
-  <script src="/js/bootstrap-tagsinput.min.js"></script>
-  <script src="/js/typeahead.bundle.min.js"></script>
-  <script src="/js/writingPost.js"></script>
-  <script src="/js/detailPost.js"></script>
-  
   <script type="text/javascript">
 <%-- ========================================================================================== --%>
   /* 삭제하기 */
@@ -251,9 +253,47 @@
   }
 <%-- ========================================================================================== --%>
   /* UPDATE 대체 어떻게 하는거야!! */
+  function updateIlsangPost(id){
+     /* $.ajax({
+      url: "/app/reviewFeed/editor",
+      type: "POST",
+      data: { "postId" : id },
+      success: function(data){
+          if(jQuery.isEmptyObject(data)) {
+            console.log('null object');
+          } else {
+              openEditingModal(data, id);
+          }
+      },
+      error: (xhr, status, msg) => {
+        console.log(xhr);
+        console.log(status);
+        console.log(msg);
+      }
+    }); */
+  }
   
+  function updateMvPost(id){
+	     /* $.ajax({
+	      url: "/app/reviewFeed/editor",
+	      type: "POST",
+	      data: { "postId" : id },
+	      success: function(data){
+	          if(jQuery.isEmptyObject(data)) {
+	            console.log('null object');
+	          } else {
+	              openEditingModal(data, id);
+	          }
+	      },
+	      error: (xhr, status, msg) => {
+	        console.log(xhr);
+	        console.log(status);
+	        console.log(msg);
+	      }
+	    }); */
+	  }
+/* 
   function updatePost(id){
-    //openEditingModal();
      $.ajax({
       url: "/app/reviewFeed/editor",
       type: "POST",
@@ -262,7 +302,7 @@
           if(jQuery.isEmptyObject(data)) {
             console.log('null object');
           } else {
-              console.log(data);
+              openEditingModal(data, id);
           }
       },
       error: (xhr, status, msg) => {
@@ -272,6 +312,7 @@
       }
     });
   }
+ */
 <%-- ========================================================================================== --%>
   /* 원래 있던 부분 */
   var flwList = [];
@@ -282,7 +323,9 @@
         });
         </c:forEach>
         var postList = []; 
+         
         <c:forEach items="${postList}" var="post">
+        
         var pary =[];
             <c:forEach items="${post.photos}" var="pht">
             pary.push('${pht}');
@@ -302,10 +345,24 @@
                 "star":'${post.star}',
                 "photos":pary,
                 "ftags":fary,
-                "createdDate":'${post.createdDate}'
+                "likeCheck":'${post.likeCheck}',
+                "pstTypeNo":'${post.pstTypeNo}',
+                "createdDate":'${post.createdDate}',
+                "likeCnt":'${post.likeCnt}',
+                /* "content":'${post.content}' */
             }) 
+            
         </c:forEach> 
+            
          var lstpstno = '${lastpstno}';
   </script>
+<%-- ========================================================================================== --%>
+  <script src="/js/jquery-ui.js"></script>
+  <script src="/js/starrr.js"></script>
+  <script src="/js/bootstrap-tagsinput.min.js"></script>
+  <script src="/js/typeahead.bundle.min.js"></script>
+  <script src="/js/writingPost.js"></script>
+  <script src="/js/detailPost.js"></script>
+  <script src="/js/editingPost.js"></script>
 </body>
 </html>

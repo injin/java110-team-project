@@ -1,18 +1,22 @@
 /* ========== 게시물 수정 모달  ========== */
-function openEditingModal(pstno) {
+function openEditingModal(pstno, type) {
 
+  postShow(type);
+	
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
       var index = i;
       break;
     }
   }
-  $('#detailModal #movie-title').text(postList[index].title);
-  $('#detailModal #ownerImg').attr('src',postList[index].member.profileImagePath);
-  $('#detailModal #ownerNick').text(postList[index].member.nickname);
-  $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
-  $('#detailModal #dpstno').val(postList[index].pstno);
-  $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+  console.log(postList[index]);
+  
+/* ========== data 가져옴  ========== */
+  $('#editingMadal #movieSearch').text(postList[index].title);
+  $('#editingMadal #movieId').val(postList[index].mvno);
+  $('#editingMadal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
+  $('#editingMadal #dpstno').val(postList[index].pstno);
+//  $('#editingMadal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
 
 /*
    
@@ -36,7 +40,7 @@ function openEditingModal(pstno) {
   if (postList[index].photos.length == 0) {
     $('#leftcol').hide();
     $('#rightcol').removeClass('col-4').addClass('col-12');
-    $('#detailModal .modal-dialog').css('maxWidth', '35rem');
+    $('#editingMadal .modal-dialog').css('maxWidth', '35rem');
   } else {
     var h = '';
     h += '<ol class="carousel-indicators">';
