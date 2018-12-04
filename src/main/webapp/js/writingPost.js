@@ -3,6 +3,9 @@ $(function() {
     /* ========== 이미지 업로드 관련  ========== */
     var names = [];  
 
+    $('#globe').show();
+    $("#lock").hide();
+    
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
         var $mlist = $("#media-list");
@@ -59,11 +62,11 @@ $(function() {
     $('.open').on('click', function(e) {
 
         if(this.checked) {
-            $('.globe').show();
-            $(".lock").hide();
+            $('#globe').show();
+            $("#lock").hide();
         }else{
-            $('.lock').show();
-            $(".globe").hide();
+            $('#lock').show();
+            $("#globe").hide();
         }
     });
 
@@ -393,7 +396,11 @@ function showMore(element,pstno){
     $thisDiv.prev().after(h);
 
     if(sessionMember.mno != ""){
-        h = ' <input type="hidden" name="pstno" id="dpstno" />';
+        h = ' <input type="hidden" name="pstno" id="mpstno-';
+        h += postList[index].pstno;
+        h += '" value="';
+        h += postList[index].pstno;
+        h += '"/>';
         h += ' <div class="card mb-2 w-100">';
         h += '     <div class="media insideCard">';
         h += '            <div>';
@@ -411,10 +418,13 @@ function showMore(element,pstno){
         h += '                  </div>';
         h += '            </div>';
         h += '            <div class="media-body text-right">';
-        h += '                <textarea class="form-control" name="content" id="pCmt"';
-        h += '                    placeholder="Write a comment"></textarea>';
+        h += '                <textarea class="form-control resize-none" name="content" id="mCmt-';
+        h += postList[index].pstno;
+        h += '"                    placeholder="Write a comment"></textarea>';
         h += '            </div>';
-        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt()">';
+        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt(\'mPost\',';
+        h += postList[index].pstno; 
+        h += ')">';
         h += '                <i class="fas fa-paper-plane"></i> 등록';
         h += '            </button>';
         h += '    </div>';

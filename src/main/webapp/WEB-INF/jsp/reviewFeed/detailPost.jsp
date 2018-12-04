@@ -69,7 +69,7 @@
 												placeholder="Write a comment"></textarea>
 										</div>
 										<button type="button" class="btn btn-primary mt-2 dSbtn"
-											onclick="addCmt()">
+											onclick="addCmt('dPost',0)">
 											<i class="fas fa-paper-plane"></i> 등록
 										</button>
 									</div>

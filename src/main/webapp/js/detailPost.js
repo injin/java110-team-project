@@ -99,11 +99,16 @@ function toDetail(id) {
 
 
 /* ========== 댓글 관련  ========== */
-function addCmt() {
-    var contVal = $('#addCmtForm textarea[name="content"]').val();
+function addCmt(forWhat,pstno) {
+    if(forWhat == "dPost"){
+        var contVal = $('#pCmt').val();
+        pstno = $('#dpstno').val();
+    }else{
+        var contVal = $('#mCmt-'+pstno).val();
+    }
 
     if (contVal == '') {
-        alert('내용을 입력해주세요.');
+        alert('댓글을 입력해 주세요');
         return;
     }
 
@@ -111,12 +116,16 @@ function addCmt() {
         type:'POST',
         url:'/app/reviewFeed/addCmt',
         data: { 
-            "pstno" : $('#dpstno').val(),
-            "content" : $('#pCmt').val()
+            "pstno" : pstno,
+            "content" : contVal
         },
         success:function(data){
-            listCmt($('#dpstno').val(),"dPost");
-            $('#pCmt').val('');
+            listCmt(pstno,forWhat);
+            if(forWhat == "dPost"){
+                $('#pCmt').val('');
+            }else{
+                $('#mCmt-'+pstno).val('');
+            }
         }
     });
 }
@@ -135,12 +144,13 @@ function listCmt(pstno,forWhat) {
             if(forWhat == "dPost"){
                 showCmt(data);
             }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
-                $('#cmt-area-'+pstno).html(makeCmtHtml(data));    
+                $('#cmt-area-'+pstno).html(makeCmtHtml(data,forWhat));    
             }
         }
     });
 }
-function makeCmtHtml(data) {
+
+function makeCmtHtml(data,forWhat) {
 
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
@@ -162,15 +172,23 @@ function makeCmtHtml(data) {
         if(data.cmtsResult[i].member.mno == sessionMember.mno){
 
             html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
+            html += data.cmtsResult[i].pstno;
+            html += ',';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
             html += sessionMember.profileImagePath;
             html += '\',\'';
             html += sessionMember.nickname;
+            html += '\',\'';
+            html += forWhat;
             html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
-            html += ')"></i>';   
+            html += ',';
+            html += data.cmtsResult[i].pstno;
+            html += ',\'';
+            html += forWhat;
+            html += '\')"></i>';   
         } 
         html += '            <span class="cmt-date float-right">';
         html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
@@ -186,11 +204,12 @@ function makeCmtHtml(data) {
 }
 
 function showCmt(data) {
-    $('#cmt-area').html(makeCmtHtml(data));    
+    $('#cmt-area').html(makeCmtHtml(data,"dPost"));    
 }
 
 
-function deleteComment(pcno) {
+function deleteComment(pcno,pstno,forWhat) {
+
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/deleteCmt',
@@ -201,13 +220,12 @@ function deleteComment(pcno) {
             "pcno" : pcno.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val(),"dPost");
-            $('#pCmt').val('');
+            listCmt(pstno,forWhat);
         }
     });
 }
 
-function showEditForm(obj,pcno,profileImagePath,nickname) {
+function showEditForm(obj,pstno,pcno,profileImagePath,nickname,forWhat) {
 
     $(obj).hide();
     var $editCont = $(obj).parent().prev().text();
@@ -224,11 +242,19 @@ function showEditForm(obj,pcno,profileImagePath,nickname) {
     editHtml += '</div>';
     editHtml += '    </div>';
     editHtml += '    <div class="media-body text-right">';
-    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt" placeholder="Write a comment">';
+    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt';
+    if(forWhat == "dPost"){
+        editHtml += '" placeholder="Write a comment">';    
+    }else{
+        editHtml += '-';
+        editHtml += pstno;
+        editHtml += '" placeholder="Write a comment">';
+    }
+    
     editHtml += $editCont;
     editHtml += '        </textarea>';
     editHtml += '    </div>';
-    editHtml += '    <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="editComment(' + pcno + ')"">';
+    editHtml += '    <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="editComment(' + pstno+","+pcno + ",\'" + forWhat + '\')">';
     editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
     editHtml += '    </button>';
     editHtml += '</div>';
@@ -237,8 +263,13 @@ function showEditForm(obj,pcno,profileImagePath,nickname) {
     $editArea.html(editHtml); 
 }
 
-function editComment(pcno) {
-    var contVal = $('#editCmt').val();
+function editComment(pstno,pcno,forWhat) {
+    if(forWhat == "dPost"){
+        var contVal = $('#editCmt').val();
+    }else{
+        var contVal = $('#editCmt-'+pstno).val();
+    }
+
     if (contVal == '') {
         alert('댓글을 입력해 주세요');
         return;
@@ -255,7 +286,7 @@ function editComment(pcno) {
             "content" : contVal.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val(),"dPost");
+            listCmt(pstno,forWhat);
             $('#pCmt').val('');
         }
     });
