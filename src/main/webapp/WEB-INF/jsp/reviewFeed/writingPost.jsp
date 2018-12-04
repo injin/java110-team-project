@@ -46,7 +46,7 @@
 				
 					<%-- 리뷰 작성 --%>
 					<div class="form-group">
-						<textarea name="content" class="form-control textarea-resizenone" rows="10"
+						<textarea name="content" class="form-control resize-none" rows="10"
 							id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
 					</div>
 					

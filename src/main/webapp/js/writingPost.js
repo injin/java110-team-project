@@ -375,8 +375,8 @@ function showMore(element,pstno){
             break;
         }
     }
-    
-    
+
+
     var h ='';
     if (postList[index].photos.length != 0) {
         h += '<ol class="carousel-indicators">';
@@ -401,15 +401,50 @@ function showMore(element,pstno){
         h += '</div>';
     }
     $thisDiv.prev().html(h);
-    
+
     h = '<p class="wbw" id="reviewCont-';
     h += postList[index].pstno;
     h += '">';
     h += revCont;
     h += '</p>';
     $thisDiv.prev().after(h);
-    
-    
+
+
+
+
+
+
+  /*  if(){
+        h += ' <input type="hidden" name="pstno" id="dpstno" />';
+        h += ' <div class="card mb-2 w-100">';
+        h += '     <div class="media insideCard">';
+        h += '            <div>';
+        h += '                <img class="mr-2 profile-medium" src="';
+        h += ${loginUser.profileImagePath}; 
+        h += '"                alt="login-profileImage">';
+        h += '                <div class="text-center">';
+        h +=                 ${sessionScope.loginUser.nickname} ;
+        h += '                  </div>';
+        h += '            </div>';
+        h += '            <div class="media-body text-right">';
+        h += '                <textarea class="form-control" name="content" id="pCmt"';
+        h += '                    placeholder="Write a comment"></textarea>';
+        h += '            </div>';
+        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt()">';
+        h += '                <i class="fas fa-paper-plane"></i> 등록';
+        h += '            </button>';
+        h += '    </div>';
+        h += ' </div>';
+
+    }else{*/
+        h = '<div class="media-body text-right mb-2"> ';
+        h += '<textarea class="form-control resize-none" placeholder="로그인 후 사용가능합니다." disabled></textarea>';
+        h += '</div>';
+//    }
+    $thisDiv.after(h);
+        
+        
+        
     h = '<div class="comment-main rounded m-0 scrollbar-light-blue w-100">';
     h += '<ul class="p-0" id="cmt-area-';
     h += postList[index].pstno;
@@ -417,10 +452,4 @@ function showMore(element,pstno){
     h += '</ul>';
     h += '</div>';
     listCmt(postList[index].pstno,"mPost");
-    
-    $thisDiv.after(h);
-    
-    
-    /* 댓글  */
-    
 }

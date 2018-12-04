@@ -134,8 +134,6 @@ public class ReviewFeedController {
 
     resultMap.put("session", (member!=null)?member:new Member());  
     
-    System.out.println("cmtsResult:"+resultMap.get("cmtsResult"));
-    System.out.println("session:"+resultMap.get("session"));
     return resultMap;
   }
 

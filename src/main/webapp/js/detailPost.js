@@ -132,12 +132,12 @@ function listCmt(pstno,forWhat) {
             "pstno" : pstno.toString()
         }),
         success:function(data){
+
             if(forWhat == "dPost"){
-            showCmt(data);
-            }else{
-                $('#cmt-area-'+pstno).html(makeCmtHtml(data));     
+                showCmt(data);
+            }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
+                $('#cmt-area-'+pstno).html(makeCmtHtml(data));    
             }
-            
         }
     });
 }
@@ -225,7 +225,7 @@ function showEditForm(obj,pcno,profileImagePath,nickname) {
     editHtml += '</div>';
     editHtml += '    </div>';
     editHtml += '    <div class="media-body text-right">';
-    editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment">';
+    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt" placeholder="Write a comment">';
     editHtml += $editCont;
     editHtml += '        </textarea>';
     editHtml += '    </div>';

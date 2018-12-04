@@ -58,14 +58,14 @@
 							<c:when test="${not empty sessionScope.loginUser}">
 								<input type="hidden" name="pstno" id="dpstno" />
 								<div class="card mb-2 w-100">
-									<div class="media" id="insideCard">
+									<div class="media insideCard">
 										<div>
 											<img class="mr-2 profile-medium"
 												src="${loginUser.profileImagePath}" alt="login-profileImage">
 											<div class="text-center">${sessionScope.loginUser.nickname}</div>
 										</div>
 										<div class="media-body text-right">
-											<textarea class="form-control" name="content" id="pCmt"
+											<textarea class="form-control resize-none" name="content" id="pCmt"
 												placeholder="Write a comment"></textarea>
 										</div>
 										<button type="button" class="btn btn-primary mt-2 dSbtn"
@@ -78,7 +78,7 @@
 							</c:when>
 							<c:otherwise>
 								<div class="media-body text-right mb-2">
-									<textarea class="form-control" name="cont"
+									<textarea class="form-control resize-none" name="cont"
 										placeholder="로그인 후 사용가능합니다." disabled></textarea>
 								</div>
 							</c:otherwise>
