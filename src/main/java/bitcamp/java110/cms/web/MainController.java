@@ -51,8 +51,6 @@ public class MainController {
     
     List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트
     model.addAttribute("albumList", listScA);
-
-    System.out.println(topMpList);
     return "main";
     
   }

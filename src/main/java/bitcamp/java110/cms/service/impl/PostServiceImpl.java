@@ -94,6 +94,7 @@ public class PostServiceImpl implements PostService {
     List<Post> posts = postDao.listTopMp();
     for(int i=0;i<posts.size();i++)
     {
+      System.out.println(posts.get(i).getMember());
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
     }
