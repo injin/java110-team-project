@@ -27,10 +27,10 @@
           
 <%-- ==================================== 공개 여부 스위치 ======================================== --%>
           <label class="switch">
-            <input type="checkbox" name="open" class="open">
+            <input type="checkbox" name="open" class="open" checked>
             <span class="slider round">
-              <i id="l" class="fas fa-lock lock" style="display: none;"></i>
-              <i id="g" class="fas fa-globe-americas globe"></i>
+              <i id="lock" class="fas fa-lock l" style="display: none;"></i>
+              <i id="globe" class="fas fa-globe-americas g" style=""></i>
             </span>
           </label>
           
@@ -47,10 +47,11 @@
 <%-- ===================================== 리뷰 작성 ============================================ --%>
           <div class="form-group">
             <textarea name="content" class="form-control" rows="10"
-                 id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea><!--  -->
+                 id="editingTxtarea" placeholder="리뷰를 작성해주세요"></textarea><!--  -->
           </div>
           
 <%-- ===================================== 리뷰 작성 ============================================ --%>
+<%--
           <div class="input-group" style="text-align: auto;">
             <div class="input-group-prepend">
               <div class="input-group-text">친구태그하기</div>
@@ -58,16 +59,15 @@
             <section id="examples"><!--  -->
               <div class="example example_objects_as_tags">
                 <div class="bs-example ftag">
-                  <input type="text" id="flw"/><!--  -->
+                  <input type="text" id="editingFlw"/><!--  -->
                 </div>
               </div>
             </section>
             <input type="hidden" id="ftagsForAdd" name="ftagsForAdd" value="-1" /><!--  -->
           </div>
-          
-          <div class="form-group">
-          
+--%>
 <%-- ===================================== 사진 첨부 ============================================ --%>
+          <div class="form-group">
             <div class="file btn btn-primary photo-star-section"
                  onclick="document.getElementById('picupload1').click();">
               <i class="far fa-images"></i>사진 
