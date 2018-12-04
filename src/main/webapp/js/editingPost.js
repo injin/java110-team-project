@@ -25,20 +25,28 @@ function openEditingModal(pstno, type) {
     $('#editingModal .g').css("display", "");
   }
   
-//  $('#editingModal #reviewTxtarea').html($('#reviewCont-'+postList[index].pstno).text());
+  $('#editingModal #editingTxtarea').html($('#reviewCont-' + postList[index].pstno).text());
+//  .replace(/<br\s?\/?>/g,"\n")
+/*
+//  tag는 뺀다.
+  var list = postList[index].ftags;
   
-  var asdf = $('#reviewCont-'+postList[index].pstno).text();
+  if (list.length > 0) {
+    for (var i = 0; i < list.length; i++){
+      console.log(list[i]);
+      $('#editingModal #editingFlw').text(list[i]);
+    }
+  }
+*/
   
   
-  $('#editingModal #reviewTxtarea').val(asdf);
-//  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).val());
   
+//  $('#editingModal input:text[class="editingFlw"]').val(postList[index].ftags.val());
   
 //  $('#editingModal #dpstno').val(postList[index].pstno);
 //  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
    
-/*
   // 별 부분
   var star = postList[index].star;
   var shtml='';
@@ -56,7 +64,6 @@ function openEditingModal(pstno, type) {
   $('#starbtn').html(shtml);
   
   
-*/
   
   /*
   
