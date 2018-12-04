@@ -138,8 +138,7 @@ function showCont(cont, index) {
                         <div class="card card-hot-sr">
 
                             <c:choose>
-                                <c:when
-                                    test="${not empty post.photos[0]}">
+                                <c:when test="${not empty post.photos[0]}">
                                     <div class="card-body hot"
                                         onclick="openDetailModal(${post.pstno})"
                                         data-title="${post.title}"
@@ -149,17 +148,18 @@ function showCont(cont, index) {
                                             id="detailPst"
                                             data-target="#detailModal" />
                                         <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
-                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
+                                                <c:if  test="${post.member.profileImage == null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                                     ${post.member.nickname}</h6>
+                                                </c:if>
+                                                <c:if  test="${post.member.profileImage != null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="${post.member.profileImage}" class="main-cmt-img">
+                                                    ${post.member.nickname}</h6>
+                                                </c:if>
                                         <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${post.pstno}">
-                                            <c:set var="Text" value="${top.title}" />
-                            <c:if test="${fn:length(Text)<20}">
-                                <b>${fn:substring(Text,0,20)}</b>
-                            </c:if>
-                            <c:if test="${fn:length(Text)>20}">
-                                <b>${fn:substring(Text,0,20)}...</b>
-                            </c:if>
                                                  <script>
                                                  
                                                          showCont("${post.content}",
@@ -179,8 +179,19 @@ function showCont(cont, index) {
                                             id="detailPst"
                                             data-target="#detailModal" />
                                         <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
-                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
+                                        
+                                        <c:choose>
+                                        <c:when  test="${post.member.profileImage == null}">
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                        <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                        ${post.member.nickname}</h6>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                        <img src="${post.member.profileImage}" class="main-cmt-img">
+                                        ${post.member.nickname}</h6>
+                                        </c:otherwise>
+                                        </c:choose>
                                         <p class="card-text p-hot2 reviewCont"
                                             id="reviewCont-${post.pstno}">
                                             <script>
