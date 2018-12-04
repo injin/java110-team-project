@@ -129,7 +129,6 @@ public class ReviewFeedController {
     int pstno = Integer.valueOf((String)request.get("pstno"));
     List<PostCmt> cmtsResult = postService.getCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
-
     return resultMap;
   }
 

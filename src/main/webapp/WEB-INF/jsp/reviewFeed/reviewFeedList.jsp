@@ -61,11 +61,11 @@
 
     <div role="main" class="container row mauto">
 
+
         <c:if test="${empty sessionScope.loginUser}">
             <c:set var="feedAlign" value="mauto"></c:set>
         </c:if>
         <div class="col-8 ${feedAlign}" id="pstShw">
-
             <%-- 글 작성 부분 --%>
             <div class="wPost">
                 <h6 id="wreviewH6">리뷰 작성하기</h6>
@@ -305,7 +305,6 @@
             }) 
             
         </c:forEach> 
-            
          var lstpstno = '${lastpstno}';
     </script>
 </body>

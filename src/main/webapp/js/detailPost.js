@@ -100,19 +100,18 @@ function toDetail(id) {
 
 /* ========== 댓글 관련  ========== */
 function addCmt() {
-    var contVal = $('#addCmtForm textarea[name="content"]').val();
-
+    var contVal = $('#pCmt').val();
+    
     if (contVal == '') {
         alert('내용을 입력해주세요.');
         return;
     }
-
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/addCmt',
         data: { 
             "pstno" : $('#dpstno').val(),
-            "content" : $('#pCmt').val()
+            "content" : contVal
         },
         success:function(data){
             listCmt($('#dpstno').val(),"dPost");
@@ -135,12 +134,14 @@ function listCmt(pstno,forWhat) {
             if(forWhat == "dPost"){
                 showCmt(data);
             }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
-                $('#cmt-area-'+pstno).html(makeCmtHtml(data));    
+                console.log("ddd");
+                $('#cmt-area-'+pstno).html(makeCmtHtml(data,forWhat));    
             }
         }
     });
 }
-function makeCmtHtml(data) {
+
+function makeCmtHtml(data,forWhat) {
 
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
@@ -170,7 +171,11 @@ function makeCmtHtml(data) {
             html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
-            html += ')"></i>';   
+            html += ',';
+            html += data.cmtsResult[i].pstno;
+            html += ',\'';
+            html += forWhat;
+            html += '\')"></i>';   
         } 
         html += '            <span class="cmt-date float-right">';
         html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
@@ -186,11 +191,12 @@ function makeCmtHtml(data) {
 }
 
 function showCmt(data) {
-    $('#cmt-area').html(makeCmtHtml(data));    
+    $('#cmt-area').html(makeCmtHtml(data,"dPost"));    
 }
 
 
-function deleteComment(pcno) {
+function deleteComment(pcno,pstno,forWhat) {
+    
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/deleteCmt',
@@ -201,8 +207,7 @@ function deleteComment(pcno) {
             "pcno" : pcno.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val(),"dPost");
-            $('#pCmt').val('');
+            listCmt(pstno,forWhat);
         }
     });
 }
