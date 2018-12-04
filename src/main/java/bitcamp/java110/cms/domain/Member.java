@@ -9,7 +9,7 @@ public class Member implements Serializable {
   private static final long serialVersionUID = 1L;
   
   protected int mno;
-  protected Boolean admin;
+  protected boolean admin;
   protected String id;
   protected String nickname;
   protected String profileImage;
@@ -49,11 +49,11 @@ public class Member implements Serializable {
     this.mno = mno;
   }
 
-  public Boolean isAdmin() {
+  public boolean isAdmin() {
     return admin;
   }
 
-  public void setAdmin(Boolean admin) {
+  public void setAdmin(boolean admin) {
     this.admin = admin;
   }
 
