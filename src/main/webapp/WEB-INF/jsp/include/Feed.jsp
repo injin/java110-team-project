@@ -102,7 +102,9 @@
                <li><a href="#" class="text-dark">${post.member.nickname}</a>
 <%-- =================================== POST HEADER ========================================== --%>
                  <c:choose>
-                   <c:when test="${post.open == false}" > <i class="fas fa-lock lock" style="display: block;"></i> </c:when>
+                   <c:when test="${post.open == false}" >
+                     <i class="fas fa-lock lock" style="display: block;"></i>
+                   </c:when>
                  </c:choose>
 <%-- ==================================== POST OPEN? ========================================== --%>
                </li>
@@ -128,12 +130,17 @@
          <div id="drop">
            <div class="btn-group-vertical" role="group" aria-label="Button group with nested dropdown">
              <div class="btn-group" role="group">
-               <button id="btnGroupDrop" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><!-- style="display: none;" -->
+               <button id="btnGroupDrop" type="button" class="btn dropdown-toggle"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
                <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-                 <button type="button" class="btn btn-xs" onclick='openEditingModal(${post.pstno})'>수정</button>
+                 <button type="button" class="btn btn-xs" onclick='openEditingModal(${post.pstno})'>
+                    수정
+                 </button>
                  <br>
-                 <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>삭제</button>
+                 <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>
+                    삭제
+                 </button>
                </div>
              </div>
            </div>
