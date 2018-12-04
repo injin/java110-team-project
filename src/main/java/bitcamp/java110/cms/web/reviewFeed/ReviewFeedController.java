@@ -50,7 +50,6 @@ public class ReviewFeedController {
 
     Member member = (Member) session.getAttribute("loginUser");
 
-
     if(member != null) {
       List<Member> flwList = flwService.listAll(member.getMno());
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
@@ -169,7 +168,6 @@ public class ReviewFeedController {
       MultipartFile file = files[i];
       if (file.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
-        System.out.println(filename);
         file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
         filenames.add(filename);
       }
