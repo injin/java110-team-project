@@ -89,9 +89,7 @@ $(function() {
     // 글 작성
     $('#modalSubmit').on('click', function(e) {
 
-        console.log($("#pstTypeNo").val() == 0);
         if($("#pstTypeNo").val() == 0){
-            console.log($("#movieId").val().trim()  == 0);    
             if($("#movieId").val().trim() == 0){
                 alert("알맞은 영화제목을 작성해주세요.");
                 e.preventDefault();
@@ -104,7 +102,6 @@ $(function() {
             e.preventDefault();
             return;
         }
-        console.log($('#showStar').css("display") != "none");
         if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
             alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
             e.preventDefault();
@@ -172,14 +169,14 @@ $(function() {
 /* ========== 피드 무한스크롤 ========== */
 function morePostHtml(data){
     var html = '';
-     
+
     postList = postList.concat(data.postsResult); 
-    
+
     for (var i=0;i<data.postsResult.length;i++) {
         if(i == data.postsResult.length-1){
             lstpstno = String(data.postsResult[i].pstno);
         }
-        
+
         html += '        <div class="wPost reviewPst">';
         html += '            <div class="media row pr-3 pl-3">';
         html += '                <img src="';
@@ -190,7 +187,7 @@ function morePostHtml(data){
         html += '                        <li><a href="#" class="text-dark">';
         html += data.postsResult[i].member.nickname;
         html += '                            </a></li><li>';
-        
+
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
                 html += '<a href="#" class="tagName">';
@@ -198,19 +195,19 @@ function morePostHtml(data){
                 html += '</a>';
             }
         }
-                                
+
         html += '                    </li></ul>';
-        
+
         html += '<span class="cmt-date">&nbsp;';
         html +=  new Date(data.postsResult[i].createdDate).toLocaleString();
         html += '</span>'; 
-       if(data.postsResult[i].pstTypeNo == 0){
-           html += '<p class="dptitle">';
-           html += '<b><i>';
-           html += data.postsResult[i].title;
-           html += '</i></b></p>';
-       }
-                                
+        if(data.postsResult[i].pstTypeNo == 0){
+            html += '<p class="dptitle">';
+            html += '<b><i>';
+            html += data.postsResult[i].title;
+            html += '</i></b></p>';
+        }
+
         html += '               </div>';
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
@@ -221,9 +218,8 @@ function morePostHtml(data){
         html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
         html += '</p>';
         html += '               </div>';
-        
-        
-        if('null' !=data.postsResult[i].photos){
+
+        if(data.postsResult[i].photos.length > 0){
             html += '   <img onclick="openDetailModal(';
             html += data.postsResult[i].pstno;
             html += ')" src="/upload/post/';
@@ -233,69 +229,71 @@ function morePostHtml(data){
             html += '"   class="pstImgtoDetail"/>';
             html += ' <input type="hidden" data-toggle="modal" id="detailPst"data-target="#detailModal" />';
         }
-            html += '        </div>';
-            
-            html += '       <div class="row">';
-            html += '           <div class="col-6 text-left">';
-            
-            html += '<i class="fas fa-thumbs-up btmIcon c-pointer likeColor';
-            if(!data.postsResult[i].likeCheck){
-                html += ' dis-none ';
-            }
-            html += '"id="btn-like-full-';
-            html += data.postsResult[i].pstno;
-            html += '" onclick="cancelLike(';
-            html += data.postsResult[i].pstno;
-            html += ',';
-            html += data.postsResult[i].pstTypeNo;
-            html += ')"></i>';
-            html += '<i class="far fa-thumbs-up btmIcon c-pointer likeColor';
-            if(data.postsResult[i].likeCheck){
-                html += ' dis-none ';
-            }
-            html += '"id="btn-like-empty-';
-            html += data.postsResult[i].pstno;
-            html += '" onclick="addLike(';
-            html += data.postsResult[i].pstno;
-            html += ',';
-            html += data.postsResult[i].pstTypeNo;
-            html += ')"></i><span id="lCnt-';
-            html += data.postsResult[i].pstno;
-            html += '">';
-            html += data.postsResult[i].likeCnt;
-            html += '</span><i class="far fa-comment btmIcon c-pointer"></i>';
-            html += '<span id="cCnt-';
-            html += data.postsResult[i].pstno;
-            html += '">';
-            html +=  data.postsResult[i].cmtCnt;
-            html += '</span></div>';
-            
-            html += '   <div class="col-6 text-right">';
-            if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
-            
-                for(var s = 0;s<5;s++){
-                    if(s<data.postsResult[i].star){
-                        
-                        html += '<i class="fas fa-star sStar"></i>';    
-                    }else{
-                        
-                        html += '<i class="far fa-star sStar"></i>';
-                    }
+        html += '        </div>';
+
+        html += '       <div class="row">';
+        html += '           <div class="col-6 text-left">';
+
+        html += '<i class="fas fa-thumbs-up btmIcon c-pointer likeColor';
+        if(!data.postsResult[i].likeCheck){
+            html += ' dis-none ';
+        }
+        html += '"id="btn-like-full-';
+        html += data.postsResult[i].pstno;
+        html += '" onclick="cancelLike(';
+        html += data.postsResult[i].pstno;
+        html += ',';
+        html += data.postsResult[i].pstTypeNo;
+        html += ')"></i>';
+        html += '<i class="far fa-thumbs-up btmIcon c-pointer likeColor';
+        if(data.postsResult[i].likeCheck){
+            html += ' dis-none ';
+        }
+        html += '"id="btn-like-empty-';
+        html += data.postsResult[i].pstno;
+        html += '" onclick="addLike(';
+        html += data.postsResult[i].pstno;
+        html += ',';
+        html += data.postsResult[i].pstTypeNo;
+        html += ')"></i><span id="lCnt-';
+        html += data.postsResult[i].pstno;
+        html += '">';
+        html += data.postsResult[i].likeCnt;
+        html += '</span><i class="far fa-comment btmIcon c-pointer" onclick="showMore(this,';
+        html += data.postsResult[i].pstno;
+        html += ')"></i>';
+        html += '<span id="cCnt-';
+        html += data.postsResult[i].pstno;
+        html += '">';
+        html +=  data.postsResult[i].cmtCnt;
+        html += '</span></div>';
+
+        html += '   <div class="col-6 text-right">';
+        if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
+
+            for(var s = 0;s<5;s++){
+                if(s<data.postsResult[i].star){
+
+                    html += '<i class="fas fa-star sStar"></i>';    
+                }else{
+
+                    html += '<i class="far fa-star sStar"></i>';
                 }
             }
-                           
-            html += '  </div>'; 
-            html += '       </div>';
-                    
-            html += '   </div>';
+        }
+
+        html += '  </div>'; 
+        html += '       </div>';
+
+        html += '   </div>';
     }  
-    
+
     $('#pstShw').append(html); 
 }
 
 $(window).scroll(function() {
     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        
+
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
@@ -310,21 +308,21 @@ $(window).scroll(function() {
             }
         });
     }
-  })
-  
+})
+
 /* ========== 좋아요 관련  ========== */
 function addLike(pstno,pstTypeNo) {
-     $.ajax({
+    $.ajax({
         url : "/app/reviewFeed/addLike",
         type: "post",
         data : { 
             "pstno" : pstno,
             "pstTypeNo":pstTypeNo
-            },
+        },
         success : function(data) {
-          $('#btn-like-full-'+pstno).show();
-          $('#btn-like-empty-'+pstno).hide();
-          $('#lCnt-'+pstno).text(data);
+            $('#btn-like-full-'+pstno).show();
+            $('#btn-like-empty-'+pstno).hide();
+            $('#lCnt-'+pstno).text(data);
         }
     }); 
 }
@@ -336,7 +334,7 @@ function cancelLike(pstno,pstTypeNo) {
         data : { 
             "pstno" : pstno,
             "pstTypeNo":pstTypeNo
-            },
+        },
         success : function(data) {
             $('#btn-like-empty-'+pstno).show();
             $('#btn-like-full-'+pstno).hide();
@@ -350,15 +348,108 @@ function loginError() {
     alert('로그인 후 작성할 수 있습니다.');
 }
 
-// 일상/영화게시물 올리기
+//일상/영화게시물 올리기
 function postShow(id) {
     if (id == 'btnIlsang') {
         $("#pstTypeNo").val(1);
         $('.onlyMovie').hide();
     } else if(id == 'detailPst'){
-        
+
     } else {
         $("#pstTypeNo").val(0);
         $('.onlyMovie').show();
     }
+}
+
+//더보기
+function showMore(element,pstno){
+
+    var html = '';
+
+    var $thisDiv = $(element).parent().parent();
+
+    for (var j=0; j<postList.length; j++) {
+        if(postList[j].pstno == pstno){
+            var index = j;
+            var revCont = $('#reviewCont-'+postList[index].pstno).html();
+            break;
+        }
+    }
+
+
+    var h ='';
+    if (postList[index].photos.length != 0) {
+        h += '<ol class="carousel-indicators">';
+        for (var i=0; i<postList[index].photos.length; i++) {
+            if(i ==0){
+                h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
+            }else{
+                h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
+            }
+        }
+        h += '</ol>';
+        h += '<div class="carousel-inner">';
+        for (var i=0; i<postList[index].photos.length; i++) {
+            if(i ==0){
+                h += '    <div class="carousel-item active">';}
+            else{
+                h += '    <div class="carousel-item">';        
+            }
+            h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
+            h += '    </div>';
+        }
+        h += '</div>';
+    }
+    $thisDiv.prev().html(h);
+
+    h = '<p class="wbw" id="reviewCont-';
+    h += postList[index].pstno;
+    h += '">';
+    h += revCont;
+    h += '</p>';
+    $thisDiv.prev().after(h);
+
+
+
+
+
+
+  /*  if(){
+        h += ' <input type="hidden" name="pstno" id="dpstno" />';
+        h += ' <div class="card mb-2 w-100">';
+        h += '     <div class="media insideCard">';
+        h += '            <div>';
+        h += '                <img class="mr-2 profile-medium" src="';
+        h += ${loginUser.profileImagePath}; 
+        h += '"                alt="login-profileImage">';
+        h += '                <div class="text-center">';
+        h +=                 ${sessionScope.loginUser.nickname} ;
+        h += '                  </div>';
+        h += '            </div>';
+        h += '            <div class="media-body text-right">';
+        h += '                <textarea class="form-control" name="content" id="pCmt"';
+        h += '                    placeholder="Write a comment"></textarea>';
+        h += '            </div>';
+        h += '            <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="addCmt()">';
+        h += '                <i class="fas fa-paper-plane"></i> 등록';
+        h += '            </button>';
+        h += '    </div>';
+        h += ' </div>';
+
+    }else{*/
+        h = '<div class="media-body text-right mb-2"> ';
+        h += '<textarea class="form-control resize-none" placeholder="로그인 후 사용가능합니다." disabled></textarea>';
+        h += '</div>';
+//    }
+    $thisDiv.after(h);
+        
+        
+        
+    h = '<div class="comment-main rounded m-0 scrollbar-light-blue w-100">';
+    h += '<ul class="p-0" id="cmt-area-';
+    h += postList[index].pstno;
+    h += '">';
+    h += '</ul>';
+    h += '</div>';
+    listCmt(postList[index].pstno,"mPost");
 }

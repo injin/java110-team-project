@@ -75,7 +75,6 @@ public class ReviewFeedController {
   public Object morePost(
       @RequestBody Map<String, Object> request,
       HttpSession session) throws Exception {
-
     Member member = (Member)session.getAttribute("loginUser");
 
     Map<String, Object> resultMap = new HashMap<>();
@@ -86,9 +85,7 @@ public class ReviewFeedController {
     params.put("prevpstno", pstno);
 
     List<Post> postsResult = postService.getPosts(params); 
-
     resultMap.put("postsResult", postsResult);
-
     return resultMap;
   }
 
@@ -136,7 +133,7 @@ public class ReviewFeedController {
     Member member = (Member)session.getAttribute("loginUser");
 
     resultMap.put("session", (member!=null)?member:new Member());  
-
+    
     return resultMap;
   }
 
@@ -204,8 +201,6 @@ public class ReviewFeedController {
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-
-
 
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(

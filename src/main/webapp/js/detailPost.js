@@ -15,6 +15,7 @@ function openDetailModal(pstno) {
     $('#detailModal #dpstno').val(postList[index].pstno);
     $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
 
+
     /* 별 부분*/
     var star = postList[index].star;
     var shtml='';
@@ -28,8 +29,11 @@ function openDetailModal(pstno) {
         }
     }
     $('#detail-star').html(shtml);
+
+
     /* 이미지 추가부분*/
     if (postList[index].photos.length == 0) {
+
         $('#leftcol').hide();
         $('#rightcol').removeClass('col-4').addClass('col-12');
         $('#detailModal .modal-dialog').css('maxWidth', '35rem');
@@ -51,7 +55,7 @@ function openDetailModal(pstno) {
             else{
                 h += '    <div class="carousel-item">';        
             }
-            h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
+            h += '        <img class="d-block w-100 carouselHeight" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
             h += '    </div>';
         }
         h += '</div>';
@@ -66,21 +70,21 @@ function openDetailModal(pstno) {
         h += '    <span class="sr-only">Next</span>';
         h += '</a>';
     }
-   
+
 
     $('#carouselExampleIndicators').html(h); 
 
     /* 친구태그 부분*/
     html ='';
     for (var i=0; i<postList[index].ftags.length; i++) {
-        html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
+        html+='<a href="#" class="tagName">';
         html += postList[index].ftags[i].nickname;
         html +='</a>';
     }
     $('#dftags').html(html);  
 
     /* 댓글리스트 */
-    listCmt(postList[index].pstno);
+    listCmt(postList[index].pstno,"dPost");
 
     $('#detailModal').modal('show');
 }
@@ -111,13 +115,13 @@ function addCmt() {
             "content" : $('#pCmt').val()
         },
         success:function(data){
-            listCmt($('#dpstno').val());
+            listCmt($('#dpstno').val(),"dPost");
             $('#pCmt').val('');
         }
     });
 }
 
-function listCmt(pstno) {
+function listCmt(pstno,forWhat) {
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/listCmt',
@@ -128,11 +132,15 @@ function listCmt(pstno) {
             "pstno" : pstno.toString()
         }),
         success:function(data){
-            makeCmtHtml(data);
+
+            if(forWhat == "dPost"){
+                showCmt(data);
+            }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
+                $('#cmt-area-'+pstno).html(makeCmtHtml(data));    
+            }
         }
     });
 }
-
 function makeCmtHtml(data) {
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
@@ -143,12 +151,12 @@ function makeCmtHtml(data) {
         html += '        <img src="';
         html += data.cmtsResult[i].member.profileImagePath; 
         html += '" class="main-cmt-img">';
-        html += '        <label>';
+        html += '        <p>';
         html += data.cmtsResult[i].member.nickname; 
-        html += '        </label>';
+        html += '        </p>';
         html += '    </div>';
         html += '    <div class="col-9 user-comment bg-light rounded">';
-        html += '        <p class="w-100 p-2 m-0" style="word-break: break-word;">';
+        html += '        <p class="w-100 p-2 m-0 wbw">';
         html += data.cmtsResult[i].content; 
         html += '        </p>';
         html += '        <p class="w-100 p-2 m-0">';
@@ -175,8 +183,13 @@ function makeCmtHtml(data) {
         html += '</li> ';   
     }  
     //.toLocaleDateString() 이건 시간만
-    $('#cmt-area').html(html);  
+    return html;
 }
+
+function showCmt(data) {
+    $('#cmt-area').html(makeCmtHtml(data));    
+}
+
 
 function deleteComment(pcno) {
     $.ajax({
@@ -189,7 +202,7 @@ function deleteComment(pcno) {
             "pcno" : pcno.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val());
+            listCmt($('#dpstno').val(),"dPost");
             $('#pCmt').val('');
         }
     });
@@ -202,21 +215,21 @@ function showEditForm(obj,pcno,profileImagePath,nickname) {
     var $editArea = $(obj).parent().parent().parent().parent();
 
     var editHtml = '<div class="card mb-2">';
-    editHtml += '<div class="media" style="padding: .5rem;">';
+    editHtml += '<div class="media p-2">';
     editHtml += '    <div>';
     editHtml += '        <img class="mr-2 profile-medium" src="';
     editHtml += profileImagePath;
     editHtml += '" alt="login-profileImage">';
-    editHtml += '        <div style="text-align: -webkit-center;">';
+    editHtml += '        <div class="text-center">';
     editHtml += nickname;
     editHtml += '</div>';
     editHtml += '    </div>';
     editHtml += '    <div class="media-body text-right">';
-    editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment">';
+    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt" placeholder="Write a comment">';
     editHtml += $editCont;
     editHtml += '        </textarea>';
     editHtml += '    </div>';
-    editHtml += '    <button type="button" class="btn btn-dark mt-2" onclick="editComment(' + pcno + ')" style="height: 3rem; padding: 0 .5rem;">';
+    editHtml += '    <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="editComment(' + pcno + ')"">';
     editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
     editHtml += '    </button>';
     editHtml += '</div>';
@@ -243,7 +256,7 @@ function editComment(pcno) {
             "content" : contVal.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val());
+            listCmt($('#dpstno').val(),"dPost");
             $('#pCmt').val('');
         }
     });

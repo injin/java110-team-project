@@ -47,16 +47,17 @@
           </div>
           <hr>
 <%-- ========================================================================================== --%>
-          <h3 id="cover-img">커버 사진</h3>
           <section id="cover-area">
-            <div class="cover-upload">
-              <div class="cover-edit">
-                <input type='file' name="coverImage" id="imageUpload-cover"
-                  accept=".png, .jpg, .jpeg" /> <label for="imageUpload-cover"></label>
-              </div>
-              <div class="cover-preview">
-                <div id="coverPreview"
-                  style="background-image: url('${loginUser.coverImagePath}');"></div>
+            <h3 id="cover-img">커버 사진</h3>
+            <div id="cover" class="row">
+              <div class="cover-upload">
+                <div class="cover-edit">
+                  <input type='file' name="coverImage" id="imageUpload-cover" accept=".png, .jpg, .jpeg"/>
+                  <label for="imageUpload-cover"></label>
+                </div>
+                <div class="cover-preview">
+                  <div id="coverPreview" style="background-image: url('${loginUser.coverImagePath}');"></div>
+                </div>
               </div>
             </div>
           </section>

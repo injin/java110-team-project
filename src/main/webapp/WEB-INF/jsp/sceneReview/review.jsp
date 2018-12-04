@@ -61,10 +61,15 @@
                 </div>
                 
                 <c:if test="${sceneReview.trgtSrExist == true}">
-                    <c:if test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
-                        <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
-                            <img src="/img/btn-siren.jpg"></a>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${sessionScope.loginUser.admin == true}">
+                            
+                        </c:when>
+                        <c:when test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
+                            <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
+                                <img src="/img/btn-siren.jpg"></a>
+                        </c:when>
+                    </c:choose>
                 </c:if>
                 
             </div>

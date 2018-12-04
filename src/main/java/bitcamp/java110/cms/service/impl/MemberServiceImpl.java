@@ -69,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    System.out.println("Service Recieve Member\n :\t" + member);
+    System.out.println("Service UPDATE Member\n : " + member);
     memberDao.update(member);
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
@@ -77,7 +77,6 @@ public class MemberServiceImpl implements MemberService {
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
       if(originList != null || originList.size() > 0) {
         favGenreDao.deleteAll(member.getMno());
-        System.out.println("service update favGrList");
       }
       for (int i = 0; i < member.getFavGrList().size(); i++) {
         HashMap<String, Object> params = new HashMap<>();
@@ -103,7 +102,6 @@ public class MemberServiceImpl implements MemberService {
         saveMvId(member.getFavMvList().get(i).getMvno());
       }
     }
-    System.out.println("service update member");
   }
   
   protected void saveMvId (int mvno) {

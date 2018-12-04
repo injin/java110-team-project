@@ -131,7 +131,7 @@
                <button id="btnGroupDrop" type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button><!-- style="display: none;" -->
                <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
                <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-                 <button type="button" class="btn btn-xs" onclick='updatePost(${post.pstno})'>수정</button>
+                 <button type="button" class="btn btn-xs" onclick='openEditingModal(${post.pstno})'>수정</button>
                  <br>
                  <button type="button" class="btn btn-xs"onclick='deletePost(${post.pstno})'>삭제</button>
                </div>

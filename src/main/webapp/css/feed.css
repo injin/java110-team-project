@@ -78,7 +78,7 @@ td {
     
 }
 .dropdown-menu {
-    transform: translate3d(0px, 23px, 0px);
+    /* transform: translate3d(0px, 23px, 0px); */
     margin: 0px;
     padding: 0px;
 }
