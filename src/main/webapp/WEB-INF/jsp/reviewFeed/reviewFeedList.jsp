@@ -262,6 +262,12 @@
     <script src="/js/writingPost.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
+        var sessionMember = {
+                "nickname" : '${sessionScope.loginUser.nickname}',
+                "profileImage" : '${sessionScope.loginUser.profileImage}',
+                "mno" : '${sessionScope.loginUser.mno}'
+        };
+        
         var flwList = [];
         <c:forEach items="${userFlwList}" var="lst">
         flwList.push({
