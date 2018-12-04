@@ -122,10 +122,10 @@
                             <img src="${post.member.profileImagePath}" class="rprofileImg" />
                             <div class="media-body">
                                 <ul class="memberul">
-                                    <li><a href="#" class="text-dark">${post.member.nickname}</a></li>
+                                    <li><span <%-- onclick="goToFeed(${post.member.mno})" --%> class="text-dark">${post.member.nickname}</span></li>
                                     <li><c:if test="${not empty post.ftags}">
                                             <c:forEach items="${post.ftags}" var="ftag">
-                                                <a href="#" class="tagName"> ${ftag.nickname} </a>
+                                                <p <%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName"> ${ftag.nickname} </span>
                                             </c:forEach>
                                         </c:if></li>
                                 </ul>
@@ -205,11 +205,12 @@
                 </c:if>
             </c:forEach>
         </div>
-
+        
+        
         <%-- 맞춤영화 추천 부분 --%>
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
-                <div class="col-4">
+                <div class="col-4" id="rcmdSide">
                     <div class="wPost text-center p-0">
                         <div class="dmvDiv">${sessionScope.loginUser.nickname}의맞춤영화</div>
                         <table>
@@ -247,7 +248,6 @@
                     </div>
                 </div>
             </c:when>
-
         </c:choose>
 
     </div>
