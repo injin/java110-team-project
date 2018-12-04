@@ -25,8 +25,26 @@ function openEditingModal(pstno, type) {
     $('#editingModal .g').css("display", "");
   }
   
-  $('#editingModal #editingTxtarea').html($('#reviewCont-' + postList[index].pstno).text());
+  /*
+  var origin = $('#reviewCont-' + postList[index].pstno).text();
+  console.log( origin );
+  var txt = origin.replace(/<br\s?\/?>/g,"\n");
+  console.log(txt);
+  */
+  
+//    var cont = $('#reviewCont-' + postList[index].pstno).html();
+//    cont = cont.replace(/<br>/g, '\n');
+//    $('#editingModal #editingTxtarea').text(cont);
+    
+  
+  $('#editingModal #editingTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
+  
+//  $('#editingModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
 //  .replace(/<br\s?\/?>/g,"\n")
+
+  
+  
+  
 /*
 //  tag는 뺀다.
   var list = postList[index].ftags;
