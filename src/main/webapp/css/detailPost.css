@@ -1,6 +1,6 @@
 /* ========== 댓글 관련  ========== */
 .comment-main {
-	height: 20rem;
+	max-height: 20rem;
 	overflow: auto;
 	overflow-x: hidden;
 }

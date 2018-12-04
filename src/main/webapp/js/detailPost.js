@@ -132,7 +132,6 @@ function listCmt(pstno,forWhat) {
             "pstno" : pstno.toString()
         }),
         success:function(data){
-
             if(forWhat == "dPost"){
                 showCmt(data);
             }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
@@ -142,9 +141,9 @@ function listCmt(pstno,forWhat) {
     });
 }
 function makeCmtHtml(data) {
+
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
-
         html += '<li>';
         html += '<div class="row comment-box p-1 pt-3 pr-4">';
         html += '    <div class="col-3 user-img text-center">';
@@ -160,14 +159,14 @@ function makeCmtHtml(data) {
         html += data.cmtsResult[i].content; 
         html += '        </p>';
         html += '        <p class="w-100 p-2 m-0">';
-        if(data.cmtsResult[i].member.mno == data.session.mno){
+        if(data.cmtsResult[i].member.mno == sessionMember.mno){
 
             html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
-            html += data.session.profileImagePath;
+            html += sessionMember.profileImagePath;
             html += '\',\'';
-            html += data.session.nickname;
+            html += sessionMember.nickname;
             html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;

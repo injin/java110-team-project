@@ -343,25 +343,9 @@ function cancelLike(pstno,pstTypeNo) {
     });
 }
 
-//로그인 에러
-function loginError() {
-    alert('로그인 후 작성할 수 있습니다.');
-}
 
-//일상/영화게시물 올리기
-function postShow(id) {
-    if (id == 'btnIlsang') {
-        $("#pstTypeNo").val(1);
-        $('.onlyMovie').hide();
-    } else if(id == 'detailPst'){
 
-    } else {
-        $("#pstTypeNo").val(0);
-        $('.onlyMovie').show();
-    }
-}
-
-//더보기
+// 더보기
 function showMore(element,pstno){
 
     var html = '';
@@ -375,7 +359,6 @@ function showMore(element,pstno){
             break;
         }
     }
-
 
     var h ='';
     if (postList[index].photos.length != 0) {
@@ -409,21 +392,22 @@ function showMore(element,pstno){
     h += '</p>';
     $thisDiv.prev().after(h);
 
-
-
-
-
-
-  /*  if(){
-        h += ' <input type="hidden" name="pstno" id="dpstno" />';
+    if(sessionMember.mno != ""){
+        h = ' <input type="hidden" name="pstno" id="dpstno" />';
         h += ' <div class="card mb-2 w-100">';
         h += '     <div class="media insideCard">';
         h += '            <div>';
         h += '                <img class="mr-2 profile-medium" src="';
-        h += ${loginUser.profileImagePath}; 
+        if (sessionMember.profileImage == "") {
+            h +=  "/img/default-profile-img";
+        }else if (sessionMember.profileImage.startsWith("http")) {
+            h += profileImage;
+        } else {
+            h += ("/upload/profile/" + profileImage);
+        }
         h += '"                alt="login-profileImage">';
         h += '                <div class="text-center">';
-        h +=                 ${sessionScope.loginUser.nickname} ;
+        h += sessionMember.nickname;
         h += '                  </div>';
         h += '            </div>';
         h += '            <div class="media-body text-right">';
@@ -435,21 +419,35 @@ function showMore(element,pstno){
         h += '            </button>';
         h += '    </div>';
         h += ' </div>';
-
-    }else{*/
+    }else{
         h = '<div class="media-body text-right mb-2"> ';
         h += '<textarea class="form-control resize-none" placeholder="로그인 후 사용가능합니다." disabled></textarea>';
         h += '</div>';
-//    }
-    $thisDiv.after(h);
-        
-        
-        
-    h = '<div class="comment-main rounded m-0 scrollbar-light-blue w-100">';
+    }
+
+    h += '<div class="comment-main rounded m-0 scrollbar-light-blue w-100">';
     h += '<ul class="p-0" id="cmt-area-';
     h += postList[index].pstno;
     h += '">';
     h += '</ul>';
     h += '</div>';
     listCmt(postList[index].pstno,"mPost");
+    $thisDiv.after(h);
+
+}
+
+//로그인 에러
+function loginError() {
+    alert('로그인 후 작성할 수 있습니다.');
+}
+
+//일상/영화게시물 올리기
+function postShow(id) {
+    if (id == 'btnIlsang') {
+        $("#pstTypeNo").val(1);
+        $('.onlyMovie').hide();
+    } else {
+        $("#pstTypeNo").val(0);
+        $('.onlyMovie').show();
+    }
 }

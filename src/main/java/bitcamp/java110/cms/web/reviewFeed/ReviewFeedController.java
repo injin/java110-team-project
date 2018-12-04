@@ -130,10 +130,6 @@ public class ReviewFeedController {
     List<PostCmt> cmtsResult = postService.getCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
 
-    Member member = (Member)session.getAttribute("loginUser");
-
-    resultMap.put("session", (member!=null)?member:new Member());  
-    
     return resultMap;
   }
 
