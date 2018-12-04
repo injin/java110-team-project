@@ -43,6 +43,7 @@
           <!-- 작업공간 START -->
 <%-- ====================================== if ================================================ --%>
   <%-- 글 작성 부분 --%>
+  <div class="starrrrr"></div>
     <c:if test="${targetUser.mno == loginUser.mno}">
     <div class="wPost">
         <h6 id="wreviewH6">리뷰 작성하기</h6>
@@ -103,7 +104,7 @@
 <%-- =================================== POST HEADER ========================================== --%>
                  <c:choose>
                    <c:when test="${post.open == false}" >
-                     <i class="fas fa-lock lock" style="display: block;"></i>
+                     <i id="lock-${post.pstno}" class="fas fa-lock lock" style="display: block;"></i>
                    </c:when>
                  </c:choose>
 <%-- ==================================== POST OPEN? ========================================== --%>
@@ -196,7 +197,7 @@
                    id="btn-like-empty-${post.pstno}" 
                    onclick="addLike(${post.pstno},${post.pstTypeNo});"></i>
                <span id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
-                   class="far fa-comment btmIcon c-pointer"></i> <span
+                   class="far fa-comment btmIcon c-pointer" onclick="showMore(this,${post.pstno})"></i> <span
                    id="cCnt-${post.pstno}">${post.cmtCnt}</span>
 
            </div>
@@ -315,6 +316,12 @@
  */
 <%-- ========================================================================================== --%>
   /* 원래 있던 부분 */
+  var sessionMember = {
+                "nickname" : '${sessionScope.loginUser.nickname}',
+                "profileImage" : '${sessionScope.loginUser.profileImage}',
+                "mno" : '${sessionScope.loginUser.mno}'
+        };
+  
   var flwList = [];
         <c:forEach items="${userFlwList}" var="lst">
         flwList.push({
@@ -349,12 +356,18 @@
                 "pstTypeNo":'${post.pstTypeNo}',
                 "createdDate":'${post.createdDate}',
                 "likeCnt":'${post.likeCnt}',
-                /* "content":'${post.content}' */
+                "open" : ${post.open}
+                <%-- "content":'${post.content}' --%>
+                
             }) 
             
         </c:forEach> 
             
-         var lstpstno = '${lastpstno}';
+/*          var lstpstno = '${lastpstno}';
+         
+         $('.starrrrrr').starrr() {
+        	 rating:3;
+         } */
   </script>
 <%-- ========================================================================================== --%>
   <script src="/js/jquery-ui.js"></script>

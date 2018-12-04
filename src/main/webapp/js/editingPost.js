@@ -11,12 +11,23 @@ function openEditingModal(pstno, type) {
 /* ========== data 가져옴  ========== */
 
   $('#editingModal #movieSearch').val(postList[index].title);
-  $('#editingModal #movieId').val(postList[index].mvno);
-  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
+//  console.log(postList[index].mvno);
+//  $('#editingModal #movieId').val(postList[index].mvno);
+  
+  if(postList[index].open === false){
+    $('#editingModal input:checkbox[class="open"]').prop("checked", false);
+    $('#editingModal #l').css("display", "");
+    $('#editingModal #g').css("display", "none" );
+  }  else {
+	  $('#editingModal input:checkbox[class="open"]').prop("checked", true);
+  }
+  
+//  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
 //  $('#editingModal #dpstno').val(postList[index].pstno);
 //  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
    
+/*
   // 별 부분
   var star = postList[index].star;
   var shtml='';
@@ -33,7 +44,8 @@ function openEditingModal(pstno, type) {
   }
   $('#starbtn').html(shtml);
   
-  postShow(type);
+  
+*/
   
   /*
   
@@ -88,4 +100,5 @@ function openEditingModal(pstno, type) {
   }
   $('#dftags').html(html);
 */
+  postShow(type);
 }
