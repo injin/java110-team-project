@@ -8,6 +8,8 @@ public class SceneAlbum {
   protected int mno;
   protected String lbmTitle;
   protected String phot;
+  protected String p_phot;
+  protected String nick;
   protected Date cdt;
   protected Date mdt;
   protected boolean include;
@@ -18,8 +20,8 @@ public class SceneAlbum {
   @Override
   public String toString() {
     return "SceneAlbum [lbmno=" + lbmno + ", mno=" + mno + ", lbmTitle=" + lbmTitle + ", phot="
-        + phot + ", cdt=" + cdt + ", mdt=" + mdt + ", include=" + include + ", open=" + open
-        + ", srno=" + srno + ", srCnt=" + srCnt + "]";
+        + phot + ", p_phot=" + p_phot + ", nick=" + nick + ", cdt=" + cdt + ", mdt=" + mdt
+        + ", include=" + include + ", open=" + open + ", srno=" + srno + ", srCnt=" + srCnt + "]";
   }
   public int getLbmno() {
     return lbmno;
@@ -45,6 +47,18 @@ public class SceneAlbum {
   public void setPhot(String phot) {
     this.phot = phot;
   }
+  public String getP_phot() {
+    return p_phot;
+  }
+  public void setP_phot(String p_phot) {
+    this.p_phot = p_phot;
+  }
+  public String getNick() {
+    return nick;
+  }
+  public void setNick(String nick) {
+    this.nick = nick;
+  }
   public Date getCdt() {
     return cdt;
   }
@@ -57,17 +71,17 @@ public class SceneAlbum {
   public void setMdt(Date mdt) {
     this.mdt = mdt;
   }
-  public boolean isOpen() {
-    return open;
-  }
-  public void setOpen(boolean open) {
-    this.open = open;
-  }
   public boolean isInclude() {
     return include;
   }
   public void setInclude(boolean include) {
     this.include = include;
+  }
+  public boolean isOpen() {
+    return open;
+  }
+  public void setOpen(boolean open) {
+    this.open = open;
   }
   public int getSrno() {
     return srno;
@@ -81,6 +95,9 @@ public class SceneAlbum {
   public void setSrCnt(int srCnt) {
     this.srCnt = srCnt;
   }
+  
+  
+  
   
   
 }
