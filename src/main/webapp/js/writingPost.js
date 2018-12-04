@@ -3,6 +3,9 @@ $(function() {
     /* ========== 이미지 업로드 관련  ========== */
     var names = [];  
 
+    $('#globe').show();
+    $("#lock").hide();
+    
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
         var $mlist = $("#media-list");
@@ -59,11 +62,11 @@ $(function() {
     $('.open').on('click', function(e) {
 
         if(this.checked) {
-            $('.globe').show();
-            $(".lock").hide();
+            $('#globe').show();
+            $("#lock").hide();
         }else{
-            $('.lock').show();
-            $(".globe").hide();
+            $('#lock').show();
+            $("#globe").hide();
         }
     });
 
