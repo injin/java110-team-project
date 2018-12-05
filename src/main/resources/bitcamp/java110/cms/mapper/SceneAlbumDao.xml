@@ -67,8 +67,15 @@
     </select>
     
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
-         SELECT * 
-         FROM mv_lbm
+         SELECT 
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn
+         FROM mv_lbm l
          WHERE lbmno = #{lbmno}
     </select>
     

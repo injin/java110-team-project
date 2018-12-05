@@ -52,6 +52,7 @@
             <!-- 파일 선택 -->
             <div class="input-group mb-2">
                 <input type="file" class="form-control-file" name="phot" accept="image/*">
+                <input type="hidden" name="photo">
             </div>
             
             <!-- 스포여부 -->
