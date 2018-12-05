@@ -8,8 +8,25 @@ function openEditingModal(pstno, type) {
     }
   }
   console.log(postList[index]);
-  //  pstno 
+  //  js에서 
+  //  "리뷰 수정하기"로 바꾸기
+  $('#reviewModal .modal-title').text('리뷰 수정하기');
+  
+  //  pstno 넣어주기
+  $('#reviewModal .modal-header').append('<input type="hidden" id="pstno" val="0">');
   $('#reviewModal #pstno').val(pstno);
+  
+  //  친구 태그 숨겨주기
+  $('#reviewModal #ftag-input').remove('#ftag-input');
+  
+  
+  //  submit 버튼 속성 바꿔주기
+  $('#reviewModal #modalSubmit').remove('#modalSubmit');
+  $('#reviewModal .modal-footer').append('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
+  
+  
+  
+  
   
   //  영화 제목, ID 가져오기
   $('#reviewModal #movieSearch').val(postList[index].title);
@@ -68,8 +85,10 @@ function openEditingModal(pstno, type) {
   
 //  $('#reviewModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
+  //  별점 숨김 값 주기 별 먹힘 ㅇㅇ 
+  $('#reviewModal input:hidden[id="star"]').val(star);
    
-  // 별 점
+  // 별 점 이미지 ?
   var star = postList[index].star;
   var shtml='';
   if (star != 0) {
@@ -84,7 +103,6 @@ function openEditingModal(pstno, type) {
     }
   }
   $('#reviewModal .starrr').val(shtml);
-  $('#reviewModal input:hidden[id="star"]').val(star);
   
   
   
