@@ -281,14 +281,14 @@ input:checked+.slider:before {
 	border-radius: 50%;
 }
 
-.lock {
+#lock {
 	position: relative;
 	right: 15%;
 	left: 15%;
 	top: 15%;
 }
 
-.globe {
+#globe {
 	position: relative;
 	left: 60%;
 	top: 15%;
@@ -299,7 +299,7 @@ input:checked+.slider:before {
 	margin: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
-#reviewModal {
+#reviewModal, #editingModal {
 	margin: auto;
 	width: 40%;
 }

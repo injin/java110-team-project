@@ -91,7 +91,9 @@
                ON cmt.mno = mb.mno
          WHERE cmt.srno = #{srno}
          ORDER BY cdt DESC
+         <if test="paging != null">
          LIMIT #{paging.startRowNo} , #{paging.pageSize}
+         </if>
     </select>
     
     <delete id="deleteCmt" parameterType="int">
@@ -120,10 +122,56 @@
          LIMIT 8
     </select>
     
+    <select id="listTopReviewer" resultType="member" parameterType="int">
+        SELECT t2.mno
+              , mb.nick as nickname
+              , mb.p_phot as profileImage
+          FROM (SELECT t1.mno
+                      , sum(t1.pnt) as sum
+                  FROM ((SELECT mno, count(srno)*10 as pnt
+                           FROM mv_sr sr
+                          WHERE mvno = #{mvno}
+                            AND mno != 21
+                          GROUP BY mno)
+                        UNION ALL
+                        (SELECT mno, count(cmno)*2 as pnt
+                           FROM mv_sr_cmt cmt
+                          WHERE srno IN (SELECT srno FROM mv_sr WHERE mvno = #{mvno})
+                            AND mno != 21
+                          GROUP BY mno)
+                       ) t1
+                 GROUP BY t1.mno
+               ) t2 
+         INNER JOIN mv_memb mb
+            ON t2.mno = mb.mno
+         ORDER BY t2.sum desc
+         LIMIT 3
+    </select>
+    
     <insert id="addToSrAlbum" parameterType="map">
         INSERT INTO mv_lbm_sr(lbmno, srno)
         VALUES (#{lbmno}, #{srno})
     </insert>
+    
+    <delete id="deleteCmtMapBySrno" parameterType="int">
+        DELETE FROM mv_sr_map
+         WHERE cmno in (SELECT cmno FROM mv_sr_cmt WHERE srno = #{value})
+    </delete>
+    
+    <delete id="deleteCmtBySrno" parameterType="int">
+        DELETE FROM mv_sr_cmt
+         WHERE srno = #{value}
+    </delete>
+    
+    <delete id="deleteLbmSr" parameterType="int">
+        DELETE FROM mv_lbm_sr
+         WHERE srno = #{value}
+    </delete>
+    
+    <delete id="deleteSr" parameterType="int">
+        DELETE FROM mv_sr
+         WHERE srno = #{value}
+    </delete>
     
     <update id="signOut1" parameterType="int">
         UPDATE IGNORE

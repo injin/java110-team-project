@@ -25,11 +25,12 @@
 
 .p-hot {
     max-height: 2em;
+    margin-bottom:0em;
 }
 
 .p-hot2 {
     max-height: 10em;
-    padding-top: 3em;
+    padding-top: 1em;
 }
 
 .c-hot {
@@ -50,4 +51,13 @@
     margin: 0;
     padding: 0;
     width: 9rem;
+}
+.reviewCont {
+    overflow:hidden;
+    padding-bottom:3em;
+    }
+.main-cmt-img {
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50%;
 }

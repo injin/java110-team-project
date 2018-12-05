@@ -7,6 +7,7 @@
 
 	<resultMap type="bitcamp.java110.cms.domain.PostCmt" id="cmt">
 		<id column="pcno" property="pcno" />
+		<id column="pstno" property="pstno" />
 		<result column="mno" property="mno" />
 		<result column="cdt" property="createdDate" />
 		<result column="mdt" property="modifiedDate" />
@@ -37,6 +38,7 @@
 	</update>
 	<select id="findCmtList" parameterType="int" resultMap="cmt">
 		select
+		p.pstno,
 		p.pcno,
 		p.cont ,
 		p.mno,

@@ -16,6 +16,9 @@
     
     <definition name="log/*" extends=".base-template">
       <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp"/>
+      <put-list-attribute name="cssFiles">
+        <add-attribute value="/node_modules/aos/dist/aos.css"/>
+      </put-list-attribute>
     </definition>
     
     <definition name="include/Feed" extends=".base-template">

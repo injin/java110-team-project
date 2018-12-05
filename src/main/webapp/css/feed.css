@@ -7,7 +7,7 @@
     margin: 2rem 4rem;
     width: 45rem;
 }
-
+/* 
 .pst {
     padding: 1rem 0;
     cursor: pointer !important;
@@ -72,13 +72,14 @@
 td {
     border: 1px solid #ccc;
 }
+ */
 /* ============================== */
 #drop {
     float: right;
     
 }
 .dropdown-menu {
-    transform: translate3d(0px, 23px, 0px);
+    /* transform: translate3d(0px, 23px, 0px); */
     margin: 0px;
     padding: 0px;
 }

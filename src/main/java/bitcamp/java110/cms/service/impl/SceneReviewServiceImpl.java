@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.common.Constants;
+import bitcamp.java110.cms.common.FileUtils;
 import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
@@ -162,11 +165,43 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public List<Member> listTopReviewer(int mvno) {
+    return sceneReviewDao.listTopReviewer(mvno);
+  }
+  
+  @Override
   public void addToSrAlbum(int lbmno, int srno) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("lbmno", lbmno);
     condition.put("srno", srno);
     sceneReviewDao.addToSrAlbum(condition);
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean deleteSr(ServletContext sc, int srno) {
+    
+    // 이미지 삭제
+    SceneReview trgtSr = sceneReviewDao.findByNo(srno);
+    if (trgtSr == null) return false;
+    FileUtils.deleteFile(sc.getRealPath("/upload/sceneReview/" + trgtSr.getPhoto()));
+    
+    Map<String, Object> params = new HashMap<>();
+    params.put("srno", srno);
+    List<SceneReviewCmt> trgtCmtList = sceneReviewDao.listCmt(params);
+    if (trgtCmtList != null) {
+      for (SceneReviewCmt cmt : trgtCmtList) {
+        FileUtils.deleteFile(sc.getRealPath("/upload/sceneReview/" + cmt.getPhoto()));
+      }
+    }
+    
+    // 데이터 삭제
+    sceneReviewDao.deleteCmtMapBySrno(srno);
+    sceneReviewDao.deleteCmtBySrno(srno);
+    sceneReviewDao.deleteLbmSr(srno);
+    sceneReviewDao.deleteSr(srno);
+    
+    return true;
   }
   
   @Override

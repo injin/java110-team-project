@@ -138,8 +138,7 @@ function showCont(cont, index) {
                         <div class="card card-hot-sr">
 
                             <c:choose>
-                                <c:when
-                                    test="${not empty post.photos[0]}">
+                                <c:when test="${not empty post.photos[0]}">
                                     <div class="card-body hot"
                                         onclick="openDetailModal(${post.pstno})"
                                         data-title="${post.title}"
@@ -148,12 +147,21 @@ function showCont(cont, index) {
                                             data-toggle="modal"
                                             id="detailPst"
                                             data-target="#detailModal" />
-                                        <h5 class="card-title">${post.title} 리뷰</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
-                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
+                                        <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                                <c:if  test="${post.member.profileImage == null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                                     ${post.member.nickname}</h6>
+                                                </c:if>
+                                                <c:if  test="${post.member.profileImage != null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="${post.member.profileImage}" class="main-cmt-img">
+                                                    ${post.member.nickname}</h6>
+                                                </c:if>
                                         <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${post.pstno}">
                                                  <script>
+                                                 
                                                          showCont("${post.content}",
                                                                   "${post.pstno}");
                                                  </script>
@@ -170,9 +178,20 @@ function showCont(cont, index) {
                                             data-toggle="modal"
                                             id="detailPst"
                                             data-target="#detailModal" />
-                                        <h5 class="card-title">${post.title}리뷰</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">작성자:${post.member.nickname}</h6>
-                                        <span class="cmt-date">&nbsp;<fmt:formatDate pattern="yyyy-MM-dd" value="${post.createdDate}" /></span>
+                                        <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                        
+                                        <c:choose>
+                                        <c:when  test="${post.member.profileImage == null}">
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                        <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                        ${post.member.nickname}</h6>
+                                        </c:when>
+                                        <c:otherwise>
+                                        <h6 class="card-subtitle mb-2 text-muted">
+                                        <img src="${post.member.profileImage}" class="main-cmt-img">
+                                        ${post.member.nickname}</h6>
+                                        </c:otherwise>
+                                        </c:choose>
                                         <p class="card-text p-hot2 reviewCont"
                                             id="reviewCont-${post.pstno}">
                                             <script>
@@ -234,8 +253,10 @@ function showCont(cont, index) {
                     </c:if>
 
                     <div class="col-xs-4 col-sm-4 col-md-4">
-                        <div class="card card-hot-sr">
+                        <div class="card card-hot-sr" style="max-height:25em">
                             <div class="album">
+                                <div class="ml-3">
+                                </div>
                                 <c:choose>
                                  <c:when test="${empty album.phot}">
                                      
@@ -246,15 +267,18 @@ function showCont(cont, index) {
                                      <img class="card-img-top hot-sr-img-scene"
                                             src="/upload/sceneReview/${album.phot}"
                                             alt="Card image cap"></a>
+                                            
                                  </c:otherwise>
                             </c:choose>
                                     <div class="row">
-                                        <span class="overflow" style="margin-left: 1rem; margin-top:1em;"> 
+                                        <span class="overflow" style="margin-left: 2rem; margin-top:1em;"> 
                                         <h6><b>${album.lbmTitle}</b></h6></span>
-                                        <span style="margin-left: 1.3rem;"></i></span>
+                                        <span style="margin-left:4em; margin-top:1em; float: right;">
+                                        <img src="${album.p_phot}" class="main-cmt-img">${album.nick}</span>
+                                        
                                     </div>
-                                <span style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> <span
-                                style="float: left; clear: both;">${album.cdt}</span>
+                                <span class="ml-3" style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> 
+                                <span class="ml-3" style="float: left; clear: both;">${album.cdt}</span>
                             </div>
                         </div>
                     </div>
@@ -291,7 +315,12 @@ function showCont(cont, index) {
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
-  
+    var sessionMember = {
+            "nickname" : '${sessionScope.loginUser.nickname}',
+            "profileImage" : '${sessionScope.loginUser.profileImage}',
+            "mno" : '${sessionScope.loginUser.mno}'
+    };
+    
    var postList = [];
    <c:forEach items="${topMpList}" var="post">
    var pary =[];

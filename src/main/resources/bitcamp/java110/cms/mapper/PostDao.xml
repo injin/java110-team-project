@@ -167,7 +167,7 @@ limit 15
 	</select>
     
     <select id="listTopMp" resultMap="postMap2">
-        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, cdt, cont, count(ml.pstno)as cnt
+        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, memb.p_phot, cdt, cont, count(ml.pstno)as cnt
           FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
          WHERE ml.pstno=mpo.pstno 
          AND mpo.mvno=mv.mvno
@@ -304,21 +304,15 @@ limit 15
     </delete>
         
     <update id="updatePost" parameterType="post">
-        
        UPDATE mv_post
        <trim prefix="SET" suffixOverrides=",">
-          <if test="mvno != null">mvno = #{mvno},</if>
           <if test="content != null">cont = #{content},</if>
           <if test="star != null">star = #{star},</if>
-          <if test="open != null">opn = #{open},</if>
+          <if test="open != null">opn = if(#{open},'u','l'),</if>
        </trim>
+            ,mdt = now()
        WHERE
           pstno=#{pstno}
-          
-          <!--
-          UPDATE `mv_post` SET `pstno`=[value-1],`mno`=[value-2],`ptno`=[value-3],`mvno`=[value-4],`cdt`=[value-5],`mdt`=[value-6],`cont`=[value-7],`star`=[value-8],`opn`=[value-9] WHERE 1 
-           -->
-          
     </update>
     
 </mapper>

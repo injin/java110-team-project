@@ -10,6 +10,8 @@
         <result column="mno" property="mno" />
         <result column="lbm_nm" property="lbmTitle" />
         <result column="phot" property="phot" />
+        <result column="p_phot" property="p_phot" />
+        <result column="nick" property="nick" />
         <result column="cdt" property="cdt" />
         <result column="mdt" property="mdt" />
         <result column="opn" property="open" />
@@ -33,6 +35,8 @@
             l.phot,
             l.cdt,
             l.mdt,
+            m.nick,
+            m.p_phot,
             sr.cnt as srCnt  
         from 
             mv_lbm l
@@ -63,8 +67,15 @@
     </select>
     
     <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
-         SELECT * 
-         FROM mv_lbm
+         SELECT 
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn
+         FROM mv_lbm l
          WHERE lbmno = #{lbmno}
     </select>
     

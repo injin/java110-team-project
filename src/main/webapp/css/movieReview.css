@@ -78,7 +78,7 @@ a#btn-siren {
     color: #00cc99;
     cursor: pointer;
 }
-.smlr-movie:hover h6 {
+.txt-underline:hover h6 {
     text-decoration: underline;
 }
 

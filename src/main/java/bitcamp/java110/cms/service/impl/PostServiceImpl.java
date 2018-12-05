@@ -1,5 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.LikeDao;
+import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
-import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
@@ -28,6 +31,7 @@ public class PostServiceImpl implements PostService {
   @Autowired PostCmtDao postCmtDao;
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired LikeDao likeDao;
+  @Autowired MlogDao mlogDao;
   
   /* 포스트 */
 
@@ -64,20 +68,6 @@ public class PostServiceImpl implements PostService {
   }
   
   @Override
-  public Post getOnePost(int pstNo) {
-    Post post = (Post)postDao.findByNo(pstNo);
-    List<String> photos = postPhotoDao.findByNo(pstNo);  
-    if ( photos != null && photos.size() > 0) {
-      post.setPhotos(photos);
-    }
-    List<Member> ftags = flwDao.listForPost(pstNo);
-    if ( ftags != null && ftags.size() > 0) {
-      post.setFtags(ftags);
-    }
-    return post;
-  }
-
-  @Override
   public List<Post> keywordPosts(String keyword) {
 
     List<Post> hashposts = postDao.findByKeyword(keyword);
@@ -103,30 +93,7 @@ public class PostServiceImpl implements PostService {
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void addPost(Post post) {
-
-    postDao.insert(post);
-
-    List<String> plst = post.getPhotos();
-    String resultFtags = post.getFtagsForAdd();
-    if(resultFtags != null && !resultFtags.trim().equals("")) {
-      String[] flst = resultFtags.split(",");
-      for(int i=0;i<flst.length;i++)
-      {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("pstno", post.getPstno());
-        params.put("flwno", flst[i]);
-        flwDao.insertForPost(params);
-      }
-    }
-
-    for(int i=0;i<plst.size();i++){
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("phot", plst.get(i));
-      params.put("pstno", post.getPstno());
-      postPhotoDao.insert(params);
-    }
-
-
+    
     if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
       HashMap<String, Object> params = new HashMap<>();
       params.put("mvno", post.getMvno());
@@ -146,6 +113,36 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);    
       }
     }
+    
+    postDao.insert(post);
+    
+    List<String> plst = post.getPhotos();
+    String resultFtags = post.getFtagsForAdd();
+    if(resultFtags != null && !resultFtags.trim().equals("")) {
+      String[] flst = resultFtags.split(",");
+      for(int i=0;i<flst.length;i++)
+      {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pstno", post.getPstno());
+        params.put("flwno", flst[i]);
+        flwDao.insertForPost(params);
+      }
+    }
+
+    for(int i=0;i<plst.size();i++){
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("phot", plst.get(i));
+      params.put("pstno", post.getPstno());
+      postPhotoDao.insert(params);
+    }
+    
+    Mlog mlog = new Mlog();
+    mlog.setMno(post.getMno());
+    mlog.setDirect((post.getPstTypeNo()==1)?LOG_DO_TYPE_DP:LOG_DO_TYPE_MP);
+    mlog.setIndirect(post.getTitle());
+    mlog.setAct("wr");
+    mlog.setUrl(String.valueOf(post.getPstno()));
+    mlogDao.insert(mlog);
   }
   
   @Override
@@ -164,53 +161,19 @@ public class PostServiceImpl implements PostService {
     return false;
   }
   
-  //  ADD(Post post)와 같은 방식??
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void updatePost(Post post) {
-
-    postDao.insert(post);
-
+    postDao.updatePost(post);
+/*
     List<String> plst = post.getPhotos();
-    String resultFtags = post.getFtagsForAdd();
-    if(resultFtags != null && !resultFtags.trim().equals("")) {
-      String[] flst = resultFtags.split(",");
-      for(int i=0;i<flst.length;i++)
-      {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("pstno", post.getPstno());
-        params.put("flwno", flst[i]);
-        flwDao.insertForPost(params);
-      }
-    }
-
     for(int i=0;i<plst.size();i++){
       HashMap<String, Object> params = new HashMap<>();
       params.put("phot", plst.get(i));
       params.put("pstno", post.getPstno());
       postPhotoDao.insert(params);
     }
-
-
-    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("mvno", post.getMvno());
-      params.put("titl", post.getTitle());
-      movieDao.insert(params);
-    }
-
-    if(post.getPstTypeNo() == 0) {
-      HashMap<String, Object> mparams = new HashMap<>();
-      mparams.put("mno", post.getMno());
-      mparams.put("mvno", post.getMvno());
-      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
-
-      if(movieAnlyDao.findOne(mparams)>0) {
-        movieAnlyDao.update(mparams);
-      }else { 
-        movieAnlyDao.insertPost(mparams);    
-      }
-    }
+*/
   }
 
   /* 댓글 */

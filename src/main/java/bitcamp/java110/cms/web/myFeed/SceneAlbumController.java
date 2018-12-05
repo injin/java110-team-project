@@ -118,6 +118,7 @@ public class SceneAlbumController {
       sceneReview.add(sceneReviewService.findByNo(sr.getSrno()));
     }
     resultMap.put("srList", srList);
+    //resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
     resultMap.put("sceneReview", sceneReview);
     return resultMap;
   }
@@ -200,12 +201,14 @@ public class SceneAlbumController {
       HttpSession session
       )throws Exception{
    
+    System.out.println("받아온 sceneAlbum" + sceneAlbum);
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
+    System.out.println("로그인 된 번호"+ mno);
     sceneAlbumService.editOpen(sceneAlbum);
     
     Map<String, Object> resultMap = new HashMap<>();
-    System.out.println("sceneAlbum: "+sceneAlbumService.get(sceneAlbum.getLbmno()));
     resultMap.put("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
+    resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
     //resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
     return resultMap;
     

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +50,7 @@ public class SceneReviewController {
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
     model.addAttribute("smlrList", smlrList);
+    model.addAttribute("topReviewer", sceneReviewService.listTopReviewer(tmdbMovie.getId()));
     model.addAttribute("posterPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
     if (sr.getSrno() !=null) {
@@ -66,37 +68,56 @@ public class SceneReviewController {
     return "sceneReview/review";
   }
   
+  @RequestMapping("/fileUpload")
+  public @ResponseBody String upload (
+      MultipartFile phot, String removeFileName) throws Exception {
+    
+    if (removeFileName != null) {
+      File targetFile = new File(sc.getRealPath("/upload/sceneReview/" + removeFileName));
+      targetFile.delete();
+    }
+    
+    if (phot != null && phot.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
+      return filename;
+    }
+    return null;
+  }
+  
+  
   @RequestMapping("/add")
   public String add(SceneReview sceneReview,
-                HttpSession session,
-                MultipartFile phot) throws Exception {
+                HttpSession session) throws Exception {
     
     Member member = (Member)session.getAttribute("loginUser");
     sceneReview.setMno(member.getMno());
-    
-    if (phot.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
-      sceneReview.setPhoto(filename);
-    }
     
     sceneReviewService.add(sceneReview);
     
     return "redirect:/app/sceneReview/review?mvno=" + sceneReview.getMvno();
   }
   
+  @PostMapping("delete")
+  public @ResponseBody boolean deleteSr(
+      int srno, HttpSession session) {
+    
+    Member member = (Member)session.getAttribute("loginUser");
+    if (member !=null && member.isAdmin()) {
+      return sceneReviewService.deleteSr(sc, srno);
+    }
+    return false;
+  }
+  
   @RequestMapping("addComment")
   public String addComment(SceneReviewCmt comment,
-                    HttpSession session,
-                    MultipartFile file1) throws Exception {
+    String photoName, HttpSession session) throws Exception {
     
     Member member = (Member)session.getAttribute("loginUser");
     comment.setMno(member.getMno());
     
-    if (file1 != null && file1.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file1.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
-      comment.setPhoto(filename);
+    if (!("".equals(photoName))) {
+      comment.setPhoto(photoName);
     }
     
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());
@@ -154,4 +175,5 @@ public class SceneReviewController {
     
     return result;
   }
+  
 }

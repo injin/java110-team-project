@@ -54,9 +54,6 @@ public class MovieInfoController {
     result.put("totalResults", response.getTotalResults());
     result.put("imgPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
-    System.out.println("totalPages: "+response.getTotalPages());
-    System.out.println("totalResults: "+response.getTotalResults());
-    
     return result;
   }
   

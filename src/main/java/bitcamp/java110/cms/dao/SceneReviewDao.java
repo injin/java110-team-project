@@ -2,6 +2,7 @@ package bitcamp.java110.cms.dao;
 
 import java.util.List;
 import java.util.Map;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneReview;
 import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.domain.SceneReviewMap;
@@ -20,7 +21,14 @@ public interface SceneReviewDao {
   Integer deleteCmtMap(int cmno);
   Integer updateCmt(SceneReviewCmt sceneReviewCmt);
   List<SceneReview> listTopSr();
+  List<Member> listTopReviewer(int mvno);
   Integer addToSrAlbum(Map<String, Object> condition);
+  
+  Integer deleteCmtMapBySrno(int srno);
+  Integer deleteCmtBySrno(int srno);
+  Integer deleteLbmSr(int srno);
+  Integer deleteSr(int srno);  
+  
   void signOut1(int mno);
   void signOut2(int mno);
 }

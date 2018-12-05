@@ -15,6 +15,7 @@ function openDetailModal(pstno) {
     $('#detailModal #dpstno').val(postList[index].pstno);
     $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
 
+
     /* 별 부분*/
     var star = postList[index].star;
     var shtml='';
@@ -28,8 +29,11 @@ function openDetailModal(pstno) {
         }
     }
     $('#detail-star').html(shtml);
+
+
     /* 이미지 추가부분*/
     if (postList[index].photos.length == 0) {
+
         $('#leftcol').hide();
         $('#rightcol').removeClass('col-4').addClass('col-12');
         $('#detailModal .modal-dialog').css('maxWidth', '35rem');
@@ -51,7 +55,7 @@ function openDetailModal(pstno) {
             else{
                 h += '    <div class="carousel-item">';        
             }
-            h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
+            h += '        <img class="d-block w-100 carouselHeight" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
             h += '    </div>';
         }
         h += '</div>';
@@ -66,21 +70,21 @@ function openDetailModal(pstno) {
         h += '    <span class="sr-only">Next</span>';
         h += '</a>';
     }
-   
+
 
     $('#carouselExampleIndicators').html(h); 
 
     /* 친구태그 부분*/
     html ='';
     for (var i=0; i<postList[index].ftags.length; i++) {
-        html+='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
+        html+='<a href="#" class="tagName">';
         html += postList[index].ftags[i].nickname;
         html +='</a>';
     }
     $('#dftags').html(html);  
 
     /* 댓글리스트 */
-    listCmt(postList[index].pstno);
+    listCmt(postList[index].pstno,"dPost");
 
     $('#detailModal').modal('show');
 }
@@ -95,11 +99,16 @@ function toDetail(id) {
 
 
 /* ========== 댓글 관련  ========== */
-function addCmt() {
-    var contVal = $('#addCmtForm textarea[name="content"]').val();
+function addCmt(forWhat,pstno) {
+    if(forWhat == "dPost"){
+        var contVal = $('#pCmt').val();
+        pstno = $('#dpstno').val();
+    }else{
+        var contVal = $('#mCmt-'+pstno).val();
+    }
 
     if (contVal == '') {
-        alert('내용을 입력해주세요.');
+        alert('댓글을 입력해 주세요');
         return;
     }
 
@@ -107,17 +116,21 @@ function addCmt() {
         type:'POST',
         url:'/app/reviewFeed/addCmt',
         data: { 
-            "pstno" : $('#dpstno').val(),
-            "content" : $('#pCmt').val()
+            "pstno" : pstno,
+            "content" : contVal
         },
         success:function(data){
-            listCmt($('#dpstno').val());
-            $('#pCmt').val('');
+            listCmt(pstno,forWhat);
+            if(forWhat == "dPost"){
+                $('#pCmt').val('');
+            }else{
+                $('#mCmt-'+pstno).val('');
+            }
         }
     });
 }
 
-function listCmt(pstno) {
+function listCmt(pstno,forWhat) {
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/listCmt',
@@ -128,42 +141,60 @@ function listCmt(pstno) {
             "pstno" : pstno.toString()
         }),
         success:function(data){
-            makeCmtHtml(data);
+            if(forWhat == "dPost"){
+                showCmt(data);
+            }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
+                $('#cmt-area-'+pstno).html(makeCmtHtml(data,forWhat));    
+            }
         }
     });
 }
 
-function makeCmtHtml(data) {
+function makeCmtHtml(data,forWhat) {
+
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
-
         html += '<li>';
         html += '<div class="row comment-box p-1 pt-3 pr-4">';
         html += '    <div class="col-3 user-img text-center">';
         html += '        <img src="';
         html += data.cmtsResult[i].member.profileImagePath; 
         html += '" class="main-cmt-img">';
-        html += '        <label>';
+        html += '        <p>';
         html += data.cmtsResult[i].member.nickname; 
-        html += '        </label>';
+        html += '        </p>';
         html += '    </div>';
         html += '    <div class="col-9 user-comment bg-light rounded">';
-        html += '        <p class="w-100 p-2 m-0" style="word-break: break-word;">';
+        html += '        <p class="w-100 p-2 m-0 wbw">';
         html += data.cmtsResult[i].content; 
         html += '        </p>';
         html += '        <p class="w-100 p-2 m-0">';
-        if(data.cmtsResult[i].member.mno == data.session.mno){
+        if(data.cmtsResult[i].member.mno == sessionMember.mno){
 
             html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
+            html += data.cmtsResult[i].pstno;
+            html += ',';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
-            html += data.session.profileImagePath;
+            if (sessionMember.profileImage == "") {
+                html +=  "/img/default-profile-img";
+            }else if (sessionMember.profileImage.startsWith("http")) {
+                html += sessionMember.profileImage;
+            } else {
+                html += ("/upload/profile/" + sessionMember.profileImage);
+            }
             html += '\',\'';
-            html += data.session.nickname;
+            html += sessionMember.nickname;
+            html += '\',\'';
+            html += forWhat;
             html += '\')"></i>';
             html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
-            html += ')"></i>';   
+            html += ',';
+            html += data.cmtsResult[i].pstno;
+            html += ',\'';
+            html += forWhat;
+            html += '\')"></i>';   
         } 
         html += '            <span class="cmt-date float-right">';
         html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
@@ -175,10 +206,16 @@ function makeCmtHtml(data) {
         html += '</li> ';   
     }  
     //.toLocaleDateString() 이건 시간만
-    $('#cmt-area').html(html);  
+    return html;
 }
 
-function deleteComment(pcno) {
+function showCmt(data) {
+    $('#cmt-area').html(makeCmtHtml(data,"dPost"));    
+}
+
+
+function deleteComment(pcno,pstno,forWhat) {
+
     $.ajax({
         type:'POST',
         url:'/app/reviewFeed/deleteCmt',
@@ -189,34 +226,41 @@ function deleteComment(pcno) {
             "pcno" : pcno.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val());
-            $('#pCmt').val('');
+            listCmt(pstno,forWhat);
         }
     });
 }
 
-function showEditForm(obj,pcno,profileImagePath,nickname) {
+function showEditForm(obj,pstno,pcno,profileImagePath,nickname,forWhat) {
 
     $(obj).hide();
-    var $editCont = $(obj).parent().prev().text();
+    var $editCont = $(obj).parent().prev().html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
     var $editArea = $(obj).parent().parent().parent().parent();
 
     var editHtml = '<div class="card mb-2">';
-    editHtml += '<div class="media" style="padding: .5rem;">';
+    editHtml += '<div class="media p-2">';
     editHtml += '    <div>';
     editHtml += '        <img class="mr-2 profile-medium" src="';
     editHtml += profileImagePath;
     editHtml += '" alt="login-profileImage">';
-    editHtml += '        <div style="text-align: -webkit-center;">';
+    editHtml += '        <div class="text-center">';
     editHtml += nickname;
     editHtml += '</div>';
     editHtml += '    </div>';
     editHtml += '    <div class="media-body text-right">';
-    editHtml += '        <textarea class="form-control" name="content" id="editCmt" placeholder="Write a comment">';
+    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt';
+    if(forWhat == "dPost"){
+        editHtml += '" placeholder="Write a comment">';    
+    }else{
+        editHtml += '-';
+        editHtml += pstno;
+        editHtml += '" placeholder="Write a comment">';
+    }
+    
     editHtml += $editCont;
     editHtml += '        </textarea>';
     editHtml += '    </div>';
-    editHtml += '    <button type="button" class="btn btn-dark mt-2" onclick="editComment(' + pcno + ')" style="height: 3rem; padding: 0 .5rem;">';
+    editHtml += '    <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="editComment(' + pstno+","+pcno + ",\'" + forWhat + '\')">';
     editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
     editHtml += '    </button>';
     editHtml += '</div>';
@@ -225,8 +269,13 @@ function showEditForm(obj,pcno,profileImagePath,nickname) {
     $editArea.html(editHtml); 
 }
 
-function editComment(pcno) {
-    var contVal = $('#editCmt').val();
+function editComment(pstno,pcno,forWhat) {
+    if(forWhat == "dPost"){
+        var contVal = $('#editCmt').val();
+    }else{
+        var contVal = $('#editCmt-'+pstno).val();
+    }
+
     if (contVal == '') {
         alert('댓글을 입력해 주세요');
         return;
@@ -243,7 +292,7 @@ function editComment(pcno) {
             "content" : contVal.toString()
         }),
         success:function(data){
-            listCmt($('#dpstno').val());
+            listCmt(pstno,forWhat);
             $('#pCmt').val('');
         }
     });

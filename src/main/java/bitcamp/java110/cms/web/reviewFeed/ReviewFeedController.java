@@ -50,13 +50,16 @@ public class ReviewFeedController {
 
     Member member = (Member) session.getAttribute("loginUser");
 
-
     if(member != null) {
       List<Member> flwList = flwService.listAll(member.getMno());
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
 
+      MovieResultsPage smlrList;
+      do {
       int triggerMvId = anlyDao.getOneFav(member.getMno());
-      MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      }while(smlrList.getResults().size()<1);
+      
       model.addAttribute("smlrList", smlrList.getResults());
     }
 
@@ -75,7 +78,6 @@ public class ReviewFeedController {
   public Object morePost(
       @RequestBody Map<String, Object> request,
       HttpSession session) throws Exception {
-
     Member member = (Member)session.getAttribute("loginUser");
 
     Map<String, Object> resultMap = new HashMap<>();
@@ -86,9 +88,7 @@ public class ReviewFeedController {
     params.put("prevpstno", pstno);
 
     List<Post> postsResult = postService.getPosts(params); 
-
     resultMap.put("postsResult", postsResult);
-
     return resultMap;
   }
 
@@ -132,11 +132,6 @@ public class ReviewFeedController {
     int pstno = Integer.valueOf((String)request.get("pstno"));
     List<PostCmt> cmtsResult = postService.getCmts(pstno);
     resultMap.put("cmtsResult", cmtsResult);
-
-    Member member = (Member)session.getAttribute("loginUser");
-
-    resultMap.put("session", (member!=null)?member:new Member());  
-
     return resultMap;
   }
 
@@ -164,26 +159,25 @@ public class ReviewFeedController {
   @PostMapping("/add")
   public String add(
       Post post,
-      MultipartFile[] files,
+      String fileNames,
       HttpSession session,
       HttpServletRequest request) throws Exception {
 
     Member m = (Member)session.getAttribute("loginUser");
     post.setMno(m.getMno());
-    List<String> filenames = new ArrayList<>();
 
     // 사진 데이터 처리
-    for(int i=0;i<files.length;i++) {
-      MultipartFile file = files[i];
-      if (file.getSize() > 0) {
-        String filename = UUID.randomUUID().toString();
-        System.out.println(filename);
-        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
-        filenames.add(filename);
+    String[] fileList = fileNames.split(",");
+    List<String> filens = new ArrayList<>();
+    
+    for(int i=0;i<fileList.length;i++) {
+      String file = fileList[i];
+      if(file.length() > 0) {
+        filens.add(file);
       }
     }
-    post.setPhotos(filenames);
-
+    post.setPhotos(filens);
+    
     postService.addPost(post);
 
     String originPath = request.getHeader("referer");
@@ -191,22 +185,29 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
 
-  // 포스트 가져오기
-  @RequestMapping("/editor")
-  public @ResponseBody Post edit (int postId) {
-    return postService.getOnePost(postId);
-  }
-
   // 포스트 수정
-  @RequestMapping("/update")
+  @RequestMapping("/edit")
   public String updatePost (
       Post post,
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
+    System.out.println("Controller recieve :\n\t"+post);
+    postService.updatePost(post);
 
 
-
+    // 사진 데이터 처리
+//    String[] fileList = fileNames.split(",");
+//    List<String> filens = new ArrayList<>();
+//    
+//    for(int i=0;i<fileList.length;i++) {
+//      String file = fileList[i];
+//      if(file.length() > 0) {
+//        filens.add(file);
+//      }
+//    }
+//    post.setPhotos(filens);
+    
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
@@ -232,8 +233,17 @@ public class ReviewFeedController {
       int id,
       HttpSession session) {
     Map<String, Object> params = new HashMap<>();
-
-    int visitor = ((Member)session.getAttribute("loginUser")).getMno();
+    
+    Member m = ((Member)session.getAttribute("loginUser"));
+    
+    //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.
+    int visitor;
+    if(m != null) {
+      visitor = m.getMno();
+    } else {
+      visitor = 0;
+    }
+    
     model.addAttribute("targetUser", memberService.findByMno(id));
 
     List<Post> list = null;
@@ -248,5 +258,34 @@ public class ReviewFeedController {
     }
     model.addAttribute("postList", list);
     return "include/Feed";
+  }
+  
+  // 파일 업로드
+  @RequestMapping("/fileUpload-upload")
+  public @ResponseBody List<String> upload (
+      MultipartFile[] files) throws Exception {
+    
+    List<String> filenames = new ArrayList<>();
+    for(int i=0;i<files.length;i++) {
+      MultipartFile file = files[i];
+      if (file.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
+        filenames.add(filename);
+      }
+    }
+    
+    return filenames;
+  }
+  
+  // 파일 삭제
+  @RequestMapping("/fileUpload-remove")
+  public @ResponseBody boolean removeFile(
+      String fileName) {
+    File targetFile = new File(sc.getRealPath("/upload/post/" + fileName));
+    if (targetFile.exists()) {
+      return targetFile.delete();
+    }
+    return false;
   }
 }
