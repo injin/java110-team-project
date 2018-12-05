@@ -1,5 +1,6 @@
 /* ========== 게시물 수정 모달  ========== */
 function openEditingModal(pstno, type) {
+
   //  index
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
@@ -8,9 +9,10 @@ function openEditingModal(pstno, type) {
     }
   }
   console.log(postList[index]);
-  //  js에서 
-  //  "리뷰 수정하기"로 바꾸기
+  
+  //  모달 속성 바꿔 주기
   $('#reviewModal .modal-title').text('리뷰 수정하기');
+  $('#reviewModal form').attr('action', 'edit');
   
   //  pstno 넣어주기
   $('#reviewModal .modal-header').append('<input type="hidden" id="pstno" val="0">');
@@ -24,14 +26,9 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #modalSubmit').remove('#modalSubmit');
   $('#reviewModal .modal-footer').append('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
   
-  
-  
-  
-  
   //  영화 제목, ID 가져오기
   $('#reviewModal #movieSearch').val(postList[index].title);
   $('#reviewModal #movieId').val(postList[index].mvno);
-  
   
   //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
@@ -45,10 +42,9 @@ function openEditingModal(pstno, type) {
     $('#reviewModal #lock').css("display", "none");
     $('#reviewModal #globe').css("display", "");
   }
-  // 왜 새 게시물 공개 비공개 깨지는거 같지?
-  
   
   //  게시물 내용 가져오기
+  $('#reviewModal #reviewTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
   //  줄바꿈이 깨지네?
   /*
   var origin = $('#reviewCont-' + postList[index].pstno).text();
@@ -61,8 +57,6 @@ function openEditingModal(pstno, type) {
 //    cont = cont.replace(/<br>/g, '\n');
 //    $('#reviewModal #editingTxtarea').text(cont);
     
-  
-  $('#reviewModal #reviewTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
   
 //  $('#reviewModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
 //  .replace(/<br\s?\/?>/g,"\n")
@@ -86,25 +80,15 @@ function openEditingModal(pstno, type) {
 //  $('#reviewModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
   //  별점 숨김 값 주기 별 먹힘 ㅇㅇ 
+  var star = postList[index].star;
   $('#reviewModal input:hidden[id="star"]').val(star);
    
-  // 별 점 이미지 ?
-  var star = postList[index].star;
-  var shtml='';
-  if (star != 0) {
-    for (var i = 0; i < 5; i++) {
-      if (i < star) {
-        shtml += '<i class="fas fa-star sStar"></i>';
-        console.log('star');
-      } else {
-        shtml += '<i class="far fa-star sStar"></i>';
-        console.log('unstar');
-      }
-    }
-  }
-  $('#reviewModal .starrr').val(shtml);
-  
-  
+  $('#reviewModal #showStar').remove('#showStar');
+  $('#reviewModal #temp').starrr({
+	  rating: star
+  })
+  $('#reviewModal #temp').attr('id', 'showStar');
+  $('#reviewModal #showStar').toggleClass('starrr onlyMovie photo-star-section');
   
   
 /*

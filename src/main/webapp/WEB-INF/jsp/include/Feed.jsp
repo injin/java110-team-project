@@ -310,11 +310,11 @@
   </script>
 <%-- ========================================================================================== --%>
   <script src="/js/jquery-ui.js"></script>
+  <script src="/js/starrr.js"></script>
   <script src="/js/bootstrap-tagsinput.min.js"></script>
   <script src="/js/typeahead.bundle.min.js"></script>
   <script src="/js/editingPost.js"></script>
   <script src="/js/writingPost.js"></script>
   <script src="/js/detailPost.js"></script>
-  <script src="/js/starrr.js"></script>
 </body>
 </html>
