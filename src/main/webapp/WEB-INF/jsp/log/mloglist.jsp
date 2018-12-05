@@ -15,11 +15,12 @@
         </div>
     </div>
 
-    <div class="logList col-lg-12 mb-5" id="list-mp">
+
+    <div class="logList col-lg-12 mb-5"id="list-mp">
         <h4>영화리뷰 로그</h4>
         <ul class="list-group" id="ul-mp">
         <c:forEach var="log" items="${mpList}" varStatus="status">
-            <li class="list-group-item">
+            <li class="list-group-item aos-init " data-aos="fade-up">
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
@@ -63,7 +64,7 @@
         <h4>장면리뷰 로그</h4>
         <ul class="list-group" id="ul-sr">
         <c:forEach var="log" items="${srList}" varStatus="status">
-            <li class="list-group-item">
+            <li class="list-group-item aos-init " data-aos="fade-up">
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
@@ -116,7 +117,7 @@
         </ul>
     </div>
     <div class="logList col-lg-12 mb-5" id="list-fr">
-        <h4>친구</h4>
+        <h4>팔로우</h4>
         <ul class="list-group" id="ul-fr">
         <c:forEach var="log" items="${frList}" varStatus="status">
            <li class="list-group-item">
@@ -132,12 +133,16 @@
         </c:forEach>
         </ul>
     </div>
+    {%- assign i = i | plus : 300 -%}
+    {% endfor %}
     
 
     <a class="return-top" href="#" >
     <img src="/img/top-btn.png"  width="50" height="50"></a>
-    
+    <script src="/node_modules/aos/dist/aos.js"></script>
     <script>
+    AOS.init();
+    
         var lastnoMap = new Map();
         lastnoMap.set('mp', '${mplastno}');
         lastnoMap.set('dp', '${dplastno}');
