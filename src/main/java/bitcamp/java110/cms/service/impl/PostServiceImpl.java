@@ -1,13 +1,13 @@
 package bitcamp.java110.cms.service.impl;
 
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
-import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.LikeDao;
 import bitcamp.java110.cms.dao.MlogDao;
@@ -16,11 +16,7 @@ import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
-<<<<<<< HEAD
-import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
-=======
->>>>>>> j1
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
