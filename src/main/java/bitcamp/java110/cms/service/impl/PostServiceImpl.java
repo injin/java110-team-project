@@ -13,7 +13,6 @@ import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
-import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
@@ -63,20 +62,6 @@ public class PostServiceImpl implements PostService {
     return posts;
   }
   
-  @Override
-  public Post getOnePost(int pstNo) {
-    Post post = (Post)postDao.findByNo(pstNo);
-    List<String> photos = postPhotoDao.findByNo(pstNo);  
-    if ( photos != null && photos.size() > 0) {
-      post.setPhotos(photos);
-    }
-    List<Member> ftags = flwDao.listForPost(pstNo);
-    if ( ftags != null && ftags.size() > 0) {
-      post.setFtags(ftags);
-    }
-    return post;
-  }
-
   @Override
   public List<Post> keywordPosts(String keyword) {
 
@@ -166,53 +151,19 @@ public class PostServiceImpl implements PostService {
     return false;
   }
   
-  //  ADD(Post post)와 같은 방식??
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void updatePost(Post post) {
-
-    postDao.insert(post);
-
+    postDao.updatePost(post);
+/*
     List<String> plst = post.getPhotos();
-    String resultFtags = post.getFtagsForAdd();
-    if(resultFtags != null && !resultFtags.trim().equals("")) {
-      String[] flst = resultFtags.split(",");
-      for(int i=0;i<flst.length;i++)
-      {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("pstno", post.getPstno());
-        params.put("flwno", flst[i]);
-        flwDao.insertForPost(params);
-      }
-    }
-
     for(int i=0;i<plst.size();i++){
       HashMap<String, Object> params = new HashMap<>();
       params.put("phot", plst.get(i));
       params.put("pstno", post.getPstno());
       postPhotoDao.insert(params);
     }
-
-
-    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("mvno", post.getMvno());
-      params.put("titl", post.getTitle());
-      movieDao.insert(params);
-    }
-
-    if(post.getPstTypeNo() == 0) {
-      HashMap<String, Object> mparams = new HashMap<>();
-      mparams.put("mno", post.getMno());
-      mparams.put("mvno", post.getMvno());
-      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
-
-      if(movieAnlyDao.findOne(mparams)>0) {
-        movieAnlyDao.update(mparams);
-      }else { 
-        movieAnlyDao.insertPost(mparams);    
-      }
-    }
+*/
   }
 
   /* 댓글 */

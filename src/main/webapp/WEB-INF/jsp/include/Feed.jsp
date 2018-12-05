@@ -19,7 +19,7 @@
                     valueArr.forEach(function(value2, index) {
                                 if (index == (valueArr.length - 1)
                                         && endBr == false) {
-                                    str = "";
+                                    str = " ";
                                 }
                                 if (value2.startsWith("#")) {
                                     newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
@@ -226,7 +226,6 @@
   <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
-  <%-- <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include> --%>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   
   <script type="text/javascript">
