@@ -4,7 +4,7 @@
 
 <%-- ====================================== Modal ============================================= --%>
 <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-lg" role="document" id="rModal">
+	<div class="modal-dialog modal-lg pr-0" role="document" id="rModal">
 		<form action="add" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
 
