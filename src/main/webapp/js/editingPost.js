@@ -1,5 +1,6 @@
 /* ========== 게시물 수정 모달  ========== */
 function openEditingModal(pstno, type) {
+  //  index
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
       var index = i;
@@ -7,12 +8,15 @@ function openEditingModal(pstno, type) {
     }
   }
   console.log(postList[index]);
+  //  pstno 
+  $('#editingModal #pstno').val(pstno);
   
-/* ========== data 가져옴  ========== */
-
+  //  영화 제목, ID 가져오기
   $('#editingModal #movieSearch').val(postList[index].title);
   $('#editingModal #movieId').val(postList[index].mvno);
   
+  
+  //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
     console.log(postList[index].open);
     $('#editingModal input:checkbox[class="open"]').prop("checked", false);
@@ -24,7 +28,11 @@ function openEditingModal(pstno, type) {
     $('#editingModal .l').css("display", "none");
     $('#editingModal .g').css("display", "");
   }
+  // 왜 새 게시물 공개 비공개 깨지는거 같지?
   
+  
+  //  게시물 내용 가져오기
+  //  줄바꿈이 깨지네?
   /*
   var origin = $('#reviewCont-' + postList[index].pstno).text();
   console.log( origin );
@@ -41,7 +49,7 @@ function openEditingModal(pstno, type) {
   
 //  $('#editingModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
 //  .replace(/<br\s?\/?>/g,"\n")
-
+  
   
   
   
@@ -58,14 +66,10 @@ function openEditingModal(pstno, type) {
 */
   
   
-  
-//  $('#editingModal input:text[class="editingFlw"]').val(postList[index].ftags.val());
-  
-//  $('#editingModal #dpstno').val(postList[index].pstno);
 //  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
    
-  // 별 부분
+  // 별 점
   var star = postList[index].star;
   var shtml='';
   if (star != 0) {
@@ -79,14 +83,16 @@ function openEditingModal(pstno, type) {
       }
     }
   }
-  $('#starbtn').html(shtml);
+  $('#editingModal .starrr').val(shtml);
+  $('#editingModal input:hidden[id="star"]').val(star);
   
   
   
-  /*
   
+/*
   // 이미지 추가부분
   if (postList[index].photos.length == 0) {
+	  console.log("ho");
     $('#leftcol').hide();
     $('#rightcol').removeClass('col-4').addClass('col-12');
     $('#editingMadal .modal-dialog').css('maxWidth', '35rem');
@@ -126,7 +132,9 @@ function openEditingModal(pstno, type) {
 
 
   $('#carouselExampleIndicators').html(h); 
-
+*/
+  
+/*
   // 친구태그 부분
   html = '';
   for (var i = 0; i < postList[index].ftags.length; i++) {

@@ -7,6 +7,7 @@
   <div class="modal-dialog modal-lg" role="document" id="rModal"><!--  -->
     <form action="add" method="post" enctype="multipart/form-data">
       <div class="modal-content">
+      <input type="hidden" id="pstno">
       
         <div class="modal-header form-inline">
           <h5 class="modal-title" style="margin-right: 1rem">리뷰 수정 </h5>
