@@ -63,7 +63,8 @@
                 <c:if test="${sceneReview.trgtSrExist == true}">
                     <c:choose>
                         <c:when test="${sessionScope.loginUser.admin == true}">
-                            
+                            <a id="btn-siren" class="btn-icon c-pointer" onclick="deleteSceneReview()">
+                                <img src="/img/btn-trash.png"></a>
                         </c:when>
                         <c:when test="${not empty sessionScope.loginUser && sceneReview.reported == false}">
                             <a href="#" data-toggle="modal" data-target="#reportModal" id="btn-siren" class="btn-icon" >
@@ -164,7 +165,7 @@
                             </c:if>
                             
                             <c:if test="${cmt.photo ne null}">
-                                <img src="/upload/sceneReview/${cmt.photo}" class="rounded cmt-img" alt="댓글 이미지">
+                                <div><img src="/upload/sceneReview/${cmt.photo}" class="rounded cmt-img" alt="댓글 이미지"></div>
                             </c:if>
                         </div>
                     </div>
@@ -595,6 +596,26 @@
             },
             complete : function() {
                 $('#reportModal').modal('hide');
+            }
+        });
+    }
+    
+    function deleteSceneReview() {
+        $.ajax({
+            url : "/app/sceneReview/delete",
+            type: "post",
+            data : {
+                "srno" : '${sceneReview.srno}'
+            },
+            success : function(data) {
+                if (data) {
+                    alert('삭제되었습니다.');
+                } else {
+                    alert('삭제 중 문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
+                }
+            },
+            complete : function() {
+                goToSceneReview('${sceneReview.mvno}');
             }
         });
     }
