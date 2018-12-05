@@ -49,6 +49,7 @@ public class SceneReviewController {
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
     model.addAttribute("smlrList", smlrList);
+    model.addAttribute("topReviewer", sceneReviewService.listTopReviewer(tmdbMovie.getId()));
     model.addAttribute("posterPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
     if (sr.getSrno() !=null) {

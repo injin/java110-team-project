@@ -200,7 +200,7 @@
             <div class="wrap d-inline-block w-100">
                 <h5><b>유사영화</b></h5>
                 <c:forEach items="${smlrList}" var="smlrMovie" begin="0" end="3">
-                    <div class="mt-1 c-pointer smlr-movie" onclick="window.location.href='/app/sceneReview/review?mvno=${smlrMovie.id}'">
+                    <div class="mt-1 c-pointer txt-underline" onclick="goToSceneReview(${smlrMovie.id})">
                     <div class="media">
                       <img class="mr-2 w50" src="${posterPrefix}${smlrMovie.posterPath}" alt="${smlrMovie.title}">
                       <div class="media-body">
@@ -211,6 +211,22 @@
                     </div>
                 </c:forEach>
             </div>
+            </c:if>
+            
+            <c:if test ="${fn:length(topReviewer) > 0}">
+                <div class="wrap d-inline-block w-100">
+                    <h5><b>추천 리뷰어</b></h5>
+                    <c:forEach items="${topReviewer}" var="reviewer">
+                        <div class="mt-1 c-pointer txt-underline" onclick="goToFeed(${reviewer.mno})">
+                        <div class="media">
+                          <img class="mr-2 profile-medium2" src="${reviewer.profileImagePath}" alt="${reviewer.nickname}">
+                          <div class="media-body">
+                            <h6 class="mt-1"><b>${reviewer.nickname}</b></h6>
+                          </div>
+                        </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:if>
         </div>
     </div>
