@@ -4,41 +4,40 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
-  function makeContHtml(cont, index) {
-      var text = cont.replace(/[\s]+/g, " ").trim();
-      var word = text.split(' ');
-      var newHTML = "";
-      word.forEach(function(value, index) {
-                  var str = "";
-                  var endBr = value.endsWith('<br>');
-                  var valueArr = [ value ];
-                  if (value.includes('<br>')) {
-                      valueArr = value.split('<br>');
-                      str = "<br>";
-                  }
-                  valueArr.forEach(function(value2, index) {
-                              if (index == (valueArr.length - 1)
-                                      && endBr == false) {
-                                  str = "";
-                              }
-                              if (value2.startsWith("#")) {
-                                  newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
-                                          + value2.substring(1)
-                                          + "'>"
-                                          + value2 + "&nbsp;</a></span>" + str);
-                              } else {
-                                  newHTML += "<span class='other'>" + value2
-                                          + "&nbsp;</span>" + str;
-                              }
-                          });
-              });
-        
-      return newHTML;
-  }
-  function showCont(cont, index) {
-      var newHTML = makeContHtml(cont, index);
-      document.getElementById('reviewCont-' + index).innerHTML = newHTML;
-  }
+    function makeContHtml(cont, index) {
+        var text = cont.replace(/[\s]+/g, " ").trim();
+        var word = text.split(' ');
+        var newHTML = "";
+        word.forEach(function(value, index) {
+                    var str = "";
+                    var endBr = value.endsWith('<br>');
+                    var valueArr = [ value ];
+                    if (value.includes('<br>')) {
+                        valueArr = value.split('<br>');
+                        str = "<br>";
+                    }
+                    valueArr.forEach(function(value2, index) {
+                                if (index == (valueArr.length - 1)
+                                        && endBr == false) {
+                                    str = "";
+                                }
+                                if (value2.startsWith("#")) {
+                                    newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
+                                            + value2.substring(1)
+                                            + "'>"
+                                            + value2 + "&nbsp;</a></span>" + str);
+                                } else {
+                                    newHTML +=  (value2+ str);
+                                }
+                            });
+                });
+        return newHTML;
+    }
+    
+    function showCont(cont, index) {
+        var newHTML = makeContHtml(cont, index);
+        document.getElementById('reviewCont-' + index).innerHTML = newHTML;
+    }
 </script>
           <!-- 작업공간 START -->
 <%-- ====================================== if ================================================ --%>
@@ -139,11 +138,11 @@
                  <c:choose>
                    <c:when test="${post.pstTypeNo == 0}">
                      <!-- 0 영화 -->
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
                             onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
                    </c:when>
                    <c:otherwise>
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
                             onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
                    </c:otherwise>
                  </c:choose>
@@ -226,9 +225,9 @@
     </c:forEach>
   <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
-  <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
-  <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
+  <%-- <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include> --%>
+  <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   
   <script type="text/javascript">
 <%-- ========================================================================================== --%>
@@ -252,68 +251,6 @@
         }
     });
   }
-<%-- ========================================================================================== --%>
-  /* UPDATE 대체 어떻게 하는거야!! */
-  function updateIlsangPost(id){
-     /* $.ajax({
-      url: "/app/reviewFeed/editor",
-      type: "POST",
-      data: { "postId" : id },
-      success: function(data){
-          if(jQuery.isEmptyObject(data)) {
-            console.log('null object');
-          } else {
-              openEditingModal(data, id);
-          }
-      },
-      error: (xhr, status, msg) => {
-        console.log(xhr);
-        console.log(status);
-        console.log(msg);
-      }
-    }); */
-  }
-  
-  function updateMvPost(id){
-	     /* $.ajax({
-	      url: "/app/reviewFeed/editor",
-	      type: "POST",
-	      data: { "postId" : id },
-	      success: function(data){
-	          if(jQuery.isEmptyObject(data)) {
-	            console.log('null object');
-	          } else {
-	              openEditingModal(data, id);
-	          }
-	      },
-	      error: (xhr, status, msg) => {
-	        console.log(xhr);
-	        console.log(status);
-	        console.log(msg);
-	      }
-	    }); */
-	  }
-/* 
-  function updatePost(id){
-     $.ajax({
-      url: "/app/reviewFeed/editor",
-      type: "POST",
-      data: { "postId" : id },
-      success: function(data){
-          if(jQuery.isEmptyObject(data)) {
-            console.log('null object');
-          } else {
-              openEditingModal(data, id);
-          }
-      },
-      error: (xhr, status, msg) => {
-        console.log(xhr);
-        console.log(status);
-        console.log(msg);
-      }
-    });
-  }
- */
 <%-- ========================================================================================== --%>
   /* 원래 있던 부분 */
   var sessionMember = {
@@ -356,7 +293,8 @@
                 "pstTypeNo":'${post.pstTypeNo}',
                 "createdDate":'${post.createdDate}',
                 "likeCnt":'${post.likeCnt}',
-                "open" : ${post.open}
+                "open" : ${post.open},
+                "mvno" : ${post.mvno}
                 <%-- "content":'${post.content}' --%>
                 
             }) 
@@ -374,8 +312,8 @@
   <script src="/js/starrr.js"></script>
   <script src="/js/bootstrap-tagsinput.min.js"></script>
   <script src="/js/typeahead.bundle.min.js"></script>
+  <script src="/js/editingPost.js"></script>
   <script src="/js/writingPost.js"></script>
   <script src="/js/detailPost.js"></script>
-  <script src="/js/editingPost.js"></script>
 </body>
 </html>

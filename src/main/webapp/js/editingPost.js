@@ -1,5 +1,7 @@
 /* ========== 게시물 수정 모달  ========== */
 function openEditingModal(pstno, type) {
+
+  //  index
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
       var index = i;
@@ -8,97 +10,54 @@ function openEditingModal(pstno, type) {
   }
   console.log(postList[index]);
   
-/* ========== data 가져옴  ========== */
-
-  $('#editingModal #movieSearch').val(postList[index].title);
-//  console.log(postList[index].mvno);
-//  $('#editingModal #movieId').val(postList[index].mvno);
+  //  모달 속성 바꿔 주기
+  $('#reviewModal .modal-title').text('리뷰 수정하기');
+  $('#reviewModal form').attr('action', 'edit');
   
+  //  pstno 넣어주기
+  $('#reviewModal .modal-header').append('<input type="hidden" id="pstno" val="0">');
+  $('#reviewModal #pstno').val(pstno);
+  
+  //  친구 태그 숨겨주기
+  $('#reviewModal #ftag-input').remove('#ftag-input');
+  
+  //  submit 버튼 속성 바꿔주기
+  $('#reviewModal #modalSubmit').remove('#modalSubmit');
+  $('#reviewModal .modal-footer').append('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
+  
+  //  영화 제목, ID 가져오기
+  $('#reviewModal #movieSearch').val(postList[index].title);
+  $('#reviewModal #movieId').val(postList[index].mvno);
+  //  영화 바꾸지 못하게 막기
+  $('#reviewModal input[name=title]').attr("disabled",true);
+  
+  //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
-    $('#editingModal input:checkbox[class="open"]').prop("checked", false);
-    $('#editingModal #l').css("display", "");
-    $('#editingModal #g').css("display", "none" );
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", false);
+    $('#reviewModal #lock').css("display", "");
+    $('#reviewModal #globe').css("display", "none");
   }  else {
-	  $('#editingModal input:checkbox[class="open"]').prop("checked", true);
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", true);
+    $('#reviewModal #lock').css("display", "none");
+    $('#reviewModal #globe').css("display", "");
   }
   
-//  $('#editingModal #reviewTxtarea').val($('#reviewCont-'+postList[index].pstno).html());
-//  $('#editingModal #dpstno').val(postList[index].pstno);
-//  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+  //  게시물 내용 가져오기
+  var cont = $('#reviewCont-' + postList[index].pstno).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+  cont = cont.replace(/(<([^>]+)>)/ig,"");
+  $('#reviewModal #reviewTxtarea').html(cont);
   
-   
-/*
-  // 별 부분
+  //  별점 숨김 값 주기 
   var star = postList[index].star;
-  var shtml='';
-  if (star != 0) {
-    for (var i = 0; i < 5; i++) {
-      if (i < star) {
-        shtml += '<i class="fas fa-star sStar"></i>';
-        console.log('star');
-      } else {
-        shtml += '<i class="far fa-star sStar"></i>';
-        console.log('unstar');
-      }
-    }
-  }
-  $('#starbtn').html(shtml);
+  $('#reviewModal input:hidden[id="star"]').val(star);
   
+  //  별 찍기
+  $('#reviewModal #showStar').remove('#showStar');
+  $('#reviewModal #temp').starrr({
+    rating: star
+  })
+  $('#reviewModal #temp').attr('id', 'showStar');
+  $('#reviewModal #showStar').toggleClass('starrr onlyMovie photo-star-section');
   
-*/
-  
-  /*
-  
-  // 이미지 추가부분
-  if (postList[index].photos.length == 0) {
-    $('#leftcol').hide();
-    $('#rightcol').removeClass('col-4').addClass('col-12');
-    $('#editingMadal .modal-dialog').css('maxWidth', '35rem');
-  } else {
-    var h = '';
-    h += '<ol class="carousel-indicators">';
-    for (var i = 0; i < postList[index].photos.length; i++) {
-      if (i == 0) {
-        h += '  <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
-      } else {
-        h += '  <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';    
-      }
-    }
-    h += '</ol>';
-    h += '<div class="carousel-inner">';
-    for (var i = 0; i < postList[index].photos.length; i++) {
-      if(i == 0){
-        h += '  <div class="carousel-item active">';}
-      else{
-        h += '  <div class="carousel-item">';    
-      }
-      h += '    <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
-      h += '  </div>';
-    }
-    h += '</div>';
-
-    h += '<a class="carousel-control-prev" href="#carouselExampleIndicators"';
-    h += '  role="button" data-slide="prev">';
-    h += '  <span class="carousel-control-prev-icon" aria-hidden="true"></span>'; 
-    h += '  <span class="sr-only">Previous</span>';
-    h += '</a> <a class="carousel-control-next"';
-    h += '  href="#carouselExampleIndicators" role="button" data-slide="next">';
-    h += '  <span class="carousel-control-next-icon" aria-hidden="true"></span>';
-    h += '  <span class="sr-only">Next</span>';
-    h += '</a>';
-  }
-
-
-  $('#carouselExampleIndicators').html(h); 
-
-  // 친구태그 부분
-  html = '';
-  for (var i = 0; i < postList[index].ftags.length; i++) {
-    html +='<a href="#" style="color: blue; font-size: 0.2rem; vertical-align: top;">';
-    html += postList[index].ftags[i].nickname;
-    html +='</a>';
-  }
-  $('#dftags').html(html);
-*/
   postShow(type);
 }

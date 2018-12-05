@@ -49,6 +49,7 @@ public class SceneReviewController {
     model.addAttribute("sceneReview", sr);
     model.addAttribute("sceneList", sceneReviewService.list(tmdbMovie.getId()));
     model.addAttribute("smlrList", smlrList);
+    model.addAttribute("topReviewer", sceneReviewService.listTopReviewer(tmdbMovie.getId()));
     model.addAttribute("posterPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
     if (sr.getSrno() !=null) {
@@ -66,19 +67,30 @@ public class SceneReviewController {
     return "sceneReview/review";
   }
   
+  @RequestMapping("/fileUpload")
+  public @ResponseBody String upload (
+      MultipartFile phot, String removeFileName) throws Exception {
+    
+    if (removeFileName != null) {
+      File targetFile = new File(sc.getRealPath("/upload/sceneReview/" + removeFileName));
+      targetFile.delete();
+    }
+    
+    if (phot != null && phot.getSize() > 0) {
+      String filename = UUID.randomUUID().toString();
+      phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
+      return filename;
+    }
+    return null;
+  }
+  
+  
   @RequestMapping("/add")
   public String add(SceneReview sceneReview,
-                HttpSession session,
-                MultipartFile phot) throws Exception {
+                HttpSession session) throws Exception {
     
     Member member = (Member)session.getAttribute("loginUser");
     sceneReview.setMno(member.getMno());
-    
-    if (phot.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
-      sceneReview.setPhoto(filename);
-    }
     
     sceneReviewService.add(sceneReview);
     
@@ -87,16 +99,13 @@ public class SceneReviewController {
   
   @RequestMapping("addComment")
   public String addComment(SceneReviewCmt comment,
-                    HttpSession session,
-                    MultipartFile file1) throws Exception {
+    String photoName, HttpSession session) throws Exception {
     
     Member member = (Member)session.getAttribute("loginUser");
     comment.setMno(member.getMno());
     
-    if (file1 != null && file1.getSize() > 0) {
-      String filename = UUID.randomUUID().toString();
-      file1.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
-      comment.setPhoto(filename);
+    if (!("".equals(photoName))) {
+      comment.setPhoto(photoName);
     }
     
     SceneReview sr = sceneReviewService.findByNo(comment.getSrno());

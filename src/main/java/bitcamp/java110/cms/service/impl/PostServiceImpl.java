@@ -6,14 +6,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
+import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.LikeDao;
+import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
 import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.PostPhotoDao;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
@@ -28,6 +32,7 @@ public class PostServiceImpl implements PostService {
   @Autowired PostCmtDao postCmtDao;
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired LikeDao likeDao;
+  @Autowired MlogDao mlogDao;
   
   /* 포스트 */
 
@@ -103,30 +108,7 @@ public class PostServiceImpl implements PostService {
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void addPost(Post post) {
-
-    postDao.insert(post);
-
-    List<String> plst = post.getPhotos();
-    String resultFtags = post.getFtagsForAdd();
-    if(resultFtags != null && !resultFtags.trim().equals("")) {
-      String[] flst = resultFtags.split(",");
-      for(int i=0;i<flst.length;i++)
-      {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("pstno", post.getPstno());
-        params.put("flwno", flst[i]);
-        flwDao.insertForPost(params);
-      }
-    }
-
-    for(int i=0;i<plst.size();i++){
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("phot", plst.get(i));
-      params.put("pstno", post.getPstno());
-      postPhotoDao.insert(params);
-    }
-
-
+    
     if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
       HashMap<String, Object> params = new HashMap<>();
       params.put("mvno", post.getMvno());
@@ -146,6 +128,36 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);    
       }
     }
+    
+    postDao.insert(post);
+    
+    List<String> plst = post.getPhotos();
+    String resultFtags = post.getFtagsForAdd();
+    if(resultFtags != null && !resultFtags.trim().equals("")) {
+      String[] flst = resultFtags.split(",");
+      for(int i=0;i<flst.length;i++)
+      {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("pstno", post.getPstno());
+        params.put("flwno", flst[i]);
+        flwDao.insertForPost(params);
+      }
+    }
+
+    for(int i=0;i<plst.size();i++){
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("phot", plst.get(i));
+      params.put("pstno", post.getPstno());
+      postPhotoDao.insert(params);
+    }
+    
+    Mlog mlog = new Mlog();
+    mlog.setMno(post.getMno());
+    mlog.setDirect((post.getPstTypeNo()==1)?LOG_DO_TYPE_DP:LOG_DO_TYPE_MP);
+    mlog.setIndirect(post.getTitle());
+    mlog.setAct("wr");
+    mlog.setUrl(String.valueOf(post.getPstno()));
+    mlogDao.insert(mlog);
   }
   
   @Override

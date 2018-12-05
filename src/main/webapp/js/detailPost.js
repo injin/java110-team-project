@@ -176,7 +176,13 @@ function makeCmtHtml(data,forWhat) {
             html += ',';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
-            html += sessionMember.profileImagePath;
+            if (sessionMember.profileImage == "") {
+                html +=  "/img/default-profile-img";
+            }else if (sessionMember.profileImage.startsWith("http")) {
+                html += sessionMember.profileImage;
+            } else {
+                html += ("/upload/profile/" + sessionMember.profileImage);
+            }
             html += '\',\'';
             html += sessionMember.nickname;
             html += '\',\'';
@@ -228,7 +234,7 @@ function deleteComment(pcno,pstno,forWhat) {
 function showEditForm(obj,pstno,pcno,profileImagePath,nickname,forWhat) {
 
     $(obj).hide();
-    var $editCont = $(obj).parent().prev().text();
+    var $editCont = $(obj).parent().prev().html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
     var $editArea = $(obj).parent().parent().parent().parent();
 
     var editHtml = '<div class="card mb-2">';

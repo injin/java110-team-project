@@ -106,6 +106,7 @@
                     <input type="hidden" name="map.lng">
                     <input type="hidden" name="map.mapName">
                     <input type="hidden" name="mvnm" value="${tmdbMovie.title}">
+                    <input type="hidden" name="photoName">
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
@@ -117,7 +118,7 @@
                             <button type="button" id="btn-map" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
                             
                             <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
-                                <input id="my-file-selector" type="file" name="file1" style="display:none" 
+                                <input id="my-file-selector" type="file" name="phot" style="display:none" 
                                 onchange="$('#upload-file-info').html(this.files[0].name)">
                                 <i class="fas fa-file-image"></i> 사진
                             </label>
@@ -199,7 +200,7 @@
             <div class="wrap d-inline-block w-100">
                 <h5><b>유사영화</b></h5>
                 <c:forEach items="${smlrList}" var="smlrMovie" begin="0" end="3">
-                    <div class="mt-1 c-pointer smlr-movie" onclick="window.location.href='/app/sceneReview/review?mvno=${smlrMovie.id}'">
+                    <div class="mt-1 c-pointer txt-underline" onclick="goToSceneReview(${smlrMovie.id})">
                     <div class="media">
                       <img class="mr-2 w50" src="${posterPrefix}${smlrMovie.posterPath}" alt="${smlrMovie.title}">
                       <div class="media-body">
@@ -210,6 +211,22 @@
                     </div>
                 </c:forEach>
             </div>
+            </c:if>
+            
+            <c:if test ="${fn:length(topReviewer) > 0}">
+                <div class="wrap d-inline-block w-100">
+                    <h5><b>추천 리뷰어</b></h5>
+                    <c:forEach items="${topReviewer}" var="reviewer">
+                        <div class="mt-1 c-pointer txt-underline" onclick="goToFeed(${reviewer.mno})">
+                        <div class="media">
+                          <img class="mr-2 profile-medium2" src="${reviewer.profileImagePath}" alt="${reviewer.nickname}">
+                          <div class="media-body">
+                            <h6 class="mt-1"><b>${reviewer.nickname}</b></h6>
+                          </div>
+                        </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:if>
         </div>
     </div>
@@ -306,6 +323,7 @@
     function addSceneReview() {
         if (validateForm() == false)
             return;
+        $('input[name="photo"]').val(currentFileName);
         $('input[name="spo"]').val($('#tfSpo').prop('checked')? 'Y': 'N');
         $('form#srAddForm').submit();
     }
@@ -341,6 +359,49 @@
         return true;
     }
     
+    var currentFileName;
+    var currentCmtFileName;
+    $('#srAddModal input[name="phot"]').change(function() {
+        var file = $(this)[0].files[0];
+        uploadFile(file, 'sr');
+    });
+    $('#addCommentForm input[name="phot"]').change(function() {
+        var file = $(this)[0].files[0];
+        uploadFile(file, 'cmt');
+    });
+    
+    function uploadFile(file, type) {
+        var formData = new FormData();
+        formData.append('phot', file);
+        if (type == 'sr' && currentFileName != null) {
+            formData.append('removeFileName', currentFileName);
+        } else if (type == 'cmt' && currentCmtFileName != null) {
+            formData.append('removeFileName', currentCmtFileName);
+        }
+        
+        $.ajax({
+            url : "/app/sceneReview/fileUpload",
+            contentType: false,
+            processData: false,
+            type: "post",
+            data : formData,
+            success : function(data) {
+                if (data != null) {
+                    if (type == 'sr') {
+                        currentFileName = data;
+                    } else if (type == 'cmt') {
+                        currentCmtFileName = data;
+                    }
+                }
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+    
     /* ========== 댓글 관련  ========== */
     function contMore() {
         $('#p-cont').text('${sceneReview.cont}');
@@ -358,6 +419,10 @@
             $('#addCommentForm input[name="map.lng"]').val(marker.position.lng());
             $('#addCommentForm input[name="map.mapName"]').val(marker.address);
         }
+        
+        if (currentCmtFileName != null)
+            $('#addCommentForm input[name="photoName"]').val(currentCmtFileName);
+            
         $('#addCommentForm').submit();
     }
     

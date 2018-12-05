@@ -1,28 +1,106 @@
 $(function() {
 
-    /* ========== 이미지 업로드 관련  ========== */
-    var names = [];  
-
     $('#globe').show();
     $("#lock").hide();
-    
+
+    /* ========== 이미지 업로드 관련  ========== */
+    var uploadFileNames = [];
+
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
+        
+        if(uploadFileNames.length+files.length>3){
+            alert("3장 이하의 사진만 업로드 할 수 있습니다.");
+        }else{
+            fileUploadAjax(files);
+        }
+    });
+
+    $('body').on('click', '.remove-pic', function() {
+        var removeItem = $(this).attr('data-name');
+        fileRemoveAjax(removeItem);
+    });
+
+    function removeUploadedImg(removeItem) {
+        $('#li-' + removeItem).remove();
+        var yet = uploadFileNames.indexOf(removeItem);
+        if (yet != -1) {
+            uploadFileNames.splice(yet, 1);
+        }
+    }
+
+    function fileRemoveAjax(fileName) {
+
+        $.ajax({
+            url : "/app/reviewFeed/fileUpload-remove",
+            type: "post",
+            data : { 'fileName' : fileName },
+            success : function(result) {
+                if (result == true) {
+                    removeUploadedImg(fileName);
+                }
+            },
+            error : function(error) {
+                alert("파일 삭제에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+
+    function fileUploadAjax(files) {
+
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+        $.ajax({
+            url : "/app/reviewFeed/fileUpload-upload",
+            contentType: false,
+            processData: false,
+            type: "post",
+            data : formData,
+            success : function(data) {
+
+                if (data.length == files.length) {
+                    var newFileNames = [];
+                    data.forEach(function(value) {
+                        uploadFileNames.push(value);
+                        newFileNames.push(value);
+                    });
+                    displayUploadedImgs(files, newFileNames);
+                }
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+
+    function displayUploadedImgs(files, newFileNames) {
         var $mlist = $("#media-list");
-        var z = 0;
+        for (var i = 0; i < files.length; i++) {
+            files[i].realName = newFileNames[i];
+        }
+
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            names.push($(this).get(0).files[i].name);
             if (file.type.match('image')) {
 
                 var picReader = new FileReader();
-                picReader.fileName = file.name
+                picReader.realName = file.realName;
+                picReader.fileName = file.name;
                 picReader.addEventListener("load", function(event) {
 
                     var picFile = event.target;
                     var div = document.createElement("li");
-                    div.innerHTML = "<img src='" + picFile.result + "'" +
-                    "title='" + picFile.name + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='#' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+                    div.id = 'li-' + picFile.realName;
+                    div.innerHTML = "<img src='" + picFile.result + "' title='" + picFile.name + "'/>" 
+                    + "<div  class='post-thumb'><div class='inner-post-thumb'>"
+                    + "<a data-name='" + picFile.realName + "' class='c-pointer remove-pic'><i class='fa fa-times' aria-hidden='true'>"
+                    + "</i></a><div></div>";
                     $mlist.prepend(div);
                 });
             } else {
@@ -30,20 +108,7 @@ $(function() {
             }
             picReader.readAsDataURL(file);
         }
-        // return array of file name
-        console.log(names);
-    });
-
-    $('body').on('click', '.remove-pic', function() {
-        $(this).parent().parent().parent().remove();
-        var removeItem = $(this).attr('data-id');
-        var yet = names.indexOf(removeItem);
-
-        if (yet != -1) {
-            names.splice(yet, 1);
-        }
-        console.log(names);
-    });
+    }
 
     /* ========== 일상/영화게시물 구분 관련  ========== */
     $('.starrr').starrr({
@@ -91,7 +156,6 @@ $(function() {
 
     // 글 작성
     $('#modalSubmit').on('click', function(e) {
-
         if($("#pstTypeNo").val() == 0){
             if($("#movieId").val().trim() == 0){
                 alert("알맞은 영화제목을 작성해주세요.");
@@ -111,6 +175,7 @@ $(function() {
             return;
         }
 
+        $("#photList").val(uploadFileNames);
         $("#ftagsForAdd").val($("#flw").val());
     });
 
@@ -187,15 +252,19 @@ function morePostHtml(data){
         html += '"                   class="rprofileImg"/>';
         html += '                <div class="media-body">';
         html += '                    <ul class="memberul">';
-        html += '                        <li><a href="#" class="text-dark">';
+        html += '                        <li><span onclick="goToFeed(';
+        html += data.postsResult[i].member.mno;
+        html += ')" class="text-dark c-pointer">';
         html += data.postsResult[i].member.nickname;
-        html += '                            </a></li><li>';
+        html += '                            </span></li><li>';
 
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
-                html += '<a href="#" class="tagName">';
+                html += '<span onclick="goToFeed(';
+                html +=  data.postsResult[i].ftags.mno;
+                html +=')" class="tagName c-pointer">';
                 html += data.postsResult[i].ftags[j].nickname; 
-                html += '</a>';
+                html += '</span>';
             }
         }
 
@@ -347,8 +416,7 @@ function cancelLike(pstno,pstTypeNo) {
 }
 
 
-
-// 더보기
+//더보기
 function showMore(element,pstno){
 
     var html = '';
@@ -365,26 +433,34 @@ function showMore(element,pstno){
 
     var h ='';
     if (postList[index].photos.length != 0) {
-        h += '<ol class="carousel-indicators">';
-        for (var i=0; i<postList[index].photos.length; i++) {
-            if(i ==0){
-                h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
-            }else{
-                h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
-            }
+
+        var plength = postList[index].photos.length;
+        h+= '<div style="max-height: 32rem" class="w-100">';
+        switch(plength){
+        case 1 :
+            h += '<div class="row">';
+            h += '        <img class="d-block w-100 h-100" style="max-height: -webkit-fill-available;"src="/upload/post/'+ postList[index].photos[0] +'" alt="'+ 0 +'_slide">';
+            h += '</div>';
+            break;
+        case 2 :
+            h += '<div class="row">';
+            h += '        <img class="w-50 h-100 col" src="/upload/post/'+ postList[index].photos[0] +'" alt="'+ 0 +'_slide">';
+            h += '        <img class="w-50 h-100 col" src="/upload/post/'+ postList[index].photos[1] +'" alt="'+ 1 +'_slide">';
+            h += '</div>';
+            break;
+        case 3 :
+            h += '<div class="row">'
+                h += '<div class="col">';
+            h += '        <img class="d-block w-100 h-100" style="max-height: -webkit-fill-available;" src="/upload/post/'+ postList[index].photos[0] +'" alt="'+ 0 +'_slide">';
+            h += '</div>';
+            h += '<div class="col" style="max-height: -webkit-fill-available;">';
+            h += '        <img class="w-100 h-50 row" src="/upload/post/'+ postList[index].photos[1] +'" alt="'+ 1 +'_slide">';
+            h += '        <img class="w-100 h-50 row" src="/upload/post/'+ postList[index].photos[2] +'" alt="'+ 2 +'_slide">';
+            h += '</div>';
+            h += '</div>';
+            break;
         }
-        h += '</ol>';
-        h += '<div class="carousel-inner">';
-        for (var i=0; i<postList[index].photos.length; i++) {
-            if(i ==0){
-                h += '    <div class="carousel-item active">';}
-            else{
-                h += '    <div class="carousel-item">';        
-            }
-            h += '        <img class="d-block w-100" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide" style="height: 44rem;">';
-            h += '    </div>';
-        }
-        h += '</div>';
+        h+= '</div>';
     }
     $thisDiv.prev().html(h);
 
@@ -408,9 +484,9 @@ function showMore(element,pstno){
         if (sessionMember.profileImage == "") {
             h +=  "/img/default-profile-img";
         }else if (sessionMember.profileImage.startsWith("http")) {
-            h += profileImage;
+            h += sessionMember.profileImage;
         } else {
-            h += ("/upload/profile/" + profileImage);
+            h += ("/upload/profile/" + sessionMember.profileImage);
         }
         h += '"                alt="login-profileImage">';
         h += '                <div class="text-center">';

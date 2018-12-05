@@ -15,6 +15,7 @@ import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
+import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.SceneReview;
@@ -159,6 +160,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Override
   public List<SceneReview> listTopSr() {
     return sceneReviewDao.listTopSr();
+  }
+  
+  @Override
+  public List<Member> listTopReviewer(int mvno) {
+    return sceneReviewDao.listTopReviewer(mvno);
   }
   
   @Override
