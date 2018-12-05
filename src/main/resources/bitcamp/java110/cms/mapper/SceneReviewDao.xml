@@ -91,7 +91,9 @@
                ON cmt.mno = mb.mno
          WHERE cmt.srno = #{srno}
          ORDER BY cdt DESC
+         <if test="paging != null">
          LIMIT #{paging.startRowNo} , #{paging.pageSize}
+         </if>
     </select>
     
     <delete id="deleteCmt" parameterType="int">
@@ -150,6 +152,26 @@
         INSERT INTO mv_lbm_sr(lbmno, srno)
         VALUES (#{lbmno}, #{srno})
     </insert>
+    
+    <delete id="deleteCmtMapBySrno" parameterType="int">
+        DELETE FROM mv_sr_map
+         WHERE cmno in (SELECT cmno FROM mv_sr_cmt WHERE srno = #{value})
+    </delete>
+    
+    <delete id="deleteCmtBySrno" parameterType="int">
+        DELETE FROM mv_sr_cmt
+         WHERE srno = #{value}
+    </delete>
+    
+    <delete id="deleteLbmSr" parameterType="int">
+        DELETE FROM mv_lbm_sr
+         WHERE srno = #{value}
+    </delete>
+    
+    <delete id="deleteSr" parameterType="int">
+        DELETE FROM mv_sr
+         WHERE srno = #{value}
+    </delete>
     
     <update id="signOut1" parameterType="int">
         UPDATE IGNORE
