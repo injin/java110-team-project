@@ -226,9 +226,9 @@
     </c:forEach>
   <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
-  <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
+  <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   
   <script type="text/javascript">
 <%-- ========================================================================================== --%>
@@ -252,68 +252,6 @@
         }
     });
   }
-<%-- ========================================================================================== --%>
-  /* UPDATE 대체 어떻게 하는거야!! */
-  function updateIlsangPost(id){
-     /* $.ajax({
-      url: "/app/reviewFeed/editor",
-      type: "POST",
-      data: { "postId" : id },
-      success: function(data){
-          if(jQuery.isEmptyObject(data)) {
-            console.log('null object');
-          } else {
-              openEditingModal(data, id);
-          }
-      },
-      error: (xhr, status, msg) => {
-        console.log(xhr);
-        console.log(status);
-        console.log(msg);
-      }
-    }); */
-  }
-  
-  function updateMvPost(id){
-	     /* $.ajax({
-	      url: "/app/reviewFeed/editor",
-	      type: "POST",
-	      data: { "postId" : id },
-	      success: function(data){
-	          if(jQuery.isEmptyObject(data)) {
-	            console.log('null object');
-	          } else {
-	              openEditingModal(data, id);
-	          }
-	      },
-	      error: (xhr, status, msg) => {
-	        console.log(xhr);
-	        console.log(status);
-	        console.log(msg);
-	      }
-	    }); */
-	  }
-/* 
-  function updatePost(id){
-     $.ajax({
-      url: "/app/reviewFeed/editor",
-      type: "POST",
-      data: { "postId" : id },
-      success: function(data){
-          if(jQuery.isEmptyObject(data)) {
-            console.log('null object');
-          } else {
-              openEditingModal(data, id);
-          }
-      },
-      error: (xhr, status, msg) => {
-        console.log(xhr);
-        console.log(status);
-        console.log(msg);
-      }
-    });
-  }
- */
 <%-- ========================================================================================== --%>
   /* 원래 있던 부분 */
   var sessionMember = {
@@ -372,11 +310,11 @@
   </script>
 <%-- ========================================================================================== --%>
   <script src="/js/jquery-ui.js"></script>
-  <script src="/js/starrr.js"></script>
   <script src="/js/bootstrap-tagsinput.min.js"></script>
   <script src="/js/typeahead.bundle.min.js"></script>
   <script src="/js/editingPost.js"></script>
   <script src="/js/writingPost.js"></script>
   <script src="/js/detailPost.js"></script>
+  <script src="/js/starrr.js"></script>
 </body>
 </html>
