@@ -21,5 +21,5 @@ public interface PostDao {
   Boolean deletePost(int pstno);
   String getPostType(int pstno);
   int countCmt(int pstno);
-  String updatePost(Post post);
+  void updatePost(Post post);
 }
