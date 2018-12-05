@@ -43,42 +43,21 @@ function openEditingModal(pstno, type) {
   }
   
   //  게시물 내용 가져오기
-  console.log("1 : " + $('#reviewCont-' + postList[index].pstno).text());
-  console.log("2 : " + $('#reviewCont-' + postList[index].pstno).html());
-  console.log("3 : " + $('#reviewCont-' + postList[index].pstno).html().replace(/<br\s?\/>/g,"\n"));
-  
-  
-  
-  
-  $('#reviewModal #reviewTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
-  //  줄바꿈이 깨지네?
-  
-  
-  /*
-  var origin = $('#reviewCont-' + postList[index].pstno).text();
-  console.log( origin );
-  var txt = origin.replace(/<br\s?\/?>/g,"\n");
-  console.log(txt);
-  */
-    
-  
-//  $('#reviewModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
-//  .replace(/<br\s?\/?>/g,"\n")
-  
-   
+  var cont = $('#reviewCont-' + postList[index].pstno).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+  cont = cont.replace(/(<([^>]+)>)/ig,"");
+  $('#reviewModal #reviewTxtarea').html(cont);
   
   //  별점 숨김 값 주기 
   var star = postList[index].star;
   $('#reviewModal input:hidden[id="star"]').val(star);
   
-  //  별 그림
+  //  별 찍기
   $('#reviewModal #showStar').remove('#showStar');
   $('#reviewModal #temp').starrr({
-	  rating: star
+    rating: star
   })
   $('#reviewModal #temp').attr('id', 'showStar');
   $('#reviewModal #showStar').toggleClass('starrr onlyMovie photo-star-section');
-  
   
   postShow(type);
 }

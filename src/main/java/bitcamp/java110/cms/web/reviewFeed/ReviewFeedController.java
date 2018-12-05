@@ -188,13 +188,13 @@ public class ReviewFeedController {
   }
 
   // 포스트 수정
-  @RequestMapping("/update")
+  @RequestMapping("/edit")
   public String updatePost (
       Post post,
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-
+    System.out.println("recieve EDIT");
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
