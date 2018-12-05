@@ -192,9 +192,10 @@ public class ReviewFeedController {
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-    System.out.println("Controller recieve :\n\t"+post);
+    System.out.println("Controller recieve :\n\t" + post);
     postService.updatePost(post);
-
+    
+    
 
     // 사진 데이터 처리
 //    String[] fileList = fileNames.split(",");
