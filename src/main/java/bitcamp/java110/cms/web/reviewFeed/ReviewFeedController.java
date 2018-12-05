@@ -54,8 +54,12 @@ public class ReviewFeedController {
       List<Member> flwList = flwService.listAll(member.getMno());
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
 
+      MovieResultsPage smlrList;
+      do {
       int triggerMvId = anlyDao.getOneFav(member.getMno());
-      MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      }while(smlrList.getResults().size()>0);
+      
       model.addAttribute("smlrList", smlrList.getResults());
     }
 
