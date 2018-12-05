@@ -32,6 +32,12 @@
                     <p class="card-text">${targetUser.pr}</p>
                   </div>
                 </div>
+                <c:when test="${report.hndl eq false}">
+                        <button type="button" class="btn btn-primary btn-size"
+                                data-toggle="modal" onclick="addForm(${flwadd.flw})"></button>
+                    </c:when>
+                    <c:otherwise>
+                    </c:otherwise>
             </aside>
             <div class="col-9 borderGray p-0" id="mypage-right">
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
@@ -78,5 +84,38 @@
     </main>
 
     <jsp:include page="footer.jsp"></jsp:include>
+
+    <script>
+    function addForm(number){
+        
+        $('#addForm input[name="flw"]').val(number);
+        $('#addForm').submit();
+        
+    }
+    
+    $.ajax({
+        url : "/app/follow/flwadd",
+        type: "post",
+        data : {
+            "rptno" : currentRptno,
+            "hcont" : contVal
+        },
+        success : function(data) {
+            if (data == true) {
+               
+            }
+            
+        },
+        error: (xhr, status, msg) => {
+            console.log(xhr);
+            console.log(status);
+            console.log(msg);
+        }
+    });
+}
+    
+    
+    
+    </script>
 </body>
 </html>

@@ -19,10 +19,11 @@
     
     <select id="findAll" resultMap="reportMap" parameterType="map">
         
-        select rptno, m.nick as nick , url, cdt, (hndl = 'Y')hndl ,cont
+        select rptno, m.nick as nick , url, cdt, (hndl = 'Y')hndl ,cont, hcont
         from mv_rpt r
-        inner join mv_memb m on r.mno =  m.mno;
-       
+        inner join mv_memb m on r.mno =  m.mno
+        order by cdt desc
+        limit #{rptPaging.startRowNo} , #{rptPaging.pageSize}
         
     </select>
     
@@ -50,5 +51,17 @@
         WHERE
             mno=#{mno}
     </update>
+    
+     <select id="getTotalCnt" resultType="int" parameterType="int">
+        select count(*)
+        from mv_rpt
+    </select>
+
+     <update id = "insertHcont" parameterType="map">
+      update mv_rpt
+      set hcont = #{hcont},
+          hndl = 'Y'
+      where rptno = #{rptno}
+     </update>
 
 </mapper>

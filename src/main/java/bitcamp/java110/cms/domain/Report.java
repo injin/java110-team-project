@@ -13,6 +13,7 @@ public class Report {
   protected boolean hndl;
   protected Date createdDate;
   protected String nick;
+  protected String hcont;
   protected List<String> types;
 
   public int getRptno() {
@@ -57,28 +58,30 @@ public class Report {
   public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
+  public String getHcont() {
+    return hcont;
+  }
+  public void setHcont(String hcont) {
+    this.hcont = hcont;
+  }
   public List<String> getTypes() {
     return types;
   }
   public void setTypes(List<String> types) {
     this.types = types;
   }
-
-public String getNick() {
-    return nick;
-}
-
-public void setNick(String nick) {
-    this.nick = nick;
-}
-
-@Override
-public String toString() {
+  public String getNick() {
+      return nick;
+  }
+  
+  public void setNick(String nick) {
+      this.nick = nick;
+  }
+  
+  @Override
+  public String toString() {
     return "Report [rptno=" + rptno + ", mno=" + mno + ", target=" + target + ", cont=" + cont + ", url=" + url
-            + ", hndl=" + hndl + ", createdDate=" + createdDate + ", nick=" + nick + ", types=" + types + "]";
-}
-  
-  
-  
-  
+            + ", hndl=" + hndl + ", createdDate=" + createdDate + ", nick=" + nick + ", hcont=" + hcont + ", types="
+            + types + "]";
+  }
 }

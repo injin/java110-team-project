@@ -1,6 +1,8 @@
 package bitcamp.java110.cms.web.report;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,21 +29,32 @@ public class ReportController {
 
   @RequestMapping("/list")
   public String list(
-           /*@RequestParam int pageNo,
-           @RequestParam int pageSize,*/
+           RptPaging rptPaging,
            Model model
           ) {
       
-
-       List<Report> reportlist = reportService.list();
+       rptPaging.setTotalCount(reportService.getTotalCnt());
+       
+       Map<String, Object> condition = new HashMap<>();
+       condition.put("rptPaging", rptPaging);
+       List<Report> reportlist = reportService.list(condition);
       
        model.addAttribute("findAll", reportlist);
-       
+       model.addAttribute("getTotalCnt" , rptPaging);
       
       return "report/admin";
     
   }
+  
+  @RequestMapping("/addHndl")
+  public @ResponseBody boolean addHndl(Report report) {
+    
+    boolean result =  reportService.addHcont(report);
+    
+    return result;
+  }
 
+  
   @PostMapping("/add")
   public @ResponseBody boolean add(
       @RequestBody Report report, HttpSession session) throws Exception{

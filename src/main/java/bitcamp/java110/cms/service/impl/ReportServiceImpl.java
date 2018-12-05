@@ -2,6 +2,8 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -36,13 +38,16 @@ public class ReportServiceImpl implements ReportService {
     }
     
   }
+  
+  
+
 
   @Override
-  public List<Report> list() {
+  public List<Report> list( Map<String, Object> condition) {
  /*   HashMap<String, Object> params = new HashMap<>();
     params.put("rowNo", (pageNo - 1)*pageSize);
     params.put("size", pageSize);*/
-    return reportDao.findAll();
+    return reportDao.findAll(condition);
 
   }
 
@@ -68,5 +73,19 @@ public class ReportServiceImpl implements ReportService {
     }
   }
 
-
+  @Override
+    public int getTotalCnt() {
+      
+        return reportDao.getTotalCnt();
+    }
+  
+  @Override
+    public boolean addHcont(Report report) {
+        
+      if(reportDao.insertHcont(report) >0)
+        return true;
+      else
+          return false;
+    }
+  
 }

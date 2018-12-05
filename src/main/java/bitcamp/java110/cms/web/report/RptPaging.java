@@ -1,9 +1,9 @@
-package bitcamp.java110.cms.web.follow;
+package bitcamp.java110.cms.web.report;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class FlwPaging {
+public class RptPaging {
 
   private int pageSize; // 게시 글 수
   private int startRowNo; // 첫 번째 로우 번호(0부터 시작)
@@ -104,7 +104,7 @@ public class FlwPaging {
   private void makePaging() {
       if (this.totalCount == 0) return; // 게시 글 전체 수가 없는 경우
       if (this.pageNo == 0) this.setPageNo(1); // 기본 값 설정
-      if (this.pageSize == 0) this.setPageSize(8); // 기본 값 설정
+      if (this.pageSize == 0) this.setPageSize(10); // 기본 값 설정
 
       int finalPage = (totalCount + (pageSize - 1)) / pageSize; // 마지막 페이지
       if (this.pageNo > finalPage) this.setPageNo(finalPage); // 기본 값 설정
@@ -114,8 +114,8 @@ public class FlwPaging {
       boolean isNowFirst = pageNo == 1 ? true : false; // 시작 페이지 (전체)
       boolean isNowFinal = pageNo == finalPage ? true : false; // 마지막 페이지 (전체)
 
-      int startPage = ((pageNo - 1) / 8) * 8 + 1; // 시작 페이지 (페이징 네비 기준)
-      int endPage = startPage + 8 - 1; // 끝 페이지 (페이징 네비 기준)
+      int startPage = ((pageNo - 1) / 10) * 10 + 1; // 시작 페이지 (페이징 네비 기준)
+      int endPage = startPage + 10 - 1; // 끝 페이지 (페이징 네비 기준)
 
       if (endPage > finalPage) { // [마지막 페이지 (페이징 네비 기준) > 마지막 페이지] 보다 큰 경우
           endPage = finalPage;

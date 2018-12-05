@@ -7,8 +7,11 @@ import bitcamp.java110.cms.domain.Report;
 public interface ReportDao {
 
   int insert(Report report);
-  List<Report> findAll();
+  List<Report> findAll(Map<String, Object> condition);
   Report findOne(Map<String, Object> params);
   int delete(int no);
   void signOut(int mno);
+  int getTotalCnt();
+  int insertHcont(Report report);
+  
 }
