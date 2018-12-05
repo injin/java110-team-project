@@ -8,7 +8,8 @@ $(function() {
 
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
-        if(files.length>3){
+        
+        if(uploadFileNames.length+files.length>3){
             alert("3장 이하의 사진만 업로드 할 수 있습니다.");
         }else{
             fileUploadAjax(files);
