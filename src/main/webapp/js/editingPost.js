@@ -1,5 +1,6 @@
 /* ========== 게시물 수정 모달  ========== */
 function openEditingModal(pstno, type) {
+
   //  index
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
@@ -8,30 +9,42 @@ function openEditingModal(pstno, type) {
     }
   }
   console.log(postList[index]);
-  //  pstno 
-  $('#editingModal #pstno').val(pstno);
+  
+  //  모달 속성 바꿔 주기
+  $('#reviewModal .modal-title').text('리뷰 수정하기');
+  $('#reviewModal form').attr('action', 'edit');
+  
+  //  pstno 넣어주기
+  $('#reviewModal .modal-header').append('<input type="hidden" id="pstno" val="0">');
+  $('#reviewModal #pstno').val(pstno);
+  
+  //  친구 태그 숨겨주기
+  $('#reviewModal #ftag-input').remove('#ftag-input');
+  
+  
+  //  submit 버튼 속성 바꿔주기
+  $('#reviewModal #modalSubmit').remove('#modalSubmit');
+  $('#reviewModal .modal-footer').append('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
   
   //  영화 제목, ID 가져오기
-  $('#editingModal #movieSearch').val(postList[index].title);
-  $('#editingModal #movieId').val(postList[index].mvno);
-  
+  $('#reviewModal #movieSearch').val(postList[index].title);
+  $('#reviewModal #movieId').val(postList[index].mvno);
   
   //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
     console.log(postList[index].open);
-    $('#editingModal input:checkbox[class="open"]').prop("checked", false);
-    $('#editingModal .l').css("display", "");
-    $('#editingModal .g').css("display", "none");
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", false);
+    $('#reviewModal #lock').css("display", "");
+    $('#reviewModal #globe').css("display", "none");
   }  else {
     console.log(postList[index].open);
-    $('#editingModal input:checkbox[class="open"]').prop("checked", true);
-    $('#editingModal .l').css("display", "none");
-    $('#editingModal .g').css("display", "");
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", true);
+    $('#reviewModal #lock').css("display", "none");
+    $('#reviewModal #globe').css("display", "");
   }
-  // 왜 새 게시물 공개 비공개 깨지는거 같지?
-  
   
   //  게시물 내용 가져오기
+  $('#reviewModal #reviewTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
   //  줄바꿈이 깨지네?
   /*
   var origin = $('#reviewCont-' + postList[index].pstno).text();
@@ -42,12 +55,10 @@ function openEditingModal(pstno, type) {
   
 //    var cont = $('#reviewCont-' + postList[index].pstno).html();
 //    cont = cont.replace(/<br>/g, '\n');
-//    $('#editingModal #editingTxtarea').text(cont);
+//    $('#reviewModal #editingTxtarea').text(cont);
     
   
-  $('#editingModal #editingTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
-  
-//  $('#editingModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
+//  $('#reviewModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
 //  .replace(/<br\s?\/?>/g,"\n")
   
   
@@ -60,33 +71,24 @@ function openEditingModal(pstno, type) {
   if (list.length > 0) {
     for (var i = 0; i < list.length; i++){
       console.log(list[i]);
-      $('#editingModal #editingFlw').text(list[i]);
+      $('#reviewModal #editingFlw').text(list[i]);
     }
   }
 */
   
   
-//  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+//  $('#reviewModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
-   
-  // 별 점
+  //  별점 숨김 값 주기 별 먹힘 ㅇㅇ 
   var star = postList[index].star;
-  var shtml='';
-  if (star != 0) {
-    for (var i = 0; i < 5; i++) {
-      if (i < star) {
-        shtml += '<i class="fas fa-star sStar"></i>';
-        console.log('star');
-      } else {
-        shtml += '<i class="far fa-star sStar"></i>';
-        console.log('unstar');
-      }
-    }
-  }
-  $('#editingModal .starrr').val(shtml);
-  $('#editingModal input:hidden[id="star"]').val(star);
-  
-  
+  $('#reviewModal input:hidden[id="star"]').val(star);
+   
+  $('#reviewModal #showStar').remove('#showStar');
+  $('#reviewModal #temp').starrr({
+	  rating: star
+  })
+  $('#reviewModal #temp').attr('id', 'showStar');
+  $('#reviewModal #showStar').toggleClass('starrr onlyMovie photo-star-section');
   
   
 /*
