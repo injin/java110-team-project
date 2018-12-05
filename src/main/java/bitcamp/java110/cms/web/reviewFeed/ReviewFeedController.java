@@ -155,25 +155,25 @@ public class ReviewFeedController {
   @PostMapping("/add")
   public String add(
       Post post,
-      MultipartFile[] files,
+      String fileNames,
       HttpSession session,
       HttpServletRequest request) throws Exception {
 
     Member m = (Member)session.getAttribute("loginUser");
     post.setMno(m.getMno());
-    List<String> filenames = new ArrayList<>();
 
     // 사진 데이터 처리
-    for(int i=0;i<files.length;i++) {
-      MultipartFile file = files[i];
-      if (file.getSize() > 0) {
-        String filename = UUID.randomUUID().toString();
-        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
-        filenames.add(filename);
+    String[] fileList = fileNames.split(",");
+    List<String> filens = new ArrayList<>();
+    
+    for(int i=0;i<fileList.length;i++) {
+      String file = fileList[i];
+      if(file.length() > 0) {
+        filens.add(file);
       }
     }
-    post.setPhotos(filenames);
-
+    post.setPhotos(filens);
+    
     postService.addPost(post);
 
     String originPath = request.getHeader("referer");
@@ -236,5 +236,34 @@ public class ReviewFeedController {
     }
     model.addAttribute("postList", list);
     return "include/Feed";
+  }
+  
+  // 파일 업로드
+  @RequestMapping("/fileUpload-upload")
+  public @ResponseBody List<String> upload (
+      MultipartFile[] files) throws Exception {
+    
+    List<String> filenames = new ArrayList<>();
+    for(int i=0;i<files.length;i++) {
+      MultipartFile file = files[i];
+      if (file.getSize() > 0) {
+        String filename = UUID.randomUUID().toString();
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
+        filenames.add(filename);
+      }
+    }
+    
+    return filenames;
+  }
+  
+  // 파일 삭제
+  @RequestMapping("/fileUpload-remove")
+  public @ResponseBody boolean removeFile(
+      String fileName) {
+    File targetFile = new File(sc.getRealPath("/upload/post/" + fileName));
+    if (targetFile.exists()) {
+      return targetFile.delete();
+    }
+    return false;
   }
 }

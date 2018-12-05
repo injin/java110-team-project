@@ -1,28 +1,101 @@
 $(function() {
-
-    /* ========== 이미지 업로드 관련  ========== */
-    var names = [];  
-
+    
     $('#globe').show();
     $("#lock").hide();
-    
+
+    /* ========== 이미지 업로드 관련  ========== */
+    var uploadFileNames = [];
+
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
+        fileUploadAjax(files);
+    });
+
+    $('body').on('click', '.remove-pic', function() {
+        var removeItem = $(this).attr('data-name');
+        fileRemoveAjax(removeItem);
+    });
+    
+    function removeUploadedImg(removeItem) {
+        $('#li-' + removeItem).remove();
+        var yet = uploadFileNames.indexOf(removeItem);
+        if (yet != -1) {
+            uploadFileNames.splice(yet, 1);
+        }
+    }
+    
+    function fileRemoveAjax(fileName) {
+        
+        $.ajax({
+            url : "/app/reviewFeed/fileUpload-remove",
+            type: "post",
+            data : { 'fileName' : fileName },
+            success : function(result) {
+                if (result == true) {
+                    removeUploadedImg(fileName);
+                }
+            },
+            error : function(error) {
+                alert("파일 삭제에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+    
+    function fileUploadAjax(files) {
+        
+        var formData = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+        $.ajax({
+            url : "/app/reviewFeed/fileUpload-upload",
+            contentType: false,
+            processData: false,
+            type: "post",
+            data : formData,
+            success : function(data) {
+                
+                if (data.length == files.length) {
+                    var newFileNames = [];
+                    data.forEach(function(value) {
+                        uploadFileNames.push(value);
+                        newFileNames.push(value);
+                    });
+                    displayUploadedImgs(files, newFileNames);
+                }
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+    
+    function displayUploadedImgs(files, newFileNames) {
         var $mlist = $("#media-list");
-        var z = 0;
+        for (var i = 0; i < files.length; i++) {
+            files[i].realName = newFileNames[i];
+        }
+        
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            names.push($(this).get(0).files[i].name);
             if (file.type.match('image')) {
 
                 var picReader = new FileReader();
-                picReader.fileName = file.name
+                picReader.realName = file.realName;
+                picReader.fileName = file.name;
                 picReader.addEventListener("load", function(event) {
 
                     var picFile = event.target;
                     var div = document.createElement("li");
-                    div.innerHTML = "<img src='" + picFile.result + "'" +
-                    "title='" + picFile.name + "'/><div  class='post-thumb'><div class='inner-post-thumb'><a href='#' data-id='" + event.target.fileName + "' class='remove-pic'><i class='fa fa-times' aria-hidden='true'></i></a><div></div>";
+                    div.id = 'li-' + picFile.realName;
+                    div.innerHTML = "<img src='" + picFile.result + "' title='" + picFile.name + "'/>" 
+                                    + "<div  class='post-thumb'><div class='inner-post-thumb'>"
+                                    + "<a data-name='" + picFile.realName + "' class='c-pointer remove-pic'><i class='fa fa-times' aria-hidden='true'>"
+                                    + "</i></a><div></div>";
                     $mlist.prepend(div);
                 });
             } else {
@@ -30,20 +103,7 @@ $(function() {
             }
             picReader.readAsDataURL(file);
         }
-        // return array of file name
-        console.log(names);
-    });
-
-    $('body').on('click', '.remove-pic', function() {
-        $(this).parent().parent().parent().remove();
-        var removeItem = $(this).attr('data-id');
-        var yet = names.indexOf(removeItem);
-
-        if (yet != -1) {
-            names.splice(yet, 1);
-        }
-        console.log(names);
-    });
+    }
 
     /* ========== 일상/영화게시물 구분 관련  ========== */
     $('.starrr').starrr({
@@ -111,6 +171,7 @@ $(function() {
             return;
         }
 
+        $("#photList").val(uploadFileNames);
         $("#ftagsForAdd").val($("#flw").val());
     });
 

@@ -35,7 +35,7 @@ public class FileUploadTestController {
       if (file.getSize() > 0) {
         String filename = UUID.randomUUID().toString();
         System.out.println(filename);
-        file.transferTo(new File(sc.getRealPath("/upload/test/" + filename)));
+        file.transferTo(new File(sc.getRealPath("/upload/post/" + filename)));
         filenames.add(filename);
       }
     }

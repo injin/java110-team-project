@@ -104,6 +104,29 @@ public class PostServiceImpl implements PostService {
   @Override
   public void addPost(Post post) {
 
+ 
+
+    
+    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
+      HashMap<String, Object> params = new HashMap<>();
+      params.put("mvno", post.getMvno());
+      params.put("titl", post.getTitle());
+      movieDao.insert(params);
+    }
+
+    if(post.getPstTypeNo() == 0) {
+      HashMap<String, Object> mparams = new HashMap<>();
+      mparams.put("mno", post.getMno());
+      mparams.put("mvno", post.getMvno());
+      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
+
+      if(movieAnlyDao.findOne(mparams)>0) {
+        movieAnlyDao.update(mparams);
+      }else { 
+        movieAnlyDao.insertPost(mparams);    
+      }
+    }
+    
     postDao.insert(post);
 
     List<String> plst = post.getPhotos();
@@ -124,27 +147,6 @@ public class PostServiceImpl implements PostService {
       params.put("phot", plst.get(i));
       params.put("pstno", post.getPstno());
       postPhotoDao.insert(params);
-    }
-
-
-    if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("mvno", post.getMvno());
-      params.put("titl", post.getTitle());
-      movieDao.insert(params);
-    }
-
-    if(post.getPstTypeNo() == 0) {
-      HashMap<String, Object> mparams = new HashMap<>();
-      mparams.put("mno", post.getMno());
-      mparams.put("mvno", post.getMvno());
-      mparams.put("pnt", (post.getStar()<2)?5:(5+post.getStar()));
-
-      if(movieAnlyDao.findOne(mparams)>0) {
-        movieAnlyDao.update(mparams);
-      }else { 
-        movieAnlyDao.insertPost(mparams);    
-      }
     }
   }
   
