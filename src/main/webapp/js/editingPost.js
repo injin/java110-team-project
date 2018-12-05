@@ -15,8 +15,10 @@ function openEditingModal(pstno, type) {
   $('#reviewModal form').attr('action', 'edit');
   
   //  pstno 넣어주기
-  $('#reviewModal .modal-header').append('<input type="hidden" id="pstno" val="0">');
-  $('#reviewModal #pstno').val(pstno);
+  $('#reviewModal .modal-footer').append('<input type="hidden" name="pstno" id="pstno">');
+  $('#reviewModal #pstno').val(postList[index].pstno);
+  console.log(postList[index].pstno);
+  console.log(pstno);
   
   //  친구 태그 숨겨주기
   $('#reviewModal #ftag-input').remove('#ftag-input');

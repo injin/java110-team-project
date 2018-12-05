@@ -185,12 +185,6 @@ public class ReviewFeedController {
         originPath.indexOf("/app"));
   }
 
-  // 포스트 가져오기
-  @RequestMapping("/editor")
-  public @ResponseBody Post edit (int postId) {
-    return postService.getOnePost(postId);
-  }
-
   // 포스트 수정
   @RequestMapping("/edit")
   public String updatePost (
@@ -198,7 +192,22 @@ public class ReviewFeedController {
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-    System.out.println("recieve EDIT");
+    System.out.println("Controller recieve :\n\t"+post);
+    postService.updatePost(post);
+
+
+    // 사진 데이터 처리
+//    String[] fileList = fileNames.split(",");
+//    List<String> filens = new ArrayList<>();
+//    
+//    for(int i=0;i<fileList.length;i++) {
+//      String file = fileList[i];
+//      if(file.length() > 0) {
+//        filens.add(file);
+//      }
+//    }
+//    post.setPhotos(filens);
+    
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
