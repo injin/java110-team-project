@@ -187,15 +187,19 @@ function morePostHtml(data){
         html += '"                   class="rprofileImg"/>';
         html += '                <div class="media-body">';
         html += '                    <ul class="memberul">';
-        html += '                        <li><a href="#" class="text-dark">';
+        html += '                        <li><span onclick="goToFeed(';
+        html += data.postsResult[i].member.mno;
+        html += ')" class="text-dark c-pointer">';
         html += data.postsResult[i].member.nickname;
-        html += '                            </a></li><li>';
+        html += '                            </span></li><li>';
 
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
-                html += '<a href="#" class="tagName">';
+                html += '<span onclick="goToFeed(';
+                html +=  data.postsResult[i].ftags.mno;
+                html +=')" class="tagName c-pointer">';
                 html += data.postsResult[i].ftags[j].nickname; 
-                html += '</a>';
+                html += '</span>';
             }
         }
 

@@ -122,10 +122,10 @@
                             <img src="${post.member.profileImagePath}" class="rprofileImg" />
                             <div class="media-body">
                                 <ul class="memberul">
-                                    <li><span <%-- onclick="goToFeed(${post.member.mno})" --%> class="text-dark">${post.member.nickname}</span></li>
+                                    <li><span onclick="goToFeed(${post.member.mno})" class="text-dark c-pointer">${post.member.nickname}</span></li>
                                     <li><c:if test="${not empty post.ftags}">
                                             <c:forEach items="${post.ftags}" var="ftag">
-                                                <p <%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName"> ${ftag.nickname} </span>
+                                                <span <%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName c-pointer"> ${ftag.nickname} </span>
                                             </c:forEach>
                                         </c:if></li>
                                 </ul>
