@@ -224,8 +224,17 @@ public class ReviewFeedController {
       int id,
       HttpSession session) {
     Map<String, Object> params = new HashMap<>();
-
-    int visitor = ((Member)session.getAttribute("loginUser")).getMno();
+    
+    Member m = ((Member)session.getAttribute("loginUser"));
+    
+    //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.
+    int visitor;
+    if(m != null) {
+      visitor = m.getMno();
+    } else {
+      visitor = 0;
+    }
+    
     model.addAttribute("targetUser", memberService.findByMno(id));
 
     List<Post> list = null;

@@ -120,6 +120,32 @@
          LIMIT 8
     </select>
     
+    <select id="listTopReviewer" resultType="member" parameterType="int">
+        SELECT t2.mno
+              , mb.nick as nickname
+              , mb.p_phot as profileImage
+          FROM (SELECT t1.mno
+                      , sum(t1.pnt) as sum
+                  FROM ((SELECT mno, count(srno)*10 as pnt
+                           FROM mv_sr sr
+                          WHERE mvno = #{mvno}
+                            AND mno != 21
+                          GROUP BY mno)
+                        UNION ALL
+                        (SELECT mno, count(cmno)*2 as pnt
+                           FROM mv_sr_cmt cmt
+                          WHERE srno IN (SELECT srno FROM mv_sr WHERE mvno = #{mvno})
+                            AND mno != 21
+                          GROUP BY mno)
+                       ) t1
+                 GROUP BY t1.mno
+               ) t2 
+         INNER JOIN mv_memb mb
+            ON t2.mno = mb.mno
+         ORDER BY t2.sum desc
+         LIMIT 3
+    </select>
+    
     <insert id="addToSrAlbum" parameterType="map">
         INSERT INTO mv_lbm_sr(lbmno, srno)
         VALUES (#{lbmno}, #{srno})
