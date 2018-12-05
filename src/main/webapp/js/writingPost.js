@@ -416,7 +416,6 @@ function cancelLike(pstno,pstTypeNo) {
 }
 
 
-
 //더보기
 function showMore(element,pstno){
 
