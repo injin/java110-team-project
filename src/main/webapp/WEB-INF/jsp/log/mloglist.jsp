@@ -23,10 +23,10 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                        <a href="${log.url}">${log.indirect}</a> 에 영화 리뷰를 작성했습니다
+                        <a href="/app/sceneReview/review?mvno=${log.url}">${log.indirect}</a> 에 대한 영화 리뷰를 작성했습니다
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                        <a href="${log.url}">${log.indirect}</a> 에 영화 리뷰를 좋아합니다
+                        <a href="/app/sceneReview/review?mvno=${log.url}">${log.indirect}</a> 에 대한 영화 리뷰를 좋아합니다
                     </c:if>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
@@ -45,10 +45,10 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                        <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 작성했습니다
+                          일상 리뷰를 작성했습니다
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                        <a href="${log.url}">${log.indirect}</a> 에 일상 리뷰를 좋아합니다
+                          일상 리뷰를 좋아합니다
                     </c:if>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
