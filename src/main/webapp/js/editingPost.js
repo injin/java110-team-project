@@ -9,24 +9,24 @@ function openEditingModal(pstno, type) {
   }
   console.log(postList[index]);
   //  pstno 
-  $('#editingModal #pstno').val(pstno);
+  $('#reviewModal #pstno').val(pstno);
   
   //  영화 제목, ID 가져오기
-  $('#editingModal #movieSearch').val(postList[index].title);
-  $('#editingModal #movieId').val(postList[index].mvno);
+  $('#reviewModal #movieSearch').val(postList[index].title);
+  $('#reviewModal #movieId').val(postList[index].mvno);
   
   
   //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
     console.log(postList[index].open);
-    $('#editingModal input:checkbox[class="open"]').prop("checked", false);
-    $('#editingModal .l').css("display", "");
-    $('#editingModal .g').css("display", "none");
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", false);
+    $('#reviewModal #lock').css("display", "");
+    $('#reviewModal #globe').css("display", "none");
   }  else {
     console.log(postList[index].open);
-    $('#editingModal input:checkbox[class="open"]').prop("checked", true);
-    $('#editingModal .l').css("display", "none");
-    $('#editingModal .g').css("display", "");
+    $('#reviewModal input:checkbox[class="open"]').prop("checked", true);
+    $('#reviewModal #lock').css("display", "none");
+    $('#reviewModal #globe').css("display", "");
   }
   // 왜 새 게시물 공개 비공개 깨지는거 같지?
   
@@ -42,12 +42,12 @@ function openEditingModal(pstno, type) {
   
 //    var cont = $('#reviewCont-' + postList[index].pstno).html();
 //    cont = cont.replace(/<br>/g, '\n');
-//    $('#editingModal #editingTxtarea').text(cont);
+//    $('#reviewModal #editingTxtarea').text(cont);
     
   
-  $('#editingModal #editingTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
+  $('#reviewModal #reviewTxtarea').html($('#reviewCont-' + postList[index].pstno).text().replace(/<br\s?\/>/g,"\n") );
   
-//  $('#editingModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
+//  $('#reviewModal #editingTxtarea').html( $('#reviewCont-' + postList[index].pstno).text() );
 //  .replace(/<br\s?\/?>/g,"\n")
   
   
@@ -60,13 +60,13 @@ function openEditingModal(pstno, type) {
   if (list.length > 0) {
     for (var i = 0; i < list.length; i++){
       console.log(list[i]);
-      $('#editingModal #editingFlw').text(list[i]);
+      $('#reviewModal #editingFlw').text(list[i]);
     }
   }
 */
   
   
-//  $('#editingModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+//  $('#reviewModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
   
    
   // 별 점
@@ -83,8 +83,8 @@ function openEditingModal(pstno, type) {
       }
     }
   }
-  $('#editingModal .starrr').val(shtml);
-  $('#editingModal input:hidden[id="star"]').val(star);
+  $('#reviewModal .starrr').val(shtml);
+  $('#reviewModal input:hidden[id="star"]').val(star);
   
   
   

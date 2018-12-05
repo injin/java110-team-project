@@ -139,11 +139,11 @@
                  <c:choose>
                    <c:when test="${post.pstTypeNo == 0}">
                      <!-- 0 영화 -->
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
                             onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
                    </c:when>
                    <c:otherwise>
-                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#editingModal"
+                     <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#reviewModal"
                             onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
                    </c:otherwise>
                  </c:choose>
@@ -227,7 +227,7 @@
   <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
-  <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include>
+  <%-- <jsp:include page="/WEB-INF/jsp/reviewFeed/editingPost.jsp"></jsp:include> --%>
   <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
   
   <script type="text/javascript">
