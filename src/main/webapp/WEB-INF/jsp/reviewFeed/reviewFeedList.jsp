@@ -34,7 +34,7 @@
                     valueArr.forEach(function(value2, index) {
                                 if (index == (valueArr.length - 1)
                                         && endBr == false) {
-                                    str = "";
+                                    str = " ";
                                 }
                                 if (value2.startsWith("#")) {
                                     newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="

@@ -58,7 +58,7 @@ public class ReviewFeedController {
       do {
       int triggerMvId = anlyDao.getOneFav(member.getMno());
       smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
-      }while(smlrList.getResults().size()>0);
+      }while(smlrList.getResults().size()<1);
       
       model.addAttribute("smlrList", smlrList.getResults());
     }
