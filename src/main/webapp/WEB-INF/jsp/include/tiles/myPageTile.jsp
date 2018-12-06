@@ -17,7 +17,10 @@
 <c:forEach var="css" items="${cssFiles}">
     <link rel="stylesheet" type="text/css" href="${css}">
 </c:forEach>
-
+<t:importAttribute name="jsFiles"/>
+<c:forEach var="jsFile" items="${jsFiles}">
+    <script src="${jsFile}"></script>
+</c:forEach>
 </head>
 <body>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -85,7 +88,7 @@
    <script>
    function addFollow(mno) {
        
-       $.ajax({
+       /* $.ajax({
            url : "/app/follow/flwadd",
            type: "post",
            data : {
@@ -105,7 +108,7 @@
                console.log(status);
                console.log(msg);
            }
-       });
+       }); */
    }
     
     
