@@ -22,6 +22,7 @@
       </put-list-attribute>
       <put-list-attribute name="cssFiles">
         <add-attribute value="/css/aos.css"/>
+        <add-attribute value="/css/detailPost.css"/>
       </put-list-attribute>
     </definition>
     

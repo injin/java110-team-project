@@ -47,10 +47,10 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                          일상 리뷰를 작성했습니다
+                          <span onclick="getPostForDetail(${log.url},this)">일상 리뷰</span>를 작성했습니다
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                          일상 리뷰를 좋아합니다
+                          <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 좋아합니다
                     </c:if>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
@@ -139,9 +139,22 @@
 
     <a class="return-top" href="#" >
     <img src="/img/top-btn.png"  width="50" height="50"></a>
+    
+    <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
+    
     <script src="/js/aos.js"></script>
+    <script src="/js/detailPost.js"></script>
     <script>
+    var sessionMember = {
+            "nickname" : '${sessionScope.loginUser.nickname}',
+            "profileImage" : '${sessionScope.loginUser.profileImage}',
+            "mno" : '${sessionScope.loginUser.mno}'
+    };
+    
+    
+    
     AOS.init();
+    
     
         var lastnoMap = new Map();
         lastnoMap.set('mp', '${mplastno}');
@@ -279,6 +292,7 @@
            return [year, month, day].join('-');
        }
        
+       var postList=[];
        function getPostForDetail(pstno,element){
            $.ajax({
                url : "/app/log/getPost",
@@ -290,15 +304,16 @@
                    "pstno" : parseInt(pstno)
                }),
                success : function(data) {
-                   
-                   var postList = data;
+                   postList.push(data);
+                   console.log(postList);
+                  
                    var html = '<p class="d-none" id="reviewCont-';
                    html += data.pstno;
                    html += '"></p>';
                    
                    $(element).append(html);
                  showCont(data.content,data.pstno); 
-                    /* openDetailModal(data.pstno);  */
+                 openDetailModal(data.pstno);  
                }
            }); 
        }
