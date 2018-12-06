@@ -1,54 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- 앨범 상세 -->
 <section class="col-lg-12">
-	<div class="row detailList col-lg-12 p-0">
-		<div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
-			<span class="titl">${sceneAlbum.lbmTitle}</span>
-			<c:if test="${isMyAlbum == true}">
-				<div class="a_btn btn btn-success btn-lg mr-2"
-					onclick="editButton(${sceneAlbum.lbmno}, '${sceneAlbum.lbmTitle}', ${sceneAlbum.open})" <%-- data-lbmno="${sceneAlbum.lbmno}"
-					data-lbm-title="${sceneAlbum.lbmTitle}"
-					data-open="${sceneAlbum.open}" --%>>수정하기</div>
-				<input type="hidden" data-toggle="modal" id="mgrAlbum"
-					data-target="#mgrModal" />
-			</c:if>
-		</div>
-		<!-- 앨범 목록 -->
-		<div class="row col-lg-12" style="margin: 0 auto;">
-			<!-- 장면 -->
-			<c:if test="${empty sceneReview}">
-				<span class="sr_empty">보관된 장면이 없습니다.</span>
-			</c:if>
-			<c:forEach var="sceneReview" items="${sceneReview}"
-				varStatus="status">
-				<div class="col-4 scene">
-					<a
-						href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
-						<img class="card-img-top hot-sr-img"
-						src="/upload/sceneReview/${sceneReview.photo}"
-						alt="Card image cap">
-					</a>
-				</div>
+    <div class="row detailList col-lg-12 p-0">
+        <div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
+            <span class="titl">${sceneAlbum.lbmTitle}</span>
+            <c:if test="${isMyAlbum == true}">
+                <div class="a_btn btn btn-success btn-lg mr-2"
+                    onclick="editButton(${sceneAlbum.lbmno}, '${sceneAlbum.lbmTitle}', ${sceneAlbum.open})" <%-- data-lbmno="${sceneAlbum.lbmno}"
+                    data-lbm-title="${sceneAlbum.lbmTitle}"
+                    data-open="${sceneAlbum.open}" --%>>수정하기</div>
+                <input type="hidden" data-toggle="modal" id="mgrAlbum"
+                    data-target="#mgrModal" />
+            </c:if>
+        </div>
+        <!-- 앨범 목록 -->
+        <div class="row col-lg-12" style="margin: 0 auto;">
+            <!-- 장면 -->
+            <c:if test="${empty sceneReview}">
+                <span class="sr_empty">보관된 장면이 없습니다.</span>
+            </c:if>
+            <c:forEach var="sceneReview" items="${sceneReview}"
+                varStatus="status">
+                <div class="col-4 scene">
+                    <a
+                        href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
+                        <img class="card-img-top hot-sr-img"
+                        src="/upload/sceneReview/${sceneReview.photo}"
+                        alt="Card image cap">
+                    </a>
+                    <div class="card-body">
+                        <div class="card-title overflow">
+                            <b><span>${sceneReview.title}</span></b>
+                           
+                        </div>
+                        <span class="sceneTime">(${sceneReview.time})</span>
+                    </div>
+                </div>
 
-			</c:forEach>
-		</div>
+            </c:forEach>
+        </div>
 
-	</div>
-	<jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
-	<jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
+    </div>
+    <jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
+    <jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
 </section>
 
 <script>
-		// 모달 종료시 reload
-	    $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
-	        location.reload();
-	        $('#mgrModal').show();
-	    });
-		
+        // 모달 종료시 reload
+        $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
+            location.reload();
+            $('#mgrModal').show();
+        });
+        
         // 모달 상단에 앨범명 수정 위한 마우스 오버 이벤트 
         $(document.body).on('mouseover', '.title_box', function() {
             $('.title_edit').css('visibility', 'visible');
