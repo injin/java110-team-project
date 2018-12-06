@@ -32,6 +32,7 @@
                     <p class="card-text">${targetUser.pr}</p>
                   </div>
                 </div>
+                <button class="btn btn-primary float-right" onclick="addFollow(${targetUser.mno})" >팔로우</button>
             </aside>
             <div class="col-9 borderGray p-0" id="mypage-right">
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
@@ -74,9 +75,43 @@
                 </div>
             </div>
         </div>
-
     </main>
 
+    <form action="flwadd"></form>
+
+
     <jsp:include page="footer.jsp"></jsp:include>
+    
+   <script>
+   function addFollow(mno) {
+       
+       $.ajax({
+           url : "/app/follow/flwadd",
+           type: "post",
+           data : {
+               "flwMno" : mno
+           },
+           success : function(data) {
+               if (data == true) {
+                 alert('팔로우 되었습니다.');
+                 
+               } else {
+                 alert('문제가 발생하였습니다.')
+               }
+               
+           },
+           error: (xhr, status, msg) => {
+               console.log(xhr);
+               console.log(status);
+               console.log(msg);
+           }
+       });
+   }
+    
+    
+     
+   </script>
+    
+    
 </body>
 </html>

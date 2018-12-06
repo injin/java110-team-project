@@ -40,18 +40,15 @@ public class FlwController {
 
  
     @RequestMapping("flwadd")
-    public void addFlw(int flw, HttpSession session) {
+    public boolean addFlw(int flwMno, HttpSession session) {
         
-        Member member = (Member) session.getAttribute("loginUser");
-        
-        int mno = member.getMno();
+        int mno = ((Member) session.getAttribute("loginUser")).getMno();
         
         Map<String,Object> condition =  new HashMap<>();
         condition.put("mno", mno);
-        condition.put("flw", flw);
-        
-        
-        flwService.add(condition);
+        condition.put("flw", flwMno);
+      
+        return flwService.add(condition);
     }
     
    @RequestMapping("flwdelete")

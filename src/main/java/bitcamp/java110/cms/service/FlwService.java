@@ -11,5 +11,5 @@ public interface FlwService {
   List<Member> listAll(int mno);
   int getTotalCnt(int mno);
   void delete(Map<String,Object> condition);
-  void add(Map<String,Object> condition);
+  boolean add(Map<String,Object> condition);
 }

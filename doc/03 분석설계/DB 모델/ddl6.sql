@@ -353,7 +353,8 @@ CREATE TABLE mv_rpt (
     cont  TEXT         NOT NULL COMMENT '신고내용', -- 신고내용
     url   VARCHAR(255) NOT NULL COMMENT 'URL', -- URL
     hndl  CHAR(1)      NULL     COMMENT '처리여부', -- 처리여부
-    cdt   DATETIME     NOT NULL COMMENT '신고일자' -- 신고일자
+    cdt   DATETIME     NOT NULL COMMENT '신고일자', -- 신고일자
+    hcont TEXT         NULL     COMMENT '처리내용' -- 처리내용
 )
 COMMENT '신고';
 
