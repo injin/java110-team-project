@@ -81,7 +81,7 @@
 						<input type="hidden" id="star" name="star" value="0" />
 						<div class='starrr onlyMovie photo-star-section' id="showStar"></div>
 						
-						<div id="temp"></div>
+						<div id="temp" ></div>
 <%-- ====================================== 사진list ============================================= --%>
 						<ul id="media-list" class="clearfix">
 							<li class="myupload "><span><i class="fa fa-plus"

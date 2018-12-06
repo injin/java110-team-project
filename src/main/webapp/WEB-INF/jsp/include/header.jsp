@@ -4,7 +4,7 @@
     trimDirectiveWhitespaces="true"%>
 <%@ include file="top.jsp" %>
 <header>
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="<c:url value='/app/'/>">Home</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,9 +30,11 @@
                     ${loginUser.nickname}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <!-- <a class="dropdown-item" href="#">메뉴1</a> -->
                   <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 피드</a>
                   <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a>
+                  <c:if test="${sessionScope.loginUser.admin == true}">
+                      <a class="dropdown-item" href="#">관리메뉴</a>
+                  </c:if>
                 </div>
               </li>
             </c:when>
