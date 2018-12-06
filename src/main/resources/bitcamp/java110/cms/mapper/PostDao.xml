@@ -128,22 +128,26 @@ limit 15
 
         <select id="findByKeyword" parameterType="String" resultMap="postMap2">
        select 
+            m.mno,
             p.cont,
-            pt.pstno,
+            p.cdt,
+            p.pstno,
             p.mvno,
             p.ptno,
             mv.titl,
             p.star,
-            0 as likes,
+            if(isnull(lk.pstno), false, true) as likes,
             (p.opn ='u') opn,
             m.nick,
             m.p_phot
        from 
-            mv_post p
-            inner join mv_post_tag pt on p.pstno = pt.pstno 
+            mv_post p 
             inner join mv_memb m on m.mno = p.mno
             inner join mv_mv mv on mv.mvno = p.mvno
-       where pt.cont like concat('%',#{keyword},'%')
+            left join (
+            select pstno from mv_like where (type = 'mp' or type = 'dp')
+          ) lk on lk.pstno = p.pstno
+       where p.cont like concat('%#',#{keyword},'%')
        order by
           cdt desc;    
  

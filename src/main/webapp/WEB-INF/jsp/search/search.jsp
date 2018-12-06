@@ -13,39 +13,42 @@
 <link rel='stylesheet' href='/css/fontawesome.css'>
 <link rel='stylesheet' href='/css/card.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
+<link rel='stylesheet' href='/css/writingPost.css'>
+<link rel='stylesheet' href='/css/detailPost.css'>
+<script src="/js/makeContPost.js"></script>
 <style>
-.wPost {
-    background: white;
-    padding: 1rem 1rem 0 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0.5rem;
+.gPost {
+	background: white;
+	padding: 1rem 1rem 0 1rem;
+	border-radius: 0.5rem;
+	box-shadow: 7px 7px 30px -5px rgba(0, 0, 0, 0.1);
+	margin-bottom: 0.5rem;
 }
 
 .btmIcon {
-    padding: 0 0.4rem 1rem 1rem;
-    font-size: 1.3rem;
-    vertical-align: sub;
+	padding: 0 0.4rem 1rem 1rem;
+	font-size: 1.3rem;
+	vertical-align: sub;
 }
 
 .reviewCont {
-    height: 13rem;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: pre-line;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: pre-line;
+	height: 13rem;
+	-ms-text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	white-space: pre-line;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: pre-line;
 }
 
 .mauto {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .sStar {
-    font-size: 1.5rem;
-    color: #FFD119;
+	font-size: 1.5rem;
+	color: #FFD119;
 }
 </style>
 <script
@@ -56,16 +59,15 @@
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
 	<main role="main" class="container" style="margin: 0 auto;"> <jsp:include
-		page="searchResult.jsp"></jsp:include>
-        
-        <a class="return-top" href="#" >
-        <img src="/img/top-btn.png"  width="50" height="50"></a>
-    </main>
+		page="searchResult.jsp" /> <a class="return-top" href="#"> <img
+		src="/img/top-btn.png" width="50" height="50"></a> </main>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="/js/writingPost.js"></script>
+	<script src="/js/detailPost.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/common.js"></script>
 	<script type="text/javascript">
@@ -80,6 +82,45 @@
         var tagFooter = document.getElementById('showAllTags');
         var frame;
         
+        /* 게시물 해시태그부분 */
+        var sessionMember = {
+                "nickname" : '${sessionScope.loginUser.nickname}',
+                "profileImage" : '${sessionScope.loginUser.profileImage}',
+                "mno" : '${sessionScope.loginUser.mno}'
+        };
+        
+        var postList = []; 
+        
+        <c:forEach items="${hashList}" var="post">
+        
+        var pary =[];
+            <c:forEach items="${post.photos}" var="pht">
+            pary.push('${pht}');
+            </c:forEach>
+            var fary =[];    
+            <c:forEach items="${post.ftags}" var="ft">
+            fary.push('${ft.nickname}');
+            </c:forEach>
+            
+             postList.push({
+                "pstno": '${post.pstno}',
+                "title": '${post.title}',
+                member:{
+                    "profileImagePath": '${post.member.profileImagePath}',
+                    "nickname":'${post.member.nickname}',    
+                },
+                "star":'${post.star}',
+                "photos":pary,
+                "ftags":fary,
+                "likeCheck":'${post.likeCheck}',
+                "pstTypeNo":'${post.pstTypeNo}',
+                "createdDate":'${post.createdDate}',
+                "likeCnt":'${post.likeCnt}'
+            }) 
+            
+        </c:forEach> 
+         
+        /* 더보기버튼 */
         function showMore(input, type) {
             
             console.log(input);
