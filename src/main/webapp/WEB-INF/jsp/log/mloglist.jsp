@@ -24,12 +24,13 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                        ${log.indirect} 에 대한 <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 작성했습니다
+                        ${log.indirect} 에 대한 <span onclick="getPostForDetail(${log.url},this)" class="c-pointer text-primary">영화 리뷰</span>를 작성했습니다
                         
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                        ${log.indirect} 에 대한  <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 좋아합니다
+                        ${log.indirect} 에 대한  <span onclick="getPostForDetail(${log.url},this)" class="c-pointer text-primary">영화 리뷰</span>를 좋아합니다
                     </c:if>
+                    <span class="d-none"></span>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
             </li>
@@ -47,11 +48,12 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                          <span onclick="getPostForDetail(${log.url},this)">일상 리뷰</span>를 작성했습니다
+                          <span onclick="getPostForDetail(${log.url},this)" class="c-pointer text-primary">일상 리뷰</span>를 작성했습니다
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                          <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 좋아합니다
+                          <span onclick="getPostForDetail(${log.url},this)" class="c-pointer text-primary">일상 리뷰</span>를 좋아합니다
                     </c:if>
+                    <span class="d-none"></span>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
             </li>
@@ -312,6 +314,7 @@
                    html += '"></p>';
                    
                    $(element).append(html);
+                   $(element).next().html(html);
                  showCont(data.content,data.pstno); 
                  openDetailModal(data.pstno);  
                }
