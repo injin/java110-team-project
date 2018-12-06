@@ -69,10 +69,10 @@ public class MainController {
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
-    
+        
     // 해쉬태그
     List<Post> hashList = postService.keywordPosts(keyword);
-    
+    System.out.println(hashList);
     // 영화 찾기
     MovieResultsPage response = tmdbSearch.searchMovie(
         keyword

@@ -65,7 +65,7 @@
     <select id="findByNick" parameterType="String" resultType="hashmap">
       select mno, nick, p_phot
       from mv_memb
-      where nick like concat('%',#{keyword},'%');
+      where nick like concat('%',#{keyword},'%') and upper(nick) !=upper('unknown');
     </select>
     
     <update id="signOut2" parameterType="int">

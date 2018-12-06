@@ -9,7 +9,8 @@
 }
 .detailList .scene{
 	width: 14.5rem;
-	height: 9.5rem;
+	height: 16rem;
+	/* height: 9.5rem; */
 	margin-bottom: 1rem;
 	float: left;
 }
@@ -21,10 +22,25 @@
 .titl{
 	font-weight: bold;
     font-size: 1.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid #00cc99;
 }
 .scene img{
     width: 14.5rem;
     height: 9.5rem;
+}
+.card-body{
+	height: 5rem;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0 0 0.7rem 0.7rem;
+}
+.card-body .overflow{
+	width: 12rem;
+}
+.sceneTime{
+	color: #9e9494;
 }
 /* 페이징 */
 .paginate{

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <section>
 	<div class="container">
@@ -175,6 +176,8 @@
 			</c:if>
 			<!-- 영화 -->
 
+
+
 			<!-- 해시태그 -->
 			<c:if test="${fn:length(hashList) > 0}">
 				<div class="col-lg-12 mbr-col-md-12 resultTag">
@@ -187,32 +190,120 @@
 					</div>
 
 
-					<!-- 해시태그 목록 -->
-					<%-- 
-					<c:forEach items="${hashList}" var="list" varStatus="status"
-                        begin="0" end="${fn:length(hashList)}">
+					<%-- 포스터 보이는 부분 --%>
 
-                        <div class="">
-                            <div class="wrap tag">
-                                <div class="ico-wrap">
-                                    <p>${list.pstno}
-                                </div>
-                                <div class="text-wrap vcenter">
-                                    <p class=" mbr-text display-6">
-                                        <b>${list.cont}</b>
-                                    </p>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach> --%>
-					
-					
-					<!-- 포스터 보이는 부분 -->
 					<c:forEach items="${hashList}" var="post" varStatus="status"
-					begin="0" end="${fn:length(hashList)}">
+						begin="0" end="${fn:length(hashList)}">
 						<c:if test="${post.open}">
-							<div class="wPost ${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
+							<div
+								class="gPost ${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
+								<div class="media row pr-3 pl-3">
+									<img class="rprofileImg" src="${post.member.profileImagePath}" />
+									<div class="media-body">
+										<ul class="memberul"><!-- class="memberul" -->
+											<li><span onclick="goToFeed(${post.member.mno})"
+												class="text-dark c-pointer">${post.member.nickname}</span></li>
+											<c:if test="${not empty post.ftags}">
+											<li>
+													<c:forEach items="${post.ftags}" var="ftag">
+														<span <%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName c-pointer"> ${ftag.nickname} </span>
+													</c:forEach>
+												</li></c:if>
+										</ul>
+										<span class="cmt-date">&nbsp;<fmt:formatDate
+                                        pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+										<c:if test="${post.pstTypeNo ==0}">
+											<p class="dptitle">
+												<b><i>${post.title}</i></b>
+											</p>
+										</c:if>
+									</div>
+								</div>
+
+
+								<%-- 내용보여주는부분 --%>
+								<div class="clearfix media row m-1">
+									<div class="media-body">
+										<p class="reviewCont" id="reviewCont-${post.pstno}">
+											<script>
+                                        showCont("${post.content}",
+                                                "${post.pstno}");
+                                    </script>
+										</p>
+									</div>
+									<c:if test="${post.photos[0] !=null}">
+
+										<%-- 이미지 클릭시 상세모달로 --%>
+										<img onclick="openDetailModal(${post.pstno})"
+											src="/upload/post/${post.photos[0]}"
+											data-title="${post.title}" class="pstImgtoDetail" />
+										<input type="hidden" data-toggle="modal" id="detailPst"
+											data-target="#detailModal" />
+
+									</c:if>
+								</div>
+
+
+								<div class="row">
+
+									<%-- 좋아요 --%>
+									<div class="col-6 text-left">
+										<i
+											class="fas fa-thumbs-up btmIcon c-pointer likeColor 
+                                    <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+                                    <c:if test="${!post.likeCheck}"> dis-none</c:if>"
+											id="btn-like-full-${post.pstno}"
+											onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
+											class="far fa-thumbs-up btmIcon c-pointer likeColor 
+                                    <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+                                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
+											id="btn-like-empty-${post.pstno}"
+											onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
+											id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
+											class="far fa-comment btmIcon c-pointer"
+											onclick="showMore(this,${post.pstno})"></i> <span
+											id="cCnt-${post.pstno}">${post.cmtCnt}</span>
+									</div>
+
+									<%-- 별점 --%>
+									<c:if test="${post.pstTypeNo ==0}">
+										<div class='col-6 text-right'>
+											<c:if test="${0 ne post.star}">
+												<c:forEach begin="1" end="5" var="x">
+													<c:choose>
+														<c:when test="${x le post.star}">
+															<i class="fas fa-star sStar"></i>
+														</c:when>
+														<c:otherwise>
+															<i class="far fa-star sStar"></i>
+														</c:otherwise>
+													</c:choose>
+												</c:forEach>
+											</c:if>
+										</div>
+									</c:if>
+
+								</div>
+
+
+
+
+							</div>
+						</c:if>
+					</c:forEach>
+
+
+
+
+
+					<!-- 해시태그 목록 -->
+		
+					<!-- 포스터 보이는 부분 -->
+					<%-- 				<c:forEach items="${hashList}" var="post" varStatus="status"
+						begin="0" end="${fn:length(hashList)}">
+						<c:if test="${post.open}">
+							<div
+								class="wPost ${status.index>=3 ? 'tagFrame showType' : 'tagFrame'}">
 								<div class="media row" style="padding: 0 1rem">
 									<img src="${post.member.profileImagePath}"
 										style="width: 2.5rem; height: 2.5rem; border-radius: 50%; margin-right: 0.5rem;" />
@@ -265,9 +356,11 @@
 								</div>
 							</div>
 						</c:if>
-					</c:forEach>
+					</c:forEach> --%>
+
 					<!-- 태그 게시물 목록 -->
 
+					<!-- 더보기 -->
 					<c:if test="${fn:length(hashList) > 3}">
 						<c:set var="type" value="tg" />
 						<div class="wrap search_footer" id="showAllTags"
