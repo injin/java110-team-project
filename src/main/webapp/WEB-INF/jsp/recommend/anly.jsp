@@ -15,11 +15,12 @@
 </head>
 <body class="borderGray bgGray" style="background-color: dimgray;">
     <jsp:include page="../include/header.jsp"></jsp:include>
-    <main role="main" class="container borderGray"> <c:choose>
+    <main role="main" class="container borderGray">
+      <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
             <h1 class="mt-2">${sessionScope.loginUser.nickname}님의 취향 분석 중</h1>
         </c:when>
-    </c:choose>
+      </c:choose>
     <hr>
     <section>
         <div class="spinner"></div>
@@ -29,7 +30,7 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script>
         window.onload = function(){
-        	window.location.href = 'list';
+          window.location.href = 'list';
         }
     </script>
 </body>

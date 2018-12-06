@@ -46,7 +46,7 @@ Movie Around The World
               <a href="#!">장면 앨범</a>
             </li>
             <li>
-              <a href="/reviewFeed/list">전체 피드</a>
+              <a href="/app/reviewFeed/list">전체 피드</a>
             </li>
             <li>
               <a href="#!">나의 피드</a>

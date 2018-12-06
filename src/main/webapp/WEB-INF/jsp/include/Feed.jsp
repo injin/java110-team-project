@@ -271,11 +271,11 @@
         
         var pary =[];
             <c:forEach items="${post.photos}" var="pht">
-            pary.push('${pht}');
+              pary.push('${pht}');
             </c:forEach>
             var fary =[];    
             <c:forEach items="${post.ftags}" var="ft">
-            fary.push('${ft.nickname}');
+              fary.push('${ft.nickname}');
             </c:forEach>
             
              postList.push({

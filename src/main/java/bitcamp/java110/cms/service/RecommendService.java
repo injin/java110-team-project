@@ -9,4 +9,5 @@ public interface RecommendService {
   MovieDb getMvById(int mvno);
   int[] RandomNums(int root, int range);
   int getCount();
+  void getAnly(int mno);
 }

@@ -83,7 +83,7 @@ function openEditingModal(pstno, type) {
       e.preventDefault();
       return;
     }
-    if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
+    if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")) {
       alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
       e.preventDefault();
       return;
