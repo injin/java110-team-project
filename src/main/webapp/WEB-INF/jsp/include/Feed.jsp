@@ -294,17 +294,10 @@
                 "likeCnt":'${post.likeCnt}',
                 "open" : ${post.open},
                 "mvno" : ${post.mvno}
-                <%-- "content":'${post.content}' --%>
-                
             }) 
             
         </c:forEach> 
             
-/*          var lstpstno = '${lastpstno}';
-         
-         $('.starrrrrr').starrr() {
-        	 rating:3;
-         } */
   </script>
 <%-- ========================================================================================== --%>
   <script src="/js/jquery-ui.js"></script>

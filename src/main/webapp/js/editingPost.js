@@ -62,7 +62,11 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #temp').attr('id', 'showStar');
   $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section');
   
-  
+  if (postList[index].photos.length != 0){
+    console.log("사진있다");
+    
+    
+  }
   
   
   
