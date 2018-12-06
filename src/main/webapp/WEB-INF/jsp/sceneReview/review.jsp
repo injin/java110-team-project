@@ -153,11 +153,12 @@
                                 <span <c:if test="${cmt.member.mno != 21}">class="c-pointer" onclick="goToFeed(${cmt.member.mno})"</c:if>>${cmt.member.nickname}</span>&nbsp;
                                 <span class="cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${cmt.createdDate}" /></span>
                                 <c:if test="${cmt.member.mno eq sessionScope.loginUser.mno}">
-                                    &nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this)"></i>
-                                    &nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(${cmt.cmno})"></i>
+                                    &nbsp;<i class="far fa-edit c-pointer" id="cmt-edit-btn-${cmt.cmno}" onclick="showEditForm(${cmt.cmno})"></i>
+                                    &nbsp;<i class="fas fa-times c-pointer" id="cmt-del-btn-${cmt.cmno}" onclick="deleteComment(${cmt.cmno})"></i>
                                 </c:if>
                             </span><br>
-                            <div class="break-all cmt-cont" data-cont="${cmt.cont}" data-cmno="${cmt.cmno}">${cmt.cont}</div>
+                            <div id="cmt-edit-${cmt.cmno}" data-cont="${cmt.cont}" data-cmno="${cmt.cmno}"></div>
+                            <div class="break-all cmt-cont" id="cmt-show-${cmt.cmno}" >${cmt.cont}</div>
                             
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
@@ -260,7 +261,6 @@
     $('.cmt-cont').linkify({
         target: "_blank"
     });
-    
     
     /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
@@ -432,18 +432,38 @@
         $('#deleteCommentForm').submit();
     }
     
-    function showEditForm(obj) {
+    function showEditForm(cmno) {
         
-        $(obj).hide();
-        var $divCont = $(obj).parent().next().next();
-        var cmno = $divCont.data('cmno');
-        var contStr = $divCont.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+        var $editBtn = $('#cmt-edit-btn-' + cmno);
+        var $delBtn = $('#cmt-del-btn-' + cmno);
+        var $editDiv = $('#cmt-edit-' + cmno);
+        var $showDiv = $('#cmt-show-' + cmno);
+        $editBtn.hide();
+        $delBtn.hide();
+        $showDiv.hide();
+        
+        var cmno = $editDiv.data('cmno');
+        var contStr = $editDiv.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
         var editHtml = '<div class="card p-2"><div class="media"><div class="media-body">';
             editHtml += '<textarea class="form-control" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
-            editHtml += '<button type="button" class="btn btn-dark mt-2 float-right" onclick="editComment(' + cmno + ')">';
+            editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="closeEditForm(' + cmno + ')">';
+            editHtml += '<i class="fas fa-window-close"></i> 취소</button>';
+            editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="editComment(' + cmno + ')">';
             editHtml += '<i class="fas fa-paper-plane"></i> 수정</button>';
             editHtml += '</div></div></div>';
-        $divCont.html(editHtml);
+        $editDiv.html(editHtml).show();
+    }
+    
+    function closeEditForm(cmno) {
+        var $editBtn = $('#cmt-edit-btn-' + cmno);
+        var $delBtn = $('#cmt-del-btn-' + cmno);
+        var $editDiv = $('#cmt-edit-' + cmno);
+        var $showDiv = $('#cmt-show-' + cmno);
+        
+        $editBtn.show();
+        $delBtn.show();
+        $showDiv.show();
+        $editDiv.html('').hide();
     }
     
     function editComment(cmno) {
@@ -525,7 +545,6 @@
     <c:if test="${not empty loginUser && sceneReview.trgtSrExist == true}">
         google.maps.event.addDomListener(window, 'load', initialize);
     </c:if>
-    
     
     /* ========== 앨범 관련  ========== */
     function addToSrlAlbum(lbmno) {
