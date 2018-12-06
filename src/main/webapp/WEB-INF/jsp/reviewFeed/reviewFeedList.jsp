@@ -125,9 +125,6 @@
                                     </div>
                                     </c:if>
                                 </div>    
-                                    <%-- <div class="carousel-caption">
-                                    <span>${fn:length(post.photos)}+</span>
-                                    </div> --%>
                             </c:if>
                         </div>
 
@@ -138,12 +135,12 @@
                                 <i
                                     class="fas fa-thumbs-up btmIcon c-pointer likeColor 
                                     <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
-                                    <c:if test="${!post.likeCheck}"> dis-none</c:if>"
+                                    <c:if test="${!post.likeCheck}"> d-none</c:if>"
                                     id="btn-like-full-${post.pstno}"
                                     onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
                                     class="far fa-thumbs-up btmIcon c-pointer likeColor 
                                     <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
-                                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
+                                    <c:if test="${post.likeCheck}"> d-none</c:if>"
                                     id="btn-like-empty-${post.pstno}"
                                     onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
                                     id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
@@ -229,9 +226,9 @@
     <script src="/js/starrr.js"></script>
     <script src="/js/bootstrap-tagsinput.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
+    <script src="/js/showPosts.js"></script>
     <script src="/js/writingPost.js"></script>
     <script src="/js/detailPost.js"></script>
-    <script src="/js/showPosts.js"></script>
     <script>
         var sessionMember = {
                 "nickname" : '${sessionScope.loginUser.nickname}',

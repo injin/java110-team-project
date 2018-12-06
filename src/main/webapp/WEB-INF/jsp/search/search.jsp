@@ -62,102 +62,97 @@
 		page="searchResult.jsp" /> <a class="return-top" href="#"> <img
 		src="/img/top-btn.png" width="50" height="50"></a> </main>
 
+	<jsp:include page="../reviewFeed/detailPost.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="/js/showPosts.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/common.js"></script>
-	<script src="/js/showPosts.js"></script>
 	<script type="text/javascript">
-	
         //console.log('${movieList}');
 
         // 페이지가 1개뿐일 경우 =>처리해줘야함
-        
+
         var totalCount = 0;
         var movieFooter = document.getElementById('showAllMovies');
         var memberFooter = document.getElementById('showAllMembers');
         var tagFooter = document.getElementById('showAllTags');
         var frame;
-        
+
         /* 게시물 해시태그부분 */
         var sessionMember = {
-                "nickname" : '${sessionScope.loginUser.nickname}',
-                "profileImage" : '${sessionScope.loginUser.profileImage}',
-                "mno" : '${sessionScope.loginUser.mno}'
+            "nickname" : '${sessionScope.loginUser.nickname}',
+            "profileImage" : '${sessionScope.loginUser.profileImage}',
+            "mno" : '${sessionScope.loginUser.mno}'
         };
-        
-        var postList = []; 
-        
+
+        var postList = [];
+
         <c:forEach items="${hashList}" var="post">
-        
-        var pary =[];
-            <c:forEach items="${post.photos}" var="pht">
-            pary.push('${pht}');
-            </c:forEach>
-            var fary =[];    
-            <c:forEach items="${post.ftags}" var="ft">
-            fary.push('${ft.nickname}');
-            </c:forEach>
-            
-             postList.push({
-                "pstno": '${post.pstno}',
-                "title": '${post.title}',
-                member:{
-                    "profileImagePath": '${post.member.profileImagePath}',
-                    "nickname":'${post.member.nickname}',    
-                },
-                "star":'${post.star}',
-                "photos":pary,
-                "ftags":fary,
-                "likeCheck":'${post.likeCheck}',
-                "pstTypeNo":'${post.pstTypeNo}',
-                "createdDate":'${post.createdDate}',
-                "likeCnt":'${post.likeCnt}'
-            }) 
-            
-        </c:forEach> 
-         
+
+        var pary = [];
+        <c:forEach items="${post.photos}" var="pht">
+        pary.push('${pht}');
+        </c:forEach>
+        var fary = [];
+        <c:forEach items="${post.ftags}" var="ft">
+        fary.push('${ft.nickname}');
+        </c:forEach>
+
+        postList.push({
+            "pstno" : '${post.pstno}',
+            "title" : '${post.title}',
+            member : {
+                "profileImagePath" : '${post.member.profileImagePath}',
+                "nickname" : '${post.member.nickname}',
+            },
+            "star" : '${post.star}',
+            "photos" : pary,
+            "ftags" : fary,
+            "likeCheck" : '${post.likeCheck}',
+            "pstTypeNo" : '${post.pstTypeNo}',
+            "createdDate" : '${post.createdDate}',
+            "likeCnt" : '${post.likeCnt}'
+        })
+
+        </c:forEach>
+
         /* 더보기버튼 */
-        function showMore(input, type) {
-            
-            console.log(input);
-            if(input>20){
+        function showMoreInSearchResult(input, type) {
+
+            if (input > 20) {
                 totalCount = 20;
-            }else{
+            } else {
                 totalCount = input;
             }
-            console.log(type)
-            
-            if(type == 'mv'){
-             for (var i = 3; i < totalCount; i++) {
-                frame = document.getElementsByClassName('movieFrame')[i];
-                frame.style.display="block";
-            } 
-             
-             movieFooter.style.visibility = "hidden";
-            
-            }else if(type == 'mb'){
+
+            if (type == 'mv') {
+                for (var i = 3; i < totalCount; i++) {
+                    frame = document.getElementsByClassName('movieFrame')[i];
+                    frame.style.display = "block";
+                }
+
+                movieFooter.style.visibility = "hidden";
+
+            } else if (type == 'mb') {
                 for (var i = 3; i < totalCount; i++) {
                     frame = document.getElementsByClassName('memberFrame')[i];
-                    frame.style.display="block";
-                } 
-                 
-                 memberFooter.style.visibility = "hidden";
-            }else if(type == 'tg'){
+                    frame.style.display = "block";
+                }
+
+                memberFooter.style.visibility = "hidden";
+            } else if (type == 'tg') {
                 for (var i = 3; i < totalCount; i++) {
                     frame = document.getElementsByClassName('tagFrame')[i];
-                    frame.style.display="block";
-                } 
-                 
-                 tagFooter.style.visibility = "hidden";
+                    frame.style.display = "block";
+                }
+
+                tagFooter.style.visibility = "hidden";
             }
-            
-            
         }
- 
     </script>
 </body>
 </html>

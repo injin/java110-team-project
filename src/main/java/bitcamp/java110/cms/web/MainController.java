@@ -1,6 +1,8 @@
 package bitcamp.java110.cms.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,7 @@ public class MainController {
   @RequestMapping("/searchResult")
   public String searchResult(
       String keyword,
+      HttpSession session,
       Model model) throws Exception{
 
     
@@ -71,8 +74,14 @@ public class MainController {
     List<Member> memberList = memberService.findByNick(keyword);
         
     // 해쉬태그
-    List<Post> hashList = postService.keywordPosts(keyword);
-    System.out.println(hashList);
+    Member member = ((Member)session.getAttribute("loginUser"));
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", (member==null)?0:member.getMno());
+    params.put("prevpstno", "forKeyword");
+    params.put("keyword", keyword);
+
+    List<Post> hashList = postService.getPosts(params);
+    
     // 영화 찾기
     MovieResultsPage response = tmdbSearch.searchMovie(
         keyword

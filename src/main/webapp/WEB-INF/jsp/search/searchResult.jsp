@@ -83,7 +83,7 @@
 					<c:if test="${fn:length(memberList) > 3}">
 						<c:set var="type" value="mb" />
 						<div class="wrap search_footer" id="showAllMembers"
-							onclick="showMore(${fn:length(memberList)}, '${type}')">
+							onclick="showMoreInSearchResult(${fn:length(memberList)}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>
@@ -166,7 +166,7 @@
 					<c:if test="${totalResults > 3}">
 						<c:set var="type" value="mv" />
 						<div class="wrap search_footer" id="showAllMovies"
-							onclick="showMore(${totalResults}, '${type}')">
+							onclick="showMoreInSearchResult(${totalResults}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>
@@ -191,7 +191,6 @@
 
 
 					<%-- 포스터 보이는 부분 --%>
-
 					<c:forEach items="${hashList}" var="post" varStatus="status"
 						begin="0" end="${fn:length(hashList)}">
 						<c:if test="${post.open}">
@@ -200,18 +199,19 @@
 								<div class="media row pr-3 pl-3">
 									<img class="rprofileImg" src="${post.member.profileImagePath}" />
 									<div class="media-body">
-										<ul class="memberul"><!-- class="memberul" -->
+										<ul class="memberul">
 											<li><span onclick="goToFeed(${post.member.mno})"
 												class="text-dark c-pointer">${post.member.nickname}</span></li>
 											<c:if test="${not empty post.ftags}">
-											<li>
-													<c:forEach items="${post.ftags}" var="ftag">
-														<span <%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName c-pointer"> ${ftag.nickname} </span>
-													</c:forEach>
-												</li></c:if>
+												<li><c:forEach items="${post.ftags}" var="ftag">
+														<span
+															<%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName c-pointer">
+															${ftag.nickname} </span>
+													</c:forEach></li>
+											</c:if>
 										</ul>
 										<span class="cmt-date">&nbsp;<fmt:formatDate
-                                        pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+												pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
 										<c:if test="${post.pstTypeNo ==0}">
 											<p class="dptitle">
 												<b><i>${post.title}</i></b>
@@ -232,14 +232,20 @@
 										</p>
 									</div>
 									<c:if test="${post.photos[0] !=null}">
-
-										<%-- 이미지 클릭시 상세모달로 --%>
-										<img onclick="openDetailModal(${post.pstno})"
-											src="/upload/post/${post.photos[0]}"
-											data-title="${post.title}" class="pstImgtoDetail" />
-										<input type="hidden" data-toggle="modal" id="detailPst"
-											data-target="#detailModal" />
-
+									 <%-- 이미지 클릭시 상세모달로 --%>
+										<div class="image">
+											<img onclick="openDetailModal(${post.pstno})"
+												src="/upload/post/${post.photos[0]}"
+												data-title="${post.title}"
+												class="pstImgtoDetail img-responsive" /> <input
+												type="hidden" data-toggle="modal" id="detailPst"
+												data-target="#detailModal" />
+											<c:if test="${fn:length(post.photos)>1}">
+												<div class="text">
+													<p>${fn:length(post.photos)-1}장+</p>
+												</div>
+											</c:if>
+										</div>
 									</c:if>
 								</div>
 
@@ -248,22 +254,21 @@
 
 									<%-- 좋아요 --%>
 									<div class="col-6 text-left">
-										<i
-											class="fas fa-thumbs-up btmIcon c-pointer likeColor 
+                                <i
+                                    class="fas fa-thumbs-up btmIcon c-pointer likeColor 
                                     <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
                                     <c:if test="${!post.likeCheck}"> dis-none</c:if>"
-											id="btn-like-full-${post.pstno}"
-											onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
-											class="far fa-thumbs-up btmIcon c-pointer likeColor 
+                                    id="btn-like-full-${post.pstno}"
+                                    onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
+                                    class="far fa-thumbs-up btmIcon c-pointer likeColor 
                                     <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
                                     <c:if test="${post.likeCheck}"> dis-none</c:if>"
-											id="btn-like-empty-${post.pstno}"
-											onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
-											id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
-											class="far fa-comment btmIcon c-pointer"
-											onclick="showMore(this,${post.pstno})"></i> <span
-											id="cCnt-${post.pstno}">${post.cmtCnt}</span>
-									</div>
+                                    id="btn-like-empty-${post.pstno}"
+                                    onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
+                                    id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
+                                    class="far fa-comment btmIcon c-pointer" onclick="showMore(this,${post.pstno})"></i>
+                                <span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
+                            </div>
 
 									<%-- 별점 --%>
 									<c:if test="${post.pstTypeNo ==0}">
@@ -285,9 +290,6 @@
 
 								</div>
 
-
-
-
 							</div>
 						</c:if>
 					</c:forEach>
@@ -297,7 +299,7 @@
 
 
 					<!-- 해시태그 목록 -->
-		
+
 					<!-- 포스터 보이는 부분 -->
 					<%-- 				<c:forEach items="${hashList}" var="post" varStatus="status"
 						begin="0" end="${fn:length(hashList)}">
@@ -364,7 +366,7 @@
 					<c:if test="${fn:length(hashList) > 3}">
 						<c:set var="type" value="tg" />
 						<div class="wrap search_footer" id="showAllTags"
-							onclick="showMore(${fn:length(hashList)}, '${type}')">
+							onclick="showMoreInSearchResult(${fn:length(hashList)}, '${type}')">
 							<div class="text-wrap vcenter">
 								<p>더 보기</p>
 							</div>

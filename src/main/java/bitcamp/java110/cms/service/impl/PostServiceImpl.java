@@ -45,11 +45,11 @@ public class PostServiceImpl implements PostService {
       posts = postDao.getMyPostList((int)(params.get("mno")));
     }else if((params.get("prevpstno")).equals("visitor")){
       posts = postDao.getOthersPostList((int)(params.get("mno")));
-    } else {
+    } else if((params.get("prevpstno")).equals("forKeyword")){
+      posts = postDao.findByKeyword(params);
+    }else {
       posts = postDao.findSome(params);
     }
-
-
 
     for(int i=0;i<posts.size();i++)
     {
@@ -62,20 +62,8 @@ public class PostServiceImpl implements PostService {
       lparams.put("type", (posts.get(i).getPstTypeNo()==0)?"mp":"dp");
 
       posts.get(i).setLikeCnt(likeDao.findAll(lparams).size());
-
     }
     return posts;
-  }
-
-  @Override
-  public List<Post> keywordPosts(String keyword) {
-
-    List<Post> hashposts = postDao.findByKeyword(keyword);
-    for(int i=0;i<hashposts.size();i++)
-    {
-      hashposts.get(i).setPhotos(postPhotoDao.findByNo(hashposts.get(i).getPstno()));
-    }
-    return hashposts;
   }
 
   @Override
