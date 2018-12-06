@@ -1,9 +1,12 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
@@ -46,5 +49,14 @@ public class FlwServiceImpl implements FlwService{
                     
     }
     
+    
+    @Override
+    public boolean flwCheck(int mno, int flw) {
+        Map<String, Object> condition = new HashMap<>();
+        condition.put("mno", mno);
+        condition.put("flw", flw);
+        
+        return flwDao.flwCheck(condition);
+    }
  
 }
