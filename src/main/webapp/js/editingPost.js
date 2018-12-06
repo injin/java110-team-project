@@ -54,7 +54,6 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #showStar').remove('#showStar');
   $('#reviewModal #temp').starrr({
     change: function(e, value){
-    	console.log(value);
     	$("#star").val(value);
     },
     rating: star
@@ -62,13 +61,35 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #temp').attr('id', 'showStar');
   $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section');
   
+  if ( $('#reviewModal input:hidden[id="star"]').val() == 0) {
+    $('#reviewModal #showStar').attr('class', 'nostar');
+  }
+  
+  //  별점 처리
   if (postList[index].photos.length != 0){
     console.log("사진있다");
-    
-    
   }
   
   
   
   postShow(type);
+  
+  // editSubmit
+  $('#editSubmit').on('click', function(e) {
+    console.log('edit??');
+
+    if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
+      alert("내용을 작성해주세요.");
+      e.preventDefault();
+      return;
+    }
+    if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
+      alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
+      e.preventDefault();
+      return;
+    }
+
+//      $("#photList").val(uploadFileNames);
+//      $("#ftagsForAdd").val($("#flw").val());
+  });
 }
