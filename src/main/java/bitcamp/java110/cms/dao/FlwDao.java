@@ -17,5 +17,6 @@ public interface FlwDao {
     void signOut2(int mno);
     void signOut3(int mno);
     List<Member> flwlistall(int mno);
+    Boolean flwCheck(Map<String,Object> condition);
     
 }

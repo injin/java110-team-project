@@ -245,7 +245,9 @@ public class ReviewFeedController {
       visitor = 0;
     }
     
-    model.addAttribute("targetUser", memberService.findByMno(id));
+    Member targetUser = memberService.findByMno(id);
+    if (m != null) targetUser.setFlw(flwService.flwCheck(m.getMno(), id));
+    model.addAttribute("targetUser", targetUser);
 
     List<Post> list = null;
     if(visitor == id) {

@@ -61,8 +61,15 @@
      insert into mv_flw (mno, flw)
      values (#{mno} , #{flw})
    </insert>
+   
+   <select id="flwCheck" parameterType="map" resultType="boolean">
+   select (count(flw) > 0)
+     from mv_flw
+    where mno = #{mno}
+      and flw = #{flw}
+   </select>
     
-    <insert id="insertForPost"  parameterType="map"> 
+    <insert id="insertForPost"  parameterType="map">
         insert mv_post_flw_tag(pstno, flwno) 
         value (#{pstno} , #{flwno}) 
     </insert>

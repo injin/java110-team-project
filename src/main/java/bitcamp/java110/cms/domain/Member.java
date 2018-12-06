@@ -18,6 +18,7 @@ public class Member implements Serializable {
   protected String gender;
   protected String ageRange;
   protected Boolean use;
+  protected boolean flw = false;
   protected List<Integer> favGrList; // 회원 선호 장르의 장르 번호
   protected List<Movie> favMvList;    // 회원 선호 영화 목록
   
@@ -119,6 +120,14 @@ public class Member implements Serializable {
   public void setUse(Boolean use) {
     this.use = use;
   }
+  
+  public boolean isFlw() {
+    return flw;
+  }
+
+  public void setFlw(boolean flw) {
+    this.flw = flw;
+  }
 
   public List<Integer> getFavGrList() {
     return favGrList;
@@ -138,9 +147,11 @@ public class Member implements Serializable {
 
   @Override
   public String toString() {
-    return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname
-        + ", profileImage=" + profileImage + ", coverImage=" + coverImage + ", pr=" + pr
-        + ", gender=" + gender + ", ageRange=" + ageRange + ", favGrList=" + favGrList
-        + ", favMvList=" + favMvList + "]";
+      return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname + ", profileImage="
+              + profileImage + ", coverImage=" + coverImage + ", pr=" + pr + ", gender=" + gender + ", ageRange="
+              + ageRange + ", use=" + use + ", flw=" + flw + ", favGrList=" + favGrList + ", favMvList=" + favMvList
+              + "]";
   }
+
+  
 }
