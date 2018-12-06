@@ -216,11 +216,11 @@
         FROM
             mv_lbm_sr
         WHERE
-            lbmno  IN (SELECT lbmno
+            lbmno  = (SELECT lbmno
                         FROM
                             mv_lbm
                         WHERE
-                            AND mno=#{mno})
+                            mno=#{mno})
     </delete>
     
     <delete id="signOut3" parameterType="int">

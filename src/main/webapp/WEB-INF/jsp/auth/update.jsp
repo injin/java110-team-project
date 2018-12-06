@@ -5,14 +5,16 @@
      <main role="main" class="container">
          <div id="detail">
             <form action="update" method="post" id="detailForm" enctype="multipart/form-data">
-               <input type="hidden" name="mno" value="${loginUser.mno}">
-               <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
-               <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
+               <div id="origin-values">
+                 <input type="hidden" name="mno" value="${loginUser.mno}">
+                 <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
+                 <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
+               </div>
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
                   <div class="form-group row">
                      <div class="nickname">
-                        <input type="text" class="nickname form-control" name="nickname"
+                        <input type="text" class="nickname form-control" name="nickname" id="nickname"
                            value="${loginUser.nickname}">
                      </div>
                   </div>

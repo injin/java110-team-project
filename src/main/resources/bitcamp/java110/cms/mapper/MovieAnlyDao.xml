@@ -7,12 +7,12 @@
     
     <insert id="signIn" parameterType="map">
         INSERT INTO mv_mv_anly (mno, mvno, pnt)
-        values (#{mno}, #{mvno}, 10)
+        values (#{mno}, #{mvno}, 8)
     </insert>
     
     <insert id="insertNotExists" parameterType="map">
         INSERT INTO mv_mv_anly(mno, mvno, pnt)
-            SELECT #{mno}, #{mvno}, 10 
+            SELECT #{mno}, #{mvno}, 8 
             FROM DUAL
         WHERE NOT EXISTS (SELECT mvno
                             FROM mv_mv_anly
@@ -80,8 +80,4 @@
          WHERE mvno = #{value}
     </select>
     
-    <select id="getFavMvList" resultType="list" parameterType="int">
-        <!-- 가입시 최초등록을 하지 않았다면 추후에 등록 할 수 없게 하는것이 나을지도.. -->
-    </select>
-        
 </mapper>

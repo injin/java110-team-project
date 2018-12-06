@@ -1,8 +1,13 @@
-//  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트 가져오기.
+//  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트(smlrList) 가져오기.
 var $randomBaseSection = $('#random-base-section');
-var $randomBaseItems = $('#random-base-items');
 var $randomBaseTitle = $('#randomBaseTitle');
-//TheMovieDb에서 nowPlayingMovieList 가져오기.
+var $randomBaseItems = $('#random-base-items');
+//  mdList
+var $mdSection = $('#md-section');
+var $mdTitle = $('#mdTitle');
+var $mdItems = $('#md-items');
+var $loading = $('#loading');
+//  TheMovieDb에서 nowPlayingMovieList 가져오기.
 var $nowSection = $('#now-section');
 var $nowItems = $('#now-items');
 //	TheMovieDb에서 UpcommingMovieList 가져오기.
@@ -10,7 +15,9 @@ var $upcommingSection = $('#upcomming-section');
 var $upcommingItems = $('#upcoming-items');
 //$('#popover').popover('click');
 
+
 window.onload=getSimilarBaseFavList();
+window.onload=getMdList();
 window.onload=getUpcommigList();
 window.onload=getNowList();
 
@@ -24,17 +31,50 @@ function getSimilarBaseFavList(){
       $randomBaseSection.hide();
     },
     success: function(data) {
-      console.log(data.triggerTitle);
-      if (jQuery.isEmptyObject(data)) {
-        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
-      }  else {
+      if (data.triggerTitle === undefined) {
+        print = '<p>로그인후 이용해 주세요.</p>';
+      } else if (jQuery.isEmptyObject(data)) {
+        print = '<p>잠시 에러가 발생했습니다. 페이지를 새로고침 해주세요.</p>';
+      } else {
         print = makeHtml(data);
       }
       $randomBaseItems.html(print);
-      $randomBaseTitle.html('좋아하신 "' + data.triggerTitle + '"의 비슷한 작품들.');
+      if (data.triggerTitle != undefined) {
+        $randomBaseTitle.html('좋아하신 "' + data.triggerTitle + '"의 비슷한 작품들.');
+      }
     },
     complete: function() {
       $randomBaseSection.show();
+    },
+    error: (xhr, status, msg) => {
+      $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
+      console.log(status);
+      console.log(msg);
+    }
+  });
+}
+
+function getMdList(){
+  $.ajax("/app/rcmd/mdList", {
+    method: "POST",
+    headers : {
+      'Content-Type': 'application/json'
+    },
+    before: function() {
+      $mdSection.hide();
+    },
+    success: function(data) {
+      if (jQuery.isEmptyObject(data)) {
+        print = '<p>잠시 에러가 발생했습니다. 페이지를 새로고침 해주세요.</p>';
+      }  else {
+        print = makeHtml(data);
+      }
+      $mdItems.html(print);
+      $mdTitle.html(data.listTitle);
+    },
+    complete: function() {
+      $loading.remove();
+      $mdSection.show();
     },
     error: (xhr, status, msg) => {
       $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
@@ -55,7 +95,7 @@ function getUpcommigList(){
     },
     success: function(data) {
       if (jQuery.isEmptyObject(data)) {
-        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
+        print = '<p>잠시 에러가 발생했습니다. 페이지를 새로고침 해주세요.</p>';
       }  else {
         print = makeHtml(data);
       }
@@ -83,7 +123,7 @@ function getNowList(){
     },
     success: function(data) {
       if (jQuery.isEmptyObject(data)) {
-        print = '<p>잠시 에러가 발생했 습니다. 페이지를 새로고침 해 주세요.</p>';
+        print = '<p>잠시 에러가 발생했습니다. 페이지를 새로고침 해주세요.</p>';
       }  else {
         print = makeHtml(data);
       }
@@ -215,14 +255,6 @@ var randomBase = new Carousel('#randomBaseCarousel');
 randomBase.setLeftScrollOpacity();
 randomBase.setRightScrollOpacity();
 
-var carousel1 = new Carousel('#carousel1');
-carousel1.setLeftScrollOpacity();
-carousel1.setRightScrollOpacity();
-
-var carousel2 = new Carousel('#carousel2');
-carousel2.setLeftScrollOpacity();
-carousel2.setRightScrollOpacity();
-
 var nowBase = new Carousel('#nowCarousel');
 nowBase.setLeftScrollOpacity();
 nowBase.setRightScrollOpacity();
@@ -231,7 +263,10 @@ var upcommingBase = new Carousel('#upcommingCarousel');
 upcommingBase.setLeftScrollOpacity();
 upcommingBase.setRightScrollOpacity();
 
+var mdList = new Carousel('#mdCarousel');
+mdList.setLeftScrollOpacity();
+mdList.setRightScrollOpacity();
+
 function toDetail(id) {
-  console.log(id);
   window.location.href = '/app/sceneReview/review?mvno='+ id;
 }

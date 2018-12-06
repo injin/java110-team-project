@@ -280,7 +280,7 @@ limit 15
         UPDATE IGNORE
             mv_post
         SET
-            mno=21,
+            <!-- mno=21, -->
             cont='삭제된 게시물 입니다',
             mdt=now()
         WHERE
@@ -290,7 +290,7 @@ limit 15
     
     <delete id="deletePost" parameterType="int">
         DELETE IGNORE
-         post, type, tag, phot, flw, cmt
+         post, type, tag, phot, flw, cmt, lk
          
          FROM mv_post AS post
          LEFT JOIN mv_post_type         AS type
@@ -303,6 +303,8 @@ limit 15
             ON flw.pstno = post.pstno
          LEFT JOIN mv_post_cmt    AS cmt
             ON cmt.pstno = post.pstno
+         LEFT JOIN mv_like    AS lk
+            ON lk.pstno = post.pstno
          WHERE
             post.pstno=#{pstno}
     </delete>
@@ -322,6 +324,8 @@ limit 15
             ON flw.pstno = post.pstno
          LEFT JOIN mv_post_cmt    AS cmt
             ON cmt.pstno = post.pstno
+         LEFT JOIN mv_like    AS lk
+            ON lk.pstno = post.pstno
          WHERE
             opn='l'
             AND post.pstno=#{pstno}

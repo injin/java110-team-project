@@ -3,7 +3,7 @@
   var $chooseMvList = $('#list-choose-movie');
   var selecList = [];
   
-  //커버 & 프로필 이미지 업로드 관련
+  //  커버 & 프로필 이미지 업로드 관련
   $("#imageUpload-cover").change(function() {
       coverURL(this);
   });
@@ -45,7 +45,7 @@
        }
   });
   
-  //영화 검색
+  //  영화 검색
   function findMoviesByKeyword() {
       var keyword = document.getElementById('input-srch-keyword').value;
       if (keyword == '') {
@@ -177,13 +177,25 @@
   
     $chooseMvList.append(print);
   }
-  $form = $('#detailForm')
-  function signUpCheck(){
-    var form = document.detailForm;
-    if(selecList.length <= 5) {
+  
+  
+  function signUpCheck() {
+    $form = $('#detailForm');
+    $nickname = $('#nickname');
+//    var form = document.detailForm;
+    if($nickname.val() === null || $nickname.val() === '(알수없음)' || $nickname.val() === "") {
+      alert("닉네임을 입력해 주세요");
+      $nickname.focus();
+    }
+    
+    if(selecList.length < 5) {
       alert("영화를 5편 이상 선정 해 주세요");
       $inputKeyword.focus();
       return
     }
     $form.submit();
+  }
+  
+  function goToHome() {
+    location.href = '/app/';
   }

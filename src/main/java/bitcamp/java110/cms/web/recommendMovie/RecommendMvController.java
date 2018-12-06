@@ -62,66 +62,69 @@ public class RecommendMvController {
   
   @RequestMapping("anly")
   public String waiting() {
-//    System.out.println("list 진입 시도");
     return "/recommend/anly";
   }
   
   @RequestMapping("/list")
-  public String list (Model model,
-      HttpSession session) {
+  public String list (
+      Model model) {
     
-    int[] n = rcmdService.RandomNums(rcmdService.getCount());
-//    System.out.println(Arrays.toString(n));
-    model.addAttribute("listName1", rcmdService.getListName(n[0]));
-    model.addAttribute("list1", rcmdService.getList(n[0]));
-    model.addAttribute("listName2", rcmdService.getListName(n[1]));
-    model.addAttribute("list2", rcmdService.getList(n[1]));
-//    System.out.println("MD REQUEST COMPLETE\n");
+//    int[] n = rcmdService.RandomNums(rcmdService.getCount(), 2);
+//    model.addAttribute("listName1", rcmdService.getListName(n[0]));
+//    model.addAttribute("list1", rcmdService.getList(n[0]));
+//    model.addAttribute("listName2", rcmdService.getListName(n[1]));
+//    model.addAttribute("list2", rcmdService.getList(n[1]));
     return "/recommend/list";
   }
   
   @RequestMapping("/smlrList")
-  public @ResponseBody Map<String, Object> smlrListById (
+  public @ResponseBody Map <String, Object> smlrListById (
       HttpSession session) throws Exception {
     
     int triggerMvId;
-    Map<String, Object> returnValue= new HashMap<>();
+    Map <String, Object> returnValue= new HashMap<>();
     
     try {
       triggerMvId = anlyDao.getOneFav(((Member)session.getAttribute("loginUser")).getMno());
-      MovieResultsPage smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      MovieResultsPage smlrList;
+      
+      do {
+        smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+      } while (smlrList.getResults().size() < 1);
       
       returnValue.put("triggerTitle", mvDao.getTitleById(triggerMvId));
       returnValue.put("list", smlrList.getResults());
-//      System.out.println("smlr REQUEST COMPLETE\n");
       return returnValue;
     }   catch (Exception e) {
       returnValue = new HashMap<>();
-//      System.out.println("smlr REQUEST return null\n");
       return returnValue;
     }
   }
   
   //    현재 상영작
   @RequestMapping("/now")
-  public @ResponseBody Map<String, Object> nowList (
-      HttpSession session) throws Exception {
+  public @ResponseBody Map <String, Object> nowList () throws Exception {
     MovieResultsPage nowList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
-    Map<String, Object> returnValue= new HashMap<>();
+    Map<String, Object> returnValue = new HashMap<>();
     returnValue.put("list", nowList.getResults());
-//    System.out.println("NowPlaying REQUEST COMPLETE\n");
     return returnValue;
   }
   
   //    개봉 예정작
   @RequestMapping("/upcommig")
-  public @ResponseBody Map<String, Object> comeList (
-      HttpSession session) throws Exception {
+  public @ResponseBody Map <String, Object> comeList () throws Exception {
     MovieResultsPage upcommingList = tmdbMovies.getUpcoming(Constants.LANGUAGE_KO, 1, "KR");
-    Map<String, Object> returnValue= new HashMap<>();
+    Map <String, Object> returnValue = new HashMap<>();
     returnValue.put("list", upcommingList.getResults());
-//    System.out.println("Upcomming REQUEST COMPLETE\n");
     return returnValue;
   }
   
+  @RequestMapping("/mdList")
+  public @ResponseBody Map <String, Object> mdList () throws Exception {
+    Map <String, Object> returnValue = new HashMap<>();
+    int[] n = rcmdService.RandomNums(rcmdService.getCount(), 1);
+    returnValue.put("listTitle", rcmdService.getListName(n[0]));
+    returnValue.put("list", rcmdService.getList(n[0]));
+    return returnValue;
+  }
 }
