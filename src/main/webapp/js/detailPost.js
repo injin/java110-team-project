@@ -176,9 +176,9 @@ function makeCmtHtml(data,forWhat) {
             html += '&nbsp;<i class="far fa-edit c-pointer"';
             html += ' onclick="showEditForm(this,';
             html += data.cmtsResult[i].pstno;
-            html += ',';
+            html += ',\'';
             html += wDate;
-            html += ',';
+            html += '\',';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
             html += forWhat;
