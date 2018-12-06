@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.SceneAlbumService;
-import bitcamp.java110.cms.web.myFeed.Paging;
 
 @Service
 public class SceneAlbumServiceImpl implements SceneAlbumService {
