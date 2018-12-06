@@ -167,7 +167,9 @@ public class MemberServiceImpl implements MemberService {
 
   @Override
   public Member findByMno(int tgtMno) {
-    return memberDao.findByMno(tgtMno);
+    Member targetMember = memberDao.findByMno(tgtMno);
+    
+    return targetMember;
   }
   
   
