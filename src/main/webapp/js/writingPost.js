@@ -8,7 +8,7 @@ $(function() {
 
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
-        
+
         if(uploadFileNames.length+files.length>3){
             alert("3장 이하의 사진만 업로드 할 수 있습니다.");
         }else{
@@ -292,6 +292,7 @@ function morePostHtml(data){
         html += '               </div>';
 
         if(data.postsResult[i].photos.length > 0){
+            html += '<div class="image">';
             html += '   <img onclick="openDetailModal(';
             html += data.postsResult[i].pstno;
             html += ')" src="/upload/post/';
@@ -300,6 +301,13 @@ function morePostHtml(data){
             html += data.postsResult[i].title;
             html += '"   class="pstImgtoDetail"/>';
             html += ' <input type="hidden" data-toggle="modal" id="detailPst"data-target="#detailModal" />';
+            if(data.postsResult[i].photos.length>1){
+                html += '<div class="text"><p>';
+                html += data.postsResult[i].photos.length-1;
+                html += '장+</p></div>';
+            }
+
+            html += '</div>';
         }
         html += '        </div>';
 

@@ -112,15 +112,22 @@
                                 </p>
                             </div>
                             <c:if test="${post.photos[0] !=null}">
-
-
                                 <%-- 이미지 클릭시 상세모달로 --%>
+                                <div class="image">
                                 <img onclick="openDetailModal(${post.pstno})"
                                     src="/upload/post/${post.photos[0]}" data-title="${post.title}"
-                                    class="pstImgtoDetail" />
+                                    class="pstImgtoDetail img-responsive" />
                                 <input type="hidden" data-toggle="modal" id="detailPst"
                                     data-target="#detailModal" />
-
+                                    <c:if test="${fn:length(post.photos)>1}">
+                                    <div class="text">
+                                        <p>${fn:length(post.photos)-1}장+</p>
+                                    </div>
+                                    </c:if>
+                                </div>    
+                                    <%-- <div class="carousel-caption">
+                                    <span>${fn:length(post.photos)}+</span>
+                                    </div> --%>
                             </c:if>
                         </div>
 

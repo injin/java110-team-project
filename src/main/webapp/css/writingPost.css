@@ -397,3 +397,14 @@ td {
 	height: 13rem;
 	margin-left: 1rem;
 }
+
+.image{
+    position:relative;    
+}
+.image .text{
+        position:absolute;
+        bottom:0em;
+        right:1em;
+        font-size:large;
+        color:#FFF;
+}

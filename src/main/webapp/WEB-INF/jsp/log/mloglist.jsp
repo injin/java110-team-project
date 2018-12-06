@@ -313,7 +313,7 @@
                    html += data.pstno;
                    html += '"></p>';
                    
-                   $(element).append(html);
+                  /*  $(element).append(html); */
                    $(element).next().html(html);
                  showCont(data.content,data.pstno); 
                  openDetailModal(data.pstno);  
