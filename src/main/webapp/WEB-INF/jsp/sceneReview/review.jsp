@@ -9,8 +9,10 @@
 <link rel="stylesheet" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
-<link rel="stylesheet" href="/css/movieReview.css">
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/card.css">
 <style>
 
@@ -255,6 +257,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script src="/js/vendor/linkify.js"></script>
     <script src="/js/vendor/linkify-jquery.js"></script>
+    <script src="/js/vendor/noty.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
@@ -333,28 +336,28 @@
         // 장면 시간 검사
         var timeVal = $('#srAddForm #time').val();
         if (checkTimeFormat(timeVal) == false) {
-            alert('장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
+            commonAlert('error', '장면 시간 형식에 맞게 입력해 주세요(시:분:초)');
             return false;
         }
         if ($('#srAddForm #time').hasClass('is-invalid')) {
-            alert('이미 등록된 시간입니다.');
+            commonAlert('error', '이미 등록된 시간입니다.');
             return false;
         }
         // 장면제목
         var titleVal = $('#srAddForm input[name="title"]').val();
         if (titleVal == '') {
-            alert('장면제목을 입력해 주세요');
+            commonAlert('error', '장면제목을 입력해 주세요.');
             return false;
         }
         // 장면내용
         var contVal = $('#srAddForm textarea[name="cont"]').val();
         if (contVal == '') {
-            alert('장면내용을 입력해 주세요');
+            commonAlert('error', '장면내용을 입력해 주세요.');
             return false;
         }
         // 파일 선택
         if ($('#srAddForm input[name="phot"]').val().length == 0) {
-            alert('이미지를 선택해 주세요');
+            commonAlert('error', '이미지를 선택해 주세요.');
             return false;
         }
         return true;
@@ -396,7 +399,7 @@
                 }
             },
             error : function(error) {
-                alert("파일 업로드에 실패하였습니다.");
+                commonAlert('error', '파일 업로드에 실패하였습니다.');
                 console.log(error);
                 console.log(error.status);
             }
@@ -411,7 +414,7 @@
     function addComment() {
         var contVal = $('#addCommentForm textarea[name="cont"]').val();
         if (contVal == '') {
-            alert('내용을 입력해주세요.');
+            commonAlert('error', '내용을 입력해주세요.');
             return;
         }
         
@@ -469,7 +472,7 @@
     function editComment(cmno) {
         var contVal = $('#textarea-cmt-' + cmno).val();
         if (contVal == '') {
-            alert('댓글을 입력해 주세요');
+            commonAlert('error', '댓글을 입력해 주세요.');
             return;
         }
         
@@ -524,7 +527,7 @@
     function onPlaceChanged() {
         var place = autocomplete.getPlace();
         if (!place.geometry) {
-            window.alert("해당 검색어로 조회된 결과가 없습니다.");
+            commonAlert('error', '해당 검색어로 조회된 결과가 없습니다.');
             return;
         }
         addMarker(place.geometry.location, map, place.formatted_address);
@@ -587,7 +590,7 @@
         }
         
         if (reportTypeArr.length == 0) {
-            alert('신고 사유를 1개 이상 선택해 주세요.');
+            commonAlert('error', '신고 사유를 1개 이상 선택해 주세요.');
             return;
         }
         
@@ -606,10 +609,10 @@
             }),
             success : function(data) {
                 if (data) {
-                    alert('신고되었습니다.');
+                    commonAlert('error', '신고되었습니다.');
                     $('a#btn-siren').remove();
                 } else {
-                    alert('문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
+                    commonAlert('error', '문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
                 }
                     
             },
@@ -628,9 +631,9 @@
             },
             success : function(data) {
                 if (data) {
-                    alert('삭제되었습니다.');
+                    commonAlert('error', '삭제되었습니다.');
                 } else {
-                    alert('삭제 중 문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
+                    commonAlert('error', '삭제 중 문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
                 }
             },
             complete : function() {

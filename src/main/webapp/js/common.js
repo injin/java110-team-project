@@ -4,8 +4,20 @@ $(document.body).on('mouseover', '.boxList', function(){
         }).on('mouseleave', '.boxList', function(){
             $('.scrollbar-light-blue').css('overflow', 'hidden');    
         });
+// ALERT ============================
+function commonAlert(type, text) {
+    new Noty({
+        type: type,
+        theme: 'sunset',
+        layout: 'topRight',
+        text: text,
+        processBar: true,
+        timeout: 3500
+    }).show();
+}
 
-//	============================
+
+// LINK ============================
 function goToFeed(mno){
     location.href = "/app/reviewFeed/Feed?id=" + mno;
 }
