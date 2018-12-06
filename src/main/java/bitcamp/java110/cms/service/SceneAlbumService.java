@@ -1,8 +1,8 @@
 package bitcamp.java110.cms.service;
 
 import java.util.List;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.SceneAlbum;
-import bitcamp.java110.cms.web.myFeed.Paging;
 
 public interface SceneAlbumService {
   
