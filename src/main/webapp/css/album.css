@@ -22,7 +22,10 @@
 	font-weight: bold;
     font-size: 1.7rem;
 }
-
+.scene img{
+    width: 14.5rem;
+    height: 9.5rem;
+}
 /* 페이징 */
 .paginate{
 	margin: 0 auto;
@@ -129,10 +132,9 @@
     display: inline-block;
     margin-bottom: 1rem;
 }
-/* .srlist .scene{
-	margin-top: 3rem;
-	margin-bottom: 1rem;
-} */
+.srlist .scene{
+	height: 8rem;
+}
 .btn-group i{
 	float: right;
     position: relative;
