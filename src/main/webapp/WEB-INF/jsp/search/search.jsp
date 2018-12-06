@@ -15,6 +15,7 @@
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
+<script src="/js/makeContPost.js"></script>
 <style>
 .gPost {
 	background: white;
