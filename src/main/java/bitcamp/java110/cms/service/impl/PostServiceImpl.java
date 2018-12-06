@@ -143,20 +143,29 @@ public class PostServiceImpl implements PostService {
     mlog.setUrl(String.valueOf(post.getPstno()));
     mlogDao.insert(mlog);
   }
-
+  
+  /** JEAHA delete 수정중
+   * 
+   */
   @Override
   public Boolean deletePost(int pstno) {
-    String type = postDao.getPostType(pstno);
-    if(type.equals("u")) {
-      if(postDao.countCmt(pstno) == 0) {
+    Post p = postDao.findOne(pstno);
+    System.out.println(p);
+    if(p.isOpen()) {
+      System.out.println("게시물 공개");
+      if(postCmtDao.findCmtList(pstno) == null) {
+        System.out.println("댓글 ㄴㄴ");
         postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
+      System.out.println("댓글 ㅇㅇ");
       return postDao.deleteUnlockPost(pstno);
-    } else if(type.equals("l")) {
+    } else if(!p.isOpen()) {
+      System.out.println("게시물 비공개");
       postDao.deleteLockPost(pstno);
       return postDao.deleteLockPost(pstno);
     }
+    System.out.println("fail");
     return false;
   }
 
