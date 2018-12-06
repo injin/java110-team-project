@@ -16,10 +16,10 @@ var $upcommingItems = $('#upcoming-items');
 //$('#popover').popover('click');
 
 
-window.onload=getSimilarBaseFavList();
-window.onload=getMdList();
 window.onload=getUpcommigList();
 window.onload=getNowList();
+window.onload=getMdList();
+window.onload=getSimilarBaseFavList();
 
 function getSimilarBaseFavList(){
   $.ajax("/app/rcmd/smlrList", {
