@@ -35,7 +35,11 @@
                     <p class="card-text">${targetUser.pr}</p>
                   </div>
                 </div>
-                <button class="btn btn-primary float-right" onclick="addFollow(${targetUser.mno})" >팔로우</button>
+                <c:if test="${not empty loginUser}">
+	                <c:if test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
+	                    <button class="btn btn-primary float-right" id="flwBtn" onclick="addFollow(${targetUser.mno})" >팔로우</button>
+	                </c:if>
+                </c:if>
             </aside>
             <div class="col-9 borderGray p-0" id="mypage-right">
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
@@ -88,7 +92,7 @@
    <script>
    function addFollow(mno) {
        
-       /* $.ajax({
+       $.ajax({
            url : "/app/follow/flwadd",
            type: "post",
            data : {
@@ -97,7 +101,7 @@
            success : function(data) {
                if (data == true) {
                  alert('팔로우 되었습니다.');
-                 
+                 $('#flwBtn').hide();
                } else {
                  alert('문제가 발생하였습니다.')
                }
@@ -108,7 +112,7 @@
                console.log(status);
                console.log(msg);
            }
-       }); */
+       });
    }
     
     

@@ -37,19 +37,25 @@ thead th {
 	color: black;
 }
 
-.btn-primary {
+.report-btn {
 	color: #00cc99;
 	background-color: #fff;
 	border-color: #00cc99;
 }
 
-.btn-third {
+.report-btn:hover {
+  color: #fff;
+  background-color: #00cc99;
+  border-color: #00cc99;
+}	
+
+.report-btn2 {
 	color: #fff;
 	background-color: #00cc99;
 	border-color: #00cc99;
 }
 
-.btn-third:hover {
+.report-btn2:hover {
 	color: #fff;
 	background-color: #00e6ac;
 	border-color: #00e6ac;
@@ -60,12 +66,12 @@ thead th {
 	vertical-align: middle;
 }
 
-.btn-size {
+.report-btn-size {
 	width: 74px;
 	height: 38px;
 }
 
-.textarea {
+.report-textarea {
 	width: 100%;
 	height: 10rem;
 	padding: 0;
@@ -106,19 +112,19 @@ thead th {
 				<c:choose>
 					<c:when test="${report.hndl eq false}">
 						<td id="report-btn-${report.rptno}"><button type="button"
-								class="btn btn-primary btn-size" data-toggle="modal"
+								class="btn report-btn report-btn-size" data-toggle="modal"
 								onclick="showModal(${report.rptno})">미처리</button></td>
 					</c:when>
 					<c:otherwise>
 						<td><div class="btn-group dropright">
 								<button type="button"
-									class="btn btn-third btn-size dropdown-toggle"
+									class="btn report-btn2 report-btn-size dropdown-toggle"
 									data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="true">처리</button>
 								<div class="dropdown-menu">
-									<textarea class="textarea">${report.hcont}</textarea>
+									<textarea class="report-textarea">${report.hcont}</textarea>
 									<div class="dropdown-divider"></div>
-									<button class="btn btn-primary">수정</button>
+									<button class="btn report-btn">수정</button>
 								</div>
 							</div></td>
 					</c:otherwise>
@@ -139,11 +145,11 @@ thead th {
 				</button>
 			</div>
 			<div class="modal-body">
-				<textarea class="textarea" id="hcont" placeholder="내용을 입력하세요"></textarea>
+				<textarea class="report-textarea" id="hcont" placeholder="내용을 입력하세요"></textarea>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button class="btn btn-primary" data-dismiss="modal"
+				<button class="btn report-btn" data-dismiss="modal"
 					onclick="insertHcont()">입력</button>
 			</div>
 		</div>
@@ -164,8 +170,6 @@ thead th {
 <form id="listForm" action="list" method="post">
 	<input type="hidden" name="pageNo">
 </form>
-
-
 
 <script>
 
@@ -198,11 +202,11 @@ thead th {
                   
                    var html ='';
                         html += '<div class="btn-group dropright">';
-                        html += '<button type="button" class="btn btn-third  btn-size dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">처리</button>'
+                        html += '<button type="button" class="btn report-btn2 report-btn-size dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">처리</button>'
                         html += '<div class="dropdown-menu">'
-                        html += '<textarea class ="textarea">'+ contVal +'</textarea>'
+                        html += '<textarea class ="report-textarea">'+ contVal +'</textarea>'
                         html += '<div class="dropdown-divider"></div>'
-                        html += '<button class ="btn btn-primary">수정</button></div>'
+                        html += '<button class ="btn report-btn">수정</button></div>'
                         html += '</div>'
                         html += '</div>'
                         

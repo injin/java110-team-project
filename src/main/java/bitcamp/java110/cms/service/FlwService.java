@@ -12,4 +12,5 @@ public interface FlwService {
   int getTotalCnt(int mno);
   void delete(Map<String,Object> condition);
   boolean add(Map<String,Object> condition);
+  boolean flwCheck(int mno, int flw);
 }
