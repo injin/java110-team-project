@@ -69,9 +69,8 @@ public class RecommendServiceImple implements RecommendService {
   }
   
   @Override
-  public int[] RandomNums(int root){
-    int[] n = new int[2];
-//    System.out.println("Random Range : " + root);
+  public int[] RandomNums(int root, int range){
+    int[] n = new int[range];
     for (int i = 0; i < n.length; i++) {
       n[i] = (int)(Math.random() * root + 1);
       for (int j = 0; j <= i-1; j++) {

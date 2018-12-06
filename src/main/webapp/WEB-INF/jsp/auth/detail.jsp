@@ -22,12 +22,16 @@
       <div id="detail">
         <form action="init" method="post" id="detailForm"
           enctype="multipart/form-data">
+          
           <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
+          <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
+          <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
+          
           <h3 class="mt-3">닉네임</h3>
           <section id="nickname-section">
             <div class="form-group row">
               <div class="nickname">
-                <input type="text" class="nickname form-control" name="nickname"
+                <input type="text" class="nickname form-control" name="nickname" id="nickname"
                   value="${member.nickname}">
               </div>
             </div>
@@ -106,7 +110,7 @@
           <input type="hidden" name="selecList" id="test">
           <div class="confirm">
             <label class="btn btn-checkbox btn-secondary active">확인<input type="button" onclick="signUpCheck()" class="btn btn-default" style="display: none;" value="확인"></label>
-            <label class="btn btn-checkbox btn-secondary active">취소<input type="reset" class="btn btn-default" style="display: none;" value="취소"></label>
+            <label class="btn btn-checkbox btn-secondary active">취소<input type="button" onclick="goToHome()" class="btn btn-default" style="display: none;" value="취소"></label>
           </div>
         </form>
       </div>

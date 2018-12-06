@@ -7,6 +7,6 @@ public interface RecommendService {
   String getListName(int thmno);
   List<MovieDb> getList(int thmno);
   MovieDb getMvById(int mvno);
-  int[] RandomNums(int root);
+  int[] RandomNums(int root, int range);
   int getCount();
 }

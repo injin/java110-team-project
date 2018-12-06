@@ -14,6 +14,7 @@
   <link rel='stylesheet' href='/css/common.css'>
   <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
   <link rel='stylesheet' href='/css/rcmd.css'>
+  <link rel='stylesheet' href='/css/rcmdAnly.css'>
 
 </head>
 <body class="borderGray">
@@ -28,7 +29,7 @@
   <hr>
 <%-- ========================================================================================== --%>
   <section id="anly-base-section" style="display: none;">
-    <h3 id="anlyBaseTitle"></h3>
+    <h4 id="anlyBaseTitle"></h4>
     <div id="anlyBaseCarousel" class="list-container">
       <div class="control-container">
         <div id="anly-left-scroll-btn" class="left-scroll button scroll left-scroll-btn">
@@ -42,16 +43,16 @@
 
       </div>
     </div>
+    <br>
+    <button type="button" id="popover" class="btn btn-secondary" data-container="body"
+        data-toggle="popover" data-placement="bottom"
+        data-content="${sessionScope.loginUser.nickname}님이">추천 기준</button>
   </section>
-  <br>
-  <button type="button" id="popover" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom" data-content="${sessionScope.loginUser.nickname}님이">
-  추천 기준
-  </button>
   <br>
 <%-- ========================================================================================== --%>
   <section id="random-base-section" style="display: none;">
   <hr>
-    <h3 id="randomBaseTitle"></h3>
+    <h4 id="randomBaseTitle"></h4>
     <div id="randomBaseCarousel" class="list-container">
       <div class="control-container">
         <div id="random-left-scroll-btn" class="left-scroll button scroll left-scroll-btn">
@@ -69,11 +70,15 @@
   <hr>
   </section>
 <%-- ========================================================================================== --%>
-  <h2>MD 추천 영화</h2>
-  <hr>
-  <section>
-    <h3>${listName1}</h3>
-    <div id="carousel1" class="list-container">
+  <section id="loading" >
+    <div class="spinner"></div>
+  </section>
+  
+  <section id="md-section" style="display: none;">
+    <h2>MD 추천 영화</h2>
+    <hr>
+    <h4 id="mdTitle"></h4>
+    <div id="mdCarousel" class="list-container">
       <div class="control-container">
         <div id="left-scroll-button" class="left-scroll button scroll left-scroll-btn">
           <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -82,62 +87,18 @@
           <i class="fa fa-chevron-right" aria-hidden="true"></i>
         </div>
       </div>
-      <div class="items" id="carousel-items">
-        <c:forEach items="${list1}" var="list1">
-          <div class="item" onclick="toDetail('${list1.id}')">
-            <c:choose>
-              <c:when test = "${not empty list1.posterPath}">
-                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list1.posterPath}" alt="${list1.title}"/>
-              </c:when>
-              <c:otherwise>
-                <img class="item-image" src="/img/default-movie-img.png" alt="${list1.title}"/>
-              </c:otherwise>
-            </c:choose>
-              <span class="item-title">${list1.title}</span>
-            <div class="item-description opacity-none">개봉일 : ${list1.releaseDate}<br>런타임 : ${list1.runtime}분<br>네티즌 평점 : ${list1.voteAverage}</div>
-          </div>
-        </c:forEach>
+      <div class="items" id="md-items">
+         
       </div>
     </div>
+    <hr>
   </section>
 <%-- ========================================================================================== --%>
-  <section>
-  <hr>
-    <h3>${listName2}</h3>
-    <div id="carousel2" class="list-container">
-      <div class="control-container">
-        <div id="left-scroll-button" class="left-scroll button scroll left-scroll-btn">
-          <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </div>
-        <div id="right-scroll-button" class="right-scroll button scroll right-scroll-btn">
-          <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </div>
-      </div>
-      <div class="items" id="carousel-items">
-        <c:forEach items="${list2}" var="list2">
-          <div class="item" onclick="toDetail('${list2.id}')">
-            <c:choose>
-              <c:when test = "${not empty list2.posterPath}">
-                <img class="item-image" src="https://image.tmdb.org/t/p/w500${list2.posterPath}" alt="${list2.title}"/>
-              </c:when>
-              <c:otherwise>
-                <img class="item-image" src="/img/default-movie-img.png" alt="${list2.title}"/>
-              </c:otherwise>
-            </c:choose>
-              <span class="item-title">${list2.title}</span>
-            <div class="item-description opacity-none">개봉일 : ${list2.releaseDate}<br>런타임 : ${list2.runtime}분<br>네티즌 평점 : ${list2.voteAverage}</div>
-          </div>
-        </c:forEach>
-      </div>
-    </div>
-  </section>
-<%-- ========================================================================================== --%>
-  <hr>
   <br>
 <%-- ========================================================================================== --%>
   <section id="now-section" style="display: none;">
   <hr>
-    <h3>현재 상영작</h3>
+    <h4>현재 상영작</h4>
     <div id="nowCarousel" class="list-container">
       <div class="control-container">
         <div id="left-scroll-now" class="left-scroll button scroll left-scroll-btn">
@@ -155,7 +116,7 @@
   <hr>
 <%-- ========================================================================================== --%>
   <section id="upcomming-section" style="display: none;">
-    <h3>개봉 예정작</h3>
+    <h4>개봉 예정작</h4>
     <div id="upcommingCarousel" class="list-container">
       <div class="control-container">
         <div id="random-left-scroll-upcomming" class="left-scroll button scroll left-scroll-btn">
