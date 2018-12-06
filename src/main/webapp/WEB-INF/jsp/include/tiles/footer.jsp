@@ -3,13 +3,15 @@
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<footer class="footer page-footer font-small stylish-color-dark pt-4"
-        style="color: white; background-color: #343a40 !important;">
+
+
 <%--
 
     !! INJIN33님의 잘못된 삽질로 FOOTER가 두개 이기 때문에 수정을 두번 해야함!!
 
 --%>
+<footer class="footer page-footer font-small stylish-color-dark pt-4"
+        style="color: white; background-color: #343a40 !important;">
   <!-- Footer -->
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
@@ -19,9 +21,11 @@
         <div class="col-md-4 mx-auto">
           <!-- Content -->
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">MovieInSta</h5>
-          <P>DISCOVER AND SHARE</P>
-          <P>a constantly expanding</P>
-          <P>Movie Around The World</P>
+<pre class="text-light mt-3 mb-4">
+DISCOVER AND SHARE
+a constantly expanding
+Movie Around The World
+</pre>
         </div>
         <!-- Grid column -->
         <hr class="clearfix w-100 d-md-none">
@@ -32,16 +36,19 @@
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="#!">Link 1</a>
+              <a href="#!">장면 리뷰</a>
             </li>
             <li>
-              <a href="#!">Link 2</a>
+              <a href="#!">장면 앨범</a>
             </li>
             <li>
-              <a href="#!">Link 3</a>
+              <a href="/reviewFeed/list">전체 피드</a>
             </li>
             <li>
-              <a href="#!">Link 4</a>
+              <a href="#!">나의 피드</a>
+            </li>
+            <li>
+              <a href="#!">영화 추천</a>
             </li>
           </ul>
         </div>
@@ -50,19 +57,17 @@
         <!-- Grid column -->
         <div class="col-md-2 mx-auto">
           <!-- Links -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">POWERED BY</h5>
           <ul class="list-unstyled">
+
             <li>
-              <a href="#!">Link 1</a>
+              <a href="https://github.com/injin/java110-team-project">GitHub</a>
             </li>
             <li>
-              <a href="#!">Link 2</a>
+              <a href="https://developers.kakao.com/">KAKAO API</a>
             </li>
             <li>
-              <a href="#!">Link 3</a>
-            </li>
-            <li>
-              <a href="#!">Link 4</a>
+              <a href="https://www.themoviedb.org/documentation/api">The MOVIE DB</a>
             </li>
           </ul>
         </div>
@@ -92,7 +97,7 @@
       <a href="http://localhost:8888/app/"> MovieInSta.com</a>
       <br>
       <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에 있으며,
-      <br>MovieInSta의 입장과 다를 수 있습니다.
+      <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.
     </div>
     <!-- Copyright -->
 <!-- Footer -->
