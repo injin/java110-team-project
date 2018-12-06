@@ -143,7 +143,7 @@ function listCmt(pstno,forWhat) {
         success:function(data){
             if(forWhat == "dPost"){
                 showCmt(data);
-            }else if(forWhat == "mPost" && data.cmtsResult.length > 0){
+            }else if(forWhat == "mPost"){
                 $('#cmt-area-'+pstno).html(makeCmtHtml(data,forWhat));    
             }
         }
@@ -154,6 +154,8 @@ function makeCmtHtml(data,forWhat) {
 
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
+        var wDate = new Date(data.cmtsResult[i].createdDate).toLocaleString();
+        
         html += '<li>';
         html += '<div class="row comment-box p-1 pt-3 pr-4">';
         html += '    <div class="col-3 user-img text-center">';
@@ -171,24 +173,18 @@ function makeCmtHtml(data,forWhat) {
         html += '        <p class="w-100 p-2 m-0">';
         if(data.cmtsResult[i].member.mno == sessionMember.mno){
 
-            html += '&nbsp;<i class="far fa-edit c-pointer" onclick="showEditForm(this,';
+            html += '&nbsp;<i class="far fa-edit c-pointer"';
+            html += ' onclick="showEditForm(this,';
             html += data.cmtsResult[i].pstno;
+            html += ',';
+            html += wDate;
             html += ',';
             html += data.cmtsResult[i].pcno;
             html += ',\'';
-            if (sessionMember.profileImage == "") {
-                html +=  "/img/default-profile-img";
-            }else if (sessionMember.profileImage.startsWith("http")) {
-                html += sessionMember.profileImage;
-            } else {
-                html += ("/upload/profile/" + sessionMember.profileImage);
-            }
-            html += '\',\'';
-            html += sessionMember.nickname;
-            html += '\',\'';
             html += forWhat;
             html += '\')"></i>';
-            html += '&nbsp;<i class="fas fa-times c-pointer" onclick="deleteComment(';
+            html += '&nbsp;<i class="fas fa-times c-pointer"';
+            html += ' onclick="deleteComment(';
             html += data.cmtsResult[i].pcno;
             html += ',';
             html += data.cmtsResult[i].pstno;
@@ -197,7 +193,7 @@ function makeCmtHtml(data,forWhat) {
             html += '\')"></i>';   
         } 
         html += '            <span class="cmt-date float-right">';
-        html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
+        html +=  wDate;
         html += '          </span>';
         html += '        </p>';
         html += '    </div>';
@@ -231,24 +227,13 @@ function deleteComment(pcno,pstno,forWhat) {
     });
 }
 
-function showEditForm(obj,pstno,pcno,profileImagePath,nickname,forWhat) {
+function showEditForm(obj,pstno,wdate,pcno,forWhat) {
 
     $(obj).hide();
     var $editCont = $(obj).parent().prev().html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
-    var $editArea = $(obj).parent().parent().parent().parent();
+    var $editArea = $(obj).parent().parent();
 
-    var editHtml = '<div class="card mb-2">';
-    editHtml += '<div class="media p-2">';
-    editHtml += '    <div>';
-    editHtml += '        <img class="mr-2 profile-medium" src="';
-    editHtml += profileImagePath;
-    editHtml += '" alt="login-profileImage">';
-    editHtml += '        <div class="text-center">';
-    editHtml += nickname;
-    editHtml += '</div>';
-    editHtml += '    </div>';
-    editHtml += '    <div class="media-body text-right">';
-    editHtml += '        <textarea class="form-control resize-none" name="content" id="editCmt';
+    var editHtml = '        <textarea class="form-control resize-none mt-2" name="content" id="editCmt';
     if(forWhat == "dPost"){
         editHtml += '" placeholder="Write a comment">';    
     }else{
@@ -256,15 +241,14 @@ function showEditForm(obj,pstno,pcno,profileImagePath,nickname,forWhat) {
         editHtml += pstno;
         editHtml += '" placeholder="Write a comment">';
     }
-    
     editHtml += $editCont;
     editHtml += '        </textarea>';
-    editHtml += '    </div>';
-    editHtml += '    <button type="button" class="btn btn-primary mt-2 dSbtn" onclick="editComment(' + pstno+","+pcno + ",\'" + forWhat + '\')">';
+    editHtml += '    <button type="button" class="btn btn-primary mt-2 mb-2 ml-2 float-right" onclick="editComment(' + pstno+","+pcno + ",\'" + forWhat + '\')">';
     editHtml += '        <i class="fas fa-paper-plane"></i> 수정';
     editHtml += '    </button>';
-    editHtml += '</div>';
-    editHtml += '</div>';
+    editHtml += '    <button type="button" class="btn btn-secondary mt-2 mb-2 float-right" onclick="closeEditForm(' + pcno+ ','+wdate+',this)">';
+    editHtml += '        <i class="fas fa-window-close"></i> 취소';
+    editHtml += '    </button>';
 
     $editArea.html(editHtml); 
 }
@@ -297,3 +281,39 @@ function editComment(pstno,pcno,forWhat) {
         }
     });
 } 
+
+function closeEditForm(pcno,wdate,element) {
+
+    var $editCloseDiv = $(element).parent();
+
+/*
+    html += '        <p class="w-100 p-2 m-0 wbw">';
+    html += data.cmtsResult[i].content; 
+    html += '        </p>';
+    html += '        <p class="w-100 p-2 m-0">';
+
+    html += '&nbsp;<i class="far fa-edit c-pointer"';
+    html += ' onclick="showEditForm(this,';
+    html += data.cmtsResult[i].pstno;
+    html += ',';
+    html += data.cmtsResult[i].pcno;
+    html += ',\'';
+    html += forWhat;
+    html += '\')"></i>';
+    html += '&nbsp;<i class="fas fa-times c-pointer"';
+    html += ' onclick="deleteComment(';
+    html += data.cmtsResult[i].pcno;
+    html += ',';
+    html += data.cmtsResult[i].pstno;
+    html += ',\'';
+    html += forWhat;
+    html += '\')"></i>';   
+    html += '            <span class="cmt-date float-right">';
+    html +=  new Date(data.cmtsResult[i].createdDate).toLocaleString();
+    html += '          </span>';
+    html += '        </p>';*/
+
+
+
+    $editCloseDiv.html();
+}

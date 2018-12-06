@@ -68,7 +68,7 @@
                                             <textarea class="form-control resize-none" name="content" id="pCmt"
                                                 placeholder="Write a comment"></textarea>
                                         </div>
-                                        <button type="button" class="btn btn-primary mt-2 dSbtn"
+                                        <button type="button" class="btn btn-primary mt-2 dSbtn ml-2"
                                             onclick="addCmt('dPost',0)">
                                             <i class="fas fa-paper-plane"></i> 등록
                                         </button>
