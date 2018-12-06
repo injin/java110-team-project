@@ -166,6 +166,7 @@
 		p.star,
 		p.cont,
 		p.cdt,
+		p.opn,
 		m.mno,
 		m.nick,
 		m.p_phot

@@ -150,22 +150,21 @@ public class PostServiceImpl implements PostService {
   @Override
   public Boolean deletePost(int pstno) {
     Post p = postDao.findOne(pstno);
-    System.out.println(p);
+    //  게시물이 공개라면.
     if(p.isOpen()) {
-      System.out.println("게시물 공개");
-      if(postCmtDao.findCmtList(pstno) == null) {
-        System.out.println("댓글 ㄴㄴ");
+      //  댓글이 없다면.
+      if(postCmtDao.findCmtList(pstno).size() == 0) {
         postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
-      System.out.println("댓글 ㅇㅇ");
+      //  댓글이 있다면.
       return postDao.deleteUnlockPost(pstno);
     } else if(!p.isOpen()) {
-      System.out.println("게시물 비공개");
+      //  게시글이 비공개라면.
       postDao.deleteLockPost(pstno);
       return postDao.deleteLockPost(pstno);
     }
-    System.out.println("fail");
+    System.out.println("Delete Post Process is FAILED");
     return false;
   }
 
