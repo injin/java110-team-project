@@ -20,7 +20,7 @@
 						<img class="mr-3 profile-large" src="${member.profileImagePath}"
 							alt="/img/default-profile-img">
 						<div>
-							<h4 style ="text-align: center">${member.nickname}</h4>
+							<h4 style ="text-align: center"><a class="c-pointer" onclick="goToFeed(${member.mno})">${member.nickname}</a></h4>
 							<button class="btn btn-primary "
 								onclick="removeFlw(${member.mno})">언팔로우</button>
 						</div>
@@ -46,19 +46,7 @@
 	<form action="flwdelete" id="deleteForm" method="post">
 		<input type="hidden" name="flw">
 	</form>
-	<form action="flwadd" id="addForm" method="post">
-		<input type="hidden" name="flw">
-	</form>
-	
 <script>
-
-function addForm(number){
-    
-    $('#addForm input[name="flw"]').val(number);
-    $('#addForm').submit();
-    
-}
-
 
 function removeFlw(number) {
     $('#deleteForm input[name="flw"]').val(number);

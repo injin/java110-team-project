@@ -32,12 +32,7 @@
                     <p class="card-text">${targetUser.pr}</p>
                   </div>
                 </div>
-                <c:when test="${report.hndl eq false}">
-                        <button type="button" class="btn btn-primary btn-size"
-                                data-toggle="modal" onclick="addForm(${flwadd.flw})"></button>
-                    </c:when>
-                    <c:otherwise>
-                    </c:otherwise>
+                <button class="btn btn-primary float-right" onclick="addFollow(${targetUser.mno})" >팔로우</button>
             </aside>
             <div class="col-9 borderGray p-0" id="mypage-right">
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
@@ -80,42 +75,43 @@
                 </div>
             </div>
         </div>
-
     </main>
 
-    <jsp:include page="footer.jsp"></jsp:include>
+    <form action="flwadd"></form>
 
-    <script>
-    function addForm(number){
-        
-        $('#addForm input[name="flw"]').val(number);
-        $('#addForm').submit();
-        
-    }
+
+    <jsp:include page="footer.jsp"></jsp:include>
     
-    $.ajax({
-        url : "/app/follow/flwadd",
-        type: "post",
-        data : {
-            "rptno" : currentRptno,
-            "hcont" : contVal
-        },
-        success : function(data) {
-            if (data == true) {
+   <script>
+   function addFollow(mno) {
+       
+       $.ajax({
+           url : "/app/follow/flwadd",
+           type: "post",
+           data : {
+               "flwMno" : mno
+           },
+           success : function(data) {
+               if (data == true) {
+                 alert('팔로우 되었습니다.');
+                 
+               } else {
+                 alert('문제가 발생하였습니다.')
+               }
                
-            }
-            
-        },
-        error: (xhr, status, msg) => {
-            console.log(xhr);
-            console.log(status);
-            console.log(msg);
-        }
-    });
-}
+           },
+           error: (xhr, status, msg) => {
+               console.log(xhr);
+               console.log(status);
+               console.log(msg);
+           }
+       });
+   }
     
     
+     
+   </script>
     
-    </script>
+    
 </body>
 </html>

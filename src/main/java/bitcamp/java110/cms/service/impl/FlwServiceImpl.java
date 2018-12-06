@@ -37,8 +37,13 @@ public class FlwServiceImpl implements FlwService{
     
     
     @Override
-    public void add(Map<String, Object> condition) {
-        flwDao.flwadd(condition);
+    public boolean add(Map<String, Object> condition) {
+        
+         if(flwDao.flwadd(condition)>0)
+            return true;
+         else
+             return false;
+                    
     }
     
  

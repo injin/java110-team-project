@@ -44,15 +44,15 @@ thead th {
 }
 
 .btn-third {
-    color: #fff;
-    background-color: #00cc99;
-    border-color: #00cc99;
+	color: #fff;
+	background-color: #00cc99;
+	border-color: #00cc99;
 }
 
 .btn-third:hover {
-    color: #fff;
-    background-color: #00e6ac;
-    border-color: #00e6ac;
+	color: #fff;
+	background-color: #00e6ac;
+	border-color: #00e6ac;
 }
 
 .table th, .table td {
@@ -65,13 +65,11 @@ thead th {
 	height: 38px;
 }
 
-.textarea{
-    width: 100%;
-    height: 10rem;
-    padding : 0;
-
+.textarea {
+	width: 100%;
+	height: 10rem;
+	padding: 0;
 }
-
 </style>
 
 
@@ -107,51 +105,50 @@ thead th {
 				<td>${report.createdDate}</td>
 				<c:choose>
 					<c:when test="${report.hndl eq false}">
-						<td id="report-btn-${report.rptno}"><button type="button" class="btn btn-primary btn-size"
-								data-toggle="modal" onclick="showModal(${report.rptno})">미처리</button>
-					    </td>
+						<td id="report-btn-${report.rptno}"><button type="button"
+								class="btn btn-primary btn-size" data-toggle="modal"
+								onclick="showModal(${report.rptno})">미처리</button></td>
 					</c:when>
 					<c:otherwise>
 						<td><div class="btn-group dropright">
-  <button type="button" class="btn btn-third btn-size dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    처리
-  </button>
-  <div class="dropdown-menu">
-  <textarea class ="textarea">${report.hcont}</textarea>
-  <div class="dropdown-divider"></div>
-  <button class ="btn btn-primary">수정</button>
-  </div>
-</div></td>
+								<button type="button"
+									class="btn btn-third btn-size dropdown-toggle"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="true">처리</button>
+								<div class="dropdown-menu">
+									<textarea class="textarea">${report.hcont}</textarea>
+									<div class="dropdown-divider"></div>
+									<button class="btn btn-primary">수정</button>
+								</div>
+							</div></td>
 					</c:otherwise>
 				</c:choose>
 		</c:forEach>
 	</tbody>
 </table>
 
-	<div class="modal fade" id="reportModal" tabindex="-1"
-		role="dialog" aria-labelledby="reportModalTitle"
-		aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="reportModalTitle">신고처리</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body" >
-				    <textarea class ="textarea" id="hcont" placeholder="내용을 입력하세요"></textarea>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">닫기</button>
-					<button class="btn btn-primary" data-dismiss="modal"
-						onclick="insertHcont()">입력</button>
-				</div>
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
+	aria-labelledby="reportModalTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="reportModalTitle">신고처리</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<textarea class="textarea" id="hcont" placeholder="내용을 입력하세요"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+				<button class="btn btn-primary" data-dismiss="modal"
+					onclick="insertHcont()">입력</button>
 			</div>
 		</div>
 	</div>
+</div>
 
 
 <jsp:include page="rptpaging.jsp" flush="true">
