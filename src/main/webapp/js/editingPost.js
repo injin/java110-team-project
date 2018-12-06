@@ -8,7 +8,6 @@ function openEditingModal(pstno, type) {
       break;
     }
   }
-  console.log(postList[index]);
   
   //  모달 속성 바꿔 주기
   $('#reviewModal .modal-title').text('리뷰 수정하기');
@@ -17,8 +16,6 @@ function openEditingModal(pstno, type) {
   //  pstno 넣어주기
   $('#reviewModal .modal-footer').append('<input type="hidden" name="pstno" id="pstno">');
   $('#reviewModal #pstno').val(postList[index].pstno);
-  console.log(postList[index].pstno);
-  console.log(pstno);
   
   //  친구 태그 숨겨주기
   $('#reviewModal #ftag-input').remove('#ftag-input');
@@ -56,10 +53,18 @@ function openEditingModal(pstno, type) {
   //  별 찍기
   $('#reviewModal #showStar').remove('#showStar');
   $('#reviewModal #temp').starrr({
+    change: function(e, value){
+    	console.log(value);
+    	$("#star").val(value);
+    },
     rating: star
   })
   $('#reviewModal #temp').attr('id', 'showStar');
-  $('#reviewModal #showStar').toggleClass('starrr onlyMovie photo-star-section');
+  $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section');
+  
+  
+  
+  
   
   postShow(type);
 }

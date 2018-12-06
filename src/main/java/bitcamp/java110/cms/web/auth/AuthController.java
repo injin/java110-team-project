@@ -49,6 +49,8 @@ public class AuthController {
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
+      System.out.println(member);
+      
       // 기존에 가입된 사용자이면
       if (member != null) {
         session.setAttribute("loginUser", member);
