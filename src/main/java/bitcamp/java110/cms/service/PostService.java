@@ -11,6 +11,7 @@ public interface PostService {
     List<Post> getPosts(Map<String, Object> params);
     List<Post> keywordPosts(String keyword);
     List<Post> getHotPosts();
+    Post getOnePost(int pstno);
     void addPost (Post post);
     Boolean deletePost(int pstno);
     void updatePost(Post post);

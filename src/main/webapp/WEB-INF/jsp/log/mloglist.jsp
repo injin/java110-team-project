@@ -24,10 +24,11 @@
                 <span style="float: left; margin-bottom: 0">
                     <a href="#">${log.nick}</a>님이
                     <c:if test="${log.act eq 'wr'}">
-                        <a href="/app/sceneReview/review?mvno=${log.url}">${log.indirect}</a> 에 대한 영화 리뷰를 작성했습니다
+                        ${log.indirect} 에 대한 <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 작성했습니다
+                        
                     </c:if>
                     <c:if test="${log.act eq 'lk'}">
-                        <a href="/app/sceneReview/review?mvno=${log.url}">${log.indirect}</a> 에 대한 영화 리뷰를 좋아합니다
+                        ${log.indirect} 에 대한  <span onclick="getPostForDetail(${log.url},this)">영화 리뷰</span>를 좋아합니다
                     </c:if>
                 </span>
                 <span style="float: right; margin-bottom: 0">${log.createdDate}</span>
@@ -133,13 +134,12 @@
         </c:forEach>
         </ul>
     </div>
-    {%- assign i = i | plus : 300 -%}
-    {% endfor %}
+    
     
 
     <a class="return-top" href="#" >
     <img src="/img/top-btn.png"  width="50" height="50"></a>
-    <script src="/node_modules/aos/dist/aos.js"></script>
+    <script src="/js/aos.js"></script>
     <script>
     AOS.init();
     
@@ -277,6 +277,30 @@
            if (day.length < 2) day = '0' + day;
 
            return [year, month, day].join('-');
+       }
+       
+       function getPostForDetail(pstno,element){
+           $.ajax({
+               url : "/app/log/getPost",
+               type: "post",
+               headers : {
+                   'Content-Type': 'application/json'
+               },
+               data : JSON.stringify({
+                   "pstno" : parseInt(pstno)
+               }),
+               success : function(data) {
+                   
+                   var postList = data;
+                   var html = '<p class="d-none" id="reviewCont-';
+                   html += data.pstno;
+                   html += '"></p>';
+                   
+                   $(element).append(html);
+                 showCont(data.content,data.pstno); 
+                    /* openDetailModal(data.pstno);  */
+               }
+           }); 
        }
        
         window.onscroll = function(ev) {

@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Mlog;
+import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.service.MlogService;
+import bitcamp.java110.cms.service.PostService;
 
 @Controller
 @RequestMapping("/log")
 public class MlogController {
  
   @Autowired MlogService mlogservice;
+  @Autowired PostService postService;
   
   @RequestMapping("/mloglist")
   public String list(Model model,
@@ -29,6 +32,7 @@ public class MlogController {
     int mno = member.getMno();
     
     model.addAttribute("mpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_MP));
+    
     model.addAttribute("dpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_DP));
     model.addAttribute("pcList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_PC));
     model.addAttribute("scList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_SC));
@@ -50,6 +54,12 @@ public class MlogController {
     return mlogservice.getListMore(mno, type, lastno);
   }
   
-
-
+  @RequestMapping("/getPost")
+  public @ResponseBody Post more(@RequestBody Map<String, Object> request) {
+    
+    int pstno = (int)request.get("pstno");
+    Post post = postService.getOnePost(pstno);
+    
+    return post;
+  }
 }

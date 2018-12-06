@@ -32,7 +32,7 @@ public class PostServiceImpl implements PostService {
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired LikeDao likeDao;
   @Autowired MlogDao mlogDao;
-  
+
   /* 포스트 */
 
   @Override
@@ -48,25 +48,25 @@ public class PostServiceImpl implements PostService {
     } else {
       posts = postDao.findSome(params);
     }
-    
-    
-    
+
+
+
     for(int i=0;i<posts.size();i++)
     {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));
       posts.get(i).setFtags(flwDao.listForPost(posts.get(i).getPstno()));
       posts.get(i).setCmtCnt(postCmtDao.findCmtList(posts.get(i).getPstno()).size());
-      
+
       HashMap<String, Object> lparams = new HashMap<>();
       lparams.put("pstno", posts.get(i).getPstno());
       lparams.put("type", (posts.get(i).getPstTypeNo()==0)?"mp":"dp");
 
       posts.get(i).setLikeCnt(likeDao.findAll(lparams).size());
-      
+
     }
     return posts;
   }
-  
+
   @Override
   public List<Post> keywordPosts(String keyword) {
 
@@ -90,10 +90,21 @@ public class PostServiceImpl implements PostService {
     return posts;
   }
 
+  @Override
+  public Post getOnePost(int pstno) {
+
+    Post post = postDao.findOne(pstno);
+    post.setPhotos(postPhotoDao.findByNo(pstno));
+    post.setFtags(flwDao.listForPost(pstno));
+
+    return post;
+  }
+
+
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void addPost(Post post) {
-    
+
     if(post.getMvno() !=0 &&  movieDao.findByNo(post.getMvno()) == null) {
       HashMap<String, Object> params = new HashMap<>();
       params.put("mvno", post.getMvno());
@@ -113,9 +124,9 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);    
       }
     }
-    
+
     postDao.insert(post);
-    
+
     List<String> plst = post.getPhotos();
     String resultFtags = post.getFtagsForAdd();
     if(resultFtags != null && !resultFtags.trim().equals("")) {
@@ -135,7 +146,7 @@ public class PostServiceImpl implements PostService {
       params.put("pstno", post.getPstno());
       postPhotoDao.insert(params);
     }
-    
+
     Mlog mlog = new Mlog();
     mlog.setMno(post.getMno());
     mlog.setDirect((post.getPstTypeNo()==1)?LOG_DO_TYPE_DP:LOG_DO_TYPE_MP);
@@ -144,7 +155,7 @@ public class PostServiceImpl implements PostService {
     mlog.setUrl(String.valueOf(post.getPstno()));
     mlogDao.insert(mlog);
   }
-  
+
   @Override
   public Boolean deletePost(int pstno) {
     String type = postDao.getPostType(pstno);
@@ -160,12 +171,12 @@ public class PostServiceImpl implements PostService {
     }
     return false;
   }
-  
+
   @Transactional(rollbackFor=Exception.class)
   @Override
   public void updatePost(Post post) {
     postDao.updatePost(post);
-/*
+    /*
     List<String> plst = post.getPhotos();
     for(int i=0;i<plst.size();i++){
       HashMap<String, Object> params = new HashMap<>();
@@ -173,7 +184,7 @@ public class PostServiceImpl implements PostService {
       params.put("pstno", post.getPstno());
       postPhotoDao.insert(params);
     }
-*/
+     */
   }
 
   /* 댓글 */

@@ -9,7 +9,8 @@ public interface PostDao {
   int insert(Post post);
   List<Post> findAll(int mno);
   List<Post> findSome(Map<String, Object> params);
-  Post findByNo(int no);
+  /*Post findByNo(int no);*/
+  Post findOne(int pstno);
   int delete(int no);
   List<Post> findByKeyword(String keyword);
   List<Post> listTopMp();

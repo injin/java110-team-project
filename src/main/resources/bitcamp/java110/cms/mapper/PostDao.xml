@@ -149,7 +149,27 @@ limit 15
  
     </select>
     
-	<select id="findByNo" resultMap="postMap" parameterType="int">
+    <select  id="findOne" parameterType="int" resultMap="postMap2">
+     select 
+          p.pstno,
+          p.mvno,
+          p.ptno,
+          mv.titl,
+          p.star,
+          p.cont,
+          p.cdt,
+          m.mno,
+          m.nick,
+          m.p_phot
+       from
+          mv_post p
+          inner join mv_memb m on m.mno = p.mno
+          inner join mv_mv mv on mv.mvno = p.mvno
+       where p.pstno = #{pstno}
+    </select>
+    
+    
+	<!-- <select id="findByNo" resultMap="postMap" parameterType="int">
         SELECT
             pstno,
             mno,
@@ -164,7 +184,7 @@ limit 15
             mv_post
         WHERE
             pstno=#{psetno}
-	</select>
+	</select> -->
     
     <select id="listTopMp" resultMap="postMap2">
         SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, memb.p_phot, cdt, cont, count(ml.pstno)as cnt
