@@ -307,5 +307,6 @@
   <script src="/js/writingPost.js"></script>
   <script src="/js/detailPost.js"></script>
   <script src="/js/starrr.js"></script>
+  <script src="/js/showPosts.js"></script>
 </body>
 </html>

@@ -231,6 +231,7 @@
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/writingPost.js"></script>
     <script src="/js/detailPost.js"></script>
+    <script src="/js/showPosts.js"></script>
     <script>
         var sessionMember = {
                 "nickname" : '${sessionScope.loginUser.nickname}',

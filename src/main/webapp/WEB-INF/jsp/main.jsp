@@ -306,7 +306,6 @@ function showCont(cont, index) {
     
     </div>
     </main>
-    <jsp:include page="reviewFeed/writingPost.jsp"></jsp:include>
     <jsp:include page="reviewFeed/detailPost.jsp"></jsp:include>
     <jsp:include page="include/footer.jsp"></jsp:include>
     <script src="/js/jquery-ui.js"></script>
