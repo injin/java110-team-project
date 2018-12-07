@@ -79,7 +79,14 @@
         <c:if test="${sceneReview.time eq null}">
             <div class="col-lg-9 col-md-12">
                 <div class="alert alert-secondary" role="alert">
-                    <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                    <c:choose>
+                        <c:when  test="${sceneReview.trgtSrExist == false}">
+                            <span>해당 시간의 장면리뷰가 없거나 삭제되었습니다.</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </c:if>
@@ -185,11 +192,6 @@
                 </form>
                 </c:if>
                 
-            </c:if>
-            <c:if  test="${sceneReview.trgtSrExist == false}">
-                <div class="alert alert-secondary" role="alert">
-                  <span>해당 시간의 장면리뷰가 없습니다.</span>
-                </div>
             </c:if>
         </div>
         </c:if>
