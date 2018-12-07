@@ -104,7 +104,8 @@ public class MemberServiceImpl implements MemberService {
     }
   }
   
-  protected void saveMvId (int mvno) {
+  @Override
+  public void saveMvId (int mvno) {
     String tmdbKey = env.getProperty("tmdb.key");
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
@@ -143,15 +144,16 @@ public class MemberServiceImpl implements MemberService {
     System.out.println("SignOut Process 6");
     logDao.signOut1(mno);
     logDao.signOut2(mno);
+    System.out.println("SignOut Process 7");
     flwDao.signOut3(mno);
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
-    System.out.println("SignOut Process 7");
+    System.out.println("SignOut Process 8");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
     System.out.println("LastProcess");
     memberDao.signOut(mno);
-    System.out.println("END?");
+    System.out.println("Bye");
     
   }
   

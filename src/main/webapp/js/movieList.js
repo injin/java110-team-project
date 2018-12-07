@@ -4,7 +4,7 @@ Array.prototype.push = function(x) {
   this.maxLength = 20;
   if (this.maxLength !== undefined && this.length > this.maxLength){
     this.splice(0,1);
-    alert('20개 이상 선택 할 수 없습니다.');
+    commonAlert('error', '20개 이상 선택 할 수 없습니다.');
     return;
   } 
 }

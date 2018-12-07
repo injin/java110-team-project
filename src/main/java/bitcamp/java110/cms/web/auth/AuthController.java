@@ -49,6 +49,8 @@ public class AuthController {
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
+      System.out.println("login " + member);
+      
       // 기존에 가입된 사용자이면
       if (member != null) {
         session.setAttribute("loginUser", member);
@@ -152,6 +154,8 @@ public class AuthController {
         Model model,
         HttpSession session) {
       model.addAttribute("targetUser", session.getAttribute("loginUser"));
+      
+      System.out.println("\nupdate 접근 " + (Member)session.getAttribute("loginUser"));
       
       List<Genre> gnrList = genreService.getList();
       List<Integer> favList = memberService.getFavGnrDBList(((Member)session.getAttribute("loginUser")).getMno());

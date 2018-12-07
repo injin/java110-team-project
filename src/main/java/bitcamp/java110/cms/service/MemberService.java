@@ -12,4 +12,5 @@ public interface MemberService {
   void signOut(int mno);
   List<Integer> getFavGnrDBList(int mno);
   List<Integer> getFavMvDBList(int mno);
+  void saveMvId (int mvno);
 }
