@@ -1,17 +1,28 @@
-  var $inputKeyword = $('#input-srch-keyword');
-  var $srchMovieList = $('#list-search-movie');
-  var $chooseMvList = $('#list-choose-movie');
-  var selecList = [];
+  //배열의 proto 길이 제한.
+  Array.prototype.add = function(x) {
+      this.unshift(x);
+      this.maxLength = 20;
+      if (this.maxLength !== undefined && this.length > this.maxLength){
+          this.pop();
+          alert('20개 이상 선택 할 수 없습니다.');
+          return;
+      } 
+  }
   
-  //   FORM TAG 안의 검색창에서 Enter Key 기능
-  $("#input-srch-keyword").keypress(
-       function(event){
-       if (event.which == '13') {
-           event.preventDefault();
-           findMoviesByKeyword();
-       }
-  });
+var $inputKeyword = $('#input-srch-keyword');
+var $srchMovieList = $('#list-search-movie');
+var $chooseMvList = $('#list-choose-movie');
+var selecList = [];
   
+// FORM TAG 안의 검색창에서 Enter Key 기능
+$("#input-srch-keyword").keypress(
+  function(event){
+    if (event.which == '13') {
+      event.preventDefault();
+      findMoviesByKeyword();
+    }
+});
+
   //  영화 검색
   function findMoviesByKeyword() {
       var keyword = document.getElementById('input-srch-keyword').value;
@@ -77,39 +88,30 @@
       return html;
   }
   
-  //배열의 proto 길이 제한.
-  Array.prototype.add = function(x) {
-      this.unshift(x);
-      this.maxLength = 20;
-      if (this.maxLength !== undefined && this.length > this.maxLength){
-          this.pop();
-          alert('20개 이상 선택 할 수 없습니다.');
-          return;
-      } 
-  }
-  
-  //영화 선정 리스트를 위한 배열과 메소드
+//영화 선정 리스트를 위한 배열과 메소드
   function addList(id, title) {
-    for (var i in selecList) {
-      if (selecList[i].mvno === id){
-          alert('이미 선택한 영화 입니다.');
-          break;
-      } else {
-        makeFavListHtml(id, title);
-        selecList.add({mvno:id, title:title});
-        console.log(id + ' 등록');
-      break;
-      }
-    }
+  	selecList.push({mvno:id, title:title});
+  	for (var i = 0; i < selecList.length - 1; i++){
+  			if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
+  				
+  				selecList.splice(-1);
+  				commonAlert('error', '이미 선택한 영화 입니다.');
+  			    return;
+  			}
+  	}
+  	makeFavListHtml(id, title);
+      console.log(selecList);
+      return;
   }
-      
+
+
+  //  삭제
   function removeList(id) {
-    console.log(id + ' 삭제');
     var idx;
     for (var i in selecList) {
       if (selecList[i].mvno == id){
         idx = i;
-      break;
+        break;
       }
     }
     if (idx > -1) {
@@ -117,11 +119,13 @@
       console.log(selecList);
     }
     $('#mv-li-'+id).remove();
+    console.log(id + ' 삭제');
   }
-  
+
+  //	
   function makeFavListHtml(id, title) {
     var print = '';
-  
+
     print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
     print += '<div class="media-body">';
     print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
@@ -131,29 +135,8 @@
     print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
     print += '</div>';
     print += '</li>';
-  
+
     $chooseMvList.append(print);
-    $('.chooseList').css("list-style-type", "decimal !important");
   }
+
   
-  
-  function signUpCheck() {
-    $form = $('#detailForm');
-    $nickname = $('#nickname');
-//    var form = document.detailForm;
-    if($nickname.val() === null || $nickname.val() === '(알수없음)' || $nickname.val() === "") {
-      alert("닉네임을 입력해 주세요");
-      $nickname.focus();
-    }
-    
-    if(selecList.length < 5) {
-      alert("영화를 5편 이상 선정 해 주세요");
-      $inputKeyword.focus();
-      return
-    }
-    $form.submit();
-  }
-  
-  function goToHome() {
-    location.href = '/app/';
-  }
