@@ -144,7 +144,7 @@ function makeHtml(data) {
 //	console.log(data);
   var html = '';
   data.list.forEach(function(obj, idx) {
-    html += '<div class="item" onclick="toDetail('+obj.id+')">';
+    html += '<div class="item" onclick="goToSceneReview('+obj.id+')">';
     if (obj.poster_path != null) {
       html += '<img class="item-image" src="https://image.tmdb.org/t/p/w500' + obj.poster_path + '" alt="' + obj.title + '"/>';
     } else {
@@ -266,7 +266,3 @@ upcommingBase.setRightScrollOpacity();
 var mdList = new Carousel('#mdCarousel');
 mdList.setLeftScrollOpacity();
 mdList.setRightScrollOpacity();
-
-function toDetail(id) {
-  window.location.href = '/app/sceneReview/review?mvno='+ id;
-}

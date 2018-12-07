@@ -68,15 +68,6 @@ $(function () {
 	});
 });
 
-function bye () {
-	var accessToken = Kakao.Auth.getAccessToken();
-	console.log(accessToken);
-	Kakao.API.request({
-        url: '/v1/user/unlink',
-});
-	
-}
-
 $(function(){
     $(".return-top").hide(); // 탑 버튼 숨김 - 이걸 빼면 항상 보인다.
     
