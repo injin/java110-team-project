@@ -28,7 +28,7 @@
 <%-- ====================================== 공개여부 ============================================= --%>
 					<label class="switch"> <input type="checkbox" name="open"
 						class="open" checked> <span class="slider round"> <i
-							class="fas fa-lock" id="lock"></i> <i
+							class="fas fa-lock dis-none" id="lock"></i> <i
 							class="fas fa-globe-americas" id="globe"></i>
 					</span>
 					</label>

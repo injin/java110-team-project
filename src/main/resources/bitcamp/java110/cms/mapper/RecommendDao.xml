@@ -7,8 +7,17 @@
     <resultMap type="theme" id="themeMap">
         <id column="thmno" property="thmno"/>
         <result column="thm" property="thm" />
+        <result column="mvno" property="mvno" />
     </resultMap>
     
+    <insert id="addMovieList" parameterType="map">
+        INSERT INTO mv_rcmd (thmno, mvno)
+            SELECT #{thmno}, #{mvno} 
+            FROM DUAL
+        WHERE NOT EXISTS (SELECT mvno
+                            FROM mv_rcmd
+                          WHERE mvno=#{mvno})
+    </insert>
     
     <select id="getTitle" resultType="String" parameterType="int">
         SELECT thm

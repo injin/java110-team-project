@@ -10,7 +10,9 @@ function openDetailModal(pstno) {
     }
     $('#detailModal #movie-title').text(postList[index].title);
     $('#detailModal #ownerImg').attr('src',postList[index].member.profileImagePath);
-    $('#detailModal #ownerNick').text(postList[index].member.nickname);
+    var hForNick = '<span id="ownerNick" class="c-pointer" onclick="goToFeed('+postList[index].member.mno+')">'+postList[index].member.nickname+'</span>';
+    $('#detailModal #ownerNick').replaceWith(hForNick);
+    /*$('#detailModal #ownerNick').text(postList[index].member.nickname);*/
     $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
     $('#detailModal #dpstno').val(postList[index].pstno);
     $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 

@@ -1,11 +1,16 @@
 package bitcamp.java110.cms.web.admin.recommendMovie;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
+import info.movito.themoviedbapi.model.MovieDb;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,13 +46,55 @@ public class RecommendController {
       
     System.out.println("addList:" + theme);
     model.addAttribute("theme", theme);
-       
+    List<MovieDb> movieList = recommendService.getList(theme.getThmno());
+    
+    /* moviedb타입을 movie로 바꾸던가... 여기부터 해야해*/
+    System.out.println("movieList: " +movieList);
+    model.addAttribute("movieList", recommendService.getList(theme.getThmno()));
        //Map<String, Object> condition = new HashMap<>();
        //List<Report> reportlist = reportService.list(condition);
       
        //model.addAttribute("findAll", reportlist);
       
       return "admin/add";
+    
+  }
+
+  @RequestMapping("/save")
+  public String save(
+      @RequestParam(name="mvno", required=true)
+      List<Integer> mvnoList,
+      @RequestParam(name="title", required=false)
+      List<String> titleList,
+      Theme theme,
+      Model model){
+    
+    System.out.println();
+    List<Movie> movieList = new ArrayList<>();
+    for(int i=0; i<mvnoList.size(); i++) {
+      movieList.add(new Movie(mvnoList.get(i), titleList.get(i)));
+    }
+      
+    recommendService.addMovieList(theme, movieList);
+    
+    //System.out.println(recommendService.addMovieList(theme, movieList));
+    /*
+    List<Theme> themes = new ArrayList<>();
+    System.out.println();
+    System.out.println("save: " + theme);
+    for(Integer mvno : mvnoList) {
+      theme.setMvno(mvno);
+      themes.add(theme);
+    System.out.println("save: " + mvnoList);
+    }*/
+    model.addAttribute("theme", recommendService.getAllTitle());
+       
+       //Map<String, Object> condition = new HashMap<>();
+       //List<Report> reportlist = reportService.list(condition);
+      
+       //model.addAttribute("findAll", reportlist);
+      
+      return "admin/recommend";
     
   }
 

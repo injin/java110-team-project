@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbApi;
@@ -50,6 +52,23 @@ public class RecommendServiceImple implements RecommendService {
     return mvList;
   }
 
+  @Override
+  public void addMovieList(Theme theme ,List<Movie> movieList) {
+   
+    Map<String, Object> params = new HashMap<String, Object>();
+    System.out.println(movieList.size());
+    for(int i=0; i<movieList.size(); i++) {
+      
+      mvDao.insertNotExists(movieList.get(i));
+      params.put("thmno", theme.getThmno());
+      params.put("mvno", movieList.get(i).getMvno());
+      System.out.println("thmno: "+theme.getThmno());
+      System.out.println("mvno"+ movieList.get(i).getMvno());
+      rcmdDao.addMovieList(params);
+    }
+    
+  }
+  
   @Override
   public MovieDb getMvById(int mvno) {
     String tmdbKey = env.getProperty("tmdb.key");
@@ -104,17 +123,54 @@ public class RecommendServiceImple implements RecommendService {
      * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
      * 최중 mv가 10개를 넘지 않게 한다.
      */
+    List<Integer> mvnoList = anlyDao.getTopFivePNT(mno);
+    for(int mvno : mvnoList) {
+      Map<Object, Object> mvList = getRecommendations(mvno);
+      System.out.println(mvList.get("results").toString());
+      @SuppressWarnings("unchecked")
+      List<MovieDb> list = (List<MovieDb>) mvList.get("results");
+      
+      
+      for (MovieDb mv : list) {
+        System.out.println(mv.toString());
+        System.out.println();
+      }
+      
+/*      System.out.println("\n\n");
+      
+      for(Entry<Object, Object> entry : mvList.entrySet()) {
+        Object key = entry.getKey();
+        Object value = entry.getValue();
+//        System.out.println(key);
+//        System.out.println(value);
+        System.out.println();
+      }*/
+      
+    }
+  }
+
+  @Override
+  public Map<Object, Object> getRecommendations(int mvno) {
     String urlHead = "https://api.themoviedb.org/3/movie/";
-    int seedNo = 65;
     String urlBody = "/recommendations?page=1&language=ko-KOR&api_key=";
     String urlTail = env.getProperty("tmdb.key");
-    String URL = urlHead + seedNo + urlBody + urlTail;
+    String URL = urlHead + mvno + urlBody + urlTail;
     
     @SuppressWarnings("unchecked")
-    Map<String, Object> response = new RestTemplate().getForObject(URL, Map.class);
+    Map<Object, Object> response = new RestTemplate().getForObject(URL, Map.class);
+    if(response != null) {
+      System.out.println(response.size() + "RestSuccess!" );
+    }
+    /*
     System.out.println(
-        response.toString().replace("}", "}\n")
-        .replace("title", "\n\tTITLE")
-        .replace("vote_average", "\nVOTE"));
+        response.toString().replace("{id", "\n{id")
+        .replace("title", "TITLE")
+        .replace("vote_average", "VOTE"));
+    */
+    return response;
   }
+  
+  
+  
+  
 }

@@ -183,7 +183,7 @@
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4" id="rcmdSide">
 					<div class="wPost text-center p-0">
-						<div class="dmvDiv">${sessionScope.loginUser.nickname}의맞춤영화</div>
+						<div class="dmvDiv">${sessionScope.loginUser.nickname}님을 위한 영화 추천</div>
 						<table>
 							<colgroup>
 								<col width="25%" />
@@ -215,7 +215,7 @@
 					</div>
 
 					<div class="wPost text-center divMore">
-						<a href="/app/rcmd/list" class="text-dark">더 많은 추천 영화 보기</a>
+						<a href="/app/rcmd/anly" class="text-dark">더 많은 추천 영화 보기</a>
 					</div>
 				</div>
 			</c:when>
@@ -265,7 +265,8 @@
                 "title": '${post.title}',
                 member:{
                     "profileImagePath": '${post.member.profileImagePath}',
-                    "nickname":'${post.member.nickname}',    
+                    "nickname":'${post.member.nickname}', 
+                    "mno":'${post.member.mno}'
                 },
                 "star":'${post.star}',
                 "photos":pary,
