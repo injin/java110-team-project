@@ -61,3 +61,32 @@
     height: 2rem !important;
     border-radius: 50%;
 }
+.carousel-control-prev {
+    left: -1em;
+    width: 5%;
+    height:5em;
+    top:7em;
+}
+.carousel-control-next {
+    right: -1em;
+    width: 5%;
+    height:5em;
+    top:7em;
+}
+span.carousel-control-prev-icon {
+    position: relative;
+    right: -1em;
+}
+span.carousel-control-next-icon {
+    position: relative;
+    left: -1em;
+}
+.mb-5, .my-5 {
+    margin-bottom: 3rem !important;
+    margin-left: 2rem;
+}
+.col-md-4 {
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 31.5%;
+}

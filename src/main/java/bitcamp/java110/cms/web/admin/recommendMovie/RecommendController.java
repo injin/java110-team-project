@@ -39,7 +39,7 @@ public class RecommendController {
       Theme theme,
       Model model){
       
-    System.out.println(theme);
+    System.out.println("addList:" + theme);
     model.addAttribute("theme", theme);
        
        //Map<String, Object> condition = new HashMap<>();

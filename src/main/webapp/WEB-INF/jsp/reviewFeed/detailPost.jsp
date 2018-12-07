@@ -36,7 +36,7 @@
                         <img id="ownerImg" src="/img/default-profile-img.png" />
                         <div class="media-body">
                             <ul class="mb-0 pl-0 float-left" id="nickwrap">
-                                <li><a href="#" class="text-dark" id="ownerNick">닉네임</a></li>
+                                <li><span id="ownerNick">닉네임</span></li>
                                 <%-- 친구태그 --%>
                                 <li id="dftags"></li>
                             </ul>

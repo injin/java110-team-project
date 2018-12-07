@@ -1,63 +1,20 @@
-//  배열의 proto 길이 제한.
+//배열의 proto 길이 제한.
 Array.prototype.push = function(x) {
   this.unshift(x);
   this.maxLength = 20;
   if (this.maxLength !== undefined && this.length > this.maxLength){
-    commonAlert('error', '20개 이상 선택 할 수 없습니다.');
-//    this.pop();
     this.splice(0,1);
+    alert('20개 이상 선택 할 수 없습니다.');
     return;
   } 
 }
-/* 
-    테스트 코드
-
-    var a = [];
-    for ( var i = 0; i <= 40; i++) {
-        a.add(i);
-        console.log(a);
-    }
-*/
 
 var $inputKeyword = $('#input-srch-keyword');
 var $srchMovieList = $('#list-search-movie');
 var $chooseMvList = $('#list-choose-movie');
 var selecList = [];
 
-//  커버 & 프로필 이미지 업로드 관련
-$("#imageUpload-cover").change(function() {
-  coverURL(this);
-});
-
-$("#imageUpload-profile").change(function() {
-  profileURL(this);
-});
-
-function profileURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#profilePreview').css('background-image', 'url('+e.target.result +')');
-      $('#profilePreview').hide();
-      $('#profilePreview').fadeIn(650);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-function coverURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function(e) {
-      $('#coverPreview').css('background-image', 'url('+e.target.result +')');
-      $('#coverPreview').hide();
-      $('#coverPreview').fadeIn(650);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-
-//   FORM TAG 안의 검색창에서 Enter Key 기능
+// FORM TAG 안의 검색창에서 Enter Key 기능
 $("#input-srch-keyword").keypress(
     function(event){
       if (event.which == '13') {
@@ -70,7 +27,7 @@ $("#input-srch-keyword").keypress(
 function findMoviesByKeyword() {
   var keyword = document.getElementById('input-srch-keyword').value;
   if (keyword == '') {
-    commonAlert('error', '키워드를 입력해주세요');
+    alert('키워드를 입력해주세요');
     return;
   }
 
@@ -131,31 +88,20 @@ function makeMovieListHtml(data) {
   return html;
 }
 
-
-
-
-
-
-
 //영화 선정 리스트를 위한 배열과 메소드
 function addList(id, title) {
   selecList.push({mvno:id, title:title});
-//  console.log(selecList.length );
   for (var i = 0; i < selecList.length - 1; i++){
-//    console.log(i);
-//    console.log(selecList[selecList.length - 1].mvno);
-      if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
-        
-        selecList.splice(-1);
-        commonAlert('error', '이미 선택한 영화 입니다.');
-//        console.log(selecList);
-          return;
-      }
+    if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
+
+      selecList.splice(-1);
+      commonAlert('error', '이미 선택한 영화 입니다.');
+      return;
+    }
   }
   makeFavListHtml(id, title);
-//    console.log(id + ' 등록');
-    console.log(selecList);
-    return;
+  console.log(selecList);
+  return;
 }
 
 
@@ -191,35 +137,4 @@ function makeFavListHtml(id, title) {
   print += '</li>';
 
   $chooseMvList.append(print);
-}
-
-//  가입
-function signUpCheck() {
-  $form = $('#detailForm');
-  $nickname = $('#nickname');
-  if($nickname.val() === null || $nickname.val() === '(알수없음)' || $nickname.val() === "") {
-    commonAlert('error', "닉네임을 입력해 주세요");
-    $nickname.focus();
-  }
-
-  if(selecList.length < 5) {
-    commonAlert('error', "영화를 5편 이상 선정 해 주세요");
-    $inputKeyword.focus();
-    return
-  }
-  $form.submit();
-}
-
-//  home으로
-function goToHome() {
-  location.href = '/app/';
-}
-
-//  탈퇴
-function bye () {
-  var accessToken = Kakao.Auth.getAccessToken();
-  console.log(accessToken);
-  Kakao.API.request({
-    url: '/v1/user/unlink',
-  });
 }

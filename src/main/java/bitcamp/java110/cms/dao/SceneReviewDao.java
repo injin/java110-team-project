@@ -23,6 +23,7 @@ public interface SceneReviewDao {
   List<SceneReview> listTopSr();
   List<Member> listTopReviewer(int mvno);
   Integer addToSrAlbum(Map<String, Object> condition);
+  Integer deleteFromSrAlbum(Map<String, Object> condition);
   
   Integer deleteCmtMapBySrno(int srno);
   Integer deleteCmtBySrno(int srno);
