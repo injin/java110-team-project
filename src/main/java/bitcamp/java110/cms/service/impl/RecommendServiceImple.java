@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbApi;
@@ -50,6 +52,23 @@ public class RecommendServiceImple implements RecommendService {
     return mvList;
   }
 
+  @Override
+  public void addMovieList(Theme theme ,List<Movie> movieList) {
+   
+    Map<String, Object> params = new HashMap<String, Object>();
+    System.out.println(movieList.size());
+    for(int i=0; i<movieList.size(); i++) {
+      
+      mvDao.insertNotExists(movieList.get(i));
+      params.put("thmno", theme.getThmno());
+      params.put("mvno", movieList.get(i).getMvno());
+      System.out.println("thmno: "+theme.getThmno());
+      System.out.println("mvno"+ movieList.get(i).getMvno());
+      rcmdDao.addMovieList(params);
+    }
+    
+  }
+  
   @Override
   public MovieDb getMvById(int mvno) {
     String tmdbKey = env.getProperty("tmdb.key");
