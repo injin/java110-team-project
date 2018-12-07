@@ -80,4 +80,11 @@
          WHERE mvno = #{value}
     </select>
     
+    <select id="getTopFivePNT" resultType="int" parameterType="int">
+        SELECT mvno
+        FROM mv_mv_anly
+        WHERE mno=#{mno}
+        ORDER BY pnt DESC
+        LIMIT 5
+    </select>
 </mapper>
