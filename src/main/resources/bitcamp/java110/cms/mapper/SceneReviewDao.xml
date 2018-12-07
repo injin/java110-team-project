@@ -153,6 +153,12 @@
         VALUES (#{lbmno}, #{srno})
     </insert>
     
+    <delete id="deleteFromSrAlbum" parameterType="map">
+        DELETE FROM mv_lbm_sr
+         WHERE lbmno = #{lbmno}
+           AND srno = #{srno}
+    </delete>
+    
     <delete id="deleteCmtMapBySrno" parameterType="int">
         DELETE FROM mv_sr_map
          WHERE cmno in (SELECT cmno FROM mv_sr_cmt WHERE srno = #{value})

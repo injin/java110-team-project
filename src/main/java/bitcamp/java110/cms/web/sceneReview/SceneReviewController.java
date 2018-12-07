@@ -136,14 +136,17 @@ public class SceneReviewController {
   }
   
   @RequestMapping("addToSrAlbum")
-  public String addToSrAlbum(
+  public @ResponseBody boolean addToSrAlbum(
       int lbmno, int srno) {
     
-    sceneReviewService.addToSrAlbum(lbmno, srno);
+    return sceneReviewService.addToSrAlbum(lbmno, srno);
+  }
+  
+  @RequestMapping("deleteFromSrAlbum")
+  public @ResponseBody boolean deleteFromSrAlbum(
+      int lbmno, int srno) {
     
-    SceneReview sr = sceneReviewService.findByNo(srno);
-    return "redirect:/app/sceneReview/review?mvno=" + sr.getMvno()
-              + "&srno=" + sr.getSrno();
+    return sceneReviewService.deleteFromSrAlbum(lbmno, srno);
   }
   
   @RequestMapping("editComment")
