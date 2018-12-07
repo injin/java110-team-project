@@ -49,7 +49,7 @@ $("#input-srch-keyword").keypress(
 function findMoviesByKeyword() {
   var keyword = document.getElementById('input-srch-keyword').value;
   if (keyword == '') {
-    alert('키워드를 입력해주세요');
+    commonAlert('error', '키워드를 입력해주세요');
     return;
   }
 
@@ -110,13 +110,17 @@ function makeMovieListHtml(data) {
   return html;
 }
 
-//배열의 proto 길이 제한.
+
+
+
+//  배열의 proto 길이 제한.
 Array.prototype.add = function(x) {
   this.unshift(x);
   this.maxLength = 20;
+  
   if (this.maxLength !== undefined && this.length > this.maxLength){
-    this.pop();
-    alert('20개 이상 선택 할 수 없습니다.');
+    this.slice(0,1);
+    commonAlert('error', '20개 이상 선택 할 수 없습니다.');
     return;
   } 
 }
@@ -132,22 +136,29 @@ Array.prototype.add = function(x) {
 
 
 //영화 선정 리스트를 위한 배열과 메소드
+
+
+
 function addList(id, title) {
-  for (var i in selecList) {
-    if (selecList[i].mvno === id){
-      alert('이미 선택한 영화 입니다.');
-      break;
-    } else {
-      makeFavListHtml(id, title);
-      selecList.add({mvno:id, title:title});
-      console.log(id + ' 등록');
-      break;
+  for (var j in selecList) {
+  
+    for (var i in selecList -1 ) {
+      if (selecList[j].mvno === selecList[i].mvno){
+        commonAlert('error', '이미 선택한 영화 입니다.');
+        break;
+      } else {
+        makeFavListHtml(id, title);
+        selecList.add({mvno:id, title:title});
+        console.log(id + ' 등록');
+        break;
+      }
     }
   }
 }
 
+
+//  삭제
 function removeList(id) {
-  console.log(id + ' 삭제');
   var idx;
   for (var i in selecList) {
     if (selecList[i].mvno == id){
@@ -160,8 +171,10 @@ function removeList(id) {
     console.log(selecList);
   }
   $('#mv-li-'+id).remove();
+  console.log(id + ' 삭제');
 }
 
+//  
 function makeFavListHtml(id, title) {
   var print = '';
 
@@ -178,29 +191,29 @@ function makeFavListHtml(id, title) {
   $chooseMvList.append(print);
 }
 
-
+//  가입
 function signUpCheck() {
   $form = $('#detailForm');
   $nickname = $('#nickname');
-//  var form = document.detailForm;
   if($nickname.val() === null || $nickname.val() === '(알수없음)' || $nickname.val() === "") {
-    alert("닉네임을 입력해 주세요");
+    commonAlert('error', "닉네임을 입력해 주세요");
     $nickname.focus();
   }
 
   if(selecList.length < 5) {
-    alert("영화를 5편 이상 선정 해 주세요");
+    commonAlert('error', "영화를 5편 이상 선정 해 주세요");
     $inputKeyword.focus();
     return
   }
   $form.submit();
 }
 
+//  home으로
 function goToHome() {
   location.href = '/app/';
 }
 
-
+//  탈퇴
 function bye () {
   var accessToken = Kakao.Auth.getAccessToken();
   console.log(accessToken);

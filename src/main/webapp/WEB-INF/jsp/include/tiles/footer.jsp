@@ -42,7 +42,7 @@ Movie Around The World
               <a href="#!">장면 앨범</a>
             </li>
             <li>
-              <a href="/reviewFeed/list">전체 피드</a>
+              <a href="/app/reviewFeed/list">전체 피드</a>
             </li>
             <li>
               <a href="#!">나의 피드</a>
@@ -94,9 +94,9 @@ Movie Around The World
     <!-- Call to action -->
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2018 Copyright:
-      <a href="http://localhost:8888/app/"> MovieInSta.com</a>
+      <a href="http://localhost:8888/app/"> scenenanda.com</a>
       <br>
-      <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에 있으며,
+      <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에게 있으며,
       <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.
     </div>
     <!-- Copyright -->
