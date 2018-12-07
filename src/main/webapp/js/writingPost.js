@@ -1,7 +1,5 @@
 $(function() {
 
-
-
     /* ========== 이미지 업로드 관련  ========== */
     var uploadFileNames = [];
 
@@ -270,6 +268,7 @@ function postShow(id) {
 
 
 /* ========== 피드 무한스크롤 ========== */
+var doingLoad = false;
 function morePostHtml(data){
     var html = '';
 
@@ -404,11 +403,13 @@ function morePostHtml(data){
     }  
 
     $('#pstShw').append(html); 
+    
+    doingLoad = false;
 }
 
 $(window).scroll(function() {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-
+    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
+        doingLoad=true;
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
