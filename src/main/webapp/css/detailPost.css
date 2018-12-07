@@ -112,3 +112,9 @@
     border-radius: 50%;
     margin-right: 0.5rem;
 }
+.carousel-inner {
+    position: relative;
+    width: 91%;
+    overflow: hidden;
+    margin-left: 2em;
+}
