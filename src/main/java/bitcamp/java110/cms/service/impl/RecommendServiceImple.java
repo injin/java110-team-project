@@ -104,17 +104,54 @@ public class RecommendServiceImple implements RecommendService {
      * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
      * 최중 mv가 10개를 넘지 않게 한다.
      */
+    List<Integer> mvnoList = anlyDao.getTopFivePNT(mno);
+    for(int mvno : mvnoList) {
+      Map<Object, Object> mvList = getRecommendations(mvno);
+      System.out.println(mvList.get("results").toString());
+      @SuppressWarnings("unchecked")
+      List<MovieDb> list = (List<MovieDb>) mvList.get("results");
+      
+      
+      for (MovieDb mv : list) {
+        System.out.println(mv.toString());
+        System.out.println();
+      }
+      
+/*      System.out.println("\n\n");
+      
+      for(Entry<Object, Object> entry : mvList.entrySet()) {
+        Object key = entry.getKey();
+        Object value = entry.getValue();
+//        System.out.println(key);
+//        System.out.println(value);
+        System.out.println();
+      }*/
+      
+    }
+  }
+
+  @Override
+  public Map<Object, Object> getRecommendations(int mvno) {
     String urlHead = "https://api.themoviedb.org/3/movie/";
-    int seedNo = 65;
     String urlBody = "/recommendations?page=1&language=ko-KOR&api_key=";
     String urlTail = env.getProperty("tmdb.key");
-    String URL = urlHead + seedNo + urlBody + urlTail;
+    String URL = urlHead + mvno + urlBody + urlTail;
     
     @SuppressWarnings("unchecked")
-    Map<String, Object> response = new RestTemplate().getForObject(URL, Map.class);
+    Map<Object, Object> response = new RestTemplate().getForObject(URL, Map.class);
+    if(response != null) {
+      System.out.println(response.size() + "RestSuccess!" );
+    }
+    /*
     System.out.println(
-        response.toString().replace("}", "}\n")
-        .replace("title", "\n\tTITLE")
-        .replace("vote_average", "\nVOTE"));
+        response.toString().replace("{id", "\n{id")
+        .replace("title", "TITLE")
+        .replace("vote_average", "VOTE"));
+    */
+    return response;
   }
+  
+  
+  
+  
 }
