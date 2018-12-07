@@ -4,10 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.RecommendDao">
     
+    <resultMap type="theme" id="themeMap">
+        <id column="thmno" property="thmno"/>
+        <result column="thm" property="thm" />
+    </resultMap>
+    
+    
     <select id="getTitle" resultType="String" parameterType="int">
         SELECT thm
         FROM mv_thm
         WHERE thmno = #{thmno}
+    </select>
+
+    <select id="getAllTitle" resultMap="themeMap">
+        SELECT thmno, thm
+        FROM mv_thm
     </select>
     
     <select id="findMgrRcmdListById" resultType="int" parameterType="int">

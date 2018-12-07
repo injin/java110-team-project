@@ -11,6 +11,7 @@ import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -31,6 +32,12 @@ public class RecommendServiceImple implements RecommendService {
   public String getListName(int thmno) {
     return rcmdDao.getTitle(thmno);
   }
+  
+  @Override
+  public List<Theme> getAllTitle() {
+    return rcmdDao.getAllTitle();
+  }
+  
   @Override
   public List<MovieDb> getList(int thmno){
     List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
