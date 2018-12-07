@@ -232,7 +232,7 @@
 										</p>
 									</div>
 									<c:if test="${post.photos[0] !=null}">
-									 <%-- 이미지 클릭시 상세모달로 --%>
+										<%-- 이미지 클릭시 상세모달로 --%>
 										<div class="image">
 											<img onclick="openDetailModal(${post.pstno})"
 												src="/upload/post/${post.photos[0]}"
@@ -254,21 +254,22 @@
 
 									<%-- 좋아요 --%>
 									<div class="col-6 text-left">
-                                <i
-                                    class="fas fa-thumbs-up btmIcon c-pointer likeColor 
-                                    <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
-                                    <c:if test="${!post.likeCheck}"> dis-none</c:if>"
-                                    id="btn-like-full-${post.pstno}"
-                                    onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
-                                    class="far fa-thumbs-up btmIcon c-pointer likeColor 
-                                    <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
-                                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
-                                    id="btn-like-empty-${post.pstno}"
-                                    onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
-                                    id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
-                                    class="far fa-comment btmIcon c-pointer" onclick="showMore(this,${post.pstno})"></i>
-                                <span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
-                            </div>
+										<i
+											class="fas fa-thumbs-up btmIcon c-pointer likeColor 
+                   <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+                   <c:if test="${!post.likeCheck}"> dis-none</c:if>"
+											id="btn-like-full-${post.pstno}"
+											onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
+											class="far fa-thumbs-up btmIcon c-pointer likeColor 
+                   <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
+                   <c:if test="${post.likeCheck}"> dis-none</c:if>"
+											id="btn-like-empty-${post.pstno}"
+											onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
+											id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
+											class="far fa-comment btmIcon c-pointer"
+											onclick="showMore(this,${post.pstno})"></i> <span
+											id="cCnt-${post.pstno}">${post.cmtCnt}</span>
+									</div>
 
 									<%-- 별점 --%>
 									<c:if test="${post.pstTypeNo ==0}">

@@ -8,13 +8,13 @@
 <meta charset="UTF-8">
 <title>moviestagram</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
-<link rel='stylesheet' href='/css/common.css'>
 <link rel="stylesheet" href="/css/all.css">
 <link rel='stylesheet' href='/css/fontawesome.css'>
 <link rel='stylesheet' href='/css/card.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
+<link rel='stylesheet' href='/css/common.css'>
 <script src="/js/makeContPost.js"></script>
 <style>
 .gPost {
