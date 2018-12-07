@@ -65,13 +65,14 @@ function openEditingModal(pstno, type) {
     $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section nostar');
   }
   
+  /*  시간 관계상 사진 update 기능은 처리 하지 않기로 했음.
   //  사진 처리
   if (postList[index].photos.length != 0){
     console.log("사진있다");
-    
   }
-  
-  
+  */
+  $('#reviewModal .file').hide();
+  $('#reviewModal #media-list').hide();
   
   postShow(type);
   
