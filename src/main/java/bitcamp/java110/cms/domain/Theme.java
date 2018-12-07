@@ -4,10 +4,11 @@ public class Theme {
   
   protected int thmno;
   protected String thm;
+  protected int mvno;
   
   @Override
   public String toString() {
-    return "Theme [thmno=" + thmno + ", thm=" + thm + "]";
+    return "Theme [thmno=" + thmno + ", thm=" + thm + ", mvno=" + mvno + "]";
   }
   public int getThmno() {
     return thmno;
@@ -20,6 +21,12 @@ public class Theme {
   }
   public void setThm(String thm) {
     this.thm = thm;
+  }
+  public int getMvno() {
+    return mvno;
+  }
+  public void setMvno(int mvno) {
+    this.mvno = mvno;
   }
   
 }

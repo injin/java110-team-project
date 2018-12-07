@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
@@ -28,24 +29,6 @@ thead th {
 	color: #fff;
 }
 
-.opt {
-	padding-left: 7px;
-	font-weight: 700;
-	font-size: 10px;
-}
-
-.ico_new {
-	margin-left: 5px;
-	margin-bottom: 4px;
-	vertical-align: -1.7px;
-}
-
-.report-btn:hover {
-	color: #fff;
-	background-color: #00cc99;
-	border-color: #00cc99;
-}
-
 .report-btn2 {
 	color: #fff;
 	background-color: #00cc99;
@@ -68,11 +51,6 @@ thead th {
 	height: 38px;
 }
 
-.report-textarea {
-	width: 100%;
-	height: 10rem;
-	padding: 0;
-}
 </style>
 </head>
 <body>
@@ -88,6 +66,9 @@ thead th {
 			</tr>
 		</thead>
 		<tbody>
+		<c:if test="${empty theme}">
+		  테마를 추가해 주세요.
+		</c:if>
 			<c:forEach items="${theme}" var="list" varStatus="status">
 				<tr>
 					<td onclick="makeMVList('${list.thm}',${list.thmno})"><a href="#">${list.thm}</a></td>

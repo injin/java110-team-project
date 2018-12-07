@@ -1,5 +1,5 @@
   //배열의 proto 길이 제한.
-  Array.prototype.add = function(x) {
+  Array.prototype.push = function(x) {
       this.unshift(x);
       this.maxLength = 20;
       if (this.maxLength !== undefined && this.length > this.maxLength){
@@ -78,9 +78,8 @@ $("#input-srch-keyword").keypress(
           html += '<h5 class="mt-0"><b>' + obj.title + '</b></h5>';
           html += '(' + obj.release_date + ')';
           html += '<span style="visibility: hidden;">(' + obj.id + ')</span>';
-          html += '<br>';
           html += `<button type="button" onclick="addList(` + obj.id + `, '` + obj.title + `')" `;
-          html += ' name="mvList" class="badge badge-primary badge-pill" style="cursor: pointer;">등록</button>';
+          html += ' name="mvList" class="badge badge-primary badge-pill" style="cursor: pointer; float:right;">등록</button>';
           html += '</div>';
           html += '</li>';
           console.log(idx + ':' + obj.title + ':' + obj.release_date);
@@ -131,12 +130,15 @@ $("#input-srch-keyword").keypress(
     print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
     print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
     print += ' class="badge badge-primary badge-pill">제거</button>';
-    print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
-    print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
+    print += '<input type="hidden" name="mvno" value=' + id + '>';
+    print += '<input type="hidden" name="title" value="' + title + '">';
     print += '</div>';
     print += '</li>';
 
+    $chooseMvList.css("list-style-type","decimal");
     $chooseMvList.append(print);
   }
 
-  
+  function saveList(){
+      
+  }
