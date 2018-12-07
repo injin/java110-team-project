@@ -1,3 +1,24 @@
+//  배열의 proto 길이 제한.
+Array.prototype.push = function(x) {
+  this.unshift(x);
+  this.maxLength = 20;
+  if (this.maxLength !== undefined && this.length > this.maxLength){
+    commonAlert('error', '20개 이상 선택 할 수 없습니다.');
+//    this.pop();
+    this.splice(0,1);
+    return;
+  } 
+}
+/* 
+    테스트 코드
+
+    var a = [];
+    for ( var i = 0; i <= 40; i++) {
+        a.add(i);
+        console.log(a);
+    }
+*/
+
 var $inputKeyword = $('#input-srch-keyword');
 var $srchMovieList = $('#list-search-movie');
 var $chooseMvList = $('#list-choose-movie');
@@ -113,46 +134,25 @@ function makeMovieListHtml(data) {
 
 
 
-//  배열의 proto 길이 제한.
-Array.prototype.add = function(x) {
-  this.unshift(x);
-  this.maxLength = 20;
-  if (this.maxLength !== undefined && this.length > this.maxLength){
-    commonAlert('error', '20개 이상 선택 할 수 없습니다.');
-    this.splice(0,1);
-    return;
-  } 
-}
-/* 
-    테스트 코드
 
-    var a = [];
-    for ( var i = 0; i <= 40; i++) {
-        a.add(i);
-        console.log(a);
-    }
- */
 
 
 //영화 선정 리스트를 위한 배열과 메소드
-
-
-
 function addList(id, title) {
-	selecList.push({mvno:id, title:title});
-//	console.log(selecList.length );
-	for (var i = 0; i < selecList.length - 1; i++){
-//		console.log(i);
-//		console.log(selecList[selecList.length - 1].mvno);
-			if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
-				
-				selecList.splice(-1);
-				commonAlert('error', '이미 선택한 영화 입니다.');
-//				console.log(selecList);
-			    return;
-			}
-	}
-	makeFavListHtml(id, title);
+  selecList.push({mvno:id, title:title});
+//  console.log(selecList.length );
+  for (var i = 0; i < selecList.length - 1; i++){
+//    console.log(i);
+//    console.log(selecList[selecList.length - 1].mvno);
+      if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
+        
+        selecList.splice(-1);
+        commonAlert('error', '이미 선택한 영화 입니다.');
+//        console.log(selecList);
+          return;
+      }
+  }
+  makeFavListHtml(id, title);
 //    console.log(id + ' 등록');
     console.log(selecList);
     return;
@@ -176,7 +176,7 @@ function removeList(id) {
   console.log(id + ' 삭제');
 }
 
-//	
+//  
 function makeFavListHtml(id, title) {
   var print = '';
 
