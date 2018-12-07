@@ -7,8 +7,10 @@
             <form action="update" method="post" id="detailForm" enctype="multipart/form-data">
                <div id="origin-values">
                  <input type="hidden" name="mno" value="${loginUser.mno}">
+                 <%-- 
                  <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
                  <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
+                  --%>
                </div>
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
@@ -25,7 +27,8 @@
                <div class="avatar-upload">
                   <div class="avatar-edit">
                      <input type='file' name="profileImageFile" id="imageUpload-profile"
-                        accept=".png, .jpg, .jpeg" /> <label for="imageUpload-profile"></label>
+                        accept=".png, .jpg, .jpeg" value="${loginUser.profileImage}"/>
+                     <label for="imageUpload-profile"></label>
                   </div>
                   <div class="avatar-preview">
                      <div id="profilePreview"
@@ -54,7 +57,8 @@
                   <div id="cover" class="row">
                      <div class="cover-upload">
                         <div class="cover-edit">
-                           <input type='file' name="coverImage" id="imageUpload-cover" accept=".png, .jpg, .jpeg" />
+                           <input type='file' name="coverImage" id="imageUpload-cover"
+                                accept=".png, .jpg, .jpeg" value="${loginUser.coverImage}"/>
                            <label for="imageUpload-cover"></label>
                         </div>
                         <div class="cover-preview">
@@ -100,9 +104,9 @@
 일부 기록은 삭제되지 않을 수 있습니다.</pre>
                </div>
                <form action="signOut" method="post">
-                  <input type="hidden" name="mno" value="${loginUser.mno}"> <label
-                     class="btn btn-checkbox btn-secondary active" id="signOutBtn"
-                     onclick="bye()">회원 탈퇴
+                  <input type="hidden" name="mno" value="${loginUser.mno}">
+                  <label class="btn btn-checkbox btn-secondary active" id="signOutBtn"
+                        onclick="bye()">회원 탈퇴
                   <button type="submit" class="btn" style="display: none;"></button>
                   </label>
                </form>
