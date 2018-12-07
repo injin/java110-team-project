@@ -1,7 +1,6 @@
 $(function() {
 
-    $('#globe').show();
-    $("#lock").hide();
+
 
     /* ========== 이미지 업로드 관련  ========== */
     var uploadFileNames = [];
@@ -111,9 +110,11 @@ $(function() {
     }
 
     /* ========== 일상/영화게시물 구분 관련  ========== */
+    var sValue;
     $('.starrr').starrr({
         change: function(e, value){
             $("#star").val(value);
+            sValue=value;
         }
     });
 
@@ -121,6 +122,7 @@ $(function() {
         $('#showStar').toggleClass("nostar");
         if($('#showStar').hasClass("nostar")){
             $("#star").val(0);
+            sValue=0;
         }
     });
 
@@ -152,31 +154,6 @@ $(function() {
             displayKey: 'text',
             source: fList.ttAdapter()
         }
-    });
-
-    // 글 작성
-    $('#modalSubmit').on('click', function(e) {
-        if($("#pstTypeNo").val() == 0){
-            if($("#movieId").val().trim() == 0){
-                alert("알맞은 영화제목을 작성해주세요.");
-                e.preventDefault();
-                return;
-            }
-        }
-
-        if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
-            alert("내용을 작성해주세요.");
-            e.preventDefault();
-            return;
-        }
-        if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
-            alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
-            e.preventDefault();
-            return;
-        }
-
-        $("#photList").val(uploadFileNames);
-        $("#ftagsForAdd").val($("#flw").val());
     });
 
     // 영화 자동완성
@@ -227,11 +204,57 @@ $(function() {
         .appendTo( ul );
     };
 
+    // 글 작성
+    $('#modalSubmit').on('click', function(e) {
+        if($("#pstTypeNo").val() == 0){
+            if($("#movieId").val().trim() == 0){
+                alert("알맞은 영화제목을 작성해주세요.");
+                e.preventDefault();
+                return;
+            }
+        }
+
+        if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
+            alert("내용을 작성해주세요.");
+            e.preventDefault();
+            return;
+        }
+        if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
+            alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
+            e.preventDefault();
+            return;
+        }
+
+        $("#photList").val(uploadFileNames);
+        $("#ftagsForAdd").val($("#flw").val());
+    });
+
     // 창닫을때
-    $('#reviewModal').on('hidden.bs.modal', function (e) {           
-        location.reload();
-        $('#reviewModal').show();
-    })
+    $('#reviewModal').on('hidden.bs.modal', function (e) {       
+
+        $('#movieSearch').val('');
+        $('#reviewTxtarea').val('');
+        $('#flw').val('');
+        
+        $('#globe').show();
+        $("#lock").hide();
+        $(this).find("input[type=checkbox]").prop("checked", "checked");
+        
+        $("#movieId").val(0);
+        if($('#pstTypeNo').val() == 0){
+            $("#star").val(sValue);
+        }else{
+            $("#star").val(0);            
+        }
+
+        $("#ftagsForAdd").val(-1);
+        var $inputTag = $("#flw").prev().children().last().clone().wrapAll("<div></div>").parent();
+        $("#flw").prev().html($inputTag.html());
+
+        uploadFileNames = [];
+        $("#media-list").html(
+        '<li class="myupload "><span><i class="fa fa-plus" aria-hidden="true"></i></span></li>');
+    });
 });
 
 //일상/영화게시물 올리기

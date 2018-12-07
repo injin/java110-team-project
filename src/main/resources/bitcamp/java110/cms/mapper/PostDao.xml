@@ -257,21 +257,6 @@
 		LIMIT 25
 	</select>
 
-	<select id="getPostType" resultType="String" parameterType="int">
-		SELECT 
-		  opn
-		FROM 
-		  mv_post
-		WHERE 
-		  pstno=#{pstno}
-	</select>
-
-	<select id="countCmt" resultType="int" parameterType="int">
-		SELECT COUNT(cont)
-		FROM mv_post_cmt
-		WHERE pstno=#{pstno}
-	</select>
-
 	<update id="deleteUnlockPost" parameterType="int">
 		UPDATE IGNORE
 		mv_post

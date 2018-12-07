@@ -19,7 +19,5 @@ public interface PostDao {
   Boolean deleteUnlockPost(int pstno);
   Boolean deleteLockPost(int pstno);
   Boolean deletePost(int pstno);
-  String getPostType(int pstno);
-  int countCmt(int pstno);
   void updatePost(Post post);
 }
