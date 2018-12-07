@@ -90,7 +90,7 @@ thead th {
 		<tbody>
 			<c:forEach items="${theme}" var="list" varStatus="status">
 				<tr>
-					<td><a href="#"><input type="hidden" name="${list.thmno}">${list.thm}</a></td>
+					<td onclick="makeMVList('${list.thm}',${list.thmno})"><a href="#">${list.thm}</a></td>
 					<td>
 						<button type="button" class="btn report-btn2 report-btn-size">삭제</button>
 					</td>
@@ -98,7 +98,9 @@ thead th {
 			</c:forEach>
 		</tbody>
 	</table>
-    <form action="addList" method="get">
+    <form class="mvListForm" action="addList" method="get">
+        <input type="hidden" name="thmno">
+        <input type="hidden" name="thm">
     </form>
 
 
@@ -107,6 +109,12 @@ thead th {
 	<script src="/js/bootstrap2-toggle.min.js"></script>
 
 	<script>
+	   function makeMVList(thm, thmno){
+	       $('.mvListForm input[name="thmno"]').val(thmno);
+	       $('.mvListForm input[name="thm"]').val(thm);
+	       $('.mvListForm').submit();
+	   }
+	
     </script>
 
 
