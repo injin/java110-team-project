@@ -1,5 +1,5 @@
 //배열의 proto 길이 제한.
-Array.prototype.ㅔ녀 = function(x) {
+Array.prototype.push = function(x) {
   this.unshift(x);
   this.maxLength = 20;
   if (this.maxLength !== undefined && this.length > this.maxLength){
