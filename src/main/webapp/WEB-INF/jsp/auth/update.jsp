@@ -110,8 +110,4 @@
          </div>
      </main>
 <%-- ========================================================================================== --%>
-    <%-- jQuery가 꼬일경우 아래 셋을 확인 하라 --%>
-    <%-- <script src="/js/bootstrap.bundle.js"></script> --%>
-    <%-- <script src="/js/jquery-ui.js"></script> --%>
-    <script src="/js/bootstrap.js"></script>
     <script src="/js/auth.js"></script>

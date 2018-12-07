@@ -2,12 +2,16 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
+import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -16,15 +20,24 @@ import info.movito.themoviedbapi.model.MovieDb;
 @Service
 public class RecommendServiceImple implements RecommendService {
   
+  @Autowired TmdbMovies tmdbMovies;
   @Autowired RecommendDao rcmdDao;
   @Autowired Environment env;
-  @Autowired TmdbMovies tmdbMovies;
-  @Autowired MovieAnlyDao mvAnlyDao;
+  @Autowired MovieAnlyDao anlyDao;
+  @Autowired MovieDao mvDao;
+  
+  
   
   @Override
   public String getListName(int thmno) {
     return rcmdDao.getTitle(thmno);
   }
+  
+  @Override
+  public List<Theme> getAllTitle() {
+    return rcmdDao.getAllTitle();
+  }
+  
   @Override
   public List<MovieDb> getList(int thmno){
     List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
@@ -80,5 +93,28 @@ public class RecommendServiceImple implements RecommendService {
       }
     }
     return n;
+  }
+  
+  @Override
+  public void getAnly(int mno) {
+    /**
+     * mv_mv_anly에서 top 5의 mvno를 가져온다.
+     * mvno의 recommedations list를 뽑는다.
+     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
+     * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
+     * 최중 mv가 10개를 넘지 않게 한다.
+     */
+    String urlHead = "https://api.themoviedb.org/3/movie/";
+    int seedNo = 65;
+    String urlBody = "/recommendations?page=1&language=ko-KOR&api_key=";
+    String urlTail = env.getProperty("tmdb.key");
+    String URL = urlHead + seedNo + urlBody + urlTail;
+    
+    @SuppressWarnings("unchecked")
+    Map<String, Object> response = new RestTemplate().getForObject(URL, Map.class);
+    System.out.println(
+        response.toString().replace("}", "}\n")
+        .replace("title", "\n\tTITLE")
+        .replace("vote_average", "\nVOTE"));
   }
 }

@@ -166,6 +166,7 @@
 		p.star,
 		p.cont,
 		p.cdt,
+		p.opn,
 		m.mno,
 		m.nick,
 		m.p_phot
@@ -275,7 +276,7 @@
 		UPDATE IGNORE
 		mv_post
 		SET
-		<!-- mno=21, -->
+		mno=21,
 		cont='삭제된 게시물 입니다',
 		mdt=now()
 		WHERE

@@ -67,8 +67,16 @@ public class RecommendMvController {
   
   @RequestMapping("/list")
   public String list (
-      Model model) {
+      Model model,
+      HttpSession session) {
     
+    try {
+          rcmdService.getAnly(((Member)session.getAttribute("loginUser")).getMno());
+      
+    }   catch (Exception e) {
+      e.printStackTrace();
+      System.out.println(e);
+    }
 //    int[] n = rcmdService.RandomNums(rcmdService.getCount(), 2);
 //    model.addAttribute("listName1", rcmdService.getListName(n[0]));
 //    model.addAttribute("list1", rcmdService.getList(n[0]));
