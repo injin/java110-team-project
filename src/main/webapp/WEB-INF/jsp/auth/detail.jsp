@@ -119,7 +119,7 @@
     </main>
 <%-- ========================================================================================== --%>
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <%-- jQuery가 꼬일경우 아래 셋을 확인 하라 --%>
+    
     <script src="/js/bootstrap.bundle.js"></script>
     <script src="/js/auth.js"></script>
     <script src="/js/vendor/noty.js"></script>

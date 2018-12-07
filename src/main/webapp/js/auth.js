@@ -117,10 +117,9 @@ function makeMovieListHtml(data) {
 Array.prototype.add = function(x) {
   this.unshift(x);
   this.maxLength = 20;
-  
   if (this.maxLength !== undefined && this.length > this.maxLength){
-    this.slice(0,1);
     commonAlert('error', '20개 이상 선택 할 수 없습니다.');
+    this.splice(0,1);
     return;
   } 
 }
@@ -140,18 +139,15 @@ Array.prototype.add = function(x) {
 
 
 function addList(id, title) {
-  for (var j in selecList) {
-  
-    for (var i in selecList -1 ) {
-      if (selecList[j].mvno === selecList[i].mvno){
-        commonAlert('error', '이미 선택한 영화 입니다.');
-        break;
-      } else {
-        makeFavListHtml(id, title);
-        selecList.add({mvno:id, title:title});
-        console.log(id + ' 등록');
-        break;
-      }
+  for (var i in selecList) {
+    if (selecList[i].mvno === id){
+      commonAlert('error', '이미 선택한 영화 입니다.');
+      break;
+    } else {
+      makeFavListHtml(id, title);
+      selecList.add({mvno:id, title:title});
+      console.log(id + ' 등록');
+      break;
     }
   }
 }
@@ -174,7 +170,7 @@ function removeList(id) {
   console.log(id + ' 삭제');
 }
 
-//  
+//	
 function makeFavListHtml(id, title) {
   var print = '';
 
