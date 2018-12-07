@@ -20,7 +20,8 @@ public interface SceneReviewService {
   void updateCmt(SceneReviewCmt sceneReviewCmt);
   List<SceneReview> listTopSr();
   List<Member> listTopReviewer(int mvno);
-  void addToSrAlbum(int lbmno, int srno);
+  boolean addToSrAlbum(int lbmno, int srno);
+  boolean deleteFromSrAlbum(int lbmno, int srno);
   boolean deleteSr(ServletContext sc, int srno);
   SceneReview initSceneReview(MovieDb tmdbMovie, SceneReview sceneReview);
   

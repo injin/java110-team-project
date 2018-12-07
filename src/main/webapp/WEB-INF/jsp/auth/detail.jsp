@@ -12,6 +12,8 @@
     <title>회원 가입 상세 정보</title>
     <link rel='stylesheet' href='/css/bootstrap.css'>
     <link rel='stylesheet' href='/css/accountDetail.css'>
+    <link rel="stylesheet" href="/css/vendor/noty.css">
+    <link rel="stylesheet" href="/css/vendor/sunset.css">
     <link rel='stylesheet' href='/css/common.css'>
   </head>
   <!-- http://localhost:8888/app/auth/detail -->
@@ -117,10 +119,9 @@
     </main>
 <%-- ========================================================================================== --%>
     <jsp:include page="../include/footer.jsp"></jsp:include>
-    <%-- jQuery가 꼬일경우 아래 셋을 확인 하라 --%>
+    
     <script src="/js/bootstrap.bundle.js"></script>
-    <!-- <script src="/js/jquery-ui.js"></script> -->
-    <script src="/js/bootstrap.js"></script>
     <script src="/js/auth.js"></script>
+    <script src="/js/vendor/noty.js"></script>
   </body>
 </html>

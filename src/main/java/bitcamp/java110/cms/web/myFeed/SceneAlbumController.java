@@ -15,6 +15,7 @@ import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.SceneAlbumService;
 import bitcamp.java110.cms.service.SceneReviewService;
@@ -26,6 +27,7 @@ public class SceneAlbumController {
   @Autowired SceneAlbumService sceneAlbumService;
   @Autowired SceneReviewService sceneReviewService;
   @Autowired MemberService memberService;
+  @Autowired FlwService flwService;
 
   @RequestMapping("/list")
   public String list(
@@ -35,17 +37,21 @@ public class SceneAlbumController {
       HttpSession session,
       int tgtMno) throws Exception {
     
+    Member targetUser = memberService.findByMno(tgtMno);
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    
     boolean isMyAlbum = false;
-    if (session.getAttribute("loginUser") != null) {
+    if (loginUser != null) {
+      targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), tgtMno));
       isMyAlbum = (tgtMno == ((Member)session.getAttribute("loginUser")).getMno());
     }
     
-    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
     paging.setTotalCount(sceneAlbumService.getTotalCnt(tgtMno, isMyAlbum));
     
     model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(tgtMno, paging, isMyAlbum));
     model.addAttribute("paging", paging);
     model.addAttribute("isMyAlbum", isMyAlbum);
+    model.addAttribute("targetUser", targetUser);
     return "sceneAlbum/list";
   }
 
@@ -67,10 +73,15 @@ public class SceneAlbumController {
       HttpSession session,
       int tgtMno) {
     
+    Member targetUser = memberService.findByMno(tgtMno);
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    
     boolean isMyAlbum = false;
-    if (session.getAttribute("loginUser") != null) {
+    if (loginUser != null) {
+      targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), tgtMno));
       isMyAlbum = (tgtMno == ((Member)session.getAttribute("loginUser")).getMno());
     }
+    
     model.addAttribute("isMyAlbum", isMyAlbum);
     // 현재 클릭된 앨범 안의 장면목록들   => 여기에 현재 클릭된 앨범의 앨범명, 공개여부 나타남! sceneAlbum 대체 가능
     List<SceneAlbum> srList = new ArrayList<>(); 
@@ -92,7 +103,7 @@ public class SceneAlbumController {
     model.addAttribute("sceneReview", sceneReview);
     
     model.addAttribute("sceneAlbumList", sceneAlbumService.list(tgtMno));
-    model.addAttribute("targetUser", memberService.findByMno(tgtMno));
+    model.addAttribute("targetUser", targetUser);
     return "sceneAlbum/detail";
   }
   

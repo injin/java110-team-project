@@ -103,18 +103,14 @@
                                 <img class="mr-3" src="/img/btn-box-empty.png" alt="앨범 이미지">
                               </c:if>
                               <div class="media-body">
-                                <h5 class="mt-0">${album.lbmTitle}
+                                <h5 class="mt-0">${album.lbmTitle} 
                                     <c:if test="${album.include == true}">
-                                        <button type="button" class="btn btn-secondary float-right" disabled>보관됨</button>
+                                        <button type="button" id="lbm-btn-${album.lbmno}" class="btn btn-secondary float-right"
+                                            onclick="removeFromSrAlbum(${album.lbmno})">보관취소</button>
                                     </c:if>
                                     <c:if test="${album.include == false}">
-                                        <button type="button" class="btn btn-primary float-right" 
-                                            onclick="addToSrlAlbum(${album.lbmno})">보관하기</button>
-                                        <form id="addSrAlbumForm" action="addToSrAlbum" method="post">
-                                            <input type="hidden" name="lbmno" value="">
-                                            <input type="hidden" name="srno" value="${sceneReview.srno}">
-                                        </form>
-                                        
+                                        <button type="button" id="lbm-btn-${album.lbmno}" class="btn btn-primary float-right"
+                                            onclick="addToSrAlbum(${album.lbmno})">보관하기</button>
                                     </c:if>
                                 </h5>
                               </div>

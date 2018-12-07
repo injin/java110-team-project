@@ -12,13 +12,8 @@
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel="stylesheet" href="/css/common.css">
-<link rel="stylesheet" href="/css/movieReview.css">
 <link rel="stylesheet" href="/css/card.css">
-<style>
-
-
-
-</style>
+<link rel="stylesheet" href="/css/movieReview.css">
 </head>
 <body>
 
@@ -57,7 +52,7 @@
                         <div class="scene-box">
                             <img class="scene-img" src="${scene.imgPath}" data-toggle="tooltip"
                                  data-placement="top" title="${scene.title} (${scene.time})"
-                                 onclick="goToSr(${scene.srno})">
+                                 onclick="goToSceneReviewDetail(${sceneReview.mvno}, ${scene.srno})">
                         </div>
                     </c:forEach>
                 </div>
@@ -273,10 +268,6 @@
     }).on('mouseleave', function() {
         $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
     });
-    
-    function goToSr(srno) {
-        location.href = 'review?mvno=${sceneReview.mvno}&srno=' + srno;
-    }
     
      /* ========== 입력 모달 관련  ========== */
     var $modal = $('#srAddModal').modal({show : false});
@@ -550,9 +541,42 @@
     </c:if>
     
     /* ========== 앨범 관련  ========== */
-    function addToSrlAlbum(lbmno) {
-        $('#addSrAlbumForm input[name="lbmno"]').val(lbmno);
-        $('#addSrAlbumForm').submit();
+    function addToSrAlbum(lbmno) {
+        $.ajax({
+            url : "/app/sceneReview/addToSrAlbum",
+            type: "post",
+            data : { "lbmno" : lbmno,
+                     "srno" : '${sceneReview.srno}' },
+            success : function(result) {
+                if (result == true) {
+                    var html = '<button type="button" id="lbm-btn-' + lbmno + '" class="btn btn-secondary float-right"';
+                        html += 'onclick="removeFromSrAlbum(' + lbmno +')">보관취소</button>';
+                    $('#lbm-btn-' + lbmno).replaceWith(html);
+                    commonAlert('success', '앨범에 등록되었습니다.');
+                } else {
+                    commonAlert('error', '문제가 발생하였습니다.');
+                }
+            }
+        });
+    }
+    
+    function removeFromSrAlbum(lbmno) {
+        $.ajax({
+            url : "/app/sceneReview/deleteFromSrAlbum",
+            type: "post",
+            data : { "lbmno" : lbmno,
+                     "srno" : '${sceneReview.srno}' },
+            success : function(result) {
+                if (result == true) {
+                    var html = '<button type="button" id="lbm-btn-' + lbmno + '" class="btn btn-primary float-right"';
+                        html += 'onclick="addToSrAlbum(' + lbmno + ')">보관하기</button>';
+                    $('#lbm-btn-' + lbmno).replaceWith(html);
+                    commonAlert('success', '앨범에서 삭제되었습니다.');
+                } else {
+                    commonAlert('error', '문제가 발생하였습니다.');
+                }
+            }
+        });
     }
     
     /* ========== 좋아요 관련  ========== */
@@ -564,6 +588,7 @@
             success : function(data) {
                 $('span[id^="btn-heart-"]').hide();
                 $('span#btn-heart-full').show();
+                commonAlert('success', '좋아요 처리되었습니다.');
             }
         });
     }
@@ -576,6 +601,7 @@
             success : function(data) {
                 $('span[id^="btn-heart-"]').hide();
                 $('span#btn-heart-empty').show();
+                commonAlert('success', '좋아요 취소되었습니다.');
             }
         });
     }

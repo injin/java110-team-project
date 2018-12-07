@@ -170,11 +170,27 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
-  public void addToSrAlbum(int lbmno, int srno) {
+  public boolean addToSrAlbum(int lbmno, int srno) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("lbmno", lbmno);
     condition.put("srno", srno);
-    sceneReviewDao.addToSrAlbum(condition);
+    if (sceneReviewDao.addToSrAlbum(condition) > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  @Override
+  public boolean deleteFromSrAlbum(int lbmno, int srno) {
+    Map<String, Object> condition = new HashMap<>();
+    condition.put("lbmno", lbmno);
+    condition.put("srno", srno);
+    if (sceneReviewDao.deleteFromSrAlbum(condition) > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
   
   @Override

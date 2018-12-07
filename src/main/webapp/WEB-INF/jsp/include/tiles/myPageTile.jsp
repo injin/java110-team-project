@@ -11,7 +11,10 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/common.css'>
+
 
 <t:importAttribute name="cssFiles"/>
 <c:forEach var="css" items="${cssFiles}">
@@ -75,6 +78,7 @@
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
                     <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
                     <script src="/js/bootstrap.bundle.js"></script>
+                    <script src="/js/vendor/noty.js"></script>
                     <script src="/js/common.js"></script>
                     
                     <t:insertAttribute name="body"/>
