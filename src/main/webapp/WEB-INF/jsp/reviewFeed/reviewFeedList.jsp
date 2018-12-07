@@ -265,7 +265,8 @@
                 "title": '${post.title}',
                 member:{
                     "profileImagePath": '${post.member.profileImagePath}',
-                    "nickname":'${post.member.nickname}',    
+                    "nickname":'${post.member.nickname}', 
+                    "mno":'${post.member.mno}'
                 },
                 "star":'${post.star}',
                 "photos":pary,
