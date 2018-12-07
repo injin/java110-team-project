@@ -1,4 +1,4 @@
-package bitcamp.java110.cms.web.report;
+package bitcamp.java110.cms.web.admin.report;
 
 import java.util.HashMap;
 import java.util.List;
