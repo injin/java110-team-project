@@ -2,7 +2,7 @@ package bitcamp.java110.cms.common;
 
 public class Paging {
   
-  private int pageSize = 6; // 게시 글 수
+  private int pageSize; // 게시 글 수
   private int startRowNo; // 첫 번째 로우 번호(0부터 시작)
   private int firstPageNo = 1; // 첫 번째 페이지 번호
   private int prevPageNo; // 이전 페이지 번호
@@ -79,7 +79,7 @@ public class Paging {
       
       if (totalCount == 0) return;
       if (pageNo == 0) this.setPageNo(1);
-      if (pageSize == 0) this.setPageSize(6);
+      if (pageSize == 0) this.setPageSize(10);
 
       int finalPage = (totalCount + (pageSize - 1)) / pageSize;
       this.setFinalPageNo(finalPage);

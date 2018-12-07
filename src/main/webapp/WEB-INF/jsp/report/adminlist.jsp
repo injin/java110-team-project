@@ -95,7 +95,7 @@ thead th {
 	<tbody>
 		<c:set var="now" value="<%=new java.util.Date()%>" />
 		<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="dateNow" />
-		<c:forEach items="${findAll}" var="report" varStatus="status">
+		<c:forEach items="${reportList}" var="report" varStatus="status">
 			<tr>
 				<td>${report.rptno}</td>
 				<td>${report.nick}</td>
@@ -158,13 +158,13 @@ thead th {
 
 
 <jsp:include page="rptpaging.jsp" flush="true">
-	<jsp:param name="firstPageNo" value="${rptPaging.firstPageNo}" />
-	<jsp:param name="prevPageNo" value="${rptPaging.prevPageNo}" />
-	<jsp:param name="startPageNo" value="${rptPaging.startPageNo}" />
-	<jsp:param name="pageNo" value="${rptPaging.pageNo}" />
-	<jsp:param name="endPageNo" value="${rptPaging.endPageNo}" />
-	<jsp:param name="nextPageNo" value="${rptPaging.nextPageNo}" />
-	<jsp:param name="finalPageNo" value="${rptPaging.finalPageNo}" />
+	<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
+	<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
+	<jsp:param name="startPageNo" value="${paging.startPageNo}" />
+	<jsp:param name="pageNo" value="${paging.pageNo}" />
+	<jsp:param name="endPageNo" value="${paging.endPageNo}" />
+	<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
+	<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
 </jsp:include>
 
 <form id="listForm" action="list" method="post">

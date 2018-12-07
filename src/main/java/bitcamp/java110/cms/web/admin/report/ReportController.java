@@ -3,16 +3,14 @@ package bitcamp.java110.cms.web.admin.report;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Report;
 import bitcamp.java110.cms.service.ReportService;
@@ -28,19 +26,15 @@ public class ReportController {
   }
 
   @RequestMapping("/list")
-  public String list(
-           RptPaging rptPaging,
-           Model model
-          ) {
+  public String list(Paging paging,Model model) {
       
-       rptPaging.setTotalCount(reportService.getTotalCnt());
+       paging.setTotalCount(reportService.getTotalCnt());
        
        Map<String, Object> condition = new HashMap<>();
-       condition.put("rptPaging", rptPaging);
-       List<Report> reportlist = reportService.list(condition);
+       condition.put("paging", paging);
+       List<Report> reportList = reportService.list(condition);
       
-       model.addAttribute("findAll", reportlist);
-       model.addAttribute("getTotalCnt" , rptPaging);
+       model.addAttribute("reportList", reportList);
       
       return "report/admin";
     

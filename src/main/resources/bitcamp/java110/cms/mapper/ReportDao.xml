@@ -18,12 +18,11 @@
 
     
     <select id="findAll" resultMap="reportMap" parameterType="map">
-        
         select rptno, m.nick as nick , url, cdt, (hndl = 'Y')hndl ,cont, hcont
         from mv_rpt r
         inner join mv_memb m on r.mno =  m.mno
         order by cdt desc
-        limit #{rptPaging.startRowNo} , #{rptPaging.pageSize}
+        limit #{paging.startRowNo} , #{paging.pageSize}
         
     </select>
     
