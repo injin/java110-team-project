@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import bitcamp.java110.cms.web.interceptor.AdminAuthInterceptor;
+import bitcamp.java110.cms.web.interceptor.AuthInterceptor;
 
 // 이 클래스가 IoC 컨테이너가 사용해야 할 설정 정보를 담고 있는 클래스임을
 // 프론트 컨트롤러에게 알려주기 위해서는 다음 애노테이션을 반드시 붙여야 한다.
@@ -29,10 +31,11 @@ public class WebConfig
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 추가하고픈 인터셉터를 등록기(registry)에 추가하라!
-//        registry.addInterceptor(new AuthInterceptor())
-//                .addPathPatterns("/**/add", "/**/delete");
+        registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("/**/add", "/**/delete");
         
-        
+        registry.addInterceptor(new AdminAuthInterceptor())
+                .addPathPatterns("/report/**", "/admin/**");
     }
     
 }
