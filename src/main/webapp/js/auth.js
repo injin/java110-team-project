@@ -139,17 +139,23 @@ Array.prototype.add = function(x) {
 
 
 function addList(id, title) {
-  for (var i in selecList) {
-    if (selecList[i].mvno === id){
-      commonAlert('error', '이미 선택한 영화 입니다.');
-      break;
-    } else {
-      makeFavListHtml(id, title);
-      selecList.add({mvno:id, title:title});
-      console.log(id + ' 등록');
-      break;
-    }
-  }
+	selecList.push({mvno:id, title:title});
+//	console.log(selecList.length );
+	for (var i = 0; i < selecList.length - 1; i++){
+//		console.log(i);
+//		console.log(selecList[selecList.length - 1].mvno);
+			if(selecList[i].mvno === selecList[selecList.length - 1].mvno) {
+				
+				selecList.splice(-1);
+				commonAlert('error', '이미 선택한 영화 입니다.');
+//				console.log(selecList);
+			    return;
+			}
+	}
+	makeFavListHtml(id, title);
+//    console.log(id + ' 등록');
+    console.log(selecList);
+    return;
 }
 
 
