@@ -8,7 +8,7 @@ function openEditingModal(pstno, type) {
       break;
     }
   }
-  
+  console.log(postList[index]);
   //  모달 속성 바꿔 주기
   $('#reviewModal .modal-title').text('리뷰 수정하기');
   $('#reviewModal form').attr('action', 'edit');
@@ -58,16 +58,17 @@ function openEditingModal(pstno, type) {
     },
     rating: star
   })
+  $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
   $('#reviewModal #temp').attr('id', 'showStar');
-  $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section');
   
   if ( $('#reviewModal input:hidden[id="star"]').val() == 0) {
-    $('#reviewModal #showStar').attr('class', 'nostar');
+    $('#reviewModal #showStar').attr('class', 'starrr onlyMovie photo-star-section nostar');
   }
   
-  //  별점 처리
+  //  사진 처리
   if (postList[index].photos.length != 0){
     console.log("사진있다");
+    
   }
   
   
@@ -79,12 +80,12 @@ function openEditingModal(pstno, type) {
     console.log('edit??');
 
     if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
-      alert("내용을 작성해주세요.");
+      commonAlert('error', "내용을 작성해주세요.");
       e.preventDefault();
       return;
     }
     if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")) {
-      alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
+      commonAlert(error, "별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
       e.preventDefault();
       return;
     }
