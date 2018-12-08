@@ -108,11 +108,9 @@ $(function() {
     }
 
     /* ========== 일상/영화게시물 구분 관련  ========== */
-    var sValue;
     $('.starrr').starrr({
         change: function(e, value){
             $("#star").val(value);
-            sValue=value;
         }
     });
 
@@ -120,7 +118,6 @@ $(function() {
         $('#showStar').toggleClass("nostar");
         if($('#showStar').hasClass("nostar")){
             $("#star").val(0);
-            sValue=0;
         }
     });
 
@@ -157,7 +154,7 @@ $(function() {
     // 영화 자동완성
     $( "#movieSearch" ).autocomplete({
         source: function( request, response ) {
-            
+
             $("#movieSearch").addClass("ui-autocomplete-loading");
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
@@ -195,7 +192,7 @@ $(function() {
         }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
-         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
+        .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
                 '<div class="media-body text-center">'+
                 '<h5 class="mt-0"><b>'+ item.label +'</b></h5>'+
                 '(' + item.release_date + ')'+
@@ -206,7 +203,7 @@ $(function() {
         $("#movieId").val(0);
         $("#movieSearch").val("");
     });
- 
+
     // 글 작성
     $('#modalSubmit').on('click', function(e) {
         if($("#pstTypeNo").val() == 0){
@@ -238,28 +235,36 @@ $(function() {
         if($('#pstno').is('input')){
             $('#pstno').remove();
             $('#reviewModal #ftag-input').css("display", "flex");
-            $('#reviewModal #showStar').css("display", "inline-block");
             $('#reviewModal input[name=title]').attr("disabled",false);
-            
+
             $('#reviewModal .file').show();
             $('#reviewModal #media-list').show();
+        }else{
+            
+            $('#showStar').remove();
+            $('#temp').starrr({
+              change: function(e, value){
+                  $("#star").val(0);
+              },
+              rating: star
+            })
+            $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
+            $('#reviewModal #temp').attr('id', 'showStar');
+            
         }
+        $('#showStar').after('<div id="temp" ></div>');
         
+        $("#movieId").val(0);
         $('#movieSearch').val('');
-        $('#reviewTxtarea').val('');
+
         $('#flw').val('');
-        
+        $('#reviewTxtarea').val('');
+
         $('#globe').show();
         $("#lock").hide();
         $(this).find("input[type=checkbox]").prop("checked", "checked");
-        
-        $("#movieId").val(0);
-        if($('#pstTypeNo').val() == 0){
-            $("#star").val(sValue);
-        }else{
-            $("#star").val(0);            
-        }
-        
+
+
         $("#ftagsForAdd").val(-1);
         var $inputTag = $("#flw").prev().children().last().clone().wrapAll("<div></div>").parent();
         $("#flw").prev().html($inputTag.html());
@@ -373,11 +378,11 @@ function morePostHtml(data){
         if(sessionMember.mno == ""){
             html += 'loginError()';
         }else{
-        html += 'cancelLike(';
-        html += data.postsResult[i].pstno;
-        html += ',';
-        html += data.postsResult[i].pstTypeNo;
-        html += ')';
+            html += 'cancelLike(';
+            html += data.postsResult[i].pstno;
+            html += ',';
+            html += data.postsResult[i].pstTypeNo;
+            html += ')';
         }
         html += '"></i>';
         html += '<i class="far fa-thumbs-up btmIcon c-pointer likeColor';
@@ -390,11 +395,11 @@ function morePostHtml(data){
         if(sessionMember.mno == ""){
             html += 'loginError()';
         }else{
-        html += 'addLike(';
-        html += data.postsResult[i].pstno;
-        html += ',';
-        html += data.postsResult[i].pstTypeNo;
-        html += ')';
+            html += 'addLike(';
+            html += data.postsResult[i].pstno;
+            html += ',';
+            html += data.postsResult[i].pstTypeNo;
+            html += ')';
         }
         html += '"></i><span id="lCnt-';
         html += data.postsResult[i].pstno;
@@ -430,7 +435,7 @@ function morePostHtml(data){
     }  
 
     $('#pstShw').append(html); 
-    
+
     doingLoad = false;
 }
 
