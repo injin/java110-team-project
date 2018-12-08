@@ -41,8 +41,19 @@ public class RecommendServiceImple implements RecommendService {
   }
   
   @Override
+	public List<Movie> getRcmdMvList(int thmno) {
+	    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);
+	    List<Movie> mvList = new ArrayList<>(); 
+	    for (int i = 0; i < idList.size(); i++) {
+	      int id = (int)idList.get(i);
+	      mvList.add(new Movie(id, getMvById(id).getTitle()));
+	    }
+	    return mvList;
+	}
+  
+  @Override
   public List<MovieDb> getList(int thmno){
-    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
+    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);
     List<MovieDb> mvList = new ArrayList<>(); 
     for (int i = 0; i < idList.size(); i++) {
       int id = (int)idList.get(i);
@@ -75,6 +86,7 @@ public class RecommendServiceImple implements RecommendService {
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
     MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
+    
     /* Test 
     System.out.println("mvdb : " + mvdb.toString());
     System.out.println(mvdb.getOverview());

@@ -131,10 +131,13 @@ function makeFavListHtml(id, title) {
   print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
   print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
   print += ' class="badge badge-primary badge-pill">제거</button>';
-  print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
-  print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
+  print += '<input type="hidden" name="mvno" value=' + id + '>';
+  print += '<input type="hidden" name="title" value="' + title + '">';
   print += '</div>';
   print += '</li>';
 
   $chooseMvList.append(print);
+}
+function saveRcmdList(){
+	$('.addForm').submit();
 }
