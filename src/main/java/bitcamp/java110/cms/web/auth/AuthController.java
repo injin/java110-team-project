@@ -144,7 +144,7 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      memberService.update(member);
+      memberService.init(member);
       return "redirect:/app/";
     }
     
@@ -177,7 +177,7 @@ public class AuthController {
     }
     
     //  상시 상세정보 수정 update method
-    @PostMapping("/update")
+    @PostMapping("/edit")
     public String update(
         HttpServletRequest request,
         Member member,
@@ -188,6 +188,7 @@ public class AuthController {
         @RequestParam(name="pr", required=false)
                 String pr,
         HttpSession session) throws Exception {
+      session.getAttribute("loginUser");
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {

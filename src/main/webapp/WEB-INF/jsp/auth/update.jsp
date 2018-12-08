@@ -4,7 +4,7 @@
 <%-- ========================================================================================== --%>
      <main role="main" class="container">
          <div id="detail">
-            <form action="update" method="post" id="detailForm" enctype="multipart/form-data">
+            <form action="edit" method="post" id="detailForm" enctype="multipart/form-data">
                <div id="origin-values">
                  <input type="hidden" name="mno" value="${loginUser.mno}">
                  <%-- 
