@@ -3,6 +3,9 @@
 /* ============================== 작성post 관련 ============================== */
 
 /* ========== 친구태그 관련  ========== */
+#ftag-div{
+	display:inline-table;
+}
 #ftag-input {
 	text-align: auto;
 }
@@ -84,7 +87,13 @@
 .msearch {
 	max-width: 100%;
 	margin-right: 5em;
-	width: 29em;
+	width: 29em !important;
+}
+.btn-inAutocomplete{
+	padding: 0.25em 0.4em;
+    font-size: 75%;
+    line-height: 1;
+    vertical-align: baseline;
 }
 
 .ui-autocomplete {
@@ -118,7 +127,9 @@
 .ui-autocomplete-loading {
 	background: white right center no-repeat;
 }
-
+.ui-menu-item a.ui-state-focus {
+	background-color:red;
+}
 .ui-helper-hidden-accessible {
 	display: none;
 }
@@ -128,18 +139,16 @@
 	height: 20%
 }
 
+
 /* ========== 이미지 업로드 관련  ========== */
+
 #media-list li:hover {
-	background-color: #e2e2e2;
+    background-color: #e2e2e2;
 }
 
 #media-list li img {
-	width: 100px;
-	height: 100px
-}
-
-#media-list li {
-	height: 102px
+    width: 100px;
+    height: 100px
 }
 
 li.myupload span {
@@ -169,6 +178,7 @@ li.myupload span i {
 }
 
 #media-list li {
+	height: 102px;
 	float: left;
 	border: 1px solid #ccc;
 	background: #ccc;

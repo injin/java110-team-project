@@ -54,13 +54,9 @@
 						<div class="input-group-prepend">
 							<div class="input-group-text">친구태그하기</div>
 						</div>
-						<section id="examples">
-							<div class="example example_objects_as_tags">
-								<div class="bs-example ftag">
+								<div class="ftag form-control p-0" id="ftag-div">
 									<input type="text" id="flw" />
 								</div>
-							</div>
-						</section>
 						<input type="hidden" id="ftagsForAdd" name="ftagsForAdd"
 							value="-1" />
 					</div>

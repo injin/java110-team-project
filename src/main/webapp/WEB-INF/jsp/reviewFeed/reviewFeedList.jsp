@@ -8,14 +8,14 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰피드</title>
-<link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
-<link rel='stylesheet' href='/css/writingPost.css'>
-<link rel='stylesheet' href='/css/common.css'>
+<link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
+<link rel='stylesheet' href='/css/writingPost.css'>
+<link rel='stylesheet' href='/css/common.css'>
 <script src="/js/makeContPost.js"></script>
 
 </head>
@@ -217,6 +217,8 @@
 					<div class="wPost text-center divMore">
 						<a href="/app/rcmd/anly" class="text-dark">더 많은 추천 영화 보기</a>
 					</div>
+					<p><a class="return-top" href="#" class="d-block" style="right:auto">
+    <img src="/img/top-btn.png" width="20%" height="20%"></a><p>
 				</div>
 			</c:when>
 		</c:choose>

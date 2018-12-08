@@ -143,7 +143,7 @@ $(function() {
     });
     fList.initialize();
 
-    elt = $('.example_objects_as_tags > > input');
+    elt = $('#flw');
     elt.tagsinput({
         itemValue: 'value',
         itemText: 'text',
@@ -184,6 +184,7 @@ $(function() {
         },
         focus: function(event, ui) {
             $('#movieSearch').val(ui.item.label);
+            console.log(this);
             event.preventDefault();
         },
         select: function( event, ui ) {
@@ -193,14 +194,20 @@ $(function() {
             return false;
         }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
-        return $( "<li class='media'>" ).data("item.autocomplete", item)
-        .append("<img class = 'poster' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
+        return $( "<li class='list-group-item'>" ).data("item.autocomplete", item)
+        .append("<div class='media'><img class='mr-3 w50' src='" +
+                item.poster_path +
+                "' alt='"+item.label+"'>" + 
                 '<div class="media-body">'+
                 '<h5 class="mt-0"><b>'+ item.label +'</b></h5>'+
                 '(' + item.release_date + ')'+
+                '<br>'+/*
+                '<button type="button" '+ onclick="selectMv(' + item.value + ')" 
+                '  class="btn btn-primary c-pointer btn-inAutocomplete">선택</button>'+*/
         '</div>')
         .appendTo( ul );
     };
+    
 
     // 글 작성
     $('#modalSubmit').on('click', function(e) {
