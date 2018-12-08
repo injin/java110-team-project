@@ -67,10 +67,6 @@ public class AuthServiceImpl implements AuthService {
     return newbie;
   }
   
-  /**
-   * 제하 To Do
-   * memberService에서 DB Table 삭제 method 수정해야함
-   */
   @Override
   public void signOut(int mno) {
     memberService.signOut(mno);

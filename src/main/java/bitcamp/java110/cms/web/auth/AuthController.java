@@ -176,7 +176,7 @@ public class AuthController {
       return "auth/update";
     }
     
-    //  상시 상세정보 수정 update
+    //  상시 상세정보 수정 update method
     @PostMapping("/update")
     public String update(
         HttpServletRequest request,
@@ -191,6 +191,7 @@ public class AuthController {
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
+        System.out.println(profileImageFile);
         String profileImg = UUID.randomUUID().toString();
         profileImageFile.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
@@ -199,6 +200,7 @@ public class AuthController {
       
       //    coverImage Control
       if (coverImage != null && coverImage.getSize() > 0) {
+        System.out.println(coverImage);
         String coverImg = UUID.randomUUID().toString();
         coverImage.transferTo(new File(
             sc.getRealPath("/upload/cover/" + coverImg)));
@@ -210,10 +212,12 @@ public class AuthController {
       }
       
       if (pr != null && pr != "") {
+        System.out.println(pr);
         member.setPr(pr);
       }
       
       session.setAttribute("loginUser", member);
+      System.out.println("\nController Send to Service Who? " + member);
       memberService.update(member);
       
       String originPath = request.getHeader("referer");
