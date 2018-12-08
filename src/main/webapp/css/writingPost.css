@@ -89,13 +89,6 @@
 	margin-right: 5em;
 	width: 29em !important;
 }
-.btn-inAutocomplete{
-	padding: 0.25em 0.4em;
-    font-size: 75%;
-    line-height: 1;
-    vertical-align: baseline;
-}
-
 .ui-autocomplete {
 	max-height: 200px;
 	overflow: auto;
@@ -125,10 +118,11 @@
 }
 
 .ui-autocomplete-loading {
-	background: white right center no-repeat;
+	background: white url('/img/loading.gif') right center no-repeat;
+	background-size: 1.4rem;
 }
-.ui-menu-item a.ui-state-focus {
-	background-color:red;
+.ui-menu-item:hover{
+	background-color: #f2f2f2;
 }
 .ui-helper-hidden-accessible {
 	display: none;
@@ -138,8 +132,6 @@
 	width: 10%;
 	height: 20%
 }
-
-
 /* ========== 이미지 업로드 관련  ========== */
 
 #media-list li:hover {

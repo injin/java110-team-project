@@ -18,11 +18,10 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #pstno').val(postList[index].pstno);
   
   //  친구 태그 숨겨주기
-  $('#reviewModal #ftag-input').remove('#ftag-input');
+  $('#reviewModal #ftag-input').css("display", "none");
   
   //  submit 버튼 속성 바꿔주기
-  $('#reviewModal #modalSubmit').remove('#modalSubmit');
-  $('#reviewModal .modal-footer').append('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
+  $('#reviewModal #modalSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
   
   //  영화 제목, ID 가져오기
   $('#reviewModal #movieSearch').val(postList[index].title);
@@ -51,7 +50,7 @@ function openEditingModal(pstno, type) {
   $('#reviewModal input:hidden[id="star"]').val(star);
   
   //  별 찍기
-  $('#reviewModal #showStar').remove('#showStar');
+  $('#reviewModal #showStar').css("display", "none");
   $('#reviewModal #temp').starrr({
     change: function(e, value){
     	$("#star").val(value);

@@ -7,7 +7,7 @@ $(function() {
         var files = event.target.files;
 
         if(uploadFileNames.length+files.length>3){
-            alert("3장 이하의 사진만 업로드 할 수 있습니다.");
+            commonAlert('error',"3장 이하의 사진만 업로드 할 수 있습니다.");
         }else{
             fileUploadAjax(files);
         }
@@ -38,7 +38,7 @@ $(function() {
                 }
             },
             error : function(error) {
-                alert("파일 삭제에 실패하였습니다.");
+                commonAlert('error',"파일 삭제에 실패하였습니다.");
                 console.log(error);
                 console.log(error.status);
             }
@@ -69,7 +69,7 @@ $(function() {
                 }
             },
             error : function(error) {
-                alert("파일 업로드에 실패하였습니다.");
+                commonAlert('error',"파일 업로드에 실패하였습니다.");
                 console.log(error);
                 console.log(error.status);
             }
@@ -157,6 +157,8 @@ $(function() {
     // 영화 자동완성
     $( "#movieSearch" ).autocomplete({
         source: function( request, response ) {
+            
+            $("#movieSearch").addClass("ui-autocomplete-loading");
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
                 method: "POST",
@@ -166,7 +168,7 @@ $(function() {
                 data: JSON.stringify({ "keyword": request.term }),
                 success: function( data ) {
                     response($.map(data.movieList, function (item) {
-
+                        $("#movieSearch").removeClass("ui-autocomplete-loading");
                         if (item.poster_path != null) {
                             poster_path = data.imgPrefix + item.poster_path;
                         } else {
@@ -183,49 +185,45 @@ $(function() {
             });
         },
         focus: function(event, ui) {
-            $('#movieSearch').val(ui.item.label);
-            console.log(this);
             event.preventDefault();
         },
         select: function( event, ui ) {
             $("#movieSearch").val(ui.item.label);
             $("#movieId").val(ui.item.value);
-
+            $('#reviewTxtarea').focus();
             return false;
         }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
-        return $( "<li class='list-group-item'>" ).data("item.autocomplete", item)
-        .append("<div class='media'><img class='mr-3 w50' src='" +
-                item.poster_path +
-                "' alt='"+item.label+"'>" + 
-                '<div class="media-body">'+
+        return $( "<li class='media'>" ).data("item.autocomplete", item)
+         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
+                '<div class="media-body text-center">'+
                 '<h5 class="mt-0"><b>'+ item.label +'</b></h5>'+
                 '(' + item.release_date + ')'+
-                '<br>'+/*
-                '<button type="button" '+ onclick="selectMv(' + item.value + ')" 
-                '  class="btn btn-primary c-pointer btn-inAutocomplete">선택</button>'+*/
         '</div>')
         .appendTo( ul );
     };
-    
-
+    $("#movieSearch").on("focus",function(){
+        $("#movieId").val(0);
+        $("#movieSearch").val("");
+    });
+ 
     // 글 작성
     $('#modalSubmit').on('click', function(e) {
         if($("#pstTypeNo").val() == 0){
             if($("#movieId").val().trim() == 0){
-                alert("알맞은 영화제목을 작성해주세요.");
+                commonAlert('error',"알맞은 영화제목을 작성해주세요.");
                 e.preventDefault();
                 return;
             }
         }
 
         if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
-            alert("내용을 작성해주세요.");
+            commonAlert('error',"내용을 작성해주세요.");
             e.preventDefault();
             return;
         }
         if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
-            alert("별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
+            commonAlert('error',"별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
             e.preventDefault();
             return;
         }
@@ -237,6 +235,16 @@ $(function() {
     // 창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
 
+        if($('#pstno').is('input')){
+            $('#pstno').remove();
+            $('#reviewModal #ftag-input').css("display", "flex");
+            $('#reviewModal #showStar').css("display", "inline-block");
+            $('#reviewModal input[name=title]').attr("disabled",false);
+            
+            $('#reviewModal .file').show();
+            $('#reviewModal #media-list').show();
+        }
+        
         $('#movieSearch').val('');
         $('#reviewTxtarea').val('');
         $('#flw').val('');
@@ -251,7 +259,7 @@ $(function() {
         }else{
             $("#star").val(0);            
         }
-
+        
         $("#ftagsForAdd").val(-1);
         var $inputTag = $("#flw").prev().children().last().clone().wrapAll("<div></div>").parent();
         $("#flw").prev().html($inputTag.html());
@@ -361,22 +369,34 @@ function morePostHtml(data){
         }
         html += '"id="btn-like-full-';
         html += data.postsResult[i].pstno;
-        html += '" onclick="cancelLike(';
+        html += '" onclick="';
+        if(sessionMember.mno == ""){
+            html += 'loginError()';
+        }else{
+        html += 'cancelLike(';
         html += data.postsResult[i].pstno;
         html += ',';
         html += data.postsResult[i].pstTypeNo;
-        html += ')"></i>';
+        html += ')';
+        }
+        html += '"></i>';
         html += '<i class="far fa-thumbs-up btmIcon c-pointer likeColor';
         if(data.postsResult[i].likeCheck){
             html += ' dis-none ';
         }
         html += '"id="btn-like-empty-';
         html += data.postsResult[i].pstno;
-        html += '" onclick="addLike(';
+        html += '" onclick="';
+        if(sessionMember.mno == ""){
+            html += 'loginError()';
+        }else{
+        html += 'addLike(';
         html += data.postsResult[i].pstno;
         html += ',';
         html += data.postsResult[i].pstTypeNo;
-        html += ')"></i><span id="lCnt-';
+        html += ')';
+        }
+        html += '"></i><span id="lCnt-';
         html += data.postsResult[i].pstno;
         html += '">';
         html += data.postsResult[i].likeCnt;

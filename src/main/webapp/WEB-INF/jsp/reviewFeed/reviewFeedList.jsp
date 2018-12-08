@@ -13,6 +13,8 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
+ <link rel="stylesheet" href="/css/vendor/noty.css">
+ <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
@@ -137,15 +139,19 @@
 							<div class="col-6 text-left">
 								<i
 									class="fas fa-thumbs-up btmIcon c-pointer likeColor 
-                   <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
                    <c:if test="${!post.likeCheck}"> dis-none</c:if>"
 									id="btn-like-full-${post.pstno}"
-									onclick="cancelLike(${post.pstno},${post.pstTypeNo})"></i> <i
+									onclick="
+									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+									<c:if test="${not empty sessionScope.loginUser}"> cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
+									"></i> <i
 									class="far fa-thumbs-up btmIcon c-pointer likeColor 
-                   <c:if test="${empty sessionScope.loginUser}"> disabled</c:if>
                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
 									id="btn-like-empty-${post.pstno}"
-									onclick="addLike(${post.pstno},${post.pstTypeNo});"></i> <span
+									onclick="
+									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+									<c:if test="${not empty sessionScope.loginUser}"> addLike(${post.pstno},${post.pstTypeNo});</c:if>
+									"></i> <span
 									id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
 									class="far fa-comment btmIcon c-pointer"
 									onclick="showMore(this,${post.pstno})"></i> <span
@@ -232,6 +238,7 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
+	 <script src="/js/vendor/noty.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/showPosts.js"></script>

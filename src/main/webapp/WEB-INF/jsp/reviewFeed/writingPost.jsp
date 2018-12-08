@@ -19,7 +19,7 @@
 							<div class="input-group-text">영화</div>
 						</div>
 						<input type="text"
-							class="form-control ui-autocomplete-input ui-autocomplete-loading"
+							class="form-control ui-autocomplete-input"
 							id="movieSearch" name="title" placeholder="영화를 검색해주세요"
 							autocomplete="off"> <input type="hidden" id="movieId"
 							name="mvno" value="0">

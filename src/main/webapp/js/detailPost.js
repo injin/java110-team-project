@@ -12,7 +12,6 @@ function openDetailModal(pstno) {
     $('#detailModal #ownerImg').attr('src',postList[index].member.profileImagePath);
     var hForNick = '<span id="ownerNick" class="c-pointer" onclick="goToFeed('+postList[index].member.mno+')">'+postList[index].member.nickname+'</span>';
     $('#detailModal #ownerNick').replaceWith(hForNick);
-    /*$('#detailModal #ownerNick').text(postList[index].member.nickname);*/
     $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
     $('#detailModal #dpstno').val(postList[index].pstno);
     $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
@@ -110,7 +109,7 @@ function addCmt(forWhat,pstno) {
     }
 
     if (contVal == '') {
-        alert('댓글을 입력해 주세요');
+        commonAlert('error','댓글을 입력해 주세요');
         return;
     }
 
@@ -264,7 +263,7 @@ function editComment(pstno,pcno,forWhat) {
     }
 
     if (contVal == '') {
-        alert('댓글을 입력해 주세요');
+        commonAlert('error','댓글을 입력해 주세요');
         return;
     }
 
@@ -288,7 +287,6 @@ function editComment(pstno,pcno,forWhat) {
 function closeEditForm(pcno,wdate,forWhat,content,pstno,element) {
 
     var $editCloseDiv = $(element).parent();
-// content,pstno
     var html = '        <p class="w-100 p-2 m-0 wbw">';
     html += content; 
     html += '        </p>';
