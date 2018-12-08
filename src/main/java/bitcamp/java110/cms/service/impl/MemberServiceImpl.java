@@ -52,12 +52,6 @@ public class MemberServiceImpl implements MemberService {
   public void add (Member member) {
     memberDao.insert(member);
   }
-
-  @Override
-  public Member findById (String id) {
-    // TODO Auto-generated method stub
-    return null;
-  }
   
   @Override
   public List<Member> findByNick(String keyword) {
@@ -69,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    System.out.println("Service UPDATE Member\n : " + member);
+    System.out.println("Service Recieve" + member);
     memberDao.update(member);
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
@@ -163,14 +157,8 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
-  public List<Integer> getFavMvDBList(int mno){
-    return null;
-  }
-
-  @Override
   public Member findByMno(int tgtMno) {
     Member targetMember = memberDao.findByMno(tgtMno);
-    
     return targetMember;
   }
   
