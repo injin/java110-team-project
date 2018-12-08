@@ -32,12 +32,10 @@ function openEditingModal(pstno, type) {
   //  공개 비공개 여부 가져오기
   if(postList[index].open === false){
     $('#reviewModal input:checkbox[class="open"]').prop("checked", false);
-    $('#reviewModal #lock').css("display", "");
-    $('#reviewModal #globe').css("display", "none");
+    $('#reviewModal #globe').hide();
+    $("#reviewModal #lock").show();
   }  else {
     $('#reviewModal input:checkbox[class="open"]').prop("checked", true);
-    $('#reviewModal #lock').css("display", "none");
-    $('#reviewModal #globe').css("display", "");
   }
   
   //  게시물 내용 가져오기
