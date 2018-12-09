@@ -30,7 +30,7 @@
                     ${loginUser.nickname}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 피드</a>
+                  <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a>
                   <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a>
                   <c:if test="${sessionScope.loginUser.admin == true}">
                       <a class="dropdown-item" href="#">관리메뉴</a>
