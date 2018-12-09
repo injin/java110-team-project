@@ -126,40 +126,50 @@ public class RecommendServiceImple implements RecommendService {
     return n;
   }
   
+  /*
+  @SuppressWarnings("null")
   @Override
-  public void getAnly(int mno) {
-    /**
+  public Map<String, Object> getRcmd(int mno) {
+    *//**
      * mv_mv_anly에서 top 5의 mvno를 가져온다.
      * mvno의 recommedations list를 뽑는다.
-     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
      * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
+     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
      * 최중 mv가 10개를 넘지 않게 한다.
-     */
+     *//*
+    
+    //  이용자 계정의 최대 5개 top rate 영화 ID를 가져옴.
     List<Integer> mvnoList = anlyDao.getTopFivePNT(mno);
+    Map<String, Object> map = null;
+    
+    //  가져온 rate ID 개수만큼 Recommendation API호출.
     for(int mvno : mvnoList) {
       System.out.print("\n" + mvno);
       Map<Object, Object> mvList = getRecommendations(mvno);
       
+      //  results 만 list에 담
       @SuppressWarnings("unchecked")
       List<MovieDb> list = (List<MovieDb>) mvList.get("results");
-      
       System.out.println(" - result :\n\t" + list.toString());
-//      for (MovieDb mv : list) {
-//        System.out.println(mv.toString());
-//        System.out.println();
-//      }
       
-//      System.out.println("\n\n");
-//      
-//      for(Entry<Object, Object> entry : mvList.entrySet()) {
-//        Object key = entry.getKey();
-//        Object value = entry.getValue();
-//        System.out.println(key);
-//        System.out.println(value);
-//        System.out.println();
-//      }
-      
+      //  mvno를 key로 Recommendation의  return값 저장 
+      map.put(String.valueOf(mvno), list);
     }
+    return map;
+  }
+  */
+  
+  public Map<String, Object> getKey(int mno) {
+    Map<String, Object> key = new HashMap<>();
+    key.put("key", env.getProperty("tmdb.key"));
+    key.put("mvnoList", anlyDao.getTopPNT(mno));
+    /**
+     * oneGr ?
+     * 통계에서 가장 높은 장르 1개(2개?)
+     */
+    key.put("oneGr", 28);
+    
+    return key;
   }
 
   @Override
@@ -171,15 +181,7 @@ public class RecommendServiceImple implements RecommendService {
     
     @SuppressWarnings("unchecked")
     Map<Object, Object> response = new RestTemplate().getForObject(URL, Map.class);
-//    if(response != null) {
-//      System.out.println(response.size() + "RestSuccess!" );
-//    }
-    /*
-    System.out.println(
-        response.toString().replace("{id", "\n{id")
-        .replace("title", "TITLE")
-        .replace("vote_average", "VOTE"));
-    */
+    
     return response;
   }
   

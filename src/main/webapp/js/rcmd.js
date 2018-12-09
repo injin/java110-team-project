@@ -10,16 +10,99 @@ var $loading = $('#loading');
 //  TheMovieDb에서 nowPlayingMovieList 가져오기.
 var $nowSection = $('#now-section');
 var $nowItems = $('#now-items');
-//	TheMovieDb에서 UpcommingMovieList 가져오기.
+//  TheMovieDb에서 UpcommingMovieList 가져오기.
 var $upcommingSection = $('#upcomming-section');
 var $upcommingItems = $('#upcoming-items');
 
+//  배열 삽입시 중복 확인과 10개까지만 담도록 prototype 설정
+Array.prototype.pushObj = function (x) {
+  this.unshift(x);
+  this.maxLength = 15;
+  if (this.maxLength !== undefined && this.length > this.maxLength){
+    this.splice(0,1);
+    return;
+  } 
+  for (var i = 0; i < this.length; i++) {
+    if(this[i] === x) {
+      return;
+    }
+  }
+  this.push(x);
+}
+var anlyList = new Array;
+
+window.onload = getKey();
 window.onload = getSimilarBaseFavList();
 window.onload = getUpcommigList();
 window.onload = getNowList();
 window.onload = getMdList();
 
-function getSimilarBaseFavList(){
+function getKey() {
+  $.ajax("/app/rcmd/key", {
+    method: "POST",
+    headers : {
+      'Content-Type': 'application/json'
+    },
+    success: function (keys) {
+      console.log(keys);
+      anlyTaste(keys);
+    }
+  });
+}
+
+function anlyTaste (keys) {
+  var mvnoList = keys.mvnoList;
+  var filt = keys.oneGr;
+  
+  var urlHead = urlHead = "https://api.themoviedb.org/3/movie/";
+  var urlBody = "/recommendations?api_key=";
+  var k = keys.key;
+  var urlTail = "&language=ko-KOR&page=1";
+  
+  for (var i = 0; i < mvnoList.length; i++) {
+    getRcmd(urlHead + mvnoList[i] + urlBody + k + urlTail);
+    function getRcmd(URL) {
+        $.ajax(URL, {
+        method: "GET",
+        header: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        success: function(data){
+          var list = data.results;
+          anly(list, filt);
+        },  // success
+        complete: function () {
+          console.log(anlyList);
+          
+        },
+        error: (xhr, status, msg) => {
+          $srchMovieList.text('영화 정보를 가져오는데 실패하였습니다.');
+          console.log(status);
+          console.log(msg);
+        }
+      });
+    }//  ajax
+  }
+}
+
+function anly(list, filt){
+  for (var i = 0; i < list.length; i++) {
+    //  평점이 너무 높다면 이미 봤을 수 있으므로 자름.
+    if (list[i].vote_average < 7.3) {
+      /// filt 값 이 포함된 영화일 경우에만 anlyList에 포함 하는 조건문
+      if (list[i].genre_ids.includes(filt)){
+        anlyList.pushObj(list[i]);
+      }
+    }
+  }
+  //  anlyList의 object에 vote_count 값으로 정렬 
+  anlyList.sort(function (a, b) {
+    return a.vote_count > b.vote_count ? -1 : a.vote_count < b.vote_count ? 1 : 0;
+  });
+  return anlyList;
+}
+
+function getSimilarBaseFavList() {
   $.ajax("/app/rcmd/smlrList", {
     method: "POST",
     headers : {

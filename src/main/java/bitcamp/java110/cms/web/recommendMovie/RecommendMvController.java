@@ -72,8 +72,7 @@ public class RecommendMvController {
       HttpSession session) {
     
     try {
-          rcmdService.getAnly(((Member)session.getAttribute("loginUser")).getMno());
-      
+//          rcmdService.getRcmd(((Member)session.getAttribute("loginUser")).getMno());
     }   catch (Exception e) {
       e.printStackTrace();
       System.out.println(e);
@@ -81,6 +80,11 @@ public class RecommendMvController {
     
     
     return "/recommend/list";
+  }
+  
+  @RequestMapping("/key")
+  public @ResponseBody Map <String, Object> key (HttpSession session) {
+    return rcmdService.getKey(((Member)session.getAttribute("loginUser")).getMno());
   }
   
   //  유사영화 List
