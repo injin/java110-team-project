@@ -10,16 +10,61 @@ var $loading = $('#loading');
 //  TheMovieDb에서 nowPlayingMovieList 가져오기.
 var $nowSection = $('#now-section');
 var $nowItems = $('#now-items');
-//	TheMovieDb에서 UpcommingMovieList 가져오기.
+//  TheMovieDb에서 UpcommingMovieList 가져오기.
 var $upcommingSection = $('#upcomming-section');
 var $upcommingItems = $('#upcoming-items');
 
+window.onload = getKey();
 window.onload = getSimilarBaseFavList();
 window.onload = getUpcommigList();
 window.onload = getNowList();
 window.onload = getMdList();
 
-function getSimilarBaseFavList(){
+function getKey() {
+  $.ajax("/app/rcmd/key", {
+    method: "POST",
+    headers : {
+      'Content-Type': 'application/json'
+    },
+    success: function (keys) {
+      console.log(keys);
+      anlyTaste(keys);
+    }
+  });
+}
+
+function anlyTaste (keys) {
+  var mvnoList = keys.mvnoList;
+  var urlHead = urlHead = "//api.themoviedb.org/3/movie/";
+  var urlBody = "/recommendations?api_key=";
+  var k = keys.key;
+  var urlTail = "&language=ko-KOR&page=1";
+  
+  for (var i = 0; i < mvnoList.length; i++) {
+//    console.log(mvnoList[i]);
+//    var URL = urlHead + mvnoList[i] + urlBody + urlTail;
+    getRcmd(urlHead + mvnoList[i] + urlBody + urlTail);
+    function getRcmd(URL) {
+//      console.log(URL);
+        $.ajax(URL, {
+        method: "POST",
+        header: {
+          'Content-Type': 'application/json'
+        },
+        success: function(data){
+        	console.log(data);
+        }
+      });
+    }
+  }
+  
+  
+  
+  
+  
+}
+
+function getSimilarBaseFavList() {
   $.ajax("/app/rcmd/smlrList", {
     method: "POST",
     headers : {
