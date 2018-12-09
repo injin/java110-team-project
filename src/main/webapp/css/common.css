@@ -6,11 +6,12 @@ h1,h2,h3,h4,h5,h6 {
 
 body {
   min-height: 75rem;
-  padding-top: 2.5rem;
+  padding-top: 3.6rem;
 }
 main {
     min-height: 75rem;
 }
+#logo-img { width: 45px; }
 .bgGray {
     background-color: #F2F4F7;
 }

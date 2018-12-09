@@ -14,8 +14,7 @@
     !! INJIN33님의 잘못된 삽질로 FOOTER가 두개 이기 때문에 수정을 두번 해야함!!
 
 --%>
-<footer class="footer page-footer font-small stylish-color-dark pt-4"
-        style="color: white; background-color: #343a40 !important;">
+<footer class="footer page-footer font-small stylish-color-dark pt-4 bg-dark text-white">
   <!-- Footer -->
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
