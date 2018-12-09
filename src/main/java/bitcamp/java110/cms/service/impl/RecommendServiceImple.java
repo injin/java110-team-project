@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
@@ -126,39 +125,6 @@ public class RecommendServiceImple implements RecommendService {
     return n;
   }
   
-  /*
-  @SuppressWarnings("null")
-  @Override
-  public Map<String, Object> getRcmd(int mno) {
-    *//**
-     * mv_mv_anly에서 top 5의 mvno를 가져온다.
-     * mvno의 recommedations list를 뽑는다.
-     * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
-     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
-     * 최중 mv가 10개를 넘지 않게 한다.
-     *//*
-    
-    //  이용자 계정의 최대 5개 top rate 영화 ID를 가져옴.
-    List<Integer> mvnoList = anlyDao.getTopFivePNT(mno);
-    Map<String, Object> map = null;
-    
-    //  가져온 rate ID 개수만큼 Recommendation API호출.
-    for(int mvno : mvnoList) {
-      System.out.print("\n" + mvno);
-      Map<Object, Object> mvList = getRecommendations(mvno);
-      
-      //  results 만 list에 담
-      @SuppressWarnings("unchecked")
-      List<MovieDb> list = (List<MovieDb>) mvList.get("results");
-      System.out.println(" - result :\n\t" + list.toString());
-      
-      //  mvno를 key로 Recommendation의  return값 저장 
-      map.put(String.valueOf(mvno), list);
-    }
-    return map;
-  }
-  */
-  
   public Map<String, Object> getKey(int mno) {
     Map<String, Object> key = new HashMap<>();
     key.put("key", env.getProperty("tmdb.key"));
@@ -171,21 +137,4 @@ public class RecommendServiceImple implements RecommendService {
     
     return key;
   }
-
-  @Override
-  public Map<Object, Object> getRecommendations(int mvno) {
-    String urlHead = "https://api.themoviedb.org/3/movie/";
-    String urlBody = "/recommendations?page=1&language=ko-KOR&api_key=";
-    String urlTail = env.getProperty("tmdb.key");
-    String URL = urlHead + mvno + urlBody + urlTail;
-    
-    @SuppressWarnings("unchecked")
-    Map<Object, Object> response = new RestTemplate().getForObject(URL, Map.class);
-    
-    return response;
-  }
-  
-  
-  
-  
 }

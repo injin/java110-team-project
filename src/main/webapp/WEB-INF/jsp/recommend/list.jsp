@@ -40,7 +40,19 @@
         </div>
       </div>
       <div class="items" id="anly-base-items">
+        <script id="entry-template" type="text/x-handlebars-template">
+               <div class="item" onclick="goToSceneReview('{{obj.id}}')">
 
+//                 <img class="item-image" src="https://image.tmdb.org/t/p/w500{{obj.poster_path}}" alt="{{obj.title}}"/>
+
+                 <span class="item-title">{{obj.title}}</span>
+                 <div class="item-description opacity-none">
+                   개봉일 : {{obj.release_date}}<br>
+                   네티즌 평점 : {{obj.vote_average}}
+                 </div>
+                 <br>
+               </div>
+        </script>
       </div>
     </div>
     <br>
@@ -139,5 +151,6 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/js/rcmd.js"></script>
   <script src="/js/carousel.js"></script>
+  <script src="/js/handlebars-v4.0.12.js"></script>
 </body>
 </html>

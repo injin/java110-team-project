@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.common.Constants;
@@ -67,17 +66,7 @@ public class RecommendMvController {
   }
   
   @RequestMapping("/list")
-  public String list (
-      Model model,
-      HttpSession session) {
-    
-    try {
-//          rcmdService.getRcmd(((Member)session.getAttribute("loginUser")).getMno());
-    }   catch (Exception e) {
-      e.printStackTrace();
-      System.out.println(e);
-    }
-    
+  public String list () {
     
     return "/recommend/list";
   }
