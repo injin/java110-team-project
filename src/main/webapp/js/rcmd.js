@@ -25,11 +25,13 @@ Array.prototype.pushObj = function (x) {
   this.unshift(x);
   this.maxLength = 20;
   if (this.maxLength !== undefined && this.length > this.maxLength){
+    console.log(x);
     this.splice(0,1);
     return;
   } 
   for (var i = 0; i < this.length; i++) {
-    if(this[i] === x) {
+    if(this[i].title === x.title) {
+      console.log("중복검사?"+ x.title);
       return;
     }
   }
@@ -37,11 +39,11 @@ Array.prototype.pushObj = function (x) {
 }
 var anlyList = new Array;
 
+window.onload = getMdList();
 window.onload = getKey();
 window.onload = getSimilarBaseFavList();
 window.onload = getUpcommigList();
 window.onload = getNowList();
-window.onload = getMdList();
 
 function getKey() {
   $.ajax("/app/rcmd/key", {
@@ -60,7 +62,7 @@ function getKey() {
 
 function anlyTaste (keys) {
   var mvnoList = keys.mvnoList;
-  var filt = keys.oneGr;
+  var filt = keys.grs;
   
   var urlHead = urlHead = "https://api.themoviedb.org/3/movie/";
   var urlBody = "/recommendations?api_key=";
@@ -95,10 +97,10 @@ function anlyTaste (keys) {
 
 function anly(list, filt){
   for (var i = 0; i < list.length; i++) {
-    //  평점이 너무 높다면 이미 봤을 수 있으므로 자름.
-    if (list[i].vote_average < 6.9) {
+    //  평점이 너무 높다면 너무 뻔하고, 너무 낮으면 질이 떠러짐으로 자름
+    if (list[i].vote_average < 7.0 && list[i].vote_average > 6.0) {
       /// filt 값 이 포함된 영화일 경우에만 anlyList에 포함 하는 조건문
-      if (list[i].genre_ids.includes(filt)){
+      if ( list[i].genre_ids.includes(filt[1]) || list[i].genre_ids.includes(filt[0]) ) {
         anlyList.pushObj(list[i]);
       }
     }

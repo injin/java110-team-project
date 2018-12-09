@@ -6,7 +6,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>moviestagram</title>
+  <title>movie cok!</title>
 
   <link rel='stylesheet' href='/css/bootstrap.css'>
   <link rel='stylesheet' href='/css/fontawesome.css'>
@@ -23,7 +23,7 @@
   <main role="main" class="container borderGray"> 
   <c:choose>
     <c:when test="${not empty sessionScope.loginUser}">
-      <h1>${sessionScope.loginUser.nickname}님만을 위한 취향 저격추천 영화</h1>
+      <h1>${sessionScope.loginUser.nickname}님만을 위한 취향저격 추천 영화</h1>
     </c:when>
   </c:choose>
   <hr>
@@ -60,7 +60,6 @@
         data-toggle="popover" data-placement="right"
         data-content="${sessionScope.loginUser.nickname}님이 좋아하신">추천 기준</button>
   </section>
-  <br>
 <%-- ========================================================================================== --%>
   <section id="random-base-section" style="display: none;">
   <hr>
@@ -88,7 +87,6 @@
   
   <section id="md-section" style="display: none;">
     <h2>MD 추천 영화</h2>
-    <hr>
     <h4 id="mdTitle"></h4>
     <div id="mdCarousel" class="list-container">
       <div class="control-container">
@@ -103,10 +101,7 @@
          
       </div>
     </div>
-    <hr>
   </section>
-<%-- ========================================================================================== --%>
-  <br>
 <%-- ========================================================================================== --%>
   <section id="now-section" style="display: none;">
   <hr>
@@ -143,7 +138,7 @@
       </div>
     </div>
   </section>
-  <hr>
+  <br>
 <%-- ========================================================================================== --%>
   </main>
   <jsp:include page="../include/footer.jsp"></jsp:include>
