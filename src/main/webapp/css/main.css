@@ -83,10 +83,16 @@ span.carousel-control-next-icon {
 }
 .mb-5, .my-5 {
     margin-bottom: 3rem !important;
-    margin-left: 2rem;
+    margin-left: 3rem;
 }
 .col-md-4 {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
-    max-width: 31.5%;
+    max-width: 33.3333%;
+}
+.pl-3, .px-3 {
+    padding-left: 0rem !important;
+}
+.pr-3, .px-3 {
+    padding-right: 0rem !important;
 }
