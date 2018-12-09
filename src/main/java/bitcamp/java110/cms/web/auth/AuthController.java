@@ -99,7 +99,7 @@ public class AuthController {
     //  가입시 최초 상세정보 수정 메소드.
     @PostMapping("/init")
     public String firstInit (
-        Member member,
+//        Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
@@ -109,6 +109,8 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
+      
+      Member member = (Member)session.getAttribute("loginUser");
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {

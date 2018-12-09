@@ -48,7 +48,7 @@ Movie Around The World
               <a href="#!">나의 피드</a>
             </li>
             <li>
-              <a href="#!">영화 추천</a>
+              <a href="/app/rcmd/anly">영화 추천</a>
             </li>
           </ul>
         </div>

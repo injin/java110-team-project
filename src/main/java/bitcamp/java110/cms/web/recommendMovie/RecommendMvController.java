@@ -41,6 +41,7 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
  * RecormendService
  * RecormendServiceImple
  * rcmd.js
+ * carousel.js
  * jcmd.css
  * RecommendDao
  * RecommendDao.xml
@@ -77,14 +78,12 @@ public class RecommendMvController {
       e.printStackTrace();
       System.out.println(e);
     }
-//    int[] n = rcmdService.RandomNums(rcmdService.getCount(), 2);
-//    model.addAttribute("listName1", rcmdService.getListName(n[0]));
-//    model.addAttribute("list1", rcmdService.getList(n[0]));
-//    model.addAttribute("listName2", rcmdService.getListName(n[1]));
-//    model.addAttribute("list2", rcmdService.getList(n[1]));
+    
+    
     return "/recommend/list";
   }
   
+  //  유사영화 List
   @RequestMapping("/smlrList")
   public @ResponseBody Map <String, Object> smlrListById (
       HttpSession session) throws Exception {
@@ -109,7 +108,7 @@ public class RecommendMvController {
     }
   }
   
-  //    현재 상영작
+  //  현재 상영작
   @RequestMapping("/now")
   public @ResponseBody Map <String, Object> nowList () throws Exception {
     MovieResultsPage nowList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
@@ -118,7 +117,7 @@ public class RecommendMvController {
     return returnValue;
   }
   
-  //    개봉 예정작
+  //  개봉 예정작
   @RequestMapping("/upcommig")
   public @ResponseBody Map <String, Object> comeList () throws Exception {
     MovieResultsPage upcommingList = tmdbMovies.getUpcoming(Constants.LANGUAGE_KO, 1, "KR");
@@ -127,6 +126,7 @@ public class RecommendMvController {
     return returnValue;
   }
   
+  //  MD 추천 List
   @RequestMapping("/mdList")
   public @ResponseBody Map <String, Object> mdList () throws Exception {
     Map <String, Object> returnValue = new HashMap<>();
