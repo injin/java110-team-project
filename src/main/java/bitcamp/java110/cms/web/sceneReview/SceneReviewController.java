@@ -68,7 +68,7 @@ public class SceneReviewController {
     return "sceneReview/review";
   }
   
-  @RequestMapping("/fileUpload")
+  @PostMapping("/fileUpload")
   public @ResponseBody String upload (
       MultipartFile phot, String removeFileName) throws Exception {
     
@@ -86,7 +86,7 @@ public class SceneReviewController {
   }
   
   
-  @RequestMapping("/add")
+  @PostMapping("/add")
   public String add(SceneReview sceneReview,
                 HttpSession session) throws Exception {
     
@@ -109,7 +109,7 @@ public class SceneReviewController {
     return false;
   }
   
-  @RequestMapping("addComment")
+  @PostMapping("addComment")
   public String addComment(SceneReviewCmt comment,
     String photoName, HttpSession session) throws Exception {
     
@@ -127,7 +127,7 @@ public class SceneReviewController {
               + "&srno=" + sr.getSrno();
   }
   
-  @RequestMapping("deleteComment")
+  @PostMapping("deleteComment")
   public String deleteComment(int srno, int mvno, int cmno) {
     
     sceneReviewService.deleteCmt(cmno);
@@ -135,21 +135,21 @@ public class SceneReviewController {
               + "&srno=" + srno;
   }
   
-  @RequestMapping("addToSrAlbum")
+  @PostMapping("addToSrAlbum")
   public @ResponseBody boolean addToSrAlbum(
       int lbmno, int srno) {
     
     return sceneReviewService.addToSrAlbum(lbmno, srno);
   }
   
-  @RequestMapping("deleteFromSrAlbum")
+  @PostMapping("deleteFromSrAlbum")
   public @ResponseBody boolean deleteFromSrAlbum(
       int lbmno, int srno) {
     
     return sceneReviewService.deleteFromSrAlbum(lbmno, srno);
   }
   
-  @RequestMapping("editComment")
+  @PostMapping("editComment")
   public String editComment(int srno, int mvno, 
       SceneReviewCmt comment) {
     
@@ -159,7 +159,7 @@ public class SceneReviewController {
         + "&srno=" + srno;
   }
   
-  @RequestMapping("addLike")
+  @PostMapping("addLike")
   public @ResponseBody boolean addLike(
       HttpSession session, int srno) {
     
@@ -169,7 +169,7 @@ public class SceneReviewController {
     return result;
   }
   
-  @RequestMapping("cancelLike")
+  @PostMapping("cancelLike")
   public @ResponseBody boolean cancelLike(
       HttpSession session, int srno) {
     

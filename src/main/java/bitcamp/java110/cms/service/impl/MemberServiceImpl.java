@@ -52,12 +52,6 @@ public class MemberServiceImpl implements MemberService {
   public void add (Member member) {
     memberDao.insert(member);
   }
-
-  @Override
-  public Member findById (String id) {
-    // TODO Auto-generated method stub
-    return null;
-  }
   
   @Override
   public List<Member> findByNick(String keyword) {
@@ -67,9 +61,14 @@ public class MemberServiceImpl implements MemberService {
   @SuppressWarnings("null")
   @Transactional(propagation=Propagation.REQUIRED,
                  rollbackFor=Exception.class)
+  
   @Override
-  public void update(Member member) {
-    memberDao.update(member);
+  public void init(Member member) {
+    System.out.println("Service Recieve" + member);
+    if(member.getProfileImage() == "" || member.getCoverImage() == "") {
+      memberDao.update(member);
+      System.out.println("init");
+    }
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
     
@@ -104,6 +103,29 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
+  public void update(Member member) {
+    System.out.println("Service Recieve" + member);
+    if(member.getProfileImage() == "" || member.getCoverImage() == "") {
+      memberDao.update(member);
+      System.out.println("update");
+    }
+    
+    List<Integer> originList = getFavGnrDBList(member.getMno());
+    
+    if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
+      if(originList != null || originList.size() > 0) {
+        favGenreDao.deleteAll(member.getMno());
+      }
+      for (int i = 0; i < member.getFavGrList().size(); i++) {
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("mno", member.getMno());
+        params.put("grno", member.getFavGrList().get(i));
+        favGenreDao.insert(params);
+      }
+    }
+  }
+  
+  @Override
   public void saveMvId (int mvno) {
     String tmdbKey = env.getProperty("tmdb.key");
     
@@ -127,22 +149,33 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
+    System.out.println(mno + "\nSignOut Process 1");
     srDao.signOut1(mno);
     srDao.signOut2(mno);
+    System.out.println("SignOut Process 2");
     lbmDao.signOut1(mno);
     lbmDao.signOut2(mno);
     lbmDao.signOut3(mno);
+    System.out.println("SignOut Process 3");
     rptDao.signOut(mno);
+    System.out.println("SignOut Process 4");
     postCmtDao.signOut(mno);
+    System.out.println("SignOut Process 5");
     postDao.signOut(mno);
+    System.out.println("SignOut Process 6");
     logDao.signOut1(mno);
     logDao.signOut2(mno);
+    System.out.println("SignOut Process 7");
     flwDao.signOut3(mno);
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
+    System.out.println("SignOut Process 8");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
+    System.out.println("LastProcess");
     memberDao.signOut(mno);
+    System.out.println("Bye");
+    
   }
   
   @Override
@@ -151,14 +184,8 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
-  public List<Integer> getFavMvDBList(int mno){
-    return null;
-  }
-
-  @Override
   public Member findByMno(int tgtMno) {
     Member targetMember = memberDao.findByMno(tgtMno);
-    
     return targetMember;
   }
   

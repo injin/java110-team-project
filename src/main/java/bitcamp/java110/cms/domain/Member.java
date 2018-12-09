@@ -147,7 +147,7 @@ public class Member implements Serializable {
 
   @Override
   public String toString() {
-      return "Member [mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname + ", profileImage="
+      return "Member\n\t[mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname + ", profileImage="
               + profileImage + ", coverImage=" + coverImage + ", pr=" + pr + ", gender=" + gender + ", ageRange="
               + ageRange + ", use=" + use + ", flw=" + flw + ", favGrList=" + favGrList + ", favMvList=" + favMvList
               + "]";

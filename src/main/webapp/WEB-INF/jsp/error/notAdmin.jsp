@@ -15,10 +15,11 @@
     <jsp:include page="../include/header.jsp"></jsp:include>
     
     <main role="main" class="container">
-        
-        
-        <h1>관리자 전용 메뉴입니다.<br> 로그인 후 이용해주세요</h1>
-        
+    
+        <div class="alert alert-secondary mt-5" role="alert">
+          <h4 class="alert-heading">권한 에러!</h4>
+          <p>관리자 전용 메뉴입니다.<br> 로그인 후 이용해주세요</p>
+        </div>
         
         
     </main>

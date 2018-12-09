@@ -22,12 +22,9 @@
 <%-- ========================================================================================== --%>
     <main role="main" class="container">
       <div id="detail">
-        <form action="init" method="post" id="detailForm"
-          enctype="multipart/form-data">
+        <form action="init" method="post" id="detailForm" enctype="multipart/form-data">
           
           <input type="hidden" name="mno" value="${sessionScope.loginUser.mno}">
-          <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
-          <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
           
           <h3 class="mt-3">닉네임</h3>
           <section id="nickname-section">
@@ -120,7 +117,7 @@
 <%-- ========================================================================================== --%>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     
-    <script src="/js/bootstrap.bundle.js"></script>
+    <!-- <script src="/js/bootstrap.bundle.js"></script> -->
     <script src="/js/auth.js"></script>
     <script src="/js/movieList.js"></script>
     <script src="/js/vendor/noty.js"></script>

@@ -59,7 +59,7 @@ tbody td {
 
 	<jsp:include page="../include/header.jsp"></jsp:include>
 	<main role="main" class="container"> <!-- 작업부분 -->
-	<form action="save" method="post">
+	<form class="addForm" action="save" method="post">
 		<h1 class="m-4" style="font-family: fantasy;">추천 테마 목록</h1>
 		<table class="table table-hover">
 			<thead>
@@ -99,7 +99,7 @@ tbody td {
 				style="width: 30rem; float: right; border: 1px solid sivler">
 				<ol class="chooseList mt-0" id="list-choose-movie"
 					style="margin-bottom: 1rem;">
-					<c:forEach items="movieList" var="movie">
+					<c:forEach items="${movieList}" var="movie">
 						<li class="list-group-item" id="mv-li-${movie.mvno}">
 							<div class="media">
 								<div class="media-body">
@@ -107,8 +107,8 @@ tbody td {
 									<button type="button" onclick="removeList(${movie.mvno})"
 										style="float: right; cursor: pointer;"
 										class="badge badge-primary badge-pill">제거</button>
-									<input type="hidden" name="mvno" value="${movie.mvno}"> <input
-										type="hidden" name="title" value="'${movie.title}'">
+									<input type="hidden" name="mvno" value="${movie.mvno}">
+									 <input type="hidden" name="title" value="${movie.title}">
 								</div>
 							</div>
 						</li>
@@ -131,8 +131,8 @@ tbody td {
 
 
 		<div class="confirm">
-			<input type="submit" class="btn report-btn2" value="확인"> <input
-				type="button" onclick="signUpCheck()" class="btn report-btn2"
+			<input type="button" class="btn report-btn2" onclick="saveRcmdList()">확인 
+			 <input type="button" onclick="signUpCheck()" class="btn report-btn2"
 				value="취소">
 			<!-- <label class="btn report-btn2">확인<input type="button" onclick="signUpCheck()" style="display: none;" value="확인"></label> -->
 			<!-- <label class="btn report-btn2">취소<input type="button" onclick="goToHome()" style="display: none;" value="취소"></label> -->

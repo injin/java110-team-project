@@ -49,8 +49,6 @@ public class AuthController {
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
-      System.out.println("login " + member);
-      
       // 기존에 가입된 사용자이면
       if (member != null) {
         session.setAttribute("loginUser", member);
@@ -84,7 +82,7 @@ public class AuthController {
     }
     
     //  가입시 최초 상세정보 수정 페이지 출력.
-    @RequestMapping("/detail")
+    @PostMapping("/detail")
     public String detailForm(
         Model model,
         HttpSession session) {
@@ -99,7 +97,7 @@ public class AuthController {
     //  가입시 최초 상세정보 수정 메소드.
     @PostMapping("/init")
     public String firstInit (
-        Member member,
+//        Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
@@ -109,6 +107,8 @@ public class AuthController {
         @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
         HttpSession session) throws Exception {
+      
+      Member member = (Member)session.getAttribute("loginUser");
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
@@ -144,7 +144,7 @@ public class AuthController {
       }
       
       session.setAttribute("loginUser", member);
-      memberService.update(member);
+      memberService.init(member);
       return "redirect:/app/";
     }
     
@@ -176,8 +176,8 @@ public class AuthController {
       return "auth/update";
     }
     
-    //  상시 상세정보 수정 update
-    @PostMapping("/update")
+    //  상시 상세정보 수정 update method
+    @PostMapping("/edit")
     public String update(
         HttpServletRequest request,
         Member member,
@@ -188,9 +188,11 @@ public class AuthController {
         @RequestParam(name="pr", required=false)
                 String pr,
         HttpSession session) throws Exception {
+      session.getAttribute("loginUser");
       
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
+        System.out.println(profileImageFile);
         String profileImg = UUID.randomUUID().toString();
         profileImageFile.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
@@ -199,6 +201,7 @@ public class AuthController {
       
       //    coverImage Control
       if (coverImage != null && coverImage.getSize() > 0) {
+        System.out.println(coverImage);
         String coverImg = UUID.randomUUID().toString();
         coverImage.transferTo(new File(
             sc.getRealPath("/upload/cover/" + coverImg)));
@@ -210,10 +213,12 @@ public class AuthController {
       }
       
       if (pr != null && pr != "") {
+        System.out.println(pr);
         member.setPr(pr);
       }
       
       session.setAttribute("loginUser", member);
+      System.out.println("\nController Send to Service Who? " + member);
       memberService.update(member);
       
       String originPath = request.getHeader("referer");

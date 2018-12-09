@@ -41,8 +41,19 @@ public class RecommendServiceImple implements RecommendService {
   }
   
   @Override
+	public List<Movie> getRcmdMvList(int thmno) {
+	    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);
+	    List<Movie> mvList = new ArrayList<>(); 
+	    for (int i = 0; i < idList.size(); i++) {
+	      int id = (int)idList.get(i);
+	      mvList.add(new Movie(id, getMvById(id).getTitle()));
+	    }
+	    return mvList;
+	}
+  
+  @Override
   public List<MovieDb> getList(int thmno){
-    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);;
+    List<Integer> idList = rcmdDao.findMgrRcmdListById(thmno);
     List<MovieDb> mvList = new ArrayList<>(); 
     for (int i = 0; i < idList.size(); i++) {
       int id = (int)idList.get(i);
@@ -75,6 +86,7 @@ public class RecommendServiceImple implements RecommendService {
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();
     MovieDb mvdb = tmdbMovies.getMovie(mvno, Constants.LANGUAGE_KO);
+    
     /* Test 
     System.out.println("mvdb : " + mvdb.toString());
     System.out.println(mvdb.getOverview());
@@ -125,26 +137,27 @@ public class RecommendServiceImple implements RecommendService {
      */
     List<Integer> mvnoList = anlyDao.getTopFivePNT(mno);
     for(int mvno : mvnoList) {
+      System.out.print("\n" + mvno);
       Map<Object, Object> mvList = getRecommendations(mvno);
-      System.out.println(mvList.get("results").toString());
+      
       @SuppressWarnings("unchecked")
       List<MovieDb> list = (List<MovieDb>) mvList.get("results");
       
+      System.out.println(" - result :\n\t" + list.toString());
+//      for (MovieDb mv : list) {
+//        System.out.println(mv.toString());
+//        System.out.println();
+//      }
       
-      for (MovieDb mv : list) {
-        System.out.println(mv.toString());
-        System.out.println();
-      }
-      
-/*      System.out.println("\n\n");
-      
-      for(Entry<Object, Object> entry : mvList.entrySet()) {
-        Object key = entry.getKey();
-        Object value = entry.getValue();
+//      System.out.println("\n\n");
+//      
+//      for(Entry<Object, Object> entry : mvList.entrySet()) {
+//        Object key = entry.getKey();
+//        Object value = entry.getValue();
 //        System.out.println(key);
 //        System.out.println(value);
-        System.out.println();
-      }*/
+//        System.out.println();
+//      }
       
     }
   }
@@ -158,9 +171,9 @@ public class RecommendServiceImple implements RecommendService {
     
     @SuppressWarnings("unchecked")
     Map<Object, Object> response = new RestTemplate().getForObject(URL, Map.class);
-    if(response != null) {
-      System.out.println(response.size() + "RestSuccess!" );
-    }
+//    if(response != null) {
+//      System.out.println(response.size() + "RestSuccess!" );
+//    }
     /*
     System.out.println(
         response.toString().replace("{id", "\n{id")
