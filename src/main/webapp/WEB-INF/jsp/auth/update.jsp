@@ -7,10 +7,6 @@
             <form action="edit" method="post" id="detailForm" enctype="multipart/form-data">
                <div id="origin-values">
                  <input type="hidden" name="mno" value="${loginUser.mno}">
-                 <%-- 
-                 <input type="hidden" name="profileImage" value="${loginUser.profileImage}">
-                 <input type="hidden" name="coverImage" value="${loginUser.coverImage}">
-                  --%>
                </div>
                <h3 class="mt-3">닉네임</h3>
                <section id="nickname-section">
@@ -40,14 +36,7 @@
                <h3>자기소개</h3>
                <section id="pr-section">
                   <div class="form-group">
-                     <c:choose>
-                        <c:when test="${empty loginUser.pr}">
-                           <input type="text" class="pr form-control" name="pr" value="자기소개를 입력해 주세요.">
-                        </c:when>
-                        <c:otherwise>
-                           <input type="text" class="pr form-control" name="pr" value="${loginUser.pr}">
-                        </c:otherwise>
-                     </c:choose>
+                     <input type="text" class="pr form-control" name="pr" value="${loginUser.pr}">
                   </div>
                </section>
                <hr>

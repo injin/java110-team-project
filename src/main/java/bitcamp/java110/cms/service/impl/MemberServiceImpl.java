@@ -103,17 +103,14 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public void update(Member member) {
-    System.out.println("Service Recieve" + member);
-    if(member.getProfileImage() == "" || member.getCoverImage() == "") {
-      memberDao.update(member);
-      System.out.println("update");
-    }
+    
+    memberDao.update(member);
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
-    
     if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
-      if(originList != null || originList.size() > 0) {
+      if(originList != null && originList.size() > 0) {
         favGenreDao.deleteAll(member.getMno());
       }
       for (int i = 0; i < member.getFavGrList().size(); i++) {
@@ -185,8 +182,7 @@ public class MemberServiceImpl implements MemberService {
   
   @Override
   public Member findByMno(int tgtMno) {
-    Member targetMember = memberDao.findByMno(tgtMno);
-    return targetMember;
+    return memberDao.findByMno(tgtMno);
   }
   
   
