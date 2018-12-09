@@ -15,5 +15,5 @@ public interface MovieAnlyDao {
   void insertGrNotExists(Map<String, Integer> params);
   void insertGrAllNotExists(Map<String, Object> params);
   boolean checkGrExist(int mvno);
-  List <Integer> getTopFivePNT(int mno);
+  List <Integer> getTopPNT(int mno);
 }

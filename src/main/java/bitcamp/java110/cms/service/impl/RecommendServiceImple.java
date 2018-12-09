@@ -133,8 +133,8 @@ public class RecommendServiceImple implements RecommendService {
     *//**
      * mv_mv_anly에서 top 5의 mvno를 가져온다.
      * mvno의 recommedations list를 뽑는다.
-     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
      * 네티즌 평점이 일정수준 (얼마?) 이상인 작품을 고른다.
+     * 통계에서 가장 높은 장르 1개(2개?)와 일치하는 mv들만 추린다.
      * 최중 mv가 10개를 넘지 않게 한다.
      *//*
     
@@ -162,8 +162,12 @@ public class RecommendServiceImple implements RecommendService {
   public Map<String, Object> getKey(int mno) {
     Map<String, Object> key = new HashMap<>();
     key.put("key", env.getProperty("tmdb.key"));
-    key.put("mvnoList", anlyDao.getTopFivePNT(mno));
-    key.put("oneGr", null);
+    key.put("mvnoList", anlyDao.getTopPNT(mno));
+    /**
+     * oneGr ?
+     * 통계에서 가장 높은 장르 1개(2개?)
+     */
+    key.put("oneGr", 28);
     
     return key;
   }

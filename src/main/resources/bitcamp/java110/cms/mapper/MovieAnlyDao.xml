@@ -80,7 +80,7 @@
          WHERE mvno = #{value}
     </select>
     
-    <select id="getTopFivePNT" resultType="int" parameterType="int">
+    <select id="getTopPNT" resultType="int" parameterType="int">
         SELECT mvno
         FROM mv_mv_anly
         WHERE mno=#{mno}
