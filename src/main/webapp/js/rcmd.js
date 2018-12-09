@@ -73,7 +73,10 @@ function anlyTaste (keys) {
         },  // success
         complete: function () {
           console.log(anlyList);
-          
+          var source = $("#entry-template").html();
+          var template = Handlebars.compile(source);
+          var itemList = template(anlyList);
+          $('#anly-base-items').append(itemList);
         },
         error: (xhr, status, msg) => {
           $srchMovieList.text('영화 정보를 가져오는데 실패하였습니다.');
@@ -88,7 +91,7 @@ function anlyTaste (keys) {
 function anly(list, filt){
   for (var i = 0; i < list.length; i++) {
     //  평점이 너무 높다면 이미 봤을 수 있으므로 자름.
-    if (list[i].vote_average < 7.3) {
+    if (list[i].vote_average < 6.9) {
       /// filt 값 이 포함된 영화일 경우에만 anlyList에 포함 하는 조건문
       if (list[i].genre_ids.includes(filt)){
         anlyList.pushObj(list[i]);

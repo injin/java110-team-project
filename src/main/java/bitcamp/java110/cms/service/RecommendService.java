@@ -16,5 +16,4 @@ public interface RecommendService {
   int[] RandomNums(int root, int range);
   int getCount();
   Map<String, Object> getKey(int mno);
-  Map<Object, Object> getRecommendations(int mvno);
 }
