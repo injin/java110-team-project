@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>취향 분석</title>
+<title>movie cok!</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/all.css'>
 <link rel='stylesheet' href='/css/common.css'>
