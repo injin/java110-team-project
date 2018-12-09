@@ -54,7 +54,7 @@ public class FlwController {
         return flwService.add(condition);
     }
     
-   @RequestMapping("flwdelete")
+   @PostMapping("flwdelete")
     public String deleteFlw(int flw,
             HttpSession session) {
         

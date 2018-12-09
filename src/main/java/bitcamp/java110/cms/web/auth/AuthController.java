@@ -49,8 +49,6 @@ public class AuthController {
       Member member = authService.getMemberById(
           kakaoResponse.get("id").toString());
       
-      System.out.println("login " + member);
-      
       // 기존에 가입된 사용자이면
       if (member != null) {
         session.setAttribute("loginUser", member);
@@ -84,7 +82,7 @@ public class AuthController {
     }
     
     //  가입시 최초 상세정보 수정 페이지 출력.
-    @RequestMapping("/detail")
+    @PostMapping("/detail")
     public String detailForm(
         Model model,
         HttpSession session) {
