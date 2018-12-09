@@ -75,12 +75,7 @@
                 
                 <div class="row pl-3 pr-3">
                     
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-                    <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-                    <script src="/js/bootstrap.bundle.js"></script>
-                    <script src="/js/vendor/noty.js"></script>
-                    <script src="/js/common.js"></script>
-                    
+                    <jsp:include page="../commonJs.jsp"></jsp:include>
                     <t:insertAttribute name="body"/>
                     
                 </div>
@@ -88,10 +83,7 @@
         </div>
     </main>
 
-    <form action="flwadd"></form>
-
-
-    <jsp:include page="footer.jsp"></jsp:include>
+    <jsp:include page="../footer.jsp"></jsp:include>
     
    <script>
    function addFollow(mno) {

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>Scenecok</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
@@ -307,6 +307,7 @@ function showCont(cont, index) {
     </div>
     </main>
     <jsp:include page="reviewFeed/detailPost.jsp"></jsp:include>
+    <jsp:include page="include/commonJs.jsp"></jsp:include>
     <jsp:include page="include/footer.jsp"></jsp:include>
     <script src="/js/jquery-ui.js"></script>
     <script src="/js/starrr.js"></script>

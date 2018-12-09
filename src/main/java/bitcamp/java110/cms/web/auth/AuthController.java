@@ -82,7 +82,7 @@ public class AuthController {
     }
     
     //  가입시 최초 상세정보 수정 페이지 출력.
-    @PostMapping("/detail")
+    @RequestMapping("/detail")
     public String detailForm(
         Model model,
         HttpSession session) {

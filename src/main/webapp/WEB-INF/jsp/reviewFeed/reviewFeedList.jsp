@@ -242,6 +242,7 @@
 
 	<jsp:include page="writingPost.jsp"></jsp:include>
 	<jsp:include page="detailPost.jsp"></jsp:include>
+    <jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	
 	<script src="/js/jquery-ui.js"></script>

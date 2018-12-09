@@ -89,7 +89,7 @@
             <section id="signOutSection" style="padding:">
                <h3>회원 탈퇴</h3>
                <div id="signOutMessage">
-<pre>MovieStaGram에서 탈퇴를 하시면
+<pre>Scenecok에서 탈퇴를 하시면
 일부 기록은 삭제되지 않을 수 있습니다.</pre>
                </div>
                <form action="signOut" method="post">
