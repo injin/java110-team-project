@@ -97,7 +97,6 @@ public class AuthController {
     //  가입시 최초 상세정보 수정 메소드.
     @PostMapping("/init")
     public String firstInit (
-//        Member member,
         MultipartFile profileImageFile,
         MultipartFile coverImage,
         @RequestParam(name="favGrList", required=false)
@@ -143,8 +142,8 @@ public class AuthController {
         }
       }
       
-      session.setAttribute("loginUser", member);
       memberService.init(member);
+      session.setAttribute("loginUser", member);
       return "redirect:/app/";
     }
     
@@ -154,8 +153,6 @@ public class AuthController {
         Model model,
         HttpSession session) {
       model.addAttribute("targetUser", session.getAttribute("loginUser"));
-      
-      System.out.println("\nupdate 접근 " + (Member)session.getAttribute("loginUser"));
       
       List<Genre> gnrList = genreService.getList();
       List<Integer> favList = memberService.getFavGnrDBList(((Member)session.getAttribute("loginUser")).getMno());
@@ -188,38 +185,34 @@ public class AuthController {
         @RequestParam(name="pr", required=false)
                 String pr,
         HttpSession session) throws Exception {
-      session.getAttribute("loginUser");
       
+      Member originMember = memberService.findByMno(member.getMno());
       //    profileImage Control
       if (profileImageFile != null && profileImageFile.getSize() > 0) {
-        System.out.println(profileImageFile);
         String profileImg = UUID.randomUUID().toString();
         profileImageFile.transferTo(new File(
             sc.getRealPath("/upload/profile/" + profileImg)));
-        member.setProfileImage(profileImg);
+        originMember.setProfileImage(profileImg);
       }
       
       //    coverImage Control
       if (coverImage != null && coverImage.getSize() > 0) {
-        System.out.println(coverImage);
         String coverImg = UUID.randomUUID().toString();
         coverImage.transferTo(new File(
             sc.getRealPath("/upload/cover/" + coverImg)));
-        member.setCoverImage(coverImg);
+        originMember.setCoverImage(coverImg);
       }
       
       if (favGrList != null && favGrList.size() > 0) {
-        member.setFavGrList(favGrList);
+        originMember.setFavGrList(favGrList);
       }
       
       if (pr != null && pr != "") {
-        System.out.println(pr);
-        member.setPr(pr);
+        originMember.setPr(pr);
       }
       
-      session.setAttribute("loginUser", member);
-      System.out.println("\nController Send to Service Who? " + member);
-      memberService.update(member);
+      memberService.update(originMember);
+      session.setAttribute("loginUser", originMember);
       
       String originPath = request.getHeader("referer");
       return "redirect:" + originPath.substring(

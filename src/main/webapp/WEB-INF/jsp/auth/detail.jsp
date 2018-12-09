@@ -117,7 +117,6 @@
 <%-- ========================================================================================== --%>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     
-    <!-- <script src="/js/bootstrap.bundle.js"></script> -->
     <script src="/js/auth.js"></script>
     <script src="/js/movieList.js"></script>
     <script src="/js/vendor/noty.js"></script>
