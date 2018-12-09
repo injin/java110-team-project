@@ -250,11 +250,11 @@
 
 </main>
     
+    <jsp:include page="../include/commonJs.jsp"></jsp:include>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script src="/js/vendor/linkify.js"></script>
     <script src="/js/vendor/linkify-jquery.js"></script>
-    <script src="/js/vendor/noty.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();

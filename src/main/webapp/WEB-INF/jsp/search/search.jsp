@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>Scenecok</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel="stylesheet" href="/css/all.css">
 <link rel='stylesheet' href='/css/fontawesome.css'>
@@ -63,6 +63,7 @@
 		src="/img/top-btn.png" width="50" height="50"></a> </main>
 
 	<jsp:include page="../reviewFeed/detailPost.jsp"></jsp:include>
+    <jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

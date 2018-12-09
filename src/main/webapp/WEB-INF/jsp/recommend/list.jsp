@@ -141,9 +141,8 @@
   <br>
 <%-- ========================================================================================== --%>
   </main>
+  <jsp:include page="../include/commonJs.jsp"></jsp:include>
   <jsp:include page="../include/footer.jsp"></jsp:include>
-  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   <script src="/js/rcmd.js"></script>
   <script src="/js/carousel.js"></script>
   <script src="/js/handlebars-v4.0.12.js"></script>

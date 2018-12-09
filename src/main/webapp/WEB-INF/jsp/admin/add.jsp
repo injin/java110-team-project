@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>moviestagram</title>
+<title>Scenecok</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/accountDetail.css'>
@@ -140,6 +140,7 @@ tbody td {
 
 	</form>
 	</main>
+	<jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="/js/admin.js"></script>
 	<script src="/js/bootstrap2-toggle.min.js"></script>

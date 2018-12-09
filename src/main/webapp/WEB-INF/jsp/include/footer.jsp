@@ -4,11 +4,6 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-    <script src="/js/bootstrap.bundle.js"></script>
-    <script src="/js/common.js"></script>
-    
 <footer class="footer page-footer font-small stylish-color-dark pt-4 bg-dark text-white">
   <!-- Footer -->
     <!-- Footer Links -->
@@ -95,7 +90,7 @@ Movie Around The World
       <a href="http://localhost:8888/app/">scenecok.com</a>
       <br>
       <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에게 있으며,
-      <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.
+      <br><b>제하와 아이들</b>의 입장과 다를 수 있습니다.
     </div>
     <!-- Copyright -->
 <!-- Footer -->
