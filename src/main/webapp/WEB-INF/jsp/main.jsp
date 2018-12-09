@@ -75,15 +75,15 @@ function showCont(cont, index) {
         </div>
     </div>
 
-    <div class="text-center" style="margin-top: 50px">
+    <div class="text-center" style="margin-top: 3em">
         <h3 class="mb-5">
             <strong>지금 인기 있는 장면</strong>
         </h3>
     </div>
 
-    <div class="row">
+    <div class="row mb-4">
         <c:forEach var="top" items="${topSrList}">
-            <div class="col-3 mb-3">
+            <div class="col-3 mb-4">
                 <div class="card">
                     <a
                         href="/app/sceneReview/review?mvno=${top.mvno}&srno=${top.srno}">
@@ -109,7 +109,7 @@ function showCont(cont, index) {
         </c:forEach>
     </div>
 
-    <div class="block-wide pb-3" style="background-color: #e6e6e6;">
+    <div class="block-wide block-gray pb-3">
         <div class="text-center c-hot">
             <h3 class="mb-5">
                 <strong>HOT 영화리뷰</strong>
@@ -224,7 +224,7 @@ function showCont(cont, index) {
     </div>
 
     <div class="block-wide pb-3">
-        <div class="text-center" style="margin-top: 50px">
+        <div class="text-center" style="margin-top: 3em">
             <h3 class="mb-5">
                 <strong>장면 앨범</strong>
             </h3>
