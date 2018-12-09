@@ -31,7 +31,7 @@
         <c:choose>
             <c:when test="${not empty sessionScope.loginUser}">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle p-0" href="#" id="dropdown01" 
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" 
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="profile4X4" src="${loginUser.profileImagePath}">
                     ${loginUser.nickname}
@@ -47,7 +47,7 @@
             </c:when>
             <c:otherwise>
               <li class="nav-item">
-                <a class="nav-link p-0" href="javascript:loginWithKakao()">Account</a>
+                <a class="nav-link" href="javascript:loginWithKakao()">Account</a>
               </li>
             </c:otherwise>
         </c:choose>
