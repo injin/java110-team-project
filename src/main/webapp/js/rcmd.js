@@ -1,3 +1,7 @@
+//  취향 분석?
+var $anlyBaseSection = $('#anly-base-section');
+var $anlyBaseItems = $('#anly-base-items');
+
 //  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트(smlrList) 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseTitle = $('#randomBaseTitle');
@@ -46,6 +50,11 @@ function getKey() {
     success: function (keys) {
       console.log(keys);
       anlyTaste(keys);
+    },
+    complete: function (data) {
+      print = makeH(anlyList);
+      $anlyBaseItems.html(print);
+      $anlyBaseSection.show();
     }
   });
 }
@@ -71,17 +80,17 @@ function anlyTaste (keys) {
           var list = data.results;
           anly(list, filt);
         },  // success
-        complete: function () {
+        complete: function (data) {
           console.log(anlyList);
-          var source = $("#entry-template").html();
-          var template = Handlebars.compile(source);
-          var itemList = template(anlyList);
-          $('#anly-base-items').append(itemList);
-        },
-        error: (xhr, status, msg) => {
-          $srchMovieList.text('영화 정보를 가져오는데 실패하였습니다.');
-          console.log(status);
-          console.log(msg);
+          
+          
+//          var source = $("#entry-template").html();
+//          var template = Handlebars.compile(source);
+//          var itemList = template(anlyList);
+//          $('#anly-base-items').append(itemList);
+          
+          
+          
         }
       });
     }//  ajax
@@ -227,6 +236,26 @@ function getNowList(){
 function makeHtml(data) {
   var html = '';
   data.list.forEach(function(obj, idx) {
+    html += '<div class="item" onclick="goToSceneReview('+obj.id+')">';
+    if (obj.poster_path != null) {
+      html += '<img class="item-image" src="https://image.tmdb.org/t/p/w500' + obj.poster_path + '" alt="' + obj.title + '"/>';
+    } else {
+      html += '<img class="item-image" src="/img/default-movie-img.png" alt="' + obj.title + '"/>';
+    }
+    html += '<span class="item-title">' + obj.title + '</span>';
+    html += '<div class="item-description opacity-none">';
+    html += '개봉일 : ' + obj.release_date +'<br>';
+    html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+    html += '<br>';
+    html += '</div>';
+  });
+  return html;
+}
+
+function makeH(data) {
+  var html = '';
+  console.log(data);
+  data.forEach(function(obj, idx) {
     html += '<div class="item" onclick="goToSceneReview('+obj.id+')">';
     if (obj.poster_path != null) {
       html += '<img class="item-image" src="https://image.tmdb.org/t/p/w500' + obj.poster_path + '" alt="' + obj.title + '"/>';
