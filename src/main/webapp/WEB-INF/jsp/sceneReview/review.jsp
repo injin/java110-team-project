@@ -185,7 +185,7 @@
                     <jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
                     <jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
                 </jsp:include>
-                <form id="cmtListForm" action="review" method="get">
+                <form id="cmtListForm" action="review" method="post">
                     <input type="hidden" name="srno" value="${sceneReview.srno}">
                     <input type="hidden" name="mvno" value="${sceneReview.mvno}">
                     <input type="hidden" name="pageNo">
@@ -235,13 +235,13 @@
 <%@ include file="report.jsp" %>
 <%@ include file="addPopup.jsp" %>
 
-<form id="deleteCommentForm" action="deleteComment">
+<form id="deleteCommentForm" action="deleteComment" method="post">
     <input type="hidden" name="srno" value="${sceneReview.srno}">
     <input type="hidden" name="mvno" value="${sceneReview.mvno}">
     <input type="hidden" name="cmno">
 </form>
 
-<form id="editCommentForm" action="editComment">
+<form id="editCommentForm" action="editComment" method="post">
     <input type="hidden" name="srno" value="${sceneReview.srno}">
     <input type="hidden" name="mvno" value="${sceneReview.mvno}">
     <input type="hidden" name="cmno">
