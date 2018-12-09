@@ -69,7 +69,6 @@ public class MemberServiceImpl implements MemberService {
                  rollbackFor=Exception.class)
   @Override
   public void update(Member member) {
-    System.out.println("Service UPDATE Member\n : " + member);
     memberDao.update(member);
     
     List<Integer> originList = getFavGnrDBList(member.getMno());
@@ -128,33 +127,22 @@ public class MemberServiceImpl implements MemberService {
    */
   @Override
   public void signOut(int mno) {
-    System.out.println(mno + "\nSignOut Process 1");
     srDao.signOut1(mno);
     srDao.signOut2(mno);
-    System.out.println("SignOut Process 2");
     lbmDao.signOut1(mno);
     lbmDao.signOut2(mno);
     lbmDao.signOut3(mno);
-    System.out.println("SignOut Process 3");
     rptDao.signOut(mno);
-    System.out.println("SignOut Process 4");
     postCmtDao.signOut(mno);
-    System.out.println("SignOut Process 5");
     postDao.signOut(mno);
-    System.out.println("SignOut Process 6");
     logDao.signOut1(mno);
     logDao.signOut2(mno);
-    System.out.println("SignOut Process 7");
     flwDao.signOut3(mno);
     flwDao.signOut1(mno);
     flwDao.signOut2(mno);
-    System.out.println("SignOut Process 8");
     movieAnlyDao.signOut(mno);
     favGenreDao.signOut(mno);
-    System.out.println("LastProcess");
     memberDao.signOut(mno);
-    System.out.println("Bye");
-    
   }
   
   @Override
