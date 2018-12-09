@@ -13,8 +13,8 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
 <link rel='stylesheet' href='/css/starrr.css'>
- <link rel="stylesheet" href="/css/vendor/noty.css">
- <link rel="stylesheet" href="/css/vendor/sunset.css">
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
@@ -144,15 +144,16 @@
 									onclick="
 									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
 									<c:if test="${not empty sessionScope.loginUser}"> cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
-									"></i> <i
+									"></i>
+								<i
 									class="far fa-thumbs-up btmIcon c-pointer likeColor 
                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
 									id="btn-like-empty-${post.pstno}"
 									onclick="
 									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
 									<c:if test="${not empty sessionScope.loginUser}"> addLike(${post.pstno},${post.pstTypeNo});</c:if>
-									"></i> <span
-									id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
+									"></i>
+								<span id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
 									class="far fa-comment btmIcon c-pointer"
 									onclick="showMore(this,${post.pstno})"></i> <span
 									id="cCnt-${post.pstno}">${post.cmtCnt}</span>
@@ -188,47 +189,53 @@
 		<c:choose>
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4" id="rcmdSide">
-					<div class="wPost text-center p-0">
-						<div class="dmvDiv">${sessionScope.loginUser.nickname}님을 위한 영화 추천</div>
-						<table>
-							<colgroup>
-								<col width="25%" />
-								<col width="35%" />
-								<col width="35%" />
-							</colgroup>
-							<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
+					<div id="stv_list">
 
-								<tr onclick="toDetail(${smlrMv.id})" class="trData">
-									<td><c:choose>
-											<c:when test="${not empty smlrMv.posterPath}">
-												<img class="smlrImg"
-													src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
-													alt="${smlrMv.title}" />
-											</c:when>
-											<c:otherwise>
-												<img class="smlrImg" src="/img/default-movie-img.png"
-													alt="${smlrMv.title}" />
-											</c:otherwise>
-										</c:choose></td>
-									<td>${smlrMv.title}</td>
-									<td class="col"><span class="row d-block">${smlrMv.releaseDate}</span>
-										<span class="row d-block"> <%-- ${smlrMv.genres} --%>장르
-									</span></td>
-								</tr>
-							</c:forEach>
-						</table>
+						<div class="wPost text-center p-0">
+							<div class="dmvDiv">${sessionScope.loginUser.nickname}님을위한
+								영화 추천</div>
+							<table class="w-100">
+								<colgroup>
+									<col width="25%" />
+									<col width="35%" />
+									<col width="35%" />
+								</colgroup>
+								<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
+
+									<tr onclick="toDetail(${smlrMv.id})" class="trData">
+										<td><c:choose>
+												<c:when test="${not empty smlrMv.posterPath}">
+													<img class="smlrImg"
+														src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
+														alt="${smlrMv.title}" />
+												</c:when>
+												<c:otherwise>
+													<img class="smlrImg" src="/img/default-movie-img.png"
+														alt="${smlrMv.title}" />
+												</c:otherwise>
+											</c:choose></td>
+										<td>${smlrMv.title}</td>
+										<td class="col"><span class="row d-block">${smlrMv.releaseDate}</span>
+											<span class="row d-block"> <%-- ${smlrMv.genres} --%>장르
+										</span></td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+
+						<a href="/app/rcmd/anly"
+							class="d-block wPost text-center divMore c-pointer">더 많은 추천
+							영화 보기</a>
 
 					</div>
-
-					<div class="wPost text-center divMore">
-						<a href="/app/rcmd/anly" class="text-dark">더 많은 추천 영화 보기</a>
-					</div>
-					<p><a class="return-top" href="#" class="d-block" style="right:auto">
-    <img src="/img/top-btn.png" width="20%" height="20%"></a><p>
 				</div>
 			</c:when>
 		</c:choose>
-
+		<p>
+			<a class="return-top" href="#" class="d-block" style="right: auto">
+				<img src="/img/top-btn.png" width="20%" height="20%">
+			</a>
+		<p>
 	</div>
 
 	<jsp:include page="writingPost.jsp"></jsp:include>
@@ -238,7 +245,7 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
-	 <script src="/js/vendor/noty.js"></script>
+	<script src="/js/vendor/noty.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/showPosts.js"></script>

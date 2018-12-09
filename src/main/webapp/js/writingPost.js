@@ -1,5 +1,4 @@
 $(function() {
-
     /* ========== 이미지 업로드 관련  ========== */
     var uploadFileNames = [];
 
@@ -151,7 +150,7 @@ $(function() {
         }
     });
 
-    // 영화 자동완성
+//  영화 자동완성
     $( "#movieSearch" ).autocomplete({
         source: function( request, response ) {
 
@@ -204,7 +203,7 @@ $(function() {
         $("#movieSearch").val("");
     });
 
-    // 글 작성
+//  글 작성
     $('#modalSubmit').on('click', function(e) {
         if($("#pstTypeNo").val() == 0){
             if($("#movieId").val().trim() == 0){
@@ -229,7 +228,7 @@ $(function() {
         $("#ftagsForAdd").val($("#flw").val());
     });
 
-    // 창닫을때
+//  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
 
         if($('#pstno').is('input')){
@@ -240,20 +239,20 @@ $(function() {
             $('#reviewModal .file').show();
             $('#reviewModal #media-list').show();
         }else{
-            
+
             $('#showStar').remove();
             $('#temp').starrr({
-              change: function(e, value){
-                  $("#star").val(0);
-              },
-              rating: star
+                change: function(e, value){
+                    $("#star").val(0);
+                },
+                rating: star
             })
             $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
             $('#reviewModal #temp').attr('id', 'showStar');
-            
+
         }
         $('#showStar').after('<div id="temp" ></div>');
-        
+
         $("#movieId").val(0);
         $('#movieSearch').val('');
 
@@ -264,7 +263,6 @@ $(function() {
         $("#lock").hide();
         $(this).find("input[type=checkbox]").prop("checked", "checked");
 
-
         $("#ftagsForAdd").val(-1);
         var $inputTag = $("#flw").prev().children().last().clone().wrapAll("<div></div>").parent();
         $("#flw").prev().html($inputTag.html());
@@ -273,7 +271,9 @@ $(function() {
         $("#media-list").html(
         '<li class="myupload "><span><i class="fa fa-plus" aria-hidden="true"></i></span></li>');
     });
+
 });
+
 
 //일상/영화게시물 올리기
 function postShow(id) {
@@ -440,6 +440,32 @@ function morePostHtml(data){
 }
 
 $(window).scroll(function() {
+
+    var $win = $(window);
+    var top = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
+
+    /*사용자 설정 값 시작*/
+    var speed          = 'normal';     // 따라다닐 속도 : "slow", "normal", or "fast" or numeric(단위:msec)
+    var easing         = 'linear'; // 따라다니는 방법 기본 두가지 linear, swing
+    var $layer         = $('#stv_list'); // 레이어 셀렉팅
+    var layerTopOffset = 0;   // 레이어 높이 상한선, 단위:px
+    $layer.css('position', 'absolute');
+    /*사용자 설정 값 끝*/
+
+    // 스크롤 바를 내린 상태에서 리프레시 했을 경우를 위해
+    if (top > 0 )
+        $win.scrollTop(layerTopOffset+top);
+    else
+        $win.scrollTop(0);
+
+    yPosition = $win.scrollTop();
+
+    if (yPosition < 0)
+    {
+        yPosition = 0;
+    }
+    $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
+
     if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
         doingLoad=true;
         $.ajax({
