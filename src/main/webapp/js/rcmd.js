@@ -35,24 +35,22 @@ function getKey() {
 
 function anlyTaste (keys) {
   var mvnoList = keys.mvnoList;
-  var urlHead = urlHead = "//api.themoviedb.org/3/movie/";
+  
+  var urlHead = urlHead = "https://api.themoviedb.org/3/movie/";
   var urlBody = "/recommendations?api_key=";
   var k = keys.key;
   var urlTail = "&language=ko-KOR&page=1";
   
   for (var i = 0; i < mvnoList.length; i++) {
-//    console.log(mvnoList[i]);
-//    var URL = urlHead + mvnoList[i] + urlBody + urlTail;
-    getRcmd(urlHead + mvnoList[i] + urlBody + urlTail);
+    getRcmd(urlHead + mvnoList[i] + urlBody + k + urlTail);
     function getRcmd(URL) {
-//      console.log(URL);
         $.ajax(URL, {
-        method: "POST",
+        method: "GET",
         header: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json;charset=UTF-8'
         },
         success: function(data){
-        	console.log(data);
+        	console.log(data.results);
         }
       });
     }
