@@ -12,11 +12,13 @@
 <link href="/css/all.css" rel="stylesheet">
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
+<link rel='stylesheet' href="/css/aos.css"/>
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
+
 <link rel='stylesheet' href='/css/common.css'>
 <script src="/js/makeContPost.js"></script>
 
@@ -82,7 +84,7 @@
 					<c:set var="lastpstno" value="${post.pstno}" />
 				</c:if>
 				<c:if test="${post.open}">
-					<div class="wPost reviewPst list-group-item">
+					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="2000">
 						<div class="media row pr-3 pl-3">
 							<img src="${post.member.profileImagePath}" class="rprofileImg" />
 							<div class="media-body">
@@ -92,7 +94,7 @@
 									<li><c:if test="${not empty post.ftags}">
 											<c:forEach items="${post.ftags}" var="ftag">
 												<span
-													<%-- onclick="goToFeed(${post.ftags.mno})" --%> class="tagName c-pointer">
+													onclick="goToFeed(${ftag.mno})" class="tagName c-pointer">
 													${ftag.nickname} </span>
 											</c:forEach>
 										</c:if></li>
@@ -241,15 +243,18 @@
 	<jsp:include page="writingPost.jsp"></jsp:include>
 	<jsp:include page="detailPost.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
+	
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
 	<script src="/js/vendor/noty.js"></script>
+	<script src="/js/aos.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script>
+	 AOS.init();
         var sessionMember = {
                 "nickname" : '${sessionScope.loginUser.nickname}',
                 "profileImage" : '${sessionScope.loginUser.profileImage}',

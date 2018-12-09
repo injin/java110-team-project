@@ -315,7 +315,7 @@ function morePostHtml(data){
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
                 html += '<span onclick="goToFeed(';
-                html +=  data.postsResult[i].ftags.mno;
+                html +=  data.postsResult[i].ftags[j].mno;
                 html +=')" class="tagName c-pointer">';
                 html += data.postsResult[i].ftags[j].nickname; 
                 html += '</span>';

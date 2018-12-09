@@ -404,6 +404,10 @@ td {
 	vertical-align: top;
 }
 
+.memberul .c-pointer:hover {
+	font-weight:bold;
+}
+
 .pstImgtoDetail {
 	width: 20rem;
 	height: 13rem;
