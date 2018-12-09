@@ -1,7 +1,9 @@
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});
 //  취향 분석?
 var $anlyBaseSection = $('#anly-base-section');
 var $anlyBaseItems = $('#anly-base-items');
-
 //  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트(smlrList) 가져오기.
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseTitle = $('#randomBaseTitle');
@@ -18,10 +20,10 @@ var $nowItems = $('#now-items');
 var $upcommingSection = $('#upcomming-section');
 var $upcommingItems = $('#upcoming-items');
 
-//  배열 삽입시 중복 확인과 10개까지만 담도록 prototype 설정
+//  배열 삽입시 중복 확인과 20개 까지만 담도록 prototype 설정
 Array.prototype.pushObj = function (x) {
   this.unshift(x);
-  this.maxLength = 15;
+  this.maxLength = 20;
   if (this.maxLength !== undefined && this.length > this.maxLength){
     this.splice(0,1);
     return;
@@ -48,12 +50,9 @@ function getKey() {
       'Content-Type': 'application/json'
     },
     success: function (keys) {
-      console.log(keys);
       anlyTaste(keys);
     },
     complete: function (data) {
-      print = makeH(anlyList);
-      $anlyBaseItems.html(print);
       $anlyBaseSection.show();
     }
   });
@@ -74,26 +73,23 @@ function anlyTaste (keys) {
         $.ajax(URL, {
         method: "GET",
         header: {
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json'
         },
         success: function(data){
           var list = data.results;
           anly(list, filt);
-        },  // success
+        },
         complete: function (data) {
-          console.log(anlyList);
-          
+          print = makeH(anlyList);
+          $anlyBaseItems.html(print);
           
 //          var source = $("#entry-template").html();
 //          var template = Handlebars.compile(source);
 //          var itemList = template(anlyList);
 //          $('#anly-base-items').append(itemList);
-          
-          
-          
         }
       });
-    }//  ajax
+    }
   }
 }
 
@@ -245,7 +241,11 @@ function makeHtml(data) {
     html += '<span class="item-title">' + obj.title + '</span>';
     html += '<div class="item-description opacity-none">';
     html += '개봉일 : ' + obj.release_date +'<br>';
-    html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+    if (obj.vote_average > 0){
+      html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+    } else {
+      html += '</div>';
+    }
     html += '<br>';
     html += '</div>';
   });
@@ -254,7 +254,6 @@ function makeHtml(data) {
 
 function makeH(data) {
   var html = '';
-  console.log(data);
   data.forEach(function(obj, idx) {
     html += '<div class="item" onclick="goToSceneReview('+obj.id+')">';
     if (obj.poster_path != null) {
@@ -265,7 +264,11 @@ function makeH(data) {
     html += '<span class="item-title">' + obj.title + '</span>';
     html += '<div class="item-description opacity-none">';
     html += '개봉일 : ' + obj.release_date +'<br>';
-    html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+    if (obj.vote_average > 0){
+      html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+    } else {
+      html += '</div>';
+    }
     html += '<br>';
     html += '</div>';
   });

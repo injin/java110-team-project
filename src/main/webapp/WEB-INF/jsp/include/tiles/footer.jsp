@@ -4,12 +4,6 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<%--
-
-    !! INJIN33님의 잘못된 삽질로 FOOTER가 두개 이기 때문에 수정을 두번 해야함!!
-
---%>
 <footer class="footer page-footer font-small stylish-color-dark pt-4"
         style="color: white; background-color: #343a40 !important;">
   <!-- Footer -->
@@ -20,7 +14,7 @@
         <!-- Grid column -->
         <div class="col-md-4 mx-auto">
           <!-- Content -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">MovieInSta</h5>
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Scene Cok</h5>
 <pre class="text-light mt-3 mb-4">
 DISCOVER AND SHARE
 a constantly expanding
@@ -82,7 +76,7 @@ Movie Around The World
             <hr>
             <ul class="list-unstyled list-inline text-center py-2">
               <li class="list-inline-item">
-                <h5 class="mb-1">Register for free</h5>
+                <h5 class="mb-1">Register with KAKAO</h5>
               </li>
               <li class="list-inline-item">
                 <a href="javascript:loginWithKakao()" class="btn btn-rounded btn-outline-primary btn-sm my-2 my-sm-0">Sign up!</a>
@@ -94,7 +88,7 @@ Movie Around The World
     <!-- Call to action -->
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2018 Copyright:
-      <a href="http://localhost:8888/app/"> scenenanda.com</a>
+      <a href="http://localhost:8888/app/">scenecok.com</a>
       <br>
       <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에게 있으며,
       <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.

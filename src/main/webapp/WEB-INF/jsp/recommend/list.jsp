@@ -57,8 +57,8 @@
     </div>
     <br>
     <button type="button" id="popover" class="btn btn-secondary" data-container="body"
-        data-toggle="popover" data-placement="bottom"
-        data-content="${sessionScope.loginUser.nickname}님이">추천 기준</button>
+        data-toggle="popover" data-placement="right"
+        data-content="${sessionScope.loginUser.nickname}님이 좋아하신">추천 기준</button>
   </section>
   <br>
 <%-- ========================================================================================== --%>
@@ -147,8 +147,8 @@
 <%-- ========================================================================================== --%>
   </main>
   <jsp:include page="../include/footer.jsp"></jsp:include>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
   <script src="/js/rcmd.js"></script>
   <script src="/js/carousel.js"></script>
   <script src="/js/handlebars-v4.0.12.js"></script>
