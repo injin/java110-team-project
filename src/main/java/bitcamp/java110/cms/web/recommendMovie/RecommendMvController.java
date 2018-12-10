@@ -20,20 +20,6 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
  * @author Jeaha
  * 영화 추천을 위한 QUARTET
  * 
- * 회원 영화 취향 분석 테이블 -> mv_mv_anly
- * 최초 등록한 영화는 10점씩 point를 줬음.
- * 활동 로그를 바탕으로 영화별 점수를 줘야 함.
- * 
- * 등록시 취향 장르 테이블 -> mv_memb_gr
- * 활동 로그를 바탕으로 회원 영화 취향 장르 분석 테이블 -> mv_gr_anly
- * 
- * 세 테이블을 분석해서 영화 추천을 해야 함.
- * 
- * 기존 기록에 있는 영화들 분석해서 취향 저격 영화 추천 해 주는 list 1개 출력.
- * 기존 기록에 있는 영화 기반 추천 list 2개 3개,
- * folow한 member 중 취향이 비슷한 member의 추천 리스트를 같이 추천해 주는 메소드 1개
- * 그리고 관리자 추천영화 리스트 다수가 있으면 좋을것 같음.
- * 
  * 연결된 source
  * RecommendMvController
  * recommend/anly.jsp
@@ -43,7 +29,7 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
  * rcmd.js
  * carousel.js
  * jcmd.css
- * RecommendDao
+ * RecommendDao.java
  * RecommendDao.xml
  */
 
@@ -55,7 +41,6 @@ public class RecommendMvController {
   @Autowired RecommendService rcmdService;
   @Autowired MovieAnlyDao anlyDao;
   @Autowired MovieDao mvDao;
-  
   @Autowired StatisticDao statDao;
   
   public RecommendMvController(RecommendService rcmdService) {
@@ -63,16 +48,12 @@ public class RecommendMvController {
     this.rcmdService = rcmdService;
   }
   
-  @RequestMapping("anly")
-  public String waiting() {
-    return "/recommend/anly";
-  }
-  
   @RequestMapping("/list")
   public String list () {
     return "/recommend/list";
   }
   
+  //  분석을 위한 keys
   @RequestMapping("/key")
   public @ResponseBody Map <String, Object> key (HttpSession session) {
     return rcmdService.getKey(((Member)session.getAttribute("loginUser")).getMno());

@@ -29,7 +29,6 @@ public class RecommendServiceImple implements RecommendService {
   @Autowired MovieDao mvDao;
   @Autowired StatisticDao statDao;
   
-  
   @Override
   public String getListName(int thmno) {
     return rcmdDao.getTitle(thmno);
