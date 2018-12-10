@@ -59,67 +59,68 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @SuppressWarnings("null")
-  @Transactional(propagation=Propagation.REQUIRED,
-                 rollbackFor=Exception.class)
-  
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
-  public void init(Member member) {
-    System.out.println("Service Recieve" + member);
-    if(member.getProfileImage() == "" || member.getCoverImage() == "") {
-      memberDao.update(member);
-      System.out.println("init");
-    }
-    
-    List<Integer> originList = getFavGnrDBList(member.getMno());
-    
-    if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
-      if(originList != null || originList.size() > 0) {
-        favGenreDao.deleteAll(member.getMno());
+  public boolean init(Member member) {
+    boolean result = false;
+    if (memberDao.update(member) > 0) {
+      
+      List<Integer> originList = getFavGnrDBList(member.getMno());
+      
+      if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
+        if(originList != null || originList.size() > 0) {
+          favGenreDao.deleteAll(member.getMno());
+        }
+        for (int i = 0; i < member.getFavGrList().size(); i++) {
+          HashMap<String, Object> params = new HashMap<>();
+          params.put("mno", member.getMno());
+          params.put("grno", member.getFavGrList().get(i));
+          favGenreDao.insert(params);
+        }
       }
-      for (int i = 0; i < member.getFavGrList().size(); i++) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("mno", member.getMno());
-        params.put("grno", member.getFavGrList().get(i));
-        favGenreDao.insert(params);
+      
+      if (member.getFavMvList() != null && member.getFavMvList().size() > 0) {
+        for (int i = 0; i < member.getFavMvList().size(); i++) {
+          //  mv_mv table에 insert
+          movieDao.insertNotExists(member.getFavMvList().get(i));
+          
+          
+          //  mv_mv_anly에 insert
+          HashMap<String, Integer> params = new HashMap<>();
+          params.put("mno", member.getMno());
+          params.put("mvno", member.getFavMvList().get(i).getMvno());
+          movieAnlyDao.insertNotExists(params);
+          
+          //  mv_mv_gr에 insert
+          saveMvId(member.getFavMvList().get(i).getMvno());
+        }
       }
+      result = true;
     }
-    
-    if (member.getFavMvList() != null && member.getFavMvList().size() > 0) {
-      for (int i = 0; i < member.getFavMvList().size(); i++) {
-        //  mv_mv table에 insert
-        movieDao.insertNotExists(member.getFavMvList().get(i));
-        
-        
-        //  mv_mv_anly에 insert
-        HashMap<String, Integer> params = new HashMap<>();
-        params.put("mno", member.getMno());
-        params.put("mvno", member.getFavMvList().get(i).getMvno());
-        movieAnlyDao.insertNotExists(params);
-        
-        //  mv_mv_gr에 insert
-        saveMvId(member.getFavMvList().get(i).getMvno());
-      }
-    }
+    return result;
   }
   
   @Override
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
-  public void update(Member member) {
+  public boolean update(Member member) {
+    boolean result = false;
     
-    memberDao.update(member);
-    
-    List<Integer> originList = getFavGnrDBList(member.getMno());
-    if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
-      if(originList != null && originList.size() > 0) {
-        favGenreDao.deleteAll(member.getMno());
-      }
-      for (int i = 0; i < member.getFavGrList().size(); i++) {
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("mno", member.getMno());
-        params.put("grno", member.getFavGrList().get(i));
-        favGenreDao.insert(params);
+    if (memberDao.update(member) > 0) {
+      result = true;
+      List<Integer> originList = getFavGnrDBList(member.getMno());
+      if (member.getFavGrList() != null && member.getFavGrList().size() > 0) {
+        if(originList != null && originList.size() > 0) {
+          favGenreDao.deleteAll(member.getMno());
+        }
+        for (int i = 0; i < member.getFavGrList().size(); i++) {
+          HashMap<String, Object> params = new HashMap<>();
+          params.put("mno", member.getMno());
+          params.put("grno", member.getFavGrList().get(i));
+          favGenreDao.insert(params);
+        }
       }
     }
+    return result;
   }
   
   @Override

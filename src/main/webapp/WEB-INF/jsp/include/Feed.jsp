@@ -49,13 +49,12 @@
     <div id="wreviewDiv">
       <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-          <input type="hidden" id="sessionMno"
-            value="${sessionScope.loginUser.mno}" />
-                    ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
-                </c:when>
+          <input type="hidden" id="sessionMno" value="${sessionScope.loginUser.mno}"/>
+          ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
+        </c:when>
         <c:otherwise>
-                                                    로그인후 리뷰를 작성해주세요.
-                </c:otherwise>
+          로그인후 리뷰를 작성해주세요.
+        </c:otherwise>
       </c:choose>
     </div>
     <div class="row">
@@ -124,6 +123,7 @@
         </c:if>
       </div>
       <%-- dropDownBtn 들어갈 부분 --%>
+<!--
       <c:if test="${targetUser.mno == loginUser.mno}">
         <div id="drop">
           <div class="btn-group-vertical" role="group"
@@ -137,7 +137,6 @@
 
                 <c:choose>
                   <c:when test="${post.pstTypeNo == 0}">
-                    <!-- 0 영화 -->
                     <button type="button" class="btn btn-xs" data-toggle="modal"
                       data-target="#reviewModal"
                       onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
@@ -158,7 +157,45 @@
           </div>
         </div>
       </c:if>
+-->
       <%-- dropDownBtn 여기까지 --%>
+          <c:if test="${targetUser.mno == loginUser.mno}">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" 
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdown01">
+                
+                
+                <c:choose>
+                  <c:when test="${post.pstTypeNo == 0}">
+                    <button type="button" class="btn btn-xs" data-toggle="modal"
+                      data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
+                  </c:when>
+                  <c:otherwise>
+                    <button type="button" class="btn btn-xs" data-toggle="modal"
+                      data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
+                  </c:otherwise>
+                </c:choose>
+                
+                <br>
+                <button type="button" class="btn btn-xs"
+                  onclick="deletePost(${post.pstno})">삭제</button>
+                
+                
+                <%-- <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a> --%>
+                <!-- <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a> -->
+              </div>
+          </c:if>
+      
+      
+      
+      
+      
+      
+      
+      
     </div>
     <%-- =================================== POST HEADER ========================================== --%>
     <%-- 내용보여주는부분 --%>
