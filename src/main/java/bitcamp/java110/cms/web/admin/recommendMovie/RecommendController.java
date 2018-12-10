@@ -89,7 +89,7 @@ public class RecommendController {
     
     model.addAttribute("theme", recommendService.getAllTitle());
        
-    return "admin/recommend";
+    return "redirect:themeList";
     
   }
 

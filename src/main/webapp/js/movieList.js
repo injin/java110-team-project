@@ -120,6 +120,7 @@ function makeMovieListHtml(data) {
   return html;
 }
 
+// admin 테마에서도 사용
 function makeFavListHtml(id, title) {
   var print = '';
 
