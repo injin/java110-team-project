@@ -177,6 +177,7 @@ span.carousel-control-next-icon {
   display: block;
   float: left;
   width: calc(100%/6);
+  width:  calc((100% / 6) - 1px);
   padding: 0.5em 0.8em;
   color: #212529;
   cursor: pointer;

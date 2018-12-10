@@ -6,11 +6,6 @@
     <canvas id="myChart"></canvas>
 		
 	
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="http://developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script src="/js/bootstrap.js"></script>
-	<script src="/js/common.js"></script>
     <script src="/js/Chart.bundle.js"></script>
     <script src="/js/Chart.js"></script>
     <script src="/js/Chart.min.js"></script>

@@ -85,7 +85,7 @@ function findMoviesByKeyword() {
     complete: function() {
       $srchMovieList.show();
     },
-    error: (xhr, status, msg) => {
+    error: function(xhr, status, msg) {
       $srchMovieList.text('영화 정보를 가져오는데 실패하였습니다.');
       console.log(status);
       console.log(msg);
