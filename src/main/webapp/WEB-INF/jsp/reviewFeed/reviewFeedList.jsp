@@ -84,7 +84,7 @@
 					<c:set var="lastpstno" value="${post.pstno}" />
 				</c:if>
 				<c:if test="${post.open}">
-					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="2000">
+					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="1500">
 						<div class="media row pr-3 pl-3">
 							<img src="${post.member.profileImagePath}" class="rprofileImg" />
 							<div class="media-body">
@@ -192,7 +192,6 @@
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4" id="rcmdSide">
 					<div id="stv_list">
-
 						<div class="wPost text-center p-0">
 							<div class="dmvDiv">${sessionScope.loginUser.nickname}님을위한
 								영화 추천</div>
@@ -225,7 +224,7 @@
 							</table>
 						</div>
 
-						<a href="/app/rcmd/anly"
+						<a href="/app/rcmd/list"
 							class="d-block wPost text-center divMore c-pointer">더 많은 추천
 							영화 보기</a>
 
@@ -279,7 +278,10 @@
             </c:forEach>
             var fary =[];    
             <c:forEach items="${post.ftags}" var="ft">
-            fary.push('${ft.nickname}');
+            fary.push({
+             "nickname":'${ft.nickname}',
+             "mno":'${ft.mno}'
+            });
             </c:forEach>
             
              postList.push({

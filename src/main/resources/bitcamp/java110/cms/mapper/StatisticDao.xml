@@ -33,5 +33,18 @@
 		where a.mvno = b.mvno
 		and b.mno = #{mno}
 	</select>
+	
+	   <select id="topGrFilt" resultType="int" parameterType="int">
+        SELECT
+            c.grno
+        FROM mv_mv_anly a
+            INNER JOIN mv_mv_gr b on a.mvno = b.mvno
+            INNER JOIN mv_gr c on c.grno= b.grno
+            INNER JOIN mv_mv d on d.mvno = a.mvno
+        WHERE a.mno = #{mno}
+        GROUP BY gr_nm
+        ORDER BY pnt desc
+        LIMIT 2
+    </select>
   
 </mapper>

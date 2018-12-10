@@ -44,6 +44,9 @@
 }
 
 /* ========== 그외  ========== */
+#detailModal{
+z-index:9999999999;
+}
 #nickwrap {
     list-style: none;
 }

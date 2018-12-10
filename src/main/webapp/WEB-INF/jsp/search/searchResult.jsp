@@ -73,7 +73,7 @@
 
 								</div>
 								<div class="text-wrap vcenter">
-									<p class="  mbr-text display-6">${list.nick}</p>
+									<p class="mbr-text display-6 text-dark c-pointer" onclick="goToFeed(${list.mno})">${list.nick}</p>
 								</div>
 							</div>
 						</div>

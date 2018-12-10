@@ -51,7 +51,7 @@ tbody td {
 }
 
 .my-mv-list {
-	height: 50rem;
+	height: 48rem;
 }
 </style>
 </head>
@@ -107,8 +107,8 @@ tbody td {
 									<button type="button" onclick="removeList(${movie.mvno})"
 										style="float: right; cursor: pointer;"
 										class="badge badge-primary badge-pill">제거</button>
-									<input type="hidden" name="mvno" value="${movie.mvno}">
-									 <input type="hidden" name="title" value="${movie.title}">
+									<input type="hidden" name="favMvIdList" value="${movie.mvno}">
+									 <input type="hidden" name="favMvTitleList" value="${movie.title}">
 								</div>
 							</div>
 						</li>
@@ -131,7 +131,7 @@ tbody td {
 
 
 		<div class="confirm">
-			<input type="button" class="btn report-btn2" onclick="saveRcmdList()">확인 
+			<input type="button" class="btn report-btn2" onclick="saveRcmdList()" value="확인"> 
 			 <input type="button" onclick="signUpCheck()" class="btn report-btn2"
 				value="취소">
 			<!-- <label class="btn report-btn2">확인<input type="button" onclick="signUpCheck()" style="display: none;" value="확인"></label> -->
@@ -142,7 +142,7 @@ tbody td {
 	</main>
 	<jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
-	<script src="/js/admin.js"></script>
+	<script src="/js/movieList.js"></script>
 	<script src="/js/bootstrap2-toggle.min.js"></script>
 
 	<script>
