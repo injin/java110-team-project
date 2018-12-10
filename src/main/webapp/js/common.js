@@ -69,12 +69,19 @@ $(function () {
 });
 
 $(function(){
-    $(".return-top").hide(); // 탑 버튼 숨김 - 이걸 빼면 항상 보인다.
-    
+
     $(window).scroll(function () {
+        var endPoint = $(document).height() - $('footer').height()-$('header').height();
+        
         if ($(this).scrollTop() > 100) { // 스크롤 내릴 표시
             $('.return-top').fadeIn();
-        } else {
+            
+            if(endPoint-700<$(this).scrollTop()){
+                $('.return-top').css('bottom', 40+$('footer').height());
+            }else{
+                $('.return-top').css('bottom','15px');
+            }
+        }else {
             $('.return-top').fadeOut();
         }
     });

@@ -192,7 +192,6 @@
 			<c:when test="${not empty sessionScope.loginUser}">
 				<div class="col-4" id="rcmdSide">
 					<div id="stv_list">
-
 						<div class="wPost text-center p-0">
 							<div class="dmvDiv">${sessionScope.loginUser.nickname}님을위한
 								영화 추천</div>

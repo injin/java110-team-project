@@ -442,27 +442,26 @@ function morePostHtml(data){
 $(window).scroll(function() {
 
     var $win = $(window);
-    var top = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.
-
-    /*사용자 설정 값 시작*/
-    var speed          = 'normal';     // 따라다닐 속도 : "slow", "normal", or "fast" or numeric(단위:msec)
-    var easing         = 'linear'; // 따라다니는 방법 기본 두가지 linear, swing
-    var $layer         = $('#stv_list'); // 레이어 셀렉팅
-    var layerTopOffset = 0;   // 레이어 높이 상한선, 단위:px
+    var top = $(window).scrollTop(); 
+    var endPoint = $(document).height() - $('footer').height()-$('header').height();
+    var speed          = 'normal';     
+    var easing         = 'linear';
+    var $layer         = $('#stv_list'); 
+    var layerTopOffset = 0;   
     $layer.css('position', 'absolute');
-    /*사용자 설정 값 끝*/
 
-    // 스크롤 바를 내린 상태에서 리프레시 했을 경우를 위해
     if (top > 0 )
         $win.scrollTop(layerTopOffset+top);
     else
         $win.scrollTop(0);
 
     yPosition = $win.scrollTop();
-
     if (yPosition < 0)
     {
         yPosition = 0;
+    }
+    if(endPoint-600<top){
+        yPosition = endPoint-600;
     }
     $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
 
