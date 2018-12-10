@@ -64,7 +64,7 @@ function showCont(cont, index) {
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 mx-auto">
-                    <h1 class="mb-5">Connect to Moviestagram</h1>
+                    <h1 class="mb-5">Connect to Scene Cok</h1>
                     <h5 class="mb-5">Discover, and share a
                         constantly expanding Movie around the world</h5>
                 </div>
