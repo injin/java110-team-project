@@ -196,7 +196,7 @@ input.form-control {
 }
 
 .pr {
-    height: 100px;
+  height: 9rem !important;
 }
 #nickname-section {
     width: 100%;

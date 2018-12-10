@@ -90,7 +90,10 @@
 							<div class="media-body">
 								<ul class="memberul">
 									<li><span onclick="goToFeed(${post.member.mno})"
-										class="text-dark c-pointer">${post.member.nickname}</span></li>
+										class="text-dark c-pointer">${post.member.nickname}</span>
+										<span class="cmt-date">&nbsp;<fmt:formatDate
+                                        pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+										</li>
 									<li><c:if test="${not empty post.ftags}">
 											<c:forEach items="${post.ftags}" var="ftag">
 												<span
@@ -99,8 +102,7 @@
 											</c:forEach>
 										</c:if></li>
 								</ul>
-								<span class="cmt-date">&nbsp;<fmt:formatDate
-										pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+								
 								<c:if test="${post.pstTypeNo ==0}">
 									<p class="dptitle">
 										<b><i>${post.title}</i></b>
@@ -111,7 +113,7 @@
 						<%-- 내용보여주는부분 --%>
 						<div class="clearfix media row m-1">
 							<div class="media-body">
-								<p class="reviewCont" id="reviewCont-${post.pstno}">
+								<p class="reviewCont scrollbar-light-blue" id="reviewCont-${post.pstno}">
 									<script>
                                         showCont("${post.content}",
                                                 "${post.pstno}");

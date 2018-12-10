@@ -44,12 +44,12 @@
                         </div>
                     </div>
 
-                    <p class="reviewCont" id="dCont">내용</p>
+                    <p class="reviewCont scrollbar-light-blue" id="dCont">내용</p>
 
 
-                    <div class="row">
+                    <div class="row mb-1">
                         <%-- 별점 --%>
-                        <div class='col-6 text-right' id="detail-star"></div>
+                        <div class='col-6' id="detail-star"></div>
                     </div>
 
                     <div class="row col m-0 p-0">
