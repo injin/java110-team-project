@@ -11,11 +11,15 @@
     float: right;
     
 }
-.dropdown-menu {
-    /* transform: translate3d(0px, 23px, 0px); */
+/* .dropdown-menu {
+    transform: translate3d(0px, 23px, 0px);
     margin: 0px;
     padding: 0px;
-}
+} */
 button btn btn-xs {
     width: 4rem;
+}
+.dropdown-flex {
+    min-width: 0;
+    width: 5rem;
 }

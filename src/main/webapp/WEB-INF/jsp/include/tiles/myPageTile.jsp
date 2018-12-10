@@ -40,7 +40,7 @@
                 </div>
                 <c:if test="${not empty loginUser}">
 	                <c:if test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
-	                    <button class="btn btn-primary float-right" id="flwBtn" onclick="addFollow(${targetUser.mno})" >팔로우</button>
+	                    <button class="btn btn-primary float-right" id="flwBtn" onclick="addFollow(${targetUser.mno},'${targetUser.nickname}')" >팔로우</button>
 	                </c:if>
                 </c:if>
             </aside>
@@ -86,21 +86,22 @@
     <jsp:include page="../footer.jsp"></jsp:include>
     
    <script>
-   function addFollow(mno) {
+   function addFollow(mno,nickname) {
        
        $.ajax({
            url : "/app/follow/flwadd",
            type: "post",
            data : {
-               "flwMno" : mno
+               "mno" : mno,
+               "nickname" : nickname
            },
            success : function(data) {
-               if (data == true) {
-                 alert('팔로우 되었습니다.');
-                 $('#flwBtn').hide();
+                if (data == true) {
+                 commonAlert('success','팔로우 되었습니다.');
+                 $('#flwBtn').remove();
                } else {
-                 alert('문제가 발생하였습니다.')
-               }
+                   commonAlert('error','문제가 발생하였습니다.');
+               } 
                
            },
            error: (xhr, status, msg) => {

@@ -49,13 +49,12 @@
     <div id="wreviewDiv">
       <c:choose>
         <c:when test="${not empty sessionScope.loginUser}">
-          <input type="hidden" id="sessionMno"
-            value="${sessionScope.loginUser.mno}" />
-                    ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
-                </c:when>
+          <input type="hidden" id="sessionMno" value="${sessionScope.loginUser.mno}"/>
+          ${sessionScope.loginUser.nickname}님, 무슨 영화를 보셨나요?
+        </c:when>
         <c:otherwise>
-                                                    로그인후 리뷰를 작성해주세요.
-                </c:otherwise>
+          로그인후 리뷰를 작성해주세요.
+        </c:otherwise>
       </c:choose>
     </div>
     <div class="row">
@@ -125,38 +124,26 @@
       </div>
       <%-- dropDownBtn 들어갈 부분 --%>
       <c:if test="${targetUser.mno == loginUser.mno}">
-        <div id="drop">
-          <div class="btn-group-vertical" role="group"
-            aria-label="Button group with nested dropdown">
-            <div class="btn-group" role="group">
-              <button id="btnGroupDrop" type="button"
-                class="btn dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"></button>
-              <label for="btnGroupDrop"><i class="fas ellipsis"></i></label>
-              <div class="dropdown-menu" aria-labelledby="btnGroupDrop">
-
-                <c:choose>
-                  <c:when test="${post.pstTypeNo == 0}">
-                    <!-- 0 영화 -->
-                    <button type="button" class="btn btn-xs" data-toggle="modal"
-                      data-target="#reviewModal"
-                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
-                  </c:when>
-                  <c:otherwise>
-                    <button type="button" class="btn btn-xs" data-toggle="modal"
-                      data-target="#reviewModal"
-                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
-                  </c:otherwise>
-                </c:choose>
-
-                <br>
-                <button type="button" class="btn btn-xs"
-                  onclick="deletePost(${post.pstno})">삭제</button>
-              </div>
-
-            </div>
+          <a class="dropdown-toggle c-pointer" id="dropdown01" 
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          </a>
+          <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
+            <c:choose>
+              <c:when test="${post.pstTypeNo == 0}">
+                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                  onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+              </c:when>
+              <c:otherwise>
+                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                  onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+              </c:otherwise>
+            </c:choose>
+            
+            <a class="dropdown-item c-pointer"
+              onclick="deletePost(${post.pstno})">삭제</a>
+            
+            <%-- <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a> --%>
           </div>
-        </div>
       </c:if>
       <%-- dropDownBtn 여기까지 --%>
     </div>
@@ -166,24 +153,21 @@
       <div class="media-body">
         <p class="reviewCont" id="reviewCont-${post.pstno}">
           <script>
-                       showCont("${post.content}", "${post.pstno}");
-                   </script>
+            showCont("${post.content}", "${post.pstno}");
+          </script>
         </p>
       </div>
       <c:if test="${post.photos[0] != null}">
-
         <%-- 이미지 클릭시 상세모달로 --%>
         <img onclick="openDetailModal(${post.pstno})"
           src="/upload/post/${post.photos[0]}" data-title="${post.title}"
           class="pstImgtoDetail" />
         <input type="hidden" data-toggle="modal" id="detailPst"
           data-target="#detailModal" />
-
       </c:if>
     </div>
 
     <div class="row">
-
       <%-- 좋아요 --%>
       <div class="col-6 text-left">
         <i
@@ -201,9 +185,7 @@
           class="far fa-comment btmIcon c-pointer"
           onclick="showMore(this,${post.pstno})"></i> <span
           id="cCnt-${post.pstno}">${post.cmtCnt}</span>
-
       </div>
-
       <%-- 별점 --%>
       <c:if test="${post.pstTypeNo ==0}">
         <div class='col-6 text-right'>

@@ -168,7 +168,9 @@ function makeCmtHtml(data,forWhat) {
         
         html += '<li>';
         html += '<div class="row comment-box p-1 pt-3 pr-4">';
-        html += '    <div class="col-3 user-img text-center">';
+        html += '    <div class="col-3 user-img text-center c-pointer" onclick="goToFeed(';
+        html += data.cmtsResult[i].member.mno;
+        html += ')">';
         html += '        <img src="';
         html += data.cmtsResult[i].member.profileImagePath; 
         html += '" class="main-cmt-img">';

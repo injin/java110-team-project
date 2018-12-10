@@ -1,3 +1,6 @@
+ul{
+    list-style-type: none;
+}
 .avatar-upload {
   position: relative;
   max-width: 205px;
@@ -196,7 +199,7 @@ input.form-control {
 }
 
 .pr {
-    height: 100px;
+  height: 9rem !important;
 }
 #nickname-section {
     width: 100%;

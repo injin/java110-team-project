@@ -36,7 +36,7 @@ public class Member implements Serializable {
   
   public String getCoverImagePath() {
     if (coverImage == null) {
-      return "/img/default-cover-img.png";
+      return "/img/cover.png";
     } else {
       return "/upload/cover/" + coverImage;
     }

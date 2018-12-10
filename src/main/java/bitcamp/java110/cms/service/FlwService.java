@@ -10,7 +10,7 @@ public interface FlwService {
   List<Member> list(Map<String,Object> condition);
   List<Member> listAll(int mno);
   int getTotalCnt(int mno);
-  void delete(Map<String,Object> condition);
+  boolean delete(int mno, int flw);
   boolean add(Map<String,Object> condition);
   boolean flwCheck(int mno, int flw);
 }

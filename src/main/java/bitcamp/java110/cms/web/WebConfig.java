@@ -42,7 +42,7 @@ public class WebConfig
                     "/stsc/**");
         
         registry.addInterceptor(new AdminAuthInterceptor())
-                .addPathPatterns("/report/**", "/admin/**");
+                .addPathPatterns("/report/list", "/admin/**");
     }
     
 }

@@ -20,6 +20,23 @@
                             AND mvno=#{mvno})
     </insert>
     
+    <insert id="addTheme" parameterType="string"
+    useGeneratedKeys="true" keyColumn="thmno" keyProperty="thmno">
+        INSERT INTO mv_thm(thm) VALUES (#{thm})
+    </insert>
+    
+    <delete id="deleteTheme" parameterType="int">
+        DELETE FROM mv_thm
+        WHERE
+            thmno = #{thmno}
+    </delete>
+    
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM mv_rcmd 
+        WHERE 
+            thmno = #{thmno};
+    </delete>
+    
     <select id="getTitle" resultType="String" parameterType="int">
         SELECT thm
         FROM mv_thm
@@ -29,6 +46,7 @@
     <select id="getAllTitle" resultMap="themeMap">
         SELECT thmno, thm
         FROM mv_thm
+        order by thmno desc;
     </select>
     
     <select id="findMgrRcmdListById" resultType="int" parameterType="int">

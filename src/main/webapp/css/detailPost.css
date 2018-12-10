@@ -57,7 +57,7 @@ z-index:9999999999;
 
 #dCont {
     border: 1px solid silver;
-    overflow: auto;
+    
 }
 
 .hash {
@@ -66,9 +66,10 @@ z-index:9999999999;
 }
 
 .reviewCont {
+	overflow: auto;
     height: 13rem;
     word-break: break-word;
-    overflow: auto;
+    margin-bottom: 0.5rem;
 }
 
 .rprofileImg {

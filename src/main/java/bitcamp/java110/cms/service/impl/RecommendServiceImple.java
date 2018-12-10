@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
@@ -61,12 +63,37 @@ public class RecommendServiceImple implements RecommendService {
     }
     return mvList;
   }
-
+  
   @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean removeTheme(int thmno) {
+    rcmdDao.deleteAll(thmno);
+    if(rcmdDao.deleteTheme(thmno) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
+  public boolean addTheme(String thm) {
+    if(rcmdDao.addTheme(thm) > 0) {
+      return true;
+    }else {
+      return false;
+    }
+  }
+  
+  @Override
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public void addMovieList(Theme theme ,List<Movie> movieList) {
    
-    Map<String, Object> params = new HashMap<String, Object>();
     System.out.println(movieList.size());
+    
+    rcmdDao.deleteAll(theme.getThmno());
+    
+    Map<String, Object> params = new HashMap<String, Object>();
     for(int i=0; i<movieList.size(); i++) {
       
       mvDao.insertNotExists(movieList.get(i));
