@@ -72,7 +72,7 @@
 
                         <!-- 앨범별 장면 출력 부분 -->
 						<div class="col-lg-9 pl-0">
-							<div class="srlist"></div>
+							<div class="srlist scrollbar-light-blue"></div>
 						</div>
 					</div>
 				</div>

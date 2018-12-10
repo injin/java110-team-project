@@ -141,6 +141,7 @@
 }
 .srlist{
     height: 35.3rem;
+    overflow: hidden;
 }
 .srlist .col-4{
 	margin-right: 0;
