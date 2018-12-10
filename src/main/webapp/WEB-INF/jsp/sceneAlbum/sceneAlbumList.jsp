@@ -9,7 +9,7 @@
 	<div class="row albumList">
 		<c:if test="${isMyAlbum == true}">
 			<div class="col-lg-12" style="float: right;">
-				<div class="a_btn btn btn-success btn-lg"
+				<div class="a_btn btn btn-primary btn-lg"
 					onclick="document.getElementById('btnAlbum').click();"
 					style="margin-top: 1rem;">
 					앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
