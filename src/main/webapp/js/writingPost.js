@@ -231,15 +231,18 @@ $(function() {
 //  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
 
+        
+        
         if($('#pstno').is('input')){
+            $('#reviewModal form').attr('action', 'add');
             $('#pstno').remove();
             $('#reviewModal #ftag-input').css("display", "flex");
             $('#reviewModal input[name=title]').attr("disabled",false);
-
             $('#reviewModal .file').show();
             $('#reviewModal #media-list').show();
+            $('#reviewModal #editSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>');
+            $('#reviewModal .modal-title').text('리뷰 작성하기');
         }else{
-
             $('#showStar').remove();
             $('#temp').starrr({
                 change: function(e, value){
@@ -249,8 +252,8 @@ $(function() {
             })
             $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
             $('#reviewModal #temp').attr('id', 'showStar');
-
         }
+        
         $('#showStar').after('<div id="temp" ></div>');
 
         $("#movieId").val(0);
@@ -299,7 +302,7 @@ function morePostHtml(data){
             lstpstno = String(data.postsResult[i].pstno);
         }
 
-        html += '        <div class="wPost reviewPst">';
+        html += '        <div class="wPost reviewPst aos-init" data-aos="fade-up" data-aos-duration="1500">';
         html += '            <div class="media row pr-3 pl-3">';
         html += '                <img src="';
         html += data.postsResult[i].member.profileImagePath;

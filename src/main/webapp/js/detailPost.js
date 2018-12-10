@@ -14,7 +14,7 @@ function openDetailModal(pstno) {
     $('#detailModal #ownerNick').replaceWith(hForNick);
     $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
     $('#detailModal #dpstno').val(postList[index].pstno);
-    $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleString()); 
+    $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleDateString('ko-KR')); 
 
 
     /* 별 부분*/
@@ -78,9 +78,12 @@ function openDetailModal(pstno) {
     /* 친구태그 부분*/
     html ='';
     for (var i=0; i<postList[index].ftags.length; i++) {
-        html+='<a href="#" class="tagName">';
+        
+        html+= '<span onclick="goToFeed(';
+        html += postList[index].ftags[i].mno;
+        html+= ')" class="tagName c-pointer">';
         html += postList[index].ftags[i].nickname;
-        html +='</a>';
+        html +='</span>';
     }
     $('#dftags').html(html);  
 

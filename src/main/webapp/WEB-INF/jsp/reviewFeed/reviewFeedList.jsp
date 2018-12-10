@@ -224,7 +224,7 @@
 							</table>
 						</div>
 
-						<a href="/app/rcmd/anly"
+						<a href="/app/rcmd/list"
 							class="d-block wPost text-center divMore c-pointer">더 많은 추천
 							영화 보기</a>
 
@@ -278,7 +278,10 @@
             </c:forEach>
             var fary =[];    
             <c:forEach items="${post.ftags}" var="ft">
-            fary.push('${ft.nickname}');
+            fary.push({
+             "nickname":'${ft.nickname}',
+             "mno":'${ft.mno}'
+            });
             </c:forEach>
             
              postList.push({
