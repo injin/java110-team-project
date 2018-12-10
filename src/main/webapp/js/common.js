@@ -1,8 +1,8 @@
 // 마우스 오버시 스크롤 효과
-$(document.body).on('mouseover', '.boxList', function(){
-            $('.scrollbar-light-blue').css('overflow', 'auto');
-        }).on('mouseleave', '.boxList', function(){
-            $('.scrollbar-light-blue').css('overflow', 'hidden');    
+$(document.body).on('mouseover', '.scrollbar-light-blue', function(){
+            $(this).css('overflow', 'overlay');
+        }).on('mouseleave', '.scrollbar-light-blue', function(){
+            $(this).css('overflow', 'hidden');
         });
 // ALERT ============================
 function commonAlert(type, text) {
