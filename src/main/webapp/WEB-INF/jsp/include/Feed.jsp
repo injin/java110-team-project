@@ -168,21 +168,26 @@
                 
                 <c:choose>
                   <c:when test="${post.pstTypeNo == 0}">
-                    <button type="button" class="btn btn-xs" data-toggle="modal"
+                    <%-- <button type="button" class="btn btn-xs" data-toggle="modal"
                       data-target="#reviewModal"
-                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button>
+                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button> --%>
+                    <a class="btn btn-xs" data-toggle="modal"
+                      data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
                   </c:when>
                   <c:otherwise>
-                    <button type="button" class="btn btn-xs" data-toggle="modal"
+                    <%-- <button type="button" class="btn btn-xs" data-toggle="modal"
                       data-target="#reviewModal"
-                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button>
+                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button> --%>
+                    <a class="btn btn-xs" data-toggle="modal"
+                      data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
                   </c:otherwise>
                 </c:choose>
                 
                 <br>
-                <button type="button" class="btn btn-xs"
-                  onclick="deletePost(${post.pstno})">삭제</button>
-                
+                <a class="btn btn-xs"
+                  onclick="deletePost(${post.pstno})">삭제</a>
                 
                 <%-- <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a> --%>
                 <!-- <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a> -->
