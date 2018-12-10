@@ -33,7 +33,6 @@ public class MlogController {
     int mno = member.getMno();
     
     model.addAttribute("mpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_MP));
-    
     model.addAttribute("dpList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_DP));
     model.addAttribute("pcList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_PC));
     model.addAttribute("scList", mlogservice.getListByType(mno, Constants.LOG_DO_TYPE_SC));

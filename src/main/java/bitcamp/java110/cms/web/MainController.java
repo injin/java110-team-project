@@ -48,7 +48,8 @@ public class MainController {
     List<Post> topMpList = postService.getHotPosts(); //핫리뷰리스트
     model.addAttribute("topMpList", topMpList);
     
-    List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
+    //List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
+    List<SceneReview> topSrList = sceneReviewService.listTopSrByCdt(); //인기있는 장면 리스트
     model.addAttribute("topSrList", topSrList);
     
     List<SceneAlbum> listScA = sceneAlbumService.listScA(); //장면앨범 리스트

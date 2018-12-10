@@ -21,6 +21,7 @@ public interface SceneReviewDao {
   Integer deleteCmtMap(int cmno);
   Integer updateCmt(SceneReviewCmt sceneReviewCmt);
   List<SceneReview> listTopSr();
+  List<SceneReview> listTopSrByCdt(String targetDate);
   List<Member> listTopReviewer(int mvno);
   Integer addToSrAlbum(Map<String, Object> condition);
   Integer deleteFromSrAlbum(Map<String, Object> condition);
