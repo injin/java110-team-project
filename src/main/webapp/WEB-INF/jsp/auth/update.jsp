@@ -36,7 +36,7 @@
                <h3>자기소개</h3>
                <section id="pr-section">
                   <div class="form-group">
-                     <input type="text" class="pr form-control" name="pr" value="${loginUser.pr}">
+                     <input type="text" class="pr form-control" name="pr" value="${loginUser.pr}" autocomplete="off">
                   </div>
                </section>
                <hr>

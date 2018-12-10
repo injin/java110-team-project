@@ -212,6 +212,8 @@ public class AuthController {
         originMember.setPr(pr);
       }
       
+      originMember.setNickname(member.getNickname());
+      
       if (memberService.update(originMember)) {
         session.setAttribute("loginUser", originMember);
       }
