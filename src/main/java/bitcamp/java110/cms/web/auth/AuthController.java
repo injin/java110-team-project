@@ -142,8 +142,9 @@ public class AuthController {
         }
       }
       
-      memberService.init(member);
-      session.setAttribute("loginUser", member);
+      if(memberService.init(member)) {
+        session.setAttribute("loginUser", member);
+      }
       return "redirect:/app/";
     }
     
@@ -211,8 +212,9 @@ public class AuthController {
         originMember.setPr(pr);
       }
       
-      memberService.update(originMember);
-      session.setAttribute("loginUser", originMember);
+      if (memberService.update(originMember)) {
+        session.setAttribute("loginUser", originMember);
+      }
       
       String originPath = request.getHeader("referer");
       return "redirect:" + originPath.substring(
