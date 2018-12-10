@@ -272,7 +272,16 @@ function showCont(cont, index) {
                             </c:choose>
                                     <div class="row">
                                         <span class="overflow" style="margin-left: 2rem; margin-top:1em;"> 
-                                        <h6><b>${album.lbmTitle}</b></h6></span>
+                                        <h6>
+                                        <c:set var="Text" value="${album.lbmTitle}" />
+                                            <c:if test="${fn:length(Text)<8}">
+                                                <b>${fn:substring(Text,0,8)}</b>
+                                            </c:if>
+                                            <c:if test="${fn:length(Text)>8}">
+                                                <b>${fn:substring(Text,0,8)}...</b>
+                                            </c:if>
+                                        </h6>
+                                        </span>
                                         <span style="margin-left:4em; margin-top:1em; float: right;">
                                         <img src="${album.p_phot}" class="main-cmt-img">${album.nick}</span>
                                         
