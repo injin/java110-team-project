@@ -12,9 +12,9 @@
 
 </style>
 
-	<c:forEach items="${flwlist}" var="member">
-		<div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-			<div class="card">
+	<c:forEach items="${flwlist}" var="member"  varStatus="status">
+		<div class="col-lg-6 col-md-6 col-sm-12 mb-3" id="flw-card-${member.mno}" >
+			<div class="card" >
 				<div class="card-body">
 					<div class="media">
 						<img class="mr-3 profile-large" src="${member.profileImagePath}"
@@ -46,12 +46,36 @@
 	<form action="flwdelete" id="deleteForm" method="post">
 		<input type="hidden" name="flw">
 	</form>
+	
+	
 <script>
 
-function removeFlw(number) {
-    $('#deleteForm input[name="flw"]').val(number);
-    $('#deleteForm').submit();
+function removeFlw(mno) {
+    
+    $.ajax({
+        url : "/app/follow/flwdelete",
+        type: "post",
+        data : {
+            "flw" : mno,
+        },
+        success : function(data) {
+             if (data == true) {
+               commonAlert('success','언팔로우 되었습니다.');
+               $('#flw-card-' + mno).remove();
+               
+            } else {
+                commonAlert('error','문제가 발생하였습니다.');
+            } 
+            
+        },
+        error: (xhr, status, msg) => {
+            console.log(xhr);
+            console.log(status);
+            console.log(msg);
+        }
+    });
 }
+    
 
  function goPage(pageNo){
     

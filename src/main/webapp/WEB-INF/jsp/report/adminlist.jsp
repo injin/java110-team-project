@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<link rel='stylesheet' href='/css/common.css'>
 <style>
 table {
 	text-align: center;
@@ -19,6 +20,11 @@ thead th {
 	font-weight: bold;
 	vertical-align: top;
 	color: #fff;
+}
+
+textarea {
+  
+  resize: none;
 }
 
 .opt {
@@ -71,14 +77,12 @@ thead th {
 	height: 38px;
 }
 
-.report-textarea {
+ .report-textarea {
 	width: 100%;
 	height: 10rem;
-	padding: 0;
+	padding: 0; 
 }
 </style>
-
-
 
 
 <h1 style="margin: 30px 30px 30px 5px; font-family: fantasy;">신고목록</h1>
@@ -124,7 +128,7 @@ thead th {
 								<div class="dropdown-menu">
 									<textarea class="report-textarea">${report.hcont}</textarea>
 									<div class="dropdown-divider"></div>
-									<button class="btn report-btn">수정</button>
+									<button class="btn report-btn float-right ">수정</button>
 								</div>
 							</div></td>
 					</c:otherwise>
@@ -204,9 +208,9 @@ thead th {
                         html += '<div class="btn-group dropright">';
                         html += '<button type="button" class="btn report-btn2 report-btn-size dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">처리</button>'
                         html += '<div class="dropdown-menu">'
-                        html += '<textarea class ="report-textarea">'+ contVal +'</textarea>'
+                        html += '<textarea class ="report-textarea resize-none">'+ contVal +'</textarea>'
                         html += '<div class="dropdown-divider"></div>'
-                        html += '<button class ="btn report-btn">수정</button></div>'
+                        html += '<button class ="btn report-btn" onclick>수정</button></div>'
                         html += '</div>'
                         html += '</div>'
                         
