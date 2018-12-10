@@ -160,18 +160,16 @@
 -->
       <%-- dropDownBtn 여기까지 --%>
           <c:if test="${targetUser.mno == loginUser.mno}">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" 
+              <a class="dropdown-toggle c-pointer" id="dropdown01" 
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdown01">
-                
-                
+              <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
                 <c:choose>
                   <c:when test="${post.pstTypeNo == 0}">
                     <%-- <button type="button" class="btn btn-xs" data-toggle="modal"
                       data-target="#reviewModal"
                       onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</button> --%>
-                    <a class="btn btn-xs" data-toggle="modal"
+                    <a class="dropdown-item c-pointer" data-toggle="modal"
                       data-target="#reviewModal"
                       onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
                   </c:when>
@@ -179,14 +177,13 @@
                     <%-- <button type="button" class="btn btn-xs" data-toggle="modal"
                       data-target="#reviewModal"
                       onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</button> --%>
-                    <a class="btn btn-xs" data-toggle="modal"
+                    <a class="dropdown-item c-pointer" data-toggle="modal"
                       data-target="#reviewModal"
                       onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
                   </c:otherwise>
                 </c:choose>
                 
-                <br>
-                <a class="btn btn-xs"
+                <a class="dropdown-item c-pointer"
                   onclick="deletePost(${post.pstno})">삭제</a>
                 
                 <%-- <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a> --%>
