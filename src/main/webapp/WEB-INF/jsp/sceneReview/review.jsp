@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>장면리뷰</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/bootstrap.css">
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
@@ -637,7 +638,7 @@
             }),
             success : function(data) {
                 if (data) {
-                    commonAlert('error', '신고되었습니다.');
+                    commonAlert('success', '신고되었습니다.');
                     $('a#btn-siren').remove();
                 } else {
                     commonAlert('error', '문제가 발생하였습니다. <br>관리자에게 문의해주세요.');
