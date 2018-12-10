@@ -147,6 +147,7 @@ function listCmt(pstno,forWhat) {
             }else if(forWhat == "mPost"){
                 $('#cmt-area-'+pstno).html(makeCmtHtml(data,forWhat));    
             }
+            $('#cCnt-'+pstno).text(data.cmtsResult.length);
         }
     });
 }

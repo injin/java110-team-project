@@ -84,7 +84,7 @@
 					<c:set var="lastpstno" value="${post.pstno}" />
 				</c:if>
 				<c:if test="${post.open}">
-					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="2000">
+					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="1500">
 						<div class="media row pr-3 pl-3">
 							<img src="${post.member.profileImagePath}" class="rprofileImg" />
 							<div class="media-body">
