@@ -1,3 +1,6 @@
+ul{
+    list-style-type: none;
+}
 .avatar-upload {
   position: relative;
   max-width: 205px;

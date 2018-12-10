@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Scenecok</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
+<!-- <link rel='stylesheet' href='/css/fontawesome.css'> -->
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/accountDetail.css'>
 <link rel="stylesheet" href='/css/bootstrap2-toggle.min.css'>
@@ -51,7 +52,7 @@ tbody td {
 }
 
 .my-mv-list {
-	height: 48rem;
+	height: 50rem;
 }
 </style>
 </head>
@@ -64,7 +65,8 @@ tbody td {
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th colspan="2" scope="col"><h3>${theme.thm}</h3></th>
+					<th colspan="2" scope="col"><h3>${theme.thm}<!-- <i
+                            class="far fa-edit" style="font-size: 1rem;"></i> --></h3></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -99,9 +101,9 @@ tbody td {
 				style="width: 30rem; float: right; border: 1px solid sivler">
 				<ol class="chooseList mt-0" id="list-choose-movie"
 					style="margin-bottom: 1rem;">
-					<c:forEach items="${movieList}" var="movie">
-						<li class="list-group-item" id="mv-li-${movie.mvno}">
-							<div class="media">
+					<c:forEach items="${movieList}" var="movie" varStatus="status">
+						<li id="mv-li-${movie.mvno}">
+							<div class="media list-group-item">
 								<div class="media-body">
 									<span class="mt-0"><b>${movie.title}</b></span>
 									<button type="button" onclick="removeList(${movie.mvno})"
@@ -112,19 +114,11 @@ tbody td {
 								</div>
 							</div>
 						</li>
-
 					</c:forEach>
 				</ol>
 			</div>
 		</section>
-		<ol>
-			<li><div>a</div></li>
-			<li><div>a</div></li>
-			<li><div>a</div></li>
-			<li>a</li>
-		</ol>
 		<hr>
-
 
 		<!-- <input type="hidden" name="selecList" id="test"> -->
 		<input type="hidden" name="thmno" value="${theme.thmno}">
@@ -132,10 +126,7 @@ tbody td {
 
 		<div class="confirm">
 			<input type="button" class="btn report-btn2" onclick="saveRcmdList()" value="확인"> 
-			 <input type="button" onclick="signUpCheck()" class="btn report-btn2"
-				value="취소">
-			<!-- <label class="btn report-btn2">확인<input type="button" onclick="signUpCheck()" style="display: none;" value="확인"></label> -->
-			<!-- <label class="btn report-btn2">취소<input type="button" onclick="goToHome()" style="display: none;" value="취소"></label> -->
+			 <input type="button" class="btn report-btn2" onclick="goBack()" value="취소">
 		</div>
 
 	</form>
