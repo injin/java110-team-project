@@ -39,6 +39,11 @@ function openDetailModal(pstno) {
         $('#rightcol').removeClass('col-4').addClass('col-12');
         $('#detailModal .modal-dialog').css('maxWidth', '35rem');
     }else{
+        $('#leftcol').show();
+        $('#detailModal .modal-dialog').css('maxWidth', '70rem');
+        $('#rightcol').removeClass('col-12').addClass('col-4');
+        
+        
         var h ='';
         h += '<ol class="carousel-indicators">';
         for (var i=0; i<postList[index].photos.length; i++) {
@@ -52,7 +57,7 @@ function openDetailModal(pstno) {
         h += '<div class="carousel-inner">';
         for (var i=0; i<postList[index].photos.length; i++) {
             if(i ==0){
-                h += '    <div class="carousel-item active">';}
+                h += '    <div class="carousel-item active m-2">';}
             else{
                 h += '    <div class="carousel-item">';        
             }
