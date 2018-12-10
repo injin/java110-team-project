@@ -11,6 +11,7 @@ import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.RecommendDao;
+import bitcamp.java110.cms.dao.StatisticDao;
 import bitcamp.java110.cms.domain.Movie;
 import bitcamp.java110.cms.domain.Theme;
 import bitcamp.java110.cms.service.RecommendService;
@@ -26,7 +27,7 @@ public class RecommendServiceImple implements RecommendService {
   @Autowired Environment env;
   @Autowired MovieAnlyDao anlyDao;
   @Autowired MovieDao mvDao;
-  
+  @Autowired StatisticDao statDao;
   
   
   @Override
@@ -107,18 +108,9 @@ public class RecommendServiceImple implements RecommendService {
   
   public Map<String, Object> getKey(int mno) {
     Map<String, Object> key = new HashMap<>();
-    List<Integer> grs = new ArrayList<>();
-    grs.add(28);
-    grs.add(80);
     key.put("key", env.getProperty("tmdb.key"));
     key.put("mvnoList", anlyDao.getTopPNT(mno));
-    
-    /**
-     * oneGr ?
-     * 통계에서 가장 높은 장르 1개(2개?)
-     */
-    key.put("grs", grs);
-    
+    key.put("grs", statDao.topGrFilt(mno));
     return key;
   }
 }

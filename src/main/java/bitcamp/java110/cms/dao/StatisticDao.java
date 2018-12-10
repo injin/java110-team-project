@@ -9,4 +9,5 @@ public interface StatisticDao {
     
     List<Statistic> postData(int no);
     List<Statistic> mvTitl(int no);
+    List<Integer> topGrFilt(int mno);
 }

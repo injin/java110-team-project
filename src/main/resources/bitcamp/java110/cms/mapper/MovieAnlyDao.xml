@@ -85,6 +85,6 @@
         FROM mv_mv_anly
         WHERE mno=#{mno}
         ORDER BY pnt DESC
-        LIMIT 5
+        LIMIT 3
     </select>
 </mapper>

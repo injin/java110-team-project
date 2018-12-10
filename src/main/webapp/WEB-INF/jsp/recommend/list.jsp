@@ -17,7 +17,7 @@
   <link rel='stylesheet' href='/css/rcmdAnly.css'>
 
 </head>
-<body class="borderGray">
+<body class="borderGray mt-5">
   <jsp:include page="../include/header.jsp"></jsp:include>
 <%-- ========================================================================================== --%>
   <main role="main" class="container borderGray"> 
@@ -58,7 +58,8 @@
     <br>
     <button type="button" id="popover" class="btn btn-secondary" data-container="body"
         data-toggle="popover" data-placement="right"
-        data-content="${sessionScope.loginUser.nickname}님이 좋아하신">추천 기준</button>
+        data-content="${sessionScope.loginUser.nickname}님의 취향과 비슷한 사람들이 좋아한 영화들을,
+            취향에 맞게 다시 조합해 보았어요.">추천 기준</button>
   </section>
 <%-- ========================================================================================== --%>
   <section id="random-base-section" style="display: none;">

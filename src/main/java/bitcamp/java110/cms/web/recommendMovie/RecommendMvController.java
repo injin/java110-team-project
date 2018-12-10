@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
+import bitcamp.java110.cms.dao.StatisticDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -55,6 +56,8 @@ public class RecommendMvController {
   @Autowired MovieAnlyDao anlyDao;
   @Autowired MovieDao mvDao;
   
+  @Autowired StatisticDao statDao;
+  
   public RecommendMvController(RecommendService rcmdService) {
     super();
     this.rcmdService = rcmdService;
@@ -67,7 +70,6 @@ public class RecommendMvController {
   
   @RequestMapping("/list")
   public String list () {
-    
     return "/recommend/list";
   }
   
