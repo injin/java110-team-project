@@ -13,7 +13,8 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav" style="width:75%">
+      <ul class="navbar-nav" style="margin-left: 5rem;
+    width: 70%;">
         <li class="nav-item w-100 text-right">
           <form action="<c:url value='/app/searchResult'/>" class="form-inline my-2 my-lg-0 nav-link" method="get">
           <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" 

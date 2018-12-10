@@ -123,8 +123,8 @@ function makeMovieListHtml(data) {
 function makeFavListHtml(id, title) {
   var print = '';
 
-  print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
-  print += '<div class="media-body">';
+  print += '<li id="mv-li-' + id + '"><div class="media">';
+  print += '<div class="media-body list-group-item">';
   print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
   print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
   print += ' class="badge badge-primary badge-pill">제거</button>';
@@ -138,4 +138,7 @@ function makeFavListHtml(id, title) {
 
 function saveRcmdList(){
     $('.addForm').submit();
+}
+function goBack(){
+    location.href = "/app/admin/themeList";
 }
