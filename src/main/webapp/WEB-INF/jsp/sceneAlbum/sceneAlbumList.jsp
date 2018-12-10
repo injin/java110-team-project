@@ -13,7 +13,7 @@
 					onclick="document.getElementById('btnAlbum').click();"
 					style="margin-top: 1rem;">
 					앨범만들기<input type="hidden" data-toggle="modal" id="btnAlbum"
-						data-target="#albumModal" />
+						data-target="#albumModal"/>
 				</div>
 			</div>
 		</c:if>

@@ -11,7 +11,9 @@ public interface RecommendService {
   List<MovieDb> getList(int thmno);
   List<Movie> getRcmdMvList(int thmno);
   List<Theme> getAllTitle();
+  boolean addTheme(String thm);
   void addMovieList(Theme theme ,List<Movie> movieList);
+  boolean removeTheme(int thmno);
   MovieDb getMvById(int mvno);
   int[] RandomNums(int root, int range);
   int getCount();
