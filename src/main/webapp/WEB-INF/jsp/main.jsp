@@ -329,7 +329,10 @@ function showCont(cont, index) {
        </c:forEach>
        var fary =[];    
        <c:forEach items="${post.ftags}" var="ft">
-       fary.push('${ft.nickname}');
+       fary.push({
+           "nickname":'${ft.nickname}',
+           "mno":'${ft.mno}'
+       });
        </c:forEach>
        
        postList.push({
