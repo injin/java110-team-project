@@ -1,10 +1,7 @@
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover(); 
-});
 //  취향 분석?
 var $anlyBaseSection = $('#anly-base-section');
 var $anlyBaseItems = $('#anly-base-items');
-//  mv_mv_anly에서 영화 한편의 비슷한 영화 리스트(smlrList) 가져오기.
+//  smlrList
 var $randomBaseSection = $('#random-base-section');
 var $randomBaseTitle = $('#randomBaseTitle');
 var $randomBaseItems = $('#random-base-items');
@@ -13,38 +10,44 @@ var $mdSection = $('#md-section');
 var $mdTitle = $('#mdTitle');
 var $mdItems = $('#md-items');
 var $loading = $('#loading');
-//  TheMovieDb에서 nowPlayingMovieList 가져오기.
+//  nowPlayingMovieList
 var $nowSection = $('#now-section');
 var $nowItems = $('#now-items');
-//  TheMovieDb에서 UpcommingMovieList 가져오기.
+//  UpcommingMovieList
 var $upcommingSection = $('#upcomming-section');
 var $upcommingItems = $('#upcoming-items');
 
 //  배열 삽입시 중복 확인과 20개 까지만 담도록 prototype 설정
 Array.prototype.pushObj = function (x) {
-  this.unshift(x);
   this.maxLength = 20;
-  if (this.maxLength !== undefined && this.length > this.maxLength){
+  if (this.maxLength !== undefined && this.length > this.maxLength) {
     console.log(x);
-    this.splice(0,1);
     return;
-  } 
+  }
+  
+  // 정확성을 위해 2번의 중복 검사를 함.
   for (var i = 0; i < this.length; i++) {
-    if(this[i].title === x.title) {
-      console.log("중복검사?"+ x.title);
+//    console.log(i + "/" + this.length);
+    if(this[i].id === x.id) {
       return;
     }
   }
-  this.push(x);
+  
+  if (!this.includes(x)){
+    this.push(x);
+  }
+//  console.log(this);
 }
+
 var anlyList = new Array;
 
 window.onload = getMdList();
-window.onload = getKey();
-window.onload = getSimilarBaseFavList();
 window.onload = getUpcommigList();
 window.onload = getNowList();
+window.onload = getSimilarBaseFavList();
+window.onload = getKey();
 
+//  Controller에서 key가져오기
 function getKey() {
   $.ajax("/app/rcmd/key", {
     method: "POST",
@@ -53,13 +56,11 @@ function getKey() {
     },
     success: function (keys) {
       anlyTaste(keys);
-    },
-    complete: function (data) {
-      $anlyBaseSection.show();
     }
   });
 }
 
+//  key값으로 TMDB에 요청, 분석
 function anlyTaste (keys) {
   var mvnoList = keys.mvnoList;
   var filt = keys.grs;
@@ -84,22 +85,19 @@ function anlyTaste (keys) {
         complete: function (data) {
           print = makeH(anlyList);
           $anlyBaseItems.html(print);
-          
-//          var source = $("#entry-template").html();
-//          var template = Handlebars.compile(source);
-//          var itemList = template(anlyList);
-//          $('#anly-base-items').append(itemList);
+          $anlyBaseSection.show();
         }
       });
     }
   }
 }
 
+//  받아온 list들을 gr값과 함께 filtering
 function anly(list, filt){
   for (var i = 0; i < list.length; i++) {
     //  평점이 너무 높다면 너무 뻔하고, 너무 낮으면 질이 떠러짐으로 자름
-    if (list[i].vote_average < 7.0 && list[i].vote_average > 6.0) {
-      /// filt 값 이 포함된 영화일 경우에만 anlyList에 포함 하는 조건문
+    if ( list[i].vote_average > 6.5 && list[i].vote_average < 7.5) {
+      /// filt 값중 하나가 포함된 영화일 경우에만 anlyList에 추가하는 조건문
       if ( list[i].genre_ids.includes(filt[1]) || list[i].genre_ids.includes(filt[0]) ) {
         anlyList.pushObj(list[i]);
       }
@@ -276,3 +274,7 @@ function makeH(data) {
   });
   return html;
 }
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover(); 
+});

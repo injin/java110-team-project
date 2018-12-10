@@ -4,7 +4,7 @@
     trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     
-<footer class="footer page-footer font-small stylish-color-dark pt-4 bg-dark text-white">
+<footer class="footer page-footer font-small stylish-color-dark bg-dark text-white">
   <!-- Footer -->
     <!-- Footer Links -->
     <div class="container text-center text-md-left">
@@ -29,14 +29,16 @@ Movie Around The World
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="#!">장면 리뷰</a>
-            </li>
-            <li>
-              <a href="#!">장면 앨범</a>
-            </li>
-            <li>
               <a href="/app/reviewFeed/list">전체 피드</a>
             </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+        <hr class="clearfix w-100 d-md-none">
+        <div class="col-md-2 mx-auto">
+          <!-- Links -->
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+          <ul class="list-unstyled">
             <li>
               <a href="#!">나의 피드</a>
             </li>
@@ -45,8 +47,6 @@ Movie Around The World
             </li>
           </ul>
         </div>
-        <!-- Grid column -->
-        <hr class="clearfix w-100 d-md-none">
         <!-- Grid column -->
         <div class="col-md-2 mx-auto">
           <!-- Links -->
@@ -72,8 +72,7 @@ Movie Around The World
     <!-- Call to action -->
     <c:choose>
         <c:when test="${ empty sessionScope.loginUser}">
-            <hr>
-            <ul class="list-unstyled list-inline text-center py-2">
+            <ul class="list-unstyled list-inline text-center">
               <li class="list-inline-item">
                 <h5 class="mb-1">Register with KAKAO</h5>
               </li>
@@ -83,11 +82,10 @@ Movie Around The World
             </ul>
         </c:when>
     </c:choose>
-    <hr>
     <!-- Call to action -->
     <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2018 Copyright:
-      <a href="http://localhost:8888/app/">scenecok.com</a>
+    <div class="footer-copyright text-center pb-3">© 2018 Copyright:
+      <a href="<c:url value='/app/'/>">scenecok.com</a>
       <br>
       <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에게 있으며,
       <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.
