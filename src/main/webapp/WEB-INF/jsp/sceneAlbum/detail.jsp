@@ -25,13 +25,10 @@
             </c:if>
             <c:forEach var="sceneReview" items="${sceneReview}"
                 varStatus="status">
-                <div class="col-4 scene">
-                    <a
-                        href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
-                        <img class="card-img-top hot-sr-img"
+                <div class="col-4 scene c-pointer" onclick="goToSR(${sceneReview.mvno},${sceneReview.srno})">
+                    <img class="card-img-top hot-sr-img"
                         src="/upload/sceneReview/${sceneReview.photo}"
                         alt="Card image cap">
-                    </a>
                     <div class="card-body">
                         <div class="card-title overflow">
                             <b><span>${sceneReview.title}</span></b>
@@ -294,5 +291,9 @@
                     alert('대표이미지 설정 완료');
                 }
             }); 
+        }
+        
+        function goToSR(mvno,srno){
+            location.href = "/app/sceneReview/review?mvno="+mvno+"&srno="+srno;
         }
     </script>

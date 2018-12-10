@@ -48,7 +48,7 @@
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
                 <div class="row">
                     <div class="col-lg-12">
-                    <table class="table">
+                    <%-- <table class="table">
                       <thead id="mypage-menu">
                         <tr class="d-flex">
                           <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></th>
@@ -69,7 +69,21 @@
                           </c:choose>
                         </tr>
                       </thead>
-                    </table>
+                    </table> --%>
+                    
+                    
+                        <div class="tab_container">
+                            <ul>
+                                <li class="active"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></li>
+                                <li><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></li>
+                                <li><a href="<c:url value="/app/stsc/list"/>">통계</a></li>
+                                <li><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></li>
+                                <li><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></li>
+                                <li><a href="<c:url value="/app/auth/update"/>">정보수정</a></li>
+                            </ul>
+                        </div>
+                    
+                    
                     </div>
                 </div>
                 
