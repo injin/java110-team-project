@@ -46,7 +46,8 @@
 <%-- ====================================== 리뷰작성 ============================================= --%>
 					<div class="form-group">
 						<textarea name="content" class="form-control resize-none"
-							rows="10" id="reviewTxtarea" placeholder="리뷰를 작성해주세요"></textarea>
+							rows="10" id="reviewTxtarea" placeholder="리뷰를 작성해주세요" maxlength="1000"></textarea>
+							  <span class="counter float-right mt-1 mb-1" >글자 제한 1000자</span>
 					</div>
 
 <%-- ====================================== 친구태그 ============================================= --%>
@@ -80,8 +81,6 @@
 						<div id="temp" ></div>
 <%-- ====================================== 사진list ============================================= --%>
 						<ul id="media-list" class="clearfix">
-							<li class="myupload "><span><i class="fa fa-plus"
-									aria-hidden="true"></i></span></li>
 						</ul>
 						
 					</div>

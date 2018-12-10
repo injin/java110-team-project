@@ -230,8 +230,6 @@ $(function() {
 
 //  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
-
-        
         
         if($('#pstno').is('input')){
             $('#reviewModal form').attr('action', 'add');
@@ -254,6 +252,7 @@ $(function() {
             $('#reviewModal #temp').attr('id', 'showStar');
         }
         
+        $('.counter').replaceWith('<span class="counter float-right mt-1 mb-1" >글자 제한 1000자</span>');
         $('#showStar').after('<div id="temp" ></div>');
 
         $("#movieId").val(0);
@@ -271,9 +270,16 @@ $(function() {
         $("#flw").prev().html($inputTag.html());
 
         uploadFileNames = [];
-        $("#media-list").html(
-        '<li class="myupload "><span><i class="fa fa-plus" aria-hidden="true"></i></span></li>');
+        $("#media-list").html('');
     });
+    
+    // 글자제한
+    $('#reviewTxtarea').keyup(function (e){
+        var content = $(this).val();
+        /*$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');*/
+        $('.counter').html(content.length + '/1000');
+    });
+    $('#reviewTxtarea').keyup();
 
 });
 
