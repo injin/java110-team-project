@@ -106,9 +106,6 @@ ul{
   text-align: center;
   margin: auto;
 }
-#asdf{
-  
-}
 /* 이미지 출력창 */
 .cover-preview {
   width: 40rem;
@@ -179,7 +176,7 @@ h3, .h3 {
     text-align: center;
 }
 
-input.form-control {
+.update {
     text-align: center;
 }
 

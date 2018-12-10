@@ -12,7 +12,7 @@
                <section id="nickname-section">
                   <div class="form-group row">
                      <div class="nickname">
-                        <input type="text" class="nickname form-control" name="nickname" id="nickname"
+                        <input type="text" class="nickname form-control update" name="nickname" id="nickname"
                            value="${loginUser.nickname}">
                      </div>
                   </div>
@@ -36,8 +36,12 @@
                <h3>자기소개</h3>
                <section id="pr-section">
                   <div class="form-group">
+<<<<<<< HEAD
                      <textarea class="pr form-control resize-none scrollbar-light-blue" name="pr" autocomplete="off">${loginUser.pr}
                      </textarea>
+=======
+                     <input type="text" class="pr form-control update" name="pr" value="${loginUser.pr}" autocomplete="off">
+>>>>>>> j1
                   </div>
                </section>
                <hr>
@@ -90,7 +94,7 @@
             <section id="signOutSection" style="padding:">
                <h3>회원 탈퇴</h3>
                <div id="signOutMessage">
-<pre>Scenecok에서 탈퇴를 하시면
+<pre>Scene Cok에서 탈퇴를 하시면
 일부 기록은 삭제되지 않을 수 있습니다.</pre>
                </div>
                <form action="signOut" method="post">
