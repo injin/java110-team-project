@@ -122,6 +122,19 @@
          LIMIT 8
     </select>
     
+    <select id="listTopSrByCdt" resultMap="srMap" parameterType="string">
+        SELECT srno, mvno, titl, time, phot, cdt, count(pstno)as cnt
+          FROM mv_like ml,mv_sr ms 
+         WHERE ml.pstno=ms.srno
+           AND ml.type = 'sr'
+           AND DATE_FORMAT(ms.cdt, '%Y-%m-%d')  <![CDATA[ <= ]]> #{value}
+           AND DATE_FORMAT(ms.cdt, '%Y-%m-%d')  <![CDATA[ > ]]> DATE_ADD( STR_TO_DATE(#{value}, '%Y-%m-%d'), INTERVAL -3 day)
+         GROUP BY pstno 
+        HAVING count(pstno)>0 
+         ORDER by cnt DESC
+         LIMIT 8
+    </select>
+    
     <select id="listTopReviewer" resultType="member" parameterType="int">
         SELECT t2.mno
               , mb.nick as nickname

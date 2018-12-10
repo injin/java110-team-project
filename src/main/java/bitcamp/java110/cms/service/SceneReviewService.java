@@ -19,6 +19,7 @@ public interface SceneReviewService {
   void deleteCmt(int cmno);
   void updateCmt(SceneReviewCmt sceneReviewCmt);
   List<SceneReview> listTopSr();
+  List<SceneReview> listTopSrByCdt();
   List<Member> listTopReviewer(int mvno);
   boolean addToSrAlbum(int lbmno, int srno);
   boolean deleteFromSrAlbum(int lbmno, int srno);

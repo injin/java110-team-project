@@ -1,6 +1,8 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +164,27 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   @Override
   public List<SceneReview> listTopSr() {
     return sceneReviewDao.listTopSr();
+  }
+  
+  public List<SceneReview> listTopSrByCdt() {
+    
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    Calendar cal = Calendar.getInstance();
+    
+    List<SceneReview> result = new ArrayList<>();
+    int cnt = 0;
+    
+    do {
+      List<SceneReview> list = sceneReviewDao.listTopSrByCdt(sdf.format(cal.getTime()));
+      result.addAll(list);
+      if (result.size() > 8) {
+        return result.subList(0, 8);
+      } else {
+        cal.add(Calendar.DATE, -3);
+      }
+    } while (cnt++ < 10);
+    
+    return result;
   }
   
   @Override
