@@ -16,7 +16,8 @@
             FROM DUAL
         WHERE NOT EXISTS (SELECT mvno
                             FROM mv_rcmd
-                          WHERE thmno=#{thmno})
+                          WHERE thmno=#{thmno}
+                            AND mvno=#{mvno})
     </insert>
     
     <select id="getTitle" resultType="String" parameterType="int">

@@ -50,6 +50,9 @@
 	font-size: 1.5rem;
 	color: #FFD119;
 }
+.text-wrap .c-pointer:hover {
+    font-weight:bold;
+}
 </style>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
