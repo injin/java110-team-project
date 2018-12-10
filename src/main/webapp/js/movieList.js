@@ -46,22 +46,6 @@ function removeList(id) {
   console.log(id + ' 삭제');
 }
 
-function makeFavListHtml(id, title) {
-  var print = '';
-
-  print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
-  print += '<div class="media-body">';
-  print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
-  print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
-  print += ' class="badge badge-primary badge-pill">제거</button>';
-  print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
-  print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
-  print += '</div>';
-  print += '</li>';
-
-  $chooseMvList.append(print);
-}
-
 // FORM TAG 안의 검색창에서 Enter Key 기능
 $("#input-srch-keyword").keypress(
   function(event){
@@ -134,4 +118,24 @@ function makeMovieListHtml(data) {
     console.log(idx + ':' + obj.title + ':' + obj.release_date);
   });
   return html;
+}
+
+function makeFavListHtml(id, title) {
+  var print = '';
+
+  print += '<li class="list-group-item" id="mv-li-' + id + '"><div class="media">';
+  print += '<div class="media-body">';
+  print += '<span class="mt-0"><b>' + title + "\t" + '</b></span>';
+  print += `<button type="button" onclick="removeList('` + id +`')" style="float:right; cursor: pointer;" `;
+  print += ' class="badge badge-primary badge-pill">제거</button>';
+  print += '<input type="hidden" name="favMvIdList" value=' + id + '>';
+  print += '<input type="hidden" name="favMvTitleList" value="' + title + '">';
+  print += '</div>';
+  print += '</li>';
+
+  $chooseMvList.append(print);
+}
+
+function saveRcmdList(){
+    $('.addForm').submit();
 }

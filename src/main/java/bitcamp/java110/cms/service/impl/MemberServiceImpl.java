@@ -123,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
   }
   
   @Override
-  public void saveMvId (int mvno) {
+  public void saveMvId(int mvno) {
     String tmdbKey = env.getProperty("tmdb.key");
     
     tmdbMovies = new TmdbApi(tmdbKey).getMovies();

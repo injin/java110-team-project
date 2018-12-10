@@ -59,9 +59,9 @@ public class RecommendController {
 
   @RequestMapping("/save")
   public String save(
-      @RequestParam(name="mvno", required=true)
+      @RequestParam(name="favMvIdList", required=true)
       List<Integer> mvnoList,
-      @RequestParam(name="title", required=false)
+      @RequestParam(name="favMvTitleList", required=false)
       List<String> titleList,
       Theme theme,
       Model model){
