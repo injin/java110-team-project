@@ -29,7 +29,10 @@ Movie Around The World
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="/app/reviewFeed/list">전체 피드</a>
+              <a href="<c:url value='/app/'/>">홈</a>
+            </li>
+            <li>
+              <a href="<c:url value='/app/reviewFeed/list'/>">전체 피드</a>
             </li>
           </ul>
         </div>
@@ -43,7 +46,7 @@ Movie Around The World
               <a href="#!">나의 피드</a>
             </li>
             <li>
-              <a href="/app/rcmd/anly">영화 추천</a>
+              <a href="<c:url value='/app/rcmd/list'/>">영화 추천</a>
             </li>
           </ul>
         </div>
@@ -52,15 +55,13 @@ Movie Around The World
           <!-- Links -->
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">POWERED BY</h5>
           <ul class="list-unstyled">
-
             <li>
-              <a href="https://github.com/injin/java110-team-project">GitHub</a>
+              <a href="<c:url value='https://www.themoviedb.org/documentation/api'/>">
+                <img alt="The Movie DB" style="height: 35px;" src="https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png">
+              </a>
             </li>
             <li>
-              <a href="https://developers.kakao.com/">KAKAO API</a>
-            </li>
-            <li>
-              <a href="https://www.themoviedb.org/documentation/api">The MOVIE DB</a>
+              <a href="<c:url value='https://github.com/injin/java110-team-project'/>">GitHub</a>
             </li>
           </ul>
         </div>
