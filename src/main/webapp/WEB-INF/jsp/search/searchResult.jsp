@@ -53,7 +53,7 @@
 						begin="0" end="${fn:length(memberList)}">
 						<div
 							class="${status.index>=3 ? 'memberFrame showType' : 'memberFrame'}">
-							<div class="wrap member">
+							<div class="wrap member c-pointer" onclick="goToFeed(${list.mno})">
 								<div class="ico-wrap">
 
 									<c:set var="path" value="${list.p_phot}" />
@@ -73,7 +73,7 @@
 
 								</div>
 								<div class="text-wrap vcenter">
-									<p class="mbr-text display-6 text-dark c-pointer" onclick="goToFeed(${list.mno})">${list.nick}</p>
+									<p class="mbr-text display-6 text-dark c-pointer">${list.nick}</p>
 								</div>
 							</div>
 						</div>
