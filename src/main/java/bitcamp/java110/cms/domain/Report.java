@@ -15,6 +15,7 @@ public class Report {
   protected String nick;
   protected String hcont;
   protected List<String> types;
+  protected List<ReportType> reporttypes;
 
   public int getRptno() {
     return rptno;

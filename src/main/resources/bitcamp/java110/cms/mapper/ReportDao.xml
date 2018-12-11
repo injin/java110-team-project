@@ -14,7 +14,10 @@
         <result column="hndl" property="hndl" />
         <result column="cdt" property="createdDate" />
         <result column ="nick" property="nick" />
-        <result column = "type" property ="type" />  
+        <collection property="reporttypes" ofType="ReportType">
+          <id column="rptno" property="rptno"/>
+          <result column="type" property="type"/>
+        </collection>
     </resultMap>
 
     
@@ -26,6 +29,7 @@
         (hndl = 'Y')hndl ,
         cont, 
         hcont,
+        t.rptno,
         group_concat(t.type) as type
         from mv_rpt r
         inner join mv_memb m on r.mno =  m.mno
