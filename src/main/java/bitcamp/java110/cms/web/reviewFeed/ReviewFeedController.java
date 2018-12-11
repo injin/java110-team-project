@@ -130,6 +130,7 @@ public class ReviewFeedController {
     Map<String, Object> params = new HashMap<>();
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", pstno);
+    params.put("where", "main");
 
     List<Post> postsResult = postService.getPosts(params); 
     resultMap.put("postsResult", postsResult);
