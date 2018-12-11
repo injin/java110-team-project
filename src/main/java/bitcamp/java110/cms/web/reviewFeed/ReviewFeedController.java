@@ -258,15 +258,28 @@ public class ReviewFeedController {
     model.addAttribute("targetUser", targetUser);
 
     List<Post> list = null;
+//    if(visitor == id) {
+//      params.put("prevpstno", "owner");
+//      params.put("mno", id);
+//      list = postService.getPosts(params);
+//    } else {
+//      params.put("prevpstno", "visitor");
+//      params.put("mno", id);
+//      list = postService.getPosts(params);
+//    }
+    
     if(visitor == id) {
-      params.put("prevpstno", "owner");
+      params.put("prevpstno", "x");
+      params.put("who", "owner");
       params.put("mno", id);
       list = postService.getPosts(params);
     } else {
-      params.put("prevpstno", "visitor");
+      params.put("prevpstno", "x");
+      params.put("who", "visitor");
       params.put("mno", id);
       list = postService.getPosts(params);
     }
+    
     model.addAttribute("postList", list);
     return "include/Feed";
   }

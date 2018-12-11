@@ -218,7 +218,6 @@
 	      0 as likes,
 		  p.cdt,
 		  (p.opn = 'u') opn,
-		  <!-- p.opn, -->
 		  m.nick,
 		  m.p_phot
 		FROM mv_post p
@@ -228,7 +227,7 @@
 		  p.mno = #{mno}
 		ORDER BY 
 		  cdt desc
-		LIMIT 25
+		LIMIT 15
 	</select>
 
 	<select id="getOthersPostList" resultMap="postMap2"
