@@ -22,6 +22,7 @@
 .hot {
     height: 20em;
     max-height: 20em;
+    padding:0em;
 }
 
 .p-hot {
@@ -101,9 +102,9 @@ span.carousel-control-next-icon {
   font-family: 'Quattrocento', Arial, sans-serif;
   position: relative;
   overflow: hidden;
-  /* margin: 10px; */
+  /* margin: 10px; 
   min-width: 230px;
-  max-width: 315px;
+  max-width: 315px; */
   width: 100%;
   color: #141414;
   text-align: left;

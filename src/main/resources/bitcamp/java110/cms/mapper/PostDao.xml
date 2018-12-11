@@ -184,6 +184,7 @@
         AND mpo.mvno=mv.mvno
         AND mpo.mno=memb.mno
         AND ml.type = 'mp'
+        AND memb.mno !=21
         GROUP BY ml.pstno
         HAVING count(ml.pstno)>0
         ORDER by cnt DESC
