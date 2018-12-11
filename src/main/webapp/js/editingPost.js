@@ -51,7 +51,7 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #showStar').remove();
   $('#reviewModal #temp').starrr({
     change: function(e, value){
-    	$("#star").val(value);
+        $("#star").val(value);
     },
     rating: star
   })

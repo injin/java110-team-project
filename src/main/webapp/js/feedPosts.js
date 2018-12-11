@@ -68,7 +68,7 @@ function morePostHtml(data){
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';
-        html += '                   <p class="reviewCont scrollbar-light-blue" id="reviewCont-';
+        html += '                   <p class="reviewCont scrollbar-light-blue col" id="reviewCont-';
         html += data.postsResult[i].pstno;
         html += '">';
         html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
@@ -208,7 +208,7 @@ $(window).scroll(function() {
                 "pstno" : lstpstno
             }),
             success:function(data){
-            	console.log(data);
+                console.log(data);
                 morePostHtml(data);
             }
         });

@@ -5,210 +5,210 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.PostDao">
 
-    <resultMap type="post" id="postMap">
-        <id column="pstno" property="pstno" />
-        <result column="mno" property="mno" />
-        <result column="ptno" property="pstTypeNo" />
-        <result column="mvno" property="mvno" />
-        <result column="cdt" property="createdDate" />
-        <result column="mdt" property="modifiedDate" />
-        <result column="cont" property="content" />
-        <result column="likes" property="likeCnt" />
-        <result column="star" property="star" />
-        <result column="opn" property="open" />
-    </resultMap>
+	<resultMap type="post" id="postMap">
+		<id column="pstno" property="pstno" />
+		<result column="mno" property="mno" />
+		<result column="ptno" property="pstTypeNo" />
+		<result column="mvno" property="mvno" />
+		<result column="cdt" property="createdDate" />
+		<result column="mdt" property="modifiedDate" />
+		<result column="cont" property="content" />
+		<result column="likes" property="likeCnt" />
+		<result column="star" property="star" />
+		<result column="opn" property="open" />
+	</resultMap>
 
-    <resultMap type="post" id="postMap2">
-        <id column="pstno" property="pstno" />
-        <result column="mno" property="mno" />
-        <result column="ptno" property="pstTypeNo" />
-        <result column="mvno" property="mvno" />
-        <result column="titl" property="title" />
-        <result column="cdt" property="createdDate" />
-        <result column="mdt" property="modifiedDate" />
-        <result column="cont" property="content" />
-        <result column="likes" property="likeCheck" />
-        <result column="star" property="star" />
-        <result column="opn" property="open" />
-        <association property="member" javaType="member">
-            <id column="mno" property="mno" />
-            <result column="nick" property="nickname" />
-            <result column="p_phot" property="profileImage" />
-        </association>
-    </resultMap>
-
-
-    <select id="findAll" resultMap="postMap2" parameterType="int">
-        select
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        p.cont,
-        p.cdt,
-        if(isnull(lk.pstno), false, true) as likes,
-        (p.opn ='u') opn,
-        m.mno,
-        m.nick,
-        m.p_phot,
-        if(isnull(f.flw), 0, 10) as flwpoint,
-
-        CASE WHEN (now()-p.cdt)&lt; 10800 THEN 20
-        WHEN (now()-p.cdt)&lt; 21600 THEN 15
-        WHEN (now()-p.cdt)&lt; 43200 THEN 10
-        WHEN (now()-p.cdt)&lt; 86400 THEN 5
-        ELSE 0
-        END AS "time_point"
-
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        left join (
-        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
-        'dp')
-        ) lk on lk.pstno = p.pstno
-        left join (
-        select mno, flw from mv_flw where mno = #{mno}
-        ) f on f.flw = m.mno
-        where p.opn ='u'
-        order by
-        (time_point+flwpoint) desc,cdt desc
-        limit 15
-    </select>
-
-    <select id="findSome" resultMap="postMap2" parameterType="map">
-        WITH TEMP AS
-        (
-        select
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        p.cont,
-        p.cdt,
-        if(isnull(lk.pstno), false, true) as likes,
-        (p.opn ='u') opn,
-        m.mno,
-        m.nick,
-        m.p_phot,
-        if(isnull(f.flw), 0, 10) as flwpoint,
-        ROW_NUMBER() OVER( order by
-        (time_point+flwpoint) desc,cdt desc) as rnum,
-        LAG(p.pstno) OVER(order by
-        (time_point+flwpoint) desc,cdt desc ) AS prevpstno,
-        CASE WHEN (now()-p.cdt)&lt;10800 THEN 20
-        WHEN (now()-p.cdt)&lt;21600 THEN 15
-        WHEN (now()-p.cdt)&lt;43200 THEN 10
-        WHEN (now()-p.cdt)&lt;86400 THEN 5
-        ELSE 0
-        END AS "time_point"
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        left join (
-        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
-        'dp')
-        ) lk on lk.pstno = p.pstno
-        left join (
-        select mno, flw from mv_flw where mno = #{mno}
-        ) f on f.flw = m.mno
-        where p.opn ='u'
-        order by
-        (time_point+flwpoint) desc,cdt desc
-        )
-        select *
-        from temp
-        where rnum <![CDATA[ >= ]]>
-        (select rnum from temp where prevpstno = #{prevpstno})
-        limit 15
-    </select>
+	<resultMap type="post" id="postMap2">
+		<id column="pstno" property="pstno" />
+		<result column="mno" property="mno" />
+		<result column="ptno" property="pstTypeNo" />
+		<result column="mvno" property="mvno" />
+		<result column="titl" property="title" />
+		<result column="cdt" property="createdDate" />
+		<result column="mdt" property="modifiedDate" />
+		<result column="cont" property="content" />
+		<result column="likes" property="likeCheck" />
+		<result column="star" property="star" />
+		<result column="opn" property="open" />
+		<association property="member" javaType="member">
+			<id column="mno" property="mno" />
+			<result column="nick" property="nickname" />
+			<result column="p_phot" property="profileImage" />
+		</association>
+	</resultMap>
 
 
-    <select id="findByKeyword" parameterType="map" resultMap="postMap2">
-        select
-        m.mno,
-        p.cont,
-        p.cdt,
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        if(isnull(lk.pstno), false, true) as likes,
-        (p.opn ='u') opn,
-        m.nick,
-        m.p_phot
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        left join (
-        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
-        'dp')
-        ) lk on lk.pstno = p.pstno
-        where p.cont like concat('%#',#{keyword},'%')
-        order by
-        cdt desc;
+	<select id="findAll" resultMap="postMap2" parameterType="int">
+		select
+		p.pstno,
+		p.mvno,
+		p.ptno,
+		mv.titl,
+		p.star,
+		p.cont,
+		p.cdt,
+		if(isnull(lk.pstno), false, true) as likes,
+		(p.opn ='u') opn,
+		m.mno,
+		m.nick,
+		m.p_phot,
+		if(isnull(f.flw), 0, 10) as flwpoint,
 
-    </select>
+		CASE WHEN (now()-p.cdt)&lt; 10800 THEN 20
+		WHEN (now()-p.cdt)&lt; 21600 THEN 15
+		WHEN (now()-p.cdt)&lt; 43200 THEN 10
+		WHEN (now()-p.cdt)&lt; 86400 THEN 5
+		ELSE 0
+		END AS "time_point"
 
-    <select id="findOne" parameterType="int" resultMap="postMap2">
-        select
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        p.cont,
-        p.cdt,
-        p.opn,
-        m.mno,
-        m.nick,
-        m.p_phot
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        where p.pstno = #{pstno}
-    </select>
+		from
+		mv_post p
+		inner join mv_memb m on m.mno = p.mno
+		inner join mv_mv mv on mv.mvno = p.mvno
+		left join (
+		select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
+		'dp')
+		) lk on lk.pstno = p.pstno
+		left join (
+		select mno, flw from mv_flw where mno = #{mno}
+		) f on f.flw = m.mno
+		where p.opn ='u'
+		order by
+		(time_point+flwpoint) desc,cdt desc
+		limit 15
+	</select>
 
-    <select id="listTopMp" resultMap="postMap2">
-        SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, memb.p_phot, cdt, cont,
-        count(ml.pstno)as cnt
-        FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
-        WHERE ml.pstno=mpo.pstno
-        AND mpo.mvno=mv.mvno
-        AND mpo.mno=memb.mno
-        AND ml.type = 'mp'
-        AND memb.mno !=21
-        GROUP BY ml.pstno
-        HAVING count(ml.pstno)>0
-        ORDER by cnt DESC
-        LIMIT 9
-    </select>
+	<select id="findSome" resultMap="postMap2" parameterType="map">
+		WITH TEMP AS
+		(
+		select
+		p.pstno,
+		p.mvno,
+		p.ptno,
+		mv.titl,
+		p.star,
+		p.cont,
+		p.cdt,
+		if(isnull(lk.pstno), false, true) as likes,
+		(p.opn ='u') opn,
+		m.mno,
+		m.nick,
+		m.p_phot,
+		if(isnull(f.flw), 0, 10) as flwpoint,
+		ROW_NUMBER() OVER( order by
+		(time_point+flwpoint) desc,cdt desc) as rnum,
+		LAG(p.pstno) OVER(order by
+		(time_point+flwpoint) desc,cdt desc ) AS prevpstno,
+		CASE WHEN (now()-p.cdt)&lt;10800 THEN 20
+		WHEN (now()-p.cdt)&lt;21600 THEN 15
+		WHEN (now()-p.cdt)&lt;43200 THEN 10
+		WHEN (now()-p.cdt)&lt;86400 THEN 5
+		ELSE 0
+		END AS "time_point"
+		from
+		mv_post p
+		inner join mv_memb m on m.mno = p.mno
+		inner join mv_mv mv on mv.mvno = p.mvno
+		left join (
+		select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
+		'dp')
+		) lk on lk.pstno = p.pstno
+		left join (
+		select mno, flw from mv_flw where mno = #{mno}
+		) f on f.flw = m.mno
+		where p.opn ='u'
+		order by
+		(time_point+flwpoint) desc,cdt desc
+		)
+		select *
+		from temp
+		where rnum <![CDATA[ >= ]]>
+		(select rnum from temp where prevpstno = #{prevpstno})
+		limit 15
+	</select>
 
-    <insert id="insert" parameterType="post" useGeneratedKeys="true"
-        keyColumn="pstno" keyProperty="pstno">
-        insert into mv_post( mno, ptno,mvno,cdt, cont,star, opn)
-        values(#{mno}, #{pstTypeNo},#{mvno},now(),#{content},#{star},if(#{open},'u','l'));
-    </insert>
 
-    <update id="signOut" parameterType="int">
-        UPDATE IGNORE
-          mv_post
-        SET
-          mno=21
-        WHERE
-          mno=#{mno}
-    </update>
+	<select id="findByKeyword" parameterType="map" resultMap="postMap2">
+		select
+		m.mno,
+		p.cont,
+		p.cdt,
+		p.pstno,
+		p.mvno,
+		p.ptno,
+		mv.titl,
+		p.star,
+		if(isnull(lk.pstno), false, true) as likes,
+		(p.opn ='u') opn,
+		m.nick,
+		m.p_phot
+		from
+		mv_post p
+		inner join mv_memb m on m.mno = p.mno
+		inner join mv_mv mv on mv.mvno = p.mvno
+		left join (
+		select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
+		'dp')
+		) lk on lk.pstno = p.pstno
+		where p.cont like concat('%#',#{keyword},'%')
+		order by
+		cdt desc;
 
-    <select id="getFeedListFirst" resultMap="postMap2"
-        parameterType="int">
-        select
+	</select>
+
+	<select id="findOne" parameterType="int" resultMap="postMap2">
+		select
+		p.pstno,
+		p.mvno,
+		p.ptno,
+		mv.titl,
+		p.star,
+		p.cont,
+		p.cdt,
+		p.opn,
+		m.mno,
+		m.nick,
+		m.p_phot
+		from
+		mv_post p
+		inner join mv_memb m on m.mno = p.mno
+		inner join mv_mv mv on mv.mvno = p.mvno
+		where p.pstno = #{pstno}
+	</select>
+
+	<select id="listTopMp" resultMap="postMap2">
+		SELECT ml.pstno, memb.nick, mpo.mno, mpo.mvno, titl, memb.p_phot, cdt, cont,
+		count(ml.pstno)as cnt
+		FROM mv_like ml,mv_post mpo,mv_mv mv,mv_memb memb
+		WHERE ml.pstno=mpo.pstno
+		AND mpo.mvno=mv.mvno
+		AND mpo.mno=memb.mno
+		AND ml.type = 'mp'
+        AND memb.mno != 21
+		GROUP BY ml.pstno
+		HAVING count(ml.pstno)>0
+		ORDER by cnt DESC
+		LIMIT 9
+	</select>
+
+	<insert id="insert" parameterType="post" useGeneratedKeys="true"
+		keyColumn="pstno" keyProperty="pstno">
+		insert into mv_post( mno, ptno,mvno,cdt, cont,star, opn)
+		values(#{mno}, #{pstTypeNo},#{mvno},now(),#{content},#{star},if(#{open},'u','l'));
+	</insert>
+
+	<update id="signOut" parameterType="int">
+		UPDATE IGNORE
+		  mv_post
+		SET
+		  mno=21
+		WHERE
+		  mno=#{mno}
+	</update>
+
+	<select id="getFeedListFirst" resultMap="postMap2"
+		parameterType="int">
+		select
         p.pstno,
         p.mvno,
         p.ptno,
@@ -281,123 +281,123 @@
     </select>
         
         
-        <select id="getMyPostList" resultMap="postMap2"
+		<select id="getMyPostList" resultMap="postMap2"
         parameterType="int">
-        
-    <!--    SELECT
-          p.pstno,
-          p.mvno,
-          p.ptno,
-          mv.titl,
-          p.star,
-          p.cont,
-          0 as likes,
-          p.cdt,
-          (p.opn = 'u') opn,
-          p.opn,
-          m.nick,
-          m.p_phot
-        FROM mv_post p
-        INNER JOIN mv_memb m on m.mno = p.mno
-        INNER JOIN mv_mv mv on mv.mvno = p.mvno
-        WHERE 
-          p.mno = #{mno}
-        ORDER BY 
-          cdt desc
-        LIMIT 25 -->
-    </select>
+		
+	<!-- 	SELECT
+		  p.pstno,
+		  p.mvno,
+	      p.ptno,
+		  mv.titl,
+	      p.star,
+		  p.cont,
+	      0 as likes,
+		  p.cdt,
+		  (p.opn = 'u') opn,
+		  p.opn,
+		  m.nick,
+		  m.p_phot
+		FROM mv_post p
+		INNER JOIN mv_memb m on m.mno = p.mno
+		INNER JOIN mv_mv mv on mv.mvno = p.mvno
+		WHERE 
+		  p.mno = #{mno}
+		ORDER BY 
+		  cdt desc
+		LIMIT 25 -->
+	</select>
 
-    <select id="getOthersPostList" resultMap="postMap2"
-        parameterType="int">
-        SELECT
-            p.pstno,
-            p.mvno,
-            p.ptno,
-            mv.titl,
-            p.star,
-            p.cont,
-            0 as likes,
-            p.cdt,
-            p.opn,
-            m.nick,
-            m.p_phot
-        FROM mv_post p
-        INNER JOIN mv_memb m on m.mno = p.mno
-        INNER JOIN mv_mv mv on mv.mvno = p.mvno
-        WHERE 
-          p.mno=#{mno}
-        AND 
-          p.opn = 'u'
-        ORDER BY 
-          cdt desc
-        LIMIT 25
-    </select>
+	<select id="getOthersPostList" resultMap="postMap2"
+		parameterType="int">
+		SELECT
+			p.pstno,
+			p.mvno,
+			p.ptno,
+			mv.titl,
+			p.star,
+			p.cont,
+			0 as likes,
+			p.cdt,
+			p.opn,
+			m.nick,
+			m.p_phot
+		FROM mv_post p
+		INNER JOIN mv_memb m on m.mno = p.mno
+		INNER JOIN mv_mv mv on mv.mvno = p.mvno
+		WHERE 
+		  p.mno=#{mno}
+		AND 
+		  p.opn = 'u'
+		ORDER BY 
+		  cdt desc
+		LIMIT 25
+	</select>
 
-    <update id="deleteUnlockPost" parameterType="int">
-        UPDATE IGNORE
-        mv_post
-        SET
-        mno=21,
-        cont='삭제된 게시물 입니다',
-        mdt=now()
-        WHERE
-        opn='u'
-        AND pstno=#{pstno}
-    </update>
+	<update id="deleteUnlockPost" parameterType="int">
+		UPDATE IGNORE
+		mv_post
+		SET
+		mno=21,
+		cont='삭제된 게시물 입니다',
+		mdt=now()
+		WHERE
+		opn='u'
+		AND pstno=#{pstno}
+	</update>
 
-    <delete id="deletePost" parameterType="int">
-        DELETE IGNORE
-        post, type, tag, phot, flw, cmt, lk
+	<delete id="deletePost" parameterType="int">
+		DELETE IGNORE
+		post, type, tag, phot, flw, cmt, lk
 
-        FROM mv_post AS post
-        LEFT JOIN mv_post_type AS type
-        ON type.ptno = post.pstno
-        LEFT JOIN mv_post_tag AS tag
-        ON tag.pstno = post.pstno
-        LEFT JOIN mv_post_phot AS phot
-        ON phot.pstno = post.pstno
-        LEFT JOIN mv_post_flw_tag AS flw
-        ON flw.pstno = post.pstno
-        LEFT JOIN mv_post_cmt AS cmt
-        ON cmt.pstno = post.pstno
-        LEFT JOIN mv_like AS lk
-        ON lk.pstno = post.pstno
-        WHERE
-        post.pstno=#{pstno}
-    </delete>
+		FROM mv_post AS post
+		LEFT JOIN mv_post_type AS type
+		ON type.ptno = post.pstno
+		LEFT JOIN mv_post_tag AS tag
+		ON tag.pstno = post.pstno
+		LEFT JOIN mv_post_phot AS phot
+		ON phot.pstno = post.pstno
+		LEFT JOIN mv_post_flw_tag AS flw
+		ON flw.pstno = post.pstno
+		LEFT JOIN mv_post_cmt AS cmt
+		ON cmt.pstno = post.pstno
+		LEFT JOIN mv_like AS lk
+		ON lk.pstno = post.pstno
+		WHERE
+		post.pstno=#{pstno}
+	</delete>
 
-    <delete id="deleteLockPost" parameterType="int">
-        DELETE IGNORE
-        post, type, tag, phot, flw, cmt
+	<delete id="deleteLockPost" parameterType="int">
+		DELETE IGNORE
+		post, type, tag, phot, flw, cmt
 
-        FROM mv_post AS post
-        LEFT JOIN mv_post_type AS type
-        ON type.ptno = post.pstno
-        LEFT JOIN mv_post_tag AS tag
-        ON tag.pstno = post.pstno
-        LEFT JOIN mv_post_phot AS phot
-        ON phot.pstno = post.pstno
-        LEFT JOIN mv_post_flw_tag AS flw
-        ON flw.pstno = post.pstno
-        LEFT JOIN mv_post_cmt AS cmt
-        ON cmt.pstno = post.pstno
-        LEFT JOIN mv_like AS lk
-        ON lk.pstno = post.pstno
-        WHERE
-        opn='l'
-        AND post.pstno=#{pstno}
-    </delete>
+		FROM mv_post AS post
+		LEFT JOIN mv_post_type AS type
+		ON type.ptno = post.pstno
+		LEFT JOIN mv_post_tag AS tag
+		ON tag.pstno = post.pstno
+		LEFT JOIN mv_post_phot AS phot
+		ON phot.pstno = post.pstno
+		LEFT JOIN mv_post_flw_tag AS flw
+		ON flw.pstno = post.pstno
+		LEFT JOIN mv_post_cmt AS cmt
+		ON cmt.pstno = post.pstno
+		LEFT JOIN mv_like AS lk
+		ON lk.pstno = post.pstno
+		WHERE
+		opn='l'
+		AND post.pstno=#{pstno}
+	</delete>
 
-    <update id="updatePost" parameterType="post">
-        UPDATE mv_post
-        <trim prefix="SET" suffixOverrides=",">
-            <if test="content != null">cont = #{content},</if>
-            <if test="star != null">star = #{star},</if>
-            <if test="open != null">opn = if(#{open},'u','l'),</if>
-        </trim>
-        ,mdt = now()
-        WHERE
-        pstno=#{pstno}
-    </update>
+	<update id="updatePost" parameterType="post">
+		UPDATE mv_post
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="content != null">cont = #{content},</if>
+			<if test="star != null">star = #{star},</if>
+			<if test="open != null">opn = if(#{open},'u','l'),</if>
+		</trim>
+		,mdt = now()
+		WHERE
+		pstno=#{pstno}
+	</update>
 
 </mapper>

@@ -363,7 +363,9 @@ input:checked+.slider:before {
 	width: 3rem;
 	max-height: 4rem;
 }
-
+.fs09{
+	    font-size: 0.9rem;
+}
 .trData {
 	padding: 1rem 0;
 }
@@ -386,7 +388,8 @@ input:checked+.slider:before {
 }
 
 td {
-	border: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
 /* ========== 포스터 리스트 관련  ========== */

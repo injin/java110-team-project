@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <p class="reviewCont scrollbar-light-blue" id="dCont">내용</p>
+                    <p class="reviewCont scrollbar-light-blue col" id="dCont">내용</p>
 
 
                     <div class="row mb-1">
@@ -84,7 +84,7 @@
                             </c:otherwise>
                         </c:choose>
                         <%-- 댓글리스트 --%>
-                        <div class="comment-main rounded m-0 scrollbar-light-blue w-100">
+                        <div class="comment-main rounded m-0 w-100 scrollbar-light-blue col">
                             <ul class="p-0" id="cmt-area">
                             </ul>
                         </div>

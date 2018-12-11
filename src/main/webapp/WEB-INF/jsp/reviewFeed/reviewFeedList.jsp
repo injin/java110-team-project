@@ -13,7 +13,7 @@
 <link href="/css/all.css" rel="stylesheet">
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
-<link rel='stylesheet' href="/css/aos.css"/>
+<link rel='stylesheet' href="/css/aos.css" />
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
@@ -85,25 +85,25 @@
 					<c:set var="lastpstno" value="${post.pstno}" />
 				</c:if>
 				<c:if test="${post.open}">
-					<div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="1500">
+					<div class="wPost reviewPst list-group-item aos-init"
+						data-aos="fade-up" data-aos-duration="1500">
 						<div class="media row pr-3 pl-3">
 							<img src="${post.member.profileImagePath}" class="rprofileImg" />
 							<div class="media-body">
 								<ul class="memberul">
 									<li><span onclick="goToFeed(${post.member.mno})"
-										class="text-dark c-pointer">${post.member.nickname}</span>
-										<span class="cmt-date">&nbsp;<fmt:formatDate
-                                        pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
-										</li>
+										class="text-dark c-pointer">${post.member.nickname}</span> <span
+										class="cmt-date">&nbsp;<fmt:formatDate
+												pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}" /></span>
+									</li>
 									<li><c:if test="${not empty post.ftags}">
 											<c:forEach items="${post.ftags}" var="ftag">
-												<span
-													onclick="goToFeed(${ftag.mno})" class="tagName c-pointer">
-													${ftag.nickname} </span>
+												<span onclick="goToFeed(${ftag.mno})"
+													class="tagName c-pointer"> ${ftag.nickname} </span>
 											</c:forEach>
 										</c:if></li>
 								</ul>
-								
+
 								<c:if test="${post.pstTypeNo ==0}">
 									<p class="dptitle">
 										<b><i>${post.title}</i></b>
@@ -114,7 +114,8 @@
 						<%-- 내용보여주는부분 --%>
 						<div class="clearfix media row m-1">
 							<div class="media-body">
-								<p class="reviewCont scrollbar-light-blue" id="reviewCont-${post.pstno}">
+								<p class="reviewCont scrollbar-light-blue"
+									id="reviewCont-${post.pstno}">
 									<script>
                                         showCont("${post.content}",
                                                 "${post.pstno}");
@@ -147,17 +148,17 @@
                    <c:if test="${!post.likeCheck}"> dis-none</c:if>"
 									id="btn-like-full-${post.pstno}"
 									onclick="
-									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
-									<c:if test="${not empty sessionScope.loginUser}"> cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
-									"></i>
+                                    <c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+                                    <c:if test="${not empty sessionScope.loginUser}"> cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
+                                    "></i>
 								<i
 									class="far fa-thumbs-up btmIcon c-pointer likeColor 
                    <c:if test="${post.likeCheck}"> dis-none</c:if>"
 									id="btn-like-empty-${post.pstno}"
 									onclick="
-									<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
-									<c:if test="${not empty sessionScope.loginUser}"> addLike(${post.pstno},${post.pstTypeNo});</c:if>
-									"></i>
+                                    <c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+                                    <c:if test="${not empty sessionScope.loginUser}"> addLike(${post.pstno},${post.pstTypeNo});</c:if>
+                                    "></i>
 								<span id="lCnt-${post.pstno}">${post.likeCnt}</span> <i
 									class="far fa-comment btmIcon c-pointer"
 									onclick="showMore(this,${post.pstno})"></i> <span
@@ -199,15 +200,9 @@
 							<div class="dmvDiv">${sessionScope.loginUser.nickname}님을위한
 								영화 추천</div>
 							<table class="w-100">
-								<colgroup>
-									<col width="25%" />
-									<col width="35%" />
-									<col width="35%" />
-								</colgroup>
 								<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
-
-									<tr onclick="toDetail(${smlrMv.id})" class="trData">
-										<td><c:choose>
+									<tr onclick="toDetail(${smlrMv.id})" class="trData ">
+										<td class="media"><c:choose>
 												<c:when test="${not empty smlrMv.posterPath}">
 													<img class="smlrImg"
 														src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
@@ -217,13 +212,43 @@
 													<img class="smlrImg" src="/img/default-movie-img.png"
 														alt="${smlrMv.title}" />
 												</c:otherwise>
-											</c:choose></td>
-										<td>${smlrMv.title}</td>
-										<td class="col"><span class="row d-block">${smlrMv.releaseDate}</span>
-											<span class="row d-block"> <%-- ${smlrMv.genres} --%>장르
-										</span></td>
+											</c:choose>
+											
+										<div class="media-body">
+										<b>${smlrMv.title}</b>
+										<span class="row d-block fs09">${smlrMv.releaseDate}</span>
+											<span class="row d-block fs09">${smlrMv.voteAverage} / 10</span>
+											</div>
 									</tr>
 								</c:forEach>
+
+
+
+								<%--   <colgroup>
+                                    <col width="25%" />
+                                    <col width="35%" />
+                                    <col width="35%" />
+                                </colgroup>
+                                <c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
+
+                                    <tr onclick="toDetail(${smlrMv.id})" class="trData">
+                                        <td><c:choose>
+                                                <c:when test="${not empty smlrMv.posterPath}">
+                                                    <img class="smlrImg"
+                                                        src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
+                                                        alt="${smlrMv.title}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img class="smlrImg" src="/img/default-movie-img.png"
+                                                        alt="${smlrMv.title}" />
+                                                </c:otherwise>
+                                            </c:choose></td>
+                                        <td>${smlrMv.title}</td>
+                                        <td class="col"><span class="row d-block">${smlrMv.releaseDate}</span>
+                                            <span class="row d-block"> ${smlrMv.genres}장르
+                                        </span></td>
+                                    </tr>
+                                </c:forEach> --%>
 							</table>
 						</div>
 
@@ -244,9 +269,9 @@
 
 	<jsp:include page="writingPost.jsp"></jsp:include>
 	<jsp:include page="detailPost.jsp"></jsp:include>
-    <jsp:include page="../include/commonJs.jsp"></jsp:include>
+	<jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
-	
+
 	<script src="/js/jquery-ui.js"></script>
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
@@ -256,7 +281,7 @@
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script>
-	 AOS.init();
+     AOS.init();
         var sessionMember = {
                 "nickname" : '${sessionScope.loginUser.nickname}',
                 "profileImage" : '${sessionScope.loginUser.profileImage}',

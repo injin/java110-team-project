@@ -17,7 +17,6 @@
 
 .user-comment {
     background-color: #f3f3f3 !important;
-    box-shadow: 0px 5px 8px -4px #c1c1c1;
 }
 
 .dSbtn {
@@ -56,7 +55,7 @@ z-index:9999999999;
 }
 
 #dCont {
-    border: 1px solid silver;
+    border: 1px solid #c0c0c075;
     
 }
 
@@ -67,7 +66,10 @@ z-index:9999999999;
 
 .reviewCont {
 	overflow: auto;
+	overflow-x:hidden;
     height: 13rem;
+    padding:0.9rem;
+    line-height:1.8rem;
     word-break: break-word;
     margin-bottom: 0.5rem;
 }
