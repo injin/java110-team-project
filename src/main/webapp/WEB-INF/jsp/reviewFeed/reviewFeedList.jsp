@@ -251,7 +251,6 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
-	<script src="/js/vendor/noty.js"></script>
 	<script src="/js/aos.js"></script>
 	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
