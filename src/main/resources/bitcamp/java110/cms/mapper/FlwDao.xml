@@ -31,6 +31,7 @@
         limit #{paging.startRowNo} , #{paging.pageSize}
     </select>
     
+    <!-- post작성때 팔로우리스트가져오려고씀 -->
     <select id="flwlistall" resultMap="flwMap" parameterType="int">
         select m2.mno as mno, m2.nick as nick, m2.p_phot as p_phot
         from mv_memb m1,

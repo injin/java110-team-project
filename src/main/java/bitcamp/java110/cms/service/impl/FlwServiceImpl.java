@@ -25,7 +25,6 @@ public class FlwServiceImpl implements FlwService{
         return flwDao.flwlist(condition);
     }
 
-   @Override
    public List<Member> listAll(int mno) {
        return flwDao.flwlistall(mno);
    }

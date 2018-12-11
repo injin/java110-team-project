@@ -120,7 +120,6 @@
 		order by
 		(time_point+flwpoint) desc,cdt desc
 		)
-
 		select *
 		from temp
 		where rnum <![CDATA[ >= ]]>
@@ -206,9 +205,85 @@
 		  mno=#{mno}
 	</update>
 
-	<select id="getMyPostList" resultMap="postMap2"
+	<select id="getFeedListFirst" resultMap="postMap2"
 		parameterType="int">
-		SELECT
+		select
+        p.pstno,
+        p.mvno,
+        p.ptno,
+        mv.titl,
+        p.star,
+        p.cont,
+        p.cdt,
+        if(isnull(lk.pstno), false, true) as likes,
+        (p.opn ='u') opn,
+        m.mno,
+        m.nick,
+        m.p_phot
+        from
+        mv_post p
+        inner join mv_memb m on m.mno = p.mno
+        inner join mv_mv mv on mv.mvno = p.mvno
+        left join (
+        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
+        'dp')
+        ) lk on lk.pstno = p.pstno
+        left join (
+        select mno, flw from mv_flw where mno = #{mno}
+        ) f on f.flw = m.mno
+        where m.mno = #{mno}
+        order by
+         cdt desc
+        limit 15
+        </select>
+        
+        
+        <select id="getFeedListSome" resultMap="postMap2" parameterType="map">
+        WITH TEMP AS
+        (
+        select
+        p.pstno,
+        p.mvno,
+        p.ptno,
+        mv.titl,
+        p.star,
+        p.cont,
+        p.cdt,
+        if(isnull(lk.pstno), false, true) as likes,
+        (p.opn ='u') opn,
+        m.mno,
+        m.nick,
+        m.p_phot,
+        if(isnull(f.flw), 0, 10) as flwpoint,
+        ROW_NUMBER() OVER( order by cdt desc) as rnum,
+        LAG(p.pstno) OVER(order by cdt desc ) AS prevpstno,
+        from
+        mv_post p
+        inner join mv_memb m on m.mno = p.mno
+        inner join mv_mv mv on mv.mvno = p.mvno
+        left join (
+        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
+        'dp')
+        ) lk on lk.pstno = p.pstno
+        left join (
+        select mno, flw from mv_flw where mno = #{mno}
+        ) f on f.flw = m.mno
+        where mno = #{mno}
+        order by
+         cdt desc
+        )
+        select *
+        from temp
+        where rnum <![CDATA[ >= ]]>
+        (select rnum from temp where prevpstno = #{prevpstno})
+        limit 15
+    </select>
+        
+        
+		<select id="getMyPostList" resultMap="postMap2"
+        parameterType="int">
+		
+	<!-- 	SELECT
 		  p.pstno,
 		  p.mvno,
 	      p.ptno,
@@ -218,7 +293,7 @@
 	      0 as likes,
 		  p.cdt,
 		  (p.opn = 'u') opn,
-		  <!-- p.opn, -->
+		  p.opn,
 		  m.nick,
 		  m.p_phot
 		FROM mv_post p
@@ -228,7 +303,7 @@
 		  p.mno = #{mno}
 		ORDER BY 
 		  cdt desc
-		LIMIT 25
+		LIMIT 25 -->
 	</select>
 
 	<select id="getOthersPostList" resultMap="postMap2"
