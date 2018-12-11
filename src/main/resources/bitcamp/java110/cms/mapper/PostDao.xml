@@ -259,57 +259,59 @@
 
 	<update id="deleteUnlockPost" parameterType="int">
 		UPDATE IGNORE
-		mv_post
+		  mv_post
 		SET
-		mno=21,
-		cont='삭제된 게시물 입니다',
-		mdt=now()
+		  mno=21,
+		  cont='삭제된 게시물 입니다',
+		  mdt=now()
 		WHERE
-		opn='u'
+		  opn='u'
 		AND pstno=#{pstno}
 	</update>
 
 	<delete id="deletePost" parameterType="int">
 		DELETE IGNORE
-		post, type, tag, phot, flw, cmt, lk
+		  post, type, tag, phot, flw, cmt, lk
 
-		FROM mv_post AS post
+		FROM
+		  mv_post AS post
 		LEFT JOIN mv_post_type AS type
-		ON type.ptno = post.pstno
+		  ON type.ptno = post.pstno
 		LEFT JOIN mv_post_tag AS tag
-		ON tag.pstno = post.pstno
+		  ON tag.pstno = post.pstno
 		LEFT JOIN mv_post_phot AS phot
-		ON phot.pstno = post.pstno
+		  ON phot.pstno = post.pstno
 		LEFT JOIN mv_post_flw_tag AS flw
-		ON flw.pstno = post.pstno
+		  ON flw.pstno = post.pstno
 		LEFT JOIN mv_post_cmt AS cmt
-		ON cmt.pstno = post.pstno
+		  ON cmt.pstno = post.pstno
 		LEFT JOIN mv_like AS lk
-		ON lk.pstno = post.pstno
+		  ON lk.pstno = post.pstno
 		WHERE
-		post.pstno=#{pstno}
+		  post.pstno=#{pstno}
 	</delete>
 
 	<delete id="deleteLockPost" parameterType="int">
 		DELETE IGNORE
-		post, type, tag, phot, flw, cmt
+		  post, type, tag, phot, flw, cmt
 
-		FROM mv_post AS post
+		FROM
+		  mv_post AS post
 		LEFT JOIN mv_post_type AS type
-		ON type.ptno = post.pstno
+		  ON type.ptno = post.pstno
 		LEFT JOIN mv_post_tag AS tag
-		ON tag.pstno = post.pstno
+		  ON tag.pstno = post.pstno
 		LEFT JOIN mv_post_phot AS phot
-		ON phot.pstno = post.pstno
+		  ON phot.pstno = post.pstno
 		LEFT JOIN mv_post_flw_tag AS flw
-		ON flw.pstno = post.pstno
+		  ON flw.pstno = post.pstno
 		LEFT JOIN mv_post_cmt AS cmt
-		ON cmt.pstno = post.pstno
+		  ON cmt.pstno = post.pstno
 		LEFT JOIN mv_like AS lk
-		ON lk.pstno = post.pstno
+		  ON lk.pstno = post.pstno
 		WHERE
-		opn='l'
-		AND post.pstno=#{pstno}
+		    opn='l'
+		  AND post.pstno=#{pstno}
 	</delete>
 
 	<update id="updatePost" parameterType="post">
@@ -319,9 +321,9 @@
 			<if test="star != null">star = #{star},</if>
 			<if test="open != null">opn = if(#{open},'u','l'),</if>
 		</trim>
-		,mdt = now()
+		  ,mdt = now()
 		WHERE
-		pstno=#{pstno}
+		  pstno=#{pstno}
 	</update>
 
 </mapper>

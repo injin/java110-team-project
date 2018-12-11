@@ -91,6 +91,28 @@ public class ReviewFeedController {
     resultMap.put("postsResult", postsResult);
     return resultMap;
   }
+  
+  // 나의 피드 무한스크롤
+  @RequestMapping("moreMyPost")
+  @ResponseBody
+  public Object moreMyPost(
+      @RequestBody Map<String, Object> request,
+      HttpSession session) throws Exception {
+    Member member = (Member)session.getAttribute("loginUser");
+
+    Map<String, Object> resultMap = new HashMap<>();
+    int pstno = Integer.valueOf((String)request.get("pstno"));
+
+    Map<String, Object> params = new HashMap<>();
+    params.put("mno", (member == null) ? 0 : member.getMno());
+    params.put("prevpstno", pstno);
+
+    List<Post> postsResult = postService.getPosts(params); 
+    resultMap.put("postsResult", postsResult);
+    
+    System.out.println(request.toString());
+    return resultMap;
+  }
 
   // 댓글 추가
   @PostMapping("addCmt")
@@ -194,20 +216,6 @@ public class ReviewFeedController {
       HttpServletRequest request) throws Exception {
     System.out.println("Controller recieve :\n\t" + post);
     postService.updatePost(post);
-    
-    
-
-    // 사진 데이터 처리
-//    String[] fileList = fileNames.split(",");
-//    List<String> filens = new ArrayList<>();
-//    
-//    for(int i=0;i<fileList.length;i++) {
-//      String file = fileList[i];
-//      if(file.length() > 0) {
-//        filens.add(file);
-//      }
-//    }
-//    post.setPhotos(filens);
     
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(

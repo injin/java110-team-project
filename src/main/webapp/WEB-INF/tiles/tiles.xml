@@ -33,10 +33,11 @@
       <put-attribute name="body" value="/WEB-INF/jsp/include/Feed.jsp"/>
       <put-attribute name="currentMenu" value="feed" />
       <put-list-attribute name="cssFiles">
-        <add-attribute value="/css/writingPost.css"/>
         <add-attribute value="/css/bootstrap-tagsinput.css"/>
+        <add-attribute value="/css/aos.css"/>
         <add-attribute value="/css/starrr.css"/>
         <add-attribute value="/css/detailPost.css"/>
+        <add-attribute value="/css/writingPost.css"/>
         <add-attribute value="/css/feed.css"/>
       </put-list-attribute>
     </definition>
