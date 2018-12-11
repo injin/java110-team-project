@@ -32,135 +32,137 @@
 </c:if>
 <%-- ====================================== if ================================================ --%>
 <%-- 포스터 보이는 부분 --%>
-<c:forEach items="${postList}" var="post" varStatus="status">
-  <c:if test="${status.last}">
-    <c:set var="lastpstno" value="${post.pstno}" />
-  </c:if>
-  <div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="1500">
-    <div class="media row pr-3 pl-3">
-      <img src="${post.member.profileImagePath}" class="rprofileImg" />
-      <div class="media-body">
-        <ul class="memberul">
-          <li>
-            <span onclick="goToFeed(${post.member.mno})"
-                  class="text-dark c-pointer">${post.member.nickname}</span>
-            <span class="cmt-date">&nbsp;
-              <fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}"/>
-            </span>
-<%-- =================================== POST HEADER ========================================== --%>
-            <c:choose>
-              <c:when test="${post.open == false}">
-                <i id="lock-${post.pstno}" class="fas fa-lock lock"
-                  style="display: block;"></i>
-              </c:when>
-            </c:choose>
-<%-- ==================================== POST OPEN? ========================================== --%>
-          </li>
-          <li><c:if test="${not empty post.ftags}">
-              <c:forEach items="${post.ftags}" var="ftag">
-                <span onclick="goToFeed(${ftag.mno})" class="tagName c-pointer"> ${ftag.nickname} </span>
-              </c:forEach>
-            </c:if></li>
-        </ul>
-        <c:if test="${post.pstTypeNo == 0}">
-          <p class="dptitle">
-            <b><i>${post.title}</i></b>
-          </p>
-        </c:if>
-      </div>
-      <%-- dropDownBtn 들어갈 부분 --%>
-      <c:if test="${targetUser.mno == loginUser.mno}">
-          <a class="dropdown-toggle c-pointer" id="dropdown01" 
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          </a>
-          <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
-            <c:choose>
-              <c:when test="${post.pstTypeNo == 0}">
-                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-                  onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
-              </c:when>
-              <c:otherwise>
-                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-                  onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
-              </c:otherwise>
-            </c:choose>
-            
-            <a class="dropdown-item c-pointer"
-              onclick="deletePost(${post.pstno})">삭제</a>
-          </div>
-      </c:if>
-      <%-- dropDownBtn 여기까지 --%>
-    </div>
-<%-- =================================== POST HEADER ========================================== --%>
-    <%-- 내용보여주는부분 --%>
-    <div class="clearfix media row m-1">
-      <div class="media-body">
-        <p class="reviewCont scrollbar-light-blue" id="reviewCont-${post.pstno}">
-          <script>
-            showCont("${post.content}", "${post.pstno}");
-          </script>
-        </p>
-      </div>
-      <c:if test="${post.photos[0] != null}">
-        <%-- 이미지 클릭시 상세모달로 --%>
-        <div class="image">
-          <img onclick="openDetailModal(${post.pstno})" src="/upload/post/${post.photos[0]}"
-              data-title="${post.title}" class="pstImgtoDetail img-responsive"/>
-          <input type="hidden" data-toggle="modal" id="detailPst" data-target="#detailModal"/>
-          <c:if test="${fn:length(post.photos) > 1}">
-            <div class="text">
-              <p>${fn:length(post.photos) - 1}장+</p>
-            </div>
-          </c:if>
-        </div>
-      </c:if>
-    </div>
-
-    <div class="row">
-      <%-- 좋아요 --%>
-    <div class="col-6 text-left">
-      <i class="fas fa-thumbs-up btmIcon c-pointer likeColor
-          <c:if test="${!post.likeCheck}"> dis-none</c:if>"
-        id="btn-like-full-${post.pstno}"
-        onclick="<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
-                 <c:if test="${not empty sessionScope.loginUser}">
-                     cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
-        "></i>
-        <i class="far fa-thumbs-up btmIcon c-pointer likeColor 
-            <c:if test="${post.likeCheck}"> dis-none</c:if>"
-          id="btn-like-empty-${post.pstno}"
-          onclick="<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
-                   <c:if test="${not empty sessionScope.loginUser}">
-                       addLike(${post.pstno},${post.pstTypeNo});</c:if>
-        "></i>
-        <span id="lCnt-${post.pstno}">${post.likeCnt}</span>
-        <i class="far fa-comment btmIcon c-pointer"
-            onclick="showMore(this,${post.pstno})">
-        </i>
-        <span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
-    </div>
-    <%-- 별점 --%>
-      <c:if test="${post.pstTypeNo == 0}">
-        <div class='col-6 text-right'>
-          <c:if test="${0 ne post.star}">
-            <c:forEach begin="1" end="5" var="x">
-              <c:choose>
-                <c:when test="${x le post.star}">
-                  <i class="fas fa-star sStar"></i>
-                </c:when>
-                <c:otherwise>
-                  <i class="far fa-star sStar"></i>
-                </c:otherwise>
-              </c:choose>
-            </c:forEach>
-          </c:if>
-        </div>
-      </c:if>
-
-    </div>
-
-  </div>
-</c:forEach>
+<%-- <c:if test> --%>
+	<c:forEach items="${postList}" var="post" varStatus="status">
+	  <c:if test="${status.last}">
+	    <c:set var="lastpstno" value="${post.pstno}" />
+	  </c:if>
+	  <div class="wPost reviewPst list-group-item aos-init" data-aos="fade-up" data-aos-duration="1500">
+	    <div class="media row pr-3 pl-3">
+	      <img src="${post.member.profileImagePath}" class="rprofileImg" />
+	      <div class="media-body">
+	        <ul class="memberul">
+	          <li>
+	            <span onclick="goToFeed(${post.member.mno})"
+	                  class="text-dark c-pointer">${post.member.nickname}</span>
+	            <span class="cmt-date">&nbsp;
+	              <fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}"/>
+	            </span>
+	<%-- =================================== POST HEADER ========================================== --%>
+	            <c:choose>
+	              <c:when test="${post.open == false}">
+	                <i id="lock-${post.pstno}" class="fas fa-lock lock"
+	                  style="display: block;"></i>
+	              </c:when>
+	            </c:choose>
+	<%-- ==================================== POST OPEN? ========================================== --%>
+	          </li>
+	          <li><c:if test="${not empty post.ftags}">
+	              <c:forEach items="${post.ftags}" var="ftag">
+	                <span onclick="goToFeed(${ftag.mno})" class="tagName c-pointer"> ${ftag.nickname} </span>
+	              </c:forEach>
+	            </c:if></li>
+	        </ul>
+	        <c:if test="${post.pstTypeNo == 0}">
+	          <p class="dptitle">
+	            <b><i>${post.title}</i></b>
+	          </p>
+	        </c:if>
+	      </div>
+	      <%-- dropDownBtn 들어갈 부분 --%>
+	      <c:if test="${targetUser.mno == loginUser.mno}">
+	          <a class="dropdown-toggle c-pointer" id="dropdown01" 
+	              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          </a>
+	          <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
+	            <c:choose>
+	              <c:when test="${post.pstTypeNo == 0}">
+	                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+	                  onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+	              </c:when>
+	              <c:otherwise>
+	                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+	                  onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+	              </c:otherwise>
+	            </c:choose>
+	            
+	            <a class="dropdown-item c-pointer"
+	              onclick="deletePost(${post.pstno})">삭제</a>
+	          </div>
+	      </c:if>
+	      <%-- dropDownBtn 여기까지 --%>
+	    </div>
+	<%-- =================================== POST HEADER ========================================== --%>
+	    <%-- 내용보여주는부분 --%>
+	    <div class="clearfix media row m-1">
+	      <div class="media-body">
+	        <p class="reviewCont scrollbar-light-blue" id="reviewCont-${post.pstno}">
+	          <script>
+	            showCont("${post.content}", "${post.pstno}");
+	          </script>
+	        </p>
+	      </div>
+	      <c:if test="${post.photos[0] != null}">
+	        <%-- 이미지 클릭시 상세모달로 --%>
+	        <div class="image">
+	          <img onclick="openDetailModal(${post.pstno})" src="/upload/post/${post.photos[0]}"
+	              data-title="${post.title}" class="pstImgtoDetail img-responsive"/>
+	          <input type="hidden" data-toggle="modal" id="detailPst" data-target="#detailModal"/>
+	          <c:if test="${fn:length(post.photos) > 1}">
+	            <div class="text">
+	              <p>${fn:length(post.photos) - 1}장+</p>
+	            </div>
+	          </c:if>
+	        </div>
+	      </c:if>
+	    </div>
+	
+	    <div class="row">
+	      <%-- 좋아요 --%>
+	    <div class="col-6 text-left">
+	      <i class="fas fa-thumbs-up btmIcon c-pointer likeColor
+	          <c:if test="${!post.likeCheck}"> dis-none</c:if>"
+	        id="btn-like-full-${post.pstno}"
+	        onclick="<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+	                 <c:if test="${not empty sessionScope.loginUser}">
+	                     cancelLike(${post.pstno},${post.pstTypeNo});</c:if>
+	        "></i>
+	        <i class="far fa-thumbs-up btmIcon c-pointer likeColor 
+	            <c:if test="${post.likeCheck}"> dis-none</c:if>"
+	          id="btn-like-empty-${post.pstno}"
+	          onclick="<c:if test="${empty sessionScope.loginUser}"> loginError()</c:if>
+	                   <c:if test="${not empty sessionScope.loginUser}">
+	                       addLike(${post.pstno},${post.pstTypeNo});</c:if>
+	        "></i>
+	        <span id="lCnt-${post.pstno}">${post.likeCnt}</span>
+	        <i class="far fa-comment btmIcon c-pointer"
+	            onclick="showMore(this,${post.pstno})">
+	        </i>
+	        <span id="cCnt-${post.pstno}">${post.cmtCnt}</span>
+	    </div>
+	    <%-- 별점 --%>
+	      <c:if test="${post.pstTypeNo == 0}">
+	        <div class='col-6 text-right'>
+	          <c:if test="${0 ne post.star}">
+	            <c:forEach begin="1" end="5" var="x">
+	              <c:choose>
+	                <c:when test="${x le post.star}">
+	                  <i class="fas fa-star sStar"></i>
+	                </c:when>
+	                <c:otherwise>
+	                  <i class="far fa-star sStar"></i>
+	                </c:otherwise>
+	              </c:choose>
+	            </c:forEach>
+	          </c:if>
+	        </div>
+	      </c:if>
+	
+	    </div>
+	
+	  </div>
+	</c:forEach>
+<%-- </c:if> --%>
 <p>
   <a class="return-top" href="#" class="d-block" style="right: auto">
     <img src="/img/top-btn.png" width="20%" height="20%">

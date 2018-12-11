@@ -205,9 +205,8 @@
           mno=#{mno}
     </update>
 
-    <select id="getFeedListFirst" resultMap="postMap2"
-        parameterType="int">
-        select
+    <select id="getFeedListFirst" resultMap="postMap2" parameterType="map">
+        SELECT
         p.pstno,
         p.mvno,
         p.ptno,
@@ -232,6 +231,9 @@
         select mno, flw from mv_flw where mno = #{mno}
         ) f on f.flw = m.mno
         where m.mno = #{mno}
+        <if test="isMyFeed == false">
+            and p.opn = 'u'
+        </if>
         order by
          cdt desc
         limit 15
@@ -276,6 +278,9 @@
         from temp
         where rnum <![CDATA[ >= ]]>
         (select rnum from temp where prevpstno = #{prevpstno})
+        <if test="isMyFeed == false">
+            and p.opn = 'u'
+        </if>
         limit 15
     </select>
         

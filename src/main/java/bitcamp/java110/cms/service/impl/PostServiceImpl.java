@@ -46,19 +46,32 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<Post> getPosts(Map<String, Object> params) {
-
+    System.out.println("getPosts recieve Params : " + params.toString());
     List<Post> posts = null;
     if ((params.get("prevpstno")).equals("x")) {
-      posts = postDao.findAll((int) (params.get("mno")));
-    } else if ((params.get("prevpstno")).equals("owner")) {
-      posts = postDao.getMyPostList((int) (params.get("mno")));
-    } else if ((params.get("prevpstno")).equals("visitor")) {
-      posts = postDao.getOthersPostList((int) (params.get("mno")));
+      if(params.get("where").equals("main")) {
+        posts = postDao.findAll((int) (params.get("mno")));
+      }  else if (params.get("where").equals("personal")) {
+        Map <String, Object> condition = new HashMap<>();
+        condition.put("mno", ((int) (params.get("mno"))));
+        condition.put("isMyFeed", params.get("isMyFeed"));
+        posts = postDao.getFeedListFirst(condition);
+      }
     } else if ((params.get("prevpstno")).equals("forKeyword")) {
       posts = postDao.findByKeyword(params);
     } else {
-      posts = postDao.findSome(params);
+      if(params.get("where").equals("main")) {
+        posts = postDao.findSome(params);
+      } else if (params.get("where").equals("personal")) {
+        Map <String, Object> condition = new HashMap<>();
+        condition.put("mno", ((int) (params.get("mno"))));
+        condition.put("isMyFeed", params.get("isMyFeed"));
+        posts = postDao.getFeedListSome(condition);
+      }
     }
+    
+    
+    
 
     for (int i = 0; i < posts.size(); i++) {
       posts.get(i).setPhotos(postPhotoDao.findByNo(posts.get(i).getPstno()));

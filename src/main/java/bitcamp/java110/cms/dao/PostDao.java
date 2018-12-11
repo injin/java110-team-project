@@ -9,7 +9,7 @@ public interface PostDao {
   int insert(Post post);
   List<Post> findAll(int mno);
   List<Post> findSome(Map<String, Object> params);
-  List<Post> getFeedListFirst(int mno);
+  List<Post> getFeedListFirst(Map<String, Object> params);
   List<Post> getFeedListSome(Map<String, Object> params);
   Post findOne(int pstno);
   
