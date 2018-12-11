@@ -64,14 +64,58 @@ public class ReviewFeedController {
     }
 
     Map<String, Object> params = new HashMap<>();
-    params.put("mno", (member==null)?0:member.getMno());
+    params.put("mno", (member==null) ? 0 : member.getMno());
+    params.put("where", "main");
     params.put("prevpstno", "x");
 
     model.addAttribute("postList", postService.getPosts(params));
 
     return "reviewFeed/reviewFeedList";
   }
-
+  
+  // 마이페이지-피드
+  @RequestMapping("/Feed")
+  public String Feed(
+      Post post,
+      Model model,
+      int id,
+      HttpSession session) {
+    Map<String, Object> params = new HashMap<>();
+    
+    Member loginUser = ((Member)session.getAttribute("loginUser"));
+    Member targetUser = memberService.findByMno(id);
+    System.out.println("loginUser: " + loginUser.toString());
+    System.out.println("targetUser: " + targetUser.toString());
+    List<Post> list = null;
+    
+    if (loginUser != null) {
+      targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), id));
+    }
+    //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.
+//    int visitor;
+//    if(loginUser != null) {
+//      visitor = loginUser.getMno();
+//    } else {
+//      visitor = 0;
+//    }
+    
+    boolean isMyFeed = false;
+    if(loginUser != null) {
+      isMyFeed = (id == (loginUser.getMno()));
+    }
+    
+    params.put("prevpstno", "x");
+    params.put("where", "personal");
+    params.put("mno", id);
+    params.put("isMyFeed", isMyFeed);
+    list = postService.getPosts(params);
+    
+    session.setAttribute("targetUser", targetUser);
+    model.addAttribute("isMyFeed", isMyFeed);
+    model.addAttribute("postList", list);
+    return "include/Feed";
+  }
+  
   // 피드 무한스크롤
   @RequestMapping("morePost")
   @ResponseBody
@@ -86,6 +130,7 @@ public class ReviewFeedController {
     Map<String, Object> params = new HashMap<>();
     params.put("mno", (member==null)?0:member.getMno());
     params.put("prevpstno", pstno);
+    params.put("where", "main");
 
     List<Post> postsResult = postService.getPosts(params); 
     resultMap.put("postsResult", postsResult);
@@ -98,19 +143,26 @@ public class ReviewFeedController {
   public Object moreMyPost(
       @RequestBody Map<String, Object> request,
       HttpSession session) throws Exception {
-    Member member = (Member)session.getAttribute("loginUser");
-
+    Member loginUser = (Member)session.getAttribute("loginUser");
+    int id = ((Member) session.getAttribute("targetUser")).getMno();
+    
     Map<String, Object> resultMap = new HashMap<>();
     int pstno = Integer.valueOf((String)request.get("pstno"));
-
+    
+    boolean isMyFeed = false;
+    if(loginUser != null) {
+      isMyFeed = (id == (loginUser.getMno()));
+    }
+    
     Map<String, Object> params = new HashMap<>();
-    params.put("mno", (member == null) ? 0 : member.getMno());
+    params.put("mno", id);
     params.put("prevpstno", pstno);
-
+    params.put("where", "personal");
+    params.put("isMyFeed", isMyFeed);
+    
     List<Post> postsResult = postService.getPosts(params); 
     resultMap.put("postsResult", postsResult);
     
-    System.out.println(request.toString());
     return resultMap;
   }
 
@@ -232,56 +284,6 @@ public class ReviewFeedController {
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
-  }
-
-  // 마이페이지-피드
-  @RequestMapping("/Feed")
-  public String Feed(
-      Post post,
-      Model model,
-      int id,
-      HttpSession session) {
-    Map<String, Object> params = new HashMap<>();
-    
-    Member m = ((Member)session.getAttribute("loginUser"));
-    
-    //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.
-    int visitor;
-    if(m != null) {
-      visitor = m.getMno();
-    } else {
-      visitor = 0;
-    }
-    
-    Member targetUser = memberService.findByMno(id);
-    if (m != null) targetUser.setFlw(flwService.flwCheck(m.getMno(), id));
-    model.addAttribute("targetUser", targetUser);
-
-    List<Post> list = null;
-//    if(visitor == id) {
-//      params.put("prevpstno", "owner");
-//      params.put("mno", id);
-//      list = postService.getPosts(params);
-//    } else {
-//      params.put("prevpstno", "visitor");
-//      params.put("mno", id);
-//      list = postService.getPosts(params);
-//    }
-    
-    if(visitor == id) {
-      params.put("prevpstno", "x");
-      params.put("who", "owner");
-      params.put("mno", id);
-      list = postService.getPosts(params);
-    } else {
-      params.put("prevpstno", "x");
-      params.put("who", "visitor");
-      params.put("mno", id);
-      list = postService.getPosts(params);
-    }
-    
-    model.addAttribute("postList", list);
-    return "include/Feed";
   }
   
   // 파일 업로드
