@@ -180,14 +180,18 @@ $(function() {
                 }
             });
         },
-        focus: function(event, ui) {
+        select: function(event,ui) {
             event.preventDefault();
+          $("#movieSearch").val(ui.item.label);
         },
-        select: function( event, ui ) {
-            $("#movieSearch").val(ui.item.label);
-            $("#movieId").val(ui.item.value);
-            $('#reviewTxtarea').focus();
-            return false;
+        change: function(event,ui) {
+            event.preventDefault();
+            if (ui.item == null || ui.item == undefined) {
+                $("#movieSearch").val('');
+            }else{
+                $("#movieId").val(ui.item.value);
+                $("#movieSearch").val(ui.item.label);      
+            }
         }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
@@ -230,7 +234,7 @@ $(function() {
 
 //  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
-        
+
         if($('#pstno').is('input')){
             $('#reviewModal form').attr('action', 'add');
             $('#pstno').remove();
@@ -251,7 +255,7 @@ $(function() {
             $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
             $('#reviewModal #temp').attr('id', 'showStar');
         }
-        
+
         $('.counter').replaceWith('<span class="counter float-right mt-1 mb-1" >글자 제한 1000자</span>');
         $('#showStar').after('<div id="temp" ></div>');
 
@@ -272,11 +276,10 @@ $(function() {
         uploadFileNames = [];
         $("#media-list").html('');
     });
-    
+
     // 글자제한
     $('#reviewTxtarea').keyup(function (e){
         var content = $(this).val();
-        /*$(this).height(((content.split('\n').length + 1) * 1.5) + 'em');*/
         $('.counter').html(content.length + '/1000');
     });
     $('#reviewTxtarea').keyup();
@@ -337,7 +340,7 @@ function morePostHtml(data){
 
         html += '                    </li></ul>';
 
-       
+
         if(data.postsResult[i].pstTypeNo == 0){
             html += '<p class="dptitle">';
             html += '<b><i>';
