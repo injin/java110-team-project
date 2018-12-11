@@ -35,6 +35,8 @@ public class ReportController {
        List<Report> reportList = reportService.list(condition);
       
        model.addAttribute("reportList", reportList);
+       
+       System.out.println(reportList);
       
       return "report/admin";
     
@@ -60,4 +62,13 @@ public class ReportController {
   }
 
 
+  @RequestMapping("/updateHcont")
+  public @ResponseBody boolean updateHcont(Report report) {
+    
+    boolean result =  reportService.updateHcont(report);
+    
+    return result;
+  }
+  
+  
 }

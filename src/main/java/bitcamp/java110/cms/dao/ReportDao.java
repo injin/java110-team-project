@@ -13,5 +13,6 @@ public interface ReportDao {
   void signOut(int mno);
   int getTotalCnt();
   int insertHcont(Report report);
+  int updateHcont(Report report);
   
 }

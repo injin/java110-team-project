@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel='stylesheet' href='/css/common.css'>
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <style>
 table {
 	text-align: center;
@@ -126,13 +128,14 @@ textarea {
 									data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="true">처리</button>
 								<div class="dropdown-menu">
-									<textarea class="report-textarea">${report.hcont}</textarea>
+									<textarea class="report-textarea" id="ucont-${report.rptno}">${report.hcont}</textarea>
 									<div class="dropdown-divider"></div>
-									<button class="btn report-btn float-right ">수정</button>
+									<button class="btn report-btn float-right " onclick="insertHcont('ucont-${report.rptno}')">수정</button>
 								</div>
 							</div></td>
 					</c:otherwise>
 				</c:choose>
+				</tr>
 		</c:forEach>
 	</tbody>
 </table>
@@ -153,8 +156,8 @@ textarea {
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button class="btn report-btn" data-dismiss="modal"
-					onclick="insertHcont()">입력</button>
+				<button class="btn report-btn" 
+					onclick="insertHcont('hcont')">입력</button>
 			</div>
 		</div>
 	</div>
@@ -175,6 +178,8 @@ textarea {
 	<input type="hidden" name="pageNo">
 </form>
 
+
+<script src="/js/vendor/noty.js"></script>
 <script>
 
     var currentRptno;
@@ -188,13 +193,22 @@ textarea {
         $('#listForm').submit();
     }
 
-    function insertHcont() {
-        var contVal = $('textarea[id="hcont"]').val();
+    function insertHcont(type) {
+        var contVal;
+        if(type == 'hcont'){
+            contVal = $('textarea[id="hcont"]').val();    
+        }else{
+            // type = ucont-xxx
+            currentRptno = type.substr(6);
+            contVal = $('textarea[id='+type+']').val();
+        }
+        
         if (contVal == '') {
-            alert('내용을 입력해 주세요.');
+            commonAlert('error','내용을 입력해 주세요.');
+            return;
         }
   
-        $.ajax({
+         $.ajax({
             url : "/app/report/addHndl",
             type: "post",
             data : {
@@ -204,19 +218,32 @@ textarea {
             success : function(data) {
                 if (data == true) {
                   
-                   var html ='';
-                        html += '<div class="btn-group dropright">';
-                        html += '<button type="button" class="btn report-btn2 report-btn-size dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">처리</button>'
-                        html += '<div class="dropdown-menu">'
-                        html += '<textarea class ="report-textarea resize-none">'+ contVal +'</textarea>'
-                        html += '<div class="dropdown-divider"></div>'
-                        html += '<button class ="btn report-btn" onclick>수정</button></div>'
-                        html += '</div>'
-                        html += '</div>'
+                    if(type == 'hcont'){
+                        $('#hcont').val('');
+                        $('#reportModal').modal('hide');
                         
-                    $('#report-btn-' + currentRptno).html(html);
-                    $('#hcont').val('');
-                   
+                        var html = '<div class="btn-group dropright">';
+                        html += '<button type="button" class="btn report-btn2 report-btn-size dropdown-toggle" data-toggle="dropdown"';
+                        html += '     aria-haspopup="true" aria-expanded="true">처리</button>';
+                        html += '<div class="dropdown-menu">';
+                        html += '<textarea class="report-textarea" id="ucont-';
+                        html += currentRptno;
+                        html += '">';
+                        html += contVal;
+                        html += '</textarea>';
+                        html += '<div class="dropdown-divider"></div>';
+                        html += '<button class="btn report-btn float-right " onclick="insertHcont(\'ucont-';
+                        html += currentRptno;
+                        html += '\')">수정</button>';
+                        html += '</div>';
+                        html += '</div>';
+                        $('#report-btn-'+currentRptno).html(html);
+                        
+                    }else{
+                        $('#ucont-'+currentRptno).val(contVal);
+                    }
+
+                    commonAlert('success','처리되었습니다');
                 }
                 
             },
@@ -225,7 +252,8 @@ textarea {
                 console.log(status);
                 console.log(msg);
             }
-        });
+        });  
+ 
     }
 </script>
 
