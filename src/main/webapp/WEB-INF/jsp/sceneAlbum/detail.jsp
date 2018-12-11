@@ -9,7 +9,7 @@
         <div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
             <span class="titl">${sceneAlbum.lbmTitle}</span>
             <c:if test="${isMyAlbum == true}">
-                <div class="a_btn btn btn-success btn-lg mr-2"
+                <div class="a_btn btn btn-primary btn-lg mr-2"
                     onclick="editButton(${sceneAlbum.lbmno}, '${sceneAlbum.lbmTitle}', ${sceneAlbum.open})" <%-- data-lbmno="${sceneAlbum.lbmno}"
                     data-lbm-title="${sceneAlbum.lbmTitle}"
                     data-open="${sceneAlbum.open}" --%>>수정하기</div>
@@ -25,13 +25,10 @@
             </c:if>
             <c:forEach var="sceneReview" items="${sceneReview}"
                 varStatus="status">
-                <div class="col-4 scene">
-                    <a
-                        href="/app/sceneReview/review?mvno=${sceneReview.mvno}&srno=${sceneReview.srno}">
-                        <img class="card-img-top hot-sr-img"
+                <div class="col-4 scene c-pointer" onclick="goToSR(${sceneReview.mvno},${sceneReview.srno})">
+                    <img class="card-img-top hot-sr-img"
                         src="/upload/sceneReview/${sceneReview.photo}"
                         alt="Card image cap">
-                    </a>
                     <div class="card-body">
                         <div class="card-title overflow">
                             <b><span>${sceneReview.title}</span></b>
@@ -71,10 +68,9 @@
         
         // 상단의 앨범 편집 버튼 누를 경우 
         function editTitle(lbmno){
-            console.log('editTitle.lbmno : '+lbmno);
             var html = '';
             html += '<div class="form-group">';
-            html += '<input type="text" name="tContent" class="form-control" placeholder="보관함명">';
+            html += '<input type="text" name="tContent" class="form-control" autocomplete="off" placeholder="보관함명">';
             html += '<a href=#><i class="far fa-check-circle" onclick="editBtn('+lbmno+')" style="font-size:1.5rem;"></i></a></div>';
             
             $('.title_box').html(html);
@@ -100,9 +96,7 @@
                    "lbmTitle": $('.title_box input[name="tContent"]').val()
                 }),
                 success:function(data){
-                    console.log('앨범명 수정');
-                    alert('앨범명 수정 완료');
-                    console.log(data);
+                    commonAlert('success', '앨범명을 수정하였습니다.');
                     showLbmList(data);
                     $('.title_box').html(html);
                 }
@@ -118,8 +112,6 @@
         
         // 수정모달에서 앨범명 클릭시 변화
         function editAlbum(lbmno, lbmTitle, open){
-            
-            console.log('editAlbum: '+lbmno, lbmTitle, open);
             
             var html='<button type="button" class="close" data-dismiss="modal"';
             html+='aria-label="Close">';
@@ -162,11 +154,9 @@
             $( ".openIcon" ).toggleClass(function(){
                if($(this).find('i').hasClass('globe')){
                    open = false;
-                   console.log('공개 ->비공개' + open);
                    $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-lock lock"></i></span>');
                }else{
                    open = true;
-                   console.log('비공개 ->공개' + open);
                    $(this).parent().html('<span class="openIcon" onclick="editOpen('+lbmno +','+ open+')"><i class="fas fa-globe-americas globe"></i></span>');
                }
                 
@@ -185,9 +175,7 @@
                    "open" : open
                 }),
                 success:function(data){
-                    //console.log('공개여부 수정완료');
-                    //alert('공개여부 수정완료');
-                    console.log('editopen 성공: '+data.sceneAlbum.lbmno, data.sceneAlbum.lbmTitle, data.sceneAlbum.open);
+                    commonAlert('success', '공개여부를 수정하였습니다.');
                     showLbmList(data);
                     editAlbum(data.sceneAlbum.lbmno, data.sceneAlbum.lbmTitle, data.sceneAlbum.open);
                 }
@@ -197,8 +185,9 @@
         // 앨범 삭제
         function removeLbm(lbmno){
             console.log('removeLbm ' + lbmno);
-            
-            $.ajax({
+            // 여기 고치렴
+            console.log($(this).parent().html());
+           /*  $.ajax({
                 type:'POST',
                 url: '/app/sceneAlbum/removeLbm',
                 headers: {
@@ -208,12 +197,13 @@
                    "lbmno" :  lbmno
                 }),
                 success:function(data){
-                    console.log('앨범 삭제함');
-                    alert('앨범 삭제 완료');
+                    //editAlbum(lbmno, lbmTitle, open);
+                    nextDiv.click();
+                    commonAlert('success', '앨범을 삭제하였습니다.');
                     showLbmList(data);
                     
                 }
-            }); 
+            });  */
         }
         
         // 앨범 목록 보여주기
@@ -236,7 +226,6 @@
             console.log('showSrList 진입');
             var html = '';
             for(var i=0; i<data.sceneReview.length; i++){
-                console.log(data.sceneReview[i].photo);
             html += '<div class="col-4">';
             html += '<div class="btn-group">';
             html += '<a class="c-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h"></i></a>';
@@ -251,6 +240,11 @@
             html += '"           alt="Card image cap"></div>';
             }
             $('.srlist').html(html);
+            
+            if($('.srlist').children().length == 0){
+                $('.srlist').html('<div style="margin-top: 13rem;"><p style="text-align: center;">해당 앨범에 보관된 장면이 없습니다.</p></div>');
+            }
+            
         }
         
         // 앨범속 장면 삭제
@@ -267,8 +261,7 @@
                    "srno" : srno
                 }),
                 success:function(data){
-                    console.log('이미지 삭제함');
-                    alert('이미지 삭제 완료');
+                    commonAlert('success', '장면을 삭제하였습니다.');
                     showSrList(data);
                 }
             }); 
@@ -276,8 +269,6 @@
         
         // 대표이미지 설정
         function setImg(photo, lbmno){
-            console.log('photo '+photo);
-            console.log('lbmno '+lbmno);
             
              $.ajax({
                 type:'POST',
@@ -290,9 +281,12 @@
                    "phot" : photo
                 }),
                 success:function(data){
-                    console.log('대표이미지 설정함');
-                    alert('대표이미지 설정 완료');
+                    commonAlert('success', '대표이미지로 설정하였습니다.');
                 }
             }); 
+        }
+        
+        function goToSR(mvno,srno){
+            location.href = "/app/sceneReview/review?mvno="+mvno+"&srno="+srno;
         }
     </script>

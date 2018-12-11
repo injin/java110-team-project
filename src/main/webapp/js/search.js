@@ -1,11 +1,11 @@
-$(function() {
+/*$(function() {
 
   //검색버튼 클릭
     $("#showAllMovies").click(function(){
-/*        var objParams = {
+        var objParams = {
                 searchCd : $("input[name=searchCd]").val() //검색할 코드 (실제로 예제에서는 사용 안함)
         }
-*/     
+     
         //var movieList = ${movieList};
         
         var values = []; //ArrayList 값을 받을 변수를 선언
@@ -37,7 +37,7 @@ $(function() {
          
     });
     
-    /*
+    
     $( "#showAllMovies" ).on('click', function(e) {
 //        source: function( request, response ) {
             $.ajax({
@@ -83,11 +83,11 @@ $(function() {
     //검색버튼 클릭
     $("#showAllMovies").click(function(){
     });
-*/  
+  
     
     
     
-    /*             count++;
+                 count++;
 
 
                 if (count == 1) {
@@ -119,11 +119,11 @@ $(function() {
                 } else {
                     alert('count==2')
                     //getMovieList(this);
-                } */
+                } 
 
             
     var keyword = '${keyword}';
-      /*      function getMovieList(input) {
+            function getMovieList(input) {
                 var values = []; //ArrayList 값을 받을 변수를 선언
                 console.log(keyword);
                 console.log(totalResults);
@@ -152,9 +152,9 @@ $(function() {
                         }
                     }
                 });
-            }*/
+            }
     
-/*     요걸로! 
+     요걸로! 
     <script type="text/javascript">
 
     var movieList = new Array();
@@ -179,8 +179,8 @@ $(function() {
         j += 3; 
     }; 
 
-    </script> */
-  /* 
+    </script> 
+   
     window.onload= function(){
          document.getElementById('showAllMovies').onclick = function () 
         { 
@@ -203,9 +203,9 @@ $(function() {
         };
         }; 
      
-    */
     
-/*    <script type="text/javascript">
+    
+    <script type="text/javascript">
 
 
         $('.showAll').click(function() {
@@ -215,6 +215,7 @@ $(function() {
                
            </c:forEach>
        }); 
-    </script>*/ 
+    </script> 
     
 });
+*/

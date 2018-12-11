@@ -135,7 +135,7 @@ function getSimilarBaseFavList() {
     complete: function() {
       $randomBaseSection.show();
     },
-    error: (xhr, status, msg) => {
+    error: function(xhr, status, msg) {
       $randomBaseItems.text('정보를 가져오는데 실패하였습니다.');
       console.log(status);
       console.log(msg);

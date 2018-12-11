@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/common.css'>
 
-
+<t:importAttribute name="currentMenu"/>
 <t:importAttribute name="cssFiles"/>
 <c:forEach var="css" items="${cssFiles}">
     <link rel="stylesheet" type="text/css" href="${css}">
@@ -48,28 +48,19 @@
                 <img src="${targetUser.coverImagePath}" id="mypage-cover-img">
                 <div class="row">
                     <div class="col-lg-12">
-                    <table class="table">
-                      <thead id="mypage-menu">
-                        <tr class="d-flex">
-                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></th>
-                          <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></th>
-                          <c:choose>
-                            <c:when test="${targetUser.mno == loginUser.mno}">
-                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/stsc/list"/>">통계</a></th>
-                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></th>
-                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></th>
-                              <th scope="col" class="col-2 text-center"><a href="<c:url value="/app/auth/update"/>">정보수정</a></th>
-                            </c:when>
-                            <c:otherwise>
-                              <th scope="col" class="col-2 text-center"></th>
-                              <th scope="col" class="col-2 text-center"></th>
-                              <th scope="col" class="col-2 text-center"></th>
-                              <th scope="col" class="col-2 text-center"></th>
-                            </c:otherwise>
-                          </c:choose>
-                        </tr>
-                      </thead>
-                    </table>
+                    
+                        <div class="tab_container">
+                            <ul>
+                                <li id="li-feed"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></li>
+                                <li id="li-sceneAlbum"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></li>
+                                <c:if test="${targetUser.mno == loginUser.mno}">
+                                    <li id="li-statis"><a href="<c:url value="/app/stsc/list"/>">통계</a></li>
+                                    <li id="li-follow"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></li>
+                                    <li id="li-log"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></li>
+                                    <li id="li-update"><a href="<c:url value="/app/auth/update"/>">정보수정</a></li>
+                                </c:if>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
@@ -86,6 +77,11 @@
     <jsp:include page="../footer.jsp"></jsp:include>
     
    <script>
+   
+   //현재 메뉴 활성화
+   $('#li-${currentMenu}').addClass('active');
+   
+   // 팔로우 하기
    function addFollow(mno,nickname) {
        
        $.ajax({
@@ -104,7 +100,7 @@
                } 
                
            },
-           error: (xhr, status, msg) => {
+           error: function(xhr, status, msg) {
                console.log(xhr);
                console.log(status);
                console.log(msg);

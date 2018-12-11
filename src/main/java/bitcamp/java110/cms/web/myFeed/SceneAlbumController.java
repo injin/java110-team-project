@@ -46,6 +46,7 @@ public class SceneAlbumController {
       isMyAlbum = (tgtMno == ((Member)session.getAttribute("loginUser")).getMno());
     }
     
+    paging.setPageSize(6);
     paging.setTotalCount(sceneAlbumService.getTotalCnt(tgtMno, isMyAlbum));
     
     model.addAttribute("sceneAlbumList", sceneAlbumService.pageList(tgtMno, paging, isMyAlbum));

@@ -228,7 +228,7 @@
         console.log(id);
         location.reload();
       },
-      error: (xhr, status, msg) => {
+      error: function(xhr, status, msg) {
           console.log(xhr);
           console.log(status);
           console.log(msg);
