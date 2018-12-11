@@ -7,7 +7,8 @@
 <section class="col-lg-12">
     <div class="row detailList col-lg-12 p-0">
         <div class="col-lg-12 mt-4 ml-3 pr-5 mb-5">
-            <span class="titl">${sceneAlbum.lbmTitle}</span>
+            <span class="titl">${sceneAlbum.lbmTitle}
+            </span>
             <c:if test="${isMyAlbum == true}">
                 <div class="a_btn btn btn-primary btn-lg mr-2"
                     onclick="editButton(${sceneAlbum.lbmno}, '${sceneAlbum.lbmTitle}', ${sceneAlbum.open})" <%-- data-lbmno="${sceneAlbum.lbmno}"
@@ -47,10 +48,30 @@
 </section>
 
 <script>
+
+var lbmno = ${sceneAlbum.lbmno};
+var tgtMno = ${targetUser.mno};
+var removedLbmno = [];
+        
         // 모달 종료시 reload
         $(document.body).on('hidden.bs.modal', '#mgrModal', function (e) {           
-            location.reload();
-            $('#mgrModal').show();
+            
+            var isRemoved = false;
+            
+            for(var i=0; i<removedLbmno.length; i++){
+                if(removedLbmno[i]==lbmno){
+                    isRemoved = true;
+                }
+            }
+            
+            if(isRemoved == false){
+	            location.reload();
+	            $('#mgrModal').show();
+            }else{
+                commonAlert('error','해당 앨범은 삭제되었습니다.');
+                location.href= "/app/sceneAlbum/list?tgtMno="+tgtMno;
+            }
+            
         });
         
         // 모달 상단에 앨범명 수정 위한 마우스 오버 이벤트 
@@ -182,12 +203,20 @@
             });    
         }
         
-        // 앨범 삭제
+        // 앨범 삭제여부 확인
         function removeLbm(lbmno){
-            console.log('removeLbm ' + lbmno);
-            // 여기 고치렴
-            console.log($(this).parent().html());
-           /*  $.ajax({
+           
+            commonConfirm(lbmno, '정말로 삭제하시겠습니까?');
+        }
+        
+        // 앨범 삭제
+        function deleteLbm(lbmno){
+            
+            var html;
+            html += '<div class="title_box">앨범을 선택해주세요.</div>';
+            html += '<div class="row"></div>';
+            
+             $.ajax({
                 type:'POST',
                 url: '/app/sceneAlbum/removeLbm',
                 headers: {
@@ -197,13 +226,13 @@
                    "lbmno" :  lbmno
                 }),
                 success:function(data){
-                    //editAlbum(lbmno, lbmTitle, open);
-                    nextDiv.click();
+                    $('.title_box').text('앨범을 선택해주세요.').css('cursor','default').next().find('span.openIcon').remove();
+                    removedLbmno.push(lbmno);
                     commonAlert('success', '앨범을 삭제하였습니다.');
                     showLbmList(data);
                     
                 }
-            });  */
+            });
         }
         
         // 앨범 목록 보여주기

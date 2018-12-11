@@ -10,7 +10,6 @@
 
 				<!-- Modal-Header -->
 				<div class="modal-header form-inline">
-					<h5 class="modal-title"></h5>
 
 					<div class="title_box">
 						${sceneAlbum.lbmTitle} <span class="title_edit"
