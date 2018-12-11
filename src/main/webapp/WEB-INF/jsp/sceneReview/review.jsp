@@ -15,6 +15,16 @@
 <link rel="stylesheet" href="/css/common.css">
 <link rel="stylesheet" href="/css/card.css">
 <link rel="stylesheet" href="/css/movieReview.css">
+
+<style>
+#loader {
+    position: fixed;
+    top: 30%;
+    left: 45%;
+    z-index: 9999;
+    display: none;
+}
+</style>
 </head>
 <body>
 
@@ -249,6 +259,8 @@
     <input type="hidden" name="cont">
 </form>
 
+<img id="loader" src="/img/loader.gif">
+
 </main>
     
     <jsp:include page="../include/commonJs.jsp"></jsp:include>
@@ -360,41 +372,13 @@
     var currentFileName;
     var currentCmtFileName;
     $('#srAddModal input[name="phot"]').change(function() {
-        if (currentFileName != null) {
-            removeFile(currentFileName, 'sr');
-        }
         var file = $(this)[0].files[0];
         uploadFile(file, 'sr');
     });
     $('#addCommentForm input[name="phot"]').change(function() {
-        if (currentCmtFileName != null) {
-            removeFile(currentCmtFileName, 'cmt');
-        }
         var file = $(this)[0].files[0];
         uploadFile(file, 'cmt');
     });
-    
-    function removeFile(fileName, type) {
-        $.ajax({
-            url : "/app/sceneReview/fileRemove",
-            type: "post",
-            data : { 'fileName' : fileName },
-            success : function(result) {
-                if (result == true) {
-                    if (type == 'sr') {
-                        currentFileName = null;
-                    } else if (type == 'cmt') {
-                        currentCmtFileName = null;
-                    }
-                }
-            },
-            error : function(error) {
-                commonAlert('error',"파일 삭제에 실패하였습니다.");
-                console.log(error);
-                console.log(error.status);
-            }
-        });
-    }
     
     function uploadFile(file, type) {
         var formData = new FormData();
@@ -412,7 +396,7 @@
             type: "post",
             data : formData,
             beforeSend: function() {
-                
+                $('#loader').show();
             },
             success : function(data) {
                 if (data != null) {
@@ -429,7 +413,7 @@
                 console.log(error.status);
             },
             complete : function() {
-                
+                $('#loader').hide();
             }
         });
     }
