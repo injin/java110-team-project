@@ -9,7 +9,7 @@ import bitcamp.java110.cms.domain.SceneReviewMap;
 
 public interface SceneReviewDao {
   
-  Integer insert(SceneReview sceneReview);
+  void insert(SceneReview sceneReview);
   Integer insertCmt(SceneReviewCmt sceneReviewCmt);
   Integer insertCmtMap(SceneReviewMap sceneReviewMap);
   Integer findOneSrno(int mvno);

@@ -122,8 +122,8 @@ function showCont(cont, index) {
             <ul class="carousel-indicators mb-0 pb-0">
                 <li data-target="#hotSr" data-slide-to="0"
                     class="active"></li>
-                <li data-target="#hotSr" data-slide-to="1"></li>
-                <li data-target="#hotSr" data-slide-to="2"></li>
+<!--                 <li data-target="#hotSr" data-slide-to="1"></li> -->
+                <!-- <li data-target="#hotSr" data-slide-to="2"></li> -->
             </ul>
 
             <div class="carousel-inner no-padding my-5">
@@ -147,6 +147,9 @@ function showCont(cont, index) {
                                             data-toggle="modal"
                                             id="detailPst"
                                             data-target="#detailModal" />
+                                            <figure class="snip1361">
+                                             <img class src="/upload/post/${post.photos[0]}" alt="sample45"/>
+                                            <figcaption>
                                         <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted">
@@ -161,13 +164,13 @@ function showCont(cont, index) {
                                         <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${post.pstno}">
                                                  <script>
-                                                 
                                                          showCont("${post.content}",
                                                                   "${post.pstno}");
                                                  </script>
                                         </p>
-                                        <img class="img-sr"
-                                            src="/upload/post/${post.photos[0]}">
+                                        </figcaption>
+                                        </figure>
+                                       
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -178,27 +181,29 @@ function showCont(cont, index) {
                                             data-toggle="modal"
                                             id="detailPst"
                                             data-target="#detailModal" />
+                                        <figure class="snip1361">
+                                             <img class src="/img/default.jpg" alt="sample45"/>
+                                            <figcaption>
                                         <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
-                                        
-                                        <c:choose>
-                                        <c:when  test="${post.member.profileImage == null}">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                        <img src="/img/default-profile-img.png" class="main-cmt-img">
-                                        ${post.member.nickname}</h6>
-                                        </c:when>
-                                        <c:otherwise>
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                        <img src="${post.member.profileImage}" class="main-cmt-img">
-                                        ${post.member.nickname}</h6>
-                                        </c:otherwise>
-                                        </c:choose>
-                                        <p class="card-text p-hot2 reviewCont"
+                                                <c:if  test="${post.member.profileImage == null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                                     ${post.member.nickname}</h6>
+                                                </c:if>
+                                                <c:if  test="${post.member.profileImage != null}">
+                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <img src="${post.member.profileImage}" class="main-cmt-img">
+                                                    ${post.member.nickname}</h6>
+                                                </c:if>
+                                        <p class="card-text p-hot reviewCont"
                                             id="reviewCont-${post.pstno}">
-                                            <script>
-                                                showCont("${post.content}",
-                                                        "${post.pstno}");
-                                            </script>
+                                                 <script>
+                                                         showCont("${post.content}",
+                                                                  "${post.pstno}");
+                                                 </script>
                                         </p>
+                                        </figcaption>
+                                        </figure>
                                     </div>
                                 </c:otherwise>
                             </c:choose>
@@ -324,6 +329,12 @@ function showCont(cont, index) {
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
+    
+    $(".hover").mouseleave(
+            function () {
+              $(this).removeClass("hover");
+            }
+          );
     var sessionMember = {
             "nickname" : '${sessionScope.loginUser.nickname}',
             "profileImage" : '${sessionScope.loginUser.profileImage}',
