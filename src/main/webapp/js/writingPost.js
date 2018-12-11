@@ -99,10 +99,11 @@ $(function() {
                     + "</i></a><div></div>";
                     $mlist.prepend(div);
                 });
+                picReader.readAsDataURL(file);
             } else {
                 //이미지외의자료임
+                commonAlert('error',"이미지만 업로드 가능합니다.");
             }
-            picReader.readAsDataURL(file);
         }
     }
 
@@ -180,10 +181,6 @@ $(function() {
                 }
             });
         },
-        select: function(event,ui) {
-            event.preventDefault();
-          $("#movieSearch").val(ui.item.label);
-        },
         change: function(event,ui) {
             event.preventDefault();
             if (ui.item == null || ui.item == undefined) {
@@ -192,7 +189,16 @@ $(function() {
                 $("#movieId").val(ui.item.value);
                 $("#movieSearch").val(ui.item.label);      
             }
+        },
+        select: function(event,ui) {
+            event.preventDefault();
+            $("#movieSearch").val(ui.item.label);
+            
+            return false;
+        }, close: function( event, ui ) {
+            event.preventDefault();
         }
+        
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
@@ -203,6 +209,7 @@ $(function() {
         .appendTo( ul );
     };
     $("#movieSearch").on("focus",function(){
+        commonAlert('success',"자동완성된 리스트에서 영화를 선택해주세요.");
         $("#movieId").val(0);
         $("#movieSearch").val("");
     });

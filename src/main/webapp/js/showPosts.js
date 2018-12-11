@@ -129,7 +129,7 @@ function showMore(element,pstno){
             h += '</div>';
         }
 
-        h += '<div class="comment-main rounded m-0 scrollbar-light-blue w-100">';
+        h += '<div class="comment-main rounded m-0 w-100 scrollbar-light-blue col">';
         h += '<ul class="p-0" id="cmt-area-';
         h += postList[index].pstno;
         h += '">';
