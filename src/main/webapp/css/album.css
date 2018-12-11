@@ -52,6 +52,9 @@
 	pointer-events: none;
 }
 /* 앨범 수정 모달 */
+.openIcon:hover{
+	cursor: pointer;
+}
 #mgrModal .modal-content{
     margin: 0 auto;
     width: 110%;
@@ -95,6 +98,7 @@
     overflow: hidden;
 }
 .title_box{
+	margin: 0 auto;
 	font-size: 1.5rem; 
 	font-weight: bold;
 	cursor: pointer;
