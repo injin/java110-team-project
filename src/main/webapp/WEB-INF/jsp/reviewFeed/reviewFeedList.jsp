@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰피드</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
 <link rel='stylesheet' href='/css/bootstrap.css'>

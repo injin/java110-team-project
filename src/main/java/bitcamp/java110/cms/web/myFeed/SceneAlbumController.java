@@ -97,9 +97,9 @@ public class SceneAlbumController {
     // 현재 클릭된 앨범에 담긴 장면
     model.addAttribute("srList", srList);
     
-    // 현재 클릭된 앨범의 앨범명, 공개여부...
+    // 현재 클릭된 앨범의 앨범명, 공개여부, open, lbmno...
     model.addAttribute("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
-    
+    System.out.println(sceneAlbumService.get(sceneAlbum.getLbmno()));
     // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
     
