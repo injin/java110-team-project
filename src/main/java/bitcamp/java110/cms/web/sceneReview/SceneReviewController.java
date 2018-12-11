@@ -85,6 +85,16 @@ public class SceneReviewController {
     return null;
   }
   
+  @RequestMapping("/fileRemove")
+  public @ResponseBody boolean removeFile(
+      String fileName) {
+    File targetFile = new File(sc.getRealPath("/upload/sceneReview/" + fileName));
+    if (targetFile.exists()) {
+      return targetFile.delete();
+    }
+    return false;
+  }
+  
   
   @PostMapping("/add")
   public String add(SceneReview sceneReview,
@@ -95,7 +105,8 @@ public class SceneReviewController {
     
     sceneReviewService.add(sceneReview);
     
-    return "redirect:/app/sceneReview/review?mvno=" + sceneReview.getMvno();
+    return "redirect:/app/sceneReview/review?mvno=" + sceneReview.getMvno()
+            + "&srno=" + sceneReview.getSrno();
   }
   
   @PostMapping("delete")
