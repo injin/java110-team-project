@@ -14,7 +14,7 @@ function openDetailModal(pstno) {
     $('#detailModal #ownerNick').replaceWith(hForNick);
     $('#detailModal #dCont').html($('#reviewCont-'+postList[index].pstno).html());
     $('#detailModal #dpstno').val(postList[index].pstno);
-    $('#detailModal #cdate').text(new Date(postList[index].createdDate).toLocaleDateString('ko-KR')); 
+    $('#detailModal #cdate').text(" "+new Date(postList[index].createdDate).toLocaleDateString('ko-KR')); 
 
 
     /* 별 부분*/
@@ -44,6 +44,7 @@ function openDetailModal(pstno) {
         $('#rightcol').removeClass('col-12').addClass('col-4');
         
         
+        
         var h ='';
         h += '<ol class="carousel-indicators">';
         for (var i=0; i<postList[index].photos.length; i++) {
@@ -57,12 +58,14 @@ function openDetailModal(pstno) {
         h += '<div class="carousel-inner">';
         for (var i=0; i<postList[index].photos.length; i++) {
             if(i ==0){
-                h += '    <div class="carousel-item active m-2">';}
+                h += '    <div class="carousel-item active">';}
             else{
                 h += '    <div class="carousel-item">';        
             }
             h += '        <img class="d-block w-100 carouselHeight" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
             h += '    </div>';
+            h += '  <div class="carousel-caption"></div>';
+            
         }
         h += '</div>';
 
@@ -75,6 +78,7 @@ function openDetailModal(pstno) {
         h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
         h += '    <span class="sr-only">Next</span>';
         h += '</a>';
+        
     }
 
 

@@ -32,15 +32,15 @@
                 <%-- 오른쪽 col --%>
                 <div class="col-4" id="rightcol">
 
-                    <div class="media row pr-4 pl-4">
+                    <div class="media row pr-4 pl-4 mb-1">
                         <img id="ownerImg" src="/img/default-profile-img.png" />
                         <div class="media-body">
                             <ul class="mb-0 pl-0 float-left memberul" id="nickwrap">
-                                <li><span id="ownerNick">닉네임</span></li>
+                                <li><span id="ownerNick">닉네임</span><span class="cmt-date" id="cdate"></span></li>
                                 <%-- 친구태그 --%>
                                 <li id="dftags"></li>
                             </ul>
-                            <span class="cmt-date" id="cdate"></span>
+                            
                         </div>
                     </div>
 
