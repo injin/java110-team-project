@@ -51,7 +51,7 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #showStar').remove();
   $('#reviewModal #temp').starrr({
     change: function(e, value){
-    	$("#star").val(value);
+        $("#star").val(value);
     },
     rating: star
   })
@@ -65,7 +65,7 @@ function openEditingModal(pstno, type) {
   /*  시간 관계상 사진 update 기능은 처리 하지 않기로 했음.
   //  사진 처리
   if (postList[index].photos.length != 0){
-    console.log("사진있다");
+    
   }
   */
   $('#reviewModal .file').hide();

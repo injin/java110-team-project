@@ -149,11 +149,7 @@ public class PostServiceImpl implements PostService {
     mlog.setUrl(String.valueOf(post.getPstno()));
     mlogDao.insert(mlog);
   }
-
-  /**
-   * JEAHA delete 수정중
-   * 
-   */
+  
   @Override
   public Boolean deletePost(int pstno) {
     Post p = postDao.findOne(pstno);
@@ -178,11 +174,6 @@ public class PostServiceImpl implements PostService {
   @Override
   public void updatePost(Post post) {
     postDao.updatePost(post);
-    /*
-     * List<String> plst = post.getPhotos(); for(int i=0;i<plst.size();i++){ HashMap<String, Object>
-     * params = new HashMap<>(); params.put("phot", plst.get(i)); params.put("pstno",
-     * post.getPstno()); postPhotoDao.insert(params); }
-     */
   }
 
   /* 댓글 */

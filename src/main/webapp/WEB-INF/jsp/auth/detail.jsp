@@ -10,6 +10,7 @@
   <head>
     <meta charset="UTF-8">
     <title>회원 가입 상세 정보</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
     <link rel='stylesheet' href='/css/bootstrap.css'>
     <link rel='stylesheet' href='/css/accountDetail.css'>
     <link rel="stylesheet" href="/css/vendor/noty.css">
