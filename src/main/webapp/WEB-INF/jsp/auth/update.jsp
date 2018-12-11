@@ -36,12 +36,8 @@
                <h3>자기소개</h3>
                <section id="pr-section">
                   <div class="form-group">
-<<<<<<< HEAD
                      <textarea class="pr form-control resize-none scrollbar-light-blue" name="pr" autocomplete="off">${loginUser.pr}
                      </textarea>
-=======
-                     <input type="text" class="pr form-control update" name="pr" value="${loginUser.pr}" autocomplete="off">
->>>>>>> j1
                   </div>
                </section>
                <hr>
