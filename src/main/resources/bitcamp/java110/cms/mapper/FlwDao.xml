@@ -88,6 +88,14 @@
             pstno=#{value}
     </select>
     
+    <select id="rcmdflw" resultMap="flwMap" parameterType="int">
+        Select m.mno as mno, m.nick as nick, m.p_phot as p_phot 
+        From mv_memb m where m.mno not in
+        (SELECT flw from mv_flw WHERE m.mno=#{value})
+        And m.mno != 21
+        limit 5;
+    </select>
+    
     <delete id="signOut1" parameterType="int">
        DELETE
            FROM mv_flw

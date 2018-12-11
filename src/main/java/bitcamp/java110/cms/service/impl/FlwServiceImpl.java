@@ -33,6 +33,11 @@ public class FlwServiceImpl implements FlwService{
    public int getTotalCnt(int mno) {
        return flwDao.getTotalCnt(mno);
    }
+   
+   @Override
+   public List<Member> rcmdflw(int mno) {
+     return flwDao.rcmdflw(mno);
+   }
 
     @Override
     public boolean delete(int mno, int flw) {

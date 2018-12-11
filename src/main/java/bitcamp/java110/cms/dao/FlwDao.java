@@ -12,6 +12,7 @@ public interface FlwDao {
     int flwdelete(Map<String, Object> condition);
     int flwadd(Map<String, Object> condition);
     int insertForPost(Map<String, Object> condition);
+    List<Member> rcmdflw(int mno);
     List<Member> listForPost(int no);
     void signOut1(int mno);
     void signOut2(int mno);
