@@ -117,7 +117,7 @@ function showCont(cont, index) {
         </div>
 
         <!-- 슬라이더 START -->
-        <div id="hotSr" class="carousel slide" data-ride="carousel">
+        <div id="hotSr" class="carousel slide" data-ride="carousel" data-interval="false">
 
             <ul class="carousel-indicators mb-0 pb-0">
                 <li data-target="#hotSr" data-slide-to="0"
