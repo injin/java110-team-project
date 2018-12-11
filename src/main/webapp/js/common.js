@@ -4,6 +4,27 @@ $(document.body).on('mouseover', '.scrollbar-light-blue', function(){
         }).on('mouseleave', '.scrollbar-light-blue', function(){
             $(this).css('overflow', 'hidden');
         });
+// CONFIRM ==========================
+function commonConfirm(no, text){
+    var n = new Noty({
+        theme: 'sunset',
+        text: text,
+        buttons: [
+            Noty.button('NO', 'btn btn-light buttonNo', function () {
+                console.log('button 2 clicked');
+                n.close();
+            }),
+          Noty.button('YES', 'btn btn-primary buttonYes', function () {
+              /*$(this).css('float', 'right');*/
+              deleteLbm(no);
+              n.close();
+              console.log('button 1 clicked');
+          }, {id: 'button1', 'data-status': 'ok'})
+        ]
+      });
+      n.show();
+}
+
 // ALERT ============================
 function commonAlert(type, text) {
     new Noty({
