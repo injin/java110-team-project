@@ -79,22 +79,15 @@ public class SceneReviewController {
     
     if (phot != null && phot.getSize() > 0) {
       String filename = UUID.randomUUID().toString();
-      phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
-      return filename;
+      try {
+        phot.transferTo(new File(sc.getRealPath("/upload/sceneReview/" + filename)));
+        return filename;
+      } catch (Exception e) {
+        return null;
+      }
     }
     return null;
   }
-  
-  @RequestMapping("/fileRemove")
-  public @ResponseBody boolean removeFile(
-      String fileName) {
-    File targetFile = new File(sc.getRealPath("/upload/sceneReview/" + fileName));
-    if (targetFile.exists()) {
-      return targetFile.delete();
-    }
-    return false;
-  }
-  
   
   @PostMapping("/add")
   public String add(SceneReview sceneReview,
