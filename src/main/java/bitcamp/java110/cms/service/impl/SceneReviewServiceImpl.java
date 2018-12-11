@@ -88,7 +88,6 @@ public class SceneReviewServiceImpl implements SceneReviewService {
       gparams.put("grnoList", grnoList);
       movieAnlyDao.insertGrAllNotExists(gparams);
     }
-    
   }
   
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
