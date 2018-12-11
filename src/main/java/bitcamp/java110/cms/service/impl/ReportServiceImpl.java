@@ -88,4 +88,14 @@ public class ReportServiceImpl implements ReportService {
           return false;
     }
   
+   @Override
+  public boolean updateHcont(Report report) {
+    
+     if (reportDao.updateHcont(report)>0) {
+       return true;
+     } else {
+       return false;
+     }
+  }
+  
 }

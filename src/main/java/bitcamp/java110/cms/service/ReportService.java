@@ -13,4 +13,5 @@ public interface ReportService {
     boolean checkReported(String target, int mno);
     boolean addHcont(Report report);
     int getTotalCnt();
+    boolean updateHcont(Report report);
 }
