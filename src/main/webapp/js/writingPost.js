@@ -341,7 +341,7 @@ function morePostHtml(data){
                 html +=  data.postsResult[i].ftags[j].mno;
                 html +=')" class="tagName c-pointer">';
                 html += data.postsResult[i].ftags[j].nickname; 
-                html += '</span>';
+                html += '&nbsp;</span>';
             }
         }
 
@@ -356,6 +356,31 @@ function morePostHtml(data){
         }
 
         html += '               </div>';
+        
+        /*
+        <c:if test="${targetUser.mno == loginUser.mno}">
+        <a class="dropdown-toggle c-pointer" id="dropdown01" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </a>
+        <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
+          <c:choose>
+            <c:when test="${post.pstTypeNo == 0}">
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+            </c:when>
+            <c:otherwise>
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+            </c:otherwise>
+          </c:choose>
+          
+          <a class="dropdown-item c-pointer"
+            onclick="deletePost(${post.pstno})">삭제</a>
+        </div>
+    </c:if>
+        */
+        
+        
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';

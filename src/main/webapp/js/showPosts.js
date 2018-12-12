@@ -40,7 +40,7 @@ function showMore(element,pstno){
     var html = '';
 
     var $thisDiv = $(element).parent().parent();
-    if(!$thisDiv.next().is('input')){
+    if(!($thisDiv.next().is('input') || $thisDiv.next().is('div'))){
         for (var j=0; j<postList.length; j++) {
             if(postList[j].pstno == pstno){
                 var index = j;

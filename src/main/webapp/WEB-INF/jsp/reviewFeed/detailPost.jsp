@@ -84,7 +84,8 @@
                             </c:otherwise>
                         </c:choose>
                         <%-- 댓글리스트 --%>
-                        <div class="comment-main rounded m-0 w-100 scrollbar-light-blue col">
+                        <div class="comment-main rounded m-0 w-100 scrollbar-light-blue
+                         <c:if test="${not empty sessionScope.loginUser}">col</c:if>">
                             <ul class="p-0" id="cmt-area">
                             </ul>
                         </div>
