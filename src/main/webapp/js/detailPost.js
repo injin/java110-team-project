@@ -103,7 +103,7 @@ function openDetailModal(pstno) {
 }
 
 $('#detailModal').on('hidden.bs.modal', function (e) {
-    $(':input').val('');
+    $('#pCmt').val('');
 })
 
 function toDetail(id) {

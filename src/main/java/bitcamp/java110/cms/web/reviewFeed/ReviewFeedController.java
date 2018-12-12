@@ -87,6 +87,9 @@ public class ReviewFeedController {
     List<Post> list = null;
 
     if (loginUser != null) {
+      List<Member> flwList = flwService.listAll(loginUser.getMno());
+      model.addAttribute("userFlwList", flwList); 
+      
       targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), id));
     }
     //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.

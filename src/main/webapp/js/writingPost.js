@@ -335,6 +335,12 @@ function morePostHtml(data,whereLast){
         html += '</span>'; 
         html += '</li><li>';
 
+        if(!data.postsResult[i].open){
+        html += '<i id="lock-';
+        html +=  data.postsResult[i].pstno;
+        html +=    '" class="fas fa-lock lock d-inline">&nbsp;</i>';
+        }
+
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
                 html += '<span onclick="goToFeed(';
@@ -344,7 +350,6 @@ function morePostHtml(data,whereLast){
                 html += '&nbsp;</span>';
             }
         }
-
         html += '                    </li></ul>';
 
 
@@ -362,10 +367,13 @@ function morePostHtml(data,whereLast){
             var idlst = whereLast.split("=");
 
             if(idlst[1] == sessionMember.mno){
-                html += '<a class="dropdown-toggle c-pointer" id="dropdown01"'; 
-                html += 'data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
-                html += '</a>';
-                html += '<div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">';
+                html += '<i class="fas fa-ellipsis-v c-pointer dropCss" id="dropdown-';
+                html += data.postsResult[i].pstno;
+                html += '" ';
+                html += '   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>';
+                html += '<div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown-';
+                html += data.postsResult[i].pstno;
+                html += '">';
 
                 if(data.postsResult[i].pstTypeNo == 0){
                     html += '    <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"';

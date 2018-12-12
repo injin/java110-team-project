@@ -50,15 +50,15 @@
 	              <fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${post.createdDate}"/>
 	            </span>
 	<%-- =================================== POST HEADER ========================================== --%>
-	            <c:choose>
-	              <c:when test="${post.open == false}">
-	                <i id="lock-${post.pstno}" class="fas fa-lock lock"
-	                  style="display: block;"></i>
-	              </c:when>
-	            </c:choose>
+	             
 	<%-- ==================================== POST OPEN? ========================================== --%>
 	          </li>
-	          <li><c:if test="${not empty post.ftags}">
+	          <li>
+	          
+	           <c:if test="${post.open == false}">
+                    <i id="lock-${post.pstno}" class="fas fa-lock lock d-inline">&nbsp;</i>
+                  </c:if>
+	          <c:if test="${not empty post.ftags}">
 	              <c:forEach items="${post.ftags}" var="ftag">
 	                <span onclick="goToFeed(${ftag.mno})" class="tagName c-pointer"> ${ftag.nickname} </span>
 	              </c:forEach>
@@ -70,29 +70,39 @@
 	          </p>
 	        </c:if>
 	      </div>
-	      <%-- dropDownBtn 들어갈 부분 --%>
-	      <c:if test="${targetUser.mno == loginUser.mno}">
-	          <a class="dropdown-toggle c-pointer" id="dropdown01" 
-	              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          </a>
-	          <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
-	            <c:choose>
-	              <c:when test="${post.pstTypeNo == 0}">
-	                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-	                  onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
-	              </c:when>
-	              <c:otherwise>
-	                <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-	                  onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
-	              </c:otherwise>
-	            </c:choose>
-	            
-	            <a class="dropdown-item c-pointer"
-	              onclick="deletePost(${post.pstno})">삭제</a>
-	          </div>
-	      </c:if>
-	      <%-- dropDownBtn 여기까지 --%>
+
+	          <%-- dropDownBtn 들어갈 부분 --%>
+          <c:if test="${targetUser.mno == loginUser.mno}">
+          <i class="fas fa-ellipsis-v c-pointer dropCss" id="dropdown-${post.pstno}" 
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+             <!--  <a class="dropdown-toggle c-pointer" id="dropdown01" 
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              </a> -->
+              <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown-${post.pstno}">
+                <c:choose>
+                  <c:when test="${post.pstTypeNo == 0}">
+                    <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+                  </c:when>
+                  <c:otherwise>
+                    <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                      onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+                  </c:otherwise>
+                </c:choose>
+                
+                <a class="dropdown-item c-pointer"
+                  onclick="deletePost(${post.pstno})">삭제</a>
+              </div>
+          </c:if>
+          <%-- dropDownBtn 여기까지 --%>
+	      
 	    </div>
+	    
+	    
+	  
+	    
+	    
+	    
 	<%-- =================================== POST HEADER ========================================== --%>
 	    <%-- 내용보여주는부분 --%>
 	    <div class="clearfix media row m-1">
@@ -180,7 +190,6 @@
 <script src="/js/bootstrap-tagsinput.min.js"></script>
 <script src="/js/typeahead.bundle.min.js"></script>
 <script src="/js/aos.js"></script>
-<script src="/js/feedPosts.js"></script>
 <script src="/js/writingPost.js"></script>
 <script src="/js/editingPost.js"></script>
 <script src="/js/detailPost.js"></script>
@@ -190,53 +199,57 @@
 <%-- ========================================================================================== --%>
   /* 원래 있던 부분 */
   AOS.init();
+  
   var sessionMember = {
-    "nickname" : '${sessionScope.loginUser.nickname}',
-    "profileImage" : '${sessionScope.loginUser.profileImage}',
-    "mno" : '${sessionScope.loginUser.mno}'
+          "nickname" : '${sessionScope.loginUser.nickname}',
+          "profileImage" : '${sessionScope.loginUser.profileImage}',
+          "mno" : '${sessionScope.loginUser.mno}'
   };
   
   var flwList = [];
   <c:forEach items="${userFlwList}" var="lst">
-    flwList.push({
+  flwList.push({
       "value" : "${lst.mno}",
       "text" : "${lst.nickname}"
-    });
+  });
   </c:forEach>
   var postList = []; 
-  
+   
   <c:forEach items="${postList}" var="post">
   
-    var pary =[];
-    <c:forEach items="${post.photos}" var="pht">
+  var pary =[];
+      <c:forEach items="${post.photos}" var="pht">
       pary.push('${pht}');
-    </c:forEach>
-    
-    var fary =[];
-    <c:forEach items="${post.ftags}" var="ft">
-      fary.push('${ft.nickname}');
-    </c:forEach>
-    
-    postList.push({
-      "pstno": ${post.pstno},
-      "title": '${post.title}',
-      member:{
-          "profileImagePath": '${post.member.profileImagePath}',
-          "nickname":'${post.member.nickname}',   
-          "mno":'${post.member.mno}'
-      },
-      "star": ${post.star},
-      "photos":pary,
-      "ftags":fary,
-      "likeCheck":'${post.likeCheck}',
-      "pstTypeNo":'${post.pstTypeNo}',
-      "createdDate":'${post.createdDate}',
-      "likeCnt":'${post.likeCnt}',
-      "open" : ${post.open},
-      "mvno" : ${post.mvno}
-    })
-  
+      </c:forEach>
+      var fary =[];    
+      <c:forEach items="${post.ftags}" var="ft">
+      fary.push({
+       "nickname":'${ft.nickname}',
+       "mno":'${ft.mno}'
+      });
+      </c:forEach>
+      
+       postList.push({
+          "pstno": '${post.pstno}',
+          "title": '${post.title}',
+          member:{
+              "profileImagePath": '${post.member.profileImagePath}',
+              "nickname":'${post.member.nickname}', 
+              "mno":'${post.member.mno}'
+          },
+          "star":'${post.star}',
+          "photos":pary,
+          "ftags":fary,
+          "likeCheck":'${post.likeCheck}',
+          "pstTypeNo":'${post.pstTypeNo}',
+          "createdDate":'${post.createdDate}',
+          "likeCnt":'${post.likeCnt}',
+          "open" : '${post.open}',
+          "mvno" : '${post.mvno}'
+      }) 
+      
   </c:forEach> 
-  var lstpstno = '${lastpstno}';
+   var lstpstno = '${lastpstno}';
+
   </script>
 <%-- ========================================================================================== --%>

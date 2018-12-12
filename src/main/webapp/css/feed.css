@@ -11,6 +11,12 @@
     float: right;
     
 }
+.dropCss{
+    position: relative;
+    left: 0.7rem;
+    top: -0.5rem;
+
+}
 /* .dropdown-menu {
     transform: translate3d(0px, 23px, 0px);
     margin: 0px;
