@@ -9,6 +9,8 @@
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
