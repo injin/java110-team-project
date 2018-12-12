@@ -37,14 +37,19 @@
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
                         <c:if test="${not empty sessionScope.loginUser}">
-                            <a href="#" data-toggle="modal" data-target="#srAddModal" class="btn-icon" ><img src="/img/btn-pencil.png"></a>
+                            <a data-toggle="modal" data-target="#srAddModal" class="btn-icon c-pointer" ><img src="/img/btn-pencil.png"></a>
                             <c:if  test="${sceneReview.trgtSrExist == true}">
                                 <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" ><img src="/img/btn-box2.png"></a>
-                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == false}">dis-none</c:if>" id="btn-heart-full" 
-                                        onclick="cancelLike()"><img src="/img/btn-heart-full.png"></span>
-                                    <span class="c-pointer btn-icon <c:if test="${sceneReview.like == true}">dis-none</c:if>" id="btn-heart-empty" 
-                                        onclick="addLike()"><img src="/img/btn-heart-empty.png"></span>
+                                <span class="c-pointer btn-icon <c:if test="${sceneReview.like == false}">dis-none</c:if>" id="btn-heart-full" 
+                                    onclick="cancelLike()"><img src="/img/btn-heart-full.png"></span>
+                                <span class="c-pointer btn-icon <c:if test="${sceneReview.like == true}">dis-none</c:if>" id="btn-heart-empty" 
+                                    onclick="addLike()"><img src="/img/btn-heart-empty.png"></span>
                             </c:if>
+                        </c:if>
+                        <c:if test="${empty sessionScope.loginUser}">
+                            <a class="btn-icon c-pointer" onclick="loginAlert()"><img src="/img/btn-pencil.png"></a>
+                            <a class="btn-icon c-pointer" onclick="loginAlert()"><img src="/img/btn-box2.png"></a>
+                            <span class="btn-icon c-pointer" id="btn-heart-empty"onclick="loginAlert()"><img src="/img/btn-heart-empty.png"></span>
                         </c:if>
                     </h3>
                     <p>(${tmdbMovie.releaseDate})</p>
@@ -92,10 +97,10 @@
                 <div class="alert alert-secondary" role="alert">
                     <c:choose>
                         <c:when test="${fn:length(sceneList) == 0}">
-                            <span>등록된 리뷰가 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
+                            <span>등록된 장면이 없습니다. <br>이 영화의 첫 리뷰어가 되어주세요!</span>
                         </c:when>
                         <c:when test="${sceneReview.trgtSrExist == false}">
-                            <span>해당 시간의 장면리뷰가 없거나 삭제되었습니다.</span>
+                            <span>해당 장면이 없거나 삭제되었습니다.</span>
                         </c:when>
                     </c:choose>
                 </div>
@@ -227,7 +232,7 @@
             
             <c:if test ="${fn:length(topReviewer) > 0}">
                 <div class="wrap d-inline-block w-100">
-                    <h5><b>추천 리뷰어</b></h5>
+                    <h5><b>기여 랭킹</b></h5>
                     <c:forEach items="${topReviewer}" var="reviewer">
                         <div class="mt-1 c-pointer txt-underline" onclick="goToFeed(${reviewer.mno})">
                         <div class="media">
@@ -267,13 +272,25 @@
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
     <script src="/js/vendor/linkify.js"></script>
+    <script src="/js/vendor/linkify-plugin-hashtag.js"></script>
     <script src="/js/vendor/linkify-jquery.js"></script>
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
+    
     $('.cmt-cont').linkify({
-        target: "_blank"
+        target: "_blank",
+        formatHref: function (href, type) {
+            if (type === 'hashtag') {
+                href = 'https://twitter.com/hashtag/' + href.substring(1);
+                return href;
+            }
+        }
     });
+    
+    function loginAlert() {
+        commonAlert('error', '로그인 후 이용하실 수 있습니다.');
+    }
     
     /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
