@@ -21,7 +21,6 @@ import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Member;
-import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.MemberService;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
@@ -52,10 +51,6 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public void add (Member member) {
     memberDao.insert(member);
-    Map<String, Object> condition = new HashMap<>();
-    condition.put("mno", member.getMno());
-    condition.put("sceneAlbum", new SceneAlbum("기본 앨범", true));
-    System.out.println("장면앨범 default 추가: "+lbmDao.insert(condition));
   }
   
   @Override
