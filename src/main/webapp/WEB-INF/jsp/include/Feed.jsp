@@ -8,6 +8,7 @@
 <!-- 작업공간 START -->
 <%-- ====================================== if ================================================ --%>
 <%-- 글 작성 부분 --%>
+<div id="pstShw">
 <c:if test="${targetUser.mno == loginUser.mno}">
   <div class="wPost">
     <h6 id="wreviewH6">리뷰 작성하기</h6>
@@ -168,6 +169,7 @@
     <img src="/img/top-btn.png" width="20%" height="20%">
   </a>
 <p>
+</div>
 <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
 <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>

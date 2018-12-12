@@ -359,12 +359,15 @@ input:checked+.slider:before {
 }
 
 /* ========== 맞춤 영화 관련  ========== */
+#stv_list{
+	width: 85%;
+}
 .smlrImg {
 	width: 3rem;
 	max-height: 4rem;
 }
 .fs09{
-	    font-size: 0.9rem;
+	    font-size: 0.8rem;
 }
 .trData {
 	padding: 1rem 0;

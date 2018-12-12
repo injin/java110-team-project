@@ -2,65 +2,72 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
- 
+
 <tiles-definitions>
- 
-    <definition name=".base-template" template="/WEB-INF/jsp/include/tiles/myPageTile.jsp">
-        <put-attribute name="body" />
-        <put-attribute name="currentMenu" />
-        <put-list-attribute name="cssFiles"></put-list-attribute>
-        <put-list-attribute name="jsFiles"></put-list-attribute>
-    </definition>
- 
-    <definition name="follow/*" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/follow/{1}.jsp"/>
-      <put-attribute name="currentMenu" value="follow" />
-    </definition>
-    
-    <definition name="log/*" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/log/{1}.jsp"/>
-      <put-attribute name="currentMenu" value="log" />
-      <put-list-attribute name="jsFiles" inherit="true">
-        <add-attribute value="/js/makeContPost.js"/>
-      </put-list-attribute>
-      <put-list-attribute name="cssFiles">
-        <add-attribute value="/css/aos.css"/>
-        <add-attribute value="/css/detailPost.css"/>
-      </put-list-attribute>
-    </definition>
-    
-    <definition name="include/Feed" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/include/Feed.jsp"/>
-      <put-attribute name="currentMenu" value="feed" />
-      <put-list-attribute name="cssFiles">
-        <add-attribute value="/css/bootstrap-tagsinput.css"/>
-        <add-attribute value="/css/aos.css"/>
-        <add-attribute value="/css/starrr.css"/>
-        <add-attribute value="/css/detailPost.css"/>
-        <add-attribute value="/css/writingPost.css"/>
-        <add-attribute value="/css/feed.css"/>
-      </put-list-attribute>
-    </definition>
-    
-    <definition name="statis/tic" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/statis/tic.jsp"/>
-      <put-attribute name="currentMenu" value="statis" />
-    </definition>
-    
-    <definition name="sceneAlbum/*" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/sceneAlbum/{1}.jsp"/>
-      <put-attribute name="currentMenu" value="sceneAlbum" />
-      <put-list-attribute name="cssFiles">
-        <add-attribute value="/css/album.css"/>
-      </put-list-attribute>
-    </definition>
-    
-    <definition name="auth/update" extends=".base-template">
-      <put-attribute name="body" value="/WEB-INF/jsp/auth/update.jsp"/>
-      <put-attribute name="currentMenu" value="update" />
-      <put-list-attribute name="cssFiles">
-        <add-attribute value="/css/accountDetail.css"/>
-      </put-list-attribute>
-    </definition>
-    
+
+	<definition name=".base-template"
+		template="/WEB-INF/jsp/include/tiles/myPageTile.jsp">
+		<put-attribute name="body" />
+		<put-attribute name="currentMenu" />
+		<put-list-attribute name="cssFiles"></put-list-attribute>
+		<put-list-attribute name="jsFiles"></put-list-attribute>
+	</definition>
+
+	<definition name="follow/*" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/follow/{1}.jsp" />
+		<put-attribute name="currentMenu" value="follow" />
+	</definition>
+
+	<definition name="log/*" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/log/{1}.jsp" />
+		<put-attribute name="currentMenu" value="log" />
+		<put-list-attribute name="jsFiles" inherit="true">
+			<add-attribute value="/js/makeContPost.js" />
+		</put-list-attribute>
+		<put-list-attribute name="cssFiles">
+			<add-attribute value="/css/aos.css" />
+			<add-attribute value="/css/detailPost.css" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="include/Feed" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/include/Feed.jsp" />
+		<put-attribute name="currentMenu" value="feed" />
+		<put-list-attribute name="cssFiles">
+			<add-attribute value="/css/bootstrap-tagsinput.css" />
+			<add-attribute value="/css/aos.css" />
+			<add-attribute value="/css/starrr.css" />
+			<add-attribute value="/css/detailPost.css" />
+			<add-attribute value="/css/writingPost.css" />
+			<add-attribute value="/css/feed.css" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="statis/tic" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/statis/tic.jsp" />
+		<put-attribute name="currentMenu" value="statis" />
+	</definition>
+
+	<definition name="sceneAlbum/*" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/sceneAlbum/{1}.jsp" />
+		<put-attribute name="currentMenu" value="sceneAlbum" />
+		<put-list-attribute name="cssFiles">
+			<add-attribute value="/css/album.css" />
+		</put-list-attribute>
+	</definition>
+
+	<definition name="auth/update" extends=".base-template">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/auth/update.jsp" />
+		<put-attribute name="currentMenu" value="update" />
+		<put-list-attribute name="cssFiles">
+			<add-attribute value="/css/accountDetail.css" />
+		</put-list-attribute>
+	</definition>
+
 </tiles-definitions>

@@ -341,7 +341,7 @@ function morePostHtml(data){
                 html +=  data.postsResult[i].ftags[j].mno;
                 html +=')" class="tagName c-pointer">';
                 html += data.postsResult[i].ftags[j].nickname; 
-                html += '</span>';
+                html += '&nbsp;</span>';
             }
         }
 
@@ -356,6 +356,31 @@ function morePostHtml(data){
         }
 
         html += '               </div>';
+        
+        /*
+        <c:if test="${targetUser.mno == loginUser.mno}">
+        <a class="dropdown-toggle c-pointer" id="dropdown01" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </a>
+        <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
+          <c:choose>
+            <c:when test="${post.pstTypeNo == 0}">
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+            </c:when>
+            <c:otherwise>
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+            </c:otherwise>
+          </c:choose>
+          
+          <a class="dropdown-item c-pointer"
+            onclick="deletePost(${post.pstno})">삭제</a>
+        </div>
+    </c:if>
+        */
+        
+        
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';
@@ -454,7 +479,6 @@ function morePostHtml(data){
 
         html += '   </div>';
     }  
-
     $('#pstShw').append(html); 
 
     doingLoad = false;
@@ -488,6 +512,17 @@ $(window).scroll(function() {
 
     if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
         doingLoad=true;
+        
+        var where = (window.location.href).split("/");
+        var whereLast = where[where.length-1];
+        var id;
+        if(whereLast == "list"){
+            id=0;
+        }else{
+            var idlst = whereLast.split("=");
+            id = idlst[idlst.length-1];
+        }
+        
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
@@ -495,7 +530,9 @@ $(window).scroll(function() {
                 'Content-Type': 'application/json'
             },
             data: JSON.stringify({ 
-                "pstno" : lstpstno
+                "pstno" : lstpstno,
+                "where" : whereLast,
+                "id":id
             }),
             success:function(data){
                 morePostHtml(data);

@@ -51,31 +51,27 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<Post> getPosts(Map<String, Object> params) {
-    System.out.println("getPosts recieve Params : " + params.toString());
+
     List<Post> posts = null;
-    if ((params.get("prevpstno")).equals("x")) {
+    
+    if ((params.get("prevpstno")).equals("x")) { // 처음
+      
       if(params.get("where").equals("main")) {
         posts = postDao.findAll((int) (params.get("mno")));
       }  else if (params.get("where").equals("personal")) {
-        Map <String, Object> condition = new HashMap<>();
-        condition.put("mno", ((int) (params.get("mno"))));
-        condition.put("isMyFeed", params.get("isMyFeed"));
-        posts = postDao.getFeedListFirst(condition);
+        posts = postDao.getFeedListFirst(params);
       }
+      
     } else if ((params.get("prevpstno")).equals("forKeyword")) {
       posts = postDao.findByKeyword(params);
     } else {
+      
       if(params.get("where").equals("main")) {
         posts = postDao.findSome(params);
       } else if (params.get("where").equals("personal")) {
-        Map <String, Object> condition = new HashMap<>();
-        condition.put("mno", ((int) (params.get("mno"))));
-        condition.put("isMyFeed", params.get("isMyFeed"));
-        posts = postDao.getFeedListSome(condition);
+        posts = postDao.getFeedListSome(params);
       }
     }
-    
-    
     
 
     for (int i = 0; i < posts.size(); i++) {

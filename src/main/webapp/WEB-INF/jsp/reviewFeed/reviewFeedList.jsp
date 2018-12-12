@@ -217,7 +217,7 @@
 										<div class="media-body">
 										<b>${smlrMv.title}</b>
 										<span class="row d-block fs09">${smlrMv.releaseDate}</span>
-											<span class="row d-block fs09">${smlrMv.voteAverage} / 10</span>
+											<span class="row d-block fs09">평점 ${smlrMv.voteAverage} / 10</span>
 											</div>
 									</tr>
 								</c:forEach>
