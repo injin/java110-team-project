@@ -20,5 +20,8 @@ public interface PostService {
     void addCmt(PostCmt postCmt);
     void deleteCmt(int pcno);
     void updateCmt(PostCmt postCmt);
+    
+    /* 영화정보 */
+    void setMovieInfo(List<Post> list);
 }
 

@@ -141,18 +141,12 @@ function showCont(cont, index) {
 
                             <c:choose>
                                 <c:when test="${not empty post.photos[0]}">
-                                    <div class="card-body hot"
-                                        onclick="openDetailModal(${post.pstno})"
-                                        data-title="${post.title}"
-                                        style="cursor: pointer">
-                                        <input type="hidden"
-                                            data-toggle="modal"
-                                            id="detailPst"
-                                            data-target="#detailModal" />
+                                    <div class="card-body hot c-pointer" onclick="openDetailModal(${post.pstno})" data-title="${post.title}">
+                                        <input type="hidden" data-toggle="modal" id="detailPst" data-target="#detailModal" />
                                             <figure class="snip1361">
-                                             <img class src="/upload/post/${post.photos[0]}" alt="sample45"/>
+                                             <img src="/upload/post/${post.photos[0]}" alt="sample45"/>
                                             <figcaption>
-                                        <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                            <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">
@@ -163,30 +157,22 @@ function showCont(cont, index) {
                                                     <img src="${post.member.profileImage}" class="main-cmt-img">
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
-                                        <p class="card-text p-hot reviewCont"
-                                            id="reviewCont-${post.pstno}">
-                                                 <script>
-                                                         showCont("${post.content}",
-                                                                  "${post.pstno}");
-                                                 </script>
-                                        </p>
-                                        </figcaption>
+                                                <p class="card-text"
+                                                    id="reviewCont-${post.pstno}">
+                                                         <script>showCont("${post.content}", "${post.pstno}");</script>
+                                                </p>
+                                            </figcaption>
                                         </figure>
-                                       
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="card-body hot"
-                                        onclick="openDetailModal(${post.pstno})"
-                                        style="cursor: pointer">
-                                        <input type="hidden"
-                                            data-toggle="modal"
-                                            id="detailPst"
-                                            data-target="#detailModal" />
+                                    <div class="card-body hot c-pointer" onclick="openDetailModal(${post.pstno})">
+                                        <input type="hidden" data-toggle="modal" id="detailPst" data-target="#detailModal" />
                                         <figure class="snip1361">
-                                             <img class src="/img/default.jpg" alt="sample45"/>
+                                            <!-- <img class src="/img/default.jpg" alt="리뷰 이미지"/> -->
+                                            <img src="${posterPrefix}${post.movieDb.posterPath}" alt="${post.movieDb.title}영화 포스터 이미지"/>
                                             <figcaption>
-                                        <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                                <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">
@@ -197,14 +183,11 @@ function showCont(cont, index) {
                                                     <img src="${post.member.profileImage}" class="main-cmt-img">
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
-                                        <p class="card-text p-hot reviewCont"
-                                            id="reviewCont-${post.pstno}">
-                                                 <script>
-                                                         showCont("${post.content}",
-                                                                  "${post.pstno}");
-                                                 </script>
-                                        </p>
-                                        </figcaption>
+                                                <p class="card-text"
+                                                    id="reviewCont-${post.pstno}">
+                                                         <script>showCont("${post.content}","${post.pstno}");</script>
+                                                </p>
+                                            </figcaption>
                                         </figure>
                                     </div>
                                 </c:otherwise>

@@ -52,10 +52,12 @@
 
             <%-- 친구 추천 부분 --%>
             <c:if test="${not empty sessionScope.loginUser}">
-				<table class="w-100" id="flwSmlr">
-					
-				</table>
-			</c:if>
+                <c:if test="${targetUser.mno == loginUser.mno}">
+                    <table class="w-100" id="flwSmlr">
+                        
+                    </table>
+                </c:if>
+            </c:if>
 
         </aside>
         <div class="col-9 borderGray p-0" id="mypage-right">
@@ -99,9 +101,9 @@
     <jsp:include page="../footer.jsp"></jsp:include>
 
     <script>
-	
-	//친구 추천 리스트 가져오기
- 	$.ajax({
+    
+    //친구 추천 리스트 가져오기
+     $.ajax({
         url : "/app/follow/flwrcmd",
         type: "post",
         success : function(data) {
@@ -109,25 +111,29 @@
             console.log(data);
             
             var html ='';
+                html +='<thead>';
                 html +='<tr>';
-                html +='<td>비슷한 취향의 유저</td>';
+                html +='<th>비슷한 취향의 유저</th>';
                 html +='</tr>';
+                html +='</thead>';
+                html +='<tbody>';
             data.forEach(function(value, index) {
                 console.log(value);
                 html += '<tr>';
                 html += '<td><img src="'+value.profileImage+'" class="profile4X4">';
                 html += ''+value.nickname+'';
-                html += '<button class="btn btn-primary float-right" id="flwBtn">팔로우</button>';
-                html += '</td>'
+                html += '<button class="btn btn-outline-primary float-right" id="flwBtn">팔로우</button>';
+                html += '</td>';
                 html += '</tr>';
-                $('#flwSmlr').html(html);
             });
+                html +='</tbody>';
+                $('#flwSmlr').html(html);
             
         }
         });
-	
-	
-	
+    
+    
+    
    //현재 메뉴 활성화
    $('#li-${currentMenu}').addClass('active');
    

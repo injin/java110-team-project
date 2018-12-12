@@ -3,6 +3,7 @@ package bitcamp.java110.cms.domain;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
+import info.movito.themoviedbapi.model.MovieDb;
 
 public class Post implements Serializable {
 
@@ -27,8 +28,7 @@ public class Post implements Serializable {
   protected List<String> photos;
   protected List<Member> ftags;
   protected String ftagsForAdd;
-  
-  
+  protected MovieDb movieDb;
   
   public int getCmtCnt() {
     return cmtCnt;
@@ -132,12 +132,20 @@ public class Post implements Serializable {
   public void setPhotos(List<String> photos) {
     this.photos = photos;
   }
+  public MovieDb getMovieDb() {
+    return movieDb;
+  }
+  public void setMovieDb(MovieDb movieDb) {
+    this.movieDb = movieDb;
+  }
+  
   @Override
   public String toString() {
-    return "[pstno=" + pstno + ", open=" + open + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
+    return "Post [pstno=" + pstno + ", mno=" + mno + ", pstTypeNo=" + pstTypeNo + ", mvno=" + mvno
         + ", title=" + title + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-        + ", content=" + content + ", likeCnt=" + likeCnt + ", likeCheck=" + likeCheck + ", star="
-        + star + ", member=" + member + ", photos=" + photos + ", ftags=" + ftags
-        + ", ftagsForAdd=" + ftagsForAdd + "]\n";
+        + ", content=" + content + ", likeCnt=" + likeCnt + ", cmtCnt=" + cmtCnt + ", likeCheck="
+        + likeCheck + ", star=" + star + ", open=" + open + ", member=" + member + ", photos="
+        + photos + ", ftags=" + ftags + ", ftagsForAdd=" + ftagsForAdd + ", movieDb=" + movieDb
+        + "]";
   }
 }

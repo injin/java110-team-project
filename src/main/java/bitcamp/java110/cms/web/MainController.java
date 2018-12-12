@@ -46,9 +46,10 @@ public class MainController {
   public String main(Model model, HttpSession session) {
     
     List<Post> topMpList = postService.getHotPosts(); //핫리뷰리스트
+    postService.setMovieInfo(topMpList);
     model.addAttribute("topMpList", topMpList);
+    model.addAttribute("posterPrefix", Constants.TMDB_IMG_PREFIX_W500);
     
-    //List<SceneReview> topSrList = sceneReviewService.listTopSr(); //인기있는 장면 리스트
     List<SceneReview> topSrList = sceneReviewService.listTopSrByCdt(); //인기있는 장면 리스트
     model.addAttribute("topSrList", topSrList);
     

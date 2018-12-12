@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.common.Constants;
 import bitcamp.java110.cms.dao.FlwDao;
 import bitcamp.java110.cms.dao.LikeDao;
 import bitcamp.java110.cms.dao.MlogDao;
@@ -21,6 +22,8 @@ import bitcamp.java110.cms.domain.Mlog;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -41,6 +44,8 @@ public class PostServiceImpl implements PostService {
   LikeDao likeDao;
   @Autowired
   MlogDao mlogDao;
+  @Autowired 
+  TmdbMovies tmdbMovies;
 
   /* 포스트 */
 
@@ -216,5 +221,15 @@ public class PostServiceImpl implements PostService {
   @Override
   public void updateCmt(PostCmt postCmt) {
     postCmtDao.updateCmt(postCmt);
+  }
+
+  @Override
+  public void setMovieInfo(List<Post> list) {
+    if (list != null) {
+      for (Post post: list) {
+        MovieDb tmdbMovie = tmdbMovies.getMovie(post.getMvno(), Constants.LANGUAGE_KO);
+        post.setMovieDb(tmdbMovie);
+      }
+    }
   }
 }
