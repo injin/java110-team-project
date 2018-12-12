@@ -20,7 +20,7 @@
 }
 
 .hot {
-    height: 20em;
+    height: 17em;
     max-height: 20em;
     padding: 0em;
 }
@@ -98,7 +98,7 @@ span.carousel-control-next-icon {
   position: relative;
   overflow: hidden;
   width: 100%;
-  color: #141414;
+  color: #ffffff;
   text-align: left;
   line-height: 1.4em;
   font-size: 16px;
@@ -119,7 +119,9 @@ span.carousel-control-next-icon {
   top: calc(70%);
   width: 100%;
   background-color: #ffffff;
-  padding: 15px 25px 65px;
+  /* background-color: rgba( 8, 28, 36, 0.5 ); */
+  background-color: rgba( 0, 0, 0, 0.5 );
+  padding: 15px 25px 95px;
 }
 .snip1361 figcaption:before {
   position: absolute;
@@ -128,7 +130,7 @@ span.carousel-control-next-icon {
   bottom: 100%;
   left: 0;
   width: 100%;
-  height: 80px;
+  /* height: 80px; */
   background-image: -webkit-linear-gradient(top, transparent 0%, #ffffff 100%);
   background-image: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
 }
@@ -159,4 +161,7 @@ span.carousel-control-next-icon {
 .snip1361:hover figcaption,
 .snip1361.hover figcaption {
   top: 80px;
+}
+.tnick{
+    color:#ffffff !important;
 }

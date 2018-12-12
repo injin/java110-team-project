@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/common.css'>
-<link rel='stylesheet' href='/css/rcme.css'>
+<link rel='stylesheet' href='/css/rcmdflw.css'>
 <t:importAttribute name="currentMenu" />
 <t:importAttribute name="cssFiles" />
 <c:forEach var="css" items="${cssFiles}">
@@ -51,6 +51,7 @@
 
 
             <%-- 친구 추천 부분 --%>
+            <div class="rcmdflw">
             <c:if test="${not empty sessionScope.loginUser}">
                 <c:if test="${targetUser.mno == loginUser.mno}">
                     <table class="w-100" id="flwSmlr">
@@ -58,7 +59,7 @@
                     </table>
                 </c:if>
             </c:if>
-
+            </div>
         </aside>
         <div class="col-9 borderGray p-0" id="mypage-right">
             <img src="${targetUser.coverImagePath}"

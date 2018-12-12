@@ -119,14 +119,14 @@ function showCont(cont, index) {
         </div>
 
         <!-- 슬라이더 START -->
-        <div id="hotSr" class="carousel slide" data-ride="carousel" data-interval="false">
+        <div id="hotSr" class="carousel slide" data-ride="carousel">
 
-            <ul class="carousel-indicators mb-0 pb-0">
+            <!-- <ul class="carousel-indicators mb-0 pb-0">
                 <li data-target="#hotSr" data-slide-to="0"
                     class="active"></li>
-<!--                 <li data-target="#hotSr" data-slide-to="1"></li> -->
-                <!-- <li data-target="#hotSr" data-slide-to="2"></li> -->
-            </ul>
+                <li data-target="#hotSr" data-slide-to="1"></li>
+                <li data-target="#hotSr" data-slide-to="2"></li>
+            </ul> -->
 
             <div class="carousel-inner no-padding my-5">
                 <c:forEach items="${topMpList}" var="post" varStatus="status">
@@ -144,16 +144,16 @@ function showCont(cont, index) {
                                     <div class="card-body hot c-pointer" onclick="openDetailModal(${post.pstno})" data-title="${post.title}">
                                         <input type="hidden" data-toggle="modal" id="detailPst" data-target="#detailModal" />
                                             <figure class="snip1361">
-                                             <img src="/upload/post/${post.photos[0]}" alt="sample45"/>
+                                             <img src="/upload/post/${post.photos[0]}" />
                                             <figcaption>
-                                            <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                            <h5 class="card-title"><b>'${post.title}' </b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
-                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <h6 class="card-subtitle mb-2 text-muted tnick">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">
                                                      ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
-                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <h6 class="card-subtitle mb-2 text-muted tnick" >
                                                     <img src="${post.member.profileImage}" class="main-cmt-img">
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
@@ -172,14 +172,14 @@ function showCont(cont, index) {
                                             <!-- <img class src="/img/default.jpg" alt="리뷰 이미지"/> -->
                                             <img src="${posterPrefix}${post.movieDb.posterPath}" alt="${post.movieDb.title}영화 포스터 이미지"/>
                                             <figcaption>
-                                                <h5 class="card-title"><b>'${post.title}' 리뷰</b></h5>
+                                                <h5 class="card-title"><b>'${post.title}' </b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
-                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <h6 class="card-subtitle mb-2 text-muted tnick">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">
                                                      ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
-                                                    <h6 class="card-subtitle mb-2 text-muted">
+                                                    <h6 class="card-subtitle mb-2 text-muted tnick">
                                                     <img src="${post.member.profileImage}" class="main-cmt-img">
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
@@ -223,11 +223,11 @@ function showCont(cont, index) {
         <!-- 슬라이더 START -->
         <div id="scn" class="carousel slide" data-ride="carousel">
 
-            <ul class="carousel-indicators mb-0 pb-0">
+            <!-- <ul class="carousel-indicators mb-0 pb-0">
                 <li data-target="#scn" data-slide-to="0" class="active"></li>
                 <li data-target="#scn" data-slide-to="1"></li>
                 <li data-target="#scn" data-slide-to="2"></li>
-            </ul>
+            </ul> -->
 
 
 
