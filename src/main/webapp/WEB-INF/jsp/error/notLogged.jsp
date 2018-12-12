@@ -23,6 +23,7 @@
         
     </main>
 
+    <jsp:include page="../include/commonJs.jsp"></jsp:include>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     
 </body>
