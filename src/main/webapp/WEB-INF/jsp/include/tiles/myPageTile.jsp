@@ -111,7 +111,9 @@
                 html +='<tbody>';
             data.forEach(function(value, index) {
                 html += '<tr id="tr-rcmd-' + value.mno + '">';
-                html += '    <td><img src="'+value.profileImage+'" class="profile4X4">' + value.nickname;
+                html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
+                html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
+                html += '</a>'
                 html += '        <button class="btn btn-outline-primary float-right"';
                 html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>';
                 html += '    </td>';

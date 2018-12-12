@@ -149,12 +149,12 @@ function showCont(cont, index) {
                                             <h5 class="card-title"><b>'${post.title}' </b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
-                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">&nbsp;
                                                      ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick" >
-                                                    <img src="${post.member.profileImage}" class="main-cmt-img">
+                                                    <img src="${post.member.profileImage}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <p class="card-text"
@@ -175,12 +175,12 @@ function showCont(cont, index) {
                                                 <h5 class="card-title"><b>'${post.title}' </b></h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
-                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">
+                                                    <img src="/img/default-profile-img.png" class="main-cmt-img">&nbsp;
                                                      ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
-                                                    <img src="${post.member.profileImage}" class="main-cmt-img">
+                                                    <img src="${post.member.profileImage}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <p class="card-text"

@@ -8,8 +8,8 @@ table.w-100 thead th {
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
-    color: #54cca1;
-    border-bottom: 3px solid #54cca1;
+    color: black;
+    border-bottom: 3px solid black;
 }
 table.w-100 tbody th {
     width: 150px;
