@@ -24,27 +24,12 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   @Override
   public void add(int mno, SceneAlbum sceneAlbum) {
 
- /*     HashMap<String, Object> params = new HashMap<>();
-      params.put("lbmTitle", sceneAlbum.getLbmTitle());
-      params.put("open", sceneAlbum.isOpen());
-      ieDao.insert(params);
-*/
     Map<String, Object> condition = new HashMap<>();
     condition.put("mno", mno);
     condition.put("sceneAlbum", sceneAlbum);
     sceneAlbumDao.insert(condition);
-/*
-    List<String> plst = sceneAlbum.getPhotos();
-    for(int i=0;i<plst.size();i++)
-    {
-      HashMap<String, Object> params = new HashMap<>();
-      params.put("phot", plst.get(i));
-      params.put("pstno", sceneAlbum.getPstno());
-
-      postPhotoDao.insert(params);
-    }*/
-
   }
+  
   @Override
   public List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum) {
     Map<String, Object> condition = new HashMap<>();
@@ -159,7 +144,6 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   @Override
   public List<SceneAlbum> listScA() {
-    // TODO Auto-generated method stub
     return sceneAlbumDao.listScA();
   }
   

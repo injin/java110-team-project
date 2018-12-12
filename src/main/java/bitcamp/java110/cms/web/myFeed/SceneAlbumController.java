@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.common.Paging;
+import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
@@ -28,6 +29,7 @@ public class SceneAlbumController {
   @Autowired SceneReviewService sceneReviewService;
   @Autowired MemberService memberService;
   @Autowired FlwService flwService;
+  @Autowired SceneAlbumDao lbmDao;
 
   @RequestMapping("/list")
   public String list(

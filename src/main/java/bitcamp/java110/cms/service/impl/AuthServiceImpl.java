@@ -1,12 +1,17 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import bitcamp.java110.cms.dao.FavGenreDao;
 import bitcamp.java110.cms.dao.MemberDao;
+import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.domain.Member;
+import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.service.AuthService;
 import bitcamp.java110.cms.service.MemberService;
 
@@ -16,6 +21,7 @@ public class AuthServiceImpl implements AuthService {
   @Autowired MemberDao memberDao;
   @Autowired FavGenreDao favGenreDao;
   @Autowired MemberService memberService;
+  @Autowired SceneAlbumDao sceneAlbumDao;
 
   @Override
   public Member getMemberById(String id) {
@@ -34,6 +40,7 @@ public class AuthServiceImpl implements AuthService {
     return response;
   }
   
+  @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   @Override
   public Member addMember(Map<String, Object> kakaoResponse) {
     
@@ -63,7 +70,12 @@ public class AuthServiceImpl implements AuthService {
       newbie.setAgeRange(kakaoAccount.get("age_range").toString());
     }
     
-    memberDao.insert(newbie);
+    if(memberDao.insert(newbie) > 0) {
+      Map<String, Object> condition = new HashMap<>();
+      condition.put("mno", newbie.getMno());
+      condition.put("sceneAlbum", new SceneAlbum("기본 앨범", true));
+      sceneAlbumDao.insert(condition);
+    }
     return newbie;
   }
   
