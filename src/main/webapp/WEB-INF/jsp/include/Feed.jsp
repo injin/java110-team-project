@@ -164,12 +164,12 @@
 	  </div>
 	</c:forEach>
 <%-- </c:if> --%>
+</div>
 <p>
   <a class="return-top" href="#" class="d-block" style="right: auto">
     <img src="/img/top-btn.png" width="20%" height="20%">
   </a>
 <p>
-</div>
 <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
 <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>

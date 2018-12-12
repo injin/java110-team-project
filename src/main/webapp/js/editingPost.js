@@ -8,7 +8,6 @@ function openEditingModal(pstno, type) {
       break;
     }
   }
-  console.log(postList[index]);
   //  모달 속성 바꿔 주기
   $('#reviewModal .modal-title').text('리뷰 수정하기');
   $('#reviewModal form').attr('action', 'edit');
@@ -75,7 +74,6 @@ function openEditingModal(pstno, type) {
   
   // editSubmit
   $('#editSubmit').on('click', function(e) {
-    console.log('edit??');
 
     if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
       commonAlert('error', "내용을 작성해주세요.");

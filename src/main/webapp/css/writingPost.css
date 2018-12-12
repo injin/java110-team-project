@@ -360,7 +360,7 @@ input:checked+.slider:before {
 
 /* ========== 맞춤 영화 관련  ========== */
 #stv_list{
-	width: 85%;
+	width: 75%;
 }
 .smlrImg {
 	width: 3rem;
