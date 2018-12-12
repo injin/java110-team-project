@@ -36,7 +36,7 @@
                <h3>자기소개</h3>
                <section id="pr-section">
                   <div class=" ">
-                     <textarea class="pr form-control resize-none scrollbar-light-blue" name="pr" autocomplete="off" maxlength="200">${loginUser.pr}
+                     <textarea class="pr form-control resize-none scrollbar-light-blue" name="pr" autocomplete="off" maxlength="100">${loginUser.pr}
                      </textarea>
                   </div>
                </section>
