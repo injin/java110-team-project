@@ -25,8 +25,7 @@ thead th {
 }
 
 textarea {
-  
-  resize: none;
+	resize: none;
 }
 
 .opt {
@@ -52,10 +51,10 @@ textarea {
 }
 
 .report-btn:hover {
-  color: #fff;
-  background-color: #00cc99;
-  border-color: #00cc99;
-}	
+	color: #fff;
+	background-color: #00cc99;
+	border-color: #00cc99;
+}
 
 .report-btn2 {
 	color: #fff;
@@ -79,11 +78,19 @@ textarea {
 	height: 38px;
 }
 
- .report-textarea {
+.report-textarea {
 	width: 100%;
 	height: 10rem;
-	padding: 0; 
+	padding: 0;
 }
+
+.report-textarea2{
+    width: 100%;
+    height: 5rem;
+    padding: 1px;
+    border: 0px;
+}
+
 </style>
 
 
@@ -105,15 +112,32 @@ textarea {
 			<tr>
 				<td>${report.rptno}</td>
 				<td>${report.nick}</td>
-				<td><a href="${report.url}" class="textcolor">${report.cont}</a>
-					<c:choose>
-						<c:when test="${report.createdDate eq dateNow}">
-							<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10"
-								height="9" class="ico_new" alt="새 게시글" title="새 게시글">
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose></td>
+				<td  data-toggle="collapse" data-target="#demo-${report.rptno}">
+				    ${report.cont}
+				    <a href ="${report.url}">
+				    <c:if test="${not empty report.reportTypes}">
+				        <br>
+					    <c:forEach items="${report.reportTypes}" var="type">
+					        <c:if test="${type.type eq '1'}">
+					            <span class="badge badge-danger">선정적/욕설/비방</span>
+					        </c:if>
+					        <c:if test="${type.type eq '2'}">
+					            <span class="badge badge-warning">다른 영화 사진</span>
+	                        </c:if>
+	                        <c:if test="${type.type eq '3'}">
+	                            <span class="badge badge-info">부정확한 내용</span>
+	                        </c:if>
+	                        <c:if test="${type.type eq '4'}">
+	                            <span class="badge badge-dark">기타</span>
+	                        </c:if>
+					    </c:forEach>
+				    </c:if>
+				    </a>
+					<c:if test="${report.createdDate eq dateNow}">
+						<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10"
+							height="9" class="ico_new" alt="새 게시글" title="새 게시글">
+					</c:if>
+			     </td>
 				<td>${report.createdDate}</td>
 				<c:choose>
 					<c:when test="${report.hndl eq false}">
@@ -122,20 +146,23 @@ textarea {
 								onclick="showModal(${report.rptno})">미처리</button></td>
 					</c:when>
 					<c:otherwise>
-						<td><div class="btn-group dropright">
-								<button type="button"
-									class="btn report-btn2 report-btn-size dropdown-toggle"
-									data-toggle="dropdown" aria-haspopup="true"
-									aria-expanded="true">처리</button>
-								<div class="dropdown-menu">
-									<textarea class="report-textarea" id="ucont-${report.rptno}">${report.hcont}</textarea>
-									<div class="dropdown-divider"></div>
-									<button class="btn report-btn float-right " onclick="insertHcont('ucont-${report.rptno}')">수정</button>
-								</div>
-							</div></td>
+						<td>
+					 <div class="btn-group dropright">
+                            <button type="button"
+                                    class="btn report-btn2 report-btn-size dropdown-toggle"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">처리</button>
+                                <div class="dropdown-menu">
+                                    <textarea class = "report-textarea2" id="ucont-${report.rptno}">${report.hcont}</textarea>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="btn report-btn float-right "
+                                        onclick="insertHcont('ucont-${report.rptno}')">수정</button>
+                                </div>
+                            </div>
+				       </td>
 					</c:otherwise>
 				</c:choose>
-				</tr>
+			</tr>
 		</c:forEach>
 	</tbody>
 </table>
@@ -156,8 +183,7 @@ textarea {
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-				<button class="btn report-btn" 
-					onclick="insertHcont('hcont')">입력</button>
+				<button class="btn report-btn" onclick="insertHcont('hcont')">입력</button>
 			</div>
 		</div>
 	</div>
@@ -181,7 +207,6 @@ textarea {
 
 <script src="/js/vendor/noty.js"></script>
 <script>
-
     var currentRptno;
     function showModal(rptno) {
         currentRptno = rptno;
@@ -226,7 +251,7 @@ textarea {
                         html += '<button type="button" class="btn report-btn2 report-btn-size dropdown-toggle" data-toggle="dropdown"';
                         html += '     aria-haspopup="true" aria-expanded="true">처리</button>';
                         html += '<div class="dropdown-menu">';
-                        html += '<textarea class="report-textarea" id="ucont-';
+                        html += '<textarea class="report-textarea2" id="ucont-';
                         html += currentRptno;
                         html += '">';
                         html += contVal;
@@ -240,6 +265,7 @@ textarea {
                         $('#report-btn-'+currentRptno).html(html);
                         
                     }else{
+                        
                         $('#ucont-'+currentRptno).val(contVal);
                     }
 

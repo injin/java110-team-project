@@ -10,8 +10,11 @@
         values(#{rptno},#{type})
     </insert>
     
-    <delete id="delete" parameterType="int">
-       
-    </delete>
+    <select id="findByNo" resultType="reportType" parameterType="int">
+         select rptno, type
+           from mv_rpt_type
+          where rptno = #{value}
+    </select>
+    
     
 </mapper>

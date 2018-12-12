@@ -15,7 +15,7 @@ public class Report {
   protected String nick;
   protected String hcont;
   protected List<String> types;
-  protected List<ReportType> reporttypes;
+  protected List<ReportType> reportTypes;
 
   public int getRptno() {
     return rptno;
@@ -78,11 +78,16 @@ public class Report {
   public void setNick(String nick) {
       this.nick = nick;
   }
-  
+  public List<ReportType> getReportTypes() {
+    return reportTypes;
+  }
+  public void setReportTypes(List<ReportType> reportTypes) {
+    this.reportTypes = reportTypes;
+  }
   @Override
   public String toString() {
-    return "Report [rptno=" + rptno + ", mno=" + mno + ", target=" + target + ", cont=" + cont + ", url=" + url
-            + ", hndl=" + hndl + ", createdDate=" + createdDate + ", nick=" + nick + ", hcont=" + hcont + ", types="
-            + types + "]";
+    return "Report [rptno=" + rptno + ", mno=" + mno + ", target=" + target + ", cont=" + cont
+        + ", url=" + url + ", hndl=" + hndl + ", createdDate=" + createdDate + ", nick=" + nick
+        + ", hcont=" + hcont + ", types=" + types + ", reportTypes=" + reportTypes + "]";
   }
 }

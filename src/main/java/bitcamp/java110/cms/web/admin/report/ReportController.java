@@ -1,8 +1,6 @@
 package bitcamp.java110.cms.web.admin.report;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,14 +28,9 @@ public class ReportController {
       
        paging.setTotalCount(reportService.getTotalCnt());
        
-       Map<String, Object> condition = new HashMap<>();
-       condition.put("paging", paging);
-       List<Report> reportList = reportService.list(condition);
-      
+       List<Report> reportList = reportService.list(paging);
        model.addAttribute("reportList", reportList);
        
-       System.out.println(reportList);
-      
       return "report/admin";
     
   }
