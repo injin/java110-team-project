@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/common.css'>
-<link rel='stylesheet' href='/css/rcme.css'>
+<link rel='stylesheet' href='/css/rcmdflw.css'>
 <t:importAttribute name="currentMenu" />
 <t:importAttribute name="cssFiles" />
 <c:forEach var="css" items="${cssFiles}">
@@ -51,6 +51,7 @@
 
 
             <%-- 친구 추천 부분 --%>
+            <div class="rcmdflw">
             <c:if test="${not empty sessionScope.loginUser}">
                 <c:if test="${targetUser.mno == loginUser.mno}">
                     <table class="w-100" id="flwSmlr">
@@ -58,7 +59,7 @@
                     </table>
                 </c:if>
             </c:if>
-
+            </div>
         </aside>
         <div class="col-9 borderGray p-0" id="mypage-right">
             <img src="${targetUser.coverImagePath}"
@@ -110,7 +111,9 @@
                 html +='<tbody>';
             data.forEach(function(value, index) {
                 html += '<tr id="tr-rcmd-' + value.mno + '">';
-                html += '    <td><img src="'+value.profileImage+'" class="profile4X4">' + value.nickname;
+                html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
+                html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
+                html += '</a>'
                 html += '        <button class="btn btn-outline-primary float-right"';
                 html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>';
                 html += '    </td>';
