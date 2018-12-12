@@ -14,30 +14,22 @@
         <result column="hndl" property="hndl" />
         <result column="cdt" property="createdDate" />
         <result column ="nick" property="nick" />
-        <collection property="reporttypes" ofType="ReportType">
-          <id column="rptno" property="rptno"/>
-          <result column="type" property="type"/>
-        </collection>
+        <result column ="hcont" property="hcont" />
     </resultMap>
 
     
-    <select id="findAll" resultMap="reportMap" parameterType="map">
-        select r.rptno, 
+    <select id="findAll" resultMap="reportMap" parameterType="object">
+        select r.rptno,
         m.nick as nick , 
         url, 
         cdt, 
         (hndl = 'Y')hndl ,
         cont, 
-        hcont,
-        t.rptno,
-        group_concat(t.type) as type
+        hcont
         from mv_rpt r
         inner join mv_memb m on r.mno =  m.mno
-        inner join mv_rpt_type t on r.rptno = t.rptno
-        group by r.rptno
         order by cdt desc
-        limit #{paging.startRowNo} , #{paging.pageSize}
-        
+        limit #{startRowNo} , #{pageSize}
     </select>
     
     <select id="findOne" resultMap="reportMap" parameterType="map">
