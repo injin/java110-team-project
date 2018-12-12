@@ -33,17 +33,19 @@ main {
 .dis-none {
     display: none;
 }
-/*===Alert - confirm=== */
+/*===Alert - confirm=== 
 .noty_bar{
-	height: 4rem;
-}
+	height: 3.5rem;
+} 
 .noty_body{
 	display: inline-block;
     float: left;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
 }
  .buttonNo, .buttonYes{
 	float: right;
-}
+}*/
 /* HEADER SIZE */
 .navbar {
     padding: 0rem;

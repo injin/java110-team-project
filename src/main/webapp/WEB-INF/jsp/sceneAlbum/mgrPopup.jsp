@@ -61,12 +61,12 @@
 									</div>
 								</c:forEach>
 							</div>
-							<div class="al_add"
+							<!-- <div class="al_add"
 								onclick="document.getElementById('btnaddAlbum').click();">
 								<i class="fas fa-plus"></i>보관함 추가
 							</div>
 							<input type="hidden" data-toggle="modal" id="btnaddAlbum"
-								data-target="#albumModal" />
+								data-target="#albumModal" /> -->
 						</div>
 
                         <!-- 앨범별 장면 출력 부분 -->

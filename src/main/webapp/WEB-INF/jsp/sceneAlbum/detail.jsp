@@ -44,7 +44,7 @@
 
     </div>
     <jsp:include page="../sceneAlbum/mgrPopup.jsp"></jsp:include>
-    <jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include>
+    <%-- <jsp:include page="../sceneAlbum/albumPopup.jsp"></jsp:include> --%>
 </section>
 
 <script>
@@ -89,14 +89,44 @@ var removedLbmno = [];
         
         // 상단의 앨범 편집 버튼 누를 경우 
         function editTitle(lbmno){
+            console.log('editTitle'+lbmno);
             var html = '';
             html += '<div class="form-group">';
-            html += '<input type="text" name="tContent" class="form-control" autocomplete="off" placeholder="보관함명">';
+            html += '<input onkeydown="EditByEnterKey('+lbmno+')" type="text" name="tContent" class="form-control" autocomplete="off" placeholder="보관함명">';
             html += '<a href=#><i class="far fa-check-circle" onclick="editBtn('+lbmno+')" style="font-size:1.5rem;"></i></a></div>';
             
             $('.title_box').html(html);
         }
         
+       /*
+       
+       $('.form-group input[name="tContent"]').keypress(function(e){
+           if(e.keyCode == 13){
+               alert($(this));
+           } 
+        }); 
+       
+       */
+         
+    /* 
+    id="editName"
+    $("#editName").keypress(
+                function(event){
+                  if (event.which == '13') {
+                    alert('hi');
+                    event.preventDefault();
+                  }
+              });
+         */
+        
+         // 앨범 명 수정 엔터키로
+        function EditByEnterKey(lbmno){
+            if(event.keyCode == 13) {
+                alert('enter'+ lbmno);
+                editBtn(lbmno);
+           }
+        }
+          
         //앨범 명 수정?
         function editBtn(lbmno){
             
@@ -118,6 +148,7 @@ var removedLbmno = [];
                 }),
                 success:function(data){
                     commonAlert('success', '앨범명을 수정하였습니다.');
+                    alert('앨범명수정완료');
                     showLbmList(data);
                     $('.title_box').html(html);
                 }
@@ -203,10 +234,15 @@ var removedLbmno = [];
             });    
         }
         
+        
         // 앨범 삭제여부 확인
         function removeLbm(lbmno){
            
             commonConfirm(lbmno, '정말로 삭제하시겠습니까?');
+            $('.modal-header').click(function(){
+                $('.noty_layout').css('display', 'none');
+            });
+            
         }
         
         // 앨범 삭제

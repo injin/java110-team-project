@@ -1,6 +1,20 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo');
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+/*===Alert - confirm=== */
+.noty_bar{
+    height: 3.5rem;
+} 
+.noty_body{
+    display: inline-block;
+    float: left;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+}
+ .buttonNo, .buttonYes{
+    float: right;
+}
 /* detailList */
 .detailList{
     margin: 0 auto;
@@ -54,6 +68,12 @@
 /* 앨범 수정 모달 */
 .openIcon:hover{
 	cursor: pointer;
+}
+.modal{
+	padding-right: 0 !important;
+}
+#mgrModal .modal-header{
+	padding-left: 5rem;
 }
 #mgrModal .modal-content{
     margin: 0 auto;
@@ -146,12 +166,13 @@
 .srlist{
     height: 35.3rem;
     overflow: hidden;
+    padding: 0.3rem 1rem 1.8rem 1rem;
 }
 .srlist .col-4{
 	margin-right: 0;
     height: 9.5rem;
     display: inline-block;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
 }
 .srlist .scene{
 	height: 8rem;

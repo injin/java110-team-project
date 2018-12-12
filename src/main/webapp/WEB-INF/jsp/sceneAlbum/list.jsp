@@ -16,4 +16,10 @@
         $('#detailForm').submit();
 
     }
+     /* $('#albumModal form').submit(function(){
+        event.preventDefault();
+        if($('#albumTitle').val()==null){
+            alert('성공인듯');
+        }
+    });  */
     </script>
