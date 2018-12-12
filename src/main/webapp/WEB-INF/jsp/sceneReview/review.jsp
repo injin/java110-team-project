@@ -178,7 +178,7 @@
                                 </c:if>
                             </span><br>
                             <div id="cmt-edit-${cmt.cmno}" data-cont="${cmt.cont}" data-cmno="${cmt.cmno}"></div>
-                            <div class="break-all cmt-cont" id="cmt-show-${cmt.cmno}" >${cmt.cont}</div>
+                            <div class="break-all cmt-cont" id="cmt-show-${cmt.cmno}">${cmt.cont}</div>
                             
                             <c:if test="${cmt.map.lat ne null && cmt.map.lng ne null}">
                                 <a class="map-link" target="_blank" href="http://google.com/maps/?q=${cmt.map.lat},${cmt.map.lng}">
@@ -274,11 +274,21 @@
     <script src="/js/vendor/linkify.js"></script>
     <script src="/js/vendor/linkify-plugin-hashtag.js"></script>
     <script src="/js/vendor/linkify-jquery.js"></script>
+    <script src="/js/vendor/jquery.tweetParser.js"></script>
+    
     <script>
     
     $('[data-toggle="tooltip"]').tooltip();
     
-    $('.cmt-cont').linkify({
+    $(".cmt-cont").tweetParser({
+        urlClass : "tweet_link", //this is default
+        userClass : "tweet_user", //this is default
+        hashtagClass : "hashtag", //this is default
+        target : "_blank", //this is default
+        searchWithHashtags: true
+    });
+    
+    /* $('.cmt-cont').linkify({
         target: "_blank",
         formatHref: function (href, type) {
             if (type === 'hashtag') {
@@ -286,7 +296,8 @@
                 return href;
             }
         }
-    });
+    }); */
+    
     
     function loginAlert() {
         commonAlert('error', '로그인 후 이용하실 수 있습니다.');
