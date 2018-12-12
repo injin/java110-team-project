@@ -40,7 +40,7 @@ function openEditingModal(pstno, type) {
   //  게시물 내용 가져오기
   var cont = $('#reviewCont-' + postList[index].pstno).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
   cont = cont.replace(/(<([^>]+)>)/ig,"");
-  $('#reviewModal #reviewTxtarea').html(cont);
+  $('#reviewModal #reviewTxtarea').val(cont);
   
   //  별점 숨김 값 주기 
   var star = postList[index].star;
