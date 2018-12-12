@@ -112,7 +112,11 @@ background-color: #d5dae0; }
 
 /*==== top 버튼 ==== */
 .return-top{
-    right:3em; bottom:15px; position:fixed; z-index:99999999;
+    display: block;
+    right: 20px;
+    bottom: 20px;
+    position: fixed;
+    z-index: 99999999;
 }
 
 /*==== 메인 ==== */

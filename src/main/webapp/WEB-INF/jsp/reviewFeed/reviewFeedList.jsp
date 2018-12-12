@@ -19,8 +19,8 @@
 <link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/writingPost.css'>
-
 <link rel='stylesheet' href='/css/common.css'>
+<link rel='stylesheet' href='/css/top-btn.css'>
 <script src="/js/makeContPost.js"></script>
 
 </head>
@@ -260,13 +260,10 @@
 				</div>
 			</c:when>
 		</c:choose>
-		<p>
-			<a class="return-top" href="#" class="d-block" style="right: auto">
-				<img src="/img/top-btn.png" width="20%" height="20%">
-			</a>
-		<p>
-	</div>
 
+	<jsp:include page="../include/top-btn.jsp"></jsp:include>
+	</div>
+	
 	<jsp:include page="writingPost.jsp"></jsp:include>
 	<jsp:include page="detailPost.jsp"></jsp:include>
 	<jsp:include page="../include/commonJs.jsp"></jsp:include>
@@ -280,6 +277,7 @@
 	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script src="/js/showPosts.js"></script>
+	<script src="/js/top-btn.js"></script>
 	<script>
      AOS.init();
         var sessionMember = {

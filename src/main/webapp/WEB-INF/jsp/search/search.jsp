@@ -15,6 +15,7 @@
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
+<link rel='stylesheet' href='/css/top-btn.css'>
 <script src="/js/makeContPost.js"></script>
 <style>
 .gPost {
@@ -61,13 +62,15 @@
 
 	<jsp:include page="../include/header.jsp"></jsp:include>
 
-	<main role="main" class="container" style="margin: 0 auto;"> <jsp:include
-		page="searchResult.jsp" /> <a class="return-top" href="#"> <img
-		src="/img/top-btn.png" width="50" height="50"></a> </main>
+	<main role="main" class="container" style="margin: 0 auto;">
+	   <jsp:include page="searchResult.jsp" />
+	</main>
 
 	<jsp:include page="../reviewFeed/detailPost.jsp"></jsp:include>
     <jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
+    <jsp:include page="../include/top-btn.jsp"></jsp:include>
+    <script src="/js/top-btn.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script src="/js/detailPost.js"></script>
 	<script type="text/javascript">
