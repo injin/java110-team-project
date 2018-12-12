@@ -146,7 +146,15 @@ function showCont(cont, index) {
                                             <figure class="snip1361">
                                              <img src="/upload/post/${post.photos[0]}" />
                                             <figcaption>
-                                            <h5 class="card-title"><b>'${post.title}' </b></h5>
+                                            <h5 class="card-title">
+                                              <c:set var="Text" value="${post.title}"/>
+                                              <c:if test="${fn:length(Text)<=15}">
+                                              <b>'${fn:substring(Text,0,15)}'</b>
+                                              </c:if>
+                                              <c:if test="${fn:length(Text)>15}">
+                                              <b>${fn:substring(Text,0,15)}...</b>
+                                              </c:if>
+                                            </h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">&nbsp;
@@ -172,7 +180,15 @@ function showCont(cont, index) {
                                             <!-- <img class src="/img/default.jpg" alt="리뷰 이미지"/> -->
                                             <img src="${posterPrefix}${post.movieDb.posterPath}" alt="${post.movieDb.title}영화 포스터 이미지"/>
                                             <figcaption>
-                                                <h5 class="card-title"><b>'${post.title}' </b></h5>
+                                                <h5 class="card-title">
+                                                    <c:set var="Text" value="${post.title}"/>
+                                                    <c:if test="${fn:length(Text)<=15}">
+                                                    <b>'${fn:substring(Text,0,15)}'</b>
+                                                    </c:if>
+                                                    <c:if test="${fn:length(Text)>15}">
+                                                    <b>'${fn:substring(Text,0,15)}...'</b>
+                                                    </c:if>
+                                                </h5>
                                                 <c:if  test="${post.member.profileImage == null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
                                                     <img src="/img/default-profile-img.png" class="main-cmt-img">&nbsp;
