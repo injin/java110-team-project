@@ -454,7 +454,6 @@ function morePostHtml(data){
 
         html += '   </div>';
     }  
-
     $('#pstShw').append(html); 
 
     doingLoad = false;
@@ -488,6 +487,17 @@ $(window).scroll(function() {
 
     if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
         doingLoad=true;
+        
+        var where = (window.location.href).split("/");
+        var whereLast = where[where.length-1];
+        var id;
+        if(whereLast == "list"){
+            id=0;
+        }else{
+            var idlst = whereLast.split("=");
+            id = idlst[idlst.length-1];
+        }
+        
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
@@ -495,7 +505,9 @@ $(window).scroll(function() {
                 'Content-Type': 'application/json'
             },
             data: JSON.stringify({ 
-                "pstno" : lstpstno
+                "pstno" : lstpstno,
+                "where" : whereLast,
+                "id":id
             }),
             success:function(data){
                 morePostHtml(data);

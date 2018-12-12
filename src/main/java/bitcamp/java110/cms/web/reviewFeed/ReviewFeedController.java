@@ -56,10 +56,10 @@ public class ReviewFeedController {
 
       MovieResultsPage smlrList;
       do {
-      int triggerMvId = anlyDao.getOneFav(member.getMno());
-      smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+        int triggerMvId = anlyDao.getOneFav(member.getMno());
+        smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
       }while(smlrList.getResults().size()<1);
-      
+
       model.addAttribute("smlrList", smlrList.getResults());
     }
 
@@ -72,7 +72,7 @@ public class ReviewFeedController {
 
     return "reviewFeed/reviewFeedList";
   }
-  
+
   // 마이페이지-피드
   @RequestMapping("/Feed")
   public String Feed(
@@ -81,41 +81,39 @@ public class ReviewFeedController {
       int id,
       HttpSession session) {
     Map<String, Object> params = new HashMap<>();
-    
+
     Member loginUser = ((Member)session.getAttribute("loginUser"));
     Member targetUser = memberService.findByMno(id);
-    System.out.println("loginUser: " + loginUser.toString());
-    System.out.println("targetUser: " + targetUser.toString());
     List<Post> list = null;
-    
+
     if (loginUser != null) {
       targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), id));
     }
     //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.
-//    int visitor;
-//    if(loginUser != null) {
-//      visitor = loginUser.getMno();
-//    } else {
-//      visitor = 0;
-//    }
-    
+    //    int visitor;
+    //    if(loginUser != null) {
+    //      visitor = loginUser.getMno();
+    //    } else {
+    //      visitor = 0;
+    //    }
+
     boolean isMyFeed = false;
     if(loginUser != null) {
       isMyFeed = (id == (loginUser.getMno()));
     }
-    
+
     params.put("prevpstno", "x");
     params.put("where", "personal");
     params.put("mno", id);
     params.put("isMyFeed", isMyFeed);
     list = postService.getPosts(params);
-    
+
     session.setAttribute("targetUser", targetUser);
     model.addAttribute("isMyFeed", isMyFeed);
     model.addAttribute("postList", list);
     return "include/Feed";
   }
-  
+
   // 피드 무한스크롤
   @RequestMapping("morePost")
   @ResponseBody
@@ -123,46 +121,30 @@ public class ReviewFeedController {
       @RequestBody Map<String, Object> request,
       HttpSession session) throws Exception {
     Member member = (Member)session.getAttribute("loginUser");
-
-    Map<String, Object> resultMap = new HashMap<>();
     int pstno = Integer.valueOf((String)request.get("pstno"));
 
+    Map<String, Object> resultMap = new HashMap<>();
     Map<String, Object> params = new HashMap<>();
-    params.put("mno", (member==null)?0:member.getMno());
-    params.put("prevpstno", pstno);
-    params.put("where", "main");
 
-    List<Post> postsResult = postService.getPosts(params); 
-    resultMap.put("postsResult", postsResult);
-    return resultMap;
-  }
-  
-  // 나의 피드 무한스크롤
-  @RequestMapping("moreMyPost")
-  @ResponseBody
-  public Object moreMyPost(
-      @RequestBody Map<String, Object> request,
-      HttpSession session) throws Exception {
-    Member loginUser = (Member)session.getAttribute("loginUser");
-    int id = ((Member) session.getAttribute("targetUser")).getMno();
-    
-    Map<String, Object> resultMap = new HashMap<>();
-    int pstno = Integer.valueOf((String)request.get("pstno"));
-    
-    boolean isMyFeed = false;
-    if(loginUser != null) {
-      isMyFeed = (id == (loginUser.getMno()));
+    if(((String)request.get("where")).equals("list")) {
+      params.put("mno", (member==null)?0:member.getMno());
+      params.put("prevpstno", pstno);
+      params.put("where", "main");
+    }else {
+      int id = Integer.valueOf((String)request.get("id"));
+      boolean isMyFeed = false;
+      if(member != null) {
+        isMyFeed = (id == (member.getMno()));
+      }
+      params.put("mno", id);
+      params.put("prevpstno", pstno);
+      params.put("where", "personal");
+      params.put("isMyFeed", isMyFeed);
     }
-    
-    Map<String, Object> params = new HashMap<>();
-    params.put("mno", id);
-    params.put("prevpstno", pstno);
-    params.put("where", "personal");
-    params.put("isMyFeed", isMyFeed);
-    
+
+
     List<Post> postsResult = postService.getPosts(params); 
     resultMap.put("postsResult", postsResult);
-    
     return resultMap;
   }
 
@@ -243,7 +225,7 @@ public class ReviewFeedController {
     // 사진 데이터 처리
     String[] fileList = fileNames.split(",");
     List<String> filens = new ArrayList<>();
-    
+
     for(int i=0;i<fileList.length;i++) {
       String file = fileList[i];
       if(file.length() > 0) {
@@ -251,7 +233,7 @@ public class ReviewFeedController {
       }
     }
     post.setPhotos(filens);
-    
+
     postService.addPost(post);
 
     String originPath = request.getHeader("referer");
@@ -266,9 +248,8 @@ public class ReviewFeedController {
       MultipartFile[] files,
       HttpSession session,
       HttpServletRequest request) throws Exception {
-    System.out.println("Controller recieve :\n\t" + post);
     postService.updatePost(post);
-    
+
     String originPath = request.getHeader("referer");
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
@@ -285,12 +266,12 @@ public class ReviewFeedController {
     return "redirect:" + originPath.substring(
         originPath.indexOf("/app"));
   }
-  
+
   // 파일 업로드
   @RequestMapping("/fileUpload-upload")
   public @ResponseBody List<String> upload (
       MultipartFile[] files) throws Exception {
-    
+
     List<String> filenames = new ArrayList<>();
     for(int i=0;i<files.length;i++) {
       MultipartFile file = files[i];
@@ -300,10 +281,9 @@ public class ReviewFeedController {
         filenames.add(filename);
       }
     }
-    
     return filenames;
   }
-  
+
   // 파일 삭제
   @RequestMapping("/fileUpload-remove")
   public @ResponseBody boolean removeFile(

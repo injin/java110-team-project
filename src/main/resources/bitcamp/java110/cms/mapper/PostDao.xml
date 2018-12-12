@@ -259,9 +259,8 @@
                 m.mno,
                 m.nick,
                 m.p_phot,
-                IF (ISNULL(f.flw), 0, 10) AS flwpoint,
             ROW_NUMBER() OVER (ORDER BY cdt DESC) AS rnum,
-            LAG(p.pstno) OVER (ORDER BY cdt DESC) AS prevpstno,
+            LAG(p.pstno) OVER (ORDER BY cdt DESC) AS prevpstno
             FROM
                 mv_post p
             INNER JOIN mv_memb m ON m.mno = p.mno
@@ -272,12 +271,7 @@
                         WHERE mno = #{mno}
                             AND (type = 'mp' OR type = 'dp')
                       ) lk ON lk.pstno = p.pstno
-            LEFT JOIN (
-                        SELECT mno, flw
-                        FROM mv_flw
-                        WHERE mno = #{mno}
-                      ) f ON f.flw = m.mno
-            WHERE mno = #{mno}
+            WHERE p.mno = #{mno}
             ORDER BY
                 cdt DESC  )
         SELECT *

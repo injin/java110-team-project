@@ -108,8 +108,6 @@
         type: "post",
         success : function(data) {
             
-            console.log(data);
-            
             var html ='';
                 html +='<thead>';
                 html +='<tr>';
@@ -118,7 +116,6 @@
                 html +='</thead>';
                 html +='<tbody>';
             data.forEach(function(value, index) {
-                console.log(value);
                 html += '<tr>';
                 html += '<td><img src="'+value.profileImage+'" class="profile4X4">';
                 html += ''+value.nickname+'';
