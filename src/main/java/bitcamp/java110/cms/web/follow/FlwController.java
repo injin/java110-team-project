@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.FlwService;
+import bitcamp.java110.cms.service.MemberService;
 
 @Controller
 @RequestMapping("/follow")
@@ -20,6 +21,9 @@ public class FlwController {
 
   @Autowired
   FlwService flwService;
+  
+  @Autowired
+  MemberService memberService;
 
   @RequestMapping("flwlist")
   public String flwlist(
@@ -43,18 +47,20 @@ public class FlwController {
 
 
   @PostMapping("flwadd")
-  public @ResponseBody boolean addFlw(Member m, HttpSession session) {
+  public @ResponseBody Map<String, Object> addFlw(Member m, HttpSession session) {
 
     int mno = ((Member) session.getAttribute("loginUser")).getMno();
-
-    System.out.println(flwService.rcmdflw(mno));
-
+    
     Map<String,Object> condition =  new HashMap<>();
     condition.put("mno", mno);
     condition.put("flw", m.getMno());
     condition.put("flwNick", m.getNickname());
+    
+    Map<String, Object> result = new HashMap<>();
+    result.put("result", flwService.add(condition));
+    result.put("addedMember", memberService.findByMno(m.getMno()));
 
-    return flwService.add(condition);
+    return result;
   }
 
   @PostMapping("flwrcmd")
