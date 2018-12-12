@@ -99,7 +99,6 @@ public class SceneAlbumController {
     
     // 현재 클릭된 앨범의 앨범명, 공개여부, open, lbmno...
     model.addAttribute("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
-    System.out.println(sceneAlbumService.get(sceneAlbum.getLbmno()));
     // 각 장면별 영화
     model.addAttribute("sceneReview", sceneReview);
     
@@ -215,13 +214,11 @@ public class SceneAlbumController {
    
     System.out.println("받아온 sceneAlbum" + sceneAlbum);
     int mno = ((Member)session.getAttribute("loginUser")).getMno();
-    System.out.println("로그인 된 번호"+ mno);
     sceneAlbumService.editOpen(sceneAlbum);
     
     Map<String, Object> resultMap = new HashMap<>();
     resultMap.put("sceneAlbum", sceneAlbumService.get(sceneAlbum.getLbmno()));
     resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
-    //resultMap.put("sceneAlbumList", sceneAlbumService.list(mno));
     return resultMap;
     
   }
