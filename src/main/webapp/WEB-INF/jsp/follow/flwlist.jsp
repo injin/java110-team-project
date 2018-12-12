@@ -12,23 +12,25 @@
 
 </style>
 
-	<c:forEach items="${flwlist}" var="member"  varStatus="status">
-		<div class="col-lg-6 col-md-6 col-sm-12 mb-3" id="flw-card-${member.mno}" >
-			<div class="card" >
-				<div class="card-body">
-					<div class="media">
-						<img class="mr-3 profile-large" src="${member.profileImagePath}"
-							alt="/img/default-profile-img">
-						<div>
-							<h4 style ="text-align: center"><a class="c-pointer" onclick="goToFeed(${member.mno})">${member.nickname}</a></h4>
-							<button class="btn btn-primary "
-								onclick="removeFlw(${member.mno})">언팔로우</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+    <div class="col-12"><div class="row" id="follow-card-list">
+    	<c:forEach items="${flwlist}" var="member"  varStatus="status">
+    		<div class="col-lg-6 col-md-6 col-sm-12 mb-3" id="flw-card-${member.mno}" >
+    			<div class="card" >
+    				<div class="card-body">
+    					<div class="media">
+    						<img class="mr-3 profile-large" src="${member.profileImagePath}"
+    							alt="/img/default-profile-img">
+    						<div>
+    							<h4 style ="text-align: center"><a class="c-pointer" onclick="goToFeed(${member.mno})">${member.nickname}</a></h4>
+    							<button class="btn btn-primary "
+    								onclick="removeFlw(${member.mno})">언팔로우</button>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</c:forEach>
+    </div></div>
 				
 	<jsp:include page="flwpaging.jsp" flush="true">
         <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
