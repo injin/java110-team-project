@@ -175,16 +175,12 @@
 	</c:forEach>
 <%-- </c:if> --%>
 </div>
-<p>
-  <a class="return-top" href="#" class="d-block" style="right: auto">
-    <img src="/img/top-btn.png" width="20%" height="20%">
-  </a>
-<p>
 <!-- 작업공간 END -->
 <%-- ========================================================================================== --%>
 <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/jsp/reviewFeed/writingPost.jsp"></jsp:include>
-
+<jsp:include page="../include/top-btn.jsp"></jsp:include>
+<script src="/js/top-btn.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/starrr.js"></script>
 <script src="/js/bootstrap-tagsinput.min.js"></script>

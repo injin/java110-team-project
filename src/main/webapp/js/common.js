@@ -86,28 +86,3 @@ $(function () {
     location.href='/app/auth/signout';
   });
 });
-
-$(function(){
-  $(window).scroll(function () {
-    var endPoint = $(document).height() - $('footer').height()-$('header').height();
-
-    if ($(this).scrollTop() > 100) { // 스크롤 내릴 표시
-      $('.return-top').fadeIn();
-
-      if(endPoint-700<$(this).scrollTop()){
-        $('.return-top').css('bottom', 40+$('footer').height());
-      }else{
-        $('.return-top').css('bottom','15px');
-      }
-    }else {
-      $('.return-top').fadeOut();
-    }
-  });
-
-  $('.return-top').click(function () {
-    $('body,html').animate({
-      scrollTop: 0  //탑 설정 클수록 덜올라간다
-    }, 500);  // 탑 이동 스크롤 속도를 조절할 수 있다.
-    return false;
-  });
-}); 
