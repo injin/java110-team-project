@@ -17,6 +17,15 @@ public class SceneAlbum {
   protected int srno;
   protected int srCnt;
   
+  public SceneAlbum() {
+    super();
+  }
+
+  public SceneAlbum(String lbmTitle, boolean open) {
+    this.lbmTitle = lbmTitle;
+    this.open = open;
+  }
+
   @Override
   public String toString() {
     return "SceneAlbum [lbmno=" + lbmno + ", mno=" + mno + ", lbmTitle=" + lbmTitle + ", phot="

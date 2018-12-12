@@ -92,7 +92,7 @@ var removedLbmno = [];
             console.log('editTitle'+lbmno);
             var html = '';
             html += '<div class="form-group">';
-            html += '<input onkeydown="EditByEnterKey('+lbmno+')" type="text" name="tContent" class="form-control" autocomplete="off" placeholder="보관함명">';
+            html += '<input onkeydown="EditByEnterKey('+lbmno+')" type="text" name="tContent" class="form-control" autocomplete="off" maxlength="23" placeholder="보관함명">';
             html += '<a href=#><i class="far fa-check-circle" onclick="editBtn('+lbmno+')" style="font-size:1.5rem;"></i></a></div>';
             
             $('.title_box').html(html);
