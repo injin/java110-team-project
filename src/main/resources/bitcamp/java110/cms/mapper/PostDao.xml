@@ -208,136 +208,92 @@
 
     <select id="getFeedListFirst" resultMap="postMap2" parameterType="map">
         SELECT
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        p.cont,
-        p.cdt,
-        if(isnull(lk.pstno), false, true) as likes,
-        (p.opn ='u') opn,
-        m.mno,
-        m.nick,
-        m.p_phot
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        left join (
-        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
-        'dp')
-        ) lk on lk.pstno = p.pstno
-        left join (
-        select mno, flw from mv_flw where mno = #{mno}
-        ) f on f.flw = m.mno
-        where m.mno = #{mno}
+            p.pstno,
+            p.mvno,
+            p.ptno,
+            mv.titl,
+            p.star,
+            p.cont,
+            p.cdt,
+            IF (ISNULL (lk.pstno), false, true) AS likes,
+            (p.opn ='u') opn,
+            m.mno,
+            m.nick,
+            m.p_phot
+        FROM
+            mv_post p
+        INNER JOIN mv_memb m ON m.mno = p.mno
+        INNER JOIN mv_mv mv ON mv.mvno = p.mvno
+        LEFT JOIN (
+                    SELECT pstno
+                    FROM mv_like 
+                    WHERE mno = #{mno}
+                    AND (type = 'mp' OR type = 'dp')
+                  ) lk ON lk.pstno = p.pstno
+        LEFT JOIN (
+                    SELECT mno, flw
+                    FROM mv_flw
+                    WHERE mno = #{mno}
+                  ) f ON f.flw = m.mno
+        WHERE m.mno = #{mno}
         <if test="isMyFeed == false">
-            and p.opn = 'u'
+            AND p.opn = 'u'
         </if>
-        order by
-         cdt desc
-        limit 15
+        ORDER BY
+         cdt DESC
+        LIMIT 15
         </select>
         
-        
         <select id="getFeedListSome" resultMap="postMap2" parameterType="map">
-        WITH TEMP AS
-        (
-        select
-        p.pstno,
-        p.mvno,
-        p.ptno,
-        mv.titl,
-        p.star,
-        p.cont,
-        p.cdt,
-        if(isnull(lk.pstno), false, true) as likes,
-        (p.opn ='u') opn,
-        m.mno,
-        m.nick,
-        m.p_phot,
-        if(isnull(f.flw), 0, 10) as flwpoint,
-        ROW_NUMBER() OVER( order by cdt desc) as rnum,
-        LAG(p.pstno) OVER(order by cdt desc ) AS prevpstno,
-        from
-        mv_post p
-        inner join mv_memb m on m.mno = p.mno
-        inner join mv_mv mv on mv.mvno = p.mvno
-        left join (
-        select pstno from mv_like where mno = #{mno} and (type = 'mp' or type =
-        'dp')
-        ) lk on lk.pstno = p.pstno
-        left join (
-        select mno, flw from mv_flw where mno = #{mno}
-        ) f on f.flw = m.mno
-        where mno = #{mno}
-        order by
-         cdt desc
-        )
-        select *
-        from temp
-        where rnum <![CDATA[ >= ]]>
-        (select rnum from temp where prevpstno = #{prevpstno})
+        WITH TEMP AS (
+            SELECT
+                p.pstno,
+                p.mvno,
+                p.ptno,
+                mv.titl,
+                p.star,
+                p.cont,
+                p.cdt,
+                IF (ISNULL (lk.pstno), false, true) AS likes,
+                (p.opn ='u') opn,
+                m.mno,
+                m.nick,
+                m.p_phot,
+                IF (ISNULL(f.flw), 0, 10) AS flwpoint,
+            ROW_NUMBER() OVER (ORDER BY cdt DESC) AS rnum,
+            LAG(p.pstno) OVER (ORDER BY cdt DESC) AS prevpstno,
+            FROM
+                mv_post p
+            INNER JOIN mv_memb m ON m.mno = p.mno
+            INNER JOIN mv_mv mv ON mv.mvno = p.mvno
+            LEFT JOIN (
+                        SELECT pstno
+                        FROM mv_like
+                        WHERE mno = #{mno}
+                            AND (type = 'mp' OR type = 'dp')
+                      ) lk ON lk.pstno = p.pstno
+            LEFT JOIN (
+                        SELECT mno, flw
+                        FROM mv_flw
+                        WHERE mno = #{mno}
+                      ) f ON f.flw = m.mno
+            WHERE mno = #{mno}
+            ORDER BY
+                cdt DESC  )
+        SELECT *
+        FROM temp
+        WHERE rnum <![CDATA[ >= ]]>
+                (
+                    SELECT rnum
+                    FROM temp
+                    WHERE prevpstno = #{prevpstno}
+                )
         <if test="isMyFeed == false">
-            and p.opn = 'u'
+            AND p.opn = 'u'
         </if>
-        limit 15
-    </select>
+        LIMIT 15
+        </select>
         
-        
-		<select id="getMyPostList" resultMap="postMap2"
-        parameterType="int">
-		
-	<!-- 	SELECT
-		  p.pstno,
-		  p.mvno,
-	      p.ptno,
-		  mv.titl,
-	      p.star,
-		  p.cont,
-	      0 as likes,
-		  p.cdt,
-		  (p.opn = 'u') opn,
-		  p.opn,
-		  m.nick,
-		  m.p_phot
-		FROM mv_post p
-		INNER JOIN mv_memb m on m.mno = p.mno
-		INNER JOIN mv_mv mv on mv.mvno = p.mvno
-		WHERE 
-		  p.mno = #{mno}
-		ORDER BY 
-		  cdt desc
-		LIMIT 25 -->
-	</select>
-
-	<select id="getOthersPostList" resultMap="postMap2"
-		parameterType="int">
-		SELECT
-			p.pstno,
-			p.mvno,
-			p.ptno,
-			mv.titl,
-			p.star,
-			p.cont,
-			0 as likes,
-			p.cdt,
-			p.opn,
-			m.nick,
-			m.p_phot
-		FROM mv_post p
-		INNER JOIN mv_memb m on m.mno = p.mno
-		INNER JOIN mv_mv mv on mv.mvno = p.mvno
-		WHERE 
-		  p.mno=#{mno}
-		AND 
-		  p.opn = 'u'
-		ORDER BY 
-		  cdt desc
-		LIMIT 25
-	</select>
-
 	<update id="deleteUnlockPost" parameterType="int">
 		UPDATE IGNORE
 		mv_post
