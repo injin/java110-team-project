@@ -2,15 +2,15 @@ package bitcamp.java110.cms.service.impl;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import bitcamp.java110.cms.common.Paging;
 import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.dao.ReportTypeDao;
 import bitcamp.java110.cms.domain.Report;
+import bitcamp.java110.cms.domain.ReportType;
 import bitcamp.java110.cms.service.ReportService;
 
 @Service
@@ -38,26 +38,18 @@ public class ReportServiceImpl implements ReportService {
     }
     
   }
-  
-  
-
 
   @Override
-  public List<Report> list( Map<String, Object> condition) {
- /*   HashMap<String, Object> params = new HashMap<>();
-    params.put("rowNo", (pageNo - 1)*pageSize);
-    params.put("size", pageSize);*/
-    return reportDao.findAll(condition);
-
-  }
-
-  @Override
-  public void delete(int no) {
-    if (reportDao.delete(no) == 0) {
-      throw new RuntimeException("해당 번호의 데이터가 없습니다.");
-    }
-    reportTypeDao.delete(no);
+  public List<Report> list(Paging paging) {
     
+    List<Report> list = reportDao.findAll(paging);
+    for (Report report : list) {
+      List<ReportType> reportTypes = reportTypeDao.findByNo(report.getRptno());
+      if (reportTypes != null) {
+        report.setReportTypes(reportTypes);
+      }
+    }
+    return list;
   }
 
   @Override
