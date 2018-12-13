@@ -24,6 +24,9 @@
     z-index: 9999;
     display: none;
 }
+a.navy {
+    color: #336699;
+}
 </style>
 </head>
 <body>
@@ -271,9 +274,6 @@
     <jsp:include page="../include/commonJs.jsp"></jsp:include>
     <jsp:include page="../include/footer.jsp"></jsp:include>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9sQq54221Pu41MGJFSeAYiHPoYebDTd8&libraries=places"></script>
-    <script src="/js/vendor/linkify.js"></script>
-    <script src="/js/vendor/linkify-plugin-hashtag.js"></script>
-    <script src="/js/vendor/linkify-jquery.js"></script>
     <script src="/js/vendor/jquery.tweetParser.js"></script>
     
     <script>
@@ -283,21 +283,10 @@
     $(".cmt-cont").tweetParser({
         urlClass : "tweet_link", //this is default
         userClass : "tweet_user", //this is default
-        hashtagClass : "hashtag", //this is default
+        hashtagClass : "navy",
         target : "_blank", //this is default
-        searchWithHashtags: true
+        hashtagPath: "<c:url value='/app/searchResult?keyword=' />"
     });
-    
-    /* $('.cmt-cont').linkify({
-        target: "_blank",
-        formatHref: function (href, type) {
-            if (type === 'hashtag') {
-                href = 'https://twitter.com/hashtag/' + href.substring(1);
-                return href;
-            }
-        }
-    }); */
-    
     
     function loginAlert() {
         commonAlert('error', '로그인 후 이용하실 수 있습니다.');

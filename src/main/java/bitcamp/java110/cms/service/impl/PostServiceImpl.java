@@ -55,17 +55,14 @@ public class PostServiceImpl implements PostService {
     List<Post> posts = null;
     
     if ((params.get("prevpstno")).equals("x")) { // 처음
-      
       if(params.get("where").equals("main")) {
         posts = postDao.findAll((int) (params.get("mno")));
       }  else if (params.get("where").equals("personal")) {
         posts = postDao.getFeedListFirst(params);
       }
-      
     } else if ((params.get("prevpstno")).equals("forKeyword")) {
       posts = postDao.findByKeyword(params);
     } else {
-      
       if(params.get("where").equals("main")) {
         posts = postDao.findSome(params);
       } else if (params.get("where").equals("personal")) {

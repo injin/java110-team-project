@@ -189,11 +189,11 @@ $(function() {
                 $("#movieId").val(ui.item.value);
                 $("#movieSearch").val(ui.item.label);      
             }
+            return false;
         },
         select: function(event,ui) {
             event.preventDefault();
             $("#movieSearch").val(ui.item.label);
-
             return false;
         }, close: function( event, ui ) {
             event.preventDefault();
@@ -523,7 +523,7 @@ $(window).scroll(function() {
     }
     $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
 
-    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
+    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad && lstpstno!=""){
         doingLoad=true;
 
         var where = (window.location.href).split("/");
@@ -535,7 +535,6 @@ $(window).scroll(function() {
             var idlst = whereLast.split("=");
             id = idlst[idlst.length-1];
         }
-
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',

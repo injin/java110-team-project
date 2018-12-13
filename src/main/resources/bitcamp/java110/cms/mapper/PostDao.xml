@@ -283,7 +283,7 @@
                     WHERE prevpstno = #{prevpstno}
                 )
         <if test="isMyFeed == false">
-            AND p.opn = 'u'
+            AND opn = true
         </if>
         LIMIT 15
         </select>
