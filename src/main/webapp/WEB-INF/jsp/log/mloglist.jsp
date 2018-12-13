@@ -138,13 +138,14 @@
 
 
 
-<a class="return-top" href="#"> <img src="/img/top-btn.png"
-    width="50" height="50"></a>
+
+<jsp:include page="../include/top-btn.jsp"></jsp:include>
 
 <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
 
 <script src="/js/aos.js"></script>
 <script src="/js/detailPost.js"></script>
+<script src="/js/top-btn.js"></script>
 <script>
     var sessionMember = {
             "nickname" : '${sessionScope.loginUser.nickname}',

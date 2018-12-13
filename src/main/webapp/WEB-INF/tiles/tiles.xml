@@ -28,7 +28,8 @@
 		</put-list-attribute>
 		<put-list-attribute name="cssFiles">
 			<add-attribute value="/css/aos.css" />
-			<add-attribute value="/css/detailPost.css" />
+			<add-attribute value="/css/detailPost.css"/>
+			<add-attribute value="/css/top-btn.css"/>
 		</put-list-attribute>
 	</definition>
 
@@ -43,6 +44,7 @@
 			<add-attribute value="/css/detailPost.css" />
 			<add-attribute value="/css/writingPost.css" />
 			<add-attribute value="/css/feed.css" />
+			<add-attribute value="/css/top-btn.css"/>
 		</put-list-attribute>
 	</definition>
 
