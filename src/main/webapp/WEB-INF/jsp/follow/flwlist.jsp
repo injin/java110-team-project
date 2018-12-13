@@ -63,7 +63,7 @@ function removeFlw(mno) {
              if (data == true) {
                commonAlert('success','언팔로우 되었습니다.');
                $('#flw-card-' + mno).remove();
-               
+               location.reload();
             } else {
                 commonAlert('error','문제가 발생하였습니다.');
             } 

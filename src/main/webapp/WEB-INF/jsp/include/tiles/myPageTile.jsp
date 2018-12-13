@@ -98,32 +98,40 @@
     <script>
     
     //친구 추천 리스트 가져오기
-     $.ajax({
-        url : "/app/follow/flwrcmd",
-        type: "post",
-        success : function(data) {
-            console.log(data)
-            var html ='';
-                html +='<thead>';
-                html +='<tr>';
-                html +='<th>비슷한 취향의 유저</th>';
-                html +='</tr>';
-                html +='</thead>';
-                html +='<tbody>';
-            data.forEach(function(value, index) {
-                html += '<tr id="tr-rcmd-' + value.mno + '">';
-                html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
-                html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
-                html += '</a>'
-                html += '        <button class="btn btn-outline-primary float-right"';
-                html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>';
-                html += '    </td>';
-                html += '</tr>';
-            });
-                html +='</tbody>';
-                $('#flwSmlr').html(html);
-        }
-        });
+    <c:if test="${not empty loginUser}">
+    makeRcmdFollowList();
+    
+    function makeRcmdFollowList() {
+        $.ajax({
+            url : "/app/follow/flwrcmd",
+            type: "post",
+            success : function(data) {
+               console.log(data);
+                var html ='';
+                    html +='<thead>';
+                    html +='<tr>';
+                    html +='<th>팔로우 추천</th>';
+                    html +='</tr>';
+                    html +='</thead>';
+                    html +='<tbody>';
+                data.forEach(function(value, index) {
+                    html += '<tr id="tr-rcmd-' + value.mno + '">';
+                    html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
+                    html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
+                    html += '</a>'
+                    html += '        <button class="btn btn-outline-primary float-right"';
+                    html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>';
+                    html += '    </td>';
+                    html += '</tr>';
+                });
+                    html +='</tbody>';
+                    $('#flwSmlr').html(html);
+            }
+         });
+     }
+     </c:if>
+    
+    
     
    //현재 메뉴 활성화
    $('#li-${currentMenu}').addClass('active');
@@ -143,10 +151,12 @@
                    if (type == 'fl') {
                        $('#flwBtn').remove();
                    } else if (type == 'rcmd') {
-                       $('#tr-rcmd-' + mno).remove();
+                       location.reload();
+                       
+                       /* $('#tr-rcmd-' + mno).remove();
                        
                        var cardHtml = makeCardHtml(data.addedMember);
-                       $('#follow-card-list').append(cardHtml);
+                       $('#follow-card-list').append(cardHtml); */
                    }
                    commonAlert('success','팔로우 되었습니다.');
                } else {
