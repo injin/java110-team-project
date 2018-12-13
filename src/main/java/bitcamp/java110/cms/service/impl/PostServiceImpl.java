@@ -3,6 +3,7 @@ package bitcamp.java110.cms.service.impl;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_PC;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
@@ -130,6 +132,22 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);
       }
     }
+    
+    // 영화 장르 추가
+    if (!movieAnlyDao.checkGrExist(post.getMvno())) {
+      List<Genre> genres = tmdbMovies.getMovie(post.getMvno(), Constants.LANGUAGE_KO).getGenres();
+      List<Integer> grnoList = new ArrayList<>();
+      if (genres.size() > 0) {
+        for(Genre g: genres) {
+          grnoList.add(g.getId());
+        }
+      }
+      HashMap<String, Object> gparams = new HashMap<>();
+      gparams.put("mvno", post.getMvno());
+      gparams.put("grnoList", grnoList);
+      movieAnlyDao.insertGrAllNotExists(gparams);
+    }
+    
 
     postDao.insert(post);
 
