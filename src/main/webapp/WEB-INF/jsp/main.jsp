@@ -85,10 +85,9 @@ function showCont(cont, index) {
 
     <div class="row mb-4">
         <c:forEach var="top" items="${topSrList}">
-            <div class="col-3 mb-4">
+            <div class="col-3 mb-4 c-pointer" onclick="goToSR(${top.mvno},${top.srno})">
                 <div class="card">
-                    <a
-                        href="/app/sceneReview/review?mvno=${top.mvno}&srno=${top.srno}">
+                    <%-- <a href="/app/sceneReview/review?mvno=${top.mvno}&srno=${top.srno}"> --%>
                         <img class="card-img-top hot-sr-img"
                         src="/upload/sceneReview/${top.photo}"
                         alt="Card image cap">
@@ -260,7 +259,7 @@ function showCont(cont, index) {
 
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <div class="card card-hot-sr" style="max-height:25em">
-                            <div class="album">
+                            <div class="album c-pointer" onclick="goToSA(${album.lbmno},${album.mno})">
                                 <div class="ml-3">
                                 </div>
                                 <c:choose>
@@ -269,7 +268,7 @@ function showCont(cont, index) {
                                      <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
                                  </c:when>
                                  <c:otherwise>
-                                 <a href="/app/sceneAlbum/detail?open=true&lbmno=${album.lbmno}&tgtMno=${album.mno}">
+                                 <%-- <a href="/app/sceneAlbum/detail?open=true&lbmno=${album.lbmno}&tgtMno=${album.mno}"> --%>
                                      <img class="card-img-top hot-sr-img-scene"
                                             src="/upload/sceneReview/${album.phot}"
                                             alt="Card image cap"></a>
@@ -289,7 +288,7 @@ function showCont(cont, index) {
                                         </h6>
                                         </span>
                                         <span style="margin-left:4em; margin-top:1em; float: right;">
-                                        <img src="${album.p_phot}" class="main-cmt-img">${album.nick}</span>
+                                        <img src="${album.p_phot}" class="main-cmt-img">&nbsp;${album.nick}</span>
                                         
                                     </div>
                                 <span class="ml-3" style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> 
@@ -330,6 +329,14 @@ function showCont(cont, index) {
     <script src="/js/typeahead.bundle.min.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
+    
+    function goToSA(lbmno,mno){ 
+        location.href = "/app/sceneAlbum/detail?open=true&lbmno="+lbmno+"&tgtMno="+mno;
+    }
+    
+    function goToSR(mvno,srno){ 
+        location.href = "/app/sceneReview/review?mvno="+mvno+"&srno="+srno;
+    }
     
     $(".hover").mouseleave(
             function () {

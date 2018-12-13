@@ -148,7 +148,6 @@ var removedLbmno = [];
                 }),
                 success:function(data){
                     commonAlert('success', '앨범명을 수정하였습니다.');
-                    alert('앨범명수정완료');
                     showLbmList(data);
                     $('.title_box').html(html);
                 }
