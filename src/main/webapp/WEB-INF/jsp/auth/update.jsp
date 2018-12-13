@@ -93,12 +93,10 @@
 <pre>Scene Cok에서 탈퇴를 하시면
 일부 기록은 삭제되지 않을 수 있습니다.</pre>
                </div>
-               <form action="signOut" method="post">
+               <form action="signOut" method="post" id="signOutForm">
                   <input type="hidden" name="mno" value="${loginUser.mno}">
-                  <label class="btn btn-checkbox btn-secondary active" id="signOutBtn"
-                        onclick="bye()">회원 탈퇴
-                  <button type="submit" class="btn" style="display: none;"></button>
-                  </label>
+                  <label class="btn btn-checkbox btn-secondary active" id="signOutBtn" 
+                        onclick="bye()">회원 탈퇴</label>
                </form>
             </section>
          </div>

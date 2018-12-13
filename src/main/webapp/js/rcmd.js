@@ -121,7 +121,7 @@ function getSimilarBaseFavList() {
     },
     success: function(data) {
       if (data.triggerTitle === undefined) {
-        print = '<p>로그인후 이용해 주세요.</p>';
+        print = '<p>정보가 부족합니다. 회원 활동 후 이용해 주세요.</p>';
       } else if (jQuery.isEmptyObject(data)) {
         print = '<p>잠시 에러가 발생했습니다. 페이지를 새로고침 해주세요.</p>';
       } else {
