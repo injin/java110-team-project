@@ -89,7 +89,7 @@
     </select>
     
     <select id="rcmdflw" resultMap="flwMap" parameterType="int">
-        Select mno, nick, p_phot From mv_memb where mno not in 
+        Select mno, nick, p_phot,pr From mv_memb where mno not in 
         (SELECT flw from mv_flw WHERE mno=#{value}) 
         And mno != 21 
         And mno !=#{value} 

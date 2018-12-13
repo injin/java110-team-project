@@ -49,7 +49,7 @@
                 <c:if test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
                     <button class="btn btn-primary float-right"
                         id="flwBtn"
-                        onclick="addFollow(${targetUser.mno},'${targetUser.nickname}', 'fl')">팔로우</button>
+                        onclick="addFollow(${targetUser.mno},'${targetUser.nickname}','${targetUser.pr}', 'fl')">팔로우</button>
                 </c:if>
             </c:if>
 
@@ -118,10 +118,14 @@
                     html +='</thead>';
                     html +='<tbody>';
                 data.forEach(function(value, index) {
+                    console.log(value);
                     html += '<tr id="tr-rcmd-' + value.mno + '">';
                     html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
                     html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
+                    /* html += 'c:if()'
+                    html += '<br>'+value.pr; */ 
                     html += '</a>'
+      
                    /*  html += '<a href="#" class="hvr-fade">Add to Basket</a>'; */
                    
                     html += '        <button class="btn btn-outline-primary float-right"';
@@ -142,14 +146,15 @@
    $('#li-${currentMenu}').addClass('active');
    
    // 팔로우 하기
-   function addFollow(mno,nickname, type) {
+   function addFollow(mno,nickname,pr,type) {
        
        $.ajax({
            url : "/app/follow/flwadd",
            type: "post",
            data : {
                "mno" : mno,
-               "nickname" : nickname
+               "nickname" : nickname,
+               "pr": pr
            },
            success : function(data) {
                if (data.result == true) {
@@ -178,6 +183,7 @@
    }
    
    function makeCardHtml(member) {
+       console.log(member.pr);
        var html = '<div class="col-lg-6 col-md-6 col-sm-12 mb-3" id="flw-card-' + member.mno + '" >';
            html += '<div class="card" >';
            html += '<div class="card-body">';
