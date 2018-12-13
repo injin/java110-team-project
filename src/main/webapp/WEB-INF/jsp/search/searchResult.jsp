@@ -93,27 +93,69 @@
 				</div>
 			</c:if>
 			<!-- 회원 -->
-<%-- 
+
             <!-- 장면앨범 -->
-            <c:if test="${fn:length(memberList) > 0}">
+            <c:if test="${fn:length(albumList) > 0}">
                 <div class="col-lg-12 mbr-col-md-12 resultMember">
                     <div class="col-centered">
 
                         <div class="wrap search_header">
                             <div class="text-wrap vcenter">
                                 <h2 class=" mbr-bold mbr-section-title3 display-5">
-                                    회원 <span>검색결과</span>
+                                    장면앨범 <span>검색결과</span>
                                 </h2>
                             </div>
                         </div>
                     </div>
 
                     <!-- 장면앨범 목록 -->
-                    <c:forEach items="${memberList}" var="list" varStatus="status"
-                        begin="0" end="${fn:length(memberList)}">
+                    <c:forEach items="${albumList}" var="list" varStatus="status"
+                        begin="0" end="${fn:length(albumList)}">
                         <div
-                            class="${status.index>=3 ? 'memberFrame showType' : 'memberFrame'}">
-                            <div class="wrap member c-pointer" onclick="goToFeed(${list.mno})">
+                            class="${status.index>=3 ? 'albumFrame showType' : 'albumFrame'}">
+                            
+                            
+                     <div class="wrap album">
+                        <div class="card card-hot-sr" style="max-height:25em">
+                            <div class="list c-pointer" onclick="goToLbm(${list.lbmno},${list.mno})">
+                                <div class="ml-3">
+                                </div>
+                                <c:choose>
+                                 <c:when test="${empty list.phot}">
+                                     
+                                     <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
+                                 </c:when>
+                                 <c:otherwise>
+                                     <img class="card-img-top hot-sr-img-scene"
+                                            src="/upload/sceneReview/${list.phot}"
+                                            alt="Card image cap"></a>
+                                            
+                                 </c:otherwise>
+                            </c:choose>
+                                    <div class="row">
+                                        <span class="overflow" style="margin-left: 2rem; margin-top:1em;"> 
+                                        <h6>
+                                        <c:set var="Text" value="${list.lbmTitle}" />
+                                            <c:if test="${fn:length(Text)<8}">
+                                                <b>${fn:substring(Text,0,8)}</b>
+                                            </c:if>
+                                            <c:if test="${fn:length(Text)>8}">
+                                                <b>${fn:substring(Text,0,8)}...</b>
+                                            </c:if>
+                                        </h6>
+                                        </span>
+                                        <span style="margin-left:4em; margin-top:1em; float: right;">
+                                        <img src="${list.p_phot}" class="main-cmt-img">&nbsp;${list.nick}</span>
+                                        
+                                    </div>
+                                <span class="ml-3" style="font-size: 0.8rem; float: left;">${list.srCnt}개</span> 
+                                <span class="ml-3" style="float: left; clear: both;">${list.cdt}</span>
+                            </div>
+                        </div>
+                    </div>
+                            
+                            
+<%--                             <div class="wrap lbm c-pointer" onclick="goToFeed(${list.mno})">
                                 <div class="ico-wrap">
 
                                     <c:set var="path" value="${list.p_phot}" />
@@ -121,12 +163,12 @@
                                         <c:when test="${empty path}">
                                             <div>
                                                 <img class="img" src="/img/default-profile-img.png"
-                                                    alt="${list.title}">
+                                                    alt="${list.nick}">
                                             </div>
                                         </c:when>
                                         <c:otherwise>
                                             <div>
-                                                <img class="img" src="${list.p_phot}" alt="${list.mno}">
+                                                <img class="img" src="${list.p_phot}" alt="profile">
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
@@ -136,14 +178,20 @@
                                     <p class="mbr-text display-6 text-dark c-pointer">${list.nick}</p>
                                 </div>
                             </div>
+ --%>                            
                         </div>
                     </c:forEach>
                     <!-- 장면앨범 목록 -->
 
-                    <c:if test="${fn:length(memberList) > 3}">
-                        <c:set var="type" value="mb" />
-                        <div class="wrap search_footer" id="showAllMembers"
-                            onclick="showMoreInSearchResult(${fn:length(memberList)}, '${type}')">
+
+
+
+
+
+                    <c:if test="${fn:length(albumList) > 3}">
+                        <c:set var="type" value="ab" />
+                        <div class="wrap search_footer" id="showAllAlbums"
+                            onclick="showMoreInSearchResult(${fn:length(albumList)}, '${type}')">
                             <div class="text-wrap vcenter">
                                 <p>더 보기</p>
                             </div>
@@ -152,7 +200,7 @@
                 </div>
             </c:if>
             <!-- 장면앨범 -->
- --%>
+
 			<!-- 영화 -->
 			<c:if test="${totalResults > 0}">
 				<div class="col-lg-12 mbr-col-md-12 resultMovie">

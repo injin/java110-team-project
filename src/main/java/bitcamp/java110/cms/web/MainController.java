@@ -75,6 +75,9 @@ public class MainController {
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
         
+    // 장면 앨범
+    List<SceneAlbum> albumList = sceneAlbumService.getListByKeyword(keyword);
+
     // 해쉬태그
     Member member = ((Member)session.getAttribute("loginUser"));
     Map<String, Object> params = new HashMap<>();
@@ -97,6 +100,7 @@ public class MainController {
     model.addAttribute("imgPrefix", Constants.TMDB_IMG_PREFIX_W500);
     model.addAttribute("hashList", hashList);
     model.addAttribute("memberList", memberList);
+    model.addAttribute("albumList", albumList);
     model.addAttribute("totalPages", response.getTotalPages());
     model.addAttribute("totalResults", response.getTotalResults());
 

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=East+Sea+Dokdo');
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-#showAllMovies, #showAllTags, #showAllMembers {
+#showAllMovies, #showAllTags, #showAllMembers, #showAllAlbums {
 	cursor: pointer;
 }
 
