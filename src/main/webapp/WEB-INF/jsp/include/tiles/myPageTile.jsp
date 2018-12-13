@@ -49,7 +49,7 @@
                 <c:if test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
                     <button class="btn btn-primary float-right"
                         id="flwBtn"
-                        onclick="addFollow(${targetUser.mno},'${targetUser.nickname}','${targetUser.pr}', 'fl')">팔로우</button>
+                        onclick="addFollow(${targetUser.mno},'${targetUser.nickname}'<%-- ,'${targetUser.pr}' --%>, 'fl')">팔로우</button>
                 </c:if>
             </c:if>
 
@@ -109,7 +109,6 @@
             url : "/app/follow/flwrcmd",
             type: "post",
             success : function(data) {
-               console.log(data);
                 var html ='';
                     html +='<thead>';
                     html +='<tr>';
@@ -118,7 +117,6 @@
                     html +='</thead>';
                     html +='<tbody>';
                 data.forEach(function(value, index) {
-                    console.log(value);
                     html += '<tr id="tr-rcmd-' + value.mno + '">';
                     html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
                     html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
@@ -146,25 +144,23 @@
    $('#li-${currentMenu}').addClass('active');
    
    // 팔로우 하기
-   function addFollow(mno,nickname,pr,type) {
+   function addFollow(mno,nickname,/* pr, */type) {
        
        $.ajax({
            url : "/app/follow/flwadd",
            type: "post",
            data : {
                "mno" : mno,
-               "nickname" : nickname,
-               "pr": pr
+               "nickname" : nickname/* ,
+               "pr": pr */
            },
            success : function(data) {
                if (data.result == true) {
                    if (type == 'fl') {
                        $('#flwBtn').remove();
                    } else if (type == 'rcmd') {
-                       location.reload();
-                       
+                        location.reload(); 
                        /* $('#tr-rcmd-' + mno).remove();
-                       
                        var cardHtml = makeCardHtml(data.addedMember);
                        $('#follow-card-list').append(cardHtml); */
                    }
