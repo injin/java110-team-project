@@ -17,10 +17,10 @@
                 "userClass": "tweet_user",
                 "hashtagClass": "hashtag",
                 "target": "_blank",
-                "searchWithHashtags": true,
                 "parseUsers" : true,
                 "parseHashtags" : true,
-                "parseUrls" : true
+                "parseUrls" : true,
+                "hashtagPath" : "https://twitter.com/hashtag/"
             },
             parametres = $.extend(defauts, options);
 
@@ -39,15 +39,8 @@
                 regexUser = /\B@([a-zA-Z0-9_]+)/g, //regex for @users
                 //regexHashtag = /\B(#[á-úÁ-Úä-üÄ-Üa-zA-Z0-9_]+)/g; //regex for #hashtags
                 regexHashtag = /\B(#[á-úÁ-Úä-üÄ-Üa-zA-Z0-9_ㄱ-ㅎㅏ-ㅣ가-힣]+)/g; //regex for #hashtags
-
-            //Hashtag Search link
-            if (parametres.searchWithHashtags) {
-                //this is the search with hashtag
-                searchlink = "https://twitter.com/hashtag/";
-            } else {
-                //this is a more global search including hashtags and the word itself
-                searchlink = "https://twitter.com/search?q=";
-            }
+            
+            searchlink = parametres.hashtagPath;
 
             //turn URLS in the tweet into... working urls
             if (parametres.parseUrls) {
