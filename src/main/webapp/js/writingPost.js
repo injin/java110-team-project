@@ -189,11 +189,11 @@ $(function() {
                 $("#movieId").val(ui.item.value);
                 $("#movieSearch").val(ui.item.label);      
             }
+            return false;
         },
         select: function(event,ui) {
             event.preventDefault();
             $("#movieSearch").val(ui.item.label);
-
             return false;
         }, close: function( event, ui ) {
             event.preventDefault();
