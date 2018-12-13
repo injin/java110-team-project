@@ -200,29 +200,22 @@ public class PostServiceImpl implements PostService {
       // 댓글이 있다면.
       postCmtDao.deleteCmt(pstno);
       return postDao.deletePost(pstno);
-      
     }
     return true;
   }
   
   @Override
   public Boolean signOut(int mno) {
-      System.out.println("alPost signOut");
-      
       try {
         List<Integer> alPost = postDao.getMyAllPost(mno);
         for (int pstno : alPost) {
-          System.out.print(pstno + "\t");
           boolean result = deletePost(pstno);
           if(!result) {
             result = postDao.signOut(mno);
           }
-          System.out.println(result);
         }
         return true;
       } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println(e);
         return false;
       }
   }
