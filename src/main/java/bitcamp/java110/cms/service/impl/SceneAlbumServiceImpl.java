@@ -31,6 +31,11 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   
   @Override
+  public List<SceneAlbum> getListByKeyword(String keyword) {
+    return sceneAlbumDao.getListByKeyword(keyword);
+  }
+  
+  @Override
   public List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("mno", mno);

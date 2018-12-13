@@ -54,6 +54,9 @@
 .text-wrap .c-pointer:hover {
     font-weight:bold;
 }
+/* == 장면앨범 조회결과 ==  */
+
+
 </style>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -82,6 +85,7 @@
         var movieFooter = document.getElementById('showAllMovies');
         var memberFooter = document.getElementById('showAllMembers');
         var tagFooter = document.getElementById('showAllTags');
+        var albumFooter = document.getElementById('showAllAlbums');
         var frame;
 
         /* 게시물 해시태그부분 */
@@ -123,6 +127,10 @@
 
         </c:forEach>
 
+        function goToLbm(lbmno,mno){ 
+            location.href = "/app/sceneAlbum/detail?open=true&lbmno="+lbmno+"&tgtMno="+mno;
+        }
+        
         /* 더보기버튼 */
         function showMoreInSearchResult(input, type) {
 
@@ -154,6 +162,13 @@
                 }
 
                 tagFooter.style.visibility = "hidden";
+            } else if (type == 'ab') {
+                for (var i = 3; i < totalCount; i++) {
+                    frame = document.getElementsByClassName('albumFrame')[i];
+                    frame.style.display = "block";
+                }
+
+                albumFooter.style.visibility = "hidden";
             }
         }
     </script>

@@ -52,6 +52,30 @@
              order by rand() limit 9;
     
     </select>
+  
+      <select id="getListByKeyword" resultMap="sceneAlbumMap" parameterType="string">
+        SELECT 
+            l.lbmno,
+            l.mno,
+            l.lbm_nm,
+            l.phot,
+            l.cdt,
+            l.mdt,
+            (l.opn ='u') opn,
+            m.nick,
+            m.p_phot,
+            sr.srCnt
+         FROM mv_lbm l
+         join mv_memb m on l.mno = m.mno
+                       join ( SELECT lbmno, count(srno) as srCnt
+                                FROM `mv_lbm_sr`
+                            GROUP BY lbmno
+                            ORDER BY count(srno)) sr
+                             ON l.lbmno = sr.lbmno
+         WHERE upper(l.lbm_nm) like upper(concat('%',#{keyword},'%')) 
+           AND l.opn = 'u'
+      ORDER BY sr.srCnt desc limit 20
+    </select>
     
     <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
         select
