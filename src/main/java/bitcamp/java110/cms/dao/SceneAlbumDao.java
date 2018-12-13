@@ -7,6 +7,7 @@ import bitcamp.java110.cms.domain.SceneAlbum;
 public interface SceneAlbumDao {
 
   int insert(Map<String, Object> condition);
+  List<SceneAlbum> getListByKeyword(String keyword);
   List<SceneAlbum> srAlbumList(Map<String, Object> condition);
   List<SceneAlbum> findAll(int mno);
   List<SceneAlbum> findAll2(Map<String, Object> condition);

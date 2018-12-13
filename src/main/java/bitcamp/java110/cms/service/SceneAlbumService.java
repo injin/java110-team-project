@@ -7,6 +7,7 @@ import bitcamp.java110.cms.domain.SceneAlbum;
 public interface SceneAlbumService {
   
     void add (int mno, SceneAlbum sceneAlbum);
+    List<SceneAlbum> getListByKeyword(String keyword);
     List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum);
     List<SceneAlbum> list(int mno);
     List<SceneAlbum> list2(int mno, int srno);
