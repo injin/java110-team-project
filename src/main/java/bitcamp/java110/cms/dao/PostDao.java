@@ -16,9 +16,8 @@ public interface PostDao {
   int delete(int no);
   List<Post> findByKeyword(Map<String, Object> params);
   List<Post> listTopMp();
-  void signOut(int mno);
-//  List<Post> getMyPostList(int mno);
-//  List<Post> getOthersPostList(int tgtMno);
+  Boolean signOut(int mno);
+  List<Integer> getMyAllPost(int mno);
   Boolean deleteUnlockPost(int pstno);
   Boolean deleteLockPost(int pstno);
   Boolean deletePost(int pstno);

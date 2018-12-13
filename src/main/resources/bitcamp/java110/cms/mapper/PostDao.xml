@@ -205,6 +205,14 @@
 		WHERE
 		  mno=#{mno}
 	</update>
+	
+	<select id="getMyAllPost" resultType="int" parameterType="int">
+        SELECT pstno
+        FROM mv_post
+        WHERE
+           mno = #{mno}
+        LIMIT 100
+    </select>
 
     <select id="getFeedListFirst" resultMap="postMap2" parameterType="map">
         SELECT

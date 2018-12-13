@@ -10,4 +10,5 @@ public interface PostCmtDao {
   void signOut(int mno);
   void deleteCmt(int pcno);
   void updateCmt(PostCmt postCmt);
+  boolean deletePostCmt(int pstno);
 }

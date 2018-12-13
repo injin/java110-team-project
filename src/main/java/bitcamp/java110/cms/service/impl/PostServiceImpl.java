@@ -168,17 +168,45 @@ public class PostServiceImpl implements PostService {
     if (p.isOpen()) {
       // 댓글이 없다면.
       if (postCmtDao.findCmtList(pstno).size() == 0) {
-        postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
       // 댓글이 있다면.
+      postCmtDao.deleteCmt(pstno);
       return postDao.deleteUnlockPost(pstno);
     } else if (!p.isOpen()) {
       // 게시글이 비공개라면.
-      postDao.deleteLockPost(pstno);
-      return postDao.deleteLockPost(pstno);
+      // 댓글이 없다면.
+      if (postCmtDao.findCmtList(pstno).size() == 0) {
+        return postDao.deleteLockPost(pstno);
+      }
+      // 댓글이 있다면.
+      postCmtDao.deleteCmt(pstno);
+      return postDao.deletePost(pstno);
+      
     }
-    return false;
+    return true;
+  }
+  
+  @Override
+  public Boolean signOut(int mno) {
+      System.out.println("alPost signOut");
+      
+      try {
+        List<Integer> alPost = postDao.getMyAllPost(mno);
+        for (int pstno : alPost) {
+          System.out.print(pstno + "\t");
+          boolean result = deletePost(pstno);
+          if(!result) {
+            result = postDao.signOut(mno);
+          }
+          System.out.println(result);
+        }
+        return true;
+      } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println(e);
+        return false;
+      }
   }
 
   @Transactional(rollbackFor = Exception.class)

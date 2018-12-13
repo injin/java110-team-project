@@ -16,12 +16,12 @@ import bitcamp.java110.cms.dao.MlogDao;
 import bitcamp.java110.cms.dao.MovieAnlyDao;
 import bitcamp.java110.cms.dao.MovieDao;
 import bitcamp.java110.cms.dao.PostCmtDao;
-import bitcamp.java110.cms.dao.PostDao;
 import bitcamp.java110.cms.dao.ReportDao;
 import bitcamp.java110.cms.dao.SceneAlbumDao;
 import bitcamp.java110.cms.dao.SceneReviewDao;
 import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.service.MemberService;
+import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbApi;
 import info.movito.themoviedbapi.TmdbMovies;
 import info.movito.themoviedbapi.model.Genre;
@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
   @Autowired MovieAnlyDao movieAnlyDao;
   @Autowired FlwDao flwDao;
   @Autowired MlogDao logDao;
-  @Autowired PostDao postDao;
+  @Autowired PostService postService;
   @Autowired PostCmtDao postCmtDao;
   @Autowired ReportDao rptDao;
   @Autowired SceneAlbumDao lbmDao;
@@ -140,11 +140,7 @@ public class MemberServiceImpl implements MemberService {
     }
   }
   
-  /**
-   * !!주석 삭제 금지!!
-   * 제하 To Do
-   * !! sginOut 할 때 DB관리
-   */
+  @Transactional(rollbackFor = Exception.class)
   @Override
   public void signOut(int mno) {
     System.out.println(mno + "\nSignOut Process 1");
@@ -159,10 +155,10 @@ public class MemberServiceImpl implements MemberService {
     System.out.println("SignOut Process 4");
     postCmtDao.signOut(mno);
     System.out.println("SignOut Process 5");
-    postDao.signOut(mno);
-    System.out.println("SignOut Process 6");
     logDao.signOut1(mno);
     logDao.signOut2(mno);
+    System.out.println("SignOut Process 6");
+    postService.signOut(mno);
     System.out.println("SignOut Process 7");
     flwDao.signOut3(mno);
     flwDao.signOut1(mno);
