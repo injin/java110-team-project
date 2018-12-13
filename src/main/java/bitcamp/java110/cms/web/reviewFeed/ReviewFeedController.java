@@ -55,11 +55,17 @@ public class ReviewFeedController {
       model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
 
       MovieResultsPage smlrList;
-      do {
-        int triggerMvId = anlyDao.getOneFav(member.getMno());
-        smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
-      }while(smlrList.getResults().size()<1);
 
+      if(anlyDao.getTopPNT(member.getMno()).size()==0) {
+        smlrList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
+      }else{
+        int triggerMvId = anlyDao.getOneFav(member.getMno());
+        
+        do {
+          smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
+        }while(smlrList.getResults().size()<1);
+      }
+      
       model.addAttribute("smlrList", smlrList.getResults());
     }
 
@@ -89,7 +95,7 @@ public class ReviewFeedController {
     if (loginUser != null) {
       List<Member> flwList = flwService.listAll(loginUser.getMno());
       model.addAttribute("userFlwList", flwList); 
-      
+
       targetUser.setFlw(flwService.flwCheck(loginUser.getMno(), id));
     }
     //  비로그인 방문자도 피드 내용을 볼수 있도록 하는 코드.

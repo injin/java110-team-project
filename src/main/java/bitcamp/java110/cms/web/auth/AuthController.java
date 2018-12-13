@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +54,12 @@ public class AuthController {
       if (member != null) {
         session.setAttribute("loginUser", member);
         String originPath = request.getHeader("referer");
-        return "redirect:" + originPath.substring(
-            originPath.indexOf("/app"));
+        if (originPath.contains("/error/")) {
+          return "redirect:/app/";
+        } else {
+          return "redirect:" + originPath.substring(
+              originPath.indexOf("/app"));
+        }
       }
       
       // 기존에 가입된 사용자가 아니면
@@ -69,6 +74,7 @@ public class AuthController {
         return "redirect:/app/";
     }
     
+    @Transactional(rollbackFor = Exception.class)
     @RequestMapping("/signOut")
     public String signout(
         HttpSession session,

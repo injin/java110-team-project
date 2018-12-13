@@ -30,6 +30,12 @@
 	<delete id="deleteCmt" parameterType="int">
 		DELETE FROM mv_post_cmt WHERE pcno = #{pcno}
 	</delete>
+	
+	<delete id="deletePostCmt" parameterType="int">
+        DELETE IGNORE
+        FROM mv_post_cmt
+        WHERE pstno = #{pstno}
+    </delete>
 
 	<update id="updateCmt" parameterType="PostCmt">
 		UPDATE mv_post_cmt

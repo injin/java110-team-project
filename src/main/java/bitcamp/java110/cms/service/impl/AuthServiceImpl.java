@@ -79,6 +79,7 @@ public class AuthServiceImpl implements AuthService {
     return newbie;
   }
   
+  @Transactional(rollbackFor = Exception.class)
   @Override
   public void signOut(int mno) {
     memberService.signOut(mno);

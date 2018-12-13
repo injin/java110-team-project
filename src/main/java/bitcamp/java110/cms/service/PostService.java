@@ -14,6 +14,7 @@ public interface PostService {
     void addPost (Post post);
     Boolean deletePost(int pstno);
     void updatePost(Post post);
+    Boolean signOut(int mno);
     
     /* 댓글 */
     List<PostCmt> getCmts(int no);

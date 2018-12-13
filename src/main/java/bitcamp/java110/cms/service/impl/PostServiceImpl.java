@@ -3,6 +3,7 @@ package bitcamp.java110.cms.service.impl;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_DP;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_MP;
 import static bitcamp.java110.cms.common.Constants.LOG_DO_TYPE_PC;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.PostCmt;
 import bitcamp.java110.cms.service.PostService;
 import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.Genre;
 import info.movito.themoviedbapi.model.MovieDb;
 
 @Service
@@ -130,6 +132,22 @@ public class PostServiceImpl implements PostService {
         movieAnlyDao.insertPost(mparams);
       }
     }
+    
+    // 영화 장르 추가
+    if (!movieAnlyDao.checkGrExist(post.getMvno())) {
+      List<Genre> genres = tmdbMovies.getMovie(post.getMvno(), Constants.LANGUAGE_KO).getGenres();
+      List<Integer> grnoList = new ArrayList<>();
+      if (genres.size() > 0) {
+        for(Genre g: genres) {
+          grnoList.add(g.getId());
+        }
+      }
+      HashMap<String, Object> gparams = new HashMap<>();
+      gparams.put("mvno", post.getMvno());
+      gparams.put("grnoList", grnoList);
+      movieAnlyDao.insertGrAllNotExists(gparams);
+    }
+    
 
     postDao.insert(post);
 
@@ -168,17 +186,45 @@ public class PostServiceImpl implements PostService {
     if (p.isOpen()) {
       // 댓글이 없다면.
       if (postCmtDao.findCmtList(pstno).size() == 0) {
-        postDao.deletePost(pstno);
         return postDao.deletePost(pstno);
       }
       // 댓글이 있다면.
+      postCmtDao.deleteCmt(pstno);
       return postDao.deleteUnlockPost(pstno);
     } else if (!p.isOpen()) {
       // 게시글이 비공개라면.
-      postDao.deleteLockPost(pstno);
-      return postDao.deleteLockPost(pstno);
+      // 댓글이 없다면.
+      if (postCmtDao.findCmtList(pstno).size() == 0) {
+        return postDao.deleteLockPost(pstno);
+      }
+      // 댓글이 있다면.
+      postCmtDao.deleteCmt(pstno);
+      return postDao.deletePost(pstno);
+      
     }
-    return false;
+    return true;
+  }
+  
+  @Override
+  public Boolean signOut(int mno) {
+      System.out.println("alPost signOut");
+      
+      try {
+        List<Integer> alPost = postDao.getMyAllPost(mno);
+        for (int pstno : alPost) {
+          System.out.print(pstno + "\t");
+          boolean result = deletePost(pstno);
+          if(!result) {
+            result = postDao.signOut(mno);
+          }
+          System.out.println(result);
+        }
+        return true;
+      } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println(e);
+        return false;
+      }
   }
 
   @Transactional(rollbackFor = Exception.class)
