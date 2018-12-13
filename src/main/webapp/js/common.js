@@ -73,16 +73,9 @@ function autoLogin(accessToken) {
 
 function logoutKakao(){
   Kakao.Auth.logout(
-      function(obj) {
-        if(obj==true){}else{}
-        location.href='/app/auth/kakaologout';
-      }
+    function(obj) {
+      if(obj==true){}else{}
+      location.href='/app/auth/kakaologout';
+    }
   );
 };
-
-$(function () {
-  $('#signOut').click(function () {
-    var accessToken = Kakao.Auth.getAccessToken();
-    location.href='/app/auth/signout';
-  });
-});

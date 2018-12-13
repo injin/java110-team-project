@@ -51,14 +51,47 @@ function signUpCheck() {
 
 //  home으로
 function goToHome() {
-  location.href = '/app/';
+  text = '회원 상세 정보를 입력하지 않으시면,<br>일부 서비스에 제한이 있을수 있습니다.';
+  var n = new Noty({
+    theme: 'sunset',
+    text: text,
+    buttons: [
+      Noty.button('입력하기', 'btn btn-light buttonNo', function () {
+        $('#input-srch-keyword').focus();
+        n.close();
+      }),
+      Noty.button('홈으로', 'btn btn-primary buttonYes', function () {
+        location.href = '/app/';
+        n.close();
+      })
+      ]
+  });
+  n.show();
 }
 
 //  탈퇴
 function bye () {
+  text = 'SceneCok에서 탈퇴를 하시면,<br> 일부 기록은 삭제되지 않을 수 있습니다';
+  var n = new Noty({
+    theme: 'sunset',
+    text: text,
+    buttons: [
+      Noty.button('남아있기', 'btn btn-light buttonNo', function () {
+        n.close();
+      }),
+      Noty.button('탈퇴하기', 'btn btn-primary buttonYes', function () {
+        signOut();
+        n.close();
+      })
+      ]
+  });
+  n.show();
+}
+
+function signOut() {
   var accessToken = Kakao.Auth.getAccessToken();
-  console.log(accessToken);
   Kakao.API.request({
     url: '/v1/user/unlink',
   });
+  $('#signOutForm').submit();
 }
