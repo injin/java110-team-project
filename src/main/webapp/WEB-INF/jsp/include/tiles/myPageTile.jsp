@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${targetUser.nickname}</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel="stylesheet" href="/css/fontawesome.css">
 <link rel="stylesheet" href="/css/all.css">
@@ -16,6 +17,8 @@
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/rcmdflw.css'>
 <link rel='stylesheet' href='/css/top-btn.css'>
+<link rel='stylesheet' href='/css/hover-min.css'>
+<link rel='stylesheet' href='/css/hover.css'>
 <t:importAttribute name="currentMenu" />
 <t:importAttribute name="cssFiles" />
 <c:forEach var="css" items="${cssFiles}">
@@ -119,8 +122,10 @@
                     html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
                     html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
                     html += '</a>'
+                   /*  html += '<a href="#" class="hvr-fade">Add to Basket</a>'; */
+                   
                     html += '        <button class="btn btn-outline-primary float-right"';
-                    html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>';
+                    html += '                onclick="addFollow(' + value.mno + ',\'' + value.nickname +'\', \'rcmd\')">팔로우</button>'; 
                     html += '    </td>';
                     html += '</tr>';
                 });

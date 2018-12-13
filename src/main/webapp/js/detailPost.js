@@ -46,7 +46,7 @@ function openDetailModal(pstno) {
         
         
         var h ='';
-        h += '<ol class="carousel-indicators">';
+        /*h += '<ol class="carousel-indicators">';
         for (var i=0; i<postList[index].photos.length; i++) {
             if(i ==0){
                 h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'" class="active"></li>';
@@ -54,7 +54,7 @@ function openDetailModal(pstno) {
                 h += '    <li data-target="#carouselExampleIndicators" data-slide-to="'+ i +'"></li>';        
             }
         }
-        h += '</ol>';
+        h += '</ol>';*/
         h += '<div class="carousel-inner">';
         for (var i=0; i<postList[index].photos.length; i++) {
             if(i ==0){
