@@ -89,7 +89,7 @@ Movie Around The World
       <a href="<c:url value='/app/'/>">scenecok.com</a>
       <br>
       <br>위 내용에 대한 저작권 및 법적 책임은 자료 제공사 또는 글쓴이에게 있으며,
-      <br><b>인진이와 아이들</b>의 입장과 다를 수 있습니다.
+      <br><b>씬콕</b>의 입장과 다를 수 있습니다.
     </div>
     <!-- Copyright -->
 <!-- Footer -->

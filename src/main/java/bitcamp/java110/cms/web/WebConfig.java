@@ -37,6 +37,7 @@ public class WebConfig
                     "/**/*delete*",
                     "/**/*edit*",
                     "/**/*update*",
+                    "/**/*cancel*",
                     "/follow/**",
                     "/log/**",
                     "/stsc/**");
