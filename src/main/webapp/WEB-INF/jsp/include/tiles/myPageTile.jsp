@@ -74,7 +74,7 @@
                     <div class="tab_container">
                         <ul>
                             <li id="li-feed"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></li>
-                            <li id="li-sceneAlbum"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면보관함</a></li>
+                            <li id="li-sceneAlbum"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면앨범</a></li>
                             <c:if test="${targetUser.mno == loginUser.mno}">
                                 <li id="li-statis"><a href="<c:url value="/app/stsc/list"/>">통계</a></li>
                                 <li id="li-follow"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></li>
