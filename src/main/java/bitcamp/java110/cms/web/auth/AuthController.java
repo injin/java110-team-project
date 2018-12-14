@@ -111,6 +111,8 @@ public class AuthController {
                 List<Integer> favMvIdList,
         @RequestParam(name="favMvTitleList", required=true)
                 List<String> favMvTitleList,
+        @RequestParam(name="nickname", required=false)
+        String nickname,
         HttpSession session) throws Exception {
       
       Member member = (Member)session.getAttribute("loginUser");
@@ -147,6 +149,9 @@ public class AuthController {
           member.setFavMvList(favMvList);
         }
       }
+      
+      // nickname
+      member.setNickname(nickname);
       
       if(memberService.init(member)) {
         session.setAttribute("loginUser", member);

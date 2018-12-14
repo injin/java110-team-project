@@ -79,9 +79,7 @@
                <hr>
                <div class="confirm">
                   <label class="btn btn-checkbox btn-secondary active">회원 정보
-                  수정<input type="submit" class="btn btn-default"
-                     style="display: none;" value="수정">
-                  </label>
+                  수정<input type="button" onclick="updateCheck()" class="btn btn-default" style="display: none;" value="확인"></label>
                </div>
             </form>
             <hr>
