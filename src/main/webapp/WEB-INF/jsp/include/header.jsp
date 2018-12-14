@@ -41,7 +41,7 @@
                   <a class="dropdown-item" href="<c:url value='/app/reviewFeed/Feed?id=${loginUser.mno}'/>">나의 페이지</a>
                   <a class="dropdown-item" href="javascript:logoutKakao()">로그아웃</a>
                   <c:if test="${sessionScope.loginUser.admin == true}">
-                      <a class="dropdown-item" href="#">관리메뉴</a>
+                      <a class="dropdown-item" href="/app/report/list">관리메뉴</a>
                   </c:if>
                 </div>
               </li>

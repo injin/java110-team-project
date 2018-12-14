@@ -12,6 +12,8 @@
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/accountDetail.css'>
 <link rel="stylesheet" href='/css/bootstrap2-toggle.min.css'>
+<link rel="stylesheet" href="/css/tabstyles.css">
+
 <style>
 table {
 	text-align: center;
@@ -54,10 +56,90 @@ tbody td {
 .my-mv-list {
 	height: 50rem;
 }
+/* tabs*/
+.tabs {
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+	width: 100%;
+	font-weight: 300;
+	font-size: 1.25em;
+}
+
+/* Nav */
+.tabs nav {
+	text-align: center;
+}
+
+.tabs nav ul {
+	position: relative;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: flex;
+	margin: 0 auto;
+	padding: 0;
+	max-width: 1200px;
+	list-style: none;
+	-ms-box-orient: horizontal;
+	-ms-box-pack: center;
+	-webkit-flex-flow: row wrap;
+	-moz-flex-flow: row wrap;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	justify-content: center;
+}
+
+.tabs nav ul li {
+	position: relative;
+	z-index: 1;
+	display: block;
+	margin: 0;
+	text-align: center;
+	-webkit-flex: 1;
+	-moz-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
+}
+
+.tabs nav a {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	line-height: 2.5;
+}
+
+.tabs nav a span {
+	vertical-align: middle;
+	font-size: 0.75em;
+}
+
+.tabs nav a:focus {
+	outline: none;
+}
+
+a {
+	color: #000000;
+	text-decoration: none;
+	background-color: transparent;
+	-webkit-text-decoration-skip: objects;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+	
+
+}
 </style>
 </head>
 <body>
-
 	<jsp:include page="../include/header.jsp"></jsp:include>
 	<main role="main" class="container"> <!-- 작업부분 -->
 	<form class="addForm" action="save" method="post">
@@ -66,7 +148,8 @@ tbody td {
 			<thead>
 				<tr>
 					<th colspan="2" scope="col"><h3>${theme.thm}<!-- <i
-                            class="far fa-edit" style="font-size: 1rem;"></i> --></h3></th>
+                            class="far fa-edit" style="font-size: 1rem;"></i> -->
+						</h3></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -110,7 +193,8 @@ tbody td {
 										style="float: right; cursor: pointer;"
 										class="badge badge-primary badge-pill">제거</button>
 									<input type="hidden" name="favMvIdList" value="${movie.mvno}">
-									 <input type="hidden" name="favMvTitleList" value="${movie.title}">
+									<input type="hidden" name="favMvTitleList"
+										value="${movie.title}">
 								</div>
 							</div>
 						</li>
@@ -125,8 +209,9 @@ tbody td {
 
 
 		<div class="confirm">
-			<input type="button" class="btn report-btn2" onclick="saveRcmdList()" value="확인"> 
-			 <input type="button" class="btn report-btn2" onclick="goBack()" value="취소">
+			<input type="button" class="btn report-btn2" onclick="saveRcmdList()"
+				value="확인"> <input type="button" class="btn report-btn2"
+				onclick="goBack()" value="취소">
 		</div>
 
 	</form>
@@ -137,6 +222,14 @@ tbody td {
 	<script src="/js/bootstrap2-toggle.min.js"></script>
 
 	<script>
+	   $(document).ready(function(){
+           $(".li").hover(function(){
+               $(this).addClass("tab-current");
+               }, function(){
+               $(this).removeClass("tab-current");
+           });
+       });
+	
     </script>
 
 

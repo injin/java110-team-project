@@ -31,7 +31,8 @@
     		</div>
     	</c:forEach>
     </div></div>
-				
+			
+	<c:if test="${!empty flwlist}">	
 	<jsp:include page="flwpaging.jsp" flush="true">
         <jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
         <jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
@@ -47,8 +48,8 @@
     </form>
 	<form action="flwdelete" id="deleteForm" method="post">
 		<input type="hidden" name="flw">
-	</form>
-	
+	 </form>
+	</c:if>
 	
 <script>
 function removeFlw(mno) {

@@ -181,7 +181,7 @@ $(function() {
                 }
             });
         },
-        change: function(event,ui) {
+      /*  change: function(event,ui) {
             event.preventDefault();
             if (ui.item == null || ui.item == undefined) {
                 $("#movieSearch").val('');
@@ -189,16 +189,17 @@ $(function() {
                 $("#movieId").val(ui.item.value);
                 $("#movieSearch").val(ui.item.label);      
             }
-            return false;
-        },
+        },*/
         select: function(event,ui) {
-            event.preventDefault();
+            /*event.preventDefault();*/
+            $("#movieId").val(ui.item.value);
             $("#movieSearch").val(ui.item.label);
+            $("#movieSearch").focus();
             return false;
-        }, close: function( event, ui ) {
+        }/*, close: function( event, ui ) {
             event.preventDefault();
-        }
-
+        }*/
+        
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
@@ -208,11 +209,11 @@ $(function() {
         '</div>')
         .appendTo( ul );
     };
-    $("#movieSearch").on("focus",function(){
+    /*$("#movieSearch").on("focus",function(){
         commonAlert('success',"자동완성된 리스트에서 영화를 선택해주세요.");
         $("#movieId").val(0);
         $("#movieSearch").val("");
-    });
+    });*/
 
 //  글 작성
     $('#modalSubmit').on('click', function(e) {
@@ -308,7 +309,7 @@ function postShow(id) {
 
 /* ========== 피드 무한스크롤 ========== */
 var doingLoad = false;
-function morePostHtml(data,whereLast){
+function morePostHtml(data){
     var html = '';
 
     postList = postList.concat(data.postsResult); 
@@ -335,12 +336,6 @@ function morePostHtml(data,whereLast){
         html += '</span>'; 
         html += '</li><li>';
 
-        if(!data.postsResult[i].open){
-        html += '<i id="lock-';
-        html +=  data.postsResult[i].pstno;
-        html +=    '" class="fas fa-lock lock d-inline">&nbsp;</i>';
-        }
-
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
                 html += '<span onclick="goToFeed(';
@@ -350,6 +345,7 @@ function morePostHtml(data,whereLast){
                 html += '&nbsp;</span>';
             }
         }
+
         html += '                    </li></ul>';
 
 
@@ -361,39 +357,31 @@ function morePostHtml(data,whereLast){
         }
 
         html += '               </div>';
-
-
-        if(whereLast != "list"){
-            var idlst = whereLast.split("=");
-
-            if(idlst[1] == sessionMember.mno){
-                html += '<i class="fas fa-ellipsis-v c-pointer dropCss" id="dropdown-';
-                html += data.postsResult[i].pstno;
-                html += '" ';
-                html += '   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>';
-                html += '<div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown-';
-                html += data.postsResult[i].pstno;
-                html += '">';
-
-                if(data.postsResult[i].pstTypeNo == 0){
-                    html += '    <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"';
-                    html += 'onclick="openEditingModal(';
-                    html += data.postsResult[i].pstno
-                    html +=', \'btnMovie\')">수정</a>';
-                }else{
-                    html += '<a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"';
-                    html += 'onclick="openEditingModal(';
-                    html += data.postsResult[i].pstno
-                    html +=', \'btnIlsang\')">수정</a>';
-                }
-
-                html += '<a class="dropdown-item c-pointer"';
-                html += 'onclick="deletePost(${post.pstno})">삭제</a>';
-                html += '</div>';
-            }
-
-        }
-
+        
+        /*
+        <c:if test="${targetUser.mno == loginUser.mno}">
+        <a class="dropdown-toggle c-pointer" id="dropdown01" 
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </a>
+        <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
+          <c:choose>
+            <c:when test="${post.pstTypeNo == 0}">
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
+            </c:when>
+            <c:otherwise>
+              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
+                onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
+            </c:otherwise>
+          </c:choose>
+          
+          <a class="dropdown-item c-pointer"
+            onclick="deletePost(${post.pstno})">삭제</a>
+        </div>
+    </c:if>
+        */
+        
+        
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';
@@ -523,9 +511,9 @@ $(window).scroll(function() {
     }
     $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
 
-    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad && lstpstno!=""){
+    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
         doingLoad=true;
-
+        
         var where = (window.location.href).split("/");
         var whereLast = where[where.length-1];
         var id;
@@ -535,6 +523,7 @@ $(window).scroll(function() {
             var idlst = whereLast.split("=");
             id = idlst[idlst.length-1];
         }
+        
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
@@ -547,7 +536,7 @@ $(window).scroll(function() {
                 "id":id
             }),
             success:function(data){
-                morePostHtml(data,whereLast);
+                morePostHtml(data);
             }
         });
     }
