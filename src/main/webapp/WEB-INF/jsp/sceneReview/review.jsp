@@ -32,7 +32,8 @@
 <main role="main" class="container borderGray">
 
     <div class="row">
-        <div class="col-12" id="movie-cover" style="background-image: url(${sceneReview.imgPath})">
+        <div class="col-12 p-0" id="movie-cover">
+            <img id="movie-img" src="${sceneReview.imgPath}">
             <div class="row col-12" id="movie-content">
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
@@ -293,9 +294,9 @@
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
         var imgPath = $(this).attr('src');
-        $('#movie-cover').css('background-image', 'url(' + imgPath + ')');
+        $('#movie-img').attr('src', imgPath);
     }).on('mouseleave', function() {
-        $('#movie-cover').css('background-image', 'url(' + initScene.imgPath + ')');
+        $('#movie-img').attr('src', initScene.imgPath);
     });
     
      /* ========== 입력 모달 관련  ========== */
