@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
 <link rel='stylesheet' href='/css/common.css'>
 <link rel="stylesheet" href="/css/vendor/noty.css">
 <link rel="stylesheet" href="/css/vendor/sunset.css">
+<link rel="stylesheet" href="/css/tabs.css">
+<link rel="stylesheet" href="/css/tabstyles.css">
 
 <style>
 table {
@@ -92,117 +93,124 @@ textarea {
 	padding: 1px;
 	border: 0px;
 }
-    .tab{
-        border: 1px solid silver;
-            width: 100px;
-        height: 100px;
-        display: none
-    }
 
-}       
+.tabs-style-shape {
+	max-width: 500px;
+}
+
+.tabs-style-shape nav li.tab-current a span {
+	background: #00cc99;
+}
+
+.tabs-style-shape nav li.tab-current a svg {
+	fill: #00cc99;
+}
+
+.table th{
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: none;
+}
 
 </style>
 
-<div id="exTab1" class="container"> 
-<ul  class="nav nav-pills">
-            <li class="active">
-        <a  href="#1a" data-toggle="tab">Overview</a>
-            </li>
-            <li><a href="#2a" data-toggle="tab">Using nav-pills</a>
-            </li>
-            <li><a href="#3a" data-toggle="tab">Applying clearfix</a>
-            </li>
-        <li><a href="#4a" data-toggle="tab">Background color</a>
-            </li>
-        </ul>
-
-            <div class="tab-content clearfix">
-              <div class="tab-pane active" id="1a">
-          <table class="table table-hover">
-    <thead>
-        <tr class="col-12">
-            <th scope="col" style="width:100px;" >신고번호</th>
-            <th scope="col" style="width:107px;">신고자</th>
-            <th scope="col" style="width:700px;">신고내용</th>
-            <th scope="col" >신고날짜</th>
-            <th scope="col" >처리여부</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:set var="now" value="<%=new java.util.Date()%>" />
-        <fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="dateNow" />
-        <c:forEach items="${reportList}" var="report" varStatus="status">
-            <tr>
-                <td>${report.rptno}</td>
-                <td>${report.nick}</td>
-                <td data-toggle="collapse" data-target="#demo-${report.rptno}">
-                    ${report.cont} <a href="${report.url}"> <c:if
-                            test="${not empty report.reportTypes}">
-                            <br>
-                            <c:forEach items="${report.reportTypes}" var="type">
-                                <c:if test="${type.type eq '1'}">
-                                    <span class="badge badge-danger">선정적/욕설/비방</span>
-                                </c:if>
-                                <c:if test="${type.type eq '2'}">
-                                    <span class="badge badge-warning">다른 영화 사진</span>
-                                </c:if>
-                                <c:if test="${type.type eq '3'}">
-                                    <span class="badge badge-info">부정확한 내용</span>
-                                </c:if>
-                                <c:if test="${type.type eq '4'}">
-                                    <span class="badge badge-dark">기타</span>
-                                </c:if>
-                            </c:forEach>
-                        </c:if>
-                </a> <c:if test="${report.createdDate eq dateNow}">
-                        <img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10"
-                            height="9" class="ico_new" alt="새 게시글" title="새 게시글">
-                    </c:if>
-                </td>
-                <td>${report.createdDate}</td>
-                <c:choose>
-                    <c:when test="${report.hndl eq false}">
-                        <td id="report-btn-${report.rptno}"><button type="button"
-                                class="btn report-btn report-btn-size" data-toggle="modal"
-                                onclick="showModal(${report.rptno})">미처리</button></td>
-                    </c:when>
-                    <c:otherwise>
-                        <td>
-                            <div class="btn-group dropright">
-                                <button type="button"
-                                    class="btn report-btn2 report-btn-size dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="true">처리</button>
-                                <div class="dropdown-menu">
-                                    <textarea class="report-textarea2" id="ucont-${report.rptno}">${report.hcont}</textarea>
-                                    <div class="dropdown-divider"></div>
-                                    <button class="btn report-btn float-right "
-                                        onclick="insertHcont('ucont-${report.rptno}')">수정</button>
-                                </div>
-                            </div>
-                        </td>
-                    </c:otherwise>
-                </c:choose>
-            </tr>
-        </c:forEach>
-    </tbody>
+<div class="tabs tabs-style-shape mt-2" style="float: left;">
+        <nav>
+            <ul>
+                <li class="tab-current">
+                <a href="../report/list" 
+                    style="text-decoration: none; color: #fff; font-weight: bold; font-size: 20px;">
+                        <svg viewBox="0 0 80 60" preserveAspectRatio="none">
+                            <use xlink:href="#tabshape">
+                                <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z">
+                                </path>
+                            </use>
+                       </svg> 
+                   <span>신고목록</span>
+                     </a></li>
+                <li><a href="../admin/themeList"
+                    style="text-decoration: none; color: #fff; font-weight: bold; font-size: 20px;">
+                        <svg viewBox="0 0 80 60" preserveAspectRatio="none">
+                            <use xlink:href="#tabshape">
+                               <path id="tabshape" d="M80,60C34,53.5,64.417,0,0,0v60H80z">
+                               </path>
+                            </use>
+                        </svg>
+                   <span>추천테마영화</span>
+                    </a></li>
+            </ul>
+        </nav>
+    </div>
+<table class="table table-hover">
+	<thead>
+		<tr class="col-12">
+			<th scope="col" style="width: 100px;">신고번호</th>
+			<th scope="col" style="width: 107px;">신고자</th>
+			<th scope="col" style="width: 650px;">신고내용</th>
+			<th scope="col">신고날짜</th>
+			<th scope="col">처리여부</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:set var="now" value="<%=new java.util.Date()%>" />
+		<fmt:formatDate pattern="yyyy-MM-dd" value="${now}" var="dateNow" />
+		<c:forEach items="${reportList}" var="report" varStatus="status">
+			<tr>
+				<td>${report.rptno}</td>
+				<td>${report.nick}</td>
+				<td data-toggle="collapse" data-target="#demo-${report.rptno}">
+					${report.cont} <a href="${report.url}"> <c:if
+							test="${not empty report.reportTypes}">
+							<br>
+							<c:forEach items="${report.reportTypes}" var="type">
+								<c:if test="${type.type eq '1'}">
+									<span class="badge badge-danger">선정적/욕설/비방</span>
+								</c:if>
+								<c:if test="${type.type eq '2'}">
+									<span class="badge badge-warning">다른 영화 사진</span>
+								</c:if>
+								<c:if test="${type.type eq '3'}">
+									<span class="badge badge-info">부정확한 내용</span>
+								</c:if>
+								<c:if test="${type.type eq '4'}">
+									<span class="badge badge-dark">기타</span>
+								</c:if>
+							</c:forEach>
+						</c:if>
+				</a> <c:if test="${report.createdDate eq dateNow}">
+						<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10"
+							height="9" class="ico_new" alt="새 게시글" title="새 게시글">
+					</c:if>
+				</td>
+				<td>${report.createdDate}</td>
+				<c:choose>
+					<c:when test="${report.hndl eq false}">
+						<td id="report-btn-${report.rptno}"><button type="button"
+								class="btn report-btn report-btn-size" data-toggle="modal"
+								onclick="showModal(${report.rptno})">미처리</button></td>
+					</c:when>
+					<c:otherwise>
+						<td>
+							<div class="btn-group dropright">
+								<button type="button"
+									class="btn report-btn2 report-btn-size dropdown-toggle"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="true">처리</button>
+								<div class="dropdown-menu">
+									<textarea class="report-textarea2" id="ucont-${report.rptno}">${report.hcont}</textarea>
+									<div class="dropdown-divider"></div>
+									<button class="btn report-btn float-right "
+										onclick="insertHcont('ucont-${report.rptno}')">수정</button>
+								</div>
+							</div>
+						</td>
+					</c:otherwise>
+				</c:choose>
+			</tr>
+		</c:forEach>
+	</tbody>
 </table>
-                </div>
-                <div class="tab-pane" id="2a">
-          <h3>We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab</h3>
-                </div>
-        <div class="tab-pane" id="3a">
-          <h3>We applied clearfix to the tab-content to rid of the gap between the tab and the content</h3>
-                </div>
-          <div class="tab-pane" id="4a">
-          <h3>We use css to change the background color of the content to be equal to the tab</h3>
-                </div>
-            </div>
-  </div>
 
-
-
- 
 
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog"
 	aria-labelledby="reportModalTitle" aria-hidden="true">
@@ -241,17 +249,22 @@ textarea {
 	<input type="hidden" name="pageNo">
 </form>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="/js/vendor/noty.js"></script>
+
 <script>
-    function openCity(cityName) {
-    var x = document.getElementsByClassName("tab");
-      for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none"; 
-            }
-               document.getElementById(cityName).style.display = "contents"; 
-            }
+/* $(document).ready(function(){
+    $("li").hover(function(){
+        $(this).addClass("tab-current");
+        }, function(){
+        $(this).removeClass("tab-current");
+    });
+}); */
+
+ 
 
     var currentRptno;
     function showModal(rptno) {

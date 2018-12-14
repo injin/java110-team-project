@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Scenecok</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel="stylesheet" href='/css/bootstrap2-toggle.min.css'>

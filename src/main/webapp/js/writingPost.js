@@ -181,7 +181,7 @@ $(function() {
                 }
             });
         },
-        change: function(event,ui) {
+      /*  change: function(event,ui) {
             event.preventDefault();
             if (ui.item == null || ui.item == undefined) {
                 $("#movieSearch").val('');
@@ -189,15 +189,16 @@ $(function() {
                 $("#movieId").val(ui.item.value);
                 $("#movieSearch").val(ui.item.label);      
             }
-        },
+        },*/
         select: function(event,ui) {
-            event.preventDefault();
+            /*event.preventDefault();*/
+            $("#movieId").val(ui.item.value);
             $("#movieSearch").val(ui.item.label);
-            
+            $("#movieSearch").focus();
             return false;
-        }, close: function( event, ui ) {
+        }/*, close: function( event, ui ) {
             event.preventDefault();
-        }
+        }*/
         
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
@@ -208,11 +209,11 @@ $(function() {
         '</div>')
         .appendTo( ul );
     };
-    $("#movieSearch").on("focus",function(){
+    /*$("#movieSearch").on("focus",function(){
         commonAlert('success',"자동완성된 리스트에서 영화를 선택해주세요.");
         $("#movieId").val(0);
         $("#movieSearch").val("");
-    });
+    });*/
 
 //  글 작성
     $('#modalSubmit').on('click', function(e) {

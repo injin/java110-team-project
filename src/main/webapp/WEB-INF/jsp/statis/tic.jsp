@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
+ <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+ 
+ 
+   <div class="container mt-3 mb-3" style ="text-align: center; font-family: 'Roboto', sans-serif, black;">
+    <nav>
+     <h1 style ="font-family: black">My Best5 Genre</h1>
+    </nav>
+    </div>
     <canvas id="myChart"></canvas>
 		
 	
