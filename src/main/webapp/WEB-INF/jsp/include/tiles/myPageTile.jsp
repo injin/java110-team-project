@@ -46,7 +46,8 @@
                 </div>
             </div>
             <c:if test="${not empty loginUser}">
-                <c:if test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
+                <c:if
+                    test="${targetUser.flw == false && loginUser.mno != targetUser.mno}">
                     <button class="btn btn-primary float-right"
                         id="flwBtn"
                         onclick="addFollow(${targetUser.mno},'${targetUser.nickname}'<%-- ,'${targetUser.pr}' --%>, 'fl')">팔로우</button>
@@ -56,13 +57,13 @@
 
             <%-- 친구 추천 부분 --%>
             <div class="rcmdflw">
-            <c:if test="${not empty sessionScope.loginUser}">
-                <c:if test="${targetUser.mno == loginUser.mno}">
-                    <table class="w-100" id="flwSmlr">
-                        
-                    </table>
+                <c:if test="${not empty sessionScope.loginUser}">
+                    <c:if test="${targetUser.mno == loginUser.mno}">
+                        <table class="w-100" id="flwSmlr">
+
+                        </table>
+                    </c:if>
                 </c:if>
-            </c:if>
             </div>
         </aside>
         <div class="col-9 borderGray p-0" id="mypage-right">
@@ -73,13 +74,20 @@
 
                     <div class="tab_container">
                         <ul>
-                            <li id="li-feed"><a href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></li>
-                            <li id="li-sceneAlbum"><a href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면앨범</a></li>
-                            <c:if test="${targetUser.mno == loginUser.mno}">
-                                <li id="li-statis"><a href="<c:url value="/app/stsc/list"/>">통계</a></li>
-                                <li id="li-follow"><a href="<c:url value="/app/follow/flwlist"/>">팔로우</a></li>
-                                <li id="li-log"><a href="<c:url value="/app/log/mloglist"/>">활동로그</a></li>
-                                <li id="li-update"><a href="<c:url value="/app/auth/update"/>">정보수정</a></li>
+                            <li id="li-feed"><a
+                                href="<c:url value="/app/reviewFeed/Feed?id=${targetUser.mno}"/>">피드</a></li>
+                            <li id="li-sceneAlbum"><a
+                                href="<c:url value="/app/sceneAlbum/list?tgtMno=${targetUser.mno}"/>">장면앨범</a></li>
+                            <c:if
+                                test="${targetUser.mno == loginUser.mno}">
+                                <li id="li-statis"><a
+                                    href="<c:url value="/app/stsc/list"/>">통계</a></li>
+                                <li id="li-follow"><a
+                                    href="<c:url value="/app/follow/flwlist"/>">팔로우</a></li>
+                                <li id="li-log"><a
+                                    href="<c:url value="/app/log/mloglist"/>">활동로그</a></li>
+                                <li id="li-update"><a
+                                    href="<c:url value="/app/auth/update"/>">정보수정</a></li>
                             </c:if>
                         </ul>
                     </div>
