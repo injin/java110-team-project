@@ -24,9 +24,6 @@
     z-index: 9999;
     display: none;
 }
-a.navy {
-    color: #336699;
-}
 </style>
 </head>
 <body>
