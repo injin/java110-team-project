@@ -5,6 +5,7 @@ import java.util.Date;
 public class SceneReviewCmt {
   
   protected int cmno;           // 댓글번호
+  protected int mvno;
   protected int srno;           // 장면번호
   protected int mno;            // 회원번호
   protected String photo;       // 사진
@@ -15,7 +16,12 @@ public class SceneReviewCmt {
   protected String mvnm;        // 영화이름
   protected Member member;      // 작성자
   
-  
+  public int getMvno() {
+    return mvno;
+  }
+  public void setMvno(int mvno) {
+    this.mvno = mvno;
+  }
   public int getCmno() {
     return cmno;
   }
@@ -76,11 +82,11 @@ public class SceneReviewCmt {
   public void setMember(Member member) {
     this.member = member;
   }
-  
   @Override
   public String toString() {
-    return "SceneReviewCmt [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno + ", photo=" + photo
-        + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
-        + ", map=" + map + ", mvnm=" + mvnm + ", member=" + member + "]";
+    return "SceneReviewCmt [cmno=" + cmno + ", mvno=" + mvno + ", srno=" + srno + ", mno=" + mno
+        + ", photo=" + photo + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate="
+        + modifiedDate + ", map=" + map + ", mvnm=" + mvnm + ", member=" + member + "]";
   }
+  
 }

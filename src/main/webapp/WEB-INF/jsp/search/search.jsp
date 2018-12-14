@@ -51,11 +51,35 @@
 	font-size: 1.5rem;
 	color: #FFD119;
 }
-.text-wrap .c-pointer:hover {
+/* .text-wrap .c-pointer:hover {
     font-weight:bold;
-}
+} */
 /* == 장면앨범 조회결과 ==  */
-
+.memb-profile{
+    border-radius: 50%;
+    width: 2rem !important;
+    height: 2rem;
+}
+.lbm .ico-wrap{
+    width: 14rem;
+}
+.lbm .text-wrap{
+    width: 15rem;
+}
+.lbmTitl{
+    font-weight: bold;
+}
+/* == 장면리뷰 조회결과 == */
+.cmt-date {
+    color: #ccc;
+    font-size: 0.9em;
+}
+.cmt-img {
+    max-width: 35em;
+}
+.makeBold .c-pointer:hover {
+    font-weight:bold;
+} 
 
 </style>
 <script
@@ -76,6 +100,7 @@
     <script src="/js/top-btn.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script src="/js/detailPost.js"></script>
+	<script src="/js/vendor/jquery.tweetParser.js"></script>
 	<script type="text/javascript">
         //console.log('${movieList}');
 
@@ -86,8 +111,18 @@
         var memberFooter = document.getElementById('showAllMembers');
         var tagFooter = document.getElementById('showAllTags');
         var albumFooter = document.getElementById('showAllAlbums');
+        var sceneFooter = document.getElementById('showAllsceneTags');
         var frame;
 
+        /* 장면리뷰 댓글 해쉬태그 부분 */
+         $(".cmt-cont").tweetParser({
+            urlClass : "tweet_link", //this is default
+            userClass : "tweet_user", //this is default
+            hashtagClass : "navy",
+            target : "_self", //this is default
+            hashtagPath: "<c:url value='/app/searchResult?keyword=' />"
+        });
+        
         /* 게시물 해시태그부분 */
         var sessionMember = {
             "nickname" : '${sessionScope.loginUser.nickname}',
@@ -131,6 +166,10 @@
             location.href = "/app/sceneAlbum/detail?open=true&lbmno="+lbmno+"&tgtMno="+mno;
         }
         
+        function goToSceneTag(mvno, srno){ 
+            location.href = "/app/sceneReview/review?mvno="+ mvno+ "&srno=" + srno;
+        }
+        
         /* 더보기버튼 */
         function showMoreInSearchResult(input, type) {
 
@@ -169,7 +208,15 @@
                 }
 
                 albumFooter.style.visibility = "hidden";
+            } else if (type == 'st') {
+                for (var i = 3; i < totalCount; i++) {
+                    frame = document.getElementsByClassName('sceneTagFrame')[i];
+                    frame.style.display = "block";
+                }
+
+                sceneFooter.style.visibility = "hidden";
             }
+            
         }
     </script>
 </body>

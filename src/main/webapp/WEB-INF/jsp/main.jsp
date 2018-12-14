@@ -161,7 +161,7 @@ function showCont(cont, index) {
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick" >
-                                                    <img src="${post.member.profileImage}" class="main-cmt-img">&nbsp;
+                                                    <img src="${post.member.profileImagePath}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <p class="card-text"

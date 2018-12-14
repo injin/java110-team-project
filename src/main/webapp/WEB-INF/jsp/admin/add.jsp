@@ -15,6 +15,12 @@
 <link rel="stylesheet" href="/css/tabstyles.css">
 
 <style>
+body {
+    min-height: 0rem;
+    padding-top: 3.6rem;
+}
+
+
 table {
 	text-align: center;
 }
@@ -54,8 +60,9 @@ tbody td {
 }
 
 .my-mv-list {
-	height: 50rem;
+	height: 22rem;
 }
+
 /* tabs*/
 .tabs {
 	position: relative;
@@ -123,20 +130,27 @@ tbody td {
 .tabs nav a:focus {
 	outline: none;
 }
-
-a {
-	color: #000000;
-	text-decoration: none;
-	background-color: transparent;
-	-webkit-text-decoration-skip: objects;
+main {
+    min-height: 43rem !important;
 }
 
-a:hover {
-	color: #000000;
-	text-decoration: none;
-	
-
+.btn2 {
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.25rem 0.4rem;
+  font-size: 75%;
+  line-height: 1.2;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 </style>
 </head>
 <body>
@@ -186,12 +200,12 @@ a:hover {
 					style="margin-bottom: 1rem;">
 					<c:forEach items="${movieList}" var="movie" varStatus="status">
 						<li id="mv-li-${movie.mvno}">
-							<div class="media list-group-item">
+							<div class="media list-group-item" style ="border:0px;">
 								<div class="media-body">
 									<span class="mt-0"><b>${movie.title}</b></span>
 									<button type="button" onclick="removeList(${movie.mvno})"
 										style="float: right; cursor: pointer;"
-										class="badge badge-primary badge-pill">제거</button>
+										class="btn2 btn-primary">제거</button>
 									<input type="hidden" name="favMvIdList" value="${movie.mvno}">
 									<input type="hidden" name="favMvTitleList"
 										value="${movie.title}">

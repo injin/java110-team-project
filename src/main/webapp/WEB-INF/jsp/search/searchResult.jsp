@@ -53,7 +53,7 @@
 					<c:forEach items="${memberList}" var="list" varStatus="status"
 						begin="0" end="${fn:length(memberList)}">
 						<div
-							class="${status.index>=3 ? 'memberFrame showType' : 'memberFrame'}">
+							class="${status.index>=3 ? 'memberFrame showType makeBold' : 'memberFrame makeBold'}">
 							<div class="wrap member c-pointer" onclick="goToFeed(${list.mno})">
 								<div class="ico-wrap">
 
@@ -113,8 +113,7 @@
                         begin="0" end="${fn:length(albumList)}">
                         <div
                             class="${status.index>=3 ? 'albumFrame showType' : 'albumFrame'}">
-                            
-                            
+ <%--                            
                      <div class="wrap album">
                         <div class="card card-hot-sr" style="max-height:25em">
                             <div class="list c-pointer" onclick="goToLbm(${list.lbmno},${list.mno})">
@@ -153,40 +152,51 @@
                             </div>
                         </div>
                     </div>
+ --%>                            
                             
-                            
-<%--                             <div class="wrap lbm c-pointer" onclick="goToFeed(${list.mno})">
+                            <div class="wrap lbm c-pointer" onclick="goToLbm(${list.lbmno},${list.mno})">
                                 <div class="ico-wrap">
+                                  <c:choose>
+                                 <c:when test="${empty list.phot}">
+                                     
+                                     <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
+                                 </c:when>
+                                 <c:otherwise>
+                                     <img class="card-img-top hot-sr-img-scene"
+                                            src="/upload/sceneReview/${list.phot}"
+                                            alt="Card image cap"></a>
+                                            
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                
+                                <div class="text-wrap vcenter makeBold">
+                                <p class="text-dark lbmTitl">${list.lbmTitle}</p>
 
+                                    <div style="font-size: 0.8rem; clear: both; float: left;">장면: ${list.srCnt}개</div> 
+                                <span style="float: left; clear: both;">${list.cdt}</span>
+                                
                                     <c:set var="path" value="${list.p_phot}" />
                                     <c:choose>
                                         <c:when test="${empty path}">
-                                            <div>
-                                                <img class="img" src="/img/default-profile-img.png"
-                                                    alt="${list.nick}">
-                                            </div>
+                                            <span class="mbr-text display-6 pb-3 text-dark c-pointer"  
+                                            style="float: right;">
+                                                <img class="img memb-profile" src="/img/default-profile-img.png"
+                                                    alt="${list.nick}">&nbsp;${list.nick}</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <div>
-                                                <img class="img" src="${list.p_phot}" alt="profile">
-                                            </div>
+                                            <span class="mbr-text display-6 text-dark c-pointer" 
+                                            style="float: right;">
+                                                <img class="img memb-profile" src="${list.p_phot}" alt="profile">&nbsp;${list.nick}</span>
                                         </c:otherwise>
                                     </c:choose>
-
-                                </div>
-                                <div class="text-wrap vcenter">
-                                    <p class="mbr-text display-6 text-dark c-pointer">${list.nick}</p>
+                                    
                                 </div>
                             </div>
- --%>                            
+                            
                         </div>
                     </c:forEach>
                     <!-- 장면앨범 목록 -->
-
-
-
-
-
 
                     <c:if test="${fn:length(albumList) > 3}">
                         <c:set var="type" value="ab" />
@@ -200,6 +210,80 @@
                 </div>
             </c:if>
             <!-- 장면앨범 -->
+
+            <!-- 장면리뷰 댓글 해시태그 -->
+            <c:if test="${fn:length(sceneHashList) > 0}">
+                <div class="col-lg-12 mbr-col-md-12 resultMember">
+                    <div class="col-centered">
+
+                        <div class="wrap search_header">
+                            <div class="text-wrap vcenter">
+                                <h2 class=" mbr-bold mbr-section-title3 display-5">
+                                    장면리뷰 댓글 <span>검색결과</span>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 장면리뷰 댓글 해시태그 목록 -->
+                    <c:forEach items="${sceneHashList}" var="list" varStatus="status"
+                        begin="0" end="${fn:length(sceneHashList)}">
+                        <div
+                            class="${status.index>=3 ? 'sceneTagFrame showType' : 'sceneTagFrame'}">
+                            
+                            <div class="wrap gPost pb-4">
+                            
+                    <p class="float-right" onclick="goToSceneTag(${list.mvno},${list.srno})">${list.mvno}</p>    
+                    <div class="mediaw-100">
+                        <div class="media-body">
+                    
+                        <img class="mr-2 profile-medium2" src="${list.member.profileImagePath}" alt="Generic placeholder image">
+                        
+                            <span class="makeBold">
+                                <span <c:if test="${list.member.id != '000000000'}">class="c-pointer" onclick="goToFeed(${list.member.mno})"</c:if>>${list.member.nickname}</span>&nbsp;
+                                <span class="list-date cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.createdDate}" /></span>
+                            </span>
+                            
+                            
+                            <div class="ml-5">
+                        <!-- <div class="media-body"> -->
+                        <%-- <div id="cmt-edit-${list.cmno}" data-cont="${list.cont}" data-cmno="${list.cmno}"></div> --%>
+                            <div class="break-all cmt-cont" id="cmt-show-${list.cmno}">${list.cont}</div>
+                            
+                            <!-- 댓글 지도 -->
+                            <c:if test="${list.map.lat ne null && list.map.lng ne null}">
+                                <a class="map-link" target="_blank" href="http://google.com/maps/?q=${list.map.lat},${list.map.lng}">
+                                    <i class="fas fa-map-marker-alt"></i> ${list.map.mapName}</a>
+                            </c:if>
+                            <!-- 댓글 첨부 사진 -->
+                            <c:if test="${list.photo ne null}">
+                                <div><img src="/upload/sceneReview/${list.photo}" class="rounded cmt-img" alt="댓글 이미지"></div>
+                            </c:if>
+                            <!-- </div> -->
+                            </div>
+                            
+                            </div>
+                        
+                        
+                    </div>
+                            </div>
+                            
+                        </div>
+                    </c:forEach>
+                    <!-- 장면리뷰 댓글 해시태그 목록 -->
+
+                    <c:if test="${fn:length(sceneHashList) > 3}">
+                        <c:set var="type" value="st" />
+                        <div class="wrap search_footer" id="showAllsceneTags"
+                            onclick="showMoreInSearchResult(${fn:length(sceneHashList)}, '${type}')">
+                            <div class="text-wrap vcenter">
+                                <p>더 보기</p>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+            </c:if>
+            <!-- 장면리뷰 댓글 해시태그 -->
 
 			<!-- 영화 -->
 			<c:if test="${totalResults > 0}">

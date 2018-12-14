@@ -131,23 +131,23 @@ public class PostServiceImpl implements PostService {
       } else {
         movieAnlyDao.insertPost(mparams);
       }
-    }
-    
-    // 영화 장르 추가
-    if (!movieAnlyDao.checkGrExist(post.getMvno())) {
-      List<Genre> genres = tmdbMovies.getMovie(post.getMvno(), Constants.LANGUAGE_KO).getGenres();
-      List<Integer> grnoList = new ArrayList<>();
-      if (genres.size() > 0) {
-        for(Genre g: genres) {
-          grnoList.add(g.getId());
+      
+
+      // 영화 장르 추가
+      if (!movieAnlyDao.checkGrExist(post.getMvno())) {
+        List<Genre> genres = tmdbMovies.getMovie(post.getMvno(), Constants.LANGUAGE_KO).getGenres();
+        List<Integer> grnoList = new ArrayList<>();
+        if (genres.size() > 0) {
+          for(Genre g: genres) {
+            grnoList.add(g.getId());
+          }
         }
+        HashMap<String, Object> gparams = new HashMap<>();
+        gparams.put("mvno", post.getMvno());
+        gparams.put("grnoList", grnoList);
+        movieAnlyDao.insertGrAllNotExists(gparams);
       }
-      HashMap<String, Object> gparams = new HashMap<>();
-      gparams.put("mvno", post.getMvno());
-      gparams.put("grnoList", grnoList);
-      movieAnlyDao.insertGrAllNotExists(gparams);
     }
-    
 
     postDao.insert(post);
 
