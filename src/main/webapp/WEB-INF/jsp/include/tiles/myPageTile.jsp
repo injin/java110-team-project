@@ -131,7 +131,7 @@
                     html += '<img src="/img/default-profile-img.png" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
                     }
                     else{
-                    html += '<img src="'+value.profileImage+'" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
+                    html += '<img src="'+value.profileImagePath+'" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
                     }
                     html += ('<span>'+ value.nickname + '</span>');
                     /* html += 'c:if()'
