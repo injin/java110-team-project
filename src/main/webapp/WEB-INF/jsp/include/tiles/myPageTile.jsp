@@ -119,7 +119,12 @@
                 data.forEach(function(value, index) {
                     html += '<tr id="tr-rcmd-' + value.mno + '" >';
                     html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="    vertical-align: -webkit-baseline-middle;text-decoration:none; color:black">';
+                    if (value.profileImage == null) {
+                    html += '<img src="/img/default-profile-img.png" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
+                    }
+                    else{
                     html += '<img src="'+value.profileImage+'" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
+                    }
                     html += ('<span>'+ value.nickname + '</span>');
                     /* html += 'c:if()'
                     html += '<br>'+value.pr; */ 
