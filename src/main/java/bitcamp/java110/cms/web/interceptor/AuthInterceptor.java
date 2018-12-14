@@ -22,7 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             result = false;
           }
         } else {
-          result = false;
+          result = true;
         }
         
         if (result == false) {
