@@ -14,6 +14,7 @@ public interface SceneReviewDao {
   Integer insertCmtMap(SceneReviewMap sceneReviewMap);
   Integer findOneSrno(int mvno);
   SceneReview findByNo(int srno);
+  List<SceneReviewCmt> getHashCmtByKeyword(String keyword);
   List<SceneReview> findAll(int mvno);
   Integer getTotalCmtCnt(int srno);
   List<SceneReviewCmt> listCmt(Map<String, Object> condition);

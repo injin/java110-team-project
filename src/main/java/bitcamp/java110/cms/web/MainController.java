@@ -14,6 +14,7 @@ import bitcamp.java110.cms.domain.Member;
 import bitcamp.java110.cms.domain.Post;
 import bitcamp.java110.cms.domain.SceneAlbum;
 import bitcamp.java110.cms.domain.SceneReview;
+import bitcamp.java110.cms.domain.SceneReviewCmt;
 import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.PostService;
@@ -70,7 +71,6 @@ public class MainController {
       String keyword,
       HttpSession session,
       Model model) throws Exception{
-
     
     // 회원 찾기
     List<Member> memberList = memberService.findByNick(keyword);
@@ -78,6 +78,10 @@ public class MainController {
     // 장면 앨범
     List<SceneAlbum> albumList = sceneAlbumService.getListByKeyword(keyword);
 
+    // 장면리뷰 댓글 해시태그 
+    List<SceneReviewCmt> sceneHashList = sceneReviewService.getListByKeyword(keyword);
+    System.out.println(sceneHashList);
+    
     // 해쉬태그
     Member member = ((Member)session.getAttribute("loginUser"));
     Map<String, Object> params = new HashMap<>();
@@ -101,6 +105,7 @@ public class MainController {
     model.addAttribute("hashList", hashList);
     model.addAttribute("memberList", memberList);
     model.addAttribute("albumList", albumList);
+    model.addAttribute("sceneHashList", sceneHashList);
     model.addAttribute("totalPages", response.getTotalPages());
     model.addAttribute("totalResults", response.getTotalResults());
 

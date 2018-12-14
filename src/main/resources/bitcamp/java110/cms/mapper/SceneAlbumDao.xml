@@ -67,7 +67,7 @@
             sr.srCnt
          FROM mv_lbm l
          join mv_memb m on l.mno = m.mno
-                       join ( SELECT lbmno, count(srno) as srCnt
+            left outer join ( SELECT lbmno, count(srno) as srCnt
                                 FROM `mv_lbm_sr`
                             GROUP BY lbmno
                             ORDER BY count(srno)) sr
