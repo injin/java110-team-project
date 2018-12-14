@@ -136,7 +136,7 @@ textarea {
                                </path>
                             </use>
                         </svg>
-                   <span>추천테마영화</span>
+                   <span>씬콕의 추천영화</span>
                     </a></li>
             </ul>
         </nav>

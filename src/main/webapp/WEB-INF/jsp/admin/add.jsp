@@ -143,7 +143,7 @@ a:hover {
 	<jsp:include page="../include/header.jsp"></jsp:include>
 	<main role="main" class="container"> <!-- 작업부분 -->
 	<form class="addForm" action="save" method="post">
-		<h1 class="m-4" style="font-family: fantasy;">추천 테마 목록</h1>
+		<h1 class="m-4" style="font-family: fantasy;">씬콕의 추천영화</h1>
 		<table class="table table-hover">
 			<thead>
 				<tr>
