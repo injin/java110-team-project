@@ -1,22 +1,18 @@
 $(function() {
     /* ========== 이미지 업로드 관련  ========== */
     var uploadFileNames = [];
-
     $('body').on('change', '.picupload', function(event) {
         var files = event.target.files;
-
         if(uploadFileNames.length+files.length>3){
             commonAlert('error',"3장 이하의 사진만 업로드 할 수 있습니다.");
         }else{
             fileUploadAjax(files);
         }
     });
-
     $('body').on('click', '.remove-pic', function() {
         var removeItem = $(this).attr('data-name');
         fileRemoveAjax(removeItem);
     });
-
     function removeUploadedImg(removeItem) {
         $('#li-' + removeItem).remove();
         var yet = uploadFileNames.indexOf(removeItem);
@@ -24,9 +20,7 @@ $(function() {
             uploadFileNames.splice(yet, 1);
         }
     }
-
     function fileRemoveAjax(fileName) {
-
         $.ajax({
             url : "/app/reviewFeed/fileUpload-remove",
             type: "post",
@@ -43,9 +37,7 @@ $(function() {
             }
         });
     }
-
     function fileUploadAjax(files) {
-
         var formData = new FormData();
         for (var i = 0; i < files.length; i++) {
             formData.append('files', files[i]);
@@ -57,7 +49,6 @@ $(function() {
             type: "post",
             data : formData,
             success : function(data) {
-
                 if (data.length == files.length) {
                     var newFileNames = [];
                     data.forEach(function(value) {
@@ -74,22 +65,18 @@ $(function() {
             }
         });
     }
-
     function displayUploadedImgs(files, newFileNames) {
         var $mlist = $("#media-list");
         for (var i = 0; i < files.length; i++) {
             files[i].realName = newFileNames[i];
         }
-
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             if (file.type.match('image')) {
-
                 var picReader = new FileReader();
                 picReader.realName = file.realName;
                 picReader.fileName = file.name;
                 picReader.addEventListener("load", function(event) {
-
                     var picFile = event.target;
                     var div = document.createElement("li");
                     div.id = 'li-' + picFile.realName;
@@ -106,23 +93,19 @@ $(function() {
             }
         }
     }
-
     /* ========== 일상/영화게시물 구분 관련  ========== */
     $('.starrr').starrr({
         change: function(e, value){
             $("#star").val(value);
         }
     });
-
     $("#starbtn").click(function () {
         $('#showStar').toggleClass("nostar");
         if($('#showStar').hasClass("nostar")){
             $("#star").val(0);
         }
     });
-
     $('.open').on('click', function(e) {
-
         if(this.checked) {
             $('#globe').show();
             $("#lock").hide();
@@ -131,7 +114,6 @@ $(function() {
             $("#globe").hide();
         }
     });
-
     /* ========== 친구태그 관련  ========== */
     var fList = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
@@ -139,7 +121,6 @@ $(function() {
         local: flwList
     });
     fList.initialize();
-
     elt = $('#flw');
     elt.tagsinput({
         itemValue: 'value',
@@ -150,11 +131,9 @@ $(function() {
             source: fList.ttAdapter()
         }
     });
-
-//  영화 자동완성
+    //  영화 자동완성
     $( "#movieSearch" ).autocomplete({
         source: function( request, response ) {
-
             $("#movieSearch").addClass("ui-autocomplete-loading");
             $.ajax({
                 url: "/app/movieInfo/listByKeyword",
@@ -181,15 +160,15 @@ $(function() {
                 }
             });
         },
-      /*  change: function(event,ui) {
-            event.preventDefault();
-            if (ui.item == null || ui.item == undefined) {
-                $("#movieSearch").val('');
-            }else{
-                $("#movieId").val(ui.item.value);
-                $("#movieSearch").val(ui.item.label);      
-            }
-        },*/
+        /*  change: function(event,ui) {
+        event.preventDefault();
+        if (ui.item == null || ui.item == undefined) {
+            $("#movieSearch").val('');
+        }else{
+            $("#movieId").val(ui.item.value);
+            $("#movieSearch").val(ui.item.label);      
+        }
+    },*/
         select: function(event,ui) {
             /*event.preventDefault();*/
             $("#movieId").val(ui.item.value);
@@ -197,9 +176,8 @@ $(function() {
             $("#movieSearch").focus();
             return false;
         }/*, close: function( event, ui ) {
-            event.preventDefault();
-        }*/
-        
+        event.preventDefault();
+    }*/
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
@@ -209,13 +187,12 @@ $(function() {
         '</div>')
         .appendTo( ul );
     };
-    /*$("#movieSearch").on("focus",function(){
+    /* $("#movieSearch").on("focus",function(){
         commonAlert('success',"자동완성된 리스트에서 영화를 선택해주세요.");
         $("#movieId").val(0);
         $("#movieSearch").val("");
     });*/
-
-//  글 작성
+    //  글 작성
     $('#modalSubmit').on('click', function(e) {
         if($("#pstTypeNo").val() == 0){
             if($("#movieId").val().trim() == 0){
@@ -224,7 +201,6 @@ $(function() {
                 return;
             }
         }
-
         if(!document.getElementById("reviewTxtarea").value.replace(/(^\s*)|(\s*$)/gi, "")){
             commonAlert('error',"내용을 작성해주세요.");
             e.preventDefault();
@@ -235,14 +211,11 @@ $(function() {
             e.preventDefault();
             return;
         }
-
         $("#photList").val(uploadFileNames);
         $("#ftagsForAdd").val($("#flw").val());
     });
-
-//  창닫을때
+    //  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
-
         if($('#pstno').is('input')){
             $('#reviewModal form').attr('action', 'add');
             $('#pstno').remove();
@@ -263,38 +236,28 @@ $(function() {
             $('#reviewModal #temp').attr('class', 'starrr onlyMovie photo-star-section');
             $('#reviewModal #temp').attr('id', 'showStar');
         }
-
         $('.counter').replaceWith('<span class="counter float-right mt-1 mb-1" >글자 제한 1000자</span>');
         $('#showStar').after('<div id="temp" ></div>');
-
         $("#movieId").val(0);
         $('#movieSearch').val('');
-
         $('#flw').val('');
         $('#reviewTxtarea').val('');
-
         $('#globe').show();
         $("#lock").hide();
         $(this).find("input[type=checkbox]").prop("checked", "checked");
-
         $("#ftagsForAdd").val(-1);
         var $inputTag = $("#flw").prev().children().last().clone().wrapAll("<div></div>").parent();
         $("#flw").prev().html($inputTag.html());
-
         uploadFileNames = [];
         $("#media-list").html('');
     });
-
     // 글자제한
     $('#reviewTxtarea').keyup(function (e){
         var content = $(this).val();
         $('.counter').html(content.length + '/1000');
     });
     $('#reviewTxtarea').keyup();
-
 });
-
-
 //일상/영화게시물 올리기
 function postShow(id) {
     if (id == 'btnIlsang') {
@@ -305,20 +268,15 @@ function postShow(id) {
         $('.onlyMovie').show();
     }
 }
-
-
 /* ========== 피드 무한스크롤 ========== */
 var doingLoad = false;
-function morePostHtml(data){
+function morePostHtml(data,whereLast){
     var html = '';
-
     postList = postList.concat(data.postsResult); 
-
     for (var i=0;i<data.postsResult.length;i++) {
         if(i == data.postsResult.length-1){
             lstpstno = String(data.postsResult[i].pstno);
         }
-
         html += '        <div class="wPost reviewPst aos-init" data-aos="fade-up" data-aos-duration="1500">';
         html += '            <div class="media row pr-3 pl-3">';
         html += '                <img src="';
@@ -335,7 +293,11 @@ function morePostHtml(data){
         html +=  new Date(data.postsResult[i].createdDate).toLocaleString();
         html += '</span>'; 
         html += '</li><li>';
-
+        if(!data.postsResult[i].open){
+            html += '<i id="lock-';
+            html +=  data.postsResult[i].pstno;
+            html +=    '" class="fas fa-lock lock d-inline">&nbsp;</i>';
+        }
         if('null' !=data.postsResult[i].ftags){
             for(var j=0;j<data.postsResult[i].ftags.length;j++){
                 html += '<span onclick="goToFeed(';
@@ -345,43 +307,40 @@ function morePostHtml(data){
                 html += '&nbsp;</span>';
             }
         }
-
         html += '                    </li></ul>';
-
-
         if(data.postsResult[i].pstTypeNo == 0){
             html += '<p class="dptitle">';
             html += '<b><i>';
             html += data.postsResult[i].title;
             html += '</i></b></p>';
         }
-
         html += '               </div>';
-        
-        /*
-        <c:if test="${targetUser.mno == loginUser.mno}">
-        <a class="dropdown-toggle c-pointer" id="dropdown01" 
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        </a>
-        <div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown01">
-          <c:choose>
-            <c:when test="${post.pstTypeNo == 0}">
-              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-                onclick="openEditingModal(${post.pstno}, 'btnMovie')">수정</a>
-            </c:when>
-            <c:otherwise>
-              <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"
-                onclick="openEditingModal(${post.pstno}, 'btnIlsang')">수정</a>
-            </c:otherwise>
-          </c:choose>
-          
-          <a class="dropdown-item c-pointer"
-            onclick="deletePost(${post.pstno})">삭제</a>
-        </div>
-    </c:if>
-        */
-        
-        
+        if(whereLast != "list"){
+            var idlst = whereLast.split("=");
+            if(idlst[1] == sessionMember.mno){
+                html += '<i class="fas fa-ellipsis-v c-pointer dropCss" id="dropdown-';
+                html += data.postsResult[i].pstno;
+                html += '" ';
+                html += '   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>';
+                html += '<div class="dropdown-menu dropdown-flex" aria-labelledby="dropdown-';
+                html += data.postsResult[i].pstno;
+                html += '">';
+                if(data.postsResult[i].pstTypeNo == 0){
+                    html += '    <a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"';
+                    html += 'onclick="openEditingModal(';
+                    html += data.postsResult[i].pstno
+                    html +=', \'btnMovie\')">수정</a>';
+                }else{
+                    html += '<a class="dropdown-item c-pointer" data-toggle="modal" data-target="#reviewModal"';
+                    html += 'onclick="openEditingModal(';
+                    html += data.postsResult[i].pstno
+                    html +=', \'btnIlsang\')">수정</a>';
+                }
+                html += '<a class="dropdown-item c-pointer"';
+                html += 'onclick="deletePost(${post.pstno})">삭제</a>';
+                html += '</div>';
+            }
+        }
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';
@@ -391,7 +350,6 @@ function morePostHtml(data){
         html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
         html += '</p>';
         html += '               </div>';
-
         if(data.postsResult[i].photos.length > 0){
             html += '<div class="image">';
             html += '   <img onclick="openDetailModal(';
@@ -407,14 +365,11 @@ function morePostHtml(data){
                 html += data.postsResult[i].photos.length-1;
                 html += '장+</p></div>';
             }
-
             html += '</div>';
         }
         html += '        </div>';
-
         html += '       <div class="row">';
         html += '           <div class="col-6 text-left">';
-
         html += '<i class="fas fa-thumbs-up btmIcon c-pointer likeColor';
         if(!data.postsResult[i].likeCheck){
             html += ' dis-none ';
@@ -460,33 +415,24 @@ function morePostHtml(data){
         html += '">';
         html +=  data.postsResult[i].cmtCnt;
         html += '</span></div>';
-
         html += '   <div class="col-6 text-right">';
         if(data.postsResult[i].pstTypeNo == 0 && data.postsResult[i].star != 0){
-
             for(var s = 0;s<5;s++){
                 if(s<data.postsResult[i].star){
-
                     html += '<i class="fas fa-star sStar"></i>';    
                 }else{
-
                     html += '<i class="far fa-star sStar"></i>';
                 }
             }
         }
-
         html += '  </div>'; 
         html += '       </div>';
-
         html += '   </div>';
     }  
     $('#pstShw').append(html); 
-
     doingLoad = false;
 }
-
 $(window).scroll(function() {
-
     var $win = $(window);
     var top = $(window).scrollTop(); 
     var endPoint = $(document).height() - $('footer').height()-$('header').height();
@@ -495,12 +441,10 @@ $(window).scroll(function() {
     var $layer         = $('#stv_list'); 
     var layerTopOffset = 0;   
     $layer.css('position', 'absolute');
-
     if (top > 0 )
         $win.scrollTop(layerTopOffset+top);
     else
         $win.scrollTop(0);
-
     yPosition = $win.scrollTop();
     if (yPosition < 0)
     {
@@ -510,10 +454,8 @@ $(window).scroll(function() {
         yPosition = endPoint-600;
     }
     $layer.animate({"top":yPosition }, {duration:speed, easing:easing, queue:false});
-
-    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad){
+    if (($(window).scrollTop() >= ($(document).height() - $(window).height())*0.7) && !doingLoad && lstpstno!=""){
         doingLoad=true;
-        
         var where = (window.location.href).split("/");
         var whereLast = where[where.length-1];
         var id;
@@ -523,7 +465,6 @@ $(window).scroll(function() {
             var idlst = whereLast.split("=");
             id = idlst[idlst.length-1];
         }
-        
         $.ajax({
             type:'POST',
             url:'/app/reviewFeed/morePost',
@@ -536,7 +477,7 @@ $(window).scroll(function() {
                 "id":id
             }),
             success:function(data){
-                morePostHtml(data);
+                morePostHtml(data,whereLast);
             }
         });
     }
