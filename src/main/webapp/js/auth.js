@@ -52,14 +52,14 @@ function signUpCheck() {
 
 // 회원정보 업데이트
 function updateCheck() {
-    $form = $('#detailForm');
-    $nickname = $('#detailForm #nickname');
-    if($nickname.val() == null || $nickname.val() == '(알수없음)' || $nickname.val() == "") {
-        commonAlert('error', "닉네임을 입력해 주세요");
-        $nickname.focus();
-        return;
-    }
-    $form.submit();
+  $form = $('#detailForm');
+  $nickname = $('#detailForm #nickname');
+  if($nickname.val() == null || $nickname.val() == '(알수없음)' || $nickname.val() == "") {
+      commonAlert('error', "닉네임을 입력해 주세요");
+      $nickname.focus();
+      return;
+  }
+  $form.submit();
 }
 
 //  home으로
