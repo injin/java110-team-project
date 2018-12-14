@@ -232,17 +232,22 @@
                             class="${status.index>=3 ? 'sceneTagFrame showType' : 'sceneTagFrame'}">
                             
                             <div class="wrap gPost pb-4">
-                    <div class="media mt-3">
-                        <img class="mr-2 profile-medium2" src="${list.member.profileImagePath}" alt="Generic placeholder image">
+                            
+                    <p class="float-right" onclick="goToSceneTag(${list.mvno},${list.srno})">${list.mvno}</p>    
+                    <div class="mediaw-100">
                         <div class="media-body">
+                    
+                        <img class="mr-2 profile-medium2" src="${list.member.profileImagePath}" alt="Generic placeholder image">
+                        
                             <span class="makeBold">
                                 <span <c:if test="${list.member.id != '000000000'}">class="c-pointer" onclick="goToFeed(${list.member.mno})"</c:if>>${list.member.nickname}</span>&nbsp;
                                 <span class="list-date cmt-date"><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss" value="${list.createdDate}" /></span>
                             </span>
-                            <%-- <div style="float: right;" onclick="goToSceneTag(${list.mvno},${list.srno})">${list.mvno}</div><br> --%>
                             
-                        <br>
-                        <div id="cmt-edit-${list.cmno}" data-cont="${list.cont}" data-cmno="${list.cmno}"></div>
+                            
+                            <div class="ml-5">
+                        <!-- <div class="media-body"> -->
+                        <%-- <div id="cmt-edit-${list.cmno}" data-cont="${list.cont}" data-cmno="${list.cmno}"></div> --%>
                             <div class="break-all cmt-cont" id="cmt-show-${list.cmno}">${list.cont}</div>
                             
                             <!-- 댓글 지도 -->
@@ -254,9 +259,13 @@
                             <c:if test="${list.photo ne null}">
                                 <div><img src="/upload/sceneReview/${list.photo}" class="rounded cmt-img" alt="댓글 이미지"></div>
                             </c:if>
+                            <!-- </div> -->
                             </div>
+                            
+                            </div>
+                        
+                        
                     </div>
-                    
                             </div>
                             
                         </div>
