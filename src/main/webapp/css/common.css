@@ -110,15 +110,6 @@ background-color: #d5dae0; }
   border-radius: 100%;
 }
 
-/*==== top 버튼 ==== */
-.return-top{
-    display: block;
-    right: 20px;
-    bottom: 20px;
-    position: fixed;
-    z-index: 99999999;
-}
-
 /*==== 메인 ==== */
 div.block-wide {
     margin-right: -15px;

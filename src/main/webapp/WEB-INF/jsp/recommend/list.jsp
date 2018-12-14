@@ -16,6 +16,7 @@
   <link rel='stylesheet' href='/css/bootstrap-tagsinput.css'>
   <link rel='stylesheet' href='/css/rcmd.css'>
   <link rel='stylesheet' href='/css/rcmdAnly.css'>
+  <link rel='stylesheet' href='/css/top-btn.css'>
 
 </head>
 <body class="borderGray mt-5">
@@ -136,6 +137,8 @@
   </main>
   <jsp:include page="../include/commonJs.jsp"></jsp:include>
   <jsp:include page="../include/footer.jsp"></jsp:include>
+  <jsp:include page="../include/top-btn.jsp"></jsp:include>
+  <script src="/js/top-btn.js"></script>
   <script src="/js/rcmd.js"></script>
   <script src="/js/carousel.js"></script>
   <script src="/js/handlebars-v4.0.12.js"></script>
