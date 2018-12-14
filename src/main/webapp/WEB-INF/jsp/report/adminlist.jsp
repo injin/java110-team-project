@@ -159,9 +159,8 @@ textarea {
 				<td>${report.rptno}</td>
 				<td>${report.nick}</td>
 				<td data-toggle="collapse" data-target="#demo-${report.rptno}">
-					${report.cont} <a href="${report.url}"> <c:if
+					 <a href="${report.url}"> <c:if
 							test="${not empty report.reportTypes}">
-							<br>
 							<c:forEach items="${report.reportTypes}" var="type">
 								<c:if test="${type.type eq '1'}">
 									<span class="badge badge-danger">선정적/욕설/비방</span>
@@ -180,7 +179,8 @@ textarea {
 				</a> <c:if test="${report.createdDate eq dateNow}">
 						<img src="https://cafe.pstatic.net/cafe4/ico-new.gif" width="10"
 							height="9" class="ico_new" alt="새 게시글" title="새 게시글">
-					</c:if>
+					</c:if><br>
+					${report.cont} 
 				</td>
 				<td>${report.createdDate}</td>
 				<c:choose>
@@ -197,7 +197,7 @@ textarea {
 									data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="true">처리</button>
 								<div class="dropdown-menu">
-									<textarea class="report-textarea2" id="ucont-${report.rptno}">${report.hcont}</textarea>
+									<textarea class="report-textarea2 pl-2" id="ucont-${report.rptno}">${report.hcont}</textarea>
 									<div class="dropdown-divider"></div>
 									<button class="btn report-btn float-right "
 										onclick="insertHcont('ucont-${report.rptno}')">수정</button>
