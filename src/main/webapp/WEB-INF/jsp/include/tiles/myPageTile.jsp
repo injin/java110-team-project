@@ -111,15 +111,16 @@
             success : function(data) {
                 var html ='';
                     html +='<thead>';
-                    html +='<tr>';
-                    html +='<th>팔로우 추천</th>';
+                    html +='<tr style="text-align: center;">';
+                    html +='<th>팔로우 추천 &nbsp;<i class="far fa-user" style="color:blue;"></i></th>';
                     html +='</tr>';
                     html +='</thead>';
                     html +='<tbody>';
                 data.forEach(function(value, index) {
-                    html += '<tr id="tr-rcmd-' + value.mno + '">';
-                    html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="text-decoration:none; color:black">';
-                    html += '<img src="'+value.profileImage+'" class="profile4X4">&nbsp;' + value.nickname;
+                    html += '<tr id="tr-rcmd-' + value.mno + '" >';
+                    html += '    <td><a class="rcmdf" href="/app/reviewFeed/Feed?id='+ value.mno +'"style="    vertical-align: -webkit-baseline-middle;text-decoration:none; color:black">';
+                    html += '<img src="'+value.profileImage+'" class="profile4X4" style="width: 2.5em;height: 2.5em;">&nbsp;';
+                    html += ('<span>'+ value.nickname + '</span>');
                     /* html += 'c:if()'
                     html += '<br>'+value.pr; */ 
                     html += '</a>'
