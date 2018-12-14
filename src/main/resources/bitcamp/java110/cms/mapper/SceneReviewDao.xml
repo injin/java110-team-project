@@ -19,6 +19,7 @@
     <resultMap type="sceneReviewCmt" id="srCmtMap">
         <id     column="cmno"      property="cmno"/>
         <result column="srno"      property="srno"/>
+        <result column="mvno"      property="mvno" />
         <result column="mno"       property="mno"/>
         <result column="phot"      property="photo"/>
         <result column="cont"      property="cont"/>
@@ -34,6 +35,7 @@
         <association property="member" javaType="member">
             <id     column="mno"    property="mno"/>
             <result column="nick"   property="nickname"/>
+            <result column="mid"   property="id"/>
             <result column="p_phot" property="profileImage"/>
         </association>
     </resultMap>
@@ -80,6 +82,19 @@
         SELECT count(cmno)
           FROM mv_sr_cmt
          WHERE srno = #{srno}
+    </select>
+    
+    <select id="getHashCmtByKeyword" resultMap="srCmtMap" parameterType="string">
+        SELECT cmt.cmno, sr.mvno, cmt.srno, mb.mno, cmt.phot, cmt.cont, cmt.cdt, cmt.mdt
+              , mpno, mp_nm, lat, lng, nick, p_phot, mid
+          FROM mv_sr_cmt cmt LEFT JOIN mv_sr_map mp
+               ON cmt.cmno = mp.cmno
+               INNER JOIN mv_memb mb
+               ON cmt.mno = mb.mno
+               INNER JOIN mv_sr sr
+               ON cmt.srno = sr.srno
+         WHERE upper(cmt.cont) like upper(concat('%#%',#{keyword},'%')) 
+         ORDER BY cdt DESC
     </select>
     
     <select id="listCmt" resultMap="srCmtMap" parameterType="map">

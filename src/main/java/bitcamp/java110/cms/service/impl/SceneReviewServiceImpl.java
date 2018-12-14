@@ -131,6 +131,11 @@ public class SceneReviewServiceImpl implements SceneReviewService {
   }
   
   @Override
+  public List<SceneReviewCmt> getListByKeyword(String keyword) {
+    return sceneReviewDao.getHashCmtByKeyword(keyword);
+  }
+  
+  @Override
   public List<SceneReview> list(int mvno) {
     return sceneReviewDao.findAll(mvno);
   }

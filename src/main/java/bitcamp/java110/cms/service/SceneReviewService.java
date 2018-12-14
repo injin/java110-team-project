@@ -13,6 +13,7 @@ public interface SceneReviewService {
   void add(SceneReview sceneReview);
   void addCmt(SceneReviewCmt sceneReviewCmt, SceneReview sceneReview);
   SceneReview findByNo(int srno);
+  List<SceneReviewCmt> getListByKeyword(String keyword);
   List<SceneReview> list(int mvno);
   int getTotalCmtCnt(int srno);
   List<SceneReviewCmt> listCmt(int srno, Paging paging);
