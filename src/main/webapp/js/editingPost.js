@@ -1,4 +1,9 @@
 /* ========== 게시물 수정 모달  ========== */
+String.prototype.replaceAll = function (find, replace) {
+    var str = this;
+    return str.replace(new RegExp(find, 'g'), replace);
+};
+
 function openEditingModal(pstno, type) {
 
   //  index
@@ -38,8 +43,12 @@ function openEditingModal(pstno, type) {
   }
   
   //  게시물 내용 가져오기
-  var cont = $('#reviewCont-' + postList[index].pstno).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+  var cont = $('#reviewCont-' + postList[index].pstno).html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n').trimEnd();
   cont = cont.replace(/(<([^>]+)>)/ig,"");
+  cont = cont.replaceAll('&nbsp;', '');
+  
+  
+  
   $('#reviewModal #reviewTxtarea').val(cont);
   
   //  별점 숨김 값 주기 
