@@ -21,7 +21,6 @@
 <link rel='stylesheet' href='/css/writingPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/top-btn.css'>
-<script src="/js/makeContPost.js"></script>
 
 </head>
 <body class="borderGray bgGray">
@@ -114,12 +113,9 @@
 						<%-- 내용보여주는부분 --%>
 						<div class="clearfix media row m-1">
 							<div class="media-body">
-								<p class="reviewCont scrollbar-light-blue"
+								<p class="reviewCont scrollbar-light-blue cmt-cont"
 									id="reviewCont-${post.pstno}">
-									<script>
-                                        showCont("${post.content}",
-                                                "${post.pstno}");
-                                    </script>
+									${post.content}
 								</p>
 							</div>
 							<c:if test="${post.photos[0] !=null}">
@@ -273,9 +269,10 @@
 	<script src="/js/starrr.js"></script>
 	<script src="/js/bootstrap-tagsinput.min.js"></script>
 	<script src="/js/typeahead.bundle.min.js"></script>
+	<script src="/js/vendor/jquery.tweetParser.js"></script>
 	<script src="/js/aos.js"></script>
-	<script src="/js/writingPost.js"></script>
 	<script src="/js/detailPost.js"></script>
+	<script src="/js/writingPost.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script src="/js/top-btn.js"></script>
 	<script>

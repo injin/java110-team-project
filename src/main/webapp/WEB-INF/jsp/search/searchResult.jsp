@@ -414,11 +414,8 @@
 								<%-- 내용보여주는부분 --%>
 								<div class="clearfix media row m-1">
 									<div class="media-body">
-										<p class="reviewCont" id="reviewCont-${post.pstno}">
-											<script>
-                                        showCont("${post.content}",
-                                                "${post.pstno}");
-                                    </script>
+										<p class="reviewCont scrollbar-light-blue cmt-cont" id="reviewCont-${post.pstno}">
+										${post.content}
 										</p>
 									</div>
 									<c:if test="${post.photos[0] !=null}">
