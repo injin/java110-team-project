@@ -29,7 +29,6 @@
                     aria-describedby="basic-addon1" name="time" id="time" value="00:00:00" autocomplete="off">
               <div class="invalid-feedback"><span id="invalid-txt">등록 불가능한 시간입니다.</span></div>
               <div class="valid-feedback">등록 가능한 시간입니다.</div>
-              <!-- <input type="hidden" name="time"> -->
             </div>
             
             <!-- 장면제목 -->
@@ -46,7 +45,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i class="fas fa-align-left"></i></span>
               </div>
-              <textarea class="form-control" placeholder="장면내용" name="cont" aria-label="장면내용" rows="5"></textarea>
+              <textarea class="form-control resize-none" placeholder="장면내용" name="cont" aria-label="장면내용" rows="5"></textarea>
             </div>
             
             <!-- 파일 선택 -->
@@ -73,7 +72,7 @@
       </div>
         
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" onclick="addSceneReview()">등록</button>
+        <button type="button" id="add-sr-btn" class="btn btn-secondary" onclick="addSceneReview()">등록</button>
       </div>
     </div>
   </div>

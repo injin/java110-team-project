@@ -223,7 +223,7 @@ $(function() {
             $('#reviewModal input[name=title]').attr("disabled",false);
             $('#reviewModal .file').show();
             $('#reviewModal #media-list').show();
-            $('#reviewModal #editSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>');
+            $('#reviewModal #editSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="modalSubmit">등록</button>');
             $('#reviewModal .modal-title').text('리뷰 작성하기');
         }else{
             $('#showStar').remove();

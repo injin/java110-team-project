@@ -53,7 +53,7 @@
                             <span class="btn-icon c-pointer" id="btn-heart-empty"onclick="loginAlert()" title="좋아요"><img src="/img/btn-heart-empty.png"></span>
                         </c:if>
                     </h3>
-                    <p class="mb-0">(${tmdbMovie.releaseDate})</p>
+                    <p class="mb-0 pt-0">(${tmdbMovie.releaseDate})</p>
                 </div>
                 
                 <div id="movie-genres" class="float-right">
@@ -136,7 +136,7 @@
                               <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
-                            <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
+                            <textarea class="form-control resize-none" name="cont" rows="3" placeholder="Write a comment"></textarea>
                             <button type="button" id="btn-map" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
                             
                             <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
@@ -233,7 +233,7 @@
             
             <c:if test ="${fn:length(topReviewer) > 0}">
                 <div class="wrap d-inline-block w-100">
-                    <h5><b>기여 랭킹</b></h5>
+                    <h5><b>우수 리뷰어</b></h5>
                     <c:forEach items="${topReviewer}" var="reviewer">
                         <div class="mt-1 c-pointer txt-underline" onclick="goToFeed(${reviewer.mno})">
                         <div class="media">
@@ -350,6 +350,7 @@
             return;
         $('input[name="photo"]').val(currentFileName);
         $('input[name="spo"]').val($('#tfSpo').prop('checked')? 'Y': 'N');
+        $('form#srAddForm #add-sr-btn').attr('disabled', true);
         $('form#srAddForm').submit();
     }
     
@@ -435,7 +436,7 @@
     
     /* ========== 댓글 관련  ========== */
     function contMore() {
-        $('#p-cont').text('${sceneReview.cont}');
+        $('#p-cont').html('${sceneReview.cont}');
     }
     
     function addComment() {
@@ -475,7 +476,7 @@
         var cmno = $editDiv.data('cmno');
         var contStr = $editDiv.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
         var editHtml = '<div class="card p-2"><div class="media"><div class="media-body">';
-            editHtml += '<textarea class="form-control" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
+            editHtml += '<textarea class="form-control resize-none" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
             editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="closeEditForm(' + cmno + ')">';
             editHtml += '<i class="fas fa-window-close"></i> 취소</button>';
             editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="editComment(' + cmno + ')">';
