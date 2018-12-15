@@ -20,7 +20,6 @@ body {
     padding-top: 3.6rem;
 }
 
-
 table {
 	text-align: center;
 }
