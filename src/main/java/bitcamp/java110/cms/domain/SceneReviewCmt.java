@@ -5,9 +5,10 @@ import java.util.Date;
 public class SceneReviewCmt {
   
   protected int cmno;           // 댓글번호
-  protected int mvno;
+  protected int mvno;           // 영화 id
   protected int srno;           // 장면번호
   protected int mno;            // 회원번호
+  protected String title;       // 영화 제목 여기고쳐
   protected String photo;       // 사진
   protected String cont;        // 내용
   protected Date createdDate;   // 생성일시
@@ -16,6 +17,12 @@ public class SceneReviewCmt {
   protected String mvnm;        // 영화이름
   protected Member member;      // 작성자
   
+  public String getTitle() {
+    return title;
+  }
+  public void setTitle(String title) {
+    this.title = title;
+  }
   public int getMvno() {
     return mvno;
   }
@@ -85,8 +92,9 @@ public class SceneReviewCmt {
   @Override
   public String toString() {
     return "SceneReviewCmt [cmno=" + cmno + ", mvno=" + mvno + ", srno=" + srno + ", mno=" + mno
-        + ", photo=" + photo + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate="
-        + modifiedDate + ", map=" + map + ", mvnm=" + mvnm + ", member=" + member + "]";
+        + ", title=" + title + ", photo=" + photo + ", cont=" + cont + ", createdDate="
+        + createdDate + ", modifiedDate=" + modifiedDate + ", map=" + map + ", mvnm=" + mvnm
+        + ", member=" + member + "]";
   }
   
 }
