@@ -249,7 +249,7 @@
                                         </h6>
                                         </span>
                                         <span style="margin-left:4em; margin-top:1em; float: right;">
-                                        <img src="${album.p_profileImagePath}" class="main-cmt-img">&nbsp;${album.nick}</span>
+                                        <img src="${album.profileImagePath}" class="main-cmt-img">&nbsp;${album.nick}</span>
                                         
                                     </div>
                                 <span class="ml-3" style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> 
