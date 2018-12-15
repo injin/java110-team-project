@@ -60,8 +60,8 @@
                <hr>
 <%-- ========================================================================================== --%>
                <h3 id="gr_anly">선호 장르 분석</h3>
-               <div class="gr_anly">
-                  <div class="btn-group-toggle" data-toggle="buttons">
+               <div class="gr_anly row">
+                  <div class="btn-group-toggle col-12" data-toggle="buttons">
                      <c:forEach items="${favList}" var="genre">
                         <label class="btn btn-checkbox btn-secondary active"
                            id="${genre.grno}">${genre.grName}<input type="checkbox"
