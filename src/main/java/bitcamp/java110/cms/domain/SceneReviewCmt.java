@@ -6,29 +6,22 @@ import bitcamp.java110.cms.common.CharacterConverter;
 public class SceneReviewCmt {
   
   protected int cmno;           // 댓글번호
-  protected int mvno;           // 영화 id
   protected int srno;           // 장면번호
   protected int mno;            // 회원번호
-  protected String title;       // 영화 제목 여기고쳐
   protected String photo;       // 사진
   protected String cont;        // 내용
   protected Date createdDate;   // 생성일시
   protected Date modifiedDate;  // 수정일시
   protected SceneReviewMap map; // 지도
+  protected Movie movie;        // 영화
   protected String mvnm;        // 영화이름
   protected Member member;      // 작성자
   
-  public String getTitle() {
-    return title;
+  public Movie getMovie() {
+    return movie;
   }
-  public void setTitle(String title) {
-    this.title = title;
-  }
-  public int getMvno() {
-    return mvno;
-  }
-  public void setMvno(int mvno) {
-    this.mvno = mvno;
+  public void setMovie(Movie movie) {
+    this.movie = movie;
   }
   public int getCmno() {
     return cmno;
@@ -92,10 +85,10 @@ public class SceneReviewCmt {
   }
   @Override
   public String toString() {
-    return "SceneReviewCmt [cmno=" + cmno + ", mvno=" + mvno + ", srno=" + srno + ", mno=" + mno
-        + ", title=" + title + ", photo=" + photo + ", cont=" + cont + ", createdDate="
-        + createdDate + ", modifiedDate=" + modifiedDate + ", map=" + map + ", mvnm=" + mvnm
-        + ", member=" + member + "]";
+    return "SceneReviewCmt [cmno=" + cmno + ", srno=" + srno + ", mno=" + mno
+        + ", photo=" + photo + ", cont=" + cont + ", createdDate=" + createdDate + ", modifiedDate="
+        + modifiedDate + ", map=" + map + ", movie=" + movie + ", mvnm=" + mvnm + ", member="
+        + member + "]";
   }
-  
+
 }

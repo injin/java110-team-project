@@ -239,23 +239,33 @@
 							<div class="wrap gPost pb-4">
 
 								<div class="w-100">
-									<!-- media  -->
-									
 									<!-- 회원 프로필/닉네임  -->
-									<div class="media-body row ml-3">
+									<div class="media row ml-3">
+										<!-- 프로필사진  -->
 										<img class="mr-2 profile-medium2"
 											src="${list.member.profileImagePath}"
-											alt="Generic placeholder image"> <span class="makeBold">
-											<span
-											<c:if test="${list.member.id != '000000000'}">class="c-pointer" onclick="goToFeed(${list.member.mno})"</c:if>>${list.member.nickname}</span>&nbsp;
-											<span class="list-date cmt-date"><fmt:formatDate
-													pattern="yyyy-MM-dd hh:mm:ss" value="${list.createdDate}" /></span>
-										</span>
+											alt="Generic placeholder image">
+
+										<div class="media-body">
+										    <!-- id, 게시 시간 -->
+											<ul style="list-style: none; float: left;" class="pl-0 mb-0">
+												<li><span
+													<c:if test="${list.member.id != '000000000'}">class="c-pointer" onclick="goToFeed(${list.member.mno})"</c:if>>${list.member.nickname}</span>&nbsp;
+													<span class="list-date cmt-date"><fmt:formatDate
+															pattern="yyyy-MM-dd hh:mm:ss" value="${list.createdDate}" /></span>
+												</li>
+											</ul>
+											<!-- 영화이름 -->
+											<span class="c-pointer float-right mb-0 mr-4" style="font-size: 1.5rem;"
+												onclick="goToSceneTag(${list.movie.mvno},${list.srno})"><b><i>${list.movie.title}</i></b>
+											</span>
+										</div>
 									</div>
-									
-									<div class="ml-5">
-									<!-- 댓글 내용  -->
-										<div class="break-all cmt-cont" id="cmt-show-${list.cmno}">${list.cont}</div>
+
+									<div class="ml-5 mr-4">
+										<!-- 댓글 내용  -->
+										<div class="break-all cmt-cont mb-2"
+											id="cmt-show-${list.cmno}">${list.cont}</div>
 
 										<!-- 댓글 지도 -->
 										<c:if test="${list.map.lat ne null && list.map.lng ne null}">
@@ -273,11 +283,7 @@
 										</c:if>
 									</div>
 								</div>
-								<!-- 영화이름  -->
-								<div class="makeBold">
-								<span class="c-pointer float-right"
-									onclick="goToSceneTag(${list.mvno},${list.srno})"><i>${list.mvno}</i></span>
-									</div>
+
 							</div>
 
 						</div>
@@ -426,9 +432,8 @@
 								<%-- 내용보여주는부분 --%>
 								<div class="clearfix media row m-1">
 									<div class="media-body">
-										<p class="reviewCont scrollbar-light-blue cmt-cont" id="reviewCont-${post.pstno}">
-										${post.content}
-										</p>
+										<p class="reviewCont scrollbar-light-blue cmt-cont"
+											id="reviewCont-${post.pstno}">${post.content}</p>
 									</div>
 									<c:if test="${post.photos[0] !=null}">
 										<%-- 이미지 클릭시 상세모달로 --%>
