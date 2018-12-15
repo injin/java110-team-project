@@ -88,8 +88,8 @@
 <%-- ====================================== 모달푸터 ============================================= --%>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">CANCEL</button>
-					<button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>
+						data-dismiss="modal">취소</button>
+					<button type="submit" class="btn btn-primary" id="modalSubmit">등록</button>
 				</div>
 
 			</div>

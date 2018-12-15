@@ -26,7 +26,7 @@ function openEditingModal(pstno, type) {
   $('#reviewModal #ftag-input').css("display", "none");
   
   //  submit 버튼 속성 바꿔주기
-  $('#reviewModal #modalSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="editSubmit">EDIT</button>');
+  $('#reviewModal #modalSubmit').replaceWith('<button type="submit" class="btn btn-primary" id="editSubmit">수정</button>');
   
   //  영화 제목, ID 가져오기
   $('#reviewModal #movieSearch').val(postList[index].title);
