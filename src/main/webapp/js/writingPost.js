@@ -173,7 +173,7 @@ $(function() {
             /*event.preventDefault();*/
             $("#movieId").val(ui.item.value);
             $("#movieSearch").val(ui.item.label);
-            $("#movieSearch").focus();
+            $("#reviewTxtarea").focus();
             return false;
         }/*, close: function( event, ui ) {
         event.preventDefault();
@@ -187,11 +187,11 @@ $(function() {
         '</div>')
         .appendTo( ul );
     };
-    /* $("#movieSearch").on("focus",function(){
+     $("#movieSearch").on("focus",function(){
         commonAlert('success',"자동완성된 리스트에서 영화를 선택해주세요.");
         $("#movieId").val(0);
         $("#movieSearch").val("");
-    });*/
+    });
     //  글 작성
     $('#modalSubmit').on('click', function(e) {
         if($("#pstTypeNo").val() == 0){

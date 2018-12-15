@@ -6,6 +6,7 @@ String.prototype.replaceAll = function (find, replace) {
 
 function openEditingModal(pstno, type) {
 
+    console.log("ddd");
   //  index
   for (var i = 0; i < postList.length; i++) {
     if (postList[i].pstno == pstno) {
