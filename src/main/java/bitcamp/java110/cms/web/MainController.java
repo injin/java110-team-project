@@ -80,7 +80,6 @@ public class MainController {
 
     // 장면리뷰 댓글 해시태그 
     List<SceneReviewCmt> sceneHashList = sceneReviewService.getListByKeyword(keyword);
-    System.out.println(sceneHashList);
     
     // 해쉬태그
     Member member = ((Member)session.getAttribute("loginUser"));

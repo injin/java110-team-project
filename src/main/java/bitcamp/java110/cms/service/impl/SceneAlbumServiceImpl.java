@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -149,6 +150,8 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   @Override
   public List<SceneAlbum> listScA() {
+    
+    
     return sceneAlbumDao.listScA();
   }
   

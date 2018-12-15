@@ -147,11 +147,13 @@ public class Member implements Serializable {
 
   @Override
   public String toString() {
-      return "Member\n\t[mno=" + mno + ", admin=" + admin + ", id=" + id + ", nickname=" + nickname + ", profileImage="
-              + profileImage + ", coverImage=" + coverImage + ", pr=" + pr + ", gender=" + gender + ", ageRange="
-              + ageRange + ", use=" + use + ", flw=" + flw + ", favGrList=" + favGrList + ", favMvList=" + favMvList
-              + "]";
+    return "Member [getProfileImagePath()=" + getProfileImagePath() + ", getCoverImagePath()="
+        + getCoverImagePath() + ", getMno()=" + getMno() + ", isAdmin()=" + isAdmin() + ", getId()="
+        + getId() + ", getNickname()=" + getNickname() + ", getProfileImage()=" + getProfileImage()
+        + ", getCoverImage()=" + getCoverImage() + ", getPr()=" + getPr() + ", getGender()="
+        + getGender() + ", getAgeRange()=" + getAgeRange() + ", getUse()=" + getUse() + ", isFlw()="
+        + isFlw() + ", getFavGrList()=" + getFavGrList() + ", getFavMvList()=" + getFavMvList()
+        + "]";
   }
-
   
 }

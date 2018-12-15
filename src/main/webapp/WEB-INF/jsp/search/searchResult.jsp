@@ -57,25 +57,10 @@
 							<div class="wrap member c-pointer"
 								onclick="goToFeed(${list.mno})">
 								<div class="ico-wrap">
-
-									<c:set var="path" value="${list.p_phot}" />
-									<c:choose>
-										<c:when test="${empty path}">
-											<div>
-												<img class="img" src="/img/default-profile-img.png"
-													alt="${list.title}">
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div>
-												<img class="img" src="${list.p_phot}" alt="${list.mno}">
-											</div>
-										</c:otherwise>
-									</c:choose>
-
+                                    <img class="img" src="${list.profileImagePath}" alt="${list.mno}">
 								</div>
 								<div class="text-wrap vcenter">
-									<p class="mbr-text display-6 text-dark c-pointer">${list.nick}</p>
+									<p class="mbr-text display-6 text-dark c-pointer">${list.nickname}</p>
 								</div>
 							</div>
 						</div>
@@ -167,7 +152,6 @@
 										<c:otherwise>
 											<img class="card-img-top hot-sr-img-scene"
 												src="/upload/sceneReview/${list.phot}" alt="Card image cap">
-											</a>
 
 										</c:otherwise>
 									</c:choose>
@@ -180,22 +164,10 @@
 										${list.srCnt}개</div>
 									<span style="float: left; clear: both;">${list.cdt}</span>
 
-									<c:set var="path" value="${list.p_phot}" />
-									<c:choose>
-										<c:when test="${empty path}">
-											<span class="mbr-text display-6 pb-3 text-dark c-pointer"
-												style="float: right;"> <img class="img memb-profile"
-												src="/img/default-profile-img.png" alt="${list.nick}">&nbsp;${list.nick}
-											</span>
-										</c:when>
-										<c:otherwise>
-											<span class="mbr-text display-6 text-dark c-pointer"
-												style="float: right;"> <img class="img memb-profile"
-												src="${list.p_phot}" alt="profile">&nbsp;${list.nick}
-											</span>
-										</c:otherwise>
-									</c:choose>
-
+                                    <span class="mbr-text display-6 pb-3 text-dark c-pointer" style="float: right;">
+                                            <img class="img memb-profile" src="${list.profileImagePath}" alt="${list.nick}">&nbsp;${list.nick}
+                                    </span>
+                                    
 								</div>
 							</div>
 
@@ -326,8 +298,7 @@
 									<c:choose>
 										<c:when test="${empty path}">
 											<div>
-												<img class="img" src="/img/default-movie-img.png"
-													alt="${list.title}">
+												<img class="img" src="/img/default-movie-img.png" alt="기본영화이미지">
 											</div>
 										</c:when>
 										<c:otherwise>
