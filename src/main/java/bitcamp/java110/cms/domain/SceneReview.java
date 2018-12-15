@@ -1,5 +1,6 @@
 package bitcamp.java110.cms.domain;
 
+import bitcamp.java110.cms.common.CharacterConverter;
 import bitcamp.java110.cms.common.Constants;
 import info.movito.themoviedbapi.model.MovieDb;
 
@@ -59,7 +60,7 @@ public class SceneReview {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
+    this.cont = CharacterConverter.convert(cont);
   }
   public String getSpo() {
     return spo;
