@@ -156,7 +156,7 @@
                                                 </c:if>
                                                 <c:if  test="${post.member.profileImage != null}">
                                                     <h6 class="card-subtitle mb-2 text-muted tnick">
-                                                    <img src="${post.member.profileImage}" class="main-cmt-img">&nbsp;
+                                                    <img src="${post.member.profileImagePath}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
                                                 <p class="card-text cmt-cont"
@@ -249,7 +249,7 @@
                                         </h6>
                                         </span>
                                         <span style="margin-left:4em; margin-top:1em; float: right;">
-                                        <img src="${album.p_phot}" class="main-cmt-img">&nbsp;${album.nick}</span>
+                                        <img src="${album.profileImagePath}" class="main-cmt-img">&nbsp;${album.nick}</span>
                                         
                                     </div>
                                 <span class="ml-3" style="font-size: 0.8rem; float: left;">${album.srCnt}개</span> 

@@ -242,7 +242,7 @@ function makeHtml(data) {
     html += '<div class="item-description opacity-none">';
     html += '개봉일 : ' + obj.release_date +'<br>';
     if (obj.vote_average > 0){
-      html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+      html += '네티즌 평점 : ' + obj.vote_average + '/10</div>';
     } else {
       html += '</div>';
     }
@@ -265,7 +265,7 @@ function makeH(data) {
     html += '<div class="item-description opacity-none">';
     html += '개봉일 : ' + obj.release_date +'<br>';
     if (obj.vote_average > 0){
-      html += '네티즌 평점 : ' + obj.vote_average + '</div>';
+      html += '네티즌 평점 : ' + obj.vote_average + '/10</div>';
     } else {
       html += '</div>';
     }
