@@ -65,10 +65,6 @@
         <servlet-name>app</servlet-name>
         <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
-    
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
 
     <!-- 클라이언트가 요청한 URL에 대해 기본 파일을 찾을 떄 우선 순위 -->
     <welcome-file-list>

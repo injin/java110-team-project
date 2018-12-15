@@ -1,6 +1,7 @@
 package bitcamp.java110.cms.domain;
 
 import java.util.Date;
+import bitcamp.java110.cms.common.CharacterConverter;
 
 public class SceneReviewCmt {
   
@@ -50,7 +51,7 @@ public class SceneReviewCmt {
     return cont;
   }
   public void setCont(String cont) {
-    this.cont = cont.replaceAll("(\r\n|\n)", "<br>");
+    this.cont = CharacterConverter.convert(cont);
   }
   public Date getCreatedDate() {
     return createdDate;
