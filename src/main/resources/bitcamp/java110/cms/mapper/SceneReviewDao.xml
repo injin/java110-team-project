@@ -19,7 +19,6 @@
     <resultMap type="sceneReviewCmt" id="srCmtMap">
         <id     column="cmno"      property="cmno"/>
         <result column="srno"      property="srno"/>
-        <result column="mvno"      property="mvno" />
         <result column="mno"       property="mno"/>
         <result column="phot"      property="photo"/>
         <result column="cont"      property="cont"/>
@@ -37,6 +36,10 @@
             <result column="nick"   property="nickname"/>
             <result column="mid"   property="id"/>
             <result column="p_phot" property="profileImage"/>
+        </association>
+        <association property="movie" javaType="movie">
+            <id     column="mvno"    property="mvno"/>
+            <result column="titl"   property="title"/>
         </association>
     </resultMap>
 
@@ -86,13 +89,15 @@
     
     <select id="getHashCmtByKeyword" resultMap="srCmtMap" parameterType="string">
         SELECT cmt.cmno, sr.mvno, cmt.srno, mb.mno, cmt.phot, cmt.cont, cmt.cdt, cmt.mdt
-              , mpno, mp_nm, lat, lng, nick, p_phot, mid
+              , mpno, mp_nm, lat, lng, nick, p_phot, mid, mv.titl
           FROM mv_sr_cmt cmt LEFT JOIN mv_sr_map mp
                ON cmt.cmno = mp.cmno
                INNER JOIN mv_memb mb
                ON cmt.mno = mb.mno
                INNER JOIN mv_sr sr
                ON cmt.srno = sr.srno
+               INNER JOIN mv_mv mv
+               ON sr.mvno = mv.mvno
          WHERE upper(cmt.cont) like upper(concat('%#%',#{keyword},'%')) 
          ORDER BY cdt DESC
     </select>

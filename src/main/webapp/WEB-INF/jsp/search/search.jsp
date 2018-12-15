@@ -74,12 +74,14 @@
     font-size: 0.9em;
 }
 .cmt-img {
-    max-width: 35em;
+    max-width: 100%;
 }
 .makeBold .c-pointer:hover {
     font-weight:bold;
 } 
-
+li>.c-pointer:hover{
+    font-weight:bold;
+}
 </style>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

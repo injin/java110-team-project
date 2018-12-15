@@ -104,7 +104,16 @@ public class SceneAlbum {
   public void setSrCnt(int srCnt) {
     this.srCnt = srCnt;
   }
-  
+  public String getProfileImagePath() {
+    if (p_phot == null) {
+      return "/img/default-profile-img";
+    }
+    if (p_phot.startsWith("http")) {
+      return p_phot;
+    } else {
+      return "/upload/profile/" + p_phot;
+    }
+  }
   
   
   

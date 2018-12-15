@@ -62,8 +62,10 @@
 	      mno=#{mno}
 	</update>
     
-    <select id="findByNick" parameterType="String" resultType="hashmap">
-      select mno, nick, p_phot
+    <select id="findByNick" parameterType="String" resultType="member">
+      select mno,
+             nick as nickname,
+             p_phot as profileImage
       from mv_memb
       where nick like concat('%',#{keyword},'%') and upper(nick) !=upper('unknown');
     </select>
