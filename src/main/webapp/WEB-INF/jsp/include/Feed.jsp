@@ -189,6 +189,7 @@
 <script src="/js/vendor/jquery.tweetParser.js"></script>
 <script src="/js/aos.js"></script>
 <script src="/js/detailPost.js"></script>
+<script src="/js/editingPost.js"></script>
 <script src="/js/writingPost.js"></script>
 <script src="/js/showPosts.js"></script>
 <script type="text/javascript">
