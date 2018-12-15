@@ -38,19 +38,7 @@ main {
 .dis-none {
     display: none;
 }
-/*===Alert - confirm=== 
-.noty_bar{
-	height: 3.5rem;
-} 
-.noty_body{
-	display: inline-block;
-    float: left;
-    margin-left: 0.5rem;
-    margin-top: 0.5rem;
-}
- .buttonNo, .buttonYes{
-	float: right;
-}*/
+
 /* HEADER SIZE */
 .navbar {
     padding: 0rem;
@@ -90,6 +78,12 @@ background-color: #d5dae0; }
 
 
 /*==== 프로필 ==== */
+.profile-small {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 100%;
+}
 .profile4X4 {
   display: inline-block;
   width: 1.8em;

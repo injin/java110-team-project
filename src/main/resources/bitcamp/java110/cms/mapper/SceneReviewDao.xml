@@ -14,6 +14,11 @@
         <result column="cont"      property="cont" />
         <result column="spo"       property="spo" />
         <result column="mvnm"      property="movie.title" />
+        <association property="writer" javaType="member">
+            <id     column="mno"       property="mno" />
+            <result column="nick"  property="nickname" />
+            <result column="p_phot"    property="profileImage" />
+        </association>
     </resultMap>
     
     <resultMap type="sceneReviewCmt" id="srCmtMap">
@@ -69,8 +74,11 @@
     </select>
     
     <select id="findByNo" resultMap="srMap" parameterType="int">
-        SELECT srno, mvno, mno, titl, time, phot, cont, spo
-          FROM mv_sr
+        SELECT srno, mvno, sr.mno, titl, time, phot, cont, spo,
+               mb.nick, mb.p_phot
+          FROM mv_sr sr
+         INNER JOIN mv_memb mb
+            ON sr.mno = mb.mno
          WHERE srno = #{value}
     </select>
     
