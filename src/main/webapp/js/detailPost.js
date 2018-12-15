@@ -1,4 +1,10 @@
-
+$(".cmt-cont").tweetParser({
+    urlClass : "tweet_link", //this is default
+    userClass : "tweet_user", //this is default
+    hashtagClass : "navy",
+    target : "_blank", //this is default
+    hashtagPath: "/app/searchResult?keyword="
+});
 /* ========== 모달상세 관련  ========== */         
 function openDetailModal(pstno) {
 
@@ -42,9 +48,9 @@ function openDetailModal(pstno) {
         $('#leftcol').show();
         $('#detailModal .modal-dialog').css('maxWidth', '70rem');
         $('#rightcol').removeClass('col-12').addClass('col-4');
-        
-        
-        
+
+
+
         var h ='';
         /*h += '<ol class="carousel-indicators">';
         for (var i=0; i<postList[index].photos.length; i++) {
@@ -65,7 +71,7 @@ function openDetailModal(pstno) {
             h += '        <img class="d-block w-100 carouselHeight" src="/upload/post/'+ postList[index].photos[i] +'" alt="'+ i +'_slide">';
             h += '    </div>';
             h += '  <div class="carousel-caption"></div>';
-            
+
         }
         h += '</div>';
 
@@ -78,7 +84,7 @@ function openDetailModal(pstno) {
         h += '    <span class="carousel-control-next-icon" aria-hidden="true"></span>';
         h += '    <span class="sr-only">Next</span>';
         h += '</a>';
-        
+
     }
 
 
@@ -87,7 +93,7 @@ function openDetailModal(pstno) {
     /* 친구태그 부분*/
     html ='';
     for (var i=0; i<postList[index].ftags.length; i++) {
-        
+
         html+= '<span onclick="goToFeed(';
         html += postList[index].ftags[i].mno;
         html+= ')" class="tagName c-pointer">';
@@ -169,7 +175,7 @@ function makeCmtHtml(data,forWhat) {
     var html = '';
     for (var i=0;i<data.cmtsResult.length;i++) {
         var wDate = new Date(data.cmtsResult[i].createdDate).toLocaleString();
-        
+
         html += '<li>';
         html += '<div class="row comment-box p-1 pt-3 pr-4">';
         html += '    <div class="col-3 user-img text-center c-pointer" onclick="goToFeed(';

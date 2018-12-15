@@ -344,10 +344,10 @@ function morePostHtml(data,whereLast){
         html += '           </div>';
         html += '           <div class="clearfix media row m-1">';
         html += '               <div class="media-body">';
-        html += '                   <p class="reviewCont scrollbar-light-blue" id="reviewCont-';
+        html += '                   <p class="reviewCont scrollbar-light-blue cmt-cont" id="reviewCont-';
         html += data.postsResult[i].pstno;
         html += '">';
-        html += makeContHtml(data.postsResult[i].content,data.postsResult[i].pstno);
+        html += data.postsResult[i].content;
         html += '</p>';
         html += '               </div>';
         if(data.postsResult[i].photos.length > 0){
@@ -478,6 +478,13 @@ $(window).scroll(function() {
             }),
             success:function(data){
                 morePostHtml(data,whereLast);
+                $(".cmt-cont").tweetParser({
+                    urlClass : "tweet_link", //this is default
+                    userClass : "tweet_user", //this is default
+                    hashtagClass : "navy",
+                    target : "_blank", //this is default
+                    hashtagPath: "/app/searchResult?keyword="
+                });
             }
         });
     }

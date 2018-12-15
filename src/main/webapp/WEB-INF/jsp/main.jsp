@@ -17,45 +17,6 @@
 <link rel='stylesheet' href='/css/starrr.css'>
 <link rel='stylesheet' href='/css/main.css'>
 
-<script>
-
-function showCont(cont, index) {
-
-    var text = cont.replace(/[\s]+/g, " ").trim();
-    var word = text.split(' ');
-    var newHTML = "";
-
-    word
-            .forEach(function(value, index) {
-                var str = "";
-                var endBr = value.endsWith('<br>');
-                var valueArr = [ value ];
-                if (value.includes('<br>')) {
-                    valueArr = value.split('<br>');
-                    str = "<br>";
-                }
-
-                valueArr
-                        .forEach(function(value2, index) {
-                            if (index == (valueArr.length - 1)
-                                    && endBr == false) {
-                                str = "";
-                            }
-                            if (value2.startsWith("#")) {
-                                newHTML += ("<span class='hash'><a href='/app/searchResult?keyword="
-                                        + value2.substring(1)
-                                        + "'>"
-                                        + value2 + "&nbsp;</a></span>" + str);
-                            } else {
-                                newHTML += "<span class='other'>" + value2
-                                        + "&nbsp;</span>" + str;
-                            }
-                        });
-            });
-    document.getElementById('reviewCont-' + index).innerHTML = newHTML;
-};
-</script>
-
 </head>
 <body>
     <jsp:include page="include/header.jsp"></jsp:include>
@@ -164,9 +125,9 @@ function showCont(cont, index) {
                                                     <img src="${post.member.profileImagePath}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
-                                                <p class="card-text"
+                                                <p class="card-text cmt-cont"
                                                     id="reviewCont-${post.pstno}">
-                                                         <script>showCont("${post.content}", "${post.pstno}");</script>
+                                                    ${post.content}
                                                 </p>
                                             </figcaption>
                                         </figure>
@@ -198,9 +159,9 @@ function showCont(cont, index) {
                                                     <img src="${post.member.profileImage}" class="main-cmt-img">&nbsp;
                                                     ${post.member.nickname}</h6>
                                                 </c:if>
-                                                <p class="card-text"
-                                                    id="reviewCont-${post.pstno}">
-                                                         <script>showCont("${post.content}","${post.pstno}");</script>
+                                                <p class="card-text cmt-cont"
+                                                    id="reviewCont-${post.pstno}">${post.content}
+                                                         <!-- <script>showCont("${post.content}","${post.pstno}");</script> -->
                                                 </p>
                                             </figcaption>
                                         </figure>
@@ -327,6 +288,7 @@ function showCont(cont, index) {
     <script src="/js/starrr.js"></script>
     <script src="/js/bootstrap-tagsinput.min.js"></script>
     <script src="/js/typeahead.bundle.min.js"></script>
+    <script src="/js/vendor/jquery.tweetParser.js"></script>
     <script src="/js/detailPost.js"></script>
     <script>
     

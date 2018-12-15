@@ -16,7 +16,6 @@
 <link rel='stylesheet' href='/css/detailPost.css'>
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/top-btn.css'>
-<script src="/js/makeContPost.js"></script>
 <style>
 .gPost {
 	background: white;
@@ -97,10 +96,11 @@
     <jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
     <jsp:include page="../include/top-btn.jsp"></jsp:include>
+    
+	<script src="/js/vendor/jquery.tweetParser.js"></script>
     <script src="/js/top-btn.js"></script>
 	<script src="/js/showPosts.js"></script>
 	<script src="/js/detailPost.js"></script>
-	<script src="/js/vendor/jquery.tweetParser.js"></script>
 	<script type="text/javascript">
         //console.log('${movieList}');
 

@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <p class="reviewCont scrollbar-light-blue col" id="dCont">내용</p>
+                    <p class="reviewCont scrollbar-light-blue col cmt-cont" id="dCont">내용</p>
 
 
                     <div class="row mb-1">

@@ -143,6 +143,7 @@
 
 <jsp:include page="/WEB-INF/jsp/reviewFeed/detailPost.jsp"></jsp:include>
 
+<script src="/js/vendor/jquery.tweetParser.js"></script>
 <script src="/js/aos.js"></script>
 <script src="/js/detailPost.js"></script>
 <script src="/js/top-btn.js"></script>
@@ -309,12 +310,13 @@
                success : function(data) {
                    postList.push(data);
                    
-                   var html = '<p class="d-none" id="reviewCont-';
+                   var html = '<p class="d-none cmt-cont" id="reviewCont-';
                    html += data.pstno;
-                   html += '"></p>';
+                   html += '">';
+                   html += data.content;
+                   html += '</p>';
                    
                    $(element).next().html(html);
-                 showCont(data.content,data.pstno); 
                  openDetailModal(data.pstno);  
                }
            }); 
