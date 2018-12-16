@@ -26,8 +26,8 @@ import bitcamp.java110.cms.service.FlwService;
 import bitcamp.java110.cms.service.LikeService;
 import bitcamp.java110.cms.service.MemberService;
 import bitcamp.java110.cms.service.PostService;
+import bitcamp.java110.cms.service.RecommendService;
 import info.movito.themoviedbapi.TmdbMovies;
-import info.movito.themoviedbapi.model.core.MovieResultsPage;
 
 @Controller
 @RequestMapping("/reviewFeed")
@@ -40,6 +40,7 @@ public class ReviewFeedController {
   @Autowired TmdbMovies tmdbMovies;
   @Autowired LikeService likeService;
   @Autowired MovieAnlyDao anlyDao;
+  @Autowired RecommendService rcmdService;
 
   // 처음 피드리스트화면에 들어갔을 때  
   @RequestMapping("/list")
@@ -50,24 +51,11 @@ public class ReviewFeedController {
 
     Member member = (Member) session.getAttribute("loginUser");
 
-    if(member != null) {
-      List<Member> flwList = flwService.listAll(member.getMno());
-      model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
+    List<Member> flwList = flwService.listAll(member.getMno());
+    model.addAttribute("userFlwList", flwList); // 로그인한사람의 팔로우리스트저장
 
-      MovieResultsPage smlrList;
-
-      if(anlyDao.getTopPNT(member.getMno()).size()==0) {
-        smlrList = tmdbMovies.getNowPlayingMovies(Constants.LANGUAGE_KO, 1, "KR");
-      }else{
-        int triggerMvId = anlyDao.getOneFav(member.getMno());
-        
-        do {
-          smlrList =  tmdbMovies.getSimilarMovies(triggerMvId, Constants.LANGUAGE_KO, 1);
-        }while(smlrList.getResults().size()<1);
-      }
-      
-      model.addAttribute("smlrList", smlrList.getResults());
-    }
+    int[] n = rcmdService.RandomNums(rcmdService.getCount(), 1);
+    model.addAttribute("smlrList", rcmdService.getList(n[0]));
 
     Map<String, Object> params = new HashMap<>();
     params.put("mno", (member==null) ? 0 : member.getMno());
@@ -78,7 +66,7 @@ public class ReviewFeedController {
 
     return "reviewFeed/reviewFeedList";
   }
-
+  
   // 마이페이지-피드
   @RequestMapping("/Feed")
   public String Feed(

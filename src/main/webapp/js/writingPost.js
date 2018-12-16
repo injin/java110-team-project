@@ -97,6 +97,7 @@ $(function() {
     $('.starrr').starrr({
         change: function(e, value){
             $("#star").val(value);
+            console.log("별바뀔때: "+$("#star").val());
         }
     });
     $("#starbtn").click(function () {
@@ -160,24 +161,12 @@ $(function() {
                 }
             });
         },
-        /*  change: function(event,ui) {
-        event.preventDefault();
-        if (ui.item == null || ui.item == undefined) {
-            $("#movieSearch").val('');
-        }else{
-            $("#movieId").val(ui.item.value);
-            $("#movieSearch").val(ui.item.label);      
-        }
-    },*/
         select: function(event,ui) {
-            /*event.preventDefault();*/
             $("#movieId").val(ui.item.value);
             $("#movieSearch").val(ui.item.label);
             $("#reviewTxtarea").focus();
             return false;
-        }/*, close: function( event, ui ) {
-        event.preventDefault();
-    }*/
+        }
     }).data('ui-autocomplete')._renderItem = function( ul, item ) {
         return $( "<li class='media'>" ).data("item.autocomplete", item)
         .append("<img class = 'poster p-1' src='" + item.poster_path + "' alt='"+item.label+"'>" + 
@@ -194,6 +183,7 @@ $(function() {
     });
     //  글 작성
     $('#modalSubmit').on('click', function(e) {
+        
         if($("#pstTypeNo").val() == 0){
             if($("#movieId").val().trim() == 0){
                 commonAlert('error',"알맞은 영화제목을 작성해주세요.");
@@ -206,13 +196,18 @@ $(function() {
             e.preventDefault();
             return;
         }
+        
+        console.log("$(#star).val(): "+$("#star").val());
+        
         if(($("#star").val() == 0) && ($('#showStar').css("display") != "none")){
             commonAlert('error',"별점 0점은 불가능합니다. 버튼을 눌러 비활성화 시켜주세요.");
             e.preventDefault();
             return;
         }
+        console.log('ddd');
         $("#photList").val(uploadFileNames);
         $("#ftagsForAdd").val($("#flw").val());
+        $('#postform').submit();
     });
     //  창닫을때
     $('#reviewModal').on('hidden.bs.modal', function (e) {       
