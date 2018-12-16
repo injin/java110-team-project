@@ -38,6 +38,7 @@
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
                         <c:if test="${not empty sessionScope.loginUser}">
+                            <br>
                             <a data-toggle="modal" data-target="#srAddModal" class="btn-icon c-pointer" title="장면등록" ><img src="/img/btn-pencil.png"></a>
                             <c:if  test="${sceneReview.trgtSrExist == true}">
                                 <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" title="장면앨범" ><img src="/img/btn-box2.png"></a>
@@ -48,6 +49,7 @@
                             </c:if>
                         </c:if>
                         <c:if test="${empty sessionScope.loginUser}">
+                            <br>
                             <a class="btn-icon c-pointer" onclick="loginAlert()" title="장면등록"><img src="/img/btn-pencil.png"></a>
                             <a class="btn-icon c-pointer" onclick="loginAlert()" title="장면앨범"><img src="/img/btn-box2.png"></a>
                             <span class="btn-icon c-pointer" id="btn-heart-empty"onclick="loginAlert()" title="좋아요"><img src="/img/btn-heart-empty.png"></span>

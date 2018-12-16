@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Scenecok</title>
+<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <link href="/css/fontawesome.css" rel="stylesheet">
 <link href="/css/all.css" rel="stylesheet">
@@ -46,17 +47,15 @@
 
     <div class="row mb-4">
         <c:forEach var="top" items="${topSrList}">
-            <div class="col-3 mb-4 c-pointer" onclick="goToSR(${top.mvno},${top.srno})">
-                <div class="card">
-                    <%-- <a href="/app/sceneReview/review?mvno=${top.mvno}&srno=${top.srno}"> --%>
-                        <img class="card-img-top hot-sr-img"
+            <div class="col-3 mb-4" onclick="goToSR(${top.mvno},${top.srno})">
+                <div class="card c-pointer">
+                    <img class="card-img-top hot-sr-img"
                         src="/upload/sceneReview/${top.photo}"
                         alt="Card image cap">
-                    </a>
-                    <div class="card-body hot-sr">
+                    <div class="card-body hot-sr ">
                         <h6 class="card-title">
                             <c:set var="Text" value="${top.title}" />
-                            <c:if test="${fn:length(Text)<20}">
+                            <c:if test="${fn:length(Text)<=20}">
                                 <b>${fn:substring(Text,0,20)}</b>
                             </c:if>
                             <c:if test="${fn:length(Text)>20}">
@@ -225,8 +224,7 @@
                                 </div>
                                 <c:choose>
                                  <c:when test="${empty album.phot}">
-                                     
-                                     <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">     
+                                     <img class="card-img-top hot-sr-img-scene" src="/img/default.jpg">
                                  </c:when>
                                  <c:otherwise>
                                  <%-- <a href="/app/sceneAlbum/detail?open=true&lbmno=${album.lbmno}&tgtMno=${album.mno}"> --%>
@@ -240,11 +238,11 @@
                                         <span class="overflow" style="margin-left: 2rem; margin-top:1em;"> 
                                         <h6>
                                         <c:set var="Text" value="${album.lbmTitle}" />
-                                            <c:if test="${fn:length(Text)<8}">
-                                                <b>${fn:substring(Text,0,8)}</b>
+                                            <c:if test="${fn:length(Text)<=12}">
+                                                <b>${fn:substring(Text,0,12)}</b>
                                             </c:if>
-                                            <c:if test="${fn:length(Text)>8}">
-                                                <b>${fn:substring(Text,0,8)}...</b>
+                                            <c:if test="${fn:length(Text)>12}">
+                                                <b>${fn:substring(Text,0,12)}...</b>
                                             </c:if>
                                         </h6>
                                         </span>
