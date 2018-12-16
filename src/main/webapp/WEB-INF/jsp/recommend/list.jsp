@@ -77,7 +77,7 @@
   </section>
   
   <section id="md-section" style="display: none;">
-    <h2>MD 추천 영화</h2>
+    <h2>SceneCok 추천 영화</h2>
     <h4 id="mdTitle"></h4>
     <div id="mdCarousel" class="list-container">
       <div class="control-container">
