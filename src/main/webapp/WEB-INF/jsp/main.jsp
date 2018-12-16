@@ -248,7 +248,7 @@
                                             </c:if>
                                         </h6>
                                         </span>
-                                        <span style="margin-left:4em; margin-top:1em; float: right;">
+                                        <span style="margin-left:2em; margin-top:1em; float: right;">
                                         <img src="${album.profileImagePath}" class="main-cmt-img">&nbsp;${album.nick}</span>
                                         
                                     </div>
