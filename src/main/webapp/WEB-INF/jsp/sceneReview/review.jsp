@@ -110,7 +110,10 @@
         <c:if test="${sceneReview.time ne null}">
         <div class="col-lg-9 col-md-12">
             <c:if  test="${sceneReview.trgtSrExist == true}">
-                <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
+                <h3><a class="c-pointer" onclick="goToFeed(${sceneReview.writer.mno})">
+                    <img class="profile-small" src="${sceneReview.writer.profileImagePath}" alt="${writer.nickname} 이미지"></a>
+                    <span id="span-sr-title">${sceneReview.title}</span><span id="span-sr-time"> (${sceneReview.time})</span>
+                </h3>
                 <c:choose>
                     <c:when test="${fn:length(sceneReview.cont) > 150}">
                         <p id="p-cont">${fn:substring(sceneReview.cont, 0, 150)}.. 
@@ -132,7 +135,7 @@
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
-                              <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="Generic placeholder image">
+                              <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="${loginUser.nickname} 이미지">
                               <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">

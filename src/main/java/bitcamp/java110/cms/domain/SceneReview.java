@@ -15,6 +15,7 @@ public class SceneReview {
   protected String cont;
   protected String spo;
   protected boolean like;
+  protected Member writer;
   protected boolean reported;
   protected MovieDb movieDb;
   protected Movie movie; // mv_mv 테이블 등록용
@@ -73,6 +74,12 @@ public class SceneReview {
   }
   public void setLike(boolean like) {
     this.like = like;
+  }
+  public Member getWriter() {
+    return writer;
+  }
+  public void setWriter(Member writer) {
+    this.writer = writer;
   }
   public boolean isReported() {
     return reported;
