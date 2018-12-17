@@ -1,12 +1,8 @@
 language: java
 
 jdk:
-  - oraclejdk8
-  - oraclejdk9
   - oraclejdk11
-  - openjdk8
-  - openjdk-ea
-
+  
 
 
 # CI 실행 완료시 메일로 알람
