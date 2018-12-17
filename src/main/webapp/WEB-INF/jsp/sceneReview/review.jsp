@@ -38,6 +38,7 @@
                 <div id="movie-title" class="float-left">
                     <h3><b>${tmdbMovie.title}</b>
                         <c:if test="${not empty sessionScope.loginUser}">
+                            <br>
                             <a data-toggle="modal" data-target="#srAddModal" class="btn-icon c-pointer" title="장면등록" ><img src="/img/btn-pencil.png"></a>
                             <c:if  test="${sceneReview.trgtSrExist == true}">
                                 <a href="#" data-toggle="modal" data-target="#srAlbumAddModal" class="btn-icon" title="장면앨범" ><img src="/img/btn-box2.png"></a>
@@ -48,12 +49,13 @@
                             </c:if>
                         </c:if>
                         <c:if test="${empty sessionScope.loginUser}">
+                            <br>
                             <a class="btn-icon c-pointer" onclick="loginAlert()" title="장면등록"><img src="/img/btn-pencil.png"></a>
                             <a class="btn-icon c-pointer" onclick="loginAlert()" title="장면앨범"><img src="/img/btn-box2.png"></a>
                             <span class="btn-icon c-pointer" id="btn-heart-empty"onclick="loginAlert()" title="좋아요"><img src="/img/btn-heart-empty.png"></span>
                         </c:if>
                     </h3>
-                    <p class="mb-0">(${tmdbMovie.releaseDate})</p>
+                    <p class="mb-0 pt-0">(${tmdbMovie.releaseDate})</p>
                 </div>
                 
                 <div id="movie-genres" class="float-right">
@@ -110,7 +112,10 @@
         <c:if test="${sceneReview.time ne null}">
         <div class="col-lg-9 col-md-12">
             <c:if  test="${sceneReview.trgtSrExist == true}">
-                <h3>${sceneReview.title}<span id="span-sr-time"> (${sceneReview.time})</span></h3>
+                <h3><a class="c-pointer" onclick="goToFeed(${sceneReview.writer.mno})">
+                    <img class="profile-small" src="${sceneReview.writer.profileImagePath}" alt="${writer.nickname} 이미지"></a>
+                    <span id="span-sr-title">${sceneReview.title}</span><span id="span-sr-time"> (${sceneReview.time})</span>
+                </h3>
                 <c:choose>
                     <c:when test="${fn:length(sceneReview.cont) > 150}">
                         <p id="p-cont">${fn:substring(sceneReview.cont, 0, 150)}.. 
@@ -132,11 +137,11 @@
                     <div class="card" id="comment-area">
                         <div class="media">
                           <div>
-                              <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="Generic placeholder image">
+                              <img class="mr-2 profile-medium" src="${loginUser.profileImagePath}" alt="${loginUser.nickname} 이미지">
                               <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
-                            <textarea class="form-control" name="cont" rows="3" placeholder="Write a comment"></textarea>
+                            <textarea class="form-control resize-none" name="cont" rows="3" placeholder="Write a comment"></textarea>
                             <button type="button" id="btn-map" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
                             
                             <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
@@ -233,7 +238,7 @@
             
             <c:if test ="${fn:length(topReviewer) > 0}">
                 <div class="wrap d-inline-block w-100">
-                    <h5><b>기여 랭킹</b></h5>
+                    <h5><b>우수 리뷰어</b></h5>
                     <c:forEach items="${topReviewer}" var="reviewer">
                         <div class="mt-1 c-pointer txt-underline" onclick="goToFeed(${reviewer.mno})">
                         <div class="media">
@@ -350,6 +355,7 @@
             return;
         $('input[name="photo"]').val(currentFileName);
         $('input[name="spo"]').val($('#tfSpo').prop('checked')? 'Y': 'N');
+        $('form#srAddForm #add-sr-btn').attr('disabled', true);
         $('form#srAddForm').submit();
     }
     
@@ -435,7 +441,7 @@
     
     /* ========== 댓글 관련  ========== */
     function contMore() {
-        $('#p-cont').text('${sceneReview.cont}');
+        $('#p-cont').html('${sceneReview.cont}');
     }
     
     function addComment() {
@@ -475,7 +481,7 @@
         var cmno = $editDiv.data('cmno');
         var contStr = $editDiv.data('cont').replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
         var editHtml = '<div class="card p-2"><div class="media"><div class="media-body">';
-            editHtml += '<textarea class="form-control" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
+            editHtml += '<textarea class="form-control resize-none" rows="3" id="textarea-cmt-' + cmno + '">' + contStr + '</textarea>';
             editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="closeEditForm(' + cmno + ')">';
             editHtml += '<i class="fas fa-window-close"></i> 취소</button>';
             editHtml += '<button type="button" class="btn btn-light mt-2 float-right" onclick="editComment(' + cmno + ')">';

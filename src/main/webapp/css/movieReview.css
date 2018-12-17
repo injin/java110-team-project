@@ -75,9 +75,13 @@ a#btn-siren {
 }
 
 /*===== main  =====*/
+#span-sr-title {
+    vertical-align: middle;
+}
 #span-sr-time {
     font-size: 25px;
     color: #ccc;
+    vertical-align: middle;
 }
 .span-more {
     color: #00cc99;

@@ -114,9 +114,7 @@
 						<div class="clearfix media row m-1">
 							<div class="media-body">
 								<p class="reviewCont scrollbar-light-blue cmt-cont"
-									id="reviewCont-${post.pstno}">
-									${post.content}
-								</p>
+									id="reviewCont-${post.pstno}">${post.content}</p>
 							</div>
 							<c:if test="${post.photos[0] !=null}">
 								<%-- 이미지 클릭시 상세모달로 --%>
@@ -188,78 +186,49 @@
 
 
 		<%-- 맞춤영화 추천 부분 --%>
-		<c:choose>
-			<c:when test="${not empty sessionScope.loginUser}">
-				<div class="col-4" id="rcmdSide">
-					<div id="stv_list">
-						<div class="wPost text-center p-0">
-							<div class="dmvDiv">${sessionScope.loginUser.nickname}님을위한
-								영화 추천</div>
-							<table class="w-100">
-								<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
-									<tr onclick="toDetail(${smlrMv.id})" class="trData ">
-										<td class="media"><c:choose>
-												<c:when test="${not empty smlrMv.posterPath}">
-													<img class="smlrImg"
-														src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
-														alt="${smlrMv.title}" />
-												</c:when>
-												<c:otherwise>
-													<img class="smlrImg" src="/img/default-movie-img.png"
-														alt="${smlrMv.title}" />
-												</c:otherwise>
-											</c:choose>
-											
-										<div class="media-body">
-										<b>${smlrMv.title}</b>
-										<span class="row d-block fs09">${smlrMv.releaseDate}</span>
-											<span class="row d-block fs09">평점 ${smlrMv.voteAverage} / 10</span>
-											</div>
-									</tr>
-								</c:forEach>
-
-
-
-								<%--   <colgroup>
-                                    <col width="25%" />
-                                    <col width="35%" />
-                                    <col width="35%" />
-                                </colgroup>
-                                <c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5">
-
-                                    <tr onclick="toDetail(${smlrMv.id})" class="trData">
-                                        <td><c:choose>
-                                                <c:when test="${not empty smlrMv.posterPath}">
-                                                    <img class="smlrImg"
-                                                        src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
-                                                        alt="${smlrMv.title}" />
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <img class="smlrImg" src="/img/default-movie-img.png"
-                                                        alt="${smlrMv.title}" />
-                                                </c:otherwise>
-                                            </c:choose></td>
-                                        <td>${smlrMv.title}</td>
-                                        <td class="col"><span class="row d-block">${smlrMv.releaseDate}</span>
-                                            <span class="row d-block"> ${smlrMv.genres}장르
-                                        </span></td>
-                                    </tr>
-                                </c:forEach> --%>
-							</table>
-						</div>
-
-						<a href="/app/rcmd/list"
-							class="d-block wPost text-center divMore c-pointer">더 많은 추천
-							영화 보기</a>
-
-					</div>
+		<div class="col-4" id="rcmdSide">
+			<div id="stv_list">
+				<div class="wPost text-center p-0">
+					<div class="dmvDiv">씬콕의 추천 영화</div>
+					<table class="w-100">
+						<c:forEach items="${smlrList}" var="smlrMv" begin="1" end="5"
+							varStatus="status">
+							<tr onclick="toDetail(${smlrMv.id})" class="trData ">
+								<td class="media"><c:choose>
+										<c:when test="${not empty smlrMv.posterPath}">
+											<img class="smlrImg"
+												src="https://image.tmdb.org/t/p/w500${smlrMv.posterPath}"
+												alt="${smlrMv.title}" />
+										</c:when>
+										<c:otherwise>
+											<img class="smlrImg" src="/img/default-movie-img.png"
+												alt="${smlrMv.title}" />
+										</c:otherwise>
+									</c:choose>
+									<div class="media-body">
+										<b>${smlrMv.title}</b> <span class="row d-block fs09">${smlrMv.releaseDate}</span>
+										<span class="row d-block fs09">${fn:split(smlrMv.genres[0],'[')[0]}
+										
+										<c:if test="${not empty smlrMv.genres[1]}">
+										/ ${fn:split(smlrMv.genres[1],'[')[0]}
+										</c:if>
+										</span>
+									</div>
+							</tr>
+						</c:forEach>
+					</table>
 				</div>
-			</c:when>
-		</c:choose>
 
-	<jsp:include page="../include/top-btn.jsp"></jsp:include>
+				<a href="/app/rcmd/list"
+					class="d-block wPost text-center divMore c-pointer">더 많은 추천 영화
+					보기</a>
+
+			</div>
+		</div>
+
+		<jsp:include page="../include/top-btn.jsp"></jsp:include>
 	</div>
-	
+
 	<jsp:include page="writingPost.jsp"></jsp:include>
 	<jsp:include page="detailPost.jsp"></jsp:include>
 	<jsp:include page="../include/commonJs.jsp"></jsp:include>

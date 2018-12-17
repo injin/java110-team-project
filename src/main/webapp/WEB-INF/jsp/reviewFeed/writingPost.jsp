@@ -5,7 +5,7 @@
 <%-- ====================================== Modal ============================================= --%>
 <div class="modal fade" id="reviewModal" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-lg pr-0" role="document" id="rModal">
-		<form action="add" method="post" enctype="multipart/form-data">
+		<form action="add" method="post" enctype="multipart/form-data" id="postform">
 			<div class="modal-content">
 
 				<div class="modal-header form-inline">
@@ -88,8 +88,8 @@
 <%-- ====================================== 모달푸터 ============================================= --%>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">CANCEL</button>
-					<button type="submit" class="btn btn-primary" id="modalSubmit">SUBMIT</button>
+						data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary" id="modalSubmit">등록</button>
 				</div>
 
 			</div>
