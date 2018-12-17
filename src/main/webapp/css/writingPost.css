@@ -3,9 +3,10 @@
 /* ============================== 작성post 관련 ============================== */
 
 /* ========== 친구태그 관련  ========== */
-#ftag-div{
-	display:inline-table;
+#ftag-div {
+	display: inline-table;
 }
+
 #ftag-input {
 	text-align: auto;
 }
@@ -39,6 +40,7 @@
 .twitter-typeahead .tt-query, .twitter-typeahead .tt-hint {
 	margin-bottom: 0;
 }
+
 .twitter-typeahead .tt-hint {
 	display: none;
 }
@@ -86,8 +88,9 @@
 .msearch {
 	max-width: 100%;
 	margin-right: 5em;
-	width: 29em !important;
+	width: 22em !important;
 }
+
 .ui-autocomplete {
 	max-height: 200px;
 	overflow: auto;
@@ -120,9 +123,11 @@
 	background: white url('/img/loading.gif') right center no-repeat;
 	background-size: 1.4rem;
 }
-.ui-menu-item:hover{
+
+.ui-menu-item:hover {
 	background-color: #f2f2f2;
 }
+
 .ui-helper-hidden-accessible {
 	display: none;
 }
@@ -132,14 +137,13 @@
 	height: 20%
 }
 /* ========== 이미지 업로드 관련  ========== */
-
 #media-list li:hover {
-    background-color: #e2e2e2;
+	background-color: #e2e2e2;
 }
 
 #media-list li img {
-    width: 100px;
-    height: 100px
+	width: 100px;
+	height: 100px
 }
 
 li.myupload span {
@@ -302,7 +306,7 @@ input:checked+.slider:before {
 
 #reviewModal, #editingModal {
 	margin: auto;
-	width: 40%;
+	width: 652px;
 }
 
 .modal-title {
@@ -328,9 +332,9 @@ input:checked+.slider:before {
 	padding: 0.5rem 0;
 	background-color: #9ea29e5c;
 	border-radius: 0.5rem 0.5rem 0 0;
-	border-top:1px solid #ccc;
-	border-left:1px solid #ccc;
-	border-right:1px solid #ccc;
+	border-top: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
 #wreviewH6 {
@@ -359,16 +363,19 @@ input:checked+.slider:before {
 }
 
 /* ========== 맞춤 영화 관련  ========== */
-#stv_list{
+#stv_list {
 	width: 75%;
 }
+
 .smlrImg {
 	width: 3rem;
 	max-height: 4rem;
 }
-.fs09{
-	    font-size: 0.8rem;
+
+.fs09 {
+	font-size: 0.8rem;
 }
+
 .trData {
 	padding: 1rem 0;
 }
@@ -379,15 +386,15 @@ input:checked+.slider:before {
 }
 
 .divMore {
-	color:black;
+	color: black;
 	padding: 0.5rem 0;
 	background-color: #9ea29e5c;
 }
 
 .divMore:hover {
-	color:black;
-	text-decoration:none;
-    background-color: #9ea29e40;
+	color: black;
+	text-decoration: none;
+	background-color: #9ea29e40;
 }
 
 td {
@@ -410,7 +417,7 @@ td {
 }
 
 .memberul .c-pointer:hover {
-	font-weight:bold;
+	font-weight: bold;
 }
 
 .pstImgtoDetail {
@@ -419,13 +426,14 @@ td {
 	margin-left: 1rem;
 }
 
-.image{
-    position:relative;    
+.image {
+	position: relative;
 }
-.image .text{
-        position:absolute;
-        bottom:0em;
-        right:1em;
-        font-size:large;
-        color:#FFF;
+
+.image .text {
+	position: absolute;
+	bottom: 0em;
+	right: 1em;
+	font-size: large;
+	color: #FFF;
 }
