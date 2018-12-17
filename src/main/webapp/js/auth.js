@@ -43,7 +43,7 @@ function signUpCheck() {
   }
 
   if(selecList.length < 5) {
-    commonAlert('error', "영화를 5편 이상 선정 해 주세요");
+    commonAlert('error', "영화를 10편 이상 선정 해 주세요");
     $inputKeyword.focus();
     return
   }
