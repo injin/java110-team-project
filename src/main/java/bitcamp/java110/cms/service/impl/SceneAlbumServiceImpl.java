@@ -1,6 +1,5 @@
 package bitcamp.java110.cms.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +29,12 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     condition.put("sceneAlbum", sceneAlbum);
     sceneAlbumDao.insert(condition);
   }
-  
+
   @Override
   public List<SceneAlbum> getListByKeyword(String keyword) {
     return sceneAlbumDao.getListByKeyword(keyword);
   }
-  
+
   @Override
   public List<SceneAlbum> srList(int mno, SceneAlbum sceneAlbum) {
     Map<String, Object> condition = new HashMap<>();
@@ -43,12 +42,12 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     condition.put("sceneAlbum", sceneAlbum);
     return sceneAlbumDao.srAlbumList(condition);
   }
-  
+
   @Override
   public List<SceneAlbum> list(int mno) {
     return sceneAlbumDao.findAll(mno);
   }
-  
+
   @Override
   public List<SceneAlbum> list2(int mno, int srno) {
     Map<String, Object> condition = new HashMap<>();
@@ -56,10 +55,10 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     condition.put("srno", srno);
     return sceneAlbumDao.findAll2(condition);
   }
-  
+
   @Override
   public List<SceneAlbum> pageList(int mno, Paging paging, boolean isMyAlbum) {
-    
+
     Map<String, Object> condition = new HashMap<>();
     condition.put("mno", mno);
     condition.put("paging", paging);
@@ -74,7 +73,7 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
     condition.put("isMyAlbum", isMyAlbum);
     return sceneAlbumDao.getTotalCnt(condition);
   }
-  
+
   @Override
   public boolean addImg(int lbmno, String phot) {
     Map<String, Object> condition = new HashMap<>();
@@ -86,14 +85,14 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
       return false;
     }
   }
-  
+
   @Override
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public boolean removeImg(int lbmno, int srno) {
     Map<String, Object> condition = new HashMap<>();
     condition.put("lbmno", lbmno);
     condition.put("srno", srno);
-    
+
     boolean isCoverImg = sceneAlbumDao.checkImg(condition);
     if (sceneAlbumDao.removeImg(condition) > 0) {
       if (isCoverImg) {
@@ -104,17 +103,21 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
       return false;
     }
   }
-  
+
   @Override
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public boolean removeLbm(int lbmno) {
-    if(sceneAlbumDao.removeLbm(lbmno) > 0) {
+
+
+    try {
+      sceneAlbumDao.delete(lbmno);
+      sceneAlbumDao.removeLbm(lbmno);
       return true;
-    }else {
+    }catch(Exception e) {
       return false;
     }
   }
-  
+
   @Override
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public boolean editLbm(int lbmno, String lbmTitle) {
@@ -127,7 +130,7 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
       return false;
     }
   }
-  
+
   @Override
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public boolean editOpen(SceneAlbum sceneAlbum) {
@@ -137,7 +140,7 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
       return false;
     }
   }
-  
+
   @Override
   public SceneAlbum get(int lbmno) {
     return sceneAlbumDao.findByNo(lbmno);
@@ -150,9 +153,9 @@ public class SceneAlbumServiceImpl implements SceneAlbumService {
   }
   @Override
   public List<SceneAlbum> listScA() {
-    
-    
+
+
     return sceneAlbumDao.listScA();
   }
-  
+
 }
