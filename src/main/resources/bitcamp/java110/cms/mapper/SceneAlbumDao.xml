@@ -5,255 +5,266 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="bitcamp.java110.cms.dao.SceneAlbumDao">
 
-    <resultMap type="sceneAlbum" id="sceneAlbumMap">
-        <id column="lbmno" property="lbmno" />
-        <result column="mno" property="mno" />
-        <result column="lbm_nm" property="lbmTitle" />
-        <result column="phot" property="phot" />
-        <result column="p_phot" property="p_phot" />
-        <result column="nick" property="nick" />
-        <result column="cdt" property="cdt" />
-        <result column="mdt" property="mdt" />
-        <result column="opn" property="open" />
-        <result column="include" property="include" />
-        <result column="srCnt" property="srCnt" />
-    </resultMap>
+	<resultMap type="sceneAlbum" id="sceneAlbumMap">
+		<id column="lbmno" property="lbmno" />
+		<result column="mno" property="mno" />
+		<result column="lbm_nm" property="lbmTitle" />
+		<result column="phot" property="phot" />
+		<result column="p_phot" property="p_phot" />
+		<result column="nick" property="nick" />
+		<result column="cdt" property="cdt" />
+		<result column="mdt" property="mdt" />
+		<result column="opn" property="open" />
+		<result column="include" property="include" />
+		<result column="srCnt" property="srCnt" />
+	</resultMap>
 
-    <insert id="insert" parameterType="map" 
-        useGeneratedKeys="true" keyColumn="lbmno" keyProperty="lbmno">
-        insert into mv_lbm( mno, lbm_nm, cdt,opn)
-        values(#{mno}, #{sceneAlbum.lbmTitle},
-        now(),if(#{sceneAlbum.open},'u','l'))
-        <!-- #{mno}, true면 unlock, false면 lock -->
-    </insert>
-    
-    <select id="listScA"  resultMap="sceneAlbumMap">
-        select
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            m.nick,
-            m.p_phot,
-            sr.cnt as srCnt  
-        from 
-            mv_lbm l
-            inner join mv_memb m on m.mno = l.mno
-            left join (SELECT
-                            l.lbmno, count(s.srno) as cnt
-                        from
-                            mv_lbm l, mv_lbm_sr s
-                        where
-                            l.lbmno = s.lbmno 
-                        group by lbmno) as sr on l.lbmno = sr.lbmno
-             where l.opn='u' and l.phot is not null
-             order by rand() limit 9;
-    
-    </select>
-  
-      <select id="getListByKeyword" resultMap="sceneAlbumMap" parameterType="string">
-        SELECT 
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            (l.opn ='u') opn,
-            m.nick,
-            m.p_phot,
-            sr.srCnt
-         FROM mv_lbm l
-         join mv_memb m on l.mno = m.mno
-            left outer join ( SELECT lbmno, count(srno) as srCnt
-                                FROM `mv_lbm_sr`
-                            GROUP BY lbmno
-                            ORDER BY count(srno)) sr
-                             ON l.lbmno = sr.lbmno
-         WHERE upper(l.lbm_nm) like upper(concat('%',#{keyword},'%')) 
-           AND l.opn = 'u'
-      ORDER BY sr.srCnt desc limit 20
-    </select>
-    
-    <select id="srAlbumList" resultMap="sceneAlbumMap" parameterType="map">
-        select
-            l.mno,
-            l.opn,
-            l.lbm_nm,
-            l.lbmno,
-            s.srno
-        from
-            mv_lbm_sr s, mv_lbm l
-        where
-            s.lbmno = l.lbmno and l.mno=#{mno} and l.lbmno=#{sceneAlbum.lbmno}   
-    </select>
-    
-    <select id="findByNo" resultMap="sceneAlbumMap" parameterType="int">
-         SELECT 
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            (l.opn ='u') opn
-         FROM mv_lbm l
-         WHERE lbmno = #{lbmno}
-    </select>
-    
-    <select id="findAll" resultMap="sceneAlbumMap" parameterType="int">
-        select
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            (l.opn ='u') opn
-        from mv_lbm l
-            inner join mv_memb m on m.mno = l.mno
-            where l.mno = #{mno}
-        order by
-            cdt desc
-    </select>
-    
-    <select id="findAll2" resultMap="sceneAlbumMap" parameterType="map">
-        select lbm.lbmno,
-               lbm.lbm_nm,
-               (sr.srno is not null) as include
-          from mv_lbm lbm 
-                left join (
-                    select lbmno, srno
-                    from mv_lbm_sr
-                    where srno=#{srno}) sr
-            on lbm.lbmno = sr.lbmno
-         where lbm.mno=#{mno}
-         order by cdt desc;
-    </select>
-    
-    <select id="findByPageNo" resultMap="sceneAlbumMap" parameterType="map">
-        select
-            l.lbmno,
-            l.mno,
-            l.lbm_nm,
-            l.phot,
-            l.cdt,
-            l.mdt,
-            (l.opn ='u') opn,
-            sr.cnt as srCnt  
-        from 
-            mv_lbm l
-            inner join mv_memb m on m.mno = l.mno
-            left join (SELECT
-                            l.lbmno, count(s.srno) as cnt
-                        from
-                            mv_lbm l, mv_lbm_sr s
-                        where
-                            l.lbmno = s.lbmno 
-                        group by lbmno) as sr on l.lbmno = sr.lbmno
-        where l.mno = #{mno}
-        <if test="isMyAlbum == false">
-            and l.opn ='u'
-        </if>
-        order by
-            cdt desc
-        <if test="paging != null">
-        limit #{paging.startRowNo} , #{paging.pageSize}
-        </if>
-        
-    </select>
-    
-    <select id="getTotalCnt" resultType="int" parameterType="map">
-        select
-            count(l.lbmno)
-        from mv_lbm l
-            inner join mv_memb m on m.mno = l.mno
-            where l.mno = #{mno}
-            <if test="isMyAlbum == false">
-            and l.opn ='u'
-            </if>
-    </select>
+	<insert id="insert" parameterType="map" useGeneratedKeys="true"
+		keyColumn="lbmno" keyProperty="lbmno">
+		insert into mv_lbm( mno, lbm_nm, cdt,opn)
+		values(#{mno}, #{sceneAlbum.lbmTitle},
+		now(),if(#{sceneAlbum.open},'u','l'))
+		<!-- #{mno}, true면 unlock, false면 lock -->
+	</insert>
 
-    <update id="addImg" parameterType="map">
-        UPDATE mv_lbm 
-        SET 
-            phot= #{phot},
-            mdt=now() 
-        WHERE lbmno = #{lbmno}
-    </update>
-    
-    <select id="checkImg" parameterType="map" resultType="boolean">
-        select phot = (select phot from mv_sr where srno=#{srno})
+	<select id="listScA" resultMap="sceneAlbumMap">
+		select
+		l.lbmno,
+		l.mno,
+		l.lbm_nm,
+		l.phot,
+		l.cdt,
+		l.mdt,
+		m.nick,
+		m.p_phot,
+		sr.cnt as srCnt
+		from
+		mv_lbm l
+		inner join mv_memb m on m.mno = l.mno
+		left join (SELECT
+		l.lbmno, count(s.srno) as cnt
+		from
+		mv_lbm l, mv_lbm_sr s
+		where
+		l.lbmno = s.lbmno
+		group by lbmno) as sr on l.lbmno = sr.lbmno
+		where l.opn='u' and l.phot is not null
+		order by rand() limit 9;
+
+	</select>
+
+	<select id="getListByKeyword" resultMap="sceneAlbumMap"
+		parameterType="string">
+		SELECT
+		l.lbmno,
+		l.mno,
+		l.lbm_nm,
+		l.phot,
+		l.cdt,
+		l.mdt,
+		(l.opn ='u') opn,
+		m.nick,
+		m.p_phot,
+		sr.srCnt
+		FROM mv_lbm l
+		join mv_memb m on l.mno = m.mno
+		left outer join ( SELECT lbmno, count(srno) as srCnt
+		FROM `mv_lbm_sr`
+		GROUP BY lbmno
+		ORDER BY count(srno)) sr
+		ON l.lbmno = sr.lbmno
+		WHERE upper(l.lbm_nm) like upper(concat('%',#{keyword},'%'))
+		AND l.opn = 'u'
+		ORDER BY sr.srCnt desc limit 20
+	</select>
+
+	<select id="srAlbumList" resultMap="sceneAlbumMap"
+		parameterType="map">
+		select
+		l.mno,
+		l.opn,
+		l.lbm_nm,
+		l.lbmno,
+		s.srno
+		from
+		mv_lbm_sr s, mv_lbm l
+		where
+		s.lbmno = l.lbmno and l.mno=#{mno} and l.lbmno=#{sceneAlbum.lbmno}
+	</select>
+
+	<select id="findByNo" resultMap="sceneAlbumMap"
+		parameterType="int">
+		SELECT
+		l.lbmno,
+		l.mno,
+		l.lbm_nm,
+		l.phot,
+		l.cdt,
+		l.mdt,
+		(l.opn ='u') opn
+		FROM mv_lbm l
+		WHERE lbmno = #{lbmno}
+	</select>
+
+	<select id="findAll" resultMap="sceneAlbumMap"
+		parameterType="int">
+		select
+		l.lbmno,
+		l.mno,
+		l.lbm_nm,
+		l.phot,
+		l.cdt,
+		l.mdt,
+		(l.opn ='u') opn
+		from mv_lbm l
+		inner join mv_memb m on m.mno = l.mno
+		where l.mno = #{mno}
+		order by
+		cdt desc
+	</select>
+
+	<select id="findAll2" resultMap="sceneAlbumMap"
+		parameterType="map">
+		select lbm.lbmno,
+		lbm.lbm_nm,
+		(sr.srno is not null) as include
+		from mv_lbm lbm
+		left join (
+		select lbmno, srno
+		from mv_lbm_sr
+		where srno=#{srno}) sr
+		on lbm.lbmno = sr.lbmno
+		where lbm.mno=#{mno}
+		order by cdt desc;
+	</select>
+
+	<select id="findByPageNo" resultMap="sceneAlbumMap"
+		parameterType="map">
+		select
+		l.lbmno,
+		l.mno,
+		l.lbm_nm,
+		l.phot,
+		l.cdt,
+		l.mdt,
+		(l.opn ='u') opn,
+		sr.cnt as srCnt
+		from
+		mv_lbm l
+		inner join mv_memb m on m.mno = l.mno
+		left join (SELECT
+		l.lbmno, count(s.srno) as cnt
+		from
+		mv_lbm l, mv_lbm_sr s
+		where
+		l.lbmno = s.lbmno
+		group by lbmno) as sr on l.lbmno = sr.lbmno
+		where l.mno = #{mno}
+		<if test="isMyAlbum == false">
+			and l.opn ='u'
+		</if>
+		order by
+		cdt desc
+		<if test="paging != null">
+			limit #{paging.startRowNo} , #{paging.pageSize}
+		</if>
+
+	</select>
+
+	<select id="getTotalCnt" resultType="int" parameterType="map">
+		select
+		count(l.lbmno)
+		from mv_lbm l
+		inner join mv_memb m on m.mno = l.mno
+		where l.mno = #{mno}
+		<if test="isMyAlbum == false">
+			and l.opn ='u'
+		</if>
+	</select>
+
+	<update id="addImg" parameterType="map">
+		UPDATE mv_lbm
+		SET
+		phot= #{phot},
+		mdt=now()
+		WHERE lbmno = #{lbmno}
+	</update>
+
+	<select id="checkImg" parameterType="map" resultType="boolean">
+		select phot = (select phot from mv_sr where srno=#{srno})
 		from mv_lbm
-		where lbmno = #{lbmno}
-    </select>
-    
-     <delete id="removeImg" parameterType="map">
-        DELETE 
-        FROM mv_lbm_sr 
-        WHERE lbmno = #{lbmno} and srno = #{srno}
-    </delete>
-    
-    <update id="setImgNull" parameterType="int">
-        UPDATE mv_lbm
-           SET phot = null
-         WHERE lbmno = #{lbmno}
-    </update>
-    
-    <update id="editOpen" parameterType="map">
-        UPDATE mv_lbm 
-           SET opn = if(#{open},'u','l'),
-               mdt=now()
-         WHERE lbmno = #{lbmno}
-    </update>
-    
-    <update id="editLbm" parameterType="map">
-        UPDATE mv_lbm 
-           SET lbm_nm= #{lbmTitle},
-               mdt=now()
-         WHERE lbmno = #{lbmno}
-    </update>
-    
-    <delete id="removeLbm" parameterType="int">
-        DELETE 
-        FROM mv_lbm 
-        WHERE lbmno = #{lbmno}
-    </delete>
-    
-    <delete id="delete" parameterType="int">
-    </delete>
-    
-    <update id="signOut1" parameterType="int">
-        UPDATE IGNORE
-            mv_lbm
-        SET
-            mno=21
-        WHERE
-             opn='U'
-        AND mno=#{mno}
-    </update>
-    
-    <delete id="signOut2" parameterType="int">
-        DELETE IGNORE
-        FROM
-            mv_lbm_sr
-        WHERE
-            lbmno  = (SELECT lbmno
-                        FROM
-                            mv_lbm
-                        WHERE
-                            mno=#{mno})
-    </delete>
-    
-    <delete id="signOut3" parameterType="int">
-        DELETE IGNORE
-        FROM
-            mv_lbm
-        WHERE
-             opn='L'
-        AND mno=#{mno}
-    </delete>
+		where
+		lbmno = #{lbmno}
+	</select>
+
+	<delete id="removeImg" parameterType="map">
+		DELETE
+		FROM mv_lbm_sr
+		WHERE lbmno = #{lbmno} and srno = #{srno}
+	</delete>
+
+	<update id="setImgNull" parameterType="int">
+		UPDATE mv_lbm
+		SET phot = null
+		WHERE lbmno = #{lbmno}
+	</update>
+
+	<update id="editOpen" parameterType="map">
+		UPDATE mv_lbm
+		SET opn = if(#{open},'u','l'),
+		mdt=now()
+		WHERE lbmno = #{lbmno}
+	</update>
+
+	<update id="editLbm" parameterType="map">
+		UPDATE mv_lbm
+		SET lbm_nm= #{lbmTitle},
+		mdt=now()
+		WHERE lbmno = #{lbmno}
+	</update>
+
+	<delete id="removeLbm" parameterType="int">
+
+		DELETE
+		FROM mv_lbm
+		WHERE lbmno = #{lbmno}
+	</delete>
+
+	<delete id="delete" parameterType="int">
+		DELETE
+		FROM mv_lbm_sr
+		WHERE lbmno = #{lbmno}
+	</delete>
+
+	<update id="signOut1" parameterType="int">
+		UPDATE IGNORE
+		mv_lbm
+		SET
+		mno=21
+		WHERE
+		opn='U'
+		AND mno=#{mno}
+	</update>
+
+	<delete id="signOut2" parameterType="int">
+		DELETE IGNORE
+		FROM
+		mv_lbm_sr
+		WHERE
+		lbmno = (SELECT lbmno
+		FROM
+		mv_lbm
+		WHERE
+		mno=#{mno})
+	</delete>
+
+	<delete id="signOut3" parameterType="int">
+		DELETE IGNORE
+		FROM
+		mv_lbm
+		WHERE
+		opn='L'
+		AND mno=#{mno}
+	</delete>
 
 </mapper>
