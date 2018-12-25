@@ -65,7 +65,7 @@
 					style="margin-bottom: 1rem;">
 					<c:forEach items="${movieList}" var="movie" varStatus="status">
 						<li id="mv-li-${movie.mvno}">
-							<div class="media list-group-item" style ="border:0px;">
+							<div class="media list-group-item" style="border: 0px;">
 								<div class="media-body">
 									<span class="mt-0"><b>${movie.title}</b></span>
 									<button type="button" onclick="removeList(${movie.mvno})"
