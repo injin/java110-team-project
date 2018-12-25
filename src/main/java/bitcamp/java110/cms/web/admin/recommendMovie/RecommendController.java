@@ -65,7 +65,6 @@ public class RecommendController {
       @RequestBody Theme theme){
       
     recommendService.removeTheme(theme.getThmno());
-    
   }
 
   @RequestMapping("/save")
@@ -77,9 +76,9 @@ public class RecommendController {
       Theme theme,
       Model model){
     
-    System.out.println();
-    System.out.println(mvnoList.size());
-    System.out.println(titleList.size());
+//    System.out.println();
+//    System.out.println(mvnoList.size());
+//    System.out.println(titleList.size());
     List<Movie> movieList = new ArrayList<>();
     for(int i=0; i<mvnoList.size(); i++) {
       movieList.add(new Movie(mvnoList.get(i), titleList.get(i)));

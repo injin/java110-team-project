@@ -89,7 +89,7 @@ public class RecommendServiceImple implements RecommendService {
   @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
   public void addMovieList(Theme theme ,List<Movie> movieList) {
    
-    System.out.println(movieList.size());
+//    System.out.println(movieList.size());
     
     rcmdDao.deleteAll(theme.getThmno());
     
@@ -99,8 +99,8 @@ public class RecommendServiceImple implements RecommendService {
       mvDao.insertNotExists(movieList.get(i));
       params.put("thmno", theme.getThmno());
       params.put("mvno", movieList.get(i).getMvno());
-      System.out.println("thmno: "+theme.getThmno());
-      System.out.println("mvno"+ movieList.get(i).getMvno());
+//      System.out.println("thmno: "+theme.getThmno());
+//      System.out.println("mvno"+ movieList.get(i).getMvno());
       rcmdDao.addMovieList(params);
     }
     

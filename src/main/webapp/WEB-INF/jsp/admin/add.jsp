@@ -9,148 +9,14 @@
 <title>Scenecok</title>
 <link rel='stylesheet' href='/css/bootstrap.css'>
 <!-- <link rel='stylesheet' href='/css/fontawesome.css'> -->
+<link rel="stylesheet" href="/css/vendor/noty.css">
+<link rel="stylesheet" href="/css/vendor/sunset.css">
 <link rel='stylesheet' href='/css/common.css'>
 <link rel='stylesheet' href='/css/accountDetail.css'>
 <link rel="stylesheet" href='/css/bootstrap2-toggle.min.css'>
 <link rel="stylesheet" href="/css/tabstyles.css">
+<link rel='stylesheet' href='/css/adminMvList.css'>
 
-<style>
-body {
-    min-height: 0rem;
-    padding-top: 3.6rem;
-}
-
-table {
-	text-align: center;
-}
-
-thead {
-	border-right: 1px solid #ccc;
-	border-left: 1px solid #ccc;
-	background: #00cc99;
-}
-
-thead th {
-	padding: 10px;
-	font-weight: bold;
-	vertical-align: top;
-	color: #fff;
-}
-
-.table th, .table td {
-	padding: 0.75rem;
-	vertical-align: middle;
-}
-
-tbody td {
-	background-color: #80808026;
-}
-
-.report-btn2 {
-	color: #fff;
-	background-color: #00cc99;
-	border-color: #00cc99;
-}
-
-.report-btn2:hover {
-	color: #fff;
-	background-color: #00e6ac;
-	border-color: #00e6ac;
-}
-
-.my-mv-list {
-	height: 22rem;
-}
-
-/* tabs*/
-.tabs {
-	position: relative;
-	overflow: hidden;
-	margin: 0 auto;
-	width: 100%;
-	font-weight: 300;
-	font-size: 1.25em;
-}
-
-/* Nav */
-.tabs nav {
-	text-align: center;
-}
-
-.tabs nav ul {
-	position: relative;
-	display: -ms-flexbox;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: flex;
-	margin: 0 auto;
-	padding: 0;
-	max-width: 1200px;
-	list-style: none;
-	-ms-box-orient: horizontal;
-	-ms-box-pack: center;
-	-webkit-flex-flow: row wrap;
-	-moz-flex-flow: row wrap;
-	-ms-flex-flow: row wrap;
-	flex-flow: row wrap;
-	-webkit-justify-content: center;
-	-moz-justify-content: center;
-	-ms-justify-content: center;
-	justify-content: center;
-}
-
-.tabs nav ul li {
-	position: relative;
-	z-index: 1;
-	display: block;
-	margin: 0;
-	text-align: center;
-	-webkit-flex: 1;
-	-moz-flex: 1;
-	-ms-flex: 1;
-	flex: 1;
-}
-
-.tabs nav a {
-	position: relative;
-	display: block;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	line-height: 2.5;
-}
-
-.tabs nav a span {
-	vertical-align: middle;
-	font-size: 0.75em;
-}
-
-.tabs nav a:focus {
-	outline: none;
-}
-main {
-    min-height: 43rem !important;
-}
-
-.btn2 {
-  display: inline-block;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  border: 1px solid transparent;
-  padding: 0.25rem 0.4rem;
-  font-size: 75%;
-  line-height: 1.2;
-  border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp"></jsp:include>
@@ -217,7 +83,6 @@ main {
 		</section>
 		<hr>
 
-		<!-- <input type="hidden" name="selecList" id="test"> -->
 		<input type="hidden" name="thmno" value="${theme.thmno}">
 
 
@@ -232,6 +97,7 @@ main {
 	<jsp:include page="../include/commonJs.jsp"></jsp:include>
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	<script src="/js/movieList.js"></script>
+	<script src="/js/vendor/noty.js"></script>
 	<script src="/js/bootstrap2-toggle.min.js"></script>
 
 	<script>
