@@ -141,7 +141,7 @@
                               <div class="mr-2 text-center">${loginUser.nickname}</div>
                           </div>
                           <div class="media-body">
-                            <textarea class="form-control resize-none" name="cont" rows="3" placeholder="Write a comment"></textarea>
+                            <textarea class="form-control resize-none" name="cont" rows="3" placeholder="댓글을 입력해 주세요(400자)"></textarea>
                             <button type="button" id="btn-map" class="btn btn-light mt-2"><i class="fas fa-map-marker-alt"></i> 장소</button>
                             
                             <label class="btn btn-light mt-2 mb-0" for="my-file-selector">
@@ -291,10 +291,6 @@
         hashtagPath: "<c:url value='/app/searchResult?keyword=' />"
     });
     
-    function loginAlert() {
-        commonAlert('error', '로그인 후 이용하실 수 있습니다.');
-    }
-    
     /* ========== 하단 장면 목록 박스 관련  ========== */
     var initScene = { imgPath: '${sceneReview.imgPath}'};
     $('.scene-img').on('mouseover', function() {
@@ -307,9 +303,9 @@
      /* ========== 입력 모달 관련  ========== */
     var $modal = $('#srAddModal').modal({show : false});
     
-    var invalidTime = [];
+    var INVALID_TIME = [];
     <c:forEach items="${sceneList}" var="scene">
-        invalidTime.push('${scene.time}');
+        INVALID_TIME.push('${scene.time}');
     </c:forEach>
     
     $('#srTimeSlider').on('input', function() {
@@ -329,7 +325,13 @@
     // 장면 리뷰 시간 중복 체크
     checkTimeValid();
     $('#time').on('input', function(){
-        checkTimeValid();
+        if (checkTimeValid()) {
+            var timeStr = $('#time').val();
+            var hours = parseInt(timeStr.substring(0,2));
+            var minutes = parseInt(timeStr.substring(3,5));
+            var seconds = parseInt(timeStr.substring(6));
+            $('#srTimeSlider').val(hours*3600 + minutes*60 + seconds);
+        }
     });
     
     function checkTimeFormat(value) {
@@ -342,11 +344,14 @@
         if (checkTimeFormat(timeStr) == false) {
             $('#time').removeClass('is-valid').addClass('is-invalid');
             $('#invalid-txt').text('형식에 맞지 않는 시간입니다. 예) 00:00:00');
-        } else if (invalidTime.includes(timeStr)) {
+            return false;
+        } else if (INVALID_TIME.includes(timeStr)) {
             $('#time').removeClass('is-valid').addClass('is-invalid');
             $('#invalid-txt').text('등록 불가능한 시간입니다.');
+            return false;
         } else {
             $('#time').removeClass('is-invalid').addClass('is-valid');
+            return true;
         }
     }
     
@@ -444,12 +449,23 @@
         $('#p-cont').html('${sceneReview.cont}');
     }
     
-    function addComment() {
-        var contVal = $('#addCommentForm textarea[name="cont"]').val();
+    function validateComment(contVal) {
         if (contVal == '') {
             commonAlert('error', '내용을 입력해주세요.');
-            return;
+            return false;
         }
+        
+        if (contVal.length > 400) {
+            commonAlert('error', '400자 까지만 작성이 가능합니다.');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    function addComment() {
+        var contVal = $('#addCommentForm textarea[name="cont"]').val();
+        if (!validateComment(contVal)) return;
         
         if (marker != null) {
             $('#addCommentForm input[name="map.lat"]').val(marker.position.lat());
@@ -504,10 +520,7 @@
     
     function editComment(cmno) {
         var contVal = $('#textarea-cmt-' + cmno).val();
-        if (contVal == '') {
-            commonAlert('error', '댓글을 입력해 주세요.');
-            return;
-        }
+        if (!validateComment(contVal)) return;
         
         $('#editCommentForm input[name="cmno"]').val(cmno);
         $('#editCommentForm input[name="cont"]').val(contVal);

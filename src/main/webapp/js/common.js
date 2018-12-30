@@ -37,6 +37,10 @@ function commonAlert(type, text) {
   }).show();
 }
 
+function loginAlert() {
+    commonAlert('error', '로그인 후 이용하실 수 있습니다.');
+}
+
 
 //LINK ============================
 function goToFeed(mno){
