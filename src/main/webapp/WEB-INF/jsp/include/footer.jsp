@@ -24,6 +24,7 @@ Movie Around The World
         <hr class="clearfix w-100 d-md-none">
         <hr class="clearfix w-100 d-md-none">
         <!-- Grid column -->
+<%--
         <div class="col-md-2 mx-auto">
           <!-- Links -->
           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
@@ -36,17 +37,18 @@ Movie Around The World
             </li>
           </ul>
         </div>
+--%>
         <!-- Grid column -->
         <hr class="clearfix w-100 d-md-none">
         <div class="col-md-2 mx-auto">
           <!-- Links -->
-          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+          <h5 class="font-weight-bold text-uppercase mt-3 mb-4">PortFolio</h5>
           <ul class="list-unstyled">
             <li>
-              <a href="#!">나의 피드</a>
+              <a href="<c:url value='https://github.com/injin/java110-team-project'/>">형상 관리</a>
             </li>
             <li>
-              <a href="<c:url value='/app/rcmd/list'/>">영화 추천</a>
+              <a href="<c:url value='https://youtu.be/rFDSViXZMn8'/>">시연 영상</a>
             </li>
           </ul>
         </div>
