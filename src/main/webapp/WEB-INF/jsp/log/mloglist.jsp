@@ -22,8 +22,8 @@
         <c:forEach var="log" items="${mpList}" varStatus="status">
             <li class="list-group-item aos-init " data-aos="fade-up">
                 <span style="float: left; margin-bottom: 0"> <a
-                    href="#">${log.nick}</a>님이 <c:if
-                        test="${log.act eq 'wr'}">
+                    href="#">${log.nick}</a>님이 
+                    <c:if test="${log.act eq 'wr'}">
                         ${log.indirect} 에 대한 <span
                             onclick="getPostForDetail(${log.url},this)"
                             class="c-pointer text-primary">영화 리뷰</span>를 작성했습니다
