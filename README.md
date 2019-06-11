@@ -20,3 +20,5 @@ Apache Tiles 3.0.8, MariaDB, HTML 5, CSS 3, JavaScript, BootStrap 4.1.3,  jQuery
 JSP, JSTL, Eclipse 2018-09, eXERD, Brakets, Visual Studio Code, Gradle 5.0, The Movie DB API,  
 Kakao Login API, Google Maps API, Chart.js, Starrr.js,  Noty.js, AOS.js, typeahead.js, PuTTY, Z shell,  
 AWS EC2(Linux), GitHub, Trello, slack, Google Drive, Kakao oven  
+
+<iframe width="640" height="360" src="https://www.youtube.com/embed/6Az2cNU7gUw" frameborder="0" gesture="media" allowfullscreen=""></iframe>
