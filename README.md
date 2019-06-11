@@ -25,6 +25,6 @@ JSP, JSTL, Eclipse 2018-09, eXERD, Brakets, Visual Studio Code, Gradle 5.0, The 
 Kakao Login API, Google Maps API, Chart.js, Starrr.js,  Noty.js, AOS.js, typeahead.js, PuTTY, Z shell,  
 AWS EC2(Linux), GitHub, Trello, slack, Google Drive, Kakao oven  
 
-[![Everything Is AWESOME](http://i.imgur.com/Ot5DWAW.png)](https://youtu.be/rFDSViXZMn8 "Everything Is AWESOME")
+[![Everything Is AWESOME](https://github.com/injin/java110-team-project/blob/master/doc/2019-06-12%20(1).png)](https://youtu.be/rFDSViXZMn8 "Everything Is AWESOME")
 
 
