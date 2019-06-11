@@ -22,5 +22,5 @@ Kakao Login API, Google Maps API, Chart.js, Starrr.js,  Noty.js, AOS.js, typeahe
 AWS EC2(Linux), GitHub, Trello, slack, Google Drive, Kakao oven  
 
 
-[![Video Label](http://img.youtube.com/vi/rFDSViXZMn8?t=39/0.jpg)](https://youtu.be/rFDSViXZMn8)
+[![Video Label](http://img.youtube.com/vi/rFDSViXZMn8/1.jpg)](https://youtu.be/rFDSViXZMn8)
 
