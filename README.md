@@ -2,6 +2,8 @@
 
 포폴용 시연 영상 링크
 https://youtu.be/rFDSViXZMn8
+[![Video Label](http://img.youtube.com/vi/rFDSViXZMn8/0.jpg)](https://youtu.be/rFDSViXZMn8)
+
 
 서비스 주소
 http://54.180.31.55:8080/app/
@@ -22,5 +24,5 @@ Kakao Login API, Google Maps API, Chart.js, Starrr.js,  Noty.js, AOS.js, typeahe
 AWS EC2(Linux), GitHub, Trello, slack, Google Drive, Kakao oven  
 
 
-[![Video Label](http://img.youtube.com/vi/rFDSViXZMn8/0.jpg)](https://youtu.be/rFDSViXZMn8)
+
 
