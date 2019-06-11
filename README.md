@@ -21,5 +21,5 @@ JSP, JSTL, Eclipse 2018-09, eXERD, Brakets, Visual Studio Code, Gradle 5.0, The 
 Kakao Login API, Google Maps API, Chart.js, Starrr.js,  Noty.js, AOS.js, typeahead.js, PuTTY, Z shell,  
 AWS EC2(Linux), GitHub, Trello, slack, Google Drive, Kakao oven  
 
-[![Video Label](http://img.youtube.com/vi/uLR1RNqJ1Mw/0.jpg)](https://youtu.be/uLR1RNqJ1Mw?t=0s)
+[![Video Label](http://img.youtube.com/vi/rFDSViXZMn8/0.jpg)](https://youtu.be/uLR1RNqJ1Mw?t=0s)
 
